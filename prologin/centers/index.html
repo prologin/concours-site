@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+<title>Prologin</title>
+<script src="http://maps.google.com/maps/api/js?sensor=false" type="text/javascript"></script>
+<script src="/static/map.js"></script>
+</head>
+<body style="margin:0px; padding:0px; height: 100%" onload="load()">
+    <form id="f">
+	<div>
+		<select id="ville" name="ville">
+		<option value="">Choisissez une ville</option>
+		{% for ville in villes %}
+			<option value="{{ ville }}">{{ ville }}</option>
+		{% endfor %}
+		</select>
+    	<select id="locationSelect" style="visibility:hidden"></select>
+    </div>
+    </form>
+    <div id="map" style="width: 100%; height: 95%"></div>
+  </body>
+</html>

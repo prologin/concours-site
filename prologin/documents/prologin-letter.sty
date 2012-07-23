@@ -1,0 +1,42 @@
+\ProvidesPackage{prologin-letter}
+\RequirePackage[utf8]{inputenc}
+\RequirePackage[T1]{fontenc}
+\RequirePackage[french]{babel}
+\RequirePackage{graphicx}
+\RequirePackage{multicol}
+\RequirePackage{url}
+\RequirePackage[hmargin=2cm,vmargin=1.8cm,footskip=7pt]{geometry}
+\RequirePackage{fancyhdr}
+\RequirePackage{datatool}
+
+\setlength{\columnsep}{2.1cm}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\setlength{\headheight}{15pt}
+\parskip=\baselineskip \advance \parskip by 0pt plus 2pt
+\newcommand\dotspace[1]{\parbox[b]{#1}{\dotfill}}
+
+\pagestyle{fancy}
+
+\cfoot{\footnotesize Association \textsc{Prologin}\\
+14 -- 16 rue Voltaire --- 94270 Le Kremlin-Bicêtre --- France\\
+Tél. : 01 44 08 01 90 --- E-mail : \url{info@prologin.org} --- \url{http://www.prologin.org}}
+
+\def\header{\includegraphics[width=0.5\textwidth]{logo}
+
+\hspace{9.5cm}\parbox{6.5cm}{\destinataire}
+
+\vspace{0.5cm}
+
+\hspace{9.5cm}Paris, le vendredi \today
+
+\vspace{1cm}
+
+\noindent\textbf{\underline{Objet :} \objet}}
+
+\def\signature{\vspace{1cm}\hspace{10cm}\parbox{5cm}{Pour l'équipe Prologin,\\
+\includegraphics[width=36mm]{signature.pdf}\\
+Le président, Jill-Jênn \textsc{Vie}}}
+
+\catcode`\^^I=12 %
+\DTLsetseparator{	}%

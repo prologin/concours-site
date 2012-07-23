@@ -1,0 +1,9 @@
+static/team/*
+documents/*.pdf
+documents/*.aux
+documents/*.log
+documents/*.csv
+*.json
+*.sqlite
+users/*.json
+settings.py

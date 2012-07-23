@@ -1,0 +1,33 @@
+{% extends "static/base.html" %}
+
+{% block title %} – L'équipe {{ year }}{% endblock %}
+
+{% block body %}
+<div class="btn-toolbar" style="text-align: center">
+<div class="btn-group">
+{% for team in timeline %}
+	<a class="{% if team.year == year %}btn active{% else %}btn{% endif %}" href="/team/{{ team.year }}">{{ team.year }}</a>
+{% endfor %}
+</div>
+</div>
+<header class="page-header">
+<h1>L'équipe {{ year }}</h1>
+</header>
+<div class="row-fluid">
+{% for member in team %}
+	<div class="span3 well" style="text-align: right; height: 160px; width: 19%">
+		<div style="float: right; margin-left: 10px; text-align: center;">
+			<img src="/static/team/{{ member.pic }}.jpg" /><br />
+			
+		<span class="label {% if member.role.rank <= 4 %}label-important{% else %}label-success{% endif %}">{{ member.role }}</span><br />
+		</div>
+		<strong>{{ member.uid.prenom }} {{ member.uid.nom }}</strong><br />
+		<span style="display: block; width: 50%; text-align: right">{{ member.uid.nick }}</span>
+	</div>
+	{% if forloop.counter|divisibleby:4 %}
+	</div>
+	<div class="row-fluid">
+	{% endif %}
+{% endfor %}
+</div>
+{% endblock %}
