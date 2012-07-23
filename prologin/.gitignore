@@ -6,4 +6,4 @@ documents/*.csv
 *.json
 *.sqlite
 users/*.json
-settings.py
+settings_local.py

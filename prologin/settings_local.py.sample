@@ -1,0 +1,25 @@
+DEBUG = True
+
+# Absolute path to the directory that holds static files.
+# Example: '/home/media/media.lawrence.com/static/'
+STATIC_ROOT = ''
+
+# A list of locations of additional static files
+STATICFILES_DIRS = ('',)
+
+TEMPLATE_DIRS = (
+    # Put strings here, like '/home/html/django_templates' or 'C:/www/django/templates'.
+    # Always use forward slashes, even on Windows.
+    # Don't forget to use absolute paths, not relative paths.
+    '',
+)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': ''
+    }
+}
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = ''
