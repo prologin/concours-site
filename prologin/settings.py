@@ -42,6 +42,10 @@ MEDIA_ROOT = ''
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
 MEDIA_URL = ''
 
+# URL that handles the static files served from STATIC_ROOT.
+# Example: 'http://media.lawrence.com/static/'
+STATIC_URL = '/static/'
+
 # URL prefix for admin media -- CSS, JavaScript and images.
 # Make sure to use a trailing slash.
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
