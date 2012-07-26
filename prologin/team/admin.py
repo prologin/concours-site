@@ -2,7 +2,7 @@ from team.models import Team, Role
 from django.contrib import admin
 
 class TeamAdmin(admin.ModelAdmin):
-	list_display = ('year', 'uid', 'role')
+	list_display = ('year', 'user', 'role')
 
 class RoleAdmin(admin.ModelAdmin):
 	list_display = ('role', 'rank')

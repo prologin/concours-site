@@ -2,6 +2,8 @@
 from django.template import Context, loader
 from team.models import Team
 from django.http import HttpResponse
+from django.contrib.staticfiles import finders
+from django.contrib.staticfiles.storage import staticfiles_storage
 import os
 
 def list_team(request, year=None):
@@ -13,8 +15,9 @@ def list_team(request, year=None):
 	team = Team.objects.filter(year=year).order_by('role')
 	for member in team:
 		member.pic = 'unknown'
-		if os.access('static/team/{0}.jpg'.format(member.uid.nick), os.F_OK):
-			member.pic = member.uid.nick
+		absolute_path = finders.find('team/{}.jpg'.format(member.user.username))
+		if staticfiles_storage.exists(absolute_path):
+			member.pic = member.user.username
 	c = Context({
 		'timeline': timeline,
 		'year': year,

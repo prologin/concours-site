@@ -89,8 +89,9 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'centers',
     'geopy',
-    'team',
+    'contest',
     'users',
+    'team',
     'south'
 )
 

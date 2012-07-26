@@ -67,15 +67,15 @@
        var bounds = new google.maps.LatLngBounds();
        for (var i = 0; i < json.length; i++) {
          var id = json[i].id;
-         var nom = json[i].nom;
-         var adresse = json[i].adresse;
-         var tel = json[i].tel;
-         var commentaires = json[i].commentaires;
+         var name = json[i].name;
+         var address = json[i].address;
+         var phone_number = json[i].phone_number;
+         var comments = json[i].comments;
          var latlng = new google.maps.LatLng(
               parseFloat(json[i].lat),
               parseFloat(json[i].lng));
-         createOption(nom, i);
-         createMarker(latlng, id, nom, adresse, tel, commentaires);
+         createOption(name, i);
+         createMarker(latlng, id, name, address, phone_number, comments);
          bounds.extend(latlng);
        }
        if(json.length == 0) {
@@ -93,14 +93,14 @@
       });
     }
   
-    function createMarker(latlng, id, nom, adresse, tel, commentaires) {
-      while(match = /(.*) <(.*)>/.exec(commentaires)) {
-      	commentaires = commentaires.replace(match[1] + " <" + match[2] + ">", "<a href=\"mailto:" + match[2] + "\">" + match[1] + "</a>");
+    function createMarker(latlng, id, name, address, phone_number, comments) {
+      while(match = /(.*) <(.*)>/.exec(comments)) {
+      	comments = comments.replace(match[1] + " <" + match[2] + ">", "<a href=\"mailto:" + match[2] + "\">" + match[1] + "</a>");
       }
-      var html = "<b>" + nom + "</b> <br />" + adresse + "<br />";
-      for(i = 0 ; i < tel.length ; i++)
-      	html += tel[i] + ((i % 2 == 1) ? " " : "");
-      html += "<br />" + commentaires.replace(/\n/g, '<br />');
+      var html = "<b>" + name + "</b> <br />" + address + "<br />";
+      for(i = 0 ; i < phone_number.length ; i++)
+      	html += phone_number[i] + ((i % 2 == 1) ? " " : "");
+      html += "<br />" + comments.replace(/\n/g, '<br />');
       var marker = new google.maps.Marker({
         map: map,
         position: latlng
@@ -112,10 +112,10 @@
       markers.push(marker);
     }
 
-    function createOption(nom, num) {
+    function createOption(name, num) {
       var option = document.createElement("option");
       option.value = num;
-      option.innerHTML = nom;
+      option.innerHTML = name;
       locationSelect.appendChild(option);
     }
 

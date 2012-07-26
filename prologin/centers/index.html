@@ -12,8 +12,8 @@
 	<div>
 		<select id="ville" name="ville">
 		<option value="">Choisissez une ville</option>
-		{% for ville in villes %}
-			<option value="{{ ville }}">{{ ville }}</option>
+		{% for city in cities %}
+			<option value="{{ city }}">{{ city }}</option>
 		{% endfor %}
 		</select>
     	<select id="locationSelect" style="visibility:hidden"></select>

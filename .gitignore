@@ -1,3 +1,5 @@
+data/*
+fabfile.py
 *.pyc
 *.aux
 *.log

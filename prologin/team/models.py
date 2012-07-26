@@ -1,5 +1,6 @@
 # coding=utf-8
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -11,16 +12,5 @@ class Role(models.Model):
 
 class Team(models.Model):
 	year = models.IntegerField()
-	uid = models.ForeignKey('users.User')
-	role = models.ForeignKey('Role')
-
-#		(u'p', u'Président'),
-#		(u'vp', u'Vice-président'),
-#		(u't', u'Trésorier'),
-#		(u'vt', u'Vice-trésorier'),
-#		(u's', u'Secrétaire'),
-#		(u'rt', u'Responsable technique'),
-#		(u'm', u'Membre'),
-#		(u'mp', u'Membre persistant'),
-#		(u'tty', u'Mascotte'),
-#		(u'c', u'Correcteur'),
+	user = models.ForeignKey(User)
+	role = models.ForeignKey(Role)

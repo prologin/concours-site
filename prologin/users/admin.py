@@ -1,7 +1,7 @@
-from users.models import User
+from users.models import UserProfile
 from django.contrib import admin
 
-class UserAdmin(admin.ModelAdmin):
-	list_display = ('prenom', 'nom')
+class UserProfileAdmin(admin.ModelAdmin):
+	list_display = ('user', 'address', 'postal_code', 'city', 'newsletter')
 
-admin.site.register(User, UserAdmin)
+admin.site.register(UserProfile, UserProfileAdmin)

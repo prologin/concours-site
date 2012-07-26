@@ -1,18 +1,13 @@
 from django.db import models
+from django.contrib.auth.models import User
 
-# Create your models here.
-
-class User(models.Model):
-	nick = models.CharField(max_length = 64)
-	titre = models.CharField(max_length = 16)
-	prenom = models.CharField(max_length = 64)
-	nom = models.CharField(max_length = 64)
-	adresse = models.TextField()
-	code_postal = models.CharField(max_length = 5)
-	ville = models.CharField(max_length = 64)
-	number = models.CharField(max_length = 16)
-	niveau = models.CharField(max_length = 32)
-	birthday = models.CharField(max_length = 64)
+class UserProfile(models.Model):
+	user = models.OneToOneField(User)
+	title = models.CharField(max_length=16)
+	address = models.TextField()
+	postal_code = models.CharField(max_length=5)
+	city = models.CharField(max_length=64)
+	country = models.CharField(max_length=64)
+	phone_number = models.CharField(max_length=16)
+	birthday = models.DateField(max_length=64, blank=True, null=True)
 	newsletter = models.BooleanField()
-	def __unicode__(self):
-		return u'{0} {1} ({2})'.format(self.prenom, self.nom, self.nick)

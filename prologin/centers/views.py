@@ -6,16 +6,16 @@ from geopy import geocoders
 import json
 
 def index(request):
-	villes = [_['ville'] for _ in Center.objects.values('ville').distinct()]
+	cities = [_['city'] for _ in Center.objects.values('city').distinct()]
 	t = loader.get_template('centers/index.html')
 	c = Context({
-		'villes': villes,
+		'cities': cities,
 	})
 	return HttpResponse(t.render(c))
 
-def genjson(request, ville):
-	if ville:
-		centers = Center.objects.filter(ville = ville)
+def genjson(request, city):
+	if city:
+		centers = Center.objects.filter(city=city)
 	else:
 		centers = Center.objects.all()
 	centersList = []
@@ -25,15 +25,18 @@ def genjson(request, ville):
 		d["lat"] = str(d["lat"])
 		d["lng"] = str(d["lng"])
 		centersList.append(d)
-	return HttpResponse(json.dumps(centersList), mimetype = 'application/json')
+	return HttpResponse(json.dumps(centersList), mimetype='application/json')
 
 def geocode(request):
 	g = geocoders.Google()
 	centers = Center.objects.all()
 	for center in centers:
 		if center.lat == 0 and center.lng == 0:
-			_, (lat, lng) = g.geocode("{} {}".format(center.adresse.encode('utf-8'), center.ville))
-			center.lat = lat
-			center.lng = lng
-			center.save()
+			try:
+				_, (lat, lng) = g.geocode("{0} {1}".format(center.address.encode('utf-8'), center.city))
+				center.lat = lat
+				center.lng = lng
+				center.save()
+			except:
+				print(u'{} est ambiguë'.format(center.address))
 	return HttpResponse("OK")

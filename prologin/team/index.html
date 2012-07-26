@@ -21,8 +21,8 @@
 			
 		<span class="label {% if member.role.rank <= 4 %}label-important{% else %}label-success{% endif %}">{{ member.role }}</span><br />
 		</div>
-		<strong>{{ member.uid.prenom }} {{ member.uid.nom }}</strong><br />
-		<span style="display: block; width: 50%; text-align: right">{{ member.uid.nick }}</span>
+		<strong>{{ member.user.first_name }} {{ member.user.last_name }}</strong><br />
+		<span style="display: block; width: 50%; text-align: right">{{ member.user.username }}</span>
 	</div>
 	{% if forloop.counter|divisibleby:4 %}
 	</div>
