@@ -20,14 +20,14 @@ class Event(models.Model):
 	begin = models.DateTimeField(blank=True, null=True)
 	end = models.DateTimeField(blank=True, null=True)
 	def __unicode__(self):
-		return u'Prologin {} - {}'.format(self.contest.year, self.center)
+		return u'Prologin {0} - {1}'.format(self.contest.year, self.center)
 
 class Contestant(models.Model):
 	user = models.ForeignKey(User)
 	event_choices = models.ManyToManyField(Event, related_name='choices')
 	events = models.ManyToManyField(Event)
 	def year(self):
-		return '{}'.format(self.events.all()[0].contest.year)
+		return '{0}'.format(self.events.all()[0].contest.year)
 
 class Score(models.Model):
 	SCORE_TYPES = (

@@ -38,5 +38,5 @@ def geocode(request):
 				center.lng = lng
 				center.save()
 			except:
-				print(u'{} est ambiguë'.format(center.address))
+				print(u'{0} est ambiguë'.format(center.address))
 	return HttpResponse("OK")
