@@ -16,6 +16,7 @@ urlpatterns = patterns('',
 	(r'^team/(?P<year>\d+)$', 'team.views.list_team'),
 	(r'^documents/$', 'documents.views.gen_doc'),
 	(r'^users/(?P<object_id>\d+)$', 'contest.views.get_profile'),
+	(r'^export/$', 'documents.views.generate_convocations'),
     # Example:
     # (r'^admin/', include('admin.foo.urls')),
 
