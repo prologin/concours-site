@@ -1,2 +1,4 @@
 django
 south
+PyYAML
+Markdown
