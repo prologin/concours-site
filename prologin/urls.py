@@ -9,6 +9,7 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
+	(r'^$', 'problems.views.index'),
 	(r'^centers/$', 'centers.views.index'),
 	(r'^centers/json/(?P<city>.*)$', 'centers.views.genjson'),
 	(r'^centers/geocode$', 'centers.views.geocode'),
@@ -17,6 +18,9 @@ urlpatterns = patterns('',
 	(r'^documents/$', 'documents.views.gen_doc'),
 	(r'^users/(?P<object_id>\d+)$', 'contest.views.get_profile'),
 	(r'^export/$', 'documents.views.generate_convocations'),
+	(r'^problems/$', 'problems.views.list_challenges'),
+	(r'^problems/(?P<challenge>\w+)/$', 'problems.views.list_problems'),
+	(r'^problems/(?P<challenge>\w+)/(?P<problem>.+)/$', 'problems.views.show_problem'),
     # Example:
     # (r'^admin/', include('admin.foo.urls')),
 

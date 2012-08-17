@@ -1,0 +1,12 @@
+{% extends "static/base.html" %}
+
+{% block title %} – {{ challenge.props.title }}{% endblock %}
+
+{% block body %}
+<h1>{{ challenge.props.title }}</h1>
+<ul>
+{% for problem in problems %}
+	<li><a href="{{ problem.name }}">{{ problem.props.title }}</a>
+{% endfor %}
+</ul>
+{% endblock %}

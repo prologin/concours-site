@@ -1,0 +1,12 @@
+{% extends "static/base.html" %}
+
+{% block title %} – Entraînement{% endblock %}
+
+{% block body %}
+<h1>Entraînement</h1>
+<ul>
+{% for challenge in challenges %}
+	<li><a href="{{ challenge.name }}">{{ challenge.title }}</a>
+{% endfor %}
+</ul>
+{% endblock %}

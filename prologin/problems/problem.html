@@ -1,0 +1,20 @@
+{% extends "static/base.html" %}
+
+{% load markup %}
+
+{% block title %} – {{ problem.props.title }}{% endblock %}
+
+{% block body %}
+<h1>{{ problem.props.title }}</h1>
+<p>Mémoire : {{ problem.props.mem }} octets</p>
+<p>Temps : {{ problem.props.time }} ms</p>
+{{ statement|markdown }}
+<h3>Exemples</h3>
+{% for example in examples %}
+	Exemple d'entrée :
+		<pre>{{ example.in }}</pre>
+	Exemple de sortie :
+		<pre>{{ example.out }}</pre>
+	{{ example.comment|markdown }}
+{% endfor %}
+{% endblock %}
