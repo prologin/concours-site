@@ -23,3 +23,8 @@ DATABASES = {
 
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = ''
+
+# Training paths
+PROBLEMS_PATH = '/home/prologin/problems'
+ARCHIVES_PATH = '/home/prologin/archive'
+REMOTE_VM_URL = 'http://rokko:80/prod/bridge.php'

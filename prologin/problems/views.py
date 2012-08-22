@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
-import os, yaml
+from django.conf import settings
+import os
+import yaml
 
 # Create your views here.
 
@@ -65,3 +67,7 @@ def show_problem(request, challenge, problem):
 				example[ext] = open(test_path).read()
 		examples.append(example)
 	return render_to_response('problems/problem.html', {'problem': problem, 'statement': statement, 'examples': examples})
+
+def get_path_archive(challenge, problem, pseudo, extension, timestamp):
+    return os.path.join(settings.ARCHIVES_PATH, '{0}-{1}-{2}-{3}.{4}'.format(challenge, problem, pseudo, timestamp, extension))
+    
