@@ -5,7 +5,7 @@ import urllib
 import urllib2
 from collections import namedtuple
 from xml.etree import ElementTree as etree
-from django.conf import settings
+#from django.conf import settings
 import xml.etree.ElementTree as ElementTree
 
 def remote_check(challenge, problem, source, filename):
@@ -26,11 +26,11 @@ def remote_check(challenge, problem, source, filename):
 
 class TestResult():
     def __init__(self):
-        status = ''
-        details = None
-        debug = None
-        hidden = False
-        test_type = 'standard'
+        self.status = ''
+        self.details = None
+        self.debug = None
+        self.hidden = False
+        self.test_type = 'standard'
 
 def parse_xml(s, problem_props):
     xml = ElementTree.fromstring(s)
@@ -46,7 +46,7 @@ def parse_xml(s, problem_props):
         'performance': [0, 0],
     }
     
-    details = []
+    tests_details = []
     for test in xml.findall('test'):
         t = TestResult()
         
@@ -56,14 +56,14 @@ def parse_xml(s, problem_props):
             t.test_type = 'standard'
 
         tests_results[t.test_type][1] += 1
-        if test.find('summary').attrib['error'] == 0:
+        if test.find('summary').attrib['error'] == '0':
             t.status, t.details = 'ok', None
             tests_results[t.test_type][0] += 1
         else:
             details = test.find('details')
-            if details.find('diff'):
-                t.status, t.details = 'diff', details.find('diff')
-            elif details.find('program'):
+            if details.find('diff') is not None:
+                t.status, t.details = 'diff', details.find('diff').text
+            elif details.find('program') is not None:
                 t.status = 'program-ref'
                 t.details = (details.find('program').text, details.find('ref').text)
         
@@ -75,6 +75,6 @@ def parse_xml(s, problem_props):
         if test.attrib['id'] in problem_props['hidden'].split():
             t.hidden = True
             
-        details.append(t)
+        tests_details.append(t)
 
-        return compilation, tests_results, details
+    return compilation, tests_results, tests_details
