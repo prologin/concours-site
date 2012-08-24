@@ -1,10 +1,12 @@
 from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.conf import settings
+from langs import langs
 import os
 import yaml
 import glob
 import vm_interface
+import datetime
 
 # Create your views here.
 
@@ -73,6 +75,23 @@ def show_problem(request, challenge, problem):
 def get_path_archive(challenge, problem, pseudo, timestamp):
     [match] = glob.glob(os.path.join(settings.ARCHIVES_PATH, '{0}-{1}-{2}-{3}.*'.format(timestamp, challenge, problem, pseudo)))
     return match
+
+def get_list_archives(challenge, problem, pseudo):
+    return glob.glob(os.path.join(settings.ARCHIVES_PATH, '*-{0}-{1}-{2}.*'.format(challenge, problem, pseudo)))
+
+def traces(request, challenge, problem):
+    archives = get_list_archives(challenge, problem, request.user.username)
+    archives = list(map(os.path.basename, archives))
+    traces = {} # language id : [(timestamp, date_str), ..]
+    for i, lang in langs.iteritems():
+        for a, archive in enumerate(archives):
+            filename, extension = os.path.splitext(archive)
+            timestamp = int(filename.split('-')[0])
+            dt = datetime.fromtimestamp(timestamp)
+            if extension == lang.ext:
+                traces.setdefault(i, []).append((timestamp, dt.strftime('%d/%m/%Y à %H:%M:%S')))
+                archives.pop(i)
+    return render_to_response('problems/traces.html', {'langs': langs, 'traces': traces})
 
 def trace(request, challenge, problem, timestamp):
     path = get_path_archive(challenge, problem, request.user.username, timestamp)
