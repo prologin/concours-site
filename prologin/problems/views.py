@@ -90,7 +90,7 @@ def traces(request, challenge, problem):
             dt = datetime.fromtimestamp(timestamp)
             if extension == lang.ext:
                 traces.setdefault(i, []).append((timestamp, dt.strftime('%d/%m/%Y à %H:%M:%S')))
-                archives.pop(i)
+                archives.pop(a)
     return render_to_response('problems/traces.html', {'langs': langs, 'traces': traces})
 
 def trace(request, challenge, problem, timestamp):
