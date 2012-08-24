@@ -5,7 +5,7 @@ import urllib
 import urllib2
 from collections import namedtuple
 from xml.etree import ElementTree as etree
-#from django.conf import settings
+from django.conf import settings
 import xml.etree.ElementTree as ElementTree
 
 def remote_check(challenge, problem, source, filename):
