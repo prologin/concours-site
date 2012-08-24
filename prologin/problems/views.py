@@ -3,6 +3,8 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 import os
 import yaml
+import glob
+import vm_interface
 
 # Create your views here.
 
@@ -68,6 +70,12 @@ def show_problem(request, challenge, problem):
 		examples.append(example)
 	return render_to_response('problems/problem.html', {'problem': problem, 'statement': statement, 'examples': examples})
 
-def get_path_archive(challenge, problem, pseudo, extension, timestamp):
-    return os.path.join(settings.ARCHIVES_PATH, '{0}-{1}-{2}-{3}.{4}'.format(challenge, problem, pseudo, timestamp, extension))
-    
+def get_path_archive(challenge, problem, pseudo, timestamp):
+    [match] = glob.glob(os.path.join(settings.ARCHIVES_PATH, '{0}-{1}-{2}-{3}.*'.format(timestamp, challenge, problem, pseudo)))
+    return match
+
+def trace(request, challenge, problem, timestamp):
+    path = get_path_archive(challenge, problem, request.user.username, timestamp)
+    code = open(path).read()
+    filename = os.path.basename(path)
+    xml = vm_interface.remote_check(challenge, problem, code, filename)

@@ -21,6 +21,7 @@ urlpatterns = patterns('',
 	(r'^problems/$', 'problems.views.list_challenges'),
 	(r'^problems/(?P<challenge>\w+)/$', 'problems.views.list_problems'),
 	(r'^problems/(?P<challenge>\w+)/(?P<problem>.+)/$', 'problems.views.show_problem'),
+	(r'^problems/(?P<challenge>\w+)/(?P<problem>.+)/trace/(?P<timestamp>\d+)$', 'problems.views.trace'),
     # Example:
     # (r'^admin/', include('admin.foo.urls')),
 
