@@ -38,19 +38,19 @@ def parse_xml(s, problem_props):
     if error:
         raise VMError(error)
     compilation = {
-        'sucess': bool(xml.find('test'))
-        'value': xml.find('compilation').text.strip()
+        'sucess': bool(xml.find('test')),
+        'value': xml.find('compilation').text.strip(),
     }
     tests_results = {
-        'standard': [0, 0] # [nb, nb_ok]
-        'performance': [0, 0]
+        'standard': [0, 0], # [nb, nb_ok]
+        'performance': [0, 0],
     }
     
     details = []
     for test in xml.findall('test'):
         t = TestResult()
         
-        if test.attrib['id'] in problem_props['performance']
+        if test.attrib['id'] in problem_props['performance']:
             t.test_type = 'performance'
         else:
             t.test_type = 'standard'
