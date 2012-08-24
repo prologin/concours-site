@@ -50,7 +50,7 @@ def parse_xml(s, problem_props):
     for test in xml.findall('test'):
         t = TestResult()
         
-        if test.attrib['id'] in problem_props['performance']:
+        if 'performance' in problem_props and test.attrib['id'] in problem_props['performance'].split():
             t.test_type = 'performance'
         else:
             t.test_type = 'standard'
@@ -72,7 +72,7 @@ def parse_xml(s, problem_props):
         else:
             t.debug = None
         
-        if test.attrib['id'] in problem_props['hidden'].split():
+        if 'hidden' in problem_props and test.attrib['id'] in problem_props['hidden'].split():
             t.hidden = True
             
         tests_details.append(t)
