@@ -16,6 +16,9 @@ def index(request):
 def get_props(filename):
 	return yaml.load(open(filename), Loader=yaml.loader.BaseLoader) # BaseLoader => 01 (sample) is not converted to int
 
+def path_problem_props(challenge, problem):
+    return os.path.join(challenge, problem, 'problem.props')
+
 def get_challenge(path):
 	challenge = {}
 	problems = []
@@ -97,4 +100,14 @@ def trace(request, challenge, problem, timestamp):
     path = get_path_archive(challenge, problem, request.user.username, timestamp)
     code = open(path).read()
     filename = os.path.basename(path)
+    problem_props = get_props(path_problem_props(challenge, problem))
     xml = vm_interface.remote_check(challenge, problem, code, filename)
+    compilation, results, tests_details = vm_interface.parse_xml(xml, problem_props)
+    tpl_env = {
+        'compilation': compilation,
+	'results': results,
+        'tests_details': tests_details,
+        'challenge': challenge,
+        'problem': problem,
+    }
+    return render_to_response('problems/trace.html', {})
