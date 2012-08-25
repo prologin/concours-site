@@ -13,8 +13,8 @@ import datetime
 def index(request):
 	return render_to_response('index.html')
 
-def get_props(file):
-	return yaml.load(open(file), Loader=yaml.loader.BaseLoader) # BaseLoader => 01 (sample) is not converted to int
+def get_props(filename):
+	return yaml.load(open(filename), Loader=yaml.loader.BaseLoader) # BaseLoader => 01 (sample) is not converted to int
 
 def get_challenge(path):
 	challenge = {}
