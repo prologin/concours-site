@@ -38,7 +38,7 @@ def parse_xml(s, problem_props):
     if error:
         raise VMError(error)
     compilation = {
-        'sucess': bool(xml.find('test')),
+        'success': bool(xml.find('test')),
         'value': xml.find('compilation').text.strip(),
     }
     tests_results = {
