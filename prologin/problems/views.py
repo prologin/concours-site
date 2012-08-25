@@ -94,7 +94,7 @@ def traces(request, challenge, problem):
             if extension == lang.ext:
                 traces.setdefault(i, []).append((timestamp, dt.strftime('%d/%m/%Y à %H:%M:%S')))
                 archives.pop(a)
-    return render_to_response('problems/traces.html', {'langs': langs, 'traces': traces})
+    return render_to_response('problems/traces.html', {'langs': langs, 'traces': traces, 'problem_props': get_props(path_problem_props(challenge, problem))})
 
 def trace(request, challenge, problem, timestamp):
     path = get_path_archive(challenge, problem, request.user.username, timestamp)
