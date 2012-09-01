@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.conf import settings
 from langs import langs
 import os
+import os.path
 import yaml
 import glob
 import vm_interface
