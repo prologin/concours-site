@@ -33,7 +33,7 @@ def get_problem(challenge, problem):
     problem_data = {
         'name': problem,
         'props': get_props(path_problem_props(challenge, problem)),
-        'tests': [],
+        'tests': {},
     }
 
     if os.path.exists(os.path.join(path, 'subject.md')):
@@ -46,7 +46,7 @@ def get_problem(challenge, problem):
     for item in os.listdir(path):
         subpath = os.path.join(path, item)
         if item.endswith('.in') or item.endswith('.out'):
-            problem_data['tests'].append(item)
+            problem_data['tests'][item] = subpath.read()
     return problem_data
 
 def list_challenges():
