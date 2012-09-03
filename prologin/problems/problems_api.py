@@ -22,7 +22,7 @@ def get_challenge(challenge):
     for item in os.listdir(path):
         subpath = os.path.join(path, item)
         if os.path.isdir(subpath) and not item.startswith('.'):
-            problems.append(get_problem(subpath))
+            problems.append(get_problem(challenge, item))
     return challenge, problems
 
 def get_problem(challenge, problem):
