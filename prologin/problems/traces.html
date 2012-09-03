@@ -6,7 +6,7 @@
 
 {% block body %}
   <h1>Soumissions : {{ problem_props.title }}</h1>
-  {% for langid, lang_traces in traces|iteritems %}
+  {% for langid, lang_traces in traces.items %}
     <h3>{{ langs.langid.title }}</h3>
     <ul>
       {% for timestamp, datestr in lang_traces %}
