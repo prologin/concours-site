@@ -29,7 +29,8 @@ def show_list_problems(request, challenge):
 
 def show_problem(request, challenge, problem):
     problem = get_problem(challenge, problem)
-    statement = problem['subject']
+    statement, statement_type = problem['subject']
+    markdown = (statement_type == 'markdown')
     examples = []
     print(problem['props'])
     for test in problem['props']['samples'].split():
@@ -39,7 +40,7 @@ def show_problem(request, challenge, problem):
             if test_name in problems['tests']:
                 example[ext] = problems['tests'][test_name]
         examples.append(example)
-    return render_to_response('problems/problem.html', {'problem': problem, 'statement': statement, 'examples': examples})
+    return render_to_response('problems/problem.html', {'problem': problem, 'statement': statement, 'examples': examples, 'statement_markdown': markdown})
 
 def get_path_archive(challenge, problem, pseudo, timestamp):
     [match] = glob.glob(os.path.join(settings.ARCHIVES_PATH, '{0}-{1}-{2}-{3}.*'.format(timestamp, challenge, problem, pseudo)))

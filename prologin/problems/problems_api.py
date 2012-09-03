@@ -27,17 +27,24 @@ def get_challenge(challenge):
 
 def get_problem(challenge, problem):
     path = path_problem(challenge, problem)
-    problem = {
+    problem_data = {
         'name': problem,
         'props': get_props(path_problem_props(challenge, problem)),
-        'subject': open(os.path.join(path, 'subject.md')).read(),
         'tests': [],
     }
+
+    if os.path.exists(os.path.join(path, 'subject.md')):
+        problem_data['subject'] = (open(os.path.join(path, 'subject.md')).read(), 'markdown')
+    elif os.path.exists(os.path.join(path, 'subject.txt')):
+        problem_data['subject'] = (open(os.path.join(path, 'subject.txt')).read(), 'html')
+    else:
+        problem_data['subject'] = ''
+
     for item in os.listdir(path):
         subpath = os.path.join(path, item)
         if item.endswith('.in') or item.endswith('.out'):
-            problem['tests'].append(item)
-    return problem
+            problem_data['tests'].append(item)
+    return problem_data
 
 def list_challenges():
     challenges = []
