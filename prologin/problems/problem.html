@@ -11,9 +11,9 @@
 {% if statement_markdown  %}
   {{ statement|markdown }}
 {% else %}
-  {{ autoescape off }}
+  {% autoescape off %}
     {{ statement }}
-  {{ endautoescape }}
+  {% endautoescape %}
 {% endif %}
 <h3>Exemples</h3>
 {% for example in examples %}
