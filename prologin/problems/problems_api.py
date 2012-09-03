@@ -1,6 +1,11 @@
 #!/usr/bin/env python3
 # -*- encoding: utf-8 -*-
 
+import os
+import os.path
+import yaml
+import glob
+
 def get_props(filename):
     return yaml.load(open(filename), Loader=yaml.loader.BaseLoader) # BaseLoader => 01 (sample) is not converted to int
 
