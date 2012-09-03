@@ -4,11 +4,14 @@
 from django.conf import settings
 import os
 import os.path
-import yaml
 import glob
 
 def get_props(filename):
-    return yaml.load(open(filename), Loader=yaml.loader.BaseLoader) # BaseLoader => 01 (sample) is not converted to int
+    props = {}
+    for line in open(filename):
+        key, value = line.split(':', 1)
+        props[key.strip()] = value.strip()
+    return props
 
 path_challenge = lambda challenge: os.path.join(settings.PROBLEMS_PATH, challenge)
 path_problem = lambda challenge, problem: os.path.join(settings.PROBLEMS_PATH, challenge, problem)
