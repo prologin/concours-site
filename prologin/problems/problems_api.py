@@ -41,8 +41,10 @@ def get_problem(challenge, problem):
 
 def list_challenges():
     challenges = []
+    def available(challenge):
+        return challenge['name'].startswith('demi') or challenge['name'].startswith('qcm')
     for item in os.listdir(settings.PROBLEMS_PATH):
-        if not item.startswith('.'):
+        if not item.startswith('.') and available(item):
             props = path_challenge_props(item)
             if os.path.exists(props):
                 challenges.append({'name': item, 'title': get_props(props)['title']})

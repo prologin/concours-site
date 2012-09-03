@@ -20,9 +20,6 @@ def index(request):
 
 def show_list_challenges(request):
     challenges = list_challenges()
-    def available(challenge):
-        return challenge['name'].startswith('demi') or challenge['name'].startswith('qcm')
-    challenges = filter(available, challenges)
     return render_to_response('problems/index.html', {'challenges': challenges})
 
 def show_list_problems(request, challenge):
