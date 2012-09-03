@@ -12,7 +12,7 @@ def get_props(filename):
 
 path_challenge = lambda challenge: os.path.join(settings.PROBLEMS_PATH, challenge)
 path_problem = lambda challenge, problem: os.path.join(settings.PROBLEMS_PATH, challenge, problem)
-path_challenge_props = lambda challenge: os.path.join(settings.PROBLEMS_PATH, challenge, problem, 'challenge.props')
+path_challenge_props = lambda challenge: os.path.join(settings.PROBLEMS_PATH, challenge, 'challenge.props')
 path_problem_props = lambda challenge, problem: os.path.join(settings.PROBLEMS_PATH, challenge, problem, 'problem.props')
 
 def get_challenge(challenge):
