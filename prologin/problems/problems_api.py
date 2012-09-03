@@ -46,7 +46,7 @@ def get_problem(challenge, problem):
     for item in os.listdir(path):
         subpath = os.path.join(path, item)
         if item.endswith('.in') or item.endswith('.out'):
-            problem_data['tests'][item] = subpath.read()
+            problem_data['tests'][item] = open(subpath).read()
     return problem_data
 
 def list_challenges():
