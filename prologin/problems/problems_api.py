@@ -18,12 +18,12 @@ path_problem_props = lambda challenge, problem: os.path.join(settings.PROBLEMS_P
 def get_challenge(challenge):
     path = path_challenge(challenge)
     problems = []
-    challenge = get_props(path_challenge_props(challenge))
+    challenge_props = get_props(path_challenge_props(challenge))
     for item in os.listdir(path):
         subpath = os.path.join(path, item)
         if os.path.isdir(subpath) and not item.startswith('.'):
             problems.append(get_problem(challenge, item))
-    return challenge, problems
+    return challenge_props, problems
 
 def get_problem(challenge, problem):
     path = path_problem(challenge, problem)
