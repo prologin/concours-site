@@ -20,8 +20,10 @@ def index(request):
 def get_props(filename):
     return yaml.load(open(filename), Loader=yaml.loader.BaseLoader) # BaseLoader => 01 (sample) is not converted to int
 
-def path_problem_props(challenge, problem):
-    return os.path.join(challenge, problem, 'problem.props')
+path_challenge = lambda challenge: os.path.join(settings.PROBLEMS_PATH, challenge)
+path_problem = lambda challenge, problem: os.path.join(settings.PROBLEMS_PATH, challenge, problem)
+path_challenge_props = lambda challenge: os.path.join(settings.PROBLEMS_PATH, challenge, problem, 'challenge.props')
+path_problem_props = lambda challenge, problem: os.path.join(settings.PROBLEMS_PATH, challenge, problem, 'problem.props')
 
 def get_challenge(path):
     challenge = {}
@@ -29,7 +31,7 @@ def get_challenge(path):
     for item in os.listdir(path):
         if '.svn' in item:
             continue
-        subpath = '/'.join([path, item])
+        subpath = os.path.join(path, item)
         if item.endswith('.props'):
             challenge['props'] = get_props(subpath)
         elif os.path.isdir(subpath):
@@ -41,7 +43,7 @@ def get_problem(path):
     for item in os.listdir(path):
         if '.svn' in item:
             continue
-        subpath = '/'.join([path, item])
+        subpath = os.path.join(path, item)
         if item.endswith('.props'):
             problem['props'] = get_props(subpath)
         else:
@@ -50,21 +52,21 @@ def get_problem(path):
 
 def list_challenges(request):
     challenges = []
-    for item in os.listdir('../../problems/'):
+    for item in os.listdir(settings.PROBLEMS_PATH):
         if '.svn' in item:
             continue
-        props = u'../../problems/{0}/challenge.props'.format(item)
+        props = os.path.join(settings.PROBLEMS_PATH, 'problems', item, 'challenge.props')
         if os.path.exists(props):
             challenges.append({'name': item, 'title': get_props(props)['title']})
     return render_to_response('problems/index.html', {'challenges': challenges})
 
 def list_problems(request, challenge):
-    challenge, problems = get_challenge('../../problems/{0}'.format(challenge))
+    challenge, problems = get_challenge(os.path.join(settings.PROBLEMS_PATH, challenge)
     problems = sorted(problems, key=lambda p: p['props']['difficulty'])
     return render_to_response('problems/challenge.html', {'challenge': challenge, 'problems': problems})
 
 def show_problem(request, challenge, problem):
-    problem_path = '../../problems/{0}/{1}'.format(challenge, problem)
+    problem_path = get_problem_path(challenge, problem)
     problem = get_problem(problem_path)
     statement = open('{0}/subject.md'.format(problem_path)).read()
     examples = []
