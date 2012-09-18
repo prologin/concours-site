@@ -15,9 +15,9 @@ def index(request):
 
 def genjson(request, city):
 	if city:
-		centers = Center.objects.filter(city=city)
+		centers = Center.objects.filter(is_active=True, city=city)
 	else:
-		centers = Center.objects.all()
+		centers = Center.objects.filter(is_active=True)all()
 	centersList = []
 	for center in centers:
 		d = center.__dict__
