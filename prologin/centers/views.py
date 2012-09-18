@@ -6,7 +6,7 @@ from geopy import geocoders
 import json
 
 def index(request):
-	cities = [_['city'] for _ in Center.objects.values('city').distinct()]
+	cities = [_['city'] for _ in Center.objects.filter(is_active=True).values('city').distinct()]
 	t = loader.get_template('centers/index.html')
 	c = Context({
 		'cities': cities,
@@ -29,7 +29,7 @@ def genjson(request, city):
 
 def geocode(request):
 	g = geocoders.Google()
-	centers = Center.objects.all()
+	centers = Center.objects.filter(is_active=True)
 	for center in centers:
 		if center.lat == 0 and center.lng == 0:
 			try:
