@@ -4,7 +4,7 @@
 from django.conf import settings
 import os
 import os.path
-import glob
+
 
 def get_props(filename):
     props = {}
@@ -13,10 +13,14 @@ def get_props(filename):
         props[key.strip()] = value.strip()
     return props
 
-path_challenge = lambda challenge: os.path.join(settings.PROBLEMS_PATH, challenge)
-path_problem = lambda challenge, problem: os.path.join(settings.PROBLEMS_PATH, challenge, problem)
-path_challenge_props = lambda challenge: os.path.join(settings.PROBLEMS_PATH, challenge, 'challenge.props')
-path_problem_props = lambda challenge, problem: os.path.join(settings.PROBLEMS_PATH, challenge, problem, 'problem.props')
+
+path_challenge = lambda c: os.path.join(settings.PROBLEMS_PATH, c)
+path_problem = lambda c, p: os.path.join(settings.PROBLEMS_PATH, c, p)
+path_challenge_props = lambda challenge: os.path.join(
+        settings.PROBLEMS_PATH, challenge, 'challenge.props')
+path_problem_props = lambda challenge, problem: os.path.join(
+        settings.PROBLEMS_PATH, challenge, problem, 'problem.props')
+
 
 def get_challenge(challenge):
     path = path_challenge(challenge)
@@ -28,6 +32,7 @@ def get_challenge(challenge):
             problems.append(get_problem(challenge, item))
     return challenge_props, problems
 
+
 def get_problem(challenge, problem):
     path = path_problem(challenge, problem)
     problem_data = {
@@ -37,9 +42,11 @@ def get_problem(challenge, problem):
     }
 
     if os.path.exists(os.path.join(path, 'subject.md')):
-        problem_data['subject'] = (open(os.path.join(path, 'subject.md')).read(), 'markdown')
+        problem_data['subject'] = (open(os.path.join(path,
+            'subject.md')).read(), 'markdown')
     elif os.path.exists(os.path.join(path, 'subject.txt')):
-        problem_data['subject'] = (open(os.path.join(path, 'subject.txt')).read(), 'html')
+        problem_data['subject'] = (open(os.path.join(path,
+            'subject.txt')).read(), 'html')
     else:
         problem_data['subject'] = ''
 
@@ -49,13 +56,16 @@ def get_problem(challenge, problem):
             problem_data['tests'][item] = open(subpath).read()
     return problem_data
 
+
 def list_challenges():
     challenges = []
+
     def available(challenge):
         return challenge.startswith('demi') or challenge.startswith('qcm')
     for item in os.listdir(settings.PROBLEMS_PATH):
         if not item.startswith('.') and available(item):
             props = path_challenge_props(item)
             if os.path.exists(props):
-                challenges.append({'name': item, 'title': get_props(props)['title']})
+                challenges.append({'name': item, 'title':
+                    get_props(props)['title']})
     return challenges
