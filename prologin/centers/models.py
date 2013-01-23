@@ -9,7 +9,6 @@ class Center(models.Model):
 		(u'p', u'pizzeria'),
 		(u'a', u'autre'),
 	)
-	city = models.CharField(max_length=64)
 	name = models.CharField(max_length=64)
 	type = models.CharField(max_length=1, choices=TYPE_CHOICES)
 	address = models.CharField(max_length=128)

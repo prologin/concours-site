@@ -24,7 +24,7 @@ class Event(models.Model):
 
 class Contestant(models.Model):
 	user = models.ForeignKey(User)
-	event_choices = models.ManyToManyField(Event, related_name='choices')
+	event_choices = models.ManyToManyField(Event, related_name='applicants')
 	events = models.ManyToManyField(Event)
 	def year(self):
 		return '{0}'.format(self.events.all()[0].contest.year)
