@@ -1,4 +1,6 @@
-data/*
+data/*.csv
+data/*.json
+data/*.sql
 fabfile.py
 *.pyc
 *.aux
