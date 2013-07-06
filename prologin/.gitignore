@@ -1,4 +1,5 @@
-static/team/*
+static/*
+team/static/team/*
 documents/*.pdf
 documents/*.aux
 documents/*.log
