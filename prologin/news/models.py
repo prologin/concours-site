@@ -13,3 +13,7 @@ class News(models.Model):
             self.pub_date = timezone.now()
         self.edit_date = timezone.now()
         super(News, self).save(*args, **kwargs)
+
+    class Meta:
+        verbose_name = 'news'
+        verbose_name_plural = 'news'
