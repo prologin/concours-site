@@ -2,6 +2,13 @@
 {% load static %}
 {% block title %} – L'équipe {{ year }}{% endblock %}
 
+{% load breadcrumbs %}
+{% block breadcrumbs %}
+{% breadcrumb Accueil home %}
+{% breadcrumb "L'équipe" team:index %}
+{% breadcrumb year %}
+{% endblock %}
+
 {% block content %}
 <div id="team-select-year">
   <div class="btn-group" id="team-select-year">
