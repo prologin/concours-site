@@ -1,10 +1,16 @@
 # coding=utf-8
-from django.template import Context, loader
-from team.models import Team
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.template import RequestContext, Context, loader
+from django.shortcuts import render
+from django.core.urlresolvers import reverse
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import staticfiles_storage
+from team.models import Team
 import os
+
+def redir(request, year=None):
+    last = Team.objects.values('year').distinct().order_by('-year')[:1]
+    return HttpResponseRedirect(reverse('team:team_year', args=(last[0]['year'],)))
 
 def index(request, year=None):
     timeline = Team.objects.values('year').distinct().order_by('-year')

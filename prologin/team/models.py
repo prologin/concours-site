@@ -14,3 +14,7 @@ class Team(models.Model):
     year = models.IntegerField()
     user = models.ForeignKey(User)
     role = models.ForeignKey(Role)
+
+    class Meta:
+        verbose_name = 'team'
+        verbose_name_plural = 'team'

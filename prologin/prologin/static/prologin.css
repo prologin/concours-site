@@ -93,6 +93,19 @@ html, body {
 
 
 /*
+ * Team
+ */
+
+#team-select-year, .team-member {
+    text-align: center;
+}
+
+.thumbnails li:nth-child(4n+1) {
+    margin-left: 0px;
+}
+
+
+/*
  * Elements
  */
 
