@@ -8,7 +8,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'prologin.views.home', name='home'),
     # url(r'^prologin/', include('prologin.foo.urls')),
-    url(r'^$', 'news.views.index'),
+    url(r'^$', 'news.views.index', name='home'),
     url(r'^news/', include('news.urls', namespace='news')),
     url(r'^team/', include('team.urls', namespace='team')),
     url(r'^documents/', include('documents.urls', namespace='docs')),

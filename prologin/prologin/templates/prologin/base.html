@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     {% load staticfiles %}
+    {% load breadcrumbs %}
     <meta charset="utf-8">
     <title>Prologin{% block title %}{% endblock %}</title>
     <link href="{% static 'favicon.png' %}" rel="icon">
@@ -31,9 +32,9 @@
 	    </div>
 	    <div id="breadcrumbs">
 	      <ul class="breadcrumb">
-		<li><a href="#">Accueil</a> <span class="divider">&gt;</span></li>
-		<li><a href="#">Forum</a> <span class="divider">&gt;</span></li>
-		<li class="active">Data</li>
+		{% block breadcrumbs %}
+		{% breadcrumb Accueil %}
+		{% endblock %}
 	      </ul>
 	    </div>
 	  </div>
