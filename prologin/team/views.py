@@ -1,23 +1,21 @@
 # coding=utf-8
-from django.http import HttpResponseRedirect, HttpResponse, Http404
+from django.http import HttpResponseRedirect
 from django.template import RequestContext, Context, loader
-from django.shortcuts import render
+from django.shortcuts import render, get_list_or_404
 from django.core.urlresolvers import reverse
 from django.contrib.staticfiles import finders
 from django.contrib.staticfiles.storage import staticfiles_storage
 from team.models import Team
 import os
 
-def redir(request, year=None):
+def redir(request):
     last = Team.objects.values('year').distinct().order_by('-year')[:1]
     return HttpResponseRedirect(reverse('team:team_year', args=(last[0]['year'],)))
 
-def index(request, year=None):
+def index(request, year):
     timeline = Team.objects.values('year').distinct().order_by('-year')
-    if not year:
-        year = max([int(team['year']) for team in timeline])
     year = int(year)
-    team = Team.objects.filter(year=year).order_by('role')
+    team = get_list_or_404(Team.objects.order_by('role'), year=year)
     for member in team:
         member.pic = 'unknown'
         absolute_path = finders.find('team/{0}.jpg'.format(member.user.username))
