@@ -39,7 +39,6 @@ class BreadcrumbNode(Node):
             params = []
             for el in self.url:
                 params.append(self.real_value(el, context))
-            print params
             url = self.getUrl(params)
             crumb = '<li><a href="%s">%s</a> <span class="divider">&gt;</span></li>' % (url, title)
         else:
