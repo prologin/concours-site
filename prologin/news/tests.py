@@ -1,16 +1,27 @@
-"""
-This file demonstrates writing tests using the unittest module. These will pass
-when you run "manage.py test".
-
-Replace this with more appropriate tests for your application.
-"""
-
 from django.test import TestCase
+from django.test.client import Client
+from django.core.urlresolvers import reverse
+from prologin.tests import Validator
+from django.conf import settings
 
+class TeamTest(TestCase):
+    def setUp(self):
+        self.validator = Validator()
+        self.client = Client()
 
-class SimpleTest(TestCase):
-    def test_basic_addition(self):
+    def test_html(self):
         """
-        Tests that 1 + 1 always equals 2.
+        Tests the HTML's compliance with the W3C standards.
         """
-        self.assertEqual(1 + 1, 2)
+        response = self.client.get(reverse('home'))
+        valid = self.validator.checkHTML(response.content)
+        self.assertEqual(valid, True)
+
+    def test_css(self):
+        """
+        Tests the CSS' compliance with the W3C standards.
+        """
+        path = settings.SITE_ROOT + 'prologin/static/prologin.css'
+        css = open(path, 'r').read()
+        valid = self.validator.checkCSS(css)
+        self.assertEqual(valid, True)

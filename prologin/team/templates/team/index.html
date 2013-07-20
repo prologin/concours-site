@@ -11,7 +11,7 @@
 
 {% block content %}
 <div id="team-select-year">
-  <div class="btn-group" id="team-select-year">
+  <div class="btn-group">
     {% for team in timeline %}
     <a class="btn{% if team.year == year %} active{% endif %}" href="/team/{{ team.year }}">{{ team.year }}</a>
     {% endfor %}
