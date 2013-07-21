@@ -18,6 +18,7 @@ class BreadcrumbNode(Node):
                 self.url.append(Variable(el))
 
     def real_value(self, var, context):
+        """Return the real value based on the context."""
         try:
             real_var = var.resolve(context)
         except (VariableDoesNotExist):
@@ -29,7 +30,7 @@ class BreadcrumbNode(Node):
         if len(params) > 1:
             ret = reverse(params[0], args=params[1:])
         else:
-            ret = reverse(params[0])
+            ret = reverse(params[0]) if params[0] != 'none' else None
         return ret
         
     def render(self, context):
@@ -40,7 +41,10 @@ class BreadcrumbNode(Node):
             for el in self.url:
                 params.append(self.real_value(el, context))
             url = self.getUrl(params)
-            crumb = '<li><a href="%s">%s</a> <span class="divider">&gt;</span></li>' % (url, title)
+            if url != None:
+                crumb = '<li><a href="%s">%s</a> <span class="divider">&gt;</span></li>' % (url, title)
+            else :
+                crumb = '<li>%s <span class="divider">&gt;</span></li>' % title
         else:
             crumb = '<li class="active">%s</li>' % title
         return crumb
