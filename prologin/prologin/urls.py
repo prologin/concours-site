@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from news import views
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -8,7 +9,7 @@ urlpatterns = patterns('',
     # Examples:
     # url(r'^$', 'prologin.views.home', name='home'),
     # url(r'^prologin/', include('prologin.foo.urls')),
-    url(r'^$', 'news.views.index', name='home'),
+    url(r'^$', views.IndexView.as_view(), name='home'),
     url(r'^news/', include('news.urls', namespace='news')),
     url(r'^team/', include('team.urls', namespace='team')),
     url(r'^documents/', include('documents.urls', namespace='docs')),

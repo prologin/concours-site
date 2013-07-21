@@ -1,7 +1,29 @@
-from django.http import HttpResponseRedirect, HttpResponse, Http404
-from django.template import RequestContext, loader
-from django.shortcuts import render, get_list_or_404
+from django.http import HttpResponse
+from django.shortcuts import render
+from django.views import generic
 from django.utils import timezone
+from news.models import News
+import json
 
-def index(request):
-    return render(request, 'news/index.html')
+class IndexView(generic.ListView):
+    template_name = 'news/index.html'
+    context_object_name = 'latest_news_list'
+
+    def get_queryset(self):
+        return News.objects.order_by('-pub_date')[:1]
+
+class DetailView(generic.DetailView):
+    model = News
+    template_name = 'news/detail.html'
+
+def latest(request, offset, nb):
+    offset = int(offset)
+    nb = int(nb) + offset
+    lst = News.objects.order_by('-pub_date')[offset:nb]
+    data = []
+    for el in lst:
+        data.append({
+            'id': el.id,
+            'title': el.title,
+        })
+    return HttpResponse(json.dumps(data))

@@ -20,6 +20,8 @@
 
     <!-- Custom -->
     <link rel="stylesheet" type="text/css" href="{% static 'prologin.css' %}" />
+    <script src="{% static 'news/latest.jquery.js' %}"></script>
+    {% block custom-headers %}{% endblock %}
   </head>
   <body>
     <header id="header">
@@ -46,6 +48,7 @@
       <div class="row-fluid">
 	<div class="span2">
 	  {% include "prologin/navigation.html" %}
+	  {% include "prologin/latest_news.html" %}
 	</div>
 	<div id="content-block" class="span8">
 	  <div>

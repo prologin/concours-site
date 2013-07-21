@@ -1,5 +1,11 @@
 {% extends "prologin/base.html" %}
 
 {% block content %}
-<p>News index</p>
+<h1>Accueil</h1>
+{% for news in latest_news_list %}
+<div>
+  <h2>{{ news.title }}</h2>
+  <div>{{ news.body }}</div>
+</div>
+{% endfor %}
 {% endblock %}
