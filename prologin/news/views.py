@@ -1,5 +1,4 @@
 from django.http import HttpResponse
-from django.shortcuts import render
 from django.views import generic
 from django.utils import timezone
 from news.models import News
@@ -11,6 +10,14 @@ class IndexView(generic.ListView):
 
     def get_queryset(self):
         return News.objects.order_by('-pub_date')[:1]
+
+class RSSView(generic.ListView):
+    template_name = 'news/rss.html'
+    context_object_name = 'latest_news_list'
+    content_type = 'application/xml'
+
+    def get_queryset(self):
+        return News.objects.order_by('-pub_date')
 
 class DetailView(generic.DetailView):
     model = News
