@@ -109,7 +109,20 @@ html, body {
  * Elements
  */
 
-.menu a {
+.social-bar {
+    margin-bottom: 10px;
+}
+
+#latest-news {
+    margin-left: 0;
+    padding-left: 0;
+}
+
+#latest-news li {
+    list-style-type: none;
+}
+
+.menu a, #latest-news a {
     font-family: Helvetica, Arial, sans-serif;
     color: #33449d;
 }
