@@ -20,6 +20,9 @@ class TeamTest(TestCase):
         """
         Tests the HTTP response.
         """
+        response = self.client.get(reverse('team:index'))
+        self.assertEqual(response.status_code, 302)
+
         response = self.client.get(reverse('team:year', args=(13,)))
         self.assertEqual(response.status_code, 404)
 
