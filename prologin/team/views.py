@@ -10,7 +10,7 @@ import os
 
 def redir(request):
     last = Team.objects.values('year').distinct().order_by('-year')[:1]
-    return HttpResponseRedirect(reverse('team:team_year', args=(last[0]['year'],)))
+    return HttpResponseRedirect(reverse('team:year', args=(last[0]['year'],)))
 
 def index(request, year):
     timeline = Team.objects.values('year').distinct().order_by('-year')
