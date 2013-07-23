@@ -1,6 +1,7 @@
 from django import template
 from django.template import Node, Variable, VariableDoesNotExist
 from django.core.urlresolvers import reverse
+from django.utils.html import escape
 
 register = template.Library()
 
@@ -23,7 +24,7 @@ class BreadcrumbNode(Node):
             real_var = var.resolve(context)
         except (VariableDoesNotExist):
             real_var = str(var)
-        return real_var
+        return escape(real_var)
 
     def getUrl(self, params):
         ret = None
