@@ -4,7 +4,7 @@
     <title>Prologin</title>
     <link>http://www.prologin.org</link>
     <description>Nouvelles</description>
-    <lastBuildDate>{% now "r" %}</lastBuildDate>
+    <lastBuildDate>{% with first_news=latest_news_list|first %}{{ first_news.pub_date|date:"r" }}{% endwith %}</lastBuildDate>
     <language>fr</language>
     {% for news in latest_news_list %}
     <item>
