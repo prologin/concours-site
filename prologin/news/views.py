@@ -1,6 +1,7 @@
 from django.http import HttpResponse
 from django.views import generic
 from django.utils import timezone
+from django.utils.html import escape
 from news.models import News
 import json
 
@@ -31,6 +32,6 @@ def latest(request, offset, nb):
     for el in lst:
         data.append({
             'id': el.id,
-            'title': el.title,
+            'title': escape(el.title),
         })
     return HttpResponse(json.dumps(data))
