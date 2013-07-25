@@ -24,6 +24,8 @@ html, body {
 }
 
 #breadcrumbs {
+    min-height: 37px;
+
     -webkit-border-top-left-radius: 5px;
     -moz-border-top-left-radius: 5px;
     border-top-left-radius: 5px;
