@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="team-select-year"class="navbar">
+<div id="team-select-year" class="navbar">
   <ul class="nav navbar-nav">
     {% for team in timeline %}
     <li{% if team.year == year %} class="active"{% endif %}><a href="{% url 'team:year' team.year %}">{{ team.year }}</a></li>
