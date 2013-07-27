@@ -21,6 +21,18 @@
 Don't put any file in `prologin/static/`. All the static files must be located in their application's static folder (eg: `prologin/team/static/team/`). If you uses the internal web server everything will work just fine. On production servers, you should use `python manage.py collectstatic` to populate `prologin/static/` with the static files.
 
 
+## Loading dummy data
+
+In order to test the website, you can load dummy data using `python manage.py fill_db type [type...]`
+`type` can be `all` or n of the following values:
+
+* users
+* news
+* team
+
+To avoid dependencies issues, you should always specify the type in this order. Using `all` is safer.
+
+
 ## Tips and tricks
 
 * On recent systems using Python 3 as default, replace all `python` invocation by `python2` or equivalent.
