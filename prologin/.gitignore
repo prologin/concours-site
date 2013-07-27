@@ -7,4 +7,4 @@ documents/*.csv
 *.json
 *.sqlite
 users/*.json
-settings_local.py
+prologin/settings.py
