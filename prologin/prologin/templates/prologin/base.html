@@ -3,10 +3,14 @@
   <head>
     {% load staticfiles %}
     {% load breadcrumbs %}
+    {% load root_url %}
+
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
     <title>Prologin{% block title %}{% endblock %}</title>
     <link href="{% static 'favicon.png' %}" rel="icon">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="alternate" type="application/rss+xml" title="Prologin (RSS 2.0)" href="{% root_url news:rss %}" />
 
     <!-- JQuery -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
