@@ -93,11 +93,16 @@ html, body {
     border-radius: 0px;
 }
 
-.breadcrumb li, .breadcrumb a, .divider {
+.breadcrumb > li, .breadcrumb a {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 11px;
-    color: #737ab9 !important;
+    color: #737ab9;
     text-shadow: none;
+}
+
+.breadcrumb > li + li:before {
+    color: #737ab9;
+    content: ">";
 }
 
 
