@@ -2,9 +2,9 @@ import os
 
 # Django settings for prologin project.
 
-DEBUG = True
+DEBUG = True # CHANGEME
 TEMPLATE_DEBUG = DEBUG
-SITE_ROOT = '/srv/http/prologin/site/prologin/' # CHANGEME
+SITE_ROOT = '/path/to/prologin/site/prologin/' # CHANGEME
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -87,7 +87,7 @@ STATICFILES_FINDERS = (
 )
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = 'ym9km85l4hk6f021zs2=s)3ewwltw0b^ck+3gjqc2v&afqa94y' # CHANGEME
+SECRET_KEY = 'ym9km85l4hk6f021zs2=s)3ewwlpw0b^ck+3gjqc2v&afqa94y' # CHANGEME
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
