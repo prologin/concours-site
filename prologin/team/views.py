@@ -15,7 +15,7 @@ def redir(request):
 def index(request, year):
     timeline = Team.objects.values('year').distinct().order_by('-year')
     year = int(year)
-    team = get_list_or_404(Team.objects.order_by('role'), year=year)
+    team = get_list_or_404(Team.objects.order_by('role__rank'), year=year)
     for member in team:
         member.pic = 'unknown'
         absolute_path = finders.find('team/{0}.jpg'.format(member.user.username))

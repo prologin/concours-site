@@ -28,7 +28,7 @@
     <div>
       <img src="{% static 'team/'|add:member.pic|add:".jpg" %}" alt="">
       <div>
-	<span class="label {% if member.role.rank <= 4 %}label-danger{% else %}label-success{% endif %}">{{ member.role }}</span>
+	<span class="label {% if member.role.rank <= 10 %}label-danger{% else %}label-success{% endif %}">{{ member.role }}</span>
 	<h3>{{ member.user.username }}</h3>
 	<h3>{{ member.user.first_name }} {{ member.user.last_name }}</h3>
       </div>
