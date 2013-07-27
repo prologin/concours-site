@@ -1,5 +1,36 @@
 # Installation
 
+
+## Requirements
+
+* Python 2
+* Django 1.5
+* Maybe some stuff listed in requirements.txt
+
+
+## Installing the website itself
+
+* Clone the repository: `git clone git@bitbucket.org:prologin/site.git`
+* Go to the website directory: `cd site/prologin/`
+* Create the configuration file and _EDIT IT_: `cp prologin/settings.py.example prologin/settings.py` (tip: search for `CHANGEME`)
+* Create the database: `python manage.py syncdb`
+
+
+## Static files
+
+Don't put any file in `prologin/static/`. All the static files must be located in their application's static folder (eg: `prologin/team/static/team/`). If you uses the internal web server everything will work just fine. On production servers, you should use `python manage.py collectstatic` to populate `prologin/static/` with the static files.
+
+
+## Tips and tricks
+
+* On recent systems using Python 3 as default, replace all `python` invocation by `python2` or equivalent.
+* If the `settings.py.example` file changed, you may want to adapt your `settings.py` consequently.
+* Retriving some team members pictures: `cd team/static/team/ && wget http://www.prologin.org/files/team.zip && unzip team.zip && rm team.zip && cd ../../`
+
+
+
+# Old readme
+
 First you need to install the dependencies (example in a debian-like system):
 
     :::console
@@ -14,7 +45,3 @@ Then follow these steps:
     $ cd prologin/team/static/team/ && wget http://www.prologin.org/files/team.zip && unzip team.zip && rm team.zip && cd ../../../
 
 Don't forget to change the configuration in `prologin/prologin/settings.py` (tip: search for `CHANGEME` within the conf).
-
-## Static files
-
-Don't put any file in `prologin/static/`. All the static files must be located in their application's static folder (eg: `prologin/team/static/team/`). If you uses the internal web server everything will work just fine. On production servers, you should use `python manage.py collectstatic` to populate `prologin/static/` with the static files.
