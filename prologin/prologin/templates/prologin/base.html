@@ -6,17 +6,18 @@
     <meta charset="utf-8">
     <title>Prologin{% block title %}{% endblock %}</title>
     <link href="{% static 'favicon.png' %}" rel="icon">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- JQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 
     <!-- JQuery UI -->
     <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}" />
-    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap-responsive.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
 
     <!-- Custom -->
     <link rel="stylesheet" type="text/css" href="{% static 'prologin.css' %}" />
@@ -24,46 +25,51 @@
     {% block custom-headers %}{% endblock %}
   </head>
   <body>
+
+    <!-- Header -->
     <header id="header">
-      <div class="container-fluid">
-	<div class="row-fluid">
-	  <div class="span2"><div id="logo" class="visible-desktop"></div></div>
-	  <div class="span8">
-	    <div class="row-fluid">
-	      <h1 id="title">Prologin</h1>
-	    </div>
-	    <div id="breadcrumbs">
-	      <ul class="breadcrumb">
-		{% block breadcrumbs %}{% endblock %}
-	      </ul>
-	    </div>
+      <div class="row main-row">
+	<div class="col-lg-2"><div id="logo"></div></div>
+	<div id="inner-header" class="col-lg-8">
+	  <h1 id="title">Prologin</h1>
+	  <div id="breadcrumbs">
+	    <ul class="breadcrumb">
+	      {% block breadcrumbs %}<li></li>{% endblock %}
+	    </ul>
 	  </div>
 	</div>
+	<div class="col-lg-2"></div>
       </div>
     </header>
 
-    <div class="container-fluid">
-      <div class="row-fluid">
-	<div class="span2">
-	  {% include "prologin/navigation.html" %}
-	  {% include "prologin/latest_news.html" %}
-	</div>
-	<div id="content-block" class="span8">
-	  <div>
-	    {% block content %}{% endblock %}
-	  </div>
-	  <p id="footer">Prologin, le Concours National d'Informatique</p>
-	</div>
-	<div class="span2">
-	  {% include "prologin/social.html" %}
-	  <h2>Nos partenaires</h2>
-	  <ul id="sponsors-lst">
-	    <li>Sponsor 1</li>
-	    <li>Sponsor 2</li>
-	    <li>Sponsor 3</li>
-	  </ul>
-	</div>
+    <div class="row main-row">
+
+      <!-- Left column -->
+      <div class="col-lg-2">
+	{% include "prologin/navigation.html" %}
+	{% include "prologin/latest_news.html" %}
       </div>
+
+      <!-- Middle column -->
+      <div id="content-block" class="col-lg-8">
+	<div>
+	  {% block content %}<li></li>{% endblock %}
+	</div>
+	<p id="footer">Prologin, le Concours National d'Informatique</p>
+      </div>
+
+      <!-- Right column -->
+      <div class="col-lg-2">
+	{% include "prologin/social.html" %}
+	<h2>Nos partenaires</h2>
+	<ul id="sponsors-lst">
+	  <li>Sponsor 1</li>
+	  <li>Sponsor 2</li>
+	  <li>Sponsor 3</li>
+	</ul>
+      </div>
+
     </div>
+
   </body>
 </html>

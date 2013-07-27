@@ -10,26 +10,30 @@
 {% endblock %}
 
 {% block content %}
-<div id="team-select-year">
-  <div class="btn-group">
+<div id="team-select-year"class="navbar">
+  <ul class="nav navbar-nav">
     {% for team in timeline %}
-    <a class="btn{% if team.year == year %} active{% endif %}" href="/team/{{ team.year }}">{{ team.year }}</a>
+    <li{% if team.year == year %} class="active"{% endif %}><a href="{% url 'team:year' team.year %}">{{ team.year }}</a></li>
     {% endfor %}
-  </div>
+  </ul>
 </div>
+
 <header class="page-header">
   <h1>L'équipe {{ year }}</h1>
 </header>
-<ul class="thumbnails">
+
+<div class="row">
   {% for member in team %}
-  <li class="span3 team-member thumbnail">
-    <img src="{% static 'team/'|add:member.pic|add:".jpg" %}" alt="">
-    <div class="caption">
-      <span class="label {% if member.role.rank <= 4 %}label-important{% else %}label-success{% endif %}">{{ member.role }}</span>
-      <h3>{{ member.user.username }}</h3>
-      <h3>{{ member.user.first_name }} {{ member.user.last_name }}</h3>
+  <div class="col-lg-3 team-member">
+    <div>
+      <img src="{% static 'team/'|add:member.pic|add:".jpg" %}" alt="">
+      <div>
+	<span class="label {% if member.role.rank <= 4 %}label-danger{% else %}label-success{% endif %}">{{ member.role }}</span>
+	<h3>{{ member.user.username }}</h3>
+	<h3>{{ member.user.first_name }} {{ member.user.last_name }}</h3>
+      </div>
     </div>
-  </li>
+  </div>
   {% endfor %}
-</ul>
+</div>
 {% endblock %}

@@ -37,15 +37,16 @@ class BreadcrumbNode(Node):
     def render(self, context):
         title = self.real_value(self.title, context)
 
+        url = None
         if self.url:
             params = []
             for el in self.url:
                 params.append(self.real_value(el, context))
             url = self.getUrl(params)
-            if url != None:
-                crumb = '<li><a href="%s">%s</a> <span class="divider">&gt;</span></li>' % (url, title)
-            else :
-                crumb = '<li>%s <span class="divider">&gt;</span></li>' % title
-        else:
-            crumb = '<li class="active">%s</li>' % title
+
+        if url != None:
+            crumb = '<li><a href="%s">%s</a></li>' % (url, title)
+        else :
+            crumb = '<li>%s</li>' % title
+
         return crumb

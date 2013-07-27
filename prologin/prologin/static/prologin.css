@@ -10,8 +10,45 @@ html, body {
     color: #494949;
 }
 
+.main-row {
+    margin-right: 0;
+    padding-left: 20px;
+}
+
+#content-block {
+    padding: 0;
+    background-color: white;
+
+    -webkit-border-bottom-left-radius: 5px;
+    -moz-border-bottom-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+
+    -webkit-border-bottom-right-radius: 5px;
+    -moz-border-bottom-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+#content-block > div {
+    padding: 10px;
+}
+
+#footer {
+    margin: 30px 0;
+    padding: 30px 0 30px 0;
+    border-top: 1px solid #f1f2f2;
+    text-align: center;
+    color: #898989;
+    font-size: 12px;
+}
+
+
+/*
+ * Header
+ */
+
 #header {
-    margin-top: 10px;
+    margin: 10px 0 0 0;
+    padding: 0;
     background-image: linear-gradient(#101632, #202b66);
     border-bottom: 1px solid white;
 }
@@ -23,9 +60,16 @@ html, body {
     background-repeat: no-repeat;
 }
 
-#breadcrumbs {
-    min-height: 37px;
+#inner-header {
+    padding: 0;
+}
 
+
+/*
+ * Breadcrumbs
+ */
+
+#breadcrumbs {
     -webkit-border-top-left-radius: 5px;
     -moz-border-top-left-radius: 5px;
     border-top-left-radius: 5px;
@@ -56,64 +100,10 @@ html, body {
     text-shadow: none;
 }
 
-#content-block {
-    padding: 0;
-    background-color: white;
-
-    -webkit-border-bottom-left-radius: 5px;
-    -moz-border-bottom-left-radius: 5px;
-    border-bottom-left-radius: 5px;
-
-    -webkit-border-bottom-right-radius: 5px;
-    -moz-border-bottom-right-radius: 5px;
-    border-bottom-right-radius: 5px;
-}
-
-#content-block > div {
-    padding: 10px;
-}
-
-#sponsors-lst {
-    margin: 0;
-    padding: 10px 0;
-    list-style-type: none;
-}
-
-#sponsors-lst > li {
-    margin: 0;
-    padding: 10px;
-}
-
-#footer {
-    margin: 30px 0;
-    padding: 30px 0 30px 0;
-    border-top: 1px solid #f1f2f2;
-    text-align: center;
-    color: #898989;
-    font-size: 12px;
-}
-
 
 /*
- * Team
+ * Left column
  */
-
-#team-select-year, .team-member {
-    text-align: center;
-}
-
-.thumbnails li:nth-child(4n+1) {
-    margin-left: 0px;
-}
-
-
-/*
- * Elements
- */
-
-.social-bar {
-    margin-bottom: 10px;
-}
 
 #latest-news {
     margin-left: 0;
@@ -145,6 +135,51 @@ html, body {
 .menu > .menu-leaf {
     list-style-image: url('/static/menu-leaf.gif');
 }
+
+
+/*
+ * Right column
+ */
+
+#sponsors-lst {
+    margin: 0;
+    padding: 10px 0;
+    list-style-type: none;
+}
+
+#sponsors-lst > li {
+    margin: 0;
+    padding: 10px;
+}
+
+.social-bar {
+    margin-bottom: 10px;
+}
+
+
+/*
+ * Team
+ */
+
+.team-member {
+    padding: 10px;
+    text-align: center;
+}
+
+.team-member > div {
+    padding: 10px;
+    border: 1px solid #eee;
+    border-radius: 5px;
+}
+
+.team-member > div > div {
+    padding-top: 10px;
+}
+
+
+/*
+ * Elements
+ */
 
 #title {
     padding-top: 20px;
