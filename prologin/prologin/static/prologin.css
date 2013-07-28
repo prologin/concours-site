@@ -141,6 +141,10 @@ html, body {
     list-style-image: url('/static/menu-leaf.gif');
 }
 
+#latest-news-pagination .active > a {
+    color: #33449d;
+}
+
 
 /*
  * Right column

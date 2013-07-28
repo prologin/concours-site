@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.views import generic
 from django.utils import timezone
 from django.utils.html import escape
+from django.core.urlresolvers import reverse
 from news.models import News
 import json
 
@@ -28,10 +29,17 @@ def latest(request, offset, nb):
     offset = int(offset)
     nb = int(nb) + offset
     lst = News.objects.order_by('-pub_date')[offset:nb]
-    data = []
+    news = []
     for el in lst:
-        data.append({
+        news.append({
             'id': el.id,
+            'url': reverse('news:show', args=(el.id,)),
             'title': escape(el.title),
         })
+    data = {
+        'offset': offset,
+        'nb': nb,
+        'total': News.objects.count(),
+        'news': news,
+    }
     return HttpResponse(json.dumps(data))
