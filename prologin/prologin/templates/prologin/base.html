@@ -4,6 +4,7 @@
     {% load staticfiles %}
     {% load breadcrumbs %}
     {% load root_url %}
+    {% load menu_display %}
 
     <meta charset="utf-8">
     <!--
@@ -52,7 +53,11 @@
 
       <!-- Left column -->
       <div class="col-lg-2">
+	<h2>Navigation</h2>
+	{% block menu %}{% menu %}{% endblock %}
+	{% comment %}
 	{% include "prologin/navigation.html" %}
+	{% endcomment %}
 	{% include "news/latest.html" %}
       </div>
 
