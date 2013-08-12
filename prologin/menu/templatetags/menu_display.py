@@ -31,10 +31,19 @@ class MenuNode(Node):
         return ret
 
     def render(self, context, parent_id=None):
-        elems = MenuEntry.objects.all().filter(parent__id=parent_id)
+        elems = MenuEntry.objects.all().filter(parent__id=parent_id).order_by('position')
         ret = ''
-        # TODO: support sub-menu display using tokens
+        try:
+            current_token = self.tokens.pop(0)
+        except:
+            current_token = None
+
         for i in range(len(elems)):
             el = elems[i]
-            ret += '<li><a href="%s">%s</a></li>' % (self.real_url(el.url), self.real_value(el.name, context))
+            if current_token is not None and current_token == el.hid:
+                ret += '<li class="menu-expanded"><a href="%s">%s</a>%s</li>' % (self.real_url(el.url), self.real_value(el.name, context), self.render(context, el.id))
+            elif len(MenuEntry.objects.all().filter(parent__id=el.id)) > 0:
+                ret += '<li class="menu-collapsed"><a href="%s">%s</a></li>' % (self.real_url(el.url), self.real_value(el.name, context))
+            else:
+                ret += '<li><a href="%s">%s</a></li>' % (self.real_url(el.url), self.real_value(el.name, context))
         return '<ul class="menu">%s</ul>' % ret
