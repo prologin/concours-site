@@ -8,6 +8,13 @@ register = template.Library()
 
 @register.tag
 def menu(parser, token):
+    """
+    How to use this tag: {% menu [hid ...] %}
+
+    Examples:
+    {% menu %}
+    {% menu l_association %}
+    """
     return MenuNode(token.split_contents()[1:])
 
 class MenuNode(Node):
@@ -24,10 +31,10 @@ class MenuNode(Node):
 
     def real_url(self, url):
         ret = url
-        if url[0] not in ['/', '#'] and url[:4] != 'http':
-            # TODO: support url parameters
-            # TODO: support url parameters resolution
-            ret = reverse(url)
+        if url[0] not in ['/', '#'] and url.find('://') == -1:
+            args = url.split('|')
+            url = args.pop(0)
+            ret = reverse(url, args=args)
         return ret
 
     def render(self, context, parent_id=None):
