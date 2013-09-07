@@ -42,7 +42,7 @@ class Command(BaseCommand):
 
     def fill_users(self):
         User.objects.all().filter(is_superuser=False).delete()
-        users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo', 'Zourp', 'kalenz', 'Horgix', 'Vic_Rattlehead', 'Artifere', 'davyg', 'Dettorer', 'pmderodat', 'Tycho', 'Zeletochoy', 'magicking', 'flutchman', 'nico', 'coucou747', 'Oxian', 'LLB']
+        users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo', 'Zourp', 'kalenz', 'Horgix', 'Vic_Rattlehead', 'Artifère', 'davyg', 'Dettorer', 'pmderodat', 'Tycho', 'Zeletochoy', 'magicking', 'flutchman', 'nico', 'coucou747', 'Oxian', 'LLB', 'è_é']
         for name in users:
             email = name.lower() + '@prologin.org'
             User.objects.create_user(name, email, 'trolololo!!!').save()

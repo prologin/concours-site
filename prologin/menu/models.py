@@ -1,5 +1,6 @@
 from django.db import models
 import unicodedata
+import string
 import re
 
 class MenuEntry(models.Model):
@@ -26,10 +27,8 @@ class MenuEntry(models.Model):
 
     def save(self, *args, **kwargs):
         if self.hid is None or self.hid == '':
-            # Warning! This may be an issue when moving to python3.
-            self.hid = self.name.lower().decode('utf-8')
-            self.hid = unicodedata.normalize('NFKD', self.hid)
-            self.hid = self.hid.encode('ascii', 'ignore')
+            self.hid = unicodedata.normalize('NFKD', self.name.lower())
+            self.hid = ''.join(x for x in self.hid if x in string.ascii_letters + string.digits + ' _-')
             self.hid = re.sub(r'[^a-z0-9]', '_', self.hid)
         super(MenuEntry, self).save(*args, **kwargs)
 
