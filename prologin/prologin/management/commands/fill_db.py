@@ -31,11 +31,7 @@ class LipsumSentence():
 
 class LipsumParagraph():
     def __init__(self):
-        self.str = ''
-        for i in range(random.randint(3, 7)):
-            s = LipsumSentence()
-            self.str += ' ' if self.str != '' else ''
-            self.str += str(s)
+        self.str = ' '.join(str(LipsumSentence()) for _ in range(random.randint(3, 7)))
 
     def __str__(self):
         return self.str
