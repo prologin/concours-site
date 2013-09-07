@@ -1,0 +1,15 @@
+{% extends "prologin/base.html" %}
+{% load static %}
+{% block title %}Authentification{% endblock %}
+
+{% load breadcrumbs %}
+{% block breadcrumbs %}
+{% breadcrumb Accueil home %}
+{% breadcrumb "Authentification" %}
+{% endblock %}
+
+{% block content %}
+{% if form.errors %}
+<p class="alert alert-danger">Nom d'utilisateur ou mot de passe erroné.</p>
+{% endif %}
+{% endblock %}

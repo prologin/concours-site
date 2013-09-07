@@ -6,7 +6,7 @@
 
 <form method="post" action="{% url 'users:django.contrib.auth.views.login' %}">
   {% csrf_token %}
-  <input type="hidden" name="next" value="{{ request.get_full_path }}" />
+  <input type="hidden" name="next" value="{% if request.get_full_path != '/users/login/' %}{{ request.get_full_path }}{% else %}/{% endif %}" />
   <input id="id_username" maxlength="254" name="username" type="text" placeholder="Nom d'utilisateur"><br>
   <input id="id_password" name="password" type="password" placeholder="Mot de passe"><br>
   <input type="submit" value="Se connecter" />

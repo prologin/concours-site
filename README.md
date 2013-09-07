@@ -14,6 +14,7 @@
 * Go to the website directory: `cd site/prologin/`
 * Create the configuration file and _EDIT IT_: `cp prologin/settings.py.example prologin/settings.py` (tip: search for `CHANGEME`)
 * Create the database: `python manage.py syncdb`
+* Consider loading some data (see below)
 
 
 ## Static files
@@ -35,7 +36,7 @@ To avoid dependencies issues, you should always specify the type in this order. 
 
 ## Tips and tricks
 
-* On recent systems using Python 3 as default, replace all `python` invocation by `python2` or equivalent.
+* On recent systems using Python 3 as default, replace all `python` invocation by `python2` or equivalent. Better: use virtualenv.
 * If the `settings.py.example` file changed, you may want to adapt your `settings.py` consequently.
 * Retriving some team members pictures: `cd team/static/team/ && wget http://www.prologin.org/files/team.zip && unzip team.zip && rm team.zip && cd ../../`
 

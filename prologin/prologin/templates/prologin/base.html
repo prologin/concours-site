@@ -4,6 +4,7 @@
     {% load staticfiles %}
     {% load breadcrumbs %}
     {% load root_url %}
+    {% load menu_display %}
 
     <meta charset="utf-8">
     <!--
@@ -52,6 +53,8 @@
 
       <!-- Left column -->
       <div class="col-lg-2">
+	<h2>Navigation</h2>
+	{% block menu %}{% menu %}{% endblock %}
 	{% include "prologin/navigation.html" %}
 	{% include "users/auth_form.html" %}
 	{% include "news/latest.html" %}

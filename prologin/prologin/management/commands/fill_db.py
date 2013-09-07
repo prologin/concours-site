@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 from news.models import News
 from team.models import Role, Team
+from menu.models import MenuEntry
 import datetime
 import random
 
@@ -82,19 +83,49 @@ class Command(BaseCommand):
             for i in range(5):
                 u = User.objects.order_by('?')[0]
                 Team(year=year, role=member, user=u).save()
-                
+
+    def fill_menu(self):
+        MenuEntry.objects.all().delete()
+        entries = [
+            {'name': 'Accueil', 'position': 1, 'url': 'home'},
+            {'name': 'Prologin 2013', 'position': 2, 'url': '#'},
+            {'name': 'Concours national', 'position': 3, 'url': '#'},
+            {'name': 'Entraînement', 'position': 4, 'url': '#'},
+            {'name': 'L\'association', 'position': 5, 'url': '#'},
+            {'name': 'Forums', 'position': 6, 'url': '#'},
+            {'name': 'Mon compte', 'position': 7, 'url': '#', 'access': 'logged'},
+            {'name': 'Administrer', 'position': 21, 'url': '#', 'access': 'admin'},
+            {'name': 'Se déconnecter', 'position': 42, 'url': '#', 'access': 'logged'},
+
+            {'name': 'Questionnaire', 'parent': 2, 'position': 1, 'url': '#'},
+            {'name': 'Demi-finales', 'parent': 2, 'position': 2, 'url': '#'},
+            {'name': 'Finale', 'parent': 2, 'position': 3, 'url': '#'},
+            {'name': 'Archives', 'parent': 2, 'position': 4, 'url': '#'},
+            {'name': 'Album photo', 'parent': 2, 'position': 5, 'url': '#'},
+
+            {'name': 'Documentation', 'parent': 3, 'position': 1, 'url': '#'},
+            {'name': 'Manuel', 'parent': 3, 'position': 2, 'url': '#'},
+
+            {'name': 'Historique', 'parent': 4, 'position': 1, 'url': '#'},
+            {'name': 'L\'équipe', 'parent': 4, 'position': 2, 'url': 'team:index'},
+        ]
+        for entry in entries:
+            e = MenuEntry(name=entry['name'], url=entry['url'], parent=None if 'parent' not in entry else entries[entry['parent']]['elem'], position=entry['position'], access='all' if 'access' not in entry else entry['access'])
+            e.save()
+            entry['elem'] = e
 
     def handle(self, *args, **options):
         modules = {
             'users': self.fill_users,
             'news': self.fill_news,
             'team': self.fill_team,
+            'menu': self.fill_menu,
         }
         if len(args) < 1:
             self.stderr.write('Missing parameter.')
             return
         if args[0] == 'all':
-            args = modules
+            args = ['users', 'news', 'team', 'menu']
         for mod in args:
             if mod not in modules:
                 raise CommandError('%s: unknown module' % mod)
