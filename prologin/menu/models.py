@@ -1,7 +1,5 @@
 from django.db import models
-import unicodedata
-import string
-import re
+from prologin.utils import limit_charset
 
 class MenuEntry(models.Model):
     """
@@ -27,9 +25,7 @@ class MenuEntry(models.Model):
 
     def save(self, *args, **kwargs):
         if self.hid is None or self.hid == '':
-            self.hid = unicodedata.normalize('NFKD', self.name.lower())
-            self.hid = ''.join(x for x in self.hid if x in string.ascii_letters + string.digits + ' _-')
-            self.hid = re.sub(r'[^a-z0-9\-]', '_', self.hid)
+            self.hid = limit_charset(self.name)
         super(MenuEntry, self).save(*args, **kwargs)
 
     def __str__(self):
