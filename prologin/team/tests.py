@@ -35,6 +35,4 @@ class TeamTest(TestCase):
         """
         response = self.client.get(reverse('team:year', args=(2013,)))
         valid = self.validator.checkHTML(response.content)
-        valid = self.validator.checkHTML(response.content)
-        valid = self.validator.checkHTML(response.content)
         self.assertEqual(valid, True)
