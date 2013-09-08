@@ -207,3 +207,7 @@ h2 {
     font-weight: normal;
     line-height: 24px;
 }
+
+a, a:visited {
+    color: #33449d;
+}
