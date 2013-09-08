@@ -29,7 +29,7 @@ class MenuEntry(models.Model):
         if self.hid is None or self.hid == '':
             self.hid = unicodedata.normalize('NFKD', self.name.lower())
             self.hid = ''.join(x for x in self.hid if x in string.ascii_letters + string.digits + ' _-')
-            self.hid = re.sub(r'[^a-z0-9]', '_', self.hid)
+            self.hid = re.sub(r'[^a-z0-9\-]', '_', self.hid)
         super(MenuEntry, self).save(*args, **kwargs)
 
     def __str__(self):
