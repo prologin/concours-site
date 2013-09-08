@@ -1,5 +1,5 @@
 from time import sleep
-import httplib, urllib
+import http.client, urllib.parse
 import re
 
 class Validator():
@@ -19,8 +19,8 @@ class Validator():
 
     def checkHTML(self, html):
         self.wait()
-        conn = httplib.HTTPConnection('validator.w3.org')
-        params = urllib.urlencode({
+        conn = http.client.HTTPConnection('validator.w3.org')
+        params = urllib.parse.urlencode({
             'fragment': html,
             'prefill': 0,
             'doctype': 'Inline',
@@ -38,12 +38,12 @@ class Validator():
         if response.status != 200:
             return False
         data = response.read()
-        return self.SOAPValidity(data)
+        return self.SOAPValidity(str(data))
 
     def checkCSS(self, css):
         self.wait()
-        conn = httplib.HTTPConnection('jigsaw.w3.org')
-        params = urllib.urlencode({
+        conn = http.client.HTTPConnection('jigsaw.w3.org')
+        params = urllib.parse.urlencode({
             'text': css,
             'profile': 'css3',
             'usermedium': 'all',
@@ -62,4 +62,4 @@ class Validator():
         if response.status != 200:
             return False
         data = response.read()
-        return self.SOAPValidity(data)
+        return self.SOAPValidity(str(data))
