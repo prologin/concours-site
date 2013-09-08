@@ -1,0 +1,14 @@
+{% extends "prologin/base.html" %}
+{% load static %}
+{% block title %}{{ profile.user.username }}{% endblock %}
+
+{% load breadcrumbs %}
+{% block breadcrumbs %}
+{% breadcrumb Accueil home %}
+{% breadcrumb profile.user.username %}
+{% endblock %}
+
+{% block content %}
+<h1>{{ profile.user.username }}</h1>
+{% endblock %}
+

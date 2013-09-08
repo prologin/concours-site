@@ -3,7 +3,7 @@
 
 ## Requirements
 
-* Python 2
+* Python 3
 * Django 1.5
 * Maybe some stuff listed in requirements.txt
 
@@ -14,6 +14,7 @@
 * Go to the website directory: `cd site/prologin/`
 * Create the configuration file and _EDIT IT_: `cp prologin/settings.py.example prologin/settings.py` (tip: search for `CHANGEME`)
 * Create the database: `python manage.py syncdb`
+* Create the superusers profile: `python manage.py sync_profiles`
 * Consider loading some data (see below)
 
 
@@ -36,7 +37,8 @@ To avoid dependencies issues, you should always specify the type in this order. 
 
 ## Tips and tricks
 
-* On recent systems using Python 3 as default, replace all `python` invocation by `python2` or equivalent. Better: use virtualenv.
+* Each time you manualy add an user or edit an username, you shall use `python manage.py sync_profiles` to enforce data consistency.
+* On old systems using Python 2 as default, replace all `python` invocation by `python3` or equivalent. Better: use virtualenv.
 * If the `settings.py.example` file changed, you may want to adapt your `settings.py` consequently.
 * Retriving some team members pictures: `cd team/static/team/ && wget http://www.prologin.org/files/team.zip && unzip team.zip && rm team.zip && cd ../../`
 

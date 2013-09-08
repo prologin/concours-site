@@ -29,8 +29,8 @@
       <img src="{% static 'team/'|add:member.pic|add:".jpg" %}" alt="">
       <div>
 	<span class="label {% if member.role.rank <= 10 %}label-danger{% else %}label-success{% endif %}">{{ member.role }}</span>
-	<h3>{{ member.user.username }}</h3>
-	<h3>{{ member.user.first_name }} {{ member.user.last_name }}</h3>
+	<h3><a href="{% url 'users:profile' member.profile.short_name %}">{{ member.profile.user.username }}</a></h3>
+	<h3>{{ member.profile.user.first_name }} {{ member.profile.user.last_name }}</h3>
       </div>
     </div>
   </div>

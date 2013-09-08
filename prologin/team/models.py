@@ -1,8 +1,6 @@
 # coding=utf-8
 from django.db import models
-from django.contrib.auth.models import User
-
-# Create your models here.
+from users.models import UserProfile
 
 class Role(models.Model):
     rank = models.IntegerField()
@@ -12,7 +10,7 @@ class Role(models.Model):
 
 class Team(models.Model):
     year = models.IntegerField()
-    user = models.ForeignKey(User)
+    profile = models.ForeignKey(UserProfile)
     role = models.ForeignKey(Role)
 
     class Meta:

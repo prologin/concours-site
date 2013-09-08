@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from news.models import News
 from team.models import Role, Team
 from menu.models import MenuEntry
+from users.models import ProloginUser, UserProfile
 import datetime
 import random
 
@@ -42,10 +43,11 @@ class Command(BaseCommand):
 
     def fill_users(self):
         User.objects.all().filter(is_superuser=False).delete()
-        users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo', 'Zourp', 'kalenz', 'Horgix', 'Vic_Rattlehead', 'Artifère', 'davyg', 'Dettorer', 'pmderodat', 'Tycho', 'Zeletochoy', 'magicking', 'flutchman', 'nico', 'coucou747', 'Oxian', 'LLB', 'è_é']
+        users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo', 'Zourp', 'kalenz', 'Horgix', 'Vic_Rattlehead', 'Artifère', 'davyg', 'Dettorer', 'pmderodat', 'Tycho bis', 'Zeletochoy', 'Magicking', 'flutchman', 'nico', 'coucou747', 'Oxian', 'LLB', 'è_é']
         for name in users:
             email = name.lower() + '@prologin.org'
-            User.objects.create_user(name, email, 'trolololo!!!').save()
+            pu = ProloginUser()
+            pu.register(name, email, 'password', True)
 
     def fill_news(self):
         News.objects.all().delete()
@@ -60,6 +62,7 @@ class Command(BaseCommand):
         Team.objects.all().delete()
         Role.objects.all().delete()
         roles = {
+            # name: rank
             'Président': 1,
             'Membre persistant': 14,
             'Trésorier': 3,
@@ -73,12 +76,12 @@ class Command(BaseCommand):
         for year in range(2010, 2015):
             for name in roles:
                 r = Role.objects.all().filter(rank=roles[name])[0]
-                u = User.objects.order_by('?')[0]
-                Team(year=year, role=r, user=u).save()
+                p = UserProfile.objects.order_by('?')[0]
+                Team(year=year, role=r, profile=p).save()
             member = Role.objects.all().filter(rank=12)[0]
             for i in range(5):
-                u = User.objects.order_by('?')[0]
-                Team(year=year, role=member, user=u).save()
+                p = UserProfile.objects.order_by('?')[0]
+                Team(year=year, role=member, profile=p).save()
 
     def fill_menu(self):
         MenuEntry.objects.all().delete()

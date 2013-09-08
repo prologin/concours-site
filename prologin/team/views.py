@@ -18,9 +18,9 @@ def index(request, year):
     team = get_list_or_404(Team.objects.order_by('role__rank'), year=year)
     for member in team:
         member.pic = 'unknown'
-        absolute_path = finders.find('team/{0}.jpg'.format(member.user.username))
+        absolute_path = finders.find('team/{0}.jpg'.format(member.profile.user.username))
         if staticfiles_storage.exists(absolute_path):
-            member.pic = member.user.username
+            member.pic = member.profile.user.username
     c = RequestContext(request, {
         'timeline': timeline,
         'year': year,
