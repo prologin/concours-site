@@ -93,8 +93,8 @@ class Command(BaseCommand):
             {'name': 'L\'association', 'position': 5, 'url': '#'},
             {'name': 'Forums', 'position': 6, 'url': '#'},
             {'name': 'Mon compte', 'position': 7, 'url': '#', 'access': 'logged'},
-            {'name': 'Administrer', 'position': 21, 'url': '#', 'access': 'admin'},
-            {'name': 'Se déconnecter', 'position': 42, 'url': '#', 'access': 'logged'},
+            {'name': 'Administrer', 'position': 21, 'url': 'admin:index', 'access': 'admin'},
+            {'name': 'Se déconnecter', 'position': 42, 'url': 'users:logout', 'access': 'logged'},
 
             {'name': 'Questionnaire', 'parent': 2, 'position': 1, 'url': '#'},
             {'name': 'Demi-finales', 'parent': 2, 'position': 2, 'url': '#'},

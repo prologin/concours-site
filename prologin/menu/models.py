@@ -29,7 +29,7 @@ class MenuEntry(models.Model):
         super(MenuEntry, self).save(*args, **kwargs)
 
     def __str__(self):
-        return self.name.encode('utf-8')
+        return self.name
 
     class Meta:
         verbose_name = 'Menu entry'
