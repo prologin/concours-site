@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^users/', include('users.urls', namespace='users')),
     url(r'^team/', include('team.urls', namespace='team')),
     url(r'^documents/', include('documents.urls', namespace='docs')),
+    url(r'^captcha/', include('captcha.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),

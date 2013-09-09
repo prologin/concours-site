@@ -48,3 +48,7 @@ class UsersTest(TestCase):
         response = self.client.get(reverse('users:profile', args=(self.user_profile.short_name,)))
         valid = self.validator.checkHTML(response.content)
         self.assertEqual(valid, True)
+
+        response = self.client.get(reverse('users:register'))
+        valid = self.validator.checkHTML(response.content)
+        self.assertEqual(valid, True)

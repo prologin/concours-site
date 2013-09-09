@@ -187,6 +187,20 @@ html, body {
 
 
 /*
+ * Forms
+ */
+
+fieldset {
+    margin-top: 15px;
+}
+
+fieldset > div {
+    text-align: right;
+    padding-right: 25%;
+}
+
+
+/*
  * Elements
  */
 

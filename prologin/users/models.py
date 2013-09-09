@@ -1,6 +1,8 @@
 from django.db import models
+from django import forms
 from django.contrib.auth.models import User
 from prologin.utils import limit_charset
+from captcha.fields import CaptchaField
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User)
@@ -34,3 +36,10 @@ class ProloginUser():
         profile.save()
         
         return profile
+
+class RegisterForm(forms.ModelForm):
+    captcha = CaptchaField()
+    newsletter = forms.BooleanField(required=False)
+    class Meta:
+        model = User
+        fields = ('username', 'email', 'password', 'captcha')

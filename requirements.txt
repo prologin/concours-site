@@ -2,3 +2,4 @@ django
 south
 PyYAML
 Markdown
+django-simple-captcha
