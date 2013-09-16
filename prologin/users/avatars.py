@@ -1,7 +1,7 @@
 from PIL import Image, ImageDraw
 import hashlib
 
-def get_left_coords(nb, debug=False):
+def get_left_coords(nb, scale=1):
     n = 50
     x = (nb % 3) * n
     y = (nb / 3) * n
@@ -12,13 +12,13 @@ def get_left_coords(nb, debug=False):
         (x + n, y),
     ]
 
-def get_right_coords(nb):
+def get_right_coords(nb, scale=1):
     coords = get_left_coords(nb)
     for i in range(len(coords)):
         coords[i] = (300 - coords[i][0], coords[i][1])
     return coords
 
-def generate_avatar(name):
+def generate_avatar(name, scale=1):
     seed = hashlib.sha224(name.encode('utf-8')).digest()
 
     color = {
@@ -38,6 +38,10 @@ def generate_avatar(name):
         points.append(pt)
         drav.polygon(get_left_coords(pt), fill=color['main'], outline=color['main'])
         drav.polygon(get_right_coords(pt), fill=color['main'], outline=color['main'])
+
+
+    if scale != 1:
+        avatar.thumbnail((int(300 * scale), int(300 * scale)), Image.ANTIALIAS)
 
     return avatar
 
