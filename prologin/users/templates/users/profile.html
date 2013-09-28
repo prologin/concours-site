@@ -11,6 +11,6 @@
 {% block content %}
 <h1>{{ profile.user.username }}</h1>
 <div>
-  <img src="{% url 'users:avatar_scale' profile.short_name 'medium' %}" alt="">
+  <img src="{% static 'users/avatars//'|add:profile.short_name|add:'/'|add:profile.short_name|add:'_medium.png' %}" alt="{{ profile.user.username }}" title="{{ profile.user.username }}">
 </div>
 {% endblock %}

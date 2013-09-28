@@ -26,7 +26,7 @@
   {% for member in team %}
   <div class="col-lg-3 team-member">
     <div>
-      <img src="{% static 'team/'|add:member.pic|add:".jpg" %}" alt="">
+      <img src="{% static 'users/avatars//'|add:member.profile.short_name|add:'/'|add:member.profile.short_name|add:'_medium.png' %}" alt="{{ member.profile.user.username }}" title="{{ member.profile.user.username }}">
       <div>
 	<span class="label {% if member.role.rank <= 10 %}label-danger{% else %}label-success{% endif %}">{{ member.role }}</span>
 	<h3><a href="{% url 'users:profile' member.profile.short_name %}">{{ member.profile.user.username }}</a></h3>

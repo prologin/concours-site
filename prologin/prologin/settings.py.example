@@ -7,6 +7,12 @@ TEMPLATE_DEBUG = DEBUG
 SITE_ROOT = '/path/to/prologin/site/prologin/' # CHANGEME
 CAPTCHA_OUTPUT_FORMAT = '%(image)s %(hidden_field)s %(text_field)s'
 
+AVATAR_SIZES = {
+    'normal': 1,
+    'medium': 0.5,
+    'small': 0.25,
+}
+
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
 )

@@ -1,6 +1,7 @@
 from django.db import models
 from django import forms
 from django.contrib.auth.models import User
+from django.conf import settings
 from prologin.utils import limit_charset
 from captcha.fields import CaptchaField
 
@@ -34,6 +35,10 @@ class ProloginUser():
 
         profile = UserProfile(user=user, short_name=short_name, newsletter=newsletter)
         profile.save()
+
+        for size in settings.AVATAR_SIZES:
+            avatar = generate_avatar(profile.short_name)
+            avatar.save(avatar_path, 'PNG')
         
         return profile
 
