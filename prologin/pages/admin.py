@@ -11,8 +11,7 @@ class PageAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         user = UserProfile.objects.get(user__id=request.user.id)
-        #if not hasattr(obj, 'created_by'):
-        if not isinstance(obj.__class__.__dict__['created_by'], UserProfile):
+        if not obj.created_by.id:
             obj.created_by = user
         obj.edited_by = user
         obj.slug = get_slug(obj.name)
