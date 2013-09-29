@@ -1,16 +1,53 @@
 {% extends "prologin/base.html" %}
+{% load menu_display %}
+{% load breadcrumbs %}
 {% load static %}
+
 {% block title %}{{ profile.user.username }}{% endblock %}
 
-{% load breadcrumbs %}
+{% block menu %}
+{% if profile.user.id == request.user.id %}{% menu mon_compte %}{% else %}{% menu %}{% endif %}
+{% endblock %}
+
 {% block breadcrumbs %}
 {% breadcrumb Accueil home %}
+{% breadcrumb Utilisateur %}
 {% breadcrumb profile.user.username %}
 {% endblock %}
 
 {% block content %}
 <h1>{{ profile.user.username }}</h1>
 <div>
-  <img src="{% static 'users/avatars/'|add:profile.slug|add:'/'|add:profile.slug|add:'_medium.png' %}" alt="{{ profile.user.username }}" title="{{ profile.user.username }}">
+  <div>
+    <img src="{% static 'users/avatars/'|add:profile.slug|add:'/'|add:profile.slug|add:'_medium.png' %}" alt="{{ profile.user.username }}" title="{{ profile.user.username }}">
+  </div>
+
+  {% if request.user.is_staff %}
+  <dl>
+    <dt>Nom :</dt>
+    <dd>{{ profile.user.last_name }}</dd>
+
+    <dt>Prénom :</dt>
+    <dd>{{ profile.user.first_name }}</dd>
+
+    <dt>Téléphone :</dt>
+    <dd>{{ profile.phone_number }}</dd>
+
+    <dt>Email :</dt>
+    <dd>{{ profile.user.email }}</dd>
+
+    <dt>Date de naissance :</dt>
+    <dd>{% if profile.birthday %}{{ profile.birthday }} ({{ profile.birthday|timesince }}){% endif %}</dd>
+
+    <dt>Adresse :</dt>
+    <dd>
+      <address>
+	{{ profile.address }}<br>
+	{{ profile.postal_code }} {{ profile.city }}<br>
+	{{ profile.country }}
+      </address>
+      </dd>
+  </dl>
+  {% endif %}
 </div>
 {% endblock %}
