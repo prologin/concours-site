@@ -96,13 +96,11 @@ class Command(BaseCommand):
             'Exercices machine': 'sentrainer',
             'Épreuves machines': 'documentation',
             'Langages supportés': 'documentation',
-            'Photos': 'medias',
-            'Vidéos': 'medias',
-            'Affiches': 'medias',
+            'Mentions légales': None,
             }
         for title in pages:
             ctn = ''
-            container = MenuEntry.objects.get(slug=pages[title])
+            container = None if pages[title] is None else MenuEntry.objects.get(slug=pages[title])
             for _ in range(5):
                 ctn += '\n## %s\n\n' % LipsumSentence()
                 ctn += str(LipsumParagraph())
@@ -137,9 +135,9 @@ class Command(BaseCommand):
             {'name': 'Épreuves machines', 'parent': 4, 'position': 1, 'url': 'pages:show|epreuves_machines'},
             {'name': 'Langages supportés', 'parent': 4, 'position': 2, 'url': 'pages:show|langages_supportes'},
 
-            {'name': 'Photos', 'parent': 6, 'position': 1, 'url': 'pages:show|photos'},
-            {'name': 'Vidéos', 'parent': 6, 'position': 2, 'url': 'pages:show|videos'},
-            {'name': 'Affiches', 'parent': 6, 'position': 3, 'url': 'pages:show|afiches'},
+            {'name': 'Photos', 'parent': 6, 'position': 1, 'url': '#'},
+            {'name': 'Vidéos', 'parent': 6, 'position': 2, 'url': '#'},
+            {'name': 'Affiches', 'parent': 6, 'position': 3, 'url': '#'},
         ]
         for entry in entries:
             e = MenuEntry(name=entry['name'], url=entry['url'], parent=None if 'parent' not in entry else entries[entry['parent']]['elem'], position=entry['position'], access='all' if 'access' not in entry else entry['access'])

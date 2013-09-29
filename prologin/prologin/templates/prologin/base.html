@@ -65,7 +65,10 @@
 	<div>
 	  {% block content %}<li></li>{% endblock %}
 	</div>
-	<p id="footer">Prologin, le Concours National d'Informatique</p>
+	<p id="footer">
+	  Prologin, le Concours National d'Informatique.<br>
+	  <a href="{% url 'pages:show' 'mentions_legales' %}">mentions légales</a>
+	</p>
       </div>
 
       <!-- Right column -->
