@@ -3,6 +3,7 @@ from django.template import Node, Variable, VariableDoesNotExist
 from django.core.urlresolvers import reverse
 from django.utils.html import escape
 from menu.models import MenuEntry
+from prologin.utils import real_value, get_real_url
 
 register = template.Library()
 
@@ -20,22 +21,6 @@ def menu(parser, token):
 class MenuNode(Node):
     def __init__(self, tokens):
         self.tokens = tokens + [None for _ in range(3 - len(tokens))]
-
-    def real_value(self, var, context):
-        """Return the real value based on the context."""
-        try:
-            real_var = template.Variable(var).resolve(context)
-        except:
-            real_var = '%s' % var
-        return escape(real_var)
-
-    def real_url(self, url):
-        ret = url
-        if url[0] not in ['/', '#'] and url.find('://') == -1:
-            args = url.split('|')
-            url = args.pop(0)
-            ret = reverse(url, args=args)
-        return ret
 
     def render_entry(self, url, value, class_lst=[]):
         str_classes = ''
@@ -56,10 +41,10 @@ class MenuNode(Node):
                 children_html = ''
                 menu_class = 'menu-expanded' if self.tokens[0] == el.slug else 'menu-collapsed'
                 for child in children:
-                    children_html += self.render_entry(self.real_url(child.url), self.real_value(child.name, context), ['menu-current'] if self.tokens[1] == child.slug else [])
-                ret += '<li class="%s"><span class="menu-main-elem">%s</span> <ul class="sub-menu">%s</ul></li>' % (menu_class, self.real_value(el.name, context), children_html)
+                    children_html += self.render_entry(get_real_url(child.url), real_value(child.name, context), ['menu-current'] if self.tokens[1] == child.slug else [])
+                ret += '<li class="%s"><span class="menu-main-elem">%s</span> <ul class="sub-menu">%s</ul></li>' % (menu_class, real_value(el.name, context), children_html)
             else:
                 menu_class = ['menu-current'] if self.tokens[0] == el.slug else []
-                ret += self.render_entry(self.real_url(el.url), self.real_value(el.name, context), menu_class)
+                ret += self.render_entry(get_real_url(el.url), real_value(el.name, context), menu_class)
             
         return '<ul id="main-menu">%s</ul>' % ret

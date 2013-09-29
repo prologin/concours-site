@@ -2,6 +2,7 @@ from django import template
 from django.template import Node, Variable, VariableDoesNotExist
 from django.core.urlresolvers import reverse
 from django.utils.html import escape
+from prologin.utils import real_value, get_url
 
 register = template.Library()
 
@@ -18,31 +19,15 @@ class BreadcrumbNode(Node):
             for el in tokens[1:]:
                 self.url.append(Variable(el))
 
-    def real_value(self, var, context):
-        """Return the real value based on the context."""
-        try:
-            real_var = var.resolve(context)
-        except (VariableDoesNotExist):
-            real_var = str(var)
-        return escape(real_var)
-
-    def getUrl(self, params):
-        ret = None
-        if len(params) > 1:
-            ret = reverse(params[0], args=params[1:])
-        else:
-            ret = reverse(params[0]) if params[0] != 'none' else None
-        return ret
-        
     def render(self, context):
-        title = self.real_value(self.title, context)
+        title = real_value(self.title, context)
 
         url = None
         if self.url:
             params = []
             for el in self.url:
-                params.append(self.real_value(el, context))
-            url = self.getUrl(params)
+                params.append(real_value(el, context))
+            url = get_url(params)
 
         if url != None:
             crumb = '<li><a href="%s">%s</a></li>' % (url, title)
