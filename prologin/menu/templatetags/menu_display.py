@@ -51,11 +51,11 @@ class MenuNode(Node):
 
             if len(children) > 0:
                 children_html = ''
-                menu_class = 'menu-expanded' if self.tokens[0] == el.slug else 'menu-collapsed'
+                menu_class = 'menu-expanded' if real_value(self.tokens[0], context) == el.slug else 'menu-collapsed'
                 for child in children:
                     if not self.if_access(child, context):
                         continue
-                    children_html += self.render_entry(get_real_url(child.url), real_value(child.name, context), ['menu-current'] if self.tokens[1] == child.slug else [])
+                    children_html += self.render_entry(get_real_url(child.url), real_value(child.name, context), ['menu-current'] if real_value(self.tokens[1], context) == child.slug else [])
                 ret += '<li class="%s"><span class="menu-main-elem">%s</span> <ul class="sub-menu">%s</ul></li>' % (menu_class, real_value(el.name, context), children_html)
             else:
                 menu_class = ['menu-current'] if self.tokens[0] == el.slug else []

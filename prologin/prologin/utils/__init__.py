@@ -13,6 +13,8 @@ def get_slug(name):
 
 def real_value(var, context):
     """Return the real value based on the context."""
+    if var is None:
+        return None
     try:
         if not isinstance(var, Variable):
             var = Variable(var)

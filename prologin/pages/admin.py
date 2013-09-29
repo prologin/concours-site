@@ -5,9 +5,9 @@ from prologin.utils import get_slug
 
 class PageAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['name', 'content', 'published']}),
+        (None, {'fields': ['name', 'content', 'container', 'published']}),
     ]
-    list_display = ('name', 'created_by_user', 'created_on', 'edited_by_user', 'edited_on', 'published')
+    list_display = ('name', 'container', 'created_by_user', 'created_on', 'edited_by_user', 'edited_on', 'published')
 
     def save_model(self, request, obj, form, change):
         user = UserProfile.objects.get(user__id=request.user.id)

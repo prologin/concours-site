@@ -1,11 +1,23 @@
 {% extends "prologin/base.html" %}
+{% load menu_display %}
 {% load breadcrumbs %}
 {% load markdown %}
 
 {% block title %} – {{ page.name }}{% endblock %}
 
+{% block menu %}
+{% if page.container %}
+{% menu page.container.slug page.slug %}
+{% else %}
+{% menu page.slug %}
+{% endif %}
+{% endblock %}
+
 {% block breadcrumbs %}
 {% breadcrumb Accueil home %}
+{% if page.container %}
+{% breadcrumb page.container.name %}
+{% endif %}
 {% breadcrumb page.name %}
 {% endblock %}
 

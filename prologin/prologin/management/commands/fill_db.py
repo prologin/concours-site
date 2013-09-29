@@ -87,13 +87,26 @@ class Command(BaseCommand):
 
     def fill_pages(self):
         Page.objects.all().delete()
-        titles = ['L\'association', 'Déroulement des épreuves', 'Règlement', 'Les vainqueurs', 'Questionnaires', 'Exercices machine', 'Épreuves machines', 'Langages supportés', 'Photos', 'Vidéos', 'Affiches']
-        for title in titles:
+        pages = {
+            'L\'association': 'prologin',
+            'Déroulement des épreuves': 'le_concours',
+            'Règlement': 'le_concours',
+            'Les vainqueurs': 'le_concours',
+            'Questionnaires': 'sentrainer',
+            'Exercices machine': 'sentrainer',
+            'Épreuves machines': 'documentation',
+            'Langages supportés': 'documentation',
+            'Photos': 'medias',
+            'Vidéos': 'medias',
+            'Affiches': 'medias',
+            }
+        for title in pages:
             ctn = ''
+            container = MenuEntry.objects.get(slug=pages[title])
             for _ in range(5):
                 ctn += '\n## %s\n\n' % LipsumSentence()
                 ctn += str(LipsumParagraph())
-            p = Page(name=title, slug=get_slug(title), content=ctn, created_by=UserProfile.objects.order_by('?')[0], edited_by=UserProfile.objects.order_by('?')[0], created_on=datetime.datetime.now(), edited_on=datetime.datetime.now(), published=True)
+            p = Page(name=title, slug=get_slug(title), content=ctn, container=container, created_by=UserProfile.objects.order_by('?')[0], edited_by=UserProfile.objects.order_by('?')[0], created_on=datetime.datetime.now(), edited_on=datetime.datetime.now(), published=True)
             p.save()
 
     def fill_menu(self):
@@ -145,7 +158,7 @@ class Command(BaseCommand):
             self.stderr.write('Missing parameter.')
             return
         if args[0] == 'all':
-            args = ['users', 'news', 'team', 'pages', 'menu']
+            args = ['users', 'news', 'team', 'menu', 'pages']
         for mod in args:
             if mod not in modules:
                 raise CommandError('%s: unknown module' % mod)
