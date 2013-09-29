@@ -18,8 +18,7 @@ class Command(BaseCommand):
         except UserProfile.DoesNotExist:
             self.stdout.write('%s: No UserProfile found, creating it.' % user.username)
             try:
-                pu = ProloginUser()
-                slug = pu.getShortName(user.username)
+                slug = ProloginUser().getShortName(user.username)
                 profile = UserProfile(user=user, slug=slug, newsletter=False)
                 profile.save()
             except ValueError:
@@ -43,10 +42,7 @@ class Command(BaseCommand):
                 avatar_path = '%s%s_%s.png' % (avatar_dir, profile.slug, size)
                 if not os.path.exists(avatar_path):
                     self.stderr.write('%s: %s avatar not found, setting all avatars to default.' % (profile.user.username, size))
-                    for sz in settings.AVATAR_SIZES:
-                        avatar_path = '%s%s_%s.png' % (avatar_dir, profile.slug, sz)
-                        avatar = generate_avatar(profile.slug, settings.AVATAR_SIZES[sz])
-                        avatar.save(avatar_path, 'PNG')
+                    ProloginUser().generate_avatars(profile.slug)
                     break
         except Exception as ex:
             self.stdout.write('Fatal error: user %s: %s' % (profile.user.username, ex))
