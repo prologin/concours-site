@@ -1,0 +1,15 @@
+{% extends "prologin/base.html" %}
+{% block title %} – {{ page.name }}{% endblock %}
+
+{% load breadcrumbs %}
+{% block breadcrumbs %}
+{% breadcrumb Accueil home %}
+{% breadcrumb page.name %}
+{% endblock %}
+
+{% block content %}
+<h1>{{ page.name }}</h1>
+<div>
+  {{ page.content }}
+</div>
+{% endblock %}

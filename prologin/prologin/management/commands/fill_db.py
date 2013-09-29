@@ -6,7 +6,9 @@ from django.contrib.auth.models import User
 from news.models import News
 from team.models import Role, Team
 from menu.models import MenuEntry
+from pages.models import Page
 from users.models import ProloginUser, UserProfile
+from prologin.utils import get_slug
 import datetime
 import random
 
@@ -83,6 +85,14 @@ class Command(BaseCommand):
                 p = UserProfile.objects.order_by('?')[0]
                 Team(year=year, role=member, profile=p).save()
 
+    def fill_pages(self):
+        Page.objects.all().delete()
+        titles = ['L\'association', 'Déroulement des épreuves']
+        for title in titles:
+            ctn = '\n'.join([str(LipsumParagraph()) for _ in range(5)])
+            p = Page(name=title, slug=get_slug(title), content=ctn, created_by=UserProfile.objects.order_by('?')[0], edited_by=UserProfile.objects.order_by('?')[0], created_on=datetime.datetime.now(), edited_on=datetime.datetime.now(), published=True)
+            p.save()
+
     def fill_menu(self):
         MenuEntry.objects.all().delete()
         entries = [
@@ -97,11 +107,11 @@ class Command(BaseCommand):
             {'name': 'Mon compte', 'position': 42, 'url': '#', 'access': 'logged'},
             {'name': 'Se déconnecter', 'position': 69, 'url': 'users:logout', 'access': 'logged'},
 
-            {'name': 'L\'association', 'parent': 1, 'position': 1, 'url': '#'},
+            {'name': 'L\'association', 'parent': 1, 'position': 1, 'url': 'pages:show|lassociation'},
             {'name': 'L\'équipe', 'parent': 1, 'position': 2, 'url': 'team:index'},
 
             {'name': 'Édition 2014', 'parent': 2, 'position': 1, 'url': '#'},
-            {'name': 'Déroulement des épreuves', 'parent': 2, 'position': 2, 'url': '#'},
+            {'name': 'Déroulement des épreuves', 'parent': 2, 'position': 2, 'url': 'pages:show|deroulement_des_epreuves'},
             {'name': 'Règlement', 'parent': 2, 'position': 3, 'url': '#'},
             {'name': 'Les vainqueurs', 'parent': 2, 'position': 4, 'url': '#'},
 
@@ -125,13 +135,14 @@ class Command(BaseCommand):
             'users': self.fill_users,
             'news': self.fill_news,
             'team': self.fill_team,
+            'pages': self.fill_pages,
             'menu': self.fill_menu,
         }
         if len(args) < 1:
             self.stderr.write('Missing parameter.')
             return
         if args[0] == 'all':
-            args = ['users', 'news', 'team', 'menu']
+            args = ['users', 'news', 'team', 'pages', 'menu']
         for mod in args:
             if mod not in modules:
                 raise CommandError('%s: unknown module' % mod)
