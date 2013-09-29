@@ -120,13 +120,13 @@ class Command(BaseCommand):
             {'name': 'Forums', 'position': 6, 'url': '#'},
             {'name': 'Medias', 'position': 7, 'url': '#'},
             {'name': 'Administrer', 'position': 21, 'url': 'admin:index', 'access': 'admin'},
-            {'name': 'Mon compte', 'position': 42, 'url': '#', 'access': 'logged'},
+            {'name': 'Mon compte', 'position': 42, 'url': 'users:profile|{{me}}', 'access': 'logged'},
             {'name': 'Se déconnecter', 'position': 69, 'url': 'users:logout', 'access': 'logged'},
 
             {'name': 'L\'association', 'parent': 1, 'position': 1, 'url': 'pages:show|lassociation'},
             {'name': 'L\'équipe', 'parent': 1, 'position': 2, 'url': 'team:index'},
 
-            {'name': 'Édition 2014', 'parent': 2, 'position': 1, 'url': '#'},
+            {'name': 'Édition {{last_edition}}', 'parent': 2, 'position': 1, 'url': '#'},
             {'name': 'Déroulement des épreuves', 'parent': 2, 'position': 2, 'url': 'pages:show|deroulement_des_epreuves'},
             {'name': 'Règlement', 'parent': 2, 'position': 3, 'url': 'pages:show|reglement'},
             {'name': 'Les vainqueurs', 'parent': 2, 'position': 4, 'url': 'pages:show|les_vainqueurs'},
