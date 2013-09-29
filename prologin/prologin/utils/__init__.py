@@ -15,6 +15,9 @@ def custom_expand(var, context):
     from users.models import UserProfile
     from team.models import Team
 
+    if not isinstance(var, str):
+        return var
+
     if var.find('{{me}}') != -1 and context['request'].user.is_authenticated():
         profile = UserProfile.objects.get(user__id=context['request'].user.id)
         var = var.replace('{{me}}', profile.slug)
