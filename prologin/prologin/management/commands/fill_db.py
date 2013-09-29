@@ -87,9 +87,12 @@ class Command(BaseCommand):
 
     def fill_pages(self):
         Page.objects.all().delete()
-        titles = ['L\'association', 'Déroulement des épreuves']
+        titles = ['L\'association', 'Déroulement des épreuves', 'Règlement', 'Les vainqueurs', 'Questionnaires', 'Exercices machine', 'Épreuves machines', 'Langages supportés', 'Photos', 'Vidéos', 'Affiches']
         for title in titles:
-            ctn = '\n'.join([str(LipsumParagraph()) for _ in range(5)])
+            ctn = ''
+            for _ in range(5):
+                ctn += '\n## %s\n\n' % LipsumSentence()
+                ctn += str(LipsumParagraph())
             p = Page(name=title, slug=get_slug(title), content=ctn, created_by=UserProfile.objects.order_by('?')[0], edited_by=UserProfile.objects.order_by('?')[0], created_on=datetime.datetime.now(), edited_on=datetime.datetime.now(), published=True)
             p.save()
 
@@ -112,18 +115,18 @@ class Command(BaseCommand):
 
             {'name': 'Édition 2014', 'parent': 2, 'position': 1, 'url': '#'},
             {'name': 'Déroulement des épreuves', 'parent': 2, 'position': 2, 'url': 'pages:show|deroulement_des_epreuves'},
-            {'name': 'Règlement', 'parent': 2, 'position': 3, 'url': '#'},
-            {'name': 'Les vainqueurs', 'parent': 2, 'position': 4, 'url': '#'},
+            {'name': 'Règlement', 'parent': 2, 'position': 3, 'url': 'pages:show|reglement'},
+            {'name': 'Les vainqueurs', 'parent': 2, 'position': 4, 'url': 'pages:show|les_vainqueurs'},
 
-            {'name': 'Questionnaires', 'parent': 3, 'position': 1, 'url': '#'},
-            {'name': 'Exercices machine', 'parent': 3, 'position': 2, 'url': '#'},
+            {'name': 'Questionnaires', 'parent': 3, 'position': 1, 'url': 'pages:show|questionnaires'},
+            {'name': 'Exercices machine', 'parent': 3, 'position': 2, 'url': 'pages:show|exercices_machine'},
 
-            {'name': 'Épreuves machines', 'parent': 4, 'position': 1, 'url': '#'},
-            {'name': 'Langages supportés', 'parent': 4, 'position': 2, 'url': '#'},
+            {'name': 'Épreuves machines', 'parent': 4, 'position': 1, 'url': 'pages:show|epreuves_machines'},
+            {'name': 'Langages supportés', 'parent': 4, 'position': 2, 'url': 'pages:show|langages_supportes'},
 
-            {'name': 'Photos', 'parent': 6, 'position': 1, 'url': '#'},
-            {'name': 'Vidéos', 'parent': 6, 'position': 2, 'url': '#'},
-            {'name': 'Affiches', 'parent': 6, 'position': 3, 'url': '#'},
+            {'name': 'Photos', 'parent': 6, 'position': 1, 'url': 'pages:show|photos'},
+            {'name': 'Vidéos', 'parent': 6, 'position': 2, 'url': 'pages:show|videos'},
+            {'name': 'Affiches', 'parent': 6, 'position': 3, 'url': 'pages:show|afiches'},
         ]
         for entry in entries:
             e = MenuEntry(name=entry['name'], url=entry['url'], parent=None if 'parent' not in entry else entries[entry['parent']]['elem'], position=entry['position'], access='all' if 'access' not in entry else entry['access'])

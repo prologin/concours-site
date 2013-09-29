@@ -7,6 +7,7 @@
 * Django 1.5
 * Pillow 2.0+ (with FreeType support)
 * django-simple-captcha
+* Markdown
 * Maybe some stuff listed in requirements.txt
 
 
