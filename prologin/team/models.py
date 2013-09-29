@@ -16,3 +16,6 @@ class Team(models.Model):
     class Meta:
         verbose_name = 'team'
         verbose_name_plural = 'team'
+
+    def username(self):
+        return self.profile.user.username
