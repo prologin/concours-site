@@ -19,7 +19,7 @@ def menu(parser, token):
 
 class MenuNode(Node):
     def __init__(self, tokens):
-        self.tokens = tokens
+        self.tokens = tokens + [None for _ in range(3 - len(tokens))]
 
     def real_value(self, var, context):
         """Return the real value based on the context."""
@@ -37,20 +37,29 @@ class MenuNode(Node):
             ret = reverse(url, args=args)
         return ret
 
-    def render(self, context, parent_id=None):
-        elems = MenuEntry.objects.all().filter(parent__id=parent_id).order_by('position')
+    def render_entry(self, url, value, class_lst=[]):
+        str_classes = ''
+        if len(class_lst) > 0:
+            str_classes = ' '.join(class_lst)
+            str_classes = ' class="%s"' % str_classes
+        return '<li%s><a href="%s">%s</a></li>' % (str_classes, url, value)
+
+    def render(self, context):
         ret = ''
-        try:
-            current_token = self.tokens.pop(0)
-        except:
-            current_token = None
+        elems = MenuEntry.objects.all().filter(parent__id=None).order_by('position')
 
         for i in range(len(elems)):
             el = elems[i]
-            if current_token is not None and current_token == el.hid:
-                ret += '<li class="menu-expanded"><a href="%s">%s</a>%s</li>' % (self.real_url(el.url), self.real_value(el.name, context), self.render(context, el.id))
-            elif len(MenuEntry.objects.all().filter(parent__id=el.id)) > 0:
-                ret += '<li class="menu-collapsed"><a href="%s">%s</a></li>' % (self.real_url(el.url), self.real_value(el.name, context))
+            children = MenuEntry.objects.all().filter(parent__id=el.id).order_by('position')
+
+            if len(children) > 0:
+                children_html = ''
+                menu_class = 'menu-expanded' if self.tokens[0] == el.hid else 'menu-collapsed'
+                for child in children:
+                    children_html += self.render_entry(self.real_url(child.url), self.real_value(child.name, context), ['menu-current'] if self.tokens[1] == child.hid else [])
+                ret += '<li class="%s"><span class="menu-main-elem">%s</span> <ul class="sub-menu">%s</ul></li>' % (menu_class, self.real_value(el.name, context), children_html)
             else:
-                ret += '<li><a href="%s">%s</a></li>' % (self.real_url(el.url), self.real_value(el.name, context))
-        return '<ul class="menu">%s</ul>' % ret
+                menu_class = ['menu-current'] if self.tokens[0] == el.hid else []
+                ret += self.render_entry(self.real_url(el.url), self.real_value(el.name, context), menu_class)
+            
+        return '<ul id="main-menu">%s</ul>' % ret

@@ -1,6 +1,10 @@
 {% extends "prologin/base.html" %}
 {% load static %}
+{% load menu_display %}
+
 {% block title %} – L'équipe {{ year }}{% endblock %}
+
+{% block menu %}{% menu prologin lequipe %}{% endblock %}
 
 {% load breadcrumbs %}
 {% block breadcrumbs %}

@@ -87,26 +87,33 @@ class Command(BaseCommand):
         MenuEntry.objects.all().delete()
         entries = [
             {'name': 'Accueil', 'position': 1, 'url': 'home'},
-            {'name': 'Prologin 2013', 'position': 2, 'url': '#'},
-            {'name': 'Concours national', 'position': 3, 'url': '#'},
-            {'name': 'Entraînement', 'position': 4, 'url': '#'},
-            {'name': 'L\'association', 'position': 5, 'url': '#'},
+            {'name': 'Prologin', 'position': 2, 'url': '#'},
+            {'name': 'Le concours', 'position': 3, 'url': '#'},
+            {'name': 'S\'entraîner', 'position': 4, 'url': '#'},
+            {'name': 'Documentation', 'position': 5, 'url': '#'},
             {'name': 'Forums', 'position': 6, 'url': '#'},
-            {'name': 'Mon compte', 'position': 7, 'url': '#', 'access': 'logged'},
+            {'name': 'Medias', 'position': 7, 'url': '#'},
             {'name': 'Administrer', 'position': 21, 'url': 'admin:index', 'access': 'admin'},
-            {'name': 'Se déconnecter', 'position': 42, 'url': 'users:logout', 'access': 'logged'},
+            {'name': 'Mon compte', 'position': 42, 'url': '#', 'access': 'logged'},
+            {'name': 'Se déconnecter', 'position': 69, 'url': 'users:logout', 'access': 'logged'},
 
-            {'name': 'Questionnaire', 'parent': 2, 'position': 1, 'url': '#'},
-            {'name': 'Demi-finales', 'parent': 2, 'position': 2, 'url': '#'},
-            {'name': 'Finale', 'parent': 2, 'position': 3, 'url': '#'},
-            {'name': 'Archives', 'parent': 2, 'position': 4, 'url': '#'},
-            {'name': 'Album photo', 'parent': 2, 'position': 5, 'url': '#'},
+            {'name': 'L\'association', 'parent': 1, 'position': 1, 'url': '#'},
+            {'name': 'L\'équipe', 'parent': 1, 'position': 2, 'url': 'team:index'},
 
-            {'name': 'Documentation', 'parent': 3, 'position': 1, 'url': '#'},
-            {'name': 'Manuel', 'parent': 3, 'position': 2, 'url': '#'},
+            {'name': 'Édition 2014', 'parent': 2, 'position': 1, 'url': '#'},
+            {'name': 'Déroulement des épreuves', 'parent': 2, 'position': 2, 'url': '#'},
+            {'name': 'Règlement', 'parent': 2, 'position': 3, 'url': '#'},
+            {'name': 'Les vainqueurs', 'parent': 2, 'position': 4, 'url': '#'},
 
-            {'name': 'Historique', 'parent': 4, 'position': 1, 'url': '#'},
-            {'name': 'L\'équipe', 'parent': 4, 'position': 2, 'url': 'team:index'},
+            {'name': 'Questionnaires', 'parent': 3, 'position': 1, 'url': '#'},
+            {'name': 'Exercices machine', 'parent': 3, 'position': 2, 'url': '#'},
+
+            {'name': 'Épreuves machines', 'parent': 4, 'position': 1, 'url': '#'},
+            {'name': 'Langages supportés', 'parent': 4, 'position': 2, 'url': '#'},
+
+            {'name': 'Photos', 'parent': 6, 'position': 1, 'url': '#'},
+            {'name': 'Vidéos', 'parent': 6, 'position': 2, 'url': '#'},
+            {'name': 'Affiches', 'parent': 6, 'position': 3, 'url': '#'},
         ]
         for entry in entries:
             e = MenuEntry(name=entry['name'], url=entry['url'], parent=None if 'parent' not in entry else entries[entry['parent']]['elem'], position=entry['position'], access='all' if 'access' not in entry else entry['access'])

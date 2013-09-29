@@ -28,6 +28,7 @@
 
     <!-- Custom -->
     <link rel="stylesheet" type="text/css" href="{% static 'prologin.css' %}" />
+    <script src="{% static 'menu/expand.jquery.js' %}"></script>
     <script src="{% static 'news/latest.jquery.js' %}"></script>
     {% block custom-headers %}{% endblock %}
   </head>
@@ -53,8 +54,8 @@
 
       <!-- Left column -->
       <div class="col-lg-2">
-	<h2>Navigation</h2>
-	{% block menu %}{% menu %}{% endblock %}
+	<h2 id="menu-title">Navigation</h2>
+	{% block menu %}{% menu accueil %}{% endblock %}
 	{% include "users/auth_form.html" %}
 	{% include "news/latest.html" %}
       </div>
