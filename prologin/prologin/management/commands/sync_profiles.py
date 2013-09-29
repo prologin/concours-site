@@ -4,7 +4,7 @@ from django.db import connection, transaction
 from django.contrib.auth.models import User
 from django.conf import settings
 from users.models import ProloginUser, UserProfile
-from prologin.utils import limit_charset
+from prologin.utils import get_slug
 from users.avatars import generate_avatar
 import os
 
@@ -19,33 +19,33 @@ class Command(BaseCommand):
             self.stdout.write('%s: No UserProfile found, creating it.' % user.username)
             try:
                 pu = ProloginUser()
-                short_name = pu.getShortName(user.username)
-                profile = UserProfile(user=user, short_name=short_name, newsletter=False)
+                slug = pu.getShortName(user.username)
+                profile = UserProfile(user=user, slug=slug, newsletter=False)
                 profile.save()
             except ValueError:
                 self.stderr.write('Error: %s (id %d): unable to create UserProfile: short name already taken.' % (user.username, user.id))
         return profile
 
-    def enforce_short_name_consistency(self, profile):
-        short_name = limit_charset(profile.user.username)
-        if profile.short_name != short_name:
-            self.stdout.write('%s: %s: Invalid short name, changing to "%s".' % (profile.user.username, profile.short_name, short_name))
-            profile.short_name = short_name
+    def enforce_slug_consistency(self, profile):
+        slug = get_slug(profile.user.username)
+        if profile.slug != slug:
+            self.stdout.write('%s: %s: Invalid short name, changing to "%s".' % (profile.user.username, profile.slug, slug))
+            profile.slug = slug
             profile.save()
 
     def create_avatar_if_missing(self, profile):
         try:
-            avatar_dir = '%susers/static/users/avatars/%s/' % (settings.SITE_ROOT, profile.short_name)
+            avatar_dir = '%susers/static/users/avatars/%s/' % (settings.SITE_ROOT, profile.slug)
             if not os.path.isdir(avatar_dir):
                 self.stderr.write('%s: Avatar directory not found, creating it.' % profile.user.username)
                 os.makedirs(avatar_dir)
             for size in settings.AVATAR_SIZES:
-                avatar_path = '%s%s_%s.png' % (avatar_dir, profile.short_name, size)
+                avatar_path = '%s%s_%s.png' % (avatar_dir, profile.slug, size)
                 if not os.path.exists(avatar_path):
                     self.stderr.write('%s: %s avatar not found, setting all avatars to default.' % (profile.user.username, size))
                     for sz in settings.AVATAR_SIZES:
-                        avatar_path = '%s%s_%s.png' % (avatar_dir, profile.short_name, sz)
-                        avatar = generate_avatar(profile.short_name, settings.AVATAR_SIZES[sz])
+                        avatar_path = '%s%s_%s.png' % (avatar_dir, profile.slug, sz)
+                        avatar = generate_avatar(profile.slug, settings.AVATAR_SIZES[sz])
                         avatar.save(avatar_path, 'PNG')
                     break
         except Exception as ex:
@@ -54,5 +54,5 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         for user in User.objects.all():
             profile = self.create_profile_if_missing(user)
-            self.enforce_short_name_consistency(profile)
+            self.enforce_slug_consistency(profile)
             self.create_avatar_if_missing(profile)

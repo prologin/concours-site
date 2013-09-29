@@ -5,8 +5,8 @@ from users.models import UserProfile, RegisterForm
 from users.avatars import generate_avatar
 from io import BytesIO as StringIO
 
-def profile(request, short_name):
-    profile = get_object_or_404(UserProfile, short_name=short_name)
+def profile(request, slug):
+    profile = get_object_or_404(UserProfile, slug=slug)
     return render(request, 'users/profile.html', {'profile': profile})
 
 def logout_view(request):

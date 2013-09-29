@@ -9,7 +9,7 @@ register = template.Library()
 @register.tag
 def menu(parser, token):
     """
-    How to use this tag: {% menu [hid ...] %}
+    How to use this tag: {% menu [slug ...] %}
 
     Examples:
     {% menu %}
@@ -54,12 +54,12 @@ class MenuNode(Node):
 
             if len(children) > 0:
                 children_html = ''
-                menu_class = 'menu-expanded' if self.tokens[0] == el.hid else 'menu-collapsed'
+                menu_class = 'menu-expanded' if self.tokens[0] == el.slug else 'menu-collapsed'
                 for child in children:
-                    children_html += self.render_entry(self.real_url(child.url), self.real_value(child.name, context), ['menu-current'] if self.tokens[1] == child.hid else [])
+                    children_html += self.render_entry(self.real_url(child.url), self.real_value(child.name, context), ['menu-current'] if self.tokens[1] == child.slug else [])
                 ret += '<li class="%s"><span class="menu-main-elem">%s</span> <ul class="sub-menu">%s</ul></li>' % (menu_class, self.real_value(el.name, context), children_html)
             else:
-                menu_class = ['menu-current'] if self.tokens[0] == el.hid else []
+                menu_class = ['menu-current'] if self.tokens[0] == el.slug else []
                 ret += self.render_entry(self.real_url(el.url), self.real_value(el.name, context), menu_class)
             
         return '<ul id="main-menu">%s</ul>' % ret
