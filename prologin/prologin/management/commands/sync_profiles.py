@@ -34,7 +34,7 @@ class Command(BaseCommand):
 
     def create_avatar_if_missing(self, profile):
         try:
-            avatar_dir = '%susers/static/users/avatars/%s/' % (settings.SITE_ROOT, profile.slug)
+            avatar_dir = os.path.join(settings.MEDIA_ROOT, 'avatars', profile.slug)
             if not os.path.isdir(avatar_dir):
                 self.stderr.write('%s: Avatar directory not found, creating it.' % profile.user.username)
                 os.makedirs(avatar_dir)

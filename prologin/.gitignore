@@ -1,4 +1,4 @@
-users/static/users/avatars/*
+media/*
 documents/*.pdf
 documents/*.aux
 documents/*.log

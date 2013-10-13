@@ -54,12 +54,12 @@ class ProloginUser():
         raise ValueError('%s: user with the same short name already exists' % slug)
 
     def generate_avatars(self, slug):
-        avatar_dir = '%susers/static/users/avatars/%s/' % (settings.SITE_ROOT, slug)
+        avatar_dir = os.path.join(settings.MEDIA_ROOT, 'avatars', slug)
         if not os.path.isdir(avatar_dir):
             os.makedirs(avatar_dir)
 
         for size in settings.AVATAR_SIZES:
-            avatar_path = '%s%s_%s.png' % (avatar_dir, slug, size)
+            avatar_path = os.path.join(avatar_dir, '%s_%s.png' % (slug, size))
             avatar = generate_avatar(slug, settings.AVATAR_SIZES[size])
             avatar.save(avatar_path, 'PNG')
 

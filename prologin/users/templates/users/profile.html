@@ -20,7 +20,7 @@
 <div>
   </pre>
   <div>
-    <img src="{% static 'users/avatars/'|add:profile.slug|add:'/'|add:profile.slug|add:'_medium.png' %}" alt="{{ profile.user.username }}" title="{{ profile.user.username }}">
+    <img src="/media/avatars/{{ profile.slug}}/{{ profile.slug}}_medium.png" alt="{{ profile.user.username }}" title="{{ profile.user.username }}">
   </div>
 
   {% if request.user.is_staff %}
