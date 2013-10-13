@@ -1,6 +1,5 @@
 django
 south
-PyYAML
 Markdown
 Pillow
 django-simple-captcha

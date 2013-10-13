@@ -4,12 +4,8 @@
 ## Requirements
 
 * Python 3
-* Django 1.5
-* Pillow 2.0+ (with FreeType support)
-* django-simple-captcha
-* Markdown
-* Maybe some stuff listed in requirements.txt
-
+* The driver corresponding to your SGBDR (psycopg2 for PostgreSQL)
+* Every package from requirements.txt
 
 ## Installing the website
 
