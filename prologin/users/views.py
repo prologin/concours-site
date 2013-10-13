@@ -1,5 +1,4 @@
 from django.contrib.auth import logout
-from django.contrib.auth.models import User
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.exceptions import SuspiciousOperation
 from users.models import UserProfile, RegisterForm, ActivationToken, ProloginUser
@@ -39,20 +38,20 @@ def register_view(request):
 
 def activate(request, username, code):
     try:
-        user = User.objects.get(username=username)
-    except User.DoesNotExist:
+        profile = UserProfile.objects.get(slug=username)
+    except UserProfile.DoesNotExist:
         raise SuspiciousOperation('Account activation: %s: invalid user' % username)
 
     try:
         token = ActivationToken.objects.get(slug=code)
     except ActivationToken.DoesNotExist:
-        raise SuspiciousOperation('Account activation: User %s: invalid activation token' % user.username)
+        raise SuspiciousOperation('Account activation: User %s: invalid activation token' % profile.user.username)
 
-    if user.id != token.user.id:
-        raise SuspiciousOperation('Account activation: User %s tried to activate his account using a token belonging to user %s.' % (user.username, token.user.username))
+    if profile.user.id != token.user.id:
+        raise SuspiciousOperation('Account activation: User %s tried to activate his account using a token belonging to user %s.' % (profile.user.username, token.user.username))
 
-    user.is_active = True
-    user.save()
+    profile.user.is_active = True
+    profile.user.save()
     token.delete()
 
     return redirect('%s' % request.GET.get('next', '/'))
