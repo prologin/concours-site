@@ -5,7 +5,10 @@ import os
 DEBUG = True # CHANGEME
 TEMPLATE_DEBUG = DEBUG
 SITE_ROOT = '/path/to/prologin/site/prologin/' # CHANGEME
+
 CAPTCHA_OUTPUT_FORMAT = '%(image)s %(hidden_field)s %(text_field)s'
+CAPTCHA_FONT_SIZE = 42
+CAPTCHA_FONT_PATH = os.path.join(SITE_ROOT, '..', 'constan.ttf')
 
 AVATAR_SIZES = {
     'normal': 1,

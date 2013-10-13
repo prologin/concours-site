@@ -16,15 +16,14 @@
   {{ errors }}
 </div>
 {% endif %}
-
 <form method="post" action="{% url 'users:register' %}">
   <fieldset>
     <legend>Informations</legend>
     {% csrf_token %}
     <div class="row">
       <div class="col-xs-6"><label>Nom d'utilisateur : {{ register_form.username }}</label></div>
-      <div class="col-xs-6"><label>Email : <input maxlength="75" name="email" type="email"></label></div>
-      <div class="col-xs-6"><label>Mot de passe : <input name="password" type="password"></label></div>
+      <div class="col-xs-6"><label>Email : <input maxlength="75" name="email" type="email" value="{{ autofill.email }}"></label></div>
+      <div class="col-xs-6"><label>Mot de passe : <input name="password" type="password" value="{{ autofill.password }}"></label></div>
       <div class="col-xs-6"><label>Cochez cette case pour recevoir la newsletter : {{ register_form.newsletter }}</label></div>
     </div>
   </fieldset>

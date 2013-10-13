@@ -49,7 +49,7 @@ class Command(BaseCommand):
         for name in users:
             email = name.lower() + '@prologin.org'
             pu = ProloginUser()
-            pu.register(name, email, 'password', True)
+            pu.register(name, email, 'password', True, True)
 
     def fill_news(self):
         News.objects.all().delete()
