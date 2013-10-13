@@ -7,3 +7,4 @@ documents/*.csv
 *.sqlite
 users/*.json
 prologin/settings.py
+static/*
