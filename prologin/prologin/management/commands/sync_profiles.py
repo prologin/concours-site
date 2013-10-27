@@ -39,7 +39,7 @@ class Command(BaseCommand):
                 self.stderr.write('%s: Avatar directory not found, creating it.' % profile.user.username)
                 os.makedirs(avatar_dir)
             for size in settings.AVATAR_SIZES:
-                avatar_path = '%s%s_%s.png' % (avatar_dir, profile.slug, size)
+                avatar_path = os.path.join(avatar_dir, '%s_%s.png' % (profile.slug, size))
                 if not os.path.exists(avatar_path):
                     self.stderr.write('%s: %s avatar not found, setting all avatars to default.' % (profile.user.username, size))
                     ProloginUser().generate_avatars(profile.slug)
