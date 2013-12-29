@@ -1,32 +1,9 @@
-{% load static %}
-<h2>Suivez-nous !</h2>
+{% comment %}
 
-<div class="social-bar">
-  <a href="http://www.facebook.com/prologin" target="_blank"><img src="{% static 'social/facebook.png' %}" alt="facebook"></a>
-  <a href="http://twitter.com/prologin" target="_blank"><img src="{% static 'social/twitter.png' %}" alt="twitter"></a>
-  <a href="{% url 'news:rss' %}" target="_blank"><img src="{% static 'social/rss.png' %}" alt="rss"></a>
-</div>
+Attention, il faut faire attention à respecter le droit Européen !
+En l'occurrence, les boutons sociaux de Facebook et Google+ ne respectent pas la réglementation en vigueur :
 
-<div class="social-bar">
-  <div class="fb-like" data-href="http://www.prologin.org/" data-send="false" data-layout="box_count" data-width="450" data-show-faces="false"></div>
-  <div class="g-plusone" data-size="tall" data-href="http://www.prologin.org/"></div>
+http://www.cnil.fr/vos-obligations/sites-web-cookies-et-autres-traceurs/que-dit-la-loi/
+http://www.cnil.fr/vos-obligations/sites-web-cookies-et-autres-traceurs/outils-et-codes-sources/
 
-  <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1";
-    fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));</script>
-
-  <script type="text/javascript">
-    window.___gcfg = {lang: 'fr'};
-
-    (function() {
-    var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
-    po.src = 'https://apis.google.com/js/plusone.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
-    })();
-  </script>
-</div>
+{% endcomment %}
