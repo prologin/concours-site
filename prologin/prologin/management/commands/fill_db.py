@@ -1,13 +1,13 @@
 # coding=utf-8
 from django.core.management.base import BaseCommand, CommandError
 from django.db import connection, transaction
-from django.utils import timezone
 from django.contrib.auth.models import User
-from news.models import News
+from django.utils import timezone
+from users.models import UserProfile
 from team.models import Role, Team
 from menu.models import MenuEntry
 from pages.models import Page
-from users.models import ProloginUser, UserProfile
+from news.models import News
 from prologin.utils import get_slug
 import datetime
 import random
@@ -48,8 +48,7 @@ class Command(BaseCommand):
         users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo', 'Zourp', 'kalenz', 'Horgix', 'Vic_Rattlehead', 'Artifère', 'davyg', 'Dettorer', 'pmderodat', 'Tycho bis', 'Zeletochoy', 'Magicking', 'flutchman', 'nico', 'coucou747', 'Oxian', 'LLB', 'è_é']
         for name in users:
             email = name.lower() + '@prologin.org'
-            pu = ProloginUser()
-            pu.register(name, email, 'password', True, True)
+            UserProfile.register(name, email, 'password', True, True)
 
     def fill_news(self):
         News.objects.all().delete()

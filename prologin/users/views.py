@@ -1,7 +1,7 @@
 from django.contrib.auth import logout
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.exceptions import SuspiciousOperation
-from users.models import UserProfile, RegisterForm, ActivationToken, ProloginUser
+from users.models import UserProfile, RegisterForm, ActivationToken
 from users.avatars import generate_avatar
 from io import BytesIO as StringIO
 
@@ -20,9 +20,7 @@ def register_view(request):
     if request.POST:
         form = RegisterForm(request.POST)
         if form.is_valid():
-            pu = ProloginUser()
-            print(form.cleaned_data)
-            pu.register(form.cleaned_data['username'], form.cleaned_data['email'], form.cleaned_data['password'], form.cleaned_data['newsletter'])
+            UserProfile.register(form.cleaned_data['username'], form.cleaned_data['email'], form.cleaned_data['password'], form.cleaned_data['newsletter'])
             return redirect('/')
     autofill = {}
     for el in ['email', 'password']:

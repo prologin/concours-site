@@ -1,23 +1,22 @@
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
-from users.models import ProloginUser
+from users.models import UserProfile
 from prologin.tests import Validator
 
 class UsersTest(TestCase):
     def setUp(self):
         self.validator = Validator()
         self.client = Client()
-        self.pu = ProloginUser()
-        self.user_profile = self.pu.register('toto', 'toto1@example.org', 'password', True)
+        self.user_profile = UserProfile.register('toto', 'toto1@example.org', 'password', True)
 
-    def test_register(self):
+    def test_register_duplicate(self):
         """
-        Tests the user registration.
+        Check if it's impossible to register the same user two times.
         """
-        self.assertRaises(ValueError, self.pu.register, 'toto', 'toto2@example.org', 'password', True)
-        self.assertRaises(ValueError, self.pu.register, 'Toto', 'toto3@example.org', 'password', True)
-        self.assertRaises(ValueError, self.pu.register, 'töto', 'toto4@example.org', 'password', True)
+        self.assertRaises(ValueError, UserProfile.register, 'toto', 'toto2@example.org', 'password', True)
+        self.assertRaises(ValueError, UserProfile.register, 'Toto', 'toto3@example.org', 'password', True)
+        self.assertRaises(ValueError, UserProfile.register, 'töto', 'toto4@example.org', 'password', True)
 
     def test_slug(self):
         """
@@ -25,7 +24,7 @@ class UsersTest(TestCase):
         """
         self.assertEqual(self.user_profile.slug, 'toto')
         
-        p = self.pu.register('è_é -', 'test@example.org', 'password', True)
+        p = UserProfile.register('è_é -', 'test@example.org', 'password', True)
         self.assertEqual(p.slug, 'e_e_-')
 
     def test_http_response(self):

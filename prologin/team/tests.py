@@ -1,7 +1,7 @@
 from django.test import TestCase
 from django.test.client import Client
 from django.core.urlresolvers import reverse
-from users.models import ProloginUser
+from users.models import UserProfile
 from team.models import Role, Team
 from prologin.tests import Validator
 
@@ -9,8 +9,7 @@ class TeamTest(TestCase):
     def setUp(self):
         self.validator = Validator()
         self.client = Client()
-        self.pu = ProloginUser()
-        p = self.pu.register('jm', 'joseph.marchand@prologin.org', 'joseph-password', True)
+        p = UserProfile.register('jm', 'joseph.marchand@prologin.org', 'joseph-password', True)
         p.save()
         r = Role(role="test role", rank=3)
         r.save()

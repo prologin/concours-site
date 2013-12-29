@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import connection, transaction
 from django.contrib.auth.models import User
 from django.conf import settings
-from users.models import ProloginUser, UserProfile
+from users.models import UserProfile
 from prologin.utils import get_slug
 from users.avatars import generate_avatar
 import os
@@ -18,7 +18,7 @@ class Command(BaseCommand):
         except UserProfile.DoesNotExist:
             self.stdout.write('%s: No UserProfile found, creating it.' % user.username)
             try:
-                slug = ProloginUser().getShortName(user.username)
+                slug = get_slug(user.username)
                 profile = UserProfile(user=user, slug=slug, newsletter=False)
                 profile.save()
             except ValueError:
@@ -42,7 +42,7 @@ class Command(BaseCommand):
                 avatar_path = os.path.join(avatar_dir, '%s_%s.png' % (profile.slug, size))
                 if not os.path.exists(avatar_path):
                     self.stderr.write('%s: %s avatar not found, setting all avatars to default.' % (profile.user.username, size))
-                    ProloginUser().generate_avatars(profile.slug)
+                    profile.generate_avatars()
                     break
         except Exception as ex:
             self.stdout.write('Fatal error: user %s: %s' % (profile.user.username, ex))
