@@ -71,6 +71,9 @@ class UserProfile(models.Model):
     birthday = models.DateField(max_length=64, blank=True, null=True)
     newsletter = models.BooleanField()
 
+    def __str__(self):
+        return self.user.__str__()
+
     def generate_avatars(self):
         avatar_dir = os.path.join(settings.MEDIA_ROOT, 'avatars', self.slug)
         if not os.path.isdir(avatar_dir):
