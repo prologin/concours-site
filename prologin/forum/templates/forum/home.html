@@ -1,0 +1,20 @@
+{% extends "prologin/base.html" %}
+{% load menu_display %}
+{% load breadcrumbs %}
+{% load static %}
+
+{% block title %}Forums{% endblock %}
+
+{% block breadcrumbs %}
+{% breadcrumb Accueil home %}
+{% breadcrumb Forums %}
+{% endblock %}
+
+{% block content %}
+{% for cat in categories %}
+<div>
+  <h3>{{ cat.name }}</h3>
+  <p>{{ cat.description }}</p>
+</div>
+{% endfor %}
+{% endblock %}

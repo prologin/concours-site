@@ -153,6 +153,7 @@ INSTALLED_APPS = (
     'menu',
     'pages',
     'news',
+    'forum',
     'team',
     'documents',
     'prologin',

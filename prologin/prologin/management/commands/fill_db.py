@@ -3,6 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import connection, transaction
 from django.contrib.auth.models import User
 from django.utils import timezone
+from forum.models import Category, Post
 from users.models import UserProfile
 from team.models import Role, Team
 from menu.models import MenuEntry
@@ -44,11 +45,14 @@ class Command(BaseCommand):
     help = 'Fill the database for the specified modules.'
 
     def fill_users(self):
-        User.objects.all().filter(is_superuser=False).delete()
-        users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo', 'Zourp', 'kalenz', 'Horgix', 'Vic_Rattlehead', 'Artifère', 'davyg', 'Dettorer', 'pmderodat', 'Tycho bis', 'Zeletochoy', 'Magicking', 'flutchman', 'nico', 'coucou747', 'Oxian', 'LLB', 'è_é']
+        User.objects.all().delete()
+        users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo', 'Zourp', 'kalenz', 'Horgix', 'Vic_Rattlehead', 'Artifère', 'davyg', 'Dettorer', 'pmderodat', 'tycho', 'Zeletochoy', 'Magicking', 'flutchman', 'nico', 'coucou747', 'Oxian', 'LLB', 'è_é']
         for name in users:
             email = name.lower() + '@prologin.org'
-            UserProfile.register(name, email, 'password', True, True)
+            p = UserProfile.register(name, email, 'plop', True, True)
+            p.user.is_staff = True
+            p.user.is_superuser = True
+            p.user.save()
 
     def fill_news(self):
         News.objects.all().delete()
@@ -58,6 +62,20 @@ class Command(BaseCommand):
             for i in range(2):
                 body += str(LipsumParagraph()) + ' '
             News(title=title, body=body).save()
+
+    def fill_categories(self):
+        Category.objects.all().delete()
+        cats = (
+            {'disp': 1, 'name': 'Nouvelles', 'description': 'Les dernières annonces concernant Prologin.'},
+            {'disp': 5, 'name': 'Général', 'description': 'Discussions générales sur Prologin, organisation de demi-finales et de la finale.'},
+            {'disp': 10, 'name': 'Entraînement', 'description': "Posez ici toutes vos questions concernant l'algorithmique, et ce qui touche au serveur d'entrainement."},
+            {'disp': 15, 'name': 'Serveur finale / Site web', 'description': 'Questions, remarques, critiques, concernant le serveur de finale ou le site web.'},
+        )
+        for cat in cats:
+            Category(name=cat['name'], slug=get_slug(cat['name']), description=cat['description'], display=cat['disp']).save()
+
+    def fill_posts(self):
+        Post.objects.all().delete()
 
     def fill_team(self):
         Team.objects.all().delete()
@@ -114,7 +132,7 @@ class Command(BaseCommand):
             {'name': 'Le concours', 'position': 3, 'url': '#'},
             {'name': 'S\'entraîner', 'position': 4, 'url': '#'},
             {'name': 'Documentation', 'position': 5, 'url': '#'},
-            {'name': 'Forums', 'position': 6, 'url': '#'},
+            {'name': 'Forums', 'position': 6, 'url': 'forum:home'},
             {'name': 'Medias', 'position': 7, 'url': '#'},
             {'name': 'Administrer', 'position': 21, 'url': 'admin:index', 'access': 'admin'},
             {'name': 'Mon compte', 'position': 42, 'url': 'users:profile|{{me}}', 'access': 'logged'},
@@ -147,6 +165,8 @@ class Command(BaseCommand):
         modules = {
             'users': self.fill_users,
             'news': self.fill_news,
+            'categories': self.fill_categories,
+            'posts': self.fill_posts,
             'team': self.fill_team,
             'pages': self.fill_pages,
             'menu': self.fill_menu,
@@ -155,7 +175,7 @@ class Command(BaseCommand):
             self.stderr.write('Missing parameter.')
             return
         if args[0] == 'all':
-            args = ['users', 'news', 'team', 'menu', 'pages']
+            args = ['users', 'news', 'categories', 'posts', 'team', 'menu', 'pages']
         for mod in args:
             if mod not in modules:
                 raise CommandError('%s: unknown module' % mod)
