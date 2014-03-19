@@ -12,8 +12,7 @@
 * Clone the repository: `git clone git@bitbucket.org:prologin/site.git`
 * Go to the website directory: `cd site/prologin/`
 * Create the configuration file and _EDIT IT_: `cp prologin/settings.py.example prologin/settings.py` (tip: search for `CHANGEME`)
-* Create the database: `python manage.py syncdb`
-* Create the superusers profile: `python manage.py sync_profiles`
+* Create the database: `python manage.py syncdb --noinput`
 * Consider loading some data (see below)
 
 
@@ -24,11 +23,17 @@ In order to test the website, you can load dummy data using `python manage.py fi
 
 * users
 * news
+* categories
+* posts
 * team
 * menu
 * pages
 
-To avoid dependencies issues, you should always specify the type in this order. Using `all` is always safe.
+To avoid dependencies issues, you should always specify `type` in this order. Using `all` is always safe.
+
+### Default users
+
+Users created using `fill_db` are set as super-users and have the default password `plop`.
 
 
 ## Static files
@@ -38,8 +43,7 @@ Don't put any file in `prologin/static/`. All the static files must be located i
 
 ## Tips and tricks
 
-* Each time you manualy add an user or edit an username, you shall use `python manage.py sync_profiles` to enforce data consistency.
-* On old systems using Python 2 as default, replace all `python` invocation by `python3` or equivalent. Better: use virtualenv.
+* On old systems using Python 2 as default, replace all `python` invocation by `python3` or equivalent. Better: use a virtualenv with python3 by default.
 * If the `settings.py.example` file changed, you may want to adapt your `settings.py` consequently.
 
 
