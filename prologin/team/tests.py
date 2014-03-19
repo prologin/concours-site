@@ -21,13 +21,13 @@ class TeamTest(TestCase):
         Tests the HTTP response.
         """
         response = self.client.get(reverse('team:index'))
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 302, 'invalid HTTP status code for team:index')
 
         response = self.client.get(reverse('team:year', args=(13,)))
-        self.assertEqual(response.status_code, 404)
+        self.assertEqual(response.status_code, 404, 'invalid HTTP status code for team:year')
 
         response = self.client.get(reverse('team:year', args=(2013,)))
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 200, 'invalid HTTP status code for team:year')
 
     def test_html(self):
         """
@@ -35,4 +35,4 @@ class TeamTest(TestCase):
         """
         response = self.client.get(reverse('team:year', args=(2013,)))
         valid = self.validator.checkHTML(response.content)
-        self.assertEqual(valid, True)
+        self.assertEqual(valid, True, 'invalid HTML for team:year')
