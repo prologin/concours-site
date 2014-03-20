@@ -1,6 +1,7 @@
-from django.test import TestCase
-from django.test.client import Client
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
+from django.test.client import Client
+from django.test import TestCase
 from users.models import UserProfile
 from prologin.tests import Validator
 
@@ -8,15 +9,16 @@ class UsersTest(TestCase):
     def setUp(self):
         self.validator = Validator()
         self.client = Client()
-        self.user_profile = UserProfile.register('toto', 'toto1@example.org', 'password', True)
+        user = User.objects.create_user('toto', 'toto1@example.org', 'password')
+        self.user_profile = UserProfile.objects.get(user_id=user.id)
 
     def test_register_duplicate(self):
         """
         Check whether or not it is possible to register the same user multiple times.
         """
-        self.assertRaises(ValueError, UserProfile.register, 'toto', 'toto2@example.org', 'password', True)
-        self.assertRaises(ValueError, UserProfile.register, 'Toto', 'toto3@example.org', 'password', True)
-        self.assertRaises(ValueError, UserProfile.register, 'töto', 'toto4@example.org', 'password', True)
+        self.assertRaises(ValueError, User.objects.create_user, 'toto', 'toto2@example.org', 'password')
+        self.assertRaises(ValueError, User.objects.create_user, 'Toto', 'toto3@example.org', 'password')
+        self.assertRaises(ValueError, User.objects.create_user, 'töto', 'toto4@example.org', 'password')
 
     def test_slug(self):
         """
@@ -24,7 +26,8 @@ class UsersTest(TestCase):
         """
         self.assertEqual(self.user_profile.slug, 'toto', 'invalid slug')
         
-        p = UserProfile.register('è_é -', 'test@example.org', 'password', True)
+        u = User.objects.create_user('è_é -', 'test@example.org', 'password')
+        p = UserProfile.objects.get(user_id=u.id)
         self.assertEqual(p.slug, 'e_e_-', 'invalid slug')
 
     def test_http_response(self):

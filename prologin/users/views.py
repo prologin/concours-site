@@ -1,7 +1,8 @@
-from django.contrib.auth import logout
+from users.models import UserProfile, RegisterForm, ActivationToken
 from django.shortcuts import redirect, render, get_object_or_404
 from django.core.exceptions import SuspiciousOperation
-from users.models import UserProfile, RegisterForm, ActivationToken
+from django.contrib.auth.models import User
+from django.contrib.auth import logout
 from users.avatars import generate_avatar
 from io import BytesIO as StringIO
 
@@ -20,7 +21,10 @@ def register_view(request):
     if request.POST:
         form = RegisterForm(request.POST)
         if form.is_valid():
-            UserProfile.register(form.cleaned_data['username'], form.cleaned_data['email'], form.cleaned_data['password'], form.cleaned_data['newsletter'])
+            u = User.objects.create_user(form.cleaned_data['username'], form.cleaned_data['email'], form.cleaned_data['password'])
+            p = UserProfile.objects.get(user_id=u.id)
+            p.newsletter = form.cleaned_data['newsletter']
+            p.save()
             return redirect('/')
     autofill = {}
     for el in ['email', 'password']:

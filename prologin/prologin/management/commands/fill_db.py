@@ -49,10 +49,11 @@ class Command(BaseCommand):
         users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo', 'Zourp', 'kalenz', 'Horgix', 'Vic_Rattlehead', 'Artifère', 'davyg', 'Dettorer', 'pmderodat', 'tycho', 'Zeletochoy', 'Magicking', 'flutchman', 'nico', 'coucou747', 'Oxian', 'LLB', 'è_é']
         for name in users:
             email = name.lower() + '@prologin.org'
-            p = UserProfile.register(name, email, 'plop', True, True)
-            p.user.is_staff = True
-            p.user.is_superuser = True
-            p.user.save()
+            user = User.objects.create_user(name, email, 'plop')
+            user.is_active = True
+            user.is_staff = True
+            user.is_superuser = True
+            user.save()
 
     def fill_news(self):
         News.objects.all().delete()

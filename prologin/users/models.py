@@ -20,11 +20,14 @@ def check_name(sender, **kwargs):
     user = kwargs['instance']
     slug = get_slug(user.username)
     try:
-        db_user = UserProfile.objects.get(slug=slug)
-        if not user.id or db_user.id != user.id:
+        user_profile = UserProfile.objects.get(slug=slug)
+        if not user.id or user_profile.id != user.id:
             raise ValueError('%s: user with the same slug already exists' % slug)
     except UserProfile.DoesNotExist:
-        pass
+        if user.id:
+            user_profile = UserProfile.objects.get(user_id=user.id)
+            user_profile.slug = slug
+            user_profile.save()
 
 @receiver(post_save, sender=User, dispatch_uid='sync_user_profile')
 def sync_user_profile(sender, **kwargs):
@@ -87,23 +90,3 @@ class UserProfile(models.Model):
     def send_activation_email(self, token):
         msg = render_to_response('users/activation_email.txt', {'profile': self, 'token': token}).content
         send_mail('Bienvenue sur le site de Prologin', msg, 'noreply@prologin.org', [self.user.email], fail_silently=False)
-
-    def setSlug(self):
-        slug = get_slug(self.name)
-        try:
-            UserProfile.objects.get(slug=slug)
-        except UserProfile.DoesNotExist:
-            self.slug = slug
-        raise ValueError('%s: user with the same short name already exists' % slug)
-
-    @staticmethod
-    def register(name, email, password, newsletter, is_active=False):
-        user = User.objects.create_user(name, email, password)
-        user.is_active = is_active
-        user.save()
-
-        profile = UserProfile.objects.get(user_id=user.id)
-        profile.newsletter = newsletter
-        profile.save()
-
-        return profile
