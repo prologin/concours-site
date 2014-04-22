@@ -1,4 +1,5 @@
 django==1.6
+psycopg2
 south
 Markdown
 Pillow
