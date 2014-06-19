@@ -1,35 +1,20 @@
-<!doctype html>
-<html lang="en">
+<!doctype html>{% load static i18n %}{% get_current_language as LANGUAGE_CODE %}
+<html lang="{{ LANGUAGE_CODE }}">
   <head>
-    {% load static %}
-    {% load breadcrumbs %}
-    {% load root_url %}
-    {% load menu_display %}
-
     <meta charset="utf-8">
-    <!--
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Prologin{% block title %}{% endblock %}</title>
-    <link href="{% static 'favicon.png' %}" rel="icon">
-    <link rel="alternate" type="application/rss+xml" title="Prologin (RSS 2.0)" href="{% root_url news:rss %}" />
+    <title>{% block title %}Prologin{% endblock %}</title>
 
     <!-- JQuery -->
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-
-    <!-- JQuery UI -->
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 
     <!-- Bootstrap -->
-    <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 
     <!-- Custom -->
     <link rel="stylesheet" type="text/css" href="{% static 'prologin.css' %}" />
-    <script src="{% static 'menu/expand.jquery.js' %}"></script>
-    <script src="{% static 'news/latest.jquery.js' %}"></script>
     {% block custom-headers %}{% endblock %}
   </head>
   <body>
@@ -55,9 +40,7 @@
       <!-- Left column -->
       <div class="col-lg-2">
 	<h2 id="menu-title">Navigation</h2>
-	{% block menu %}{% menu %}{% endblock %}
-	{% include "users/auth_form.html" %}
-	{% include "news/latest.html" %}
+	{% include "users/status.html" %}
       </div>
 
       <!-- Middle column -->
@@ -67,13 +50,12 @@
 	</div>
 	<p id="footer">
 	  Prologin, le Concours National d'Informatique.<br>
-	  <a href="{% url 'pages:show' 'mentions_legales' %}">mentions légales</a>
+	  <a href="#">mentions légales</a>
 	</p>
       </div>
 
       <!-- Right column -->
       <div class="col-lg-2">
-	{% include "prologin/social.html" %}
 	<h2>Nos partenaires</h2>
 	<ul id="sponsors-lst">
 	  <li>Sponsor 1</li>

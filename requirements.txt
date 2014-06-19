@@ -1,6 +1,5 @@
-django==1.6
-psycopg2
-south
-Markdown
-Pillow
-django-simple-captcha
+django>=1.6
+psycopg2>=2.5
+Markdown>=2.4
+Pillow>=2.4
+django-simple-captcha>=0.4

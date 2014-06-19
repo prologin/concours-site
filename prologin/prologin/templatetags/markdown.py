@@ -12,7 +12,6 @@ def markdown(parser, token):
 
 class MarkdownNode(Node):
     def __init__(self, tokens):
-        print(tokens)
         self.content = Variable(tokens[0])
 
     def render(self, context):

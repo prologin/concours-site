@@ -3,13 +3,8 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import connection, transaction
 from django.contrib.auth.models import User
 from django.utils import timezone
-from forum.models import Category, Post
+from team.models import Role, TeamMember
 from users.models import UserProfile
-from team.models import Role, Team
-from menu.models import MenuEntry
-from pages.models import Page
-from news.models import News
-from prologin.utils import get_slug
 import datetime
 import random
 
@@ -55,128 +50,35 @@ class Command(BaseCommand):
             user.is_superuser = True
             user.save()
 
-    def fill_news(self):
-        News.objects.all().delete()
-        for i in range(42):
-            title = str(LipsumSentence(max_words=6))
-            body = ''
-            for i in range(2):
-                body += str(LipsumParagraph()) + ' '
-            News(title=title, body=body).save()
-
-    def fill_categories(self):
-        Category.objects.all().delete()
-        cats = (
-            {'disp': 1, 'name': 'Nouvelles', 'description': 'Les dernières annonces concernant Prologin.'},
-            {'disp': 5, 'name': 'Général', 'description': 'Discussions générales sur Prologin, organisation de demi-finales et de la finale.'},
-            {'disp': 10, 'name': 'Entraînement', 'description': "Posez ici toutes vos questions concernant l'algorithmique, et ce qui touche au serveur d'entrainement."},
-            {'disp': 15, 'name': 'Serveur finale / Site web', 'description': 'Questions, remarques, critiques, concernant le serveur de finale ou le site web.'},
-        )
-        for cat in cats:
-            Category(name=cat['name'], slug=get_slug(cat['name']), description=cat['description'], display=cat['disp']).save()
-
-    def fill_posts(self):
-        Post.objects.all().delete()
-
     def fill_team(self):
-        Team.objects.all().delete()
+        TeamMember.objects.all().delete()
         Role.objects.all().delete()
-        roles = {
-            # name: rank
-            'Président': 1,
-            'Membre persistant': 14,
-            'Trésorier': 3,
-            'Vice-Président': 2,
-            'Responsable technique': 8,
-            'Membre': 12,
-            'Secrétaire': 4,
-        }
-        for name in roles:
-            Role(rank=roles[name], role=name).save()
+        roles = (
+            # name, rank
+            ('Président', 1),
+            ('Membre persistant', 14),
+            ('Trésorier', 3),
+            ('Vice-Président', 2),
+            ('Responsable technique', 8),
+            ('Membre', 12),
+            ('Secrétaire', 4),
+        )
+        for name, rank in roles:
+            Role(rank=rank, name=name).save()
         for year in range(2010, 2015):
-            for name in roles:
-                r = Role.objects.all().filter(rank=roles[name])[0]
-                p = UserProfile.objects.order_by('?')[0]
-                Team(year=year, role=r, profile=p).save()
+            for name, rank in roles:
+                TeamMember(year=year, role=Role.objects.all().filter(rank=rank)[0], user=User.objects.order_by('?')[0]).save()
             member = Role.objects.all().filter(rank=12)[0]
             for i in range(5):
-                p = UserProfile.objects.order_by('?')[0]
-                Team(year=year, role=member, profile=p).save()
-
-    def fill_pages(self):
-        Page.objects.all().delete()
-        pages = {
-            'L\'association': 'prologin',
-            'Déroulement des épreuves': 'le_concours',
-            'Règlement': 'le_concours',
-            'Les vainqueurs': 'le_concours',
-            'Questionnaires': 'sentrainer',
-            'Exercices machine': 'sentrainer',
-            'Épreuves machines': 'documentation',
-            'Langages supportés': 'documentation',
-            'Mentions légales': None,
-            }
-        for title in pages:
-            ctn = ''
-            container = None if pages[title] is None else MenuEntry.objects.get(slug=pages[title])
-            for _ in range(5):
-                ctn += '\n## %s\n\n' % LipsumSentence()
-                ctn += str(LipsumParagraph())
-            p = Page(name=title, slug=get_slug(title), content=ctn, container=container, created_by=UserProfile.objects.order_by('?')[0], edited_by=UserProfile.objects.order_by('?')[0], created_on=datetime.datetime.now(), edited_on=datetime.datetime.now(), published=True)
-            p.save()
-
-    def fill_menu(self):
-        MenuEntry.objects.all().delete()
-        entries = [
-            {'name': 'Accueil', 'position': 1, 'url': 'home'},
-            {'name': 'Prologin', 'position': 2, 'url': '#'},
-            {'name': 'Le concours', 'position': 3, 'url': '#'},
-            {'name': 'S\'entraîner', 'position': 4, 'url': '#'},
-            {'name': 'Documentation', 'position': 5, 'url': '#'},
-            {'name': 'Forums', 'position': 6, 'url': 'forum:home'},
-            {'name': 'Medias', 'position': 7, 'url': '#'},
-            {'name': 'Administrer', 'position': 21, 'url': 'admin:index', 'access': 'admin'},
-            {'name': 'Mon compte', 'position': 42, 'url': 'users:profile|{{me}}', 'access': 'logged'},
-            {'name': 'Se déconnecter', 'position': 69, 'url': 'users:logout', 'access': 'logged'},
-
-            {'name': 'L\'association', 'parent': 1, 'position': 1, 'url': 'pages:show|lassociation'},
-            {'name': 'L\'équipe', 'parent': 1, 'position': 2, 'url': 'team:index'},
-
-            {'name': 'Édition {{last_edition}}', 'parent': 2, 'position': 1, 'url': '#'},
-            {'name': 'Déroulement des épreuves', 'parent': 2, 'position': 2, 'url': 'pages:show|deroulement_des_epreuves'},
-            {'name': 'Règlement', 'parent': 2, 'position': 3, 'url': 'pages:show|reglement'},
-            {'name': 'Les vainqueurs', 'parent': 2, 'position': 4, 'url': 'pages:show|les_vainqueurs'},
-
-            {'name': 'Questionnaires', 'parent': 3, 'position': 1, 'url': 'pages:show|questionnaires'},
-            {'name': 'Exercices machine', 'parent': 3, 'position': 2, 'url': 'pages:show|exercices_machine'},
-
-            {'name': 'Épreuves machines', 'parent': 4, 'position': 1, 'url': 'pages:show|epreuves_machines'},
-            {'name': 'Langages supportés', 'parent': 4, 'position': 2, 'url': 'pages:show|langages_supportes'},
-
-            {'name': 'Photos', 'parent': 6, 'position': 1, 'url': '#'},
-            {'name': 'Vidéos', 'parent': 6, 'position': 2, 'url': '#'},
-            {'name': 'Affiches', 'parent': 6, 'position': 3, 'url': '#'},
-        ]
-        for entry in entries:
-            e = MenuEntry(name=entry['name'], url=entry['url'], parent=None if 'parent' not in entry else entries[entry['parent']]['elem'], position=entry['position'], access='all' if 'access' not in entry else entry['access'])
-            e.save()
-            entry['elem'] = e
+                TeamMember(year=year, role=member, user=User.objects.order_by('?')[0]).save()
 
     def handle(self, *args, **options):
         modules = {
             'users': self.fill_users,
-            'news': self.fill_news,
-            'categories': self.fill_categories,
-            'posts': self.fill_posts,
             'team': self.fill_team,
-            'pages': self.fill_pages,
-            'menu': self.fill_menu,
         }
-        if len(args) < 1:
-            self.stderr.write('Missing parameter.')
-            return
-        if args[0] == 'all':
-            args = ['users', 'news', 'categories', 'posts', 'team', 'menu', 'pages']
+        if len(args) < 1 or args[0] == 'all':
+            args = ['users', 'team']
         for mod in args:
             if mod not in modules:
                 raise CommandError('%s: unknown module' % mod)

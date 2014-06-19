@@ -1,12 +1,7 @@
 {% extends "prologin/base.html" %}
 {% load static %}
-{% block title %}Création d'un nouveau compte utilisateur{% endblock %}
 
-{% load breadcrumbs %}
-{% block breadcrumbs %}
-{% breadcrumb Accueil home %}
-{% breadcrumb "Nouveau compte" %}
-{% endblock %}
+{% block title %}Création d'un nouveau compte utilisateur{% endblock %}
 
 {% block content %}
 <h1>Création d'un nouveau compte utilisateur</h1>
@@ -16,7 +11,7 @@
   {{ errors }}
 </div>
 {% endif %}
-<form method="post" action="{% url 'users:register' %}">
+<form method="post" action="{% url 'users:register' %}?next={{ next }}">
   <fieldset>
     <legend>Informations</legend>
     {% csrf_token %}

@@ -1,11 +1,11 @@
-from team.models import Team, Role
+from team.models import TeamMember, Role
 from django.contrib import admin
 
-class TeamAdmin(admin.ModelAdmin):
-    list_display = ('year', 'username', 'role')
+class TeamMemberAdmin(admin.ModelAdmin):
+    list_display = ('year', 'user', 'role')
 
 class RoleAdmin(admin.ModelAdmin):
-    list_display = ('role', 'rank')
+    list_display = ('name', 'rank')
 
-admin.site.register(Team, TeamAdmin)
+admin.site.register(TeamMember, TeamMemberAdmin)
 admin.site.register(Role, RoleAdmin)

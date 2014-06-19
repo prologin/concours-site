@@ -1,21 +1,21 @@
-# coding=utf-8
+from django.contrib.auth.models import User
 from django.db import models
-from users.models import UserProfile
 
 class Role(models.Model):
     rank = models.IntegerField()
-    role = models.CharField(max_length = 32)
-    def __unicode__(self):
-        return self.role
+    name = models.CharField(max_length=32)
 
-class Team(models.Model):
+    def __str__(self):
+        return self.name
+
+class TeamMember(models.Model):
+    user = models.ForeignKey(User)
     year = models.IntegerField()
-    profile = models.ForeignKey(UserProfile)
     role = models.ForeignKey(Role)
 
     class Meta:
-        verbose_name = 'team'
-        verbose_name_plural = 'team'
+        verbose_name = 'team member'
+        verbose_name_plural = 'team members'
 
-    def username(self):
-        return self.profile.user.username
+    def __str__(self):
+        return self.user.username

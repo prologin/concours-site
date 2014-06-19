@@ -3,10 +3,10 @@ Salut {{ profile.user.username }} !
 Merci de t'être enregistré sur le site de Prologin. Afin de pouvoir te
 connecter, il te faut activer ton compte. Pour cela, il te faut suivre
 le lien suivant :
-https://{% if request.META.HTTP_HOST %}{{ request.META.HTTP_HOST }}{% else %}www.prologin.org{% endif %}{% url 'users:activate' profile.slug token.slug %}
+https://{% if request.META.HTTP_HOST %}{{ request.META.HTTP_HOST }}{% else %}www.prologin.org{% endif %}{% url 'users:activate' profile.user.id token.slug %}
 
 Pour toute question, n'hésite pas à nous contacter en envoyant un
-e-mail à info [at] prologin.org.
+e-mail à info@prologin.org.
 
 --
 L'équipe Prologin

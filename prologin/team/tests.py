@@ -2,8 +2,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.test.client import Client
 from django.test import TestCase
-from users.models import UserProfile
-from team.models import Role, Team
+from team.models import Role, TeamMember
 from prologin.tests import Validator
 
 class TeamTest(TestCase):
@@ -11,10 +10,9 @@ class TeamTest(TestCase):
         self.validator = Validator()
         self.client = Client()
         u = User.objects.create_user('jm', 'joseph.marchand@prologin.org', 'joseph-password')
-        p = UserProfile.objects.get(user_id=u.id)
         r = Role(role="test role", rank=3)
         r.save()
-        t = Team(year=2013, role=r, profile=p)
+        t = TeamMember(year=2013, role=r, user=u)
         t.save()
 
     def test_http_response(self):

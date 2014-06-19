@@ -4,7 +4,6 @@
 ## Requirements
 
 * Python 3
-* The driver corresponding to your SGBDR (psycopg2 for PostgreSQL)
 * Every package from requirements.txt
 
 ## Installing the website
@@ -13,23 +12,8 @@
 * Go to the website directory: `cd site/prologin/`
 * Create the configuration file and _EDIT IT_: `cp prologin/settings.py.example prologin/settings.py` (tip: search for `CHANGEME`)
 * Create the database: `python manage.py syncdb --noinput`
-* Consider loading some data (see below)
+* (optional) Loading some dummy data: `python manage.py fill_db all`
 
-
-## Loading dummy data
-
-In order to test the website, you can load dummy data using `python manage.py fill_db type [type...]`
-`type` can be `all` or n of the following values:
-
-* users
-* news
-* categories
-* posts
-* team
-* menu
-* pages
-
-To avoid dependencies issues, you should always specify `type` in this order. Using `all` is always safe.
 
 ### Default users
 
@@ -47,6 +31,22 @@ Don't put any file in `prologin/static/`. All the static files must be located i
 * If the `settings.py.example` file changed, you may want to adapt your `settings.py` consequently.
 
 
+# Work status
+
+## Functional modules
+
+* prologin
+* team
+* users
+
+## Modules to rewrite
+
+* centers
+* contest
+* documents
+* forum
+* pages
+* problems
 
 # Old readme
 

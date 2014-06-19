@@ -1,0 +1,22 @@
+{% extends "prologin/base.html" %}
+{% load static i18n %}
+
+{% block title %}Création d'un nouveau compte utilisateur{% endblock %}
+
+{% block content %}
+
+<h2>{% trans 'Authentication' %}</h2>
+
+{% if form.errors %}
+<p>{% trans "Your username and password didn't match. Please try again." %}</p>
+{% endif %}
+
+<form method="post" action="{% url 'users:django.contrib.auth.views.login' %}">
+  {% csrf_token %}
+  <input type="hidden" name="next" value="{{ next }}" />
+  {{ form.username.label_tag }} {{ form.username }}<br>
+  {{ form.password.label_tag }} {{ form.password }}<br>
+  <input type="submit" value="{% trans 'Login' %}"><br>
+</form>
+
+{% endblock %}
