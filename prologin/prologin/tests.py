@@ -15,7 +15,12 @@ class Validator():
         return pat.search(soap) != None
 
     def wait(self):
-        sleep(2)
+        """Pause the script so it doesn't flood the W3C Validation Service.
+
+        "Please be considerate in using this shared, free resource. Consider Installing your own instance of the validator for smooth and fast operation. Excessive use of the W3C Validation Service will be blocked."
+        -- http://validator.w3.org/docs/api.html
+        """
+        sleep(1)
 
     def checkHTML(self, html):
         self.wait()

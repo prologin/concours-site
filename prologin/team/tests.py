@@ -10,7 +10,7 @@ class TeamTest(TestCase):
         self.validator = Validator()
         self.client = Client()
         u = User.objects.create_user('jm', 'joseph.marchand@prologin.org', 'joseph-password')
-        r = Role(role="test role", rank=3)
+        r = Role(name="test role", rank=3)
         r.save()
         t = TeamMember(year=2013, role=r, user=u)
         t.save()
@@ -19,9 +19,6 @@ class TeamTest(TestCase):
         """
         Tests the HTTP response.
         """
-        response = self.client.get(reverse('team:index'))
-        self.assertEqual(response.status_code, 302, 'invalid HTTP status code for team:index')
-
         response = self.client.get(reverse('team:year', args=(13,)))
         self.assertEqual(response.status_code, 404, 'invalid HTTP status code for team:year')
 

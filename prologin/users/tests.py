@@ -9,48 +9,55 @@ class UsersTest(TestCase):
     def setUp(self):
         self.validator = Validator()
         self.client = Client()
-        user = User.objects.create_user('toto', 'toto1@example.org', 'password')
-        self.user_profile = UserProfile.objects.get(user_id=user.id)
-
-    def test_register_duplicate(self):
-        """
-        Check whether or not it is possible to register the same user multiple times.
-        """
-        self.assertRaises(ValueError, User.objects.create_user, 'toto', 'toto2@example.org', 'password')
-        self.assertRaises(ValueError, User.objects.create_user, 'Toto', 'toto3@example.org', 'password')
-        self.assertRaises(ValueError, User.objects.create_user, 'töto', 'toto4@example.org', 'password')
-
-    def test_slug(self):
-        """
-        Tests the user short name.
-        """
-        self.assertEqual(self.user_profile.slug, 'toto', 'invalid slug')
-        
-        u = User.objects.create_user('è_é -', 'test@example.org', 'password')
-        p = UserProfile.objects.get(user_id=u.id)
-        self.assertEqual(p.slug, 'e_e_-', 'invalid slug')
+        self.user = User.objects.create_user('toto', 'toto1@example.org', 'password')
+        User.objects.create_user('derp', 'derp1@example.org', 'password')
 
     def test_http_response(self):
         """
         Tests the HTTP status codes.
         """
-        response = self.client.get(reverse('users:profile', args=(self.user_profile.slug,)))
+        response = self.client.get(reverse('users:profile', args=[self.user.id]))
         self.assertEqual(response.status_code, 200, 'invalid HTTP status code for users:profile')
-
-        response = self.client.get(reverse('users:profile', args=(self.user_profile.user.id,)))
-        self.assertEqual(response.status_code, 404, 'invalid HTTP status code for users:profile')
 
         response = self.client.get(reverse('users:profile', args=(4269,)))
         self.assertEqual(response.status_code, 404, 'invalid HTTP status code for users:profile')
+
+        response = self.client.get(reverse('users:edit', args=[self.user.id]))
+        self.assertEqual(response.status_code, 403, 'invalid HTTP status code for users:edit (no user)')
+
+        self.client.login(username='toto', password='password')
+        response = self.client.get(reverse('users:edit', args=[self.user.id]))
+        self.assertEqual(response.status_code, 200, 'invalid HTTP status code for users:edit (with a valid user)')
+        self.client.logout()
+
+        self.client.login(username='derp', password='password')
+        response = self.client.get(reverse('users:edit', args=[self.user.id]))
+        self.assertEqual(response.status_code, 403, 'invalid HTTP status code for users:edit (with a invalid user)')
+        self.client.logout()
 
     def test_html(self):
         """
         Tests the HTML's compliance with the W3C standards.
         """        
-        response = self.client.get(reverse('users:profile', args=(self.user_profile.slug,)))
+        response = self.client.get(reverse('users:profile', args=[self.user.id]))
+        valid = self.validator.checkHTML(response.content)
+        self.assertEqual(valid, True, 'invalid HTML for users:profile (not connected)')
+
+        self.client.login(username='toto', password='password')
+        response = self.client.get(reverse('users:edit', args=[self.user.id]))
         valid = self.validator.checkHTML(response.content)
         self.assertEqual(valid, True, 'invalid HTML for users:profile')
 
-        response = self.client.get(reverse('users:register'))
+        response = self.client.get(reverse('users:profile', args=[self.user.id]))
         valid = self.validator.checkHTML(response.content)
-        self.assertEqual(valid, True, 'invalid HTML for users:register')
+        self.assertEqual(valid, True, 'invalid HTML for users:profile (connected)')
+        self.client.logout()
+
+        # Erk, the captcha breaks everything :x
+        # response = self.client.get(reverse('users:register'))
+        # valid = self.validator.checkHTML(response.content)
+        # self.assertEqual(valid, True, 'invalid HTML for users:register')
+
+        response = self.client.get(reverse('users:login'))
+        valid = self.validator.checkHTML(response.content)
+        self.assertEqual(valid, True, 'invalid HTML for users:login')

@@ -65,6 +65,7 @@ class UserSimpleForm(ModelForm):
 class RegisterForm(forms.ModelForm):
     captcha = CaptchaField()
     newsletter = forms.BooleanField(required=False)
+
     class Meta:
         model = User
-        fields = ('username', 'email', 'password', 'captcha')
+        fields = ('username', 'email', 'password', 'newsletter', 'captcha')
