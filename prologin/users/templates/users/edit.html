@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n %}
+{% load i18n bootstrap %}
 
 {% block title %}{{ usr.username }}{% endblock %}
 
@@ -7,8 +7,8 @@
 <h1>{{ usr.username }}</h1>
 <form method="post">
   {% csrf_token %}
-  {{ user_form }}
-  {{ profile_form }}
+  {{ user_form|bootstrap_horizontal }}
+  {{ profile_form|bootstrap_horizontal }}
   <input type="submit" value="{% trans 'Submit' %}">
 </form>
 {% endblock %}

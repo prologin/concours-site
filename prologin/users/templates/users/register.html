@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load static %}
+{% load static i18n bootstrap%}
 
 {% block title %}Création d'un nouveau compte utilisateur{% endblock %}
 
@@ -12,24 +12,8 @@
 </div>
 {% endif %}
 <form method="post" action="{% url 'users:register' %}?next={{ next }}">
-  <fieldset>
-    <legend>Informations</legend>
-    {% csrf_token %}
-    <div class="row">
-      <div class="col-xs-6"><label>Nom d'utilisateur : {{ register_form.username }}</label></div>
-      <div class="col-xs-6"><label>Email : <input maxlength="75" name="email" type="email" value="{{ autofill.email }}"></label></div>
-      <div class="col-xs-6"><label>Mot de passe : <input name="password" type="password" value="{{ autofill.password }}"></label></div>
-      <div class="col-xs-6"><label>Cochez cette case pour recevoir la newsletter : {{ register_form.newsletter }}</label></div>
-    </div>
-  </fieldset>
-
-  <fieldset>
-    <legend>Captcha</legend>
-    {{ register_form.captcha }}
-  </fieldset>
-
-  <fieldset>
-    <input type="submit" value="Créer le compte">
-  </fieldset>
+  {% csrf_token %}
+  {{ register_form|bootstrap_horizontal }}
+  <input type="submit" value="{% trans 'Register' %}">
 </form>
 {% endblock %}

@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load static i18n %}
+{% load static i18n bootstrap %}
 
 {% block title %}Création d'un nouveau compte utilisateur{% endblock %}
 
@@ -13,9 +13,8 @@
 
 <form method="post" action="{% url 'users:django.contrib.auth.views.login' %}">
   {% csrf_token %}
+  {{ form|bootstrap_horizontal }}
   <input type="hidden" name="next" value="{{ next }}" />
-  {{ form.username.label_tag }} {{ form.username }}<br>
-  {{ form.password.label_tag }} {{ form.password }}<br>
   <input type="submit" value="{% trans 'Login' %}"><br>
 </form>
 
