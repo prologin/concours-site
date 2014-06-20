@@ -1,0 +1,19 @@
+{% if messages %}
+{% for message in messages %}
+
+<!-- Ready for Django 1.7... sorry 1.6 :s -->
+{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+<div class="alert alert-dismissable alert-danger">
+{% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+<div class="alert alert-dismissable alert-warning">
+{% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+<div class="alert alert-dismissable alert-success">
+{% else %}
+<div class="alert alert-dismissable alert-info">
+{% endif %}
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  {{ message }}
+</div>
+
+{% endfor %}
+{% endif %}
