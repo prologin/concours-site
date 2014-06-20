@@ -1,0 +1,14 @@
+{% extends "prologin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ usr.username }}{% endblock %}
+
+{% block content %}
+<h1>{{ usr.username }}</h1>
+<form method="post">
+  {% csrf_token %}
+  {{ user_form }}
+  {{ profile_form }}
+  <input type="submit" value="{% trans 'Submit' %}">
+</form>
+{% endblock %}

@@ -3,6 +3,7 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.dispatch import receiver
+from django.forms import ModelForm
 from django.utils import timezone
 from django.db import models
 from django import forms
@@ -36,13 +37,11 @@ class ActivationToken(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, related_name='profile')
-    slug = models.SlugField(max_length=16, db_index=True)
-    title = models.CharField(max_length=16)
-    address = models.TextField()
-    postal_code = models.CharField(max_length=5)
-    city = models.CharField(max_length=64)
-    country = models.CharField(max_length=64)
-    phone_number = models.CharField(max_length=16)
+    address = models.TextField(blank=True, null=True)
+    postal_code = models.CharField(max_length=5, blank=True, null=True)
+    city = models.CharField(max_length=64, blank=True, null=True)
+    country = models.CharField(max_length=64, blank=True, null=True)
+    phone_number = models.CharField(max_length=16, blank=True, null=True)
     birthday = models.DateField(max_length=64, blank=True, null=True)
     newsletter = models.BooleanField(default=False, blank=True)
 
@@ -52,6 +51,16 @@ class UserProfile(models.Model):
     def send_activation_email(self, token):
         msg = render_to_response('users/activation_email.txt', {'profile': self, 'token': token}).content.decode('utf-8')
         send_mail('Bienvenue sur le site de Prologin', msg, 'noreply@prologin.org', [self.user.email], fail_silently=False)
+
+class UserProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ('address', 'postal_code', 'city', 'country', 'phone_number', 'birthday', 'newsletter')
+
+class UserSimpleForm(ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name', 'last_name')
 
 class RegisterForm(forms.ModelForm):
     captcha = CaptchaField()

@@ -5,7 +5,8 @@
 {% block content %}
 <h1>{{ usr.username }}</h1>
 <div>
-  {% if user.is_staff %}
+  {% if user.id == usr.id or user.is_staff %}
+  <p><a href="{% url 'users:edit' usr.id %}">edit</a></p>
   <dl>
     <dt>Nom :</dt>
     <dd>{{ usr.last_name }}</dd>
