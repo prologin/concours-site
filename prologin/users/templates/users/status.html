@@ -1,11 +1,11 @@
 {% load i18n %}
 
 <ul>
-  {% if user.is_authenticated %}
-  <li><a href="{% url 'users:profile' user.id %}">{% trans 'My profile' %}</a></li>
-  <li><a href="{% url 'users:logout' %}">{% trans 'Logout' %}</a></li>
-  {% else %}
-  <li><a href="{% url 'users:login' %}?next={{ request.get_full_path }}">{% trans 'Login' %}</a></li>
-  <li><a href="{% url 'users:register' %}?next={{ request.get_full_path }}">{% trans 'Register' %}</a></li>
-  {% endif %}
+	{% if user.is_authenticated %}
+	<li><a href="{% url 'users:profile' user.id %}">{% trans "Mon profil" %}</a></li>
+	<li><a href="{% url 'users:logout' %}">{% trans "Déconnexion" %}</a></li>
+	{% else %}
+	<li><a href="{% url 'users:login' %}?next={{ request.get_full_path }}">{% trans "Connexion" %}</a></li>
+	<li><a href="{% url 'users:register' %}?next={{ request.get_full_path }}">{% trans "S'inscrire" %}</a></li>
+	{% endif %}
 </ul>

@@ -1,14 +1,17 @@
 {% extends "prologin/base.html" %}
 {% load i18n bootstrap %}
 
-{% block title %}{{ usr.username }}{% endblock %}
+{% block title %}{% blocktrans with edited_user.username as username %}Modification du profil de {{ username }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
-<h1>{{ usr.username }}</h1>
-<form method="post">
-  {% csrf_token %}
-  {{ user_form|bootstrap_horizontal }}
-  {{ profile_form|bootstrap_horizontal }}
-  <input type="submit" value="{% trans 'Submit' %}">
+<h1>{% blocktrans with edited_user.username as username %}Modification du profil de {{ username }}{% endblocktrans %}</h1>
+<form method="POST" class="form-horizontal">
+	{% csrf_token %}
+	{{ form|bootstrap_horizontal }}
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<input class="btn btn-primary" type="submit" value="{% trans "Enregistrer" %}">
+		</div>
+	</div>
 </form>
 {% endblock %}

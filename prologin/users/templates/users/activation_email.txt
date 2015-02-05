@@ -1,12 +1,19 @@
-Salut {{ profile.user.username }} !
+{% load utils i18n %}
+{% get_setting_var 'PROLOGIN_CONTACT_MAIL' as contactmail %}
+{% autoescape off %}
+{% blocktrans with user.username as username %}
+Salut {{ username }} !
 
-Merci de t'être enregistré sur le site de Prologin. Afin de pouvoir te
-connecter, il te faut activer ton compte. Pour cela, il te faut suivre
+Merci de vous être enregistré sur le site de Prologin. Afin de pouvoir vous
+connecter, il faut activer votre compte. Pour cela, il te suffit de suivre
 le lien suivant :
-https://{% if request.META.HTTP_HOST %}{{ request.META.HTTP_HOST }}{% else %}www.prologin.org{% endif %}{% url 'users:activate' profile.user.id token.slug %}
+
+{{ url }}
 
 Pour toute question, n'hésite pas à nous contacter en envoyant un
-e-mail à info@prologin.org.
+e-mail à {{ contactmail }}
 
 --
 L'équipe Prologin
+{% endblocktrans %}
+{% endautoescape %}

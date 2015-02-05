@@ -4,28 +4,31 @@
 
 {% block content %}
 <div id="team-select-year" class="navbar">
-  <ul class="nav navbar-nav">
-    {% for team in timeline %}
-    <li{% if team.year == year %} class="active"{% endif %}><a href="{% url 'team:year' team.year %}">{{ team.year }}</a></li>
-    {% endfor %}
-  </ul>
+	<ul class="nav navbar-nav">
+		{% for team in timeline %}
+		<li{% if team.year == year %} class="active"{% endif %}><a href="{% url 'team:year' team.year %}">{{ team.year }}</a></li>
+		{% endfor %}
+	</ul>
 </div>
 
 <header class="page-header">
-  <h1>L'équipe {{ year }}</h1>
+	<h1>L'équipe {{ year }}</h1>
 </header>
 
 <div class="row">
-  {% for member in team %}
-  <div class="col-md-3 team-member">
-    <div>
-      <div>
-	<span class="label {% if member.role.rank <= 10 %}label-danger{% else %}label-success{% endif %}">{{ member.role }}</span>
-	<h3>{{ member.user.username }}</h3>
-	<h3>{{ member.user.first_name }} {{ member.user.last_name }}</h3>
-      </div>
-    </div>
-  </div>
-  {% endfor %}
+	{% for member in team %}
+	<div class="col-xs-6 col-md-4">
+		<div class="media team-member">
+			<div class="media-left">
+				<a href="{% url 'users:profile' member.user.pk %}"><img src="http://lorempixel.com/64/64/people/{{ forloop.counter }}" /></a>
+			</div>
+			<div class="media-body">
+				<h4 class="media-heading"><a href="{% url 'users:profile' member.user.pk %}">{{ member.user.username }}</a> {% if member.user.get_full_name %}<small>{{ member.user.get_full_name }}</small>{% endif %}</h4>
+				<p>{{ member.role }}</p>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
 </div>
+
 {% endblock %}

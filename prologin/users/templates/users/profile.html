@@ -1,37 +1,44 @@
 {% extends "prologin/base.html" %}
+{% load i18n %}
 
-{% block title %}{{ usr.username }}{% endblock %}
+{% block title %}{% blocktrans with shown_user.username as username %}Profil de {{ username }}{% endblocktrans %}{% endblock %}
+
 
 {% block content %}
-<h1>{{ usr.username }}</h1>
+{% trans "<em>non renseigné</em>" as noinfo %}
+<h1>{% blocktrans with shown_user.username as username %}Profil de {{ username }}{% endblocktrans %}</h1>
 <div>
-  {% if user.id == usr.id or user.is_staff %}
-  <p><a href="{% url 'users:edit' usr.id %}">edit</a></p>
-  <dl>
-    <dt>Nom :</dt>
-    <dd>{{ usr.last_name }}</dd>
+	{% if user.id == shown_user.id or user.is_staff %}
+	<p><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i class="fa fa-edit"></i> {% trans "Modifier" %}</a></p>
+	<dl>
+		<dt>{% trans "Nom de famille" %}</dt>
+		<dd>{{ shown_user.last_name|default:noinfo }}</dd>
 
-    <dt>Prénom :</dt>
-    <dd>{{ usr.first_name }}</dd>
+		<dt>{% trans "Prénom" %}</dt>
+		<dd>{{ shown_user.first_name|default:noinfo }}</dd>
 
-    <dt>Téléphone :</dt>
-    <dd>{{ usr.profile.phone_number }}</dd>
+		<dt>{% trans "Téléphone" %}</dt>
+		<dd>{{ shown_user.profile.phone_number|default:noinfo }}</dd>
 
-    <dt>Email :</dt>
-    <dd>{{ usr.email }}</dd>
+		<dt>{% trans "Adresse email" %}</dt>
+		<dd>{{ shown_user.email|default:noinfo }}</dd>
 
-    <dt>Date de naissance :</dt>
-    <dd>{% if usr.profile.birthday %}{{ usr.profile.birthday }} ({{ usr.profile.birthday|timesince }}){% endif %}</dd>
+		<dt>{% trans "Date de naissance" %}</dt>
+		<dd>{% if shown_user.profile.birthday %}{{ shown_user.profile.birthday }} ({{ shown_user.profile.birthday|timesince }}){% else %}{{ noinfo }}{% endif %}</dd>
 
-    <dt>Adresse :</dt>
-    <dd>
-      <address>
-	{{ usr.profile.address }}<br>
-	{{ usr.profile.postal_code }} {{ usr.profile.city }}<br>
-	{{ usr.profile.country }}
-      </address>
-      </dd>
-  </dl>
-  {% endif %}
+		<dt>{% trans "Adresse postale" %}</dt>
+		<dd>
+			{% if user.profile.has_partial_address %}
+			<address>
+				{{ shown_user.profile.address }}<br>
+				{{ shown_user.profile.postal_code }} {{ shown_user.profile.city }}<br>
+				{{ shown_user.profile.country }}
+			</address>
+			{% else %}
+			{{ noinfo }}
+			{% endif %}
+			</dd>
+	</dl>
+	{% endif %}
 </div>
 {% endblock %}

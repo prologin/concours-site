@@ -1,19 +1,20 @@
 {% extends "prologin/base.html" %}
 {% load static i18n bootstrap%}
 
-{% block title %}Création d'un nouveau compte utilisateur{% endblock %}
+{% block title %}{% trans "Créer un compte" %}{% endblock %}
 
 {% block content %}
-<h1>Création d'un nouveau compte utilisateur</h1>
+<h1>{% trans "Créer un compte" %}</h1>
 
-{% if errors %}
-<div class="alert alert-danger">
-  {{ errors }}
-</div>
-{% endif %}
-<form method="post" action="{% url 'users:register' %}?next={{ next }}">
-  {% csrf_token %}
-  {{ register_form|bootstrap_horizontal }}
-  <input type="submit" value="{% trans 'Register' %}">
+<p>{% trans "Vous devez choisir un nom d'utilisateur et disposer d'une adresse email valide. Vous recevrez un message à cette adresse pour finaliser votre inscription." %}</p>
+
+<form method="POST" class="form-horizontal" action="{% url 'users:register' %}?next={{ next }}">
+	{% csrf_token %}
+	{{ form|bootstrap_horizontal }}
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<input class="btn btn-primary" type="submit" value="{% trans "S'inscrire" %}">
+		</div>
+	</div>
 </form>
 {% endblock %}

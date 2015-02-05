@@ -1,21 +1,21 @@
 {% extends "prologin/base.html" %}
 {% load static i18n bootstrap %}
 
-{% block title %}Création d'un nouveau compte utilisateur{% endblock %}
+{% block title %}{% trans "Connexion" %}{% endblock %}
 
 {% block content %}
 
-<h2>{% trans 'Authentication' %}</h2>
+<h1>{% trans "Connexion" %}</h1>
 
-{% if form.errors %}
-<p>{% trans "Your username and password didn't match. Please try again." %}</p>
-{% endif %}
-
-<form method="post" action="{% url 'users:django.contrib.auth.views.login' %}">
-  {% csrf_token %}
-  {{ form|bootstrap_horizontal }}
-  <input type="hidden" name="next" value="{{ next }}" />
-  <input type="submit" value="{% trans 'Login' %}"><br>
+<form method="POST" class="form-horizontal">
+	{% csrf_token %}
+	{{ form|bootstrap_horizontal }}
+	<input type="hidden" name="next" value="{{ next }}" />
+	<div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<input class="btn btn-primary" type="submit" value="{% trans "Connexion" %}">
+		</div>
+	</div>
 </form>
 
 {% endblock %}
