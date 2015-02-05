@@ -1,4 +1,3 @@
-import django.contrib.auth
 from django.conf.urls import patterns, url
 from users import views
 
@@ -7,6 +6,6 @@ urlpatterns = patterns('',
     url(r'^(?P<user_id>\d+)/edit/$', views.edit_user, name='edit'),
     url(r'^(?P<pk>\d+)/profile/$', views.ProfileView.as_view(), name='profile'),
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'users/login.html'}, name='login'),
-    url(r'^logout/$', views.logout_view, name='logout'),
+    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
     url(r'^register/$', views.register_view, name='register'),
 )

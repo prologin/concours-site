@@ -1,7 +1,7 @@
 # -*- coding: utf8 -*-
 from django.db import models
 from centers.models import Center
-from django.contrib.auth.models import User
+from django.conf import settings
 
 class Contest(models.Model):
     year = models.IntegerField()
@@ -23,7 +23,7 @@ class Event(models.Model):
         return u'Prologin {0} - {1}'.format(self.contest.year, self.center)
 
 class Contestant(models.Model):
-    user = models.ForeignKey(User)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL)
     event_choices = models.ManyToManyField(Event, related_name='applicants')
     events = models.ManyToManyField(Event)
     def year(self):

@@ -1,71 +1,68 @@
-from django.db.models.signals import post_save
-from django.shortcuts import render_to_response
-from django.contrib.auth.models import User
-from django.core.mail import send_mail
-from django.dispatch import receiver
-from django.forms import ModelForm
-from django.utils import timezone
+from django.conf import settings
+from django.contrib.auth.models import AbstractUser
+from django.core.urlresolvers import reverse
 from django.db import models
-from django import forms
-from captcha.fields import CaptchaField
-from datetime import timedelta
+from django.template.loader import render_to_string
+from django.utils import timezone
+from django.utils.translation import ugettext_lazy as _
 import base64
 import os
 
-@receiver(post_save, sender=User, dispatch_uid='sync_user_profile')
-def sync_user_profile(sender, **kwargs):
-    user = kwargs['instance']
-    if kwargs['created']:
-        profile = UserProfile(user=user)
-        profile.save()
+ACTIVATION_TOKEN_LENGTH = 32
 
-    if not user.is_active:
-        token = ActivationToken(user=user)
-        token.save()
-        user.profile.send_activation_email(token)
+
+class ActivationTokenManager(models.Manager):
+    def create_token(self, user):
+        expiration_date = timezone.now() + settings.USER_ACTIVATION_EXPIRATION
+        slug = base64.urlsafe_b64encode(os.urandom(ACTIVATION_TOKEN_LENGTH))
+        slug = slug[:ACTIVATION_TOKEN_LENGTH].decode('ascii')
+        return ActivationToken(user=user, slug=slug, expiration_date=expiration_date)
+
 
 class ActivationToken(models.Model):
-    user = models.OneToOneField(User)
-    slug = models.SlugField(max_length=32, db_index=True)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    slug = models.SlugField(max_length=ACTIVATION_TOKEN_LENGTH, db_index=True)
     expiration_date = models.DateTimeField()
 
-    def save(self, *args, **kwargs):
-        if not self.id:
-            self.expiration_date = timezone.now() + timedelta(hours=3)
-            self.slug = base64.urlsafe_b64encode(os.urandom(32))[:32].decode('ascii')
-        return super(ActivationToken, self).save(*args, **kwargs)
+    objects = ActivationTokenManager()
 
-class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name='profile')
-    address = models.TextField(blank=True, null=True)
-    postal_code = models.CharField(max_length=5, blank=True, null=True)
-    city = models.CharField(max_length=64, blank=True, null=True)
-    country = models.CharField(max_length=64, blank=True, null=True)
-    phone_number = models.CharField(max_length=16, blank=True, null=True)
-    birthday = models.DateField(max_length=64, blank=True, null=True)
-    newsletter = models.BooleanField(default=False, blank=True)
+    def is_valid(self):
+        return timezone.now() < self.expiration_date
 
-    def __str__(self):
-        return self.user.__str__()
+
+class ProloginUser(AbstractUser):
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = ['email']
+
+    address = models.TextField(blank=True, verbose_name=_("N° et voie"))
+    postal_code = models.CharField(max_length=5, blank=True, verbose_name=_("Code postal"))
+    city = models.CharField(max_length=64, blank=True, verbose_name=_("Ville"))
+    country = models.CharField(max_length=64, blank=True, verbose_name=_("Pays"))
+    phone_number = models.CharField(max_length=16, blank=True, verbose_name=_("Téléphone"))
+    birthday = models.DateField(blank=True, null=True, verbose_name=_("Date de naissance"))
+    newsletter = models.BooleanField(default=False, blank=True, verbose_name=_("Recevoir la newsletter"))
+
+    def has_partial_address(self):
+        return any((self.address, self.city, self.country, self.postal_code))
+
+    def has_complete_address(self):
+        return all((self.address, self.city, self.country, self.postal_code))
+
+    def has_complete_profile(self):
+        return self.has_complete_address() and all((self.phone_number, self.birthday))
 
     def send_activation_email(self, token):
-        msg = render_to_response('users/activation_email.txt', {'profile': self, 'token': token}).content.decode('utf-8')
-        send_mail('Bienvenue sur le site de Prologin', msg, 'noreply@prologin.org', [self.user.email], fail_silently=False)
+        url = 'https://{host}{path}'.format(
+            host=settings.SITE_HOST,
+            path=reverse('users:activate', args=[self.pk, token.slug]))
+        self.email_user(
+            settings.USER_ACTIVATION_MAIL_SUBJECT,
+            render_to_string('users/activation_email.txt', {'user': self, 'token': token, 'url': url}),
+            from_email=settings.PROLOGIN_CONTACT_MAIL,
+            fail_silently=False)
 
-class UserProfileForm(ModelForm):
-    class Meta:
-        model = UserProfile
-        fields = ('address', 'postal_code', 'city', 'country', 'phone_number', 'birthday', 'newsletter')
 
-class UserSimpleForm(ModelForm):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name')
-
-class RegisterForm(forms.ModelForm):
-    captcha = CaptchaField()
-    newsletter = forms.BooleanField(required=False)
-
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password', 'newsletter', 'captcha')
+# Yay, monkey-path that bitch, thank you Django!
+ProloginUser._meta.get_field('email')._unique = True
+ProloginUser._meta.get_field('email').blank = False
+ProloginUser._meta.get_field('email').db_index = True

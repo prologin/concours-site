@@ -1,12 +1,13 @@
 from django.core.urlresolvers import reverse
-from django.contrib.auth.models import User
+from django.contrib.auth.models import get_user_model
 from django.test.client import Client
 from django.test import TestCase
-from users.models import UserProfile
 from prologin.tests import Validator
+
 
 class UsersTest(TestCase):
     def setUp(self):
+        User = get_user_model()
         self.validator = Validator()
         self.client = Client()
         self.user = User.objects.create_user('toto', 'toto1@example.org', 'password')
@@ -38,7 +39,7 @@ class UsersTest(TestCase):
     def test_html(self):
         """
         Tests the HTML's compliance with the W3C standards.
-        """        
+        """
         response = self.client.get(reverse('users:profile', args=[self.user.id]))
         valid = self.validator.checkHTML(response.content)
         self.assertEqual(valid, True, 'invalid HTML for users:profile (not connected)')
