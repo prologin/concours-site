@@ -1,4 +1,4 @@
-{% load static i18n utils navigation %}{% get_current_language as LANGUAGE_CODE %}
+{% load static i18n utils %}{% get_current_language as LANGUAGE_CODE %}
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -35,26 +35,7 @@
 					<span class="icon-bar"></span>
 				</button>
 				<div class="navbar-collapse collapse pull-right">
-					<ul class="nav navbar-nav pull-right">
-						<li class="{% active '^about/' %}"><a href="#">{% trans "Découvrir" %}</a></li>
-						<li><a href="{% active '^train/' %}">{% trans "S'entraîner" %}</a></li>
-						<li><a href="{% active '^forum/' %}">{% trans "Forums" %}</a></li>
-						<li class="sep"><a>&nbsp;</a></li>
-						{% if user.is_authenticated %}
-						<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ user.username }} <span class="caret"></span></a>
-							<ul class="dropdown-menu dropdown-menu-right" role="menu">
-								<li><a href="#"><i class="fa fa-cog"></i> {% trans "Mon compte" %}</a></li>
-								<li class="divider"></li>
-								<li><a href="{% url 'users:logout' %}"><i class="fa fa-power-off"></i> {% trans "Déconnexion" %}</a></li>
-							</ul>
-						</li>
-						{% else %}
-						<li class="{% active 'users:login' %}">
-							<a href="{% url 'users:login' %}?next={{ request.get_full_path }}">{% trans "Connexion" %}</a>
-						</li>
-						{% endif %}
-					</ul>
+					{% include "prologin/main-menu.html" %}
 				</div>
 			</div>
 		</div>

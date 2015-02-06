@@ -1,0 +1,102 @@
+{% extends "prologin/base.html" %}
+{% load i18n static %}
+
+{% block super_title %}{% trans "Prologin, le coucours national d'informatique" %}{% endblock %}
+
+{% block body_class %}homepage{% endblock %}
+
+{% block extra_head %}<link rel="stylesheet" type="text/css" href="{% static 'homepage.css' %}" />{% endblock %}
+
+
+{% block super_content %}
+
+{# Hack for the homepage #}
+	<section class="home-jumbo jumbotron">
+		<div class="container">
+
+			<h1>{% trans "Prologin, le concours national d'informatique." %}</h1>
+			<p>{% trans "Vous avez moins de 21 ans ? Participez à Prologin ! L'inscription est gratuite." %}</p>
+
+			{# timeline #}
+			<div class="htl">
+				<div class="row">
+					<div class="col-sm-offset-2 col-sm-8">
+						<div class="line"></div>
+					</div>
+					{# block-1 #}
+					<div class="col-sm-4">
+						<div class="tl-block active">
+							<div class="row">
+								<div class="col-xs-5 col-sm-12">
+									<h4>Séléction</h4>
+									<p class="date">01 nov. 2014</p>
+								</div>
+								<div class="col-xs-7 col-sm-12">
+									<div class="desc">
+										<p>Un QCM et quatre exercices à résoudre en ligne.</p>
+										<p class="text-center signin"><a href="#" class="btn btn-default">S'inscrire</a></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{# /block-1 #}
+					{# block-2 #}
+					<div class="col-sm-4">
+						<div class="tl-block">
+							<div class="row">
+								<div class="col-xs-5 col-sm-12">
+									<h4>Demi-finale</h4>
+									<p class="date">20 fév. 2015</p>
+								</div>
+								<div class="col-xs-7 col-sm-12">
+									<div class="desc">
+										Une épreuvre papier et des exercices sur machine
+										dans plusieurs grandes villes de France.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{# /block-2 #}
+					{# block-3 #}
+					<div class="col-sm-4">
+						<div class="tl-block">
+							<div class="row">
+								<div class="col-xs-5 col-sm-12">
+									<h4>Finale</h4>
+									<p class="date">26 avril 2015</p>
+								</div>
+								<div class="col-xs-7 col-sm-12">
+									<div class="desc">
+										Développement d'une IA pendant un week-end, à Paris.
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					{# /block-3 #}
+				</div>
+			</div>
+			{# /timeline #}
+		</div>
+	</section>
+
+
+	<div class="container">
+		{% block content %}
+
+		<h1>{% trans "Les dernières news" %}</h1>
+
+		{% for article in articles %}
+
+		<h3><a href="{{ article.get_absolute_url }}" title="{{ article.title }}" rel="bookmark">
+			{{ article.title }}
+		</a></h3>
+
+		{% endfor %}
+
+		{% endblock content %}
+	</div>
+
+	{% endblock super_content %}
