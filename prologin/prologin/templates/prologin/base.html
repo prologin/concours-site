@@ -15,10 +15,10 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'prologin.css' %}" />
 	{% block extra_head %}{% endblock %}
 </head>
-<body>
+<body class="{% block body_class %}{% endblock %}">
 
 	{# Header #}
-
+	{% block super_header %}
 	<div class="navbar-header">
 		<div class="navbar navbar-default">
 		<div class="container">
@@ -51,7 +51,7 @@
 						</li>
 						{% else %}
 						<li class="{% active 'users:login' %}">
-							<a href="{% url 'users:login' %}?next={{ request.path }}">{% trans "Connexion" %}</a>
+							<a href="{% url 'users:login' %}?next={{ request.get_full_path }}">{% trans "Connexion" %}</a>
 						</li>
 						{% endif %}
 					</ul>
@@ -59,7 +59,10 @@
 			</div>
 		</div>
 	</div>
+	{% endblock super_header %}
 
+	{% block super_content %}
+	{# Content #}
 	<div class="container">
 		{# {% block breadcrumbs %}<li></li>{% endblock %} #}
 
@@ -67,7 +70,9 @@
 
 		{% block content %}{% endblock %}
 	</div>
+	{% endblock super_content %}
 
+	{# Footer #}
 	<footer>
 		<div class="container">
 			Copyright &copy; 1998-{% now 'Y' %}

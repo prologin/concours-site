@@ -358,3 +358,10 @@ h2 {
 a, a:visited {
     color: #33449d;
 }
+
+/*
+ * Misc
+ */
+.align-left {
+    text-align: left;
+}

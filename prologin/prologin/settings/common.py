@@ -24,6 +24,7 @@ TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
 
 # Application definition
 
@@ -33,17 +34,25 @@ INSTALLED_APPS = (
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
+    'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
     # Vendor
+    'mptt',
+    'tagging',
     'bootstrapform',
 
     # Prologin
     'captcha',
+    'homepage',
+    'news',
     'prologin',
     'team',
     'users',
+
+    # Vendor (for overwriting)
+    'zinnia',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -63,7 +72,8 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.tz',
     'django.core.context_processors.request',
-    'django.contrib.messages.context_processors.messages'
+    'django.contrib.messages.context_processors.messages',
+    'zinnia.context_processors.version',
 )
 
 ROOT_URLCONF = 'prologin.urls'
@@ -101,8 +111,9 @@ MEDIA_URL = '/media/'
 # Authentication
 AUTH_USER_MODEL = 'users.ProloginUser'
 LOGIN_URL = reverse_lazy('users:login')
-LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = reverse_lazy('users:logout')
+LOGIN_REDIRECT_URL = '/'
+
 
 # Prologin specific
 SITE_HOST = 'www.prologin.org'
@@ -110,3 +121,16 @@ PROLOGIN_CONTACT_MAIL = "info@prologin.org"
 PROLOGIN_EDITION = 2015
 USER_ACTIVATION_MAIL_SUBJECT = _("Activez votre compte Prologin")
 USER_ACTIVATION_EXPIRATION = datetime.timedelta(hours=12)
+
+
+# Zinnia (news)
+HOMEPAGE_ARTICLES = 3
+ZINNIA_ENTRY_BASE_MODEL = 'news.models.NewsEntry'
+ZINNIA_FEEDS_FORMAT = 'atom'
+ZINNIA_FEEDS_MAX_ITEMS = 20
+ZINNIA_MAIL_COMMENT_AUTHORS = False
+ZINNIA_MARKUP_LANGUAGE = 'markdown'
+ZINNIA_PING_DIRECTORIES = ()
+ZINNIA_PING_EXTERNAL_URLS = False
+ZINNIA_PROTOCOL = 'https'
+ZINNIA_SAVE_PING_DIRECTORIES = False

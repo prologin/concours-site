@@ -2,12 +2,11 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import PermissionDenied
-from django.core.exceptions import SuspiciousOperation
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.detail import DetailView
-import users.models
 import users.forms
+import users.models
 
 
 class ProfileView(DetailView):
