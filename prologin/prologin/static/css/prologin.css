@@ -81,7 +81,10 @@ footer a .fa.fa-inverse {
 footer a:hover .fa.fa-inverse {
     color: #efefef;
 }
-
+footer a.social,
+footer a.social:hover {
+    text-decoration: none;
+}
 footer .legal {
     margin: 10px 0;
     font-size: 0.8em;

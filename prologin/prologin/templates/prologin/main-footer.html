@@ -18,20 +18,20 @@
 			<li><a href="#TODO">{% trans "Règlement" %}</a></li>
 		</ul>
 		<h3>{% trans "Suivez-nous !" %}</h3>
-		<a href="{% url 'zinnia:entry_latest_feed' %}" title="{% trans "Flux Atom de news Prologin" %}">
+		<a href="{% url 'zinnia:entry_latest_feed' %}" title="{% trans "Flux Atom de news Prologin" %}" class="social">
 			<span class="fa-stack fa-lg">
 				<i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
 				<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
 			</span>
 		</a>
 		{# social shit #}
-		<a href="https://www.facebook.com/prologin" title="{% trans "Prologin sur Facebook" %}">
+		<a href="https://www.facebook.com/prologin" title="{% trans "Prologin sur Facebook" %}" class="social">
 			<span class="fa-stack fa-lg">
 				<i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
 				<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
 			</span>
 		</a>
-		<a href="https://www.twitter.com/prologin" title="{% trans "Prologin sur Twitter" %}">
+		<a href="https://www.twitter.com/prologin" title="{% trans "Prologin sur Twitter" %}" class="social">
 			<span class="fa-stack fa-lg">
 				<i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
 				<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
@@ -39,7 +39,7 @@
 		</a>
 	</div>
 </div>
-
+{% comment %}
 <div class="legal">
 	<p>
 		Copyright &copy; 2000-{% now 'Y' %} {% trans "Prologin est une association de loi 1901 enregistrée au journal officiel du 08/04/2000." %}
@@ -47,3 +47,4 @@
 		{% trans "Siège social : 14-16, rue Voltaire 94270, Le Kremlin-Bicêtre" %}
 	</p>
 </div>
+{% endcomment %}
