@@ -1,102 +1,74 @@
 {% extends "prologin/base.html" %}
-{% load i18n static %}
+{% load i18n static news_tags %}
 
-{% block super_title %}{% trans "Prologin, le coucours national d'informatique" %}{% endblock %}
+{% block super_title %}{% trans "Prologin, le concours national d'informatique" %}{% endblock %}
 
 {% block body_class %}homepage{% endblock %}
 
-{% block extra_head %}<link rel="stylesheet" type="text/css" href="{% static 'homepage.css' %}" />{% endblock %}
-
+{% block extra_head %}<link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}" />{% endblock %}
 
 {% block super_content %}
+{% include "homepage/jumbotron.html" %}
 
-{# Hack for the homepage #}
-	<section class="home-jumbo jumbotron">
-		<div class="container">
+<div class="container">
 
-			<h1>{% trans "Prologin, le concours national d'informatique." %}</h1>
-			<p>{% trans "Vous avez moins de 21 ans ? Participez à Prologin ! L'inscription est gratuite." %}</p>
+	{% include "prologin/messages.html" %}
 
-			{# timeline #}
-			<div class="htl">
-				<div class="row">
-					<div class="col-sm-offset-2 col-sm-8">
-						<div class="line"></div>
-					</div>
-					{# block-1 #}
-					<div class="col-sm-4">
-						<div class="tl-block active">
-							<div class="row">
-								<div class="col-xs-5 col-sm-12">
-									<h4>Séléction</h4>
-									<p class="date">01 nov. 2014</p>
-								</div>
-								<div class="col-xs-7 col-sm-12">
-									<div class="desc">
-										<p>Un QCM et quatre exercices à résoudre en ligne.</p>
-										<p class="text-center signin"><a href="#" class="btn btn-default">S'inscrire</a></p>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					{# /block-1 #}
-					{# block-2 #}
-					<div class="col-sm-4">
-						<div class="tl-block">
-							<div class="row">
-								<div class="col-xs-5 col-sm-12">
-									<h4>Demi-finale</h4>
-									<p class="date">20 fév. 2015</p>
-								</div>
-								<div class="col-xs-7 col-sm-12">
-									<div class="desc">
-										Une épreuvre papier et des exercices sur machine
-										dans plusieurs grandes villes de France.
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					{# /block-2 #}
-					{# block-3 #}
-					<div class="col-sm-4">
-						<div class="tl-block">
-							<div class="row">
-								<div class="col-xs-5 col-sm-12">
-									<h4>Finale</h4>
-									<p class="date">26 avril 2015</p>
-								</div>
-								<div class="col-xs-7 col-sm-12">
-									<div class="desc">
-										Développement d'une IA pendant un week-end, à Paris.
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					{# /block-3 #}
-				</div>
-			</div>
-			{# /timeline #}
+	{% block content %}
+
+	<div class="row">
+	<div class="col-sm-9">
+	<h1>{% trans "Les dernières news" %}</h1>
+
+	{% for article in articles %}
+
+	<section clas="news-entry">
+		<h3><a href="{{ article.get_absolute_url }}" title="{{ article.title }}" rel="bookmark">{{ article.title }}</a></h3>
+		<div class="entry-meta-line">
+			<p class="entry-info">
+				{% with authors=article.authors.all %}
+				{% if authors|length %}
+				{% trans "Written by" %}
+				{% for author in authors %}
+				<span class="vcard author">
+					<a href="{{ author.get_absolute_url }}" class="fn url{% if not author.get_full_name %} nickname{% endif %}" rel="author"
+					title="{% blocktrans %}Show all {{ author }}'s entries{% endblocktrans %}">{{ author }}</a></span>{% if not forloop.last %}, {% endif %}
+					{% endfor %}
+					{% trans "on" %}
+					{% else %}
+					{% trans "Written on" %}
+					{% endif %}
+					{% endwith %}
+					<abbr class="published" title="{{ article.creation_date|date:"c" }}">{{ article.creation_date|date:"DATE_FORMAT" }}</abbr>
+					{% if article.within_series %}
+					{% url 'dolweb.blog.views.series_index' uid=article.within_series.pk as series_url %}
+					{% blocktrans with url=series_url name=article.within_series.name %}/ Part of series <a href="{{ url }}">{{ name}}</a>{% endblocktrans %}
+					{% endif %}
+					{% if article.forum_thread %}/ <i class="icon-comments"></i> <a href="{{ article.forum_thread.get_absolute_url }}" title="{% trans "Visit forum thread for this article" %}">{% trans "Forum thread" %}</a>{% endif %}
+			</p>
+		</div>
+		<div class="entry-content">
+			{{ article.html_content|cuthere_excerpt|safe }}
+			<p><a href="{{ article.get_absolute_url }}#cuthere">{% trans "<i class='fa fa-angle-double-right'></i> Lire la suite" %}</a></p>
 		</div>
 	</section>
 
-
-	<div class="container">
-		{% block content %}
-
-		<h1>{% trans "Les dernières news" %}</h1>
-
-		{% for article in articles %}
-
-		<h3><a href="{{ article.get_absolute_url }}" title="{{ article.title }}" rel="bookmark">
-			{{ article.title }}
-		</a></h3>
-
-		{% endfor %}
-
-		{% endblock content %}
+	{% endfor %}
 	</div>
 
-	{% endblock super_content %}
+	<div class="col-sm-3">
+		<h2>{% trans "Plus d'infos" %}</h2>
+		<ul class="nav">
+			<li><a href="#TODO">{% trans "L'association Prologin" %}</a></li>
+			<li><a href="#TODO">{% trans "Comment participer ?" %}</a></li>
+		</ul>
+
+		{% include "homepage/sponsors.html" %}
+	</div>
+
+	</div>
+
+	{% endblock content %}
+</div>
+
+{% endblock super_content %}

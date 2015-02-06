@@ -39,9 +39,10 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
 
     # Vendor
+    'bootstrapform',
+    'macros',
     'mptt',
     'tagging',
-    'bootstrapform',
 
     # Prologin
     'captcha',

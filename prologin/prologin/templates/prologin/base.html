@@ -12,7 +12,20 @@
 	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
 
 	{# Custom #}
-	<link rel="stylesheet" type="text/css" href="{% static 'prologin.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/prologin.css' %}" />
+
+    <meta name="description" content="{% block "meta_descr" %}{% endblock %}">
+
+    <meta property="og:title" content="Prologin" />
+    <meta property="og:type" content="product" />
+    <meta property="og:image" content="" />
+    <meta property="og:site_name" content="Prologin" />
+    <meta property="fb:admins" content="" />
+
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" />
+
+    <link rel="alternate" type="application/atom+xml" title="{% trans "Latest blog articles" %}" href="{% url 'zinnia:entry_latest_feed' %}" />
+
 	{% block extra_head %}{% endblock %}
 </head>
 <body class="{% block body_class %}{% endblock %}">
@@ -24,7 +37,7 @@
 		<div class="container">
 				<div class="navbar-brand">
 					<a href="{% url 'home' %}">
-						<img src="{% static 'logo_cube_small.png' %}" alt="Prologin">
+						<img src="{% static 'img/logo_cube.png' %}" width="50" height="53" alt="Prologin">
 						Prologin
 						<small>{% get_setting 'PROLOGIN_EDITION' %}</small>
 					</a>
@@ -47,7 +60,7 @@
 	<div class="container">
 		{# {% block breadcrumbs %}<li></li>{% endblock %} #}
 
-		{% include 'prologin/messages.html' %}
+		{% include "prologin/messages.html" %}
 
 		{% block content %}{% endblock %}
 	</div>
@@ -56,9 +69,7 @@
 	{# Footer #}
 	<footer>
 		<div class="container">
-			Copyright &copy; 1998-{% now 'Y' %}
-			{% trans "Prologin, le Concours National d'Informatique." %}<br>
-			<a href="#TODO">{% trans "Mentions légales" %}</a>
+			{% include "prologin/main-footer.html" %}
 		</div>
 	</footer>
 

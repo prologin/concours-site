@@ -79,8 +79,8 @@ class Command(BaseCommand):
             cat.save()
             categories.append(cat)
         for i in range(20):
-            title = lorem_ipsum.words(random.randint(6, 12), False).title()
-            content = "\n\n".join(lorem_ipsum.paragraphs(random.randint(3, 7), False))
+            title = lorem_ipsum.words(random.randint(4, 8), False).title()
+            content = "\n\n".join(lorem_ipsum.paragraphs(random.randint(2, 5), False))
             entry = zinnia.models.entry.Entry(
                 status=PUBLISHED, title=title, slug=slugify(title), content=content)
             entry.save()

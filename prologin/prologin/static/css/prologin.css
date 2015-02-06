@@ -6,7 +6,7 @@
 html, body {
     margin: 0;
     padding: 0;
-    background-color: #f1f2f2;
+    background-color: white;
     font-family: 'Roboto', Helvetica, Arial, sans-serif;
     font-weight: 300;
     font-size: 1em;
@@ -14,6 +14,7 @@ html, body {
     text-rendering: optimizelegibility;
 }
 
+/*
 html {
     position: relative;
     min-height: 100%;
@@ -22,6 +23,7 @@ html {
 body {
     margin: 0 0 150px;
 }
+*/
 
 .main-row {
     margin-right: 0;
@@ -46,18 +48,46 @@ body {
 }
 
 footer {
+    /*
     position: absolute;
     left: 0;
     bottom: 0;
     width: 100%;
     height: 120px;
+    */
+    margin-top: 30px;
     padding: 30px;
-    color: #ededed;
-    font-size: 0.8em;
-    background: url('footer.png') repeat;
+    color: #efefef;
+    background: url('../img/footer.png') repeat;
 }
 
+footer h3 {
+    font-size: 1em;
+}
 
+footer .nav > li > a {
+    padding: 5px 15px;
+}
+
+footer a,
+footer a:visited {
+    color: #ccc;
+    font-size: 0.9em;
+}
+
+footer a .fa.fa-inverse {
+    color: #ccc;
+}
+footer a:hover .fa.fa-inverse {
+    color: #efefef;
+}
+
+footer .legal {
+    margin: 10px 0;
+    font-size: 0.8em;
+    text-align: center;
+    font-variant: small-caps;
+}
 /*
  * Header
  */
@@ -364,4 +394,9 @@ a, a:visited {
  */
 .align-left {
     text-align: left;
+}
+
+.sponsor {
+    width: 100%;
+    max-width: 220px;
 }

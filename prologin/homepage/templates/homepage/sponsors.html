@@ -1,0 +1,16 @@
+{% load i18n macros static %}
+
+{% macro sponsor url icon name %}
+	<div class="col-xs-6 col-sm-12">
+		<a href="{{ url }}" title="{{ name }}"><img alt="{{ name }}" src="{% static icon %}" class="sponsor" /></a>
+	</div>
+{% endmacro %}
+
+<h2>{% trans "Partenaires" %}</h2>
+<div class="row">
+{% usemacro sponsor "http://www.education.gouv.fr/" "img/ministere-education.png" "Éducation Nationale" %}
+{% usemacro sponsor "http://delegation.internet.gouv.fr/" "img/delegation-internet.png" "Délégation Internet" %}
+{% usemacro sponsor "http://www.epita.fr/" "img/epita.jpg" "EPITA" %}
+{% usemacro sponsor "http://www.polytechnique.fr/" "img/polytechnique.jpg" "École Polytechnique" %}
+{% usemacro sponsor "http://www.upmc.fr/" "img/upmc.png" "UPMC" %}
+</div>
