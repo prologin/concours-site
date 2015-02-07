@@ -10,6 +10,8 @@ import os
 # openssl rand 64 -base64 | sed "s/[/10lO#+=]//g" | tr -d "\n"; echo
 SECRET_KEY = 'CHANGEME'
 
+ALLOWED_HOSTS = ['127.0.0.1']
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 

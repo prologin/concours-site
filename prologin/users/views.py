@@ -5,6 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.shortcuts import redirect, render, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.detail import DetailView
+import django.contrib.auth.forms
 import users.forms
 import users.models
 
@@ -13,6 +14,12 @@ class ProfileView(DetailView):
     model = get_user_model()
     context_object_name = 'shown_user'
     template_name = 'users/profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        shown_user = self.get_object()
+        context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
+        return context
 
 
 def register_view(request):
@@ -72,7 +79,8 @@ def activate(request, user_id, code):
 def edit_user(request, user_id):
     edited_user = get_object_or_404(get_user_model(), pk=user_id)
 
-    if not request.user.is_staff and request.user != edited_user:
+    as_staff = request.user != edited_user
+    if not request.user.is_staff and as_staff:
         raise PermissionDenied()
 
     user_form = users.forms.UserSimpleForm(data=request.POST or None, instance=edited_user)
@@ -83,4 +91,26 @@ def edit_user(request, user_id):
             messages.success(request, _("Modifications enregistrées."))
             return redirect('users:edit', user_id=edited_user.pk)
 
-    return render(request, 'users/edit.html', {'edited_user': edited_user, 'form': user_form})
+    return render(request, 'users/edit.html', {'edited_user': edited_user, 'form': user_form, 'as_staff': as_staff})
+
+
+def edit_user_password(request, user_id):
+    edited_user = get_object_or_404(get_user_model(), pk=user_id)
+
+    form_cls = django.contrib.auth.forms.PasswordChangeForm
+    as_staff = False
+    if request.user != edited_user:
+        if not request.user.is_staff:
+            raise PermissionDenied()
+        as_staff = True
+        form_cls = django.contrib.auth.forms.AdminPasswordChangeForm
+
+    form = form_cls(data=request.POST or None, user=edited_user)
+
+    if request.method == 'POST':
+        if form.is_valid():
+            form.save()
+            messages.success(request, _("Mot de passe modifié."))
+            return redirect('users:edit', user_id=edited_user.pk)
+
+    return render(request, 'users/edit_password.html', {'edited_user': edited_user, 'form': form, 'as_staff': as_staff})

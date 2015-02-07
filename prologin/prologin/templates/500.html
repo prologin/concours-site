@@ -1,0 +1,10 @@
+{% extends "_error_base.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}{% with 500 as number %}{{ block.super }}{% endwith %}{% endblock %}
+{% block title       %}{% with 500 as number %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block explanation %}
+<p>{% trans "Une erreur interne au serveur est survenue. Notre équipe a été prévenue de l'incident." %}</p>
+<p>{% trans "Merci de réessayer plus tard." %}</p>
+{% endblock %}

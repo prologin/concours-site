@@ -5,8 +5,11 @@ from django.contrib.sites.models import Site
 from django.contrib.webdesign import lorem_ipsum
 from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
+from django.utils import timezone
+from tagging.models import Tag
 from team.models import Role, TeamMember
 from zinnia.managers import PUBLISHED
+import datetime
 import itertools
 import random
 import zinnia.models
@@ -66,26 +69,32 @@ class Command(BaseCommand):
 
     def fill_news(self):
         site = Site.objects.get()
-        User = get_user_model()
-        users = list(User.objects.all())
+        users = list(zinnia.models.author.Author.objects.all())
         random.shuffle(users)
         users = itertools.cycle(users)
         zinnia.models.category.Category.objects.all().delete()
         zinnia.models.entry.Entry.objects.all().delete()
+        Tag.objects.all().delete()
         category_names = ["Annonce", "Nouveauté", "Sponsors", "Communauté"]
-        categories = []
-        for category in category_names:
-            cat = zinnia.models.category.Category(title=category, slug=slugify(category))
-            cat.save()
-            categories.append(cat)
+        categories = [
+            zinnia.models.category.Category(title=category, slug=slugify(category))
+            for category in category_names
+        ]
+        for category in categories:  # bulk_create() fails
+            category.save()
+        tags = ['tech', 'meta', 'team', 'forums', 'qcm', 'sélections', 'régionales', 'finale']
         for i in range(20):
             title = lorem_ipsum.words(random.randint(4, 8), False).title()
             content = "\n\n".join(lorem_ipsum.paragraphs(random.randint(2, 5), False))
+            pubdate = timezone.now() + datetime.timedelta(days=random.randint(-30, 30))
             entry = zinnia.models.entry.Entry(
-                status=PUBLISHED, title=title, slug=slugify(title), content=content)
+                status=PUBLISHED, title=title, slug=slugify(title), content=content,
+                creation_date=pubdate)
             entry.save()
             entry.sites.add(site)
             entry.categories.add(*random.sample(categories, random.randint(0, 2)))
+            entry.authors.add(next(users))
+            entry.tags = ' '.join(random.sample(tags, random.randint(0, 3)))
             entry.save()
 
     def handle(self, *args, **options):

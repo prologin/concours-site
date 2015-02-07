@@ -1,5 +1,11 @@
 {% extends "prologin/base.html" %}
-{% load static i18n bootstrap%}
+{% load static i18n bootstrap %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Créer un compte" "users:register" %}
+{% endblock breadcrumbs %}
 
 {% block title %}{% trans "Créer un compte" %}{% endblock %}
 

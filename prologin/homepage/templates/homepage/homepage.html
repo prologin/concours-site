@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n static news_tags %}
+{% load i18n static zinnia news_tags %}
 
 {% block super_title %}{% trans "Prologin, le concours national d'informatique" %}{% endblock %}
 
@@ -22,9 +22,9 @@
 
 	{% for article in articles %}
 
-	<section clas="news-entry">
+	<section class="news-entry">
 		<h3><a href="{{ article.get_absolute_url }}" title="{{ article.title }}" rel="bookmark">{{ article.title }}</a></h3>
-		<div class="entry-meta-line">
+		<div class="entry-meta-line text-muted">
 			<p class="entry-info">
 				{% with authors=article.authors.all %}
 				{% if authors|length %}
@@ -40,16 +40,14 @@
 					{% endif %}
 					{% endwith %}
 					<abbr class="published" title="{{ article.creation_date|date:"c" }}">{{ article.creation_date|date:"DATE_FORMAT" }}</abbr>
-					{% if article.within_series %}
-					{% url 'dolweb.blog.views.series_index' uid=article.within_series.pk as series_url %}
-					{% blocktrans with url=series_url name=article.within_series.name %}/ Part of series <a href="{{ url }}">{{ name}}</a>{% endblocktrans %}
-					{% endif %}
-					{% if article.forum_thread %}/ <i class="icon-comments"></i> <a href="{{ article.forum_thread.get_absolute_url }}" title="{% trans "Visit forum thread for this article" %}">{% trans "Forum thread" %}</a>{% endif %}
+				{% for tag in article.tags_list %}
+					<a href="{% url 'zinnia:tag_detail' tag %}"><span class="label label-default">{{ tag }}</span></a>
+				{% endfor %}
 			</p>
 		</div>
 		<div class="entry-content">
 			{{ article.html_content|cuthere_excerpt|safe }}
-			<p><a href="{{ article.get_absolute_url }}#cuthere">{% trans "<i class='fa fa-angle-double-right'></i> Lire la suite" %}</a></p>
+			<p><i class='fa fa-angle-double-right'></i> <a href="{{ article.get_absolute_url }}#cuthere">{% trans "Lire la suite" %}</a></p>
 		</div>
 	</section>
 

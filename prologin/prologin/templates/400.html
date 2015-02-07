@@ -1,0 +1,9 @@
+{% extends "_error_base.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}{% with 400 as number %}{{ block.super }}{% endwith %}{% endblock %}
+{% block title       %}{% with 400 as number %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block explanation %}
+<p>{% trans "La requête que vous avez formulée est invalide." %}</p>
+{% endblock %}

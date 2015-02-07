@@ -1,4 +1,6 @@
-{% load static i18n utils %}{% get_current_language as LANGUAGE_CODE %}
+{% load static i18n utils %}
+{% load django_bootstrap_breadcrumbs %}
+{% get_current_language as LANGUAGE_CODE %}
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -58,11 +60,18 @@
 	{% block super_content %}
 	{# Content #}
 	<div class="container">
-		{# {% block breadcrumbs %}<li></li>{% endblock %} #}
+		{% block breadcrumbs %}
+			{% clear_breadcrumbs %}
+			{% breadcrumb "Prologin" "home" %}
+		{% endblock %}
+
+		{% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
 
 		{% include "prologin/messages.html" %}
 
-		{% block content %}{% endblock %}
+		{% block content %}
+
+		{% endblock %}
 	</div>
 	{% endblock super_content %}
 

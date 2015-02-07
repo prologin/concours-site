@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 class UserSimpleForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'address', 'postal_code', 'city', 'country', 'phone_number', 'birthday', 'newsletter')
+        fields = ('first_name', 'last_name', 'email', 'address', 'postal_code', 'city', 'country', 'phone_number', 'birthday', 'newsletter')
 
 
 class RegisterForm(forms.ModelForm):

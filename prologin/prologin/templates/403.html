@@ -1,0 +1,9 @@
+{% extends "_error_base.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}{% with 403 as number %}{{ block.super }}{% endwith %}{% endblock %}
+{% block title       %}{% with 403 as number %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block explanation %}
+<p>{% trans "Vous n'avez pas l'autorisation d'accéder à cette page." %}</p>
+{% endblock %}

@@ -1,0 +1,9 @@
+{% extends "_error_base.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}{% with 404 as number %}{{ block.super }}{% endwith %}{% endblock %}
+{% block title       %}{% with 404 as number %}{{ block.super }}{% endwith %}{% endblock %}
+
+{% block explanation %}
+<p>{% trans "La page demandée n'existe pas ou a été supprimée." %}</p>
+{% endblock %}

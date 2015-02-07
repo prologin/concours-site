@@ -1,0 +1,4 @@
+{% load i18n %}
+{% if as_staff %}
+<p class="alert alert-warning">{% trans "Attention, vous modifiez les informations d'un utilisateur tiers, en tant que membre de l'équipe." %}</p>
+{% endif %}

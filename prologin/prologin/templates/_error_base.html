@@ -1,0 +1,20 @@
+{% extends "prologin/base.html" %}
+{% load i18n django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb_for "" %}
+		{% blocktrans %}Erreur {{ number }}{% endblocktrans %}
+	{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block content %}
+
+<h1>{% block title %}{% blocktrans %}Erreur {{ number }}{% endblocktrans %}{% endblock %}</h1>
+
+{% block explanation %}{% endblock %}
+
+{% url 'home' as url %}
+<p>{% blocktrans %}Vous pouvez retourner <a href="{{url}}">à l'accueil</a>.{% endblocktrans %}</p>
+
+{% endblock %}

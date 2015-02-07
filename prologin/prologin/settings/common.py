@@ -40,6 +40,8 @@ INSTALLED_APPS = (
 
     # Vendor
     'bootstrapform',
+    'django_bootstrap_breadcrumbs',
+    'django_comments',
     'macros',
     'mptt',
     'tagging',
@@ -126,6 +128,7 @@ USER_ACTIVATION_EXPIRATION = datetime.timedelta(hours=12)
 
 # Zinnia (news)
 HOMEPAGE_ARTICLES = 3
+ZINNIA_AUTO_CLOSE_COMMENTS_AFTER = 0  # disable comments
 ZINNIA_ENTRY_BASE_MODEL = 'news.models.NewsEntry'
 ZINNIA_FEEDS_FORMAT = 'atom'
 ZINNIA_FEEDS_MAX_ITEMS = 20

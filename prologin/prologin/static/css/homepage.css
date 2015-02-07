@@ -32,9 +32,27 @@
 		background-position: right center !important;
 	}
 
+	.home-jumbo .tl-block .date {
+		position: relative;
+		display: block;
+	}
+
+	.home-jumbo .tl-block:not(.last) .date:after {
+		content: "\f103";
+		font-family: 'FontAwesome';
+		font-size: 1.7em;
+		width: 100%;
+		text-align: right;
+		left: 0;
+		right: 0;
+		position: absolute;
+		padding: 0.7em 20px 0 0;
+	}
+
 	.home-jumbo .tl-block {
 		text-align: right !important;
 		margin: 0 0 1em 0 !important;
+		min-height: 6.5em;
 	}
 	.home-jumbo .tl-block .desc {
 		margin: 0 !important;
@@ -57,6 +75,14 @@
 	top: 0;
 	width: 100%;
 	margin-top: 57px;
+}
+.home-jumbo .line > i {
+	position: absolute;
+	top: -10px;
+	margin-left: -26px;
+	font-size: 26px;
+	padding: 0 6px;
+	color: #7389AE;
 }
 
 .home-jumbo .tl-block {
