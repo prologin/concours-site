@@ -1,9 +1,9 @@
-# coding=utf-8
-from django.template import Context, loader
 from centers.models import Center
 from django.http import HttpResponse
+from django.template import Context, loader
 from geopy import geocoders
 import json
+
 
 def index(request):
     cities = [_['city'] for _ in Center.objects.filter(is_active=True).values('city').distinct()]
@@ -12,6 +12,7 @@ def index(request):
         'cities': cities,
     })
     return HttpResponse(t.render(c))
+
 
 def genjson(request, city):
     if city:
@@ -26,6 +27,7 @@ def genjson(request, city):
         d["lng"] = str(d["lng"])
         centersList.append(d)
     return HttpResponse(json.dumps(centersList), mimetype='application/json')
+
 
 def geocode(request):
     g = geocoders.Google()
