@@ -3,7 +3,7 @@
 	<div class="container">
 
 		<h1>{% trans "Prologin, le concours national d'informatique." %}</h1>
-		<p>{% trans "Vous avez moins de 21 ans&nbsp;? Participez à Prologin&nbsp;! L'inscription est gratuite." %}</p>
+		<p>{% blocktrans %}Vous êtes né en {{ born_year }} ou après&nbsp;? Participez à Prologin&nbsp;! L'inscription est gratuite.{% endblocktrans %}</p>
 
 		{# timeline #}
 		<div class="htl">
@@ -27,6 +27,11 @@
 									<p>Un QCM et quatre exercices, à résoudre en ligne.</p>
 									{% if not user.is_authenticated %}
 									<p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block">S'inscrire</a></p>
+									{% else %}
+									<ul class="list-unstyled checklist hide-no-active">
+										<li class="text-success"><a href="#QCM"><i class="fa fa-check-square-o"></i> QCM soumis</a></li>
+										<li class="text-danger"><a href="#EXOS"><i class="fa fa-square-o"></i> 1/4 exercices terminés</a></li>
+									</ul>
 									{% endif %}
 								</div>
 							</div>
@@ -44,7 +49,8 @@
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
-									Une épreuve papier et des exercices sur machine dans plusieurs grandes villes de France.
+									<p>Une épreuve papier et des exercices sur machine dans plusieurs grandes villes de France.</p>
+									<p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "S'entraîner" %}</a></p>
 								</div>
 							</div>
 						</div>
@@ -61,7 +67,8 @@
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
-									Développement d'une IA pendant un week-end, à Paris.
+									<p>Développement d'une IA pendant un week-end, à Paris.</p>
+									<p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "S'entraîner" %}</a></p>
 								</div>
 							</div>
 						</div>

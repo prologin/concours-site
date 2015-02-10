@@ -79,8 +79,8 @@
 .home-jumbo .line > i {
 	position: absolute;
 	top: -10px;
-	margin-left: -26px;
-	font-size: 26px;
+	margin-left: -27px;
+	font-size: 27px;
 	padding: 0 6px;
 	color: #7389AE;
 }
@@ -90,10 +90,6 @@
 	color: #A3BCF9;
 }
 
-.home-jumbo .tl-block p {
-	margin: 0;
-}
-
 .home-jumbo .tl-block.active,
 .home-jumbo .tl-block.active .desc {
 	color: white;
@@ -101,7 +97,9 @@
 
 .home-jumbo .tl-block p {
 	font-size: 1em;
-
+}
+.home-jumbo .tl-block p:last-child {
+	margin-bottom: 0;
 }
 .home-jumbo .tl-block .desc .signin {
 	margin: 0.5em 0 0;
@@ -160,4 +158,27 @@
 	.home-jumbo h1 {
 		font-size: 3.2em;
 	}
+}
+
+.hide-no-active {
+	display: none;
+}
+.active .hide-no-active {
+	display: block;
+}
+
+.checklist {
+	margin: 0.5em 0 0;
+	padding: 0.7em 1em;
+	background: #fff;
+	border-radius: 3px;
+}
+.checklist > li > a,
+.checklist > li > a:visited {
+	text-decoration: none;
+	color: inherit;
+}
+.checklist > li > a > i {
+	vertical-align: middle;
+	padding-right: 0.3em;
 }
