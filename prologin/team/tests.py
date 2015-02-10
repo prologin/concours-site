@@ -1,9 +1,10 @@
-from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.test.client import Client
+from django.core.urlresolvers import reverse
 from django.test import TestCase
-from team.models import Role, TeamMember
+from django.test.client import Client
 from prologin.tests import Validator
+from team.models import Role, TeamMember
+
 
 class TeamTest(TestCase):
     def setUp(self):
