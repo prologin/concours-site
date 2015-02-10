@@ -2,12 +2,16 @@ from captcha.fields import CaptchaField
 from django import forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
+from .widgets import PreviewFileInput
 
 
 class UserSimpleForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'email', 'address', 'postal_code', 'city', 'country', 'phone_number', 'birthday', 'newsletter')
+        fields = ('first_name', 'last_name', 'email', 'address', 'postal_code', 'city', 'country', 'phone_number', 'birthday', 'newsletter', 'avatar')
+        widgets = {
+            'avatar': PreviewFileInput(),
+        }
 
 
 class RegisterForm(forms.ModelForm):

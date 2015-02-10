@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n %}
+{% load i18n staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
@@ -16,9 +16,20 @@
 <h1>{% blocktrans with shown_user.username as username %}Profil de {{ username }}{% endblocktrans %}</h1>
 
 {% if see_private %}
-<p class="text-right"><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i class="fa fa-edit"></i> {% trans "Modifier" %}</a></p>
+<p class="text-right"><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Modifier" %}</a></p>
 {% endif %}
 
+<div class="row">
+<div class="col-sm-4">
+	{% if shown_user.avatar %}
+	<p><img src="{{ shown_user.avatar.url }}" alt="{% blocktrans with shown_user.username as username %}{{username}}'s profile picture{% endblocktrans %}" style="max-width: 100%" /></p>
+	{% else %}
+	<p><img src="{% static 'img/silhouette.png' %}" alt="{% trans "No profile picture" %}" style="max-width: 100%" /></p>
+	{% endif %}
+	<p>Des liens vers forums, news, etc. ici</p>
+</div>
+
+<div class="col-sm-8">
 <dl class="dl-horizontal">
 	<dt>{% trans "Prénom" %}</dt>
 	<dd>{{ shown_user.first_name|default:noinfo }}</dd>
@@ -50,5 +61,7 @@
 		</dd>
 {% endif %}
 </dl>
+</div>
+</div>
 
 {% endblock %}

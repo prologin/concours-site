@@ -18,7 +18,7 @@
 
 <p class="text-right"><a href="{% url 'users:edit_password' edited_user.pk %}" class="btn btn-default"><i class="fa fa-key"></i> {% trans "Modifier le mot de passe" %}</a></p>
 
-<form method="POST" class="form-horizontal">
+<form method="POST" enctype="multipart/form-data" class="form-horizontal">
 	{% csrf_token %}
 	{{ form|bootstrap_horizontal }}
 	<div class="form-group">

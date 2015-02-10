@@ -83,7 +83,7 @@ def edit_user(request, user_id):
     if not request.user.is_staff and as_staff:
         raise PermissionDenied()
 
-    user_form = users.forms.UserSimpleForm(data=request.POST or None, instance=edited_user)
+    user_form = users.forms.UserSimpleForm(request.POST or None, request.FILES or None, instance=edited_user)
 
     if request.method == 'POST':
         if user_form.is_valid():
