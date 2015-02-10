@@ -34,10 +34,15 @@
 
 {% block content %}
 
+<div class="row">
+
+<div class="col-md-8"> {# col-left #}
 {% block entry-content %}
   {% include object.content_template with object_content=object.html_content %}
 {% endblock entry-content %}
+</div> {# /col-left #}
 
+<div class="col-md-4"> {# col-right #}
 {% block entry-widgets %}
 <div class="entry-widgets">
   {% block entry-next-entry %}
@@ -189,6 +194,9 @@
 {% block entry-comments-form %}
 {# no comments! #}
 {% endblock entry-comments-form %}
+
+</div> {# /col-right #}
+</div> {# /row #}
 
 {% endblock content %}
 
