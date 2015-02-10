@@ -48,6 +48,7 @@ INSTALLED_APPS = (
 
     # Prologin
     'captcha',
+    'centers',
     'homepage',
     'news',
     'prologin',
@@ -122,6 +123,7 @@ LOGIN_REDIRECT_URL = '/'
 SITE_HOST = 'www.prologin.org'
 PROLOGIN_CONTACT_MAIL = "info@prologin.org"
 PROLOGIN_EDITION = 2015
+PROLOGIN_MAX_AGE = 21
 USER_ACTIVATION_MAIL_SUBJECT = _("Activez votre compte Prologin")
 USER_ACTIVATION_EXPIRATION = datetime.timedelta(hours=12)
 

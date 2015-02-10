@@ -10,6 +10,9 @@
 		<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ user.username }} <span class="caret"></span></a>
 		<ul class="dropdown-menu dropdown-menu-right" role="menu">
 			<li><a href="{% url 'users:edit' user.id %}"><i class="fa fa-cog"></i> {% trans "Mon compte" %}</a></li>
+			{% if user.is_staff %}
+			<li><a href="{% url 'admin:index' %}"><i class="fa fa-star"></i> {% trans "Administration" %}</a></li>
+			{% endif %}
 			<li class="divider"></li>
 			<li><a href="{% url 'users:logout' %}"><i class="fa fa-power-off"></i> {% trans "Déconnexion" %}</a></li>
 		</ul>

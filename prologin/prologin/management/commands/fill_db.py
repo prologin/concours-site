@@ -1,8 +1,8 @@
-# coding: utf-8
-
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.contrib.webdesign import lorem_ipsum
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
 from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
 from django.utils import timezone
@@ -12,6 +12,7 @@ from zinnia.managers import PUBLISHED
 import datetime
 import itertools
 import random
+import urllib.request
 import zinnia.models
 
 
@@ -31,6 +32,7 @@ class Command(BaseCommand):
         random.shuffle(last_names)
         first_names = itertools.cycle(first_names)
         last_names = itertools.cycle(last_names)
+        number = itertools.cycle(list(range(1, 11)))
         for name in users:
             email = '%s@prologin.org' % slugify(name)
             user = User.objects.create_user(name, email, Command.PASSWORD)
@@ -39,6 +41,11 @@ class Command(BaseCommand):
             user.is_active = True
             user.is_staff = True
             user.is_superuser = True
+            avatar = urllib.request.urlopen('http://lorempixel.com/200/300/people/%d' % next(number))
+            img = NamedTemporaryFile(delete=True)
+            img.write(avatar.read())
+            img.flush()
+            user.avatar.save('test.jpg', File(img))
             user.save()
 
     def fill_team(self):
@@ -99,7 +106,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         if len(args) < 1 or args[0] == 'all':
-            args = ['users', 'team']
+            args = ['users', 'team', 'news']
         for mod in args:
             try:
                 method = getattr(self, 'fill_%s' % mod)

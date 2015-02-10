@@ -1,15 +1,18 @@
 from django.template import VariableDoesNotExist, Variable
-from django.core.urlresolvers import reverse
 from django.utils.html import escape
-import unicodedata
-import string
+import enum
+import inspect
 import re
+import string
+import unicodedata
+
 
 def get_slug(name):
     name = unicodedata.normalize('NFKD', name.lower())
     name = ''.join(x for x in name if x in string.ascii_letters + string.digits + ' _-')
     name = re.sub(r'[^a-z0-9\-]', '_', name)
     return name
+
 
 def real_value(var, context):
     """Return the real value based on the context."""
@@ -19,6 +22,15 @@ def real_value(var, context):
         if not isinstance(var, Variable):
             var = Variable(var)
         real_var = var.resolve(context)
-    except (VariableDoesNotExist):
+    except VariableDoesNotExist:
         real_var = str(var)
     return escape(real_var)
+
+
+class ChoiceEnum(enum.Enum):
+
+    @classmethod
+    def choices(cls):
+        members = inspect.getmembers(cls, lambda m: not inspect.isroutine(m))
+        props = [m for m in members if not m[0].startswith('_')]
+        return tuple((str(value.value), key) for key, value in props)
