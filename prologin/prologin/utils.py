@@ -1,10 +1,13 @@
 from django.template import VariableDoesNotExist, Variable
 from django.utils.html import escape
 import enum
+import hashlib
 import inspect
+import os
 import re
 import string
 import unicodedata
+import uuid
 
 
 def get_slug(name):
@@ -25,6 +28,24 @@ def real_value(var, context):
     except VariableDoesNotExist:
         real_var = str(var)
     return escape(real_var)
+
+
+def upload_path(*base_path):
+    """
+    Generate upload path for a FileInput.
+    `base_path`: folder path of where to put the files
+    Examples:
+        upload_path('media', pictures')
+    """
+    parts = ['upload']
+    parts.extend(base_path)
+
+    def func(instance, filename):
+        path, ext = os.path.splitext(filename)
+        rand = hashlib.sha1(uuid.uuid4().bytes).hexdigest()
+        name = '%s%s' % (rand, ext)
+        return os.path.join(*(parts + [name]))
+    return func
 
 
 class ChoiceEnum(enum.Enum):

@@ -5,10 +5,9 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from prologin.utils import upload_path
 import base64
-import hashlib
 import os
-import uuid
 
 ACTIVATION_TOKEN_LENGTH = 32
 
@@ -32,13 +31,6 @@ class ActivationToken(models.Model):
         return timezone.now() < self.expiration_date
 
 
-def _avatar_path(instance, filename):
-    path, ext = os.path.splitext(filename)
-    rand = hashlib.sha1(uuid.uuid4().bytes).hexdigest()
-    name = '%s%s' % (rand, ext)
-    return os.path.join('upload', 'avatar', name)
-
-
 class ProloginUser(AbstractUser):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -51,7 +43,14 @@ class ProloginUser(AbstractUser):
     birthday = models.DateField(blank=True, null=True, verbose_name=_("Date de naissance"))
     newsletter = models.BooleanField(default=False, blank=True, verbose_name=_("Recevoir la newsletter"))
 
-    avatar = models.ImageField(upload_to=_avatar_path, blank=True)
+    avatar = models.ImageField(upload_to=upload_path('avatar'), blank=True, verbose_name=_("Profile picture"))
+    picture = models.ImageField(upload_to=upload_path('picture'), blank=True, verbose_name=_("Official member picture"))
+
+    @property
+    def picture_or_avatar(self):
+        if self.picture:
+            return self.picture
+        return self.avatar
 
     def has_partial_address(self):
         return any((self.address, self.city, self.country, self.postal_code))

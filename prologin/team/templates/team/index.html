@@ -27,7 +27,7 @@
 	<div class="col-xs-6 col-md-4">
 		<div class="media team-member">
 			<div class="media-left">
-				<a href="{% url 'users:profile' member.user.pk %}" style="{% if member.user.avatar %}background-image: url('{{ member.user.avatar.url }}'){% endif %}" /></a>
+				<a href="{% url 'users:profile' member.user.pk %}" style="{% if member.user.picture_or_avatar %}background-image: url('{{ member.user.picture_or_avatar.url }}'){% endif %}" /></a>
 			</div>
 			<div class="media-body">
 				<h4 class="media-heading"><a href="{% url 'users:profile' member.user.pk %}">{{ member.user.username }}</a> {% if member.user.get_full_name %}<small>{{ member.user.get_full_name }}</small>{% endif %}</h4>
