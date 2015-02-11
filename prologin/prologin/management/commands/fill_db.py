@@ -11,17 +11,16 @@ from team.models import Role, TeamMember
 from zinnia.managers import PUBLISHED
 import datetime
 import django.db
-import flickrapi
 import itertools
 import random
-import urllib.request
+import requests
 import zinnia.models
 
 
 class Command(BaseCommand):
     PASSWORD = "plop"
-    FLICKR_KEY = "f8151114c37f114c3e3ef3b65ea5ccaa"
-    FLICKR_SECRET = "1227a766ed8fd89c"
+    GETTY_KEY = "bckeejjtqz7mh8jjtzc5g9xk"
+    GETTY_SECRET = "StKZB4jxEG3GKbEGMQUn4kGQDW8wZrJk9hnbdgw9Gwk8M"
 
     args = "[all|module1 [module2 ...]]"
     help = "Fill the database for the specified modules. Password is '%s'." % PASSWORD
@@ -49,22 +48,40 @@ class Command(BaseCommand):
                 user.save()
 
     def fill_profilepics(self):
-        flickr = flickrapi.FlickrAPI(Command.FLICKR_KEY, Command.FLICKR_SECRET)
-        photos = flickr.walk(tag_mode='all', safe_search=True, content_type=1, tags='teenager,face')
+        sess = requests.Session()
+        sess.headers['Api-Key'] = Command.GETTY_KEY
+        token = sess.post('https://api.gettyimages.com/oauth2/token', {
+            'grant_type': 'client_credentials',
+            'client_id': Command.GETTY_KEY,
+            'client_secret': Command.GETTY_SECRET}).json()['access_token']
+        sess.headers['Authorization'] = 'Bearer %s' % token
+
+        def img_search(query):
+            page = random.randint(1, 10)
+            while True:
+                data = sess.get('https://api.gettyimages.com/v3/search/images', params={
+                    'age_of_people': '20-29_years,30-39_years',
+                    'compositions': 'headshot,looking_at_camera,portrait',
+                    'exclude_nudity': 'true',
+                    'fields': 'preview',
+                    'file_types': 'jpg,png',
+                    'graphical_styles': 'photography',
+                    'number_of_people': 'one',
+                    'orientations': 'Vertical',
+                    'page': page,
+                    'phrase': query}).json()
+                for item in data['images']:
+                    yield item['display_sizes'][0]['uri']
+                page += 1
+
         users = get_user_model().objects.all()
+        images_man = img_search('man')
+        images_woman = img_search('woman')
         with django.db.transaction.commit_on_success():
             for user in users:
-                while True:
-                    # find big enough, portrait photos
-                    try:
-                        url = (flickr.photos.getSizes(photo_id=next(photos).get('id'))
-                               .xpath('sizes/size[@width<@height and @width>200]')[0]
-                               .get('source'))
-                        break
-                    except IndexError:
-                        pass
+                url = next(random.choice((images_man, images_woman)))
                 img = NamedTemporaryFile(delete=True)
-                img.write(urllib.request.urlopen(url).read())
+                img.write(requests.get(url).content)
                 img.flush()
                 user.avatar = None
                 user.picture = None
