@@ -5,6 +5,7 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from prologin.models import AddressableModel
 from prologin.utils import upload_path
 import base64
 import os
@@ -31,15 +32,11 @@ class ActivationToken(models.Model):
         return timezone.now() < self.expiration_date
 
 
-class ProloginUser(AbstractUser):
+class ProloginUser(AbstractUser, AddressableModel):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
-    address = models.TextField(blank=True, verbose_name=_("N° et voie"))
-    postal_code = models.CharField(max_length=5, blank=True, verbose_name=_("Code postal"))
-    city = models.CharField(max_length=64, blank=True, verbose_name=_("Ville"))
-    country = models.CharField(max_length=64, blank=True, verbose_name=_("Pays"))
-    phone_number = models.CharField(max_length=16, blank=True, verbose_name=_("Téléphone"))
+    phone = models.CharField(max_length=16, blank=True, verbose_name=_("Téléphone"))
     birthday = models.DateField(blank=True, null=True, verbose_name=_("Date de naissance"))
     newsletter = models.BooleanField(default=False, blank=True, verbose_name=_("Recevoir la newsletter"))
 
