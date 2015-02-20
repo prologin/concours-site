@@ -54,4 +54,4 @@ class ChoiceEnum(enum.Enum):
     def choices(cls):
         members = inspect.getmembers(cls, lambda m: not inspect.isroutine(m))
         props = [m for m in members if not m[0].startswith('_')]
-        return tuple((str(value.value), key) for key, value in props)
+        return tuple((value.value, key) for key, value in props)

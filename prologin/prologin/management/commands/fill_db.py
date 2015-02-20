@@ -7,13 +7,15 @@ from django.core.management.base import BaseCommand, CommandError
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from tagging.models import Tag
-from team.models import Role, TeamMember
 from zinnia.managers import PUBLISHED
+import centers.models
+import contest.models
 import datetime
 import django.db
 import itertools
 import random
 import requests
+import team.models
 import zinnia.models
 
 
@@ -75,6 +77,7 @@ class Command(BaseCommand):
                 page += 1
 
         users = get_user_model().objects.all()
+        assert users, "User list is empty; run fill_db users"
         images_man = img_search('man')
         images_woman = img_search('woman')
         with django.db.transaction.commit_on_success():
@@ -91,10 +94,10 @@ class Command(BaseCommand):
                 attr.save('test.jpg', File(img))
                 user.save()
 
-    def fill_team(self):
+    def fill_teams(self):
         User = get_user_model()
-        TeamMember.objects.all().delete()
-        Role.objects.all().delete()
+        team.models.TeamMember.objects.all().delete()
+        team.models.Role.objects.all().delete()
         roles = (
             # name, rank
             ('Président', 1),
@@ -106,22 +109,32 @@ class Command(BaseCommand):
             ('Secrétaire', 4),
         )
         users = list(User.objects.filter(is_staff=True))
+        assert users, "User list is empty; run fill_db users"
         random.shuffle(users)
         users = itertools.cycle(users)
         with django.db.transaction.commit_on_success():
             for name, rank in roles:
-                Role(rank=rank, name=name).save()
+                team.models.Role(rank=rank, name=name).save()
         with django.db.transaction.commit_on_success():
             for year in range(2010, 2015):
                 for name, rank in roles:
-                    TeamMember(year=year, role=Role.objects.all().filter(rank=rank)[0], user=next(users)).save()
-                member = Role.objects.all().filter(rank=12)[0]
+                    team.models.TeamMember(
+                        year=year,
+                        role=team.models.Role.objects.all().filter(rank=rank)[0],
+                        user=next(users),
+                    ).save()
+                member = team.models.Role.objects.all().filter(rank=12)[0]
                 for i in range(5):
-                    TeamMember(year=year, role=member, user=next(users)).save()
+                    team.models.TeamMember(
+                        year=year,
+                        role=member,
+                        user=next(users),
+                    ).save()
 
     def fill_news(self):
         site = Site.objects.get()
         users = list(zinnia.models.author.Author.objects.all())
+        assert users, "User list is empty; run fill_db users"
         random.shuffle(users)
         users = itertools.cycle(users)
         zinnia.models.category.Category.objects.all().delete()
@@ -143,7 +156,8 @@ class Command(BaseCommand):
                 pubdate = timezone.now() + datetime.timedelta(days=random.randint(-30, 30))
                 entry = zinnia.models.entry.Entry(
                     status=PUBLISHED, title=title, slug=slugify(title), content=content,
-                    creation_date=pubdate)
+                    creation_date=pubdate,
+                )
                 entry.save()
         for entry in zinnia.models.entry.Entry.objects.all():
             entry.sites.add(site)
@@ -152,9 +166,63 @@ class Command(BaseCommand):
             entry.tags = ' '.join(random.sample(tags, random.randint(0, 3)))
             entry.save()
 
+    def fill_centers(self):
+        cities = ["Bordeaux", "Toulouse", "Lyon", "Paris", "Marseille", "Lille"]
+        centers.models.Center.objects.all().delete()
+        with django.db.transaction.commit_on_success():
+            for city in cities:
+                centers.models.Center(
+                    name=city, city=city, type=centers.models.Center.CenterType.centre.value, is_active=True,
+                    address="34 rue des Fleurs", postal_code="12300", lat=0, lng=0,
+                ).save()
+                if city in ("Lyon", "Paris"):
+                    centers.models.Center(
+                        name=city + " II", city=city, type=centers.models.Center.CenterType.centre.value, is_active=True,
+                        address="34 rue des Fleurs", postal_code="12300", lat=0, lng=0,
+                    ).save()
+
+    def fill_contests(self):
+        years = list(range(2010, 2015 + 1))
+        contest.models.Edition.objects.all().delete()
+        with django.db.transaction.commit_on_success():
+            for year in years:
+                date_begin = datetime.datetime(year - 1, 9, 20)
+                date_end = datetime.datetime(year, 5, 28)
+                edition = contest.models.Edition(year=year, date_begin=date_begin, date_end=date_end)
+                edition.save()
+        centers = list(contest.models.Center.objects.all())
+        assert centers, "Center list is empty; run fill_db centers"
+        contest.models.Event.objects.all().delete()
+        with django.db.transaction.commit_on_success():
+            for edition in contest.models.Edition.objects.all():
+                qualif = contest.models.Event(
+                    edition=edition, type=contest.models.Event.EventType.qualification.value,
+                    date_begin=edition.date_begin,
+                    date_end=edition.date_begin + datetime.timedelta(days=60),
+                )
+                qualif.save()
+                for center in centers:
+                    regionale = contest.models.Event(
+                        edition=edition, center=center, type=contest.models.Event.EventType.regionale.value,
+                        date_begin=qualif.date_end + datetime.timedelta(days=60),
+                        date_end=qualif.date_end + datetime.timedelta(days=90),
+                    )
+                    regionale.save()
+                finale = contest.models.Event(
+                    edition=edition, type=contest.models.Event.EventType.finale.value,
+                    date_begin=regionale.date_end + datetime.timedelta(days=30),
+                    date_end=regionale.date_end + datetime.timedelta(days=34),
+                )
+                finale.save()
+                assert finale.date_end <= edition.date_end
+
+    def fill_contestants(self):
+        # TODO
+        pass
+
     def handle(self, *args, **options):
         if len(args) < 1 or args[0] == 'all':
-            args = ['users', 'profilepics', 'team', 'news']
+            args = ['users', 'profilepics', 'teams', 'news', 'centers', 'contests', 'contestants']
         for mod in args:
             try:
                 method = getattr(self, 'fill_%s' % mod)

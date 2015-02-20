@@ -11,6 +11,10 @@ class Role(models.Model):
         verbose_name = _('Role')
         verbose_name_plural = _('Roles')
 
+    @property
+    def member_count(self):
+        return self.members.count()
+
     def __str__(self):
         return self.name
 

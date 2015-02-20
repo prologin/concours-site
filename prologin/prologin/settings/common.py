@@ -49,6 +49,7 @@ INSTALLED_APPS = (
     # Prologin
     'captcha',
     'centers',
+    'contest',
     'homepage',
     'news',
     'prologin',
