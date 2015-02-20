@@ -39,21 +39,21 @@
 
 {% if see_private %}
 	<dt>{% trans "Téléphone" %}</dt>
-	<dd>{{ shown_user.profile.phone_number|default:noinfo }}</dd>
+	<dd>{{ shown_user.phone|default:noinfo }}</dd>
 
 	<dt>{% trans "Adresse email" %}</dt>
 	<dd>{{ shown_user.email|default:noinfo }}</dd>
 
 	<dt>{% trans "Date de naissance" %}</dt>
-	<dd>{% if shown_user.profile.birthday %}{{ shown_user.profile.birthday }} ({{ shown_user.profile.birthday|timesince }}){% else %}{{ noinfo }}{% endif %}</dd>
+	<dd>{% if shown_user.birthday %}{{ shown_user.birthday }} ({{ shown_user.birthday|timesince }}){% else %}{{ noinfo }}{% endif %}</dd>
 
 	<dt>{% trans "Adresse postale" %}</dt>
 	<dd>
-		{% if user.profile.has_partial_address %}
+		{% if user.has_partial_address %}
 		<address>
-			{{ shown_user.profile.address }}<br>
-			{{ shown_user.profile.postal_code }} {{ shown_user.profile.city }}<br>
-			{{ shown_user.profile.country }}
+			{{ shown_user.address }}<br>
+			{{ shown_user.postal_code }} {{ shown_user.city }}<br>
+			{{ shown_user.country }}
 		</address>
 		{% else %}
 		{{ noinfo }}
