@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     'centers',
     'contest',
     'homepage',
+    'qcm',
     'news',
     'prologin',
     'team',
