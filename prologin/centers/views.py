@@ -1,44 +1,17 @@
-from centers.models import Center
-from django.http import HttpResponse
-from django.template import Context, loader
-from geopy import geocoders
-import json
+from django.http import JsonResponse
+from django.shortcuts import render
+import centers.models
 
 
-def index(request):
-    cities = [_['city'] for _ in Center.objects.filter(is_active=True).values('city').distinct()]
-    t = loader.get_template('centers/index.html')
-    c = Context({
-        'cities': cities,
-    })
-    return HttpResponse(t.render(c))
+def center_map(request):
+    center_list = centers.models.Center.objects.filter(
+        type=centers.models.Center.CenterType.centre.value, is_active=True)
+    return render(request, "centers/map.html", {'centers': center_list})
 
 
-def genjson(request, city):
+def center_list_json(request, city=None):
+    center_qs = centers.models.Center.objects.filter(is_active=True)
     if city:
-        centers = Center.objects.filter(is_active=True, city=city)
-    else:
-        centers = Center.objects.filter(is_active=True)
-    centersList = []
-    for center in centers:
-        d = center.__dict__
-        del d["_state"]
-        d["lat"] = str(d["lat"])
-        d["lng"] = str(d["lng"])
-        centersList.append(d)
-    return HttpResponse(json.dumps(centersList), mimetype='application/json')
-
-
-def geocode(request):
-    g = geocoders.Google()
-    centers = Center.objects.filter(is_active=True)
-    for center in centers:
-        if center.lat == 0 and center.lng == 0:
-            try:
-                _, (lat, lng) = g.geocode("{0} {1}".format(center.address.encode('utf-8'), center.city))
-                center.lat = lat
-                center.lng = lng
-                center.save()
-            except:
-                print(u'{0} est ambiguë'.format(center.address))
-    return HttpResponse("OK")
+        center_qs = center_qs.filter(city__icontains=city)
+    center_list = [{'name': c.name, 'lat': c.lat, 'lng': c.lng} for c in center_qs]
+    return JsonResponse(center_list, safe=False)

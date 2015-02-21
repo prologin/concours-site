@@ -23,5 +23,12 @@ class Center(models.Model):
     phone_number = models.CharField(max_length=10, blank=True)
     comments = models.TextField(blank=True)
 
+    class Meta:
+        ordering = ('type', 'name', 'city',)
+
+    @property
+    def has_valid_geolocation(self):
+        return self.lat != 0 and self.lng != 0
+
     def __str__(self):
         return self.name

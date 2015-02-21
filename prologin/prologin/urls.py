@@ -16,6 +16,9 @@ urlpatterns = patterns('',
     # Teams
     url(r'^team/', include('team.urls', namespace='team')),
 
+    # Centers
+    url(r'^center/', include('centers.urls', namespace='centers')),
+
     # Authentication and accounts
     url(r'^user/', include('users.urls', namespace='users')),
 
