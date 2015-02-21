@@ -32,7 +32,7 @@ class Event(models.Model):
     date_end = models.DateField(blank=True, null=True)
 
     def __str__(self):
-        return "{edition} {type} starting {starting}{at}".format(
+        return "{edition}: {type} starting {starting}{at}".format(
             edition=self.edition,
             type=self.get_type_display(),
             starting=self.date_begin,
@@ -66,21 +66,26 @@ class Contestant(models.Model):
         # DANGEROUS: first() may return None!
         return self.events.first().edition
 
+    @property
+    def approved_wishes(self):
+        return EventWish.objects.select_related('event').filter(contestant=self, is_approved=True)
+
     def __str__(self):
-        return str(self.user)
+        return "{edition}: {user}".format(user=self.user, edition=self.edition)
 
 
 class EventWish(OrderedModel):
     contestant = models.ForeignKey(Contestant)
     event = models.ForeignKey(Event)
-    approved = models.BooleanField(default=False)
+    is_approved = models.BooleanField(default=False)
 
     class Meta(OrderedModel.Meta):
         pass
 
     def __str__(self):
-        return "{who} to go to {where}{approved}".format(
+        return "{edition}: {who} to go to {where}{approved}".format(
+            edition=self.event.edition,
             who=self.contestant,
             where=self.event.center,
-            approved=" (approved)" if self.approved else "",
+            approved=" (approved)" if self.is_approved else "",
         )
