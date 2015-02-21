@@ -6,6 +6,8 @@
 	{% breadcrumb "The exam centers" "" %}
 {% endblock breadcrumbs %}
 
+{% block title %}{% trans "The exam centers" %}{% endblock %}
+
 {% block extra_script %}
     <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
     <script type="text/javascript">
@@ -72,7 +74,7 @@
                         </td>
                         {% localize off %}
                         <td>
-                            <a href="https://tools.wmflabs.org/geohack/geohack.php?params={{ center.lat }};{{ center.lng }}">
+                            <a href="https://tools.wmflabs.org/geohack/geohack.php?params={{ center.coordinates }}">
                                 <i class="fa fa-globe"></i> {% trans "Full map" %}</a></td>
                         {% endlocalize %}
                     </tr>
