@@ -4,6 +4,7 @@ from django.contrib.webdesign import lorem_ipsum
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.core.management.base import BaseCommand, CommandError
+from django.db.models import Q
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from tagging.models import Tag
@@ -31,10 +32,8 @@ class Command(BaseCommand):
     def fill_users(self):
         User = get_user_model()
         User.objects.all().delete()
-        admin_users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo', 'Zourp', 'kalenz', 'Horgix',
-                       'Vic_Rattlehead', 'Artifère', 'davyg', 'Dettorer', 'pmderodat', 'tycho', 'Zeletochoy',
-                       'Magicking', 'flutchman', 'nico', 'coucou747', 'Oxian', 'LLB', 'è_é']
-        normal_users = ['Zopieux', 'Mickael', 'delroth', 'nispaur']
+        admin_users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo']
+        normal_users = ['Zopieux', 'Mickael', 'delroth', 'nispaur', 'ordiclic', 'spider-mario', 'Dettorer', 'Zeleochy']
         first_names = ['Jean', 'Guillaume', 'Antoine', 'Alex', 'Sophie', 'Natalie', 'Anna', 'Claire']
         last_names = ['Dupond', 'Dujardin', 'Durand', 'Lamartin', 'Moulin', 'Oubel', 'Roubard', 'Sandel', 'Bouchard',
                       'Roudin']
@@ -217,6 +216,7 @@ class Command(BaseCommand):
         centers = list(contest.models.Center.objects.all())
         assert centers, "Center list is empty; run fill_db centers"
         contest.models.Event.objects.all().delete()
+        finale_center = contest.models.Center.objects.get(name__icontains='EPITA')
         with django.db.transaction.atomic():
             for edition in contest.models.Edition.objects.all():
                 qualif = contest.models.Event(
@@ -233,7 +233,7 @@ class Command(BaseCommand):
                     )
                     regionale.save()
                 finale = contest.models.Event(
-                    edition=edition, type=contest.models.Event.EventType.finale.value,
+                    edition=edition, center=finale_center, type=contest.models.Event.EventType.finale.value,
                     date_begin=regionale.date_end + datetime.timedelta(days=30),
                     date_end=regionale.date_end + datetime.timedelta(days=34),
                 )
@@ -242,16 +242,31 @@ class Command(BaseCommand):
 
     def fill_contestants(self):
         users = get_user_model().objects.filter(is_staff=False)
+        staff = list(get_user_model().objects.filter(is_staff=True))
         assert users, "User list is empty; run fill_db users"
-        events = contest.models.Event.objects.filter(type=contest.models.Event.EventType.qualification.value)
-        assert events, "Event list is empty: run fill_db contests"
+        assert staff, "Staff list is empty; run fill_db users"
+        contest.models.Contestant.objects.all().delete()
 
         with django.db.transaction.atomic():
-            for event in events:
+            for edition in contest.models.Edition.objects.all():
+                qualif = contest.models.Event.objects.get(edition=edition, type=contest.models.Event.EventType.qualification.value)
+                regionales = list(contest.models.Event.objects.filter(edition=edition, type=contest.models.Event.EventType.regionale.value))
+                finale = contest.models.Event.objects.get(edition=edition, type=contest.models.Event.EventType.finale.value)
                 for user in users:
-                    contestant = contest.models.Contestant(user=user)
+                    comments = ""
+                    if random.choice((True, False)):
+                        comments="Ouais pas mal.\n\nSinon il préfère les pâtes carbo."
+                    contestant = contest.models.Contestant(user=user,
+                                                           correction_by=random.choice(staff),
+                                                           correction_comments=comments)
                     contestant.save()
-                    contestant.events.add(event)
+                    contestant.events.add(qualif)
+                    for i, regionale in enumerate(random.sample(regionales, 3)):
+                        contestant.events.add(regionale)
+                        contest.models.EventWish(contestant=contestant, event=regionale, order=i, is_approved=(i == 0)).save()
+                    contestant.events.add(finale)
+                    # wish to finale (1/2 chance of getting in)
+                    contest.models.EventWish(contestant=contestant, event=finale, is_approved=random.choice((True, False))).save()
 
     def fill_qcms(self):
         import qcm.models  # I have no fucking idea why root level import does not work for this particular one

@@ -45,6 +45,9 @@ class Contestant(models.Model):
     events = models.ManyToManyField(Event, related_name='contestants')
     event_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants')
 
+    correction_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='corrections')
+    correction_comments = models.TextField(blank=True)
+
     score_qualif_qcm = models.IntegerField(blank=True, null=True, verbose_name=_("QCM score"))
     score_qualif_algo = models.IntegerField(blank=True, null=True, verbose_name=_("Algo exercises score"))
     score_qualif_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
@@ -85,7 +88,7 @@ class EventWish(OrderedModel):
     def __str__(self):
         return "{edition}: {who} to go to {where}{approved}".format(
             edition=self.event.edition,
-            who=self.contestant,
+            who=self.contestant.user,
             where=self.event.center,
             approved=" (approved)" if self.is_approved else "",
         )
