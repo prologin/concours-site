@@ -4,7 +4,7 @@ from zinnia.models import Entry
 
 
 def homepage(request):
-    articles = Entry.published.all()[:settings.HOMEPAGE_ARTICLES]
+    articles = Entry.published.prefetch_related('authors').all()[:settings.HOMEPAGE_ARTICLES]
     return render(request, 'homepage/homepage.html', {
         'born_year': settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE,
         'articles': articles,

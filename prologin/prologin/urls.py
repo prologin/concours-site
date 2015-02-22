@@ -19,6 +19,9 @@ urlpatterns = patterns('',
     # Centers
     url(r'^center/', include('centers.urls', namespace='centers')),
 
+    # Documents
+    url(r'^docs/', include('documents.urls', namespace='documents')),
+
     # Authentication and accounts
     url(r'^user/', include('users.urls', namespace='users')),
 

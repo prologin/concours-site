@@ -28,6 +28,7 @@ DATABASES = {
     }
 }
 
+INSTALLED_APPS += ('debug_toolbar',)
 
 # Logging
 # https://docs.djangoproject.com/en/1.7/topics/logging/

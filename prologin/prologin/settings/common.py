@@ -50,6 +50,7 @@ INSTALLED_APPS = (
     'captcha',
     'centers',
     'contest',
+    'documents',
     'homepage',
     'qcm',
     'news',
