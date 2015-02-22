@@ -1,42 +1,169 @@
-# coding=utf-8
-from django.template import Context, loader
-from team.models import Team
-from django.conf import settings
-from django.contrib.auth import get_user_model
-from contest.models import Event, Contestant
-from django.http import HttpResponse
-from django.contrib.contenttypes.models import ContentType
-from django.core.servers.basehttp import FileWrapper
-import os, json
+from django.template import defaultfilters
+from django.utils.text import slugify
+from django.utils.translation import ugettext_lazy as _
+import contest.models
+import django.http
+import documents.models
 
-def french_date(date):
-    jours = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
-    mois = ['janvier', u'février', 'mars', 'avril', 'mai']
-    return ' '.join([jours[date.weekday()], str(date.day), mois[int(date.month) - 1], str(date.year)])
 
-def latex_entities(code):
-    return code.replace('\\n', '\\\\').replace(u'n°', '\\no{}')
+def _regionale_wishes_from_year_center(year, center):
+    center_qs = contest.models.Center.objects.all()
+    if center == 'all':
+        center_name = str(_("all"))
+    else:
+        center_qs = center_qs.filter(pk=center)
+        if not center_qs:
+            raise django.http.Http404("No such center")
+        center_name = center_qs[0].name
 
-def gen_doc(request):
-    with open('documents/contacts.csv', 'w') as f:
-        f.write('\t'.join('prenom nom adresse codepostal ville\n'.split()))
-        for user in get_user_model().objects.all()[:10]:
-            f.write('\t'.join([user.prenom, user.nom, user.adresse, user.code_postal, user.ville]).encode('utf-8'))
-            f.write('\n')
-    os.system('cd documents && pdflatex finale')
-    return HttpResponse(open('documents/finale.pdf').read(), mimetype = 'application/pdf')
+    wishes = contest.models.EventWish.objects.filter(
+        event__edition__year=year, event__center=center_qs, is_approved=True,
+        event__type=contest.models.Event.EventType.regionale.value,
+    )
+    return wishes, center_name
 
-def generate_convocations(request):
-    ct = request.GET.get('ct')
-    event_ids = request.GET.get('ids').split(',')
-    with open('documents/contestants.tex', 'w') as f:
-        for event_id in event_ids:
-            e = Event.objects.get(id=event_id)
-            for c in e.contestant_set.all():
-                cp = c.user.get_profile()
-                f.write(latex_entities(u'\convocation{{{0}}}\n'.format('}{'.join([c.user.first_name, c.user.last_name, cp.address, cp.postal_code, cp.city, french_date(e.begin), e.center.name, e.center.address, e.center.postal_code + ' ' + e.center.city]))).encode('utf-8'))
-    os.system('pwd')
-    os.system('cd documents && pdflatex convocations-epreuves-regionales')
-    response = HttpResponse(FileWrapper(open('documents/convocations-epreuves-regionales.pdf')), mimetype='application/pdf')
-    response['Content-Disposition'] = 'attachment; filename=convocations.pdf'
-    return response
+
+def _finale_wishes_from_year(year):
+    return contest.models.EventWish.objects.filter(
+        event__edition__year=year, is_approved=True,
+        event__type=contest.models.Event.EventType.finale.value,
+    )
+
+
+def generate_regionales_convocations(request, year, center):
+    wishes, center_name = _regionale_wishes_from_year_center(year, center)
+
+    letters = []
+    for wish in wishes:
+        user = wish.contestant.user
+        center = wish.event.center
+        args = (
+            user.first_name,
+            user.last_name,
+            user.address,
+            user.postal_code,
+            user.city,
+            defaultfilters.date(wish.event.date_begin, "l d F Y"),
+            center.name,
+            center.address,
+            "{} {}".format(center.postal_code, center.city),
+        )
+        letters.append(r"\convocation%s" % "".join("{%s}" % documents.models.latex_escape(arg) for arg in args))
+
+    context = {
+        'YEAR': documents.models.latex_escape(str(year)),
+        'BODY': "\n".join(letters),
+    }
+    with documents.models.generate_tex_pdf("convocation-regionale.tex", context) as output:
+        response = django.http.HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="convocations-regionales-{year}-{center}.pdf"'.format(
+            year=year, center=slugify(center_name),
+        )
+        response.write(output.read())
+        return response
+
+
+def generate_finale_convocations(request, year):
+    letters = []
+    for wish in _finale_wishes_from_year(year):
+        user = wish.contestant.user
+        center = wish.event.center
+        args = (
+            user.first_name,
+            user.last_name,
+            user.address,
+            user.postal_code,
+            user.city,
+            defaultfilters.date(wish.event.date_begin, "l d F Y"),
+            center.name,
+            center.address,
+            "{} {}".format(center.postal_code, center.city),
+        )
+        letters.append(r"\convocation%s" % "".join("{%s}" % documents.models.latex_escape(arg) for arg in args))
+
+    context = {
+        'YEAR': documents.models.latex_escape(str(year)),
+        'BODY': "\n".join(letters),
+    }
+    with documents.models.generate_tex_pdf("convocation-finale.tex", context) as output:
+        response = django.http.HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="convocations-finale-{year}.pdf"'.format(
+            year=year,
+        )
+        response.write(output.read())
+        return response
+
+
+def generate_regionales_userlist(request, year, center):
+    wishes, center_name = _regionale_wishes_from_year_center(year, center)
+
+    tablines = []
+    for wish in wishes:
+        user = wish.contestant.user
+        args = (user.first_name, user.last_name, defaultfilters.date(user.birthday, "Y-m-d"),)
+        tablines.append(r"\tabline%s" % "".join("{%s}" % documents.models.latex_escape(arg) for arg in args))
+
+    context = {
+        'YEAR': documents.models.latex_escape(str(year)),
+        'CENTER': documents.models.latex_escape(center_name),
+        'BODY': "\n".join(tablines),
+    }
+    with documents.models.generate_tex_pdf("liste-appel.tex", context) as output:
+        response = django.http.HttpResponse(content_type='application/pdf')
+        #response['Content-Disposition'] = 'attachment; filename="liste-appel-{year}-{center}.pdf"'.format(
+        #    year=year, center=slugify(center_name),
+        #)
+        response.write(output.read())
+        return response
+
+
+def generate_finale_userlist(request, year):
+    wishes = _finale_wishes_from_year(year)
+
+    tablines = []
+    for wish in wishes:
+        user = wish.contestant.user
+        args = (user.first_name, user.last_name, defaultfilters.date(user.birthday, "Y-m-d"),)
+        tablines.append(r"\tabline%s" % "".join("{%s}" % documents.models.latex_escape(arg) for arg in args))
+
+    context = {
+        'YEAR': documents.models.latex_escape(str(year)),
+        'CENTER': _("Finale"),
+        'BODY': "\n".join(tablines),
+    }
+    with documents.models.generate_tex_pdf("liste-appel.tex", context) as output:
+        response = django.http.HttpResponse(content_type='application/pdf')
+        #response['Content-Disposition'] = 'attachment; filename="liste-appel-{year}.pdf"'.format(
+        #    year=year,
+        #)
+        response.write(output.read())
+        return response
+
+
+def generate_regionales_interviews(request, year, center):
+    wishes, center_name = _regionale_wishes_from_year_center(year, center)
+
+    inteviews = []
+    for wish in wishes:
+        contestant = wish.contestant
+        user = contestant.user
+        args = (
+            user.first_name, user.last_name, defaultfilters.date(user.birthday, "Y-m-d"),
+            user.address, user.postal_code, user.city,
+            wish.event.center.name,
+            contestant.score_qualif_qcm, contestant.score_qualif_algo, contestant.score_qualif_bonus,
+            contestant.correction_by.get_full_name(), contestant.correction_comments,
+        )[:9]
+        inteviews.append(r"\interview%s" % "".join("{%s}" % documents.models.latex_escape("" if arg is None else str(arg)) for arg in args))
+
+    context = {
+        'YEAR': documents.models.latex_escape(str(year)),
+        'BODY': "\n".join(inteviews),
+    }
+    with documents.models.generate_tex_pdf("interviews.tex", context) as output:
+        response = django.http.HttpResponse(content_type='application/pdf')
+        #response['Content-Disposition'] = 'attachment; filename="liste-appel-{year}.pdf"'.format(
+        #    year=year,
+        #)
+        response.write(output.read())
+        return response

@@ -1,0 +1,94 @@
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[tmargin=5mm,bmargin=15mm,lmargin=15mm,rmargin=15mm,head=0mm]{geometry}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{xargs}
+
+\def\identite{11.5cm}
+\def\notes{5.5cm}
+\def\entretien{8.5cm}
+\def\entretienlong{7cm}
+\def\concllong{3cm}
+\def\commentaire{17cm}
+
+\begin{document}
+\newcommand{\sectitle}[1]{\vspace{0pt}\large \textbf{#1}}
+
+\newcommandx{\interview}[9]{%
+    \thispagestyle{empty}
+    \noindent
+    \begin{tabular}{p{\identite}|p{\notes}}
+        \begin{tabular}{rl}
+            \multicolumn{2}{l}{\textbf{#7}} \\
+            & \\
+            Prénom & #1 \\
+            Nom & #2 \\
+            Date de naissance & #3 \\
+            Adresse & #4 \\
+            & #5 #6
+        \end{tabular}
+        &
+        \begin{tabular}{p{\notes}}
+            \noindent
+            \begin{tabular}{rrl}
+                \multicolumn{3}{l}{\sectitle{Notes QCM}} \\
+                %& & \\
+                Culture info  &  #8 & /~10 \\
+                Programmation &  #9 & /~20 \\
+                Bonus         &  #9 & /~20 \\
+                & & \\
+                \multicolumn{3}{l}{\sectitle{Note entretien}} \\\cline{2-3}
+                Entretien & \multicolumn{1}{|l}{\hspace*{1.5em}} & \multicolumn{1}{l|}{\huge{/~5}} \\\cline{2-3}
+                & &
+            \end{tabular}
+        \end{tabular}\\\hline
+    \end{tabular}\\
+    \noindent
+    \begin{tabular}{p{\commentaire}}
+        \sectitle{Commentaires QCM}
+
+        Correcteur QCM: #11 \\
+        #12
+        \\\\
+    \end{tabular}\\
+    \noindent
+    \begin{tabular}{p{\entretien}|p{\entretien}}
+        \hline
+        \sectitle{Entretien}
+
+        \small
+        \begin{itemize}
+            \item Est-ce que les coordonnées sont exactes?
+            \item Âge? Comment a-t-il connu le concours?
+            \item Première participation?
+            \item Langages de programmation connus?
+            \item Études envisagées, faites?
+            \item Programme depuis combien de temps?
+            \item Projets perso?
+            \item Nouveaux projets depuis l'année dernière?
+            \item Questions d'algo, listes, piles, files, arbres, graphes, énigmes\ldots
+            \item \emph{À la fin, au feeling} nom du chat, citer une actualitée récente
+            (informatique, non informatique)\ldots
+        \end{itemize}
+        \normalsize
+        \vspace{\entretienlong} &
+        ~\\
+        \\\hline
+    \end{tabular}\\
+    \begin{tabular}{p{\entretien}p{\entretien}}
+        \sectitle{Conclusion de l'entretien} & \\
+        \vspace{\concllong} & \\\hline
+    \end{tabular}\\
+    \begin{tabular}{p{\entretien}p{\entretien}}
+        \sectitle{Épreuve machine} & \\
+    \end{tabular}
+    \newpage
+}
+
+#BODY#
+
+\end{document}

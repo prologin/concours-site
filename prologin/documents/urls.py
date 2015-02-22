@@ -1,6 +1,12 @@
 from django.conf.urls import patterns, url
-from news import views
 
-urlpatterns = patterns('',
-    #url(r'^$', views.index, name='index'),
+
+urlpatterns = patterns('documents.views',
+    url(r'^(?P<year>[0-9]+)/(?P<center>[0-9]+|all)/convocations/$', 'generate_regionales_convocations'),
+    url(r'^(?P<year>[0-9]+)/(?P<center>[0-9]+|all)/userlist/$', 'generate_regionales_userlist'),
+    url(r'^(?P<year>[0-9]+)/(?P<center>[0-9]+|all)/interviews/$', 'generate_regionales_interviews'),
+    url(r'^(?P<year>[0-9]+)/(?P<center>[0-9]+|all)/passwords/$', 'generate_regionales_passwords'),
+    url(r'^(?P<year>[0-9]+)/finale/convocations/$', 'generate_finale_convocations'),
+    url(r'^(?P<year>[0-9]+)/finale/userlist/$', 'generate_finale_userlist'),
+    url(r'^(?P<year>[0-9]+)/finale/passwords/$', 'generate_finale_passwords'),
 )

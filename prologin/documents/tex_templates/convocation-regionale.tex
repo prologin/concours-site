@@ -1,0 +1,52 @@
+\documentclass[a4paper,11pt]{article}
+\usepackage{prologin-letter}
+
+\def\objet{Convocation aux épreuves régionales de Prologin #YEAR#}
+
+\begin{document}
+
+% \convocation definition HAS to be AFTER \begin{document}
+% for babel transformations to work
+
+\newcommand\convocation[9]{
+\def\destinataire{#1 #2\\
+#3\\
+#4 #5}
+\header
+
+Bonjour #1,
+
+Nous avons le plaisir de vous informer que vous êtes sélectionné
+pour la phase des épreuves régionales du concours Prologin 2013.
+Comme vous nous l'avez demandé, votre épreuve aura lieu à:
+
+{\par\smallskip\noindent\centering
+\begin{minipage}{0.5\textwidth}
+\textbf{#7}\\
+\textbf{#8}\\
+\textbf{#9}
+\end{minipage}
+\par\smallskip}
+
+L'équipe de Prologin vous donne donc rendez-vous le #6
+à partir de 8~h~45 (début des épreuves à 9~heures). Nous vous demandons
+de bien vouloir vous munir d'\textbf{une pièce d'identité et de cette convocation}.
+
+Après un petit déjeuner offert par Prologin, la journée commencera par une
+épreuve écrite d'algorithmique d'une durée de 3~heures et un entretien de
+20~minutes. Le repas du midi sera offert par l'association. Les épreuves
+sur machine (3~h~30) se dérouleront l'après-midi. Vous serez libérés vers
+17~h~30 environ.
+
+Pour vous préparer à l'épreuve, nous vous invitons à utiliser le site
+d'entraînement de Prologin: \url{http://www.prologin.org}.
+
+Nous restons à votre disposition pour toutes questions, n'hésitez pas
+à nous contacter.
+
+\signature
+\newpage}
+
+
+#BODY#
+\end{document}

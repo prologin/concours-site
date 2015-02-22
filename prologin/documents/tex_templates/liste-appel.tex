@@ -1,0 +1,48 @@
+\documentclass[a4paper,11pt,landscape]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[a4paper,dvips]{geometry}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage[table]{xcolor}
+
+\geometry{top=10mm,bottom=10mm,left=10mm,right=10mm,head=0mm}
+\renewcommand{\arraystretch}{1.5}
+\rowcolors{2}{gray!15}{white}
+
+\begin{document}
+
+\newcommand{\tabline}[3]
+{
+  #1 & #2 & #3 & & \\
+  \hline
+}
+
+
+\title{\vspace{-1em}Liste des candidats -- #CENTER# \vspace{-2em}}
+\author{}
+\date{}
+
+\maketitle
+
+\pagestyle{empty}
+\thispagestyle{empty}
+\setlongtables
+
+\noindent
+\begin{longtable}[c]{|p{6cm}|p{2.5cm}|p{2cm}|p{5.5cm}|p{5.5cm}|}
+\hline
+\rowcolor{gray!50}
+\textbf{Nom} & \textbf{Prénom} & \textbf{Né le} & \textbf{Heure d'arrivée \& signature} & \textbf{Heure de départ \& signature}\\
+\hline
+\endhead
+\rowcolor{white}\multicolumn{5}{r}{\emph{Suite du tableau page suivante}}
+\endfoot
+\endlastfoot
+
+#BODY#
+
+\end{longtable}
+\end{document}
