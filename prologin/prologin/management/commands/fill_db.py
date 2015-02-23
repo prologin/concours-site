@@ -33,7 +33,7 @@ class Command(BaseCommand):
         User = get_user_model()
         User.objects.all().delete()
         admin_users = ['serialk', 'Tuxkowo', 'bakablue', 'epsilon012', 'Mareo']
-        normal_users = ['Zopieux', 'Mickael', 'delroth', 'nispaur', 'ordiclic', 'spider-mario', 'Dettorer', 'Zeleochy']
+        normal_users = ['Zopieux', 'Mickael', 'delroth', 'nispaur', 'ordiclic', 'spider-mario', 'Dettorer', 'Zeletochoy']
         first_names = ['Jean', 'Guillaume', 'Antoine', 'Alex', 'Sophie', 'Natalie', 'Anna', 'Claire']
         last_names = ['Dupond', 'Dujardin', 'Durand', 'Lamartin', 'Moulin', 'Oubel', 'Roubard', 'Sandel', 'Bouchard',
                       'Roudin']

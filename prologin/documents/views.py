@@ -104,7 +104,7 @@ def generate_finale_userlist(request, year):
 
     context = {
         'year': year,
-        'items': wishes,
+        'items': items,
     }
     with documents.models.generate_tex_pdf("documents/liste-appel.tex", context) as output:
         return _document_response(request, output, "liste-appel-{year}.pdf".format(
@@ -120,5 +120,45 @@ def generate_regionales_interviews(request, year, center):
     }
     with documents.models.generate_tex_pdf("documents/interviews.tex", context) as output:
         return _document_response(request, output, "liste-appel-{year}.pdf".format(
+            year=year,
+        ))
+
+
+def generate_regionales_passwords(request, year, center):
+    wishes, center_name = _regionale_wishes_from_year_center(year, center)
+    wishes = itertools.groupby(
+        wishes.order_by('event__center__pk', 'contestant__user__last_name', 'contestant__user__first_name'),
+        lambda w: w.event.center)
+
+    items = []
+    for center, grouped in wishes:
+        items.append((center, list(grouped) * 10))
+
+    context = {
+        'year': year,
+        'items': items,
+    }
+    with documents.models.generate_tex_pdf("documents/passwords.tex", context) as output:
+        return _document_response(request, output, "liste-mots-de-passe-{year}-{center}.pdf".format(
+            year=year, center=slugify(center_name),
+        ))
+
+
+def generate_finale_passwords(request, year):
+    wishes = _finale_wishes_from_year(year)
+    wishes = itertools.groupby(
+        wishes.order_by('event__center__pk', 'contestant__user__last_name', 'contestant__user__first_name'),
+        lambda w: w.event.center)
+
+    items = []
+    for center, grouped in wishes:
+        items.append((center, list(grouped)))
+
+    context = {
+        'year': year,
+        'items': items,
+    }
+    with documents.models.generate_tex_pdf("documents/passwords.tex", context) as output:
+        return _document_response(request, output, "liste-mots-de-passe-{year}.pdf".format(
             year=year,
         ))

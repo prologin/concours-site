@@ -8,6 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from prologin.models import AddressableModel
 from prologin.utils import upload_path
 import base64
+import hashlib
 import os
 
 ACTIVATION_TOKEN_LENGTH = 32
@@ -42,6 +43,13 @@ class ProloginUser(AbstractUser, AddressableModel):
 
     avatar = models.ImageField(upload_to=upload_path('avatar'), blank=True, verbose_name=_("Profile picture"))
     picture = models.ImageField(upload_to=upload_path('picture'), blank=True, verbose_name=_("Official member picture"))
+
+    @property
+    def plaintext_password(self):
+        return base64.urlsafe_b64encode(
+            hashlib.sha1("{}{}{}".format(self.first_name, self.last_name, settings.PLAINTEXT_PASSWORD_SALT)
+                                 .encode('utf-8')).digest()
+        ).decode('ascii').translate(settings.PLAINTEXT_PASSWORD_DISAMBIGUATION)[:settings.PLAINTEXT_PASSWORD_LENGTH]
 
     @property
     def picture_or_avatar(self):
