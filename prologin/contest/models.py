@@ -41,7 +41,7 @@ class Event(models.Model):
 
 
 class Contestant(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
     events = models.ManyToManyField(Event, related_name='contestants')
     event_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants')
 

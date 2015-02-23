@@ -1,0 +1,99 @@
+{% load i18n latex %}{% autoescape off %}
+\documentclass[a4paper,11pt]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage[tmargin=5mm,bmargin=15mm,lmargin=15mm,rmargin=15mm,head=0mm]{geometry}
+\usepackage{longtable}
+\usepackage{graphicx}
+
+\def\identite{11.5cm}
+\def\notes{5.5cm}
+\def\entretien{8.5cm}
+\def\entretienlong{7cm}
+\def\concllong{3cm}
+\def\commentaire{17cm}
+
+\begin{document}
+\newcommand{\sectitle}[1]{\vspace{0pt}\large \textbf{#1}}
+
+{% for item in items %}
+{% with c=item.contestant u=item.contestant.user %}
+
+\thispagestyle{empty}
+\noindent
+\begin{tabular}{p{\identite}|p{\notes}}
+    \begin{tabular}{rl}
+        \multicolumn{2}{l}{\textbf{%
+            {{ item.event.center.name }}%
+        }} \\
+        & \\
+        Nom     & {{ u.last_name|escapetex }} \\
+        Prénom  & {{ u.first_name|escapetex }} \\
+        Date de naissance & {{ u.birthday|date:"Y-m-d"|escapetex }} \\
+        Adresse & {{ u.address|escapetex }} \\
+                & {{ u.postal_code|escapetex }} {{ u.city|escapetex }}
+    \end{tabular}
+    &
+    \begin{tabular}{p{\notes}}
+        \noindent
+        \begin{tabular}{rrl}
+            \multicolumn{3}{l}{\sectitle{Notes QCM}} \\
+            %& & \\
+            Culture info  & {{ c.score_qualif_qcm|default:"?"|escapetex }}   & /~10 \\
+            Programmation & {{ c.score_qualif_algo|default:"?"|escapetex }}  & /~20 \\
+            Bonus         & {{ c.score_qualif_bonus|default:"?"|escapetex }} & /~20 \\
+            & & \\
+            \multicolumn{3}{l}{\sectitle{Note entretien}} \\\cline{2-3}
+            Entretien & \multicolumn{1}{|l}{\hspace*{1.5em}} & \multicolumn{1}{l|}{\huge{/~5}} \\\cline{2-3}
+            & &
+        \end{tabular}
+    \end{tabular}\\\hline
+\end{tabular}\\
+\noindent
+\begin{tabular}{p{\commentaire}}
+    \sectitle{Commentaires QCM}
+
+    Correcteur QCM: {{ c.correction_by.get_full_name|escapetex }} ({{ c.correction_by.username|escapetex }})\\
+    {{ c.correction_comments|escapetex|default:"\emph{aucun commentaire.}" }}
+    \\\\
+\end{tabular}\\
+\noindent
+\begin{tabular}{p{\entretien}|p{\entretien}}
+    \hline
+    \sectitle{Entretien}
+
+    \small
+    \begin{itemize}
+        \item Est-ce que les coordonnées sont exactes?
+        \item Âge? Comment a-t-il connu le concours?
+        \item Première participation?
+        \item Langages de programmation connus?
+        \item Études envisagées, faites?
+        \item Programme depuis combien de temps?
+        \item Projets perso?
+        \item Nouveaux projets depuis l'année dernière?
+        \item Questions d'algo, listes, piles, files, arbres, graphes, énigmes\ldots
+        \item \emph{À la fin, au feeling} nom du chat, citer une actualitée récente
+        (informatique, non informatique)\ldots
+    \end{itemize}
+    \normalsize
+    \vspace{\entretienlong} &
+    ~\\
+    \\\hline
+\end{tabular}\\
+\begin{tabular}{p{\entretien}p{\entretien}}
+    \sectitle{Conclusion de l'entretien} & \\
+    \vspace{\concllong} & \\\hline
+\end{tabular}\\
+\begin{tabular}{p{\entretien}p{\entretien}}
+    \sectitle{Épreuve machine} & \\
+\end{tabular}
+\newpage
+
+{% endwith %}
+{% endfor %}
+
+\end{document}
+{% endautoescape %}

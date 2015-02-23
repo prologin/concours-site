@@ -1,34 +1,42 @@
+{% load i18n latex %}{% autoescape off %}
 \documentclass[a4paper,11pt]{article}
 \usepackage{prologin-letter}
 \usepackage[french]{babel}
 
-\def\objet{Convocation à la finale Prologin #YEAR#}
-
 \begin{document}
 
-% \convocation definition HAS to be AFTER \begin{document}
-% for babel transformations to work
+\def\objet{Convocation à la finale Prologin {{ year }} }
 
-\newcommand\convocation[9]{
-\def\destinataire{#1 #2\\
-#3\\
-#4 #5}
+{% for item in items %}
+{% with event=item.event center=item.event.center user=item.contestant.user %}
+
+\def\destinataire{%
+{{ user.get_full_name|escapetex|nonempty }}\\
+{{ user.address|escapetex|nonempty }}\\
+{{ user.postal_code|escapetex|nonempty }} {{ user.city|escapetex|nonempty }}%
+}
 \header
 
-Bonjour #1,
+Bonjour {{ user.first_name|escapetex }},
 
 Nous avons le plaisir de vous informer que vous êtes sélectionné
 pour la finale du concours Prologin 2013, qui se déroulera à:
 
 {\par\smallskip\noindent\centering
 \begin{minipage}{0.5\textwidth}
-\textbf{#7}\\
-\textbf{#8}\\
-\textbf{#9}
+\textbf{%
+{{ center.name|escapetex|nonempty }}%
+}\\
+\textbf{%
+{{ center.address|escapetex|nonempty }}%
+}\\
+\textbf{%
+{{ center.postal_code|escapetex|nonempty }} {{ center.city|escapetex|nonempty }}%
+}
 \end{minipage}
 \par\smallskip}
 
-L'équipe de Prologin vous donne donc rendez-vous le #6
+L'équipe de Prologin vous donne donc rendez-vous le {{ event.date_begin|date:"l d F Y"|escapetex }}
 à 9~h~00. Le concours, d'une durée de 36~heures, prendra fin avec le banquet du
 lundi midi. Vous serez donc libre à partir de 15~h~00. Notez que la
 programmation se fera obligatoirement en C, C++, Java, Python, PHP, C\#, ou
@@ -58,8 +66,10 @@ Nous restons à votre disposition pour toutes questions, n'hésitez pas
 à nous contacter.
 
 \signature
-\newpage}
+\newpage
 
+{% endwith %}
+{% endfor %}
 
-#BODY#
 \end{document}
+{% endautoescape %}

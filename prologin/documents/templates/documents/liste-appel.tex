@@ -1,3 +1,4 @@
+{% load i18n latex %}{% autoescape off %}
 \documentclass[a4paper,11pt,landscape]{article}
 
 \usepackage[utf8]{inputenc}
@@ -14,18 +15,12 @@
 
 \begin{document}
 
-\newcommand{\tabline}[3]
-{
-  #1 & #2 & #3 & & \\
-  \hline
-}
+{% for center, wishes in items %}
 
-
-\title{\vspace{-1em}Liste des candidats -- #CENTER# \vspace{-2em}}
-\author{}
-\date{}
-
-\maketitle
+\begin{center}
+    \Large
+    Liste des candidats -- Prologin {{ year }} -- {{ center.name|escapetex }}
+\end{center}
 
 \pagestyle{empty}
 \thispagestyle{empty}
@@ -42,7 +37,14 @@
 \endfoot
 \endlastfoot
 
-#BODY#
+{% for wish in wishes %}{% with user=wish.contestant.user %}
+{{ user.last_name|escapetex }} & {{ user.first_name|escapetex }} & {{ user.birthdat|date:"Y-m-d"|escapetex }} & & \\\hline
+{% endwith %}{% endfor %}
 
 \end{longtable}
+\newpage
+
+{% endfor %}
+
 \end{document}
+{% endautoescape %}
