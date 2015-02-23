@@ -129,7 +129,7 @@ PROLOGIN_EDITION = 2015
 PROLOGIN_MAX_AGE = 21
 USER_ACTIVATION_MAIL_SUBJECT = _("Activez votre compte Prologin")
 USER_ACTIVATION_EXPIRATION = datetime.timedelta(hours=12)
-
+LATEX_GENERATION_PROC_TIMEOUT = 60  # in seconds
 
 # Zinnia (news)
 HOMEPAGE_ARTICLES = 3

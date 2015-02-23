@@ -1,9 +1,9 @@
+from django.conf import settings
 from django.template import loader
 import os
 import re
 import subprocess
 import tempfile
-
 
 class SubprocessFailedException(Exception):
     def __init__(self, message, returncode, stdout, stderr):
@@ -58,7 +58,7 @@ class DocumentContext:
             '-output-directory', self.output_dir.name, in_file,
         ], cwd=cwd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         try:
-            outs, errs = proc.communicate(timeout=60)
+            outs, errs = proc.communicate(timeout=settings.LATEX_GENERATION_PROC_TIMEOUT)
             if proc.returncode != 0:
                 raise SubprocessFailedException("pdflatex failed", proc.returncode, outs, errs)
             # `out_file` should exist by now, as returncode is 0
