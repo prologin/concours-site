@@ -132,7 +132,7 @@ def generate_regionales_passwords(request, year, center):
 
     items = []
     for center, grouped in wishes:
-        items.append((center, list(grouped) * 10))
+        items.append((center, list(grouped)))
 
     context = {
         'year': year,
