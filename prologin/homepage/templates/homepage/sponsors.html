@@ -1,12 +1,13 @@
 {% load i18n macros static %}
 
 {% macro sponsor url icon name %}
+    {# TODO: i18n "name" #}
 	<div class="col-xs-6 col-sm-12">
 		<a href="{{ url }}" title="{{ name }}"><img alt="{{ name }}" src="{% static icon %}" class="sponsor" /></a>
 	</div>
 {% endmacro %}
 
-<h2>{% trans "Partenaires" %}</h2>
+<h2>{% trans "Sponsors" %}</h2>
 <div class="row">
 {% usemacro sponsor "http://www.education.gouv.fr/" "img/sponsors/ministere-education.png" "Éducation Nationale" %}
 {% usemacro sponsor "http://delegation.internet.gouv.fr/" "img/sponsors/delegation-internet.png" "Délégation Internet" %}

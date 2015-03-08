@@ -3,7 +3,7 @@
 	<div class="container">
 
 		<h1>{% trans "Prologin, le concours national d'informatique." %}</h1>
-		<p>{% blocktrans %}Vous êtes né en {{ born_year }} ou après&nbsp;? Participez à Prologin&nbsp;! L'inscription est gratuite.{% endblocktrans %}</p>
+		<p>{% blocktrans with born_year as born_year %}Born in {{ born_year }} or after? Join the Prologin contest! Registration is free.{% endblocktrans %}</p>
 
 		{# timeline #}
 		<div class="htl">
@@ -19,24 +19,30 @@
 					<div class="tl-block active">
 						<div class="row">
 							<div class="col-xs-5 col-sm-12">
-								<h4>Sélection</h4>
-								<p class="date">01 nov. 2014</p>
+								<h4>{% trans "Qualification" %}</h4>
+								<p class="date">{{ request.current_qualification.date_begin|date:"d b Y" }}</p>
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
-									<p>Un QCM et quatre exercices, à résoudre en ligne.</p>
+									<p>
+                                    {% if request.current_qcm %}
+                                        {% blocktrans %}A quiz and {{ count }} exercises to solve online.{% endblocktrans %}
+                                    {% else %}
+                                        {% blocktrans %}{{ count }} exercises to solve online.{% endblocktrans %}
+                                    {% endif %}
+                                    </p>
 									{% if not user.is_authenticated %}
-									<p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block">S'inscrire</a></p>
+									<p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block">{% trans "Register now!" %}</a></p>
 									{% else %}
 									<ul class="list-unstyled checklist hide-no-active">
-                                    {% if qcm_completed != None %}
+                                    {% if request.current_qcm %}
                                         {% if qcm_completed %}
-                                            <li class="text-success"><a href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-check-square-o"></i> {% trans "Quizz completed" %}</a></li>
+                                            <li class="text-success"><a href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-check-square-o"></i> {% trans "Quiz completed" %}</a></li>
                                         {% else %}
-                                            <li class="text-danger"><a href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-square-o"></i> {% trans "Complete the quizz" %}</a></li>
+                                            <li class="text-danger"><a href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-square-o"></i> {% trans "Complete the quiz" %}</a></li>
                                         {% endif %}
                                     {% endif %}
-										<li class="text-danger"><a href="#EXOS"><i class="fa fa-square-o"></i> 1/4 exercices terminés</a></li>
+										<li class="text-danger"><a href="#EXOS"><i class="fa fa-square-o"></i> {% blocktrans %}{{ completed }}/{{ total }} exercises completed{% endblocktrans %}</a></li>
 									</ul>
 									{% endif %}
 								</div>
@@ -50,13 +56,13 @@
 					<div class="tl-block">
 						<div class="row">
 							<div class="col-xs-5 col-sm-12">
-								<h4>Régionales</h4>
-								<p class="date">20 fév. 2015</p>
+								<h4>{% trans "Regionales" %}</h4>
+								<p class="date">{{ request.current_regionales.first.date_begin|date:"d b Y" }}</p>
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
-									<p>Une épreuve papier et des exercices sur machine dans plusieurs grandes villes de France.</p>
-									<p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "S'entraîner" %}</a></p>
+									<p>{% trans "Consists of a written exam and some exercises to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
+									<p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
 								</div>
 							</div>
 						</div>
@@ -68,13 +74,13 @@
 					<div class="tl-block last">
 						<div class="row">
 							<div class="col-xs-5 col-sm-12">
-								<h4>Finale</h4>
-								<p class="date">26 avril 2015</p>
+								<h4>{% trans "Finale" %}</h4>
+								<p class="date">{{ request.current_finale.date_begin|date:"d b Y" }}</p>
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
-									<p>Développement d'une IA pendant un week-end, à Paris.</p>
-									<p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "S'entraîner" %}</a></p>
+									<p>{% trans "You have one weekend to develop an Artificial Intelligence for a custom-made game, in Paris." %}</p>
+									<p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
 								</div>
 							</div>
 						</div>
