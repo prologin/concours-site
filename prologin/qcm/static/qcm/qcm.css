@@ -1,0 +1,43 @@
+.propositions {
+	padding-left: 1em;
+	margin-left: 0;
+}
+.propositions li {
+	list-style-type: none;
+}
+
+/* fancy radios */
+.propositions li label input[type=radio] {
+	display: none;
+}
+.propositions li label:before {
+	font-family: 'FontAwesome';
+	position: absolute;
+	font-weight: normal;
+	left: 0;
+	/*content: '\f096';*/
+	content: '\f10c';
+	font-size: 18px; /* in px so the dot is centered */
+}
+.propositions li label.checked:before {
+	/*content: '\f046';*/
+	content: '\f192';
+}
+.propositions li label {
+	font-weight: normal;
+	padding-left: 1.5em;
+	position: relative;
+}
+.propositions li label.checked {
+	color: #35479a;
+	font-weight: 700;
+}
+
+.question:not(:last-child) {
+	margin-bottom: 1em;
+}
+
+.question .body {
+	font-size: 1.2em;
+	font-weight: 700;
+}

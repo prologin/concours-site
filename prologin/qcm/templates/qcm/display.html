@@ -1,0 +1,84 @@
+{% extends "prologin/base.html" %}
+{% load i18n markdown staticfiles django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Contest" "" %}
+	{% breadcrumb qcm.event.edition.year "" %}
+	{% breadcrumb "Qualification quizz" 'qcm:display' qcm.event.edition.year %}
+{% endblock breadcrumbs %}
+
+{% block extra_head %}
+    <link href="{% static 'qcm/qcm.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block title %}{% blocktrans with qcm.event.edition.year as year %}Qualification quizz – Prologin {{ year }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+    <h1>{% blocktrans with qcm.event.edition.year as year %}Qualification quizz – Prologin {{ year }}{% endblocktrans %}</h1>
+
+    <p class="well">
+    {% blocktrans %}Please answer the following questions. There is only one correct answer for each question.{% endblocktrans %}<br>
+    {% blocktrans %}Correct answers give one point, wrong ones remove one point. Not answering a question neither gives nor removes any point.{% endblocktrans %}
+    </p>
+
+{% if not user.is_authenticated %}
+    {% url 'users:register' as register %}
+    {% url 'users:login' as login %}
+    <p class="alert alert-warning">{% blocktrans with register as register%}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to fill the quizz.{% endblocktrans %}</p>
+{% endif %}
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <ol class="qcm">
+            {% for field in form %}
+            {% with question=field.field.question %}
+            <li class="question">
+                <div class="body">
+                    <div class="main">{% markdown question.body %}</div>
+                    {% if question.verbose %}
+                        <div class="verbose">{% markdown question.verbose %}</div>
+                    {% endif %}
+                </div>
+                <ul class="propositions">
+                {% for proposition in field %}
+                    <li>
+                        {{ proposition }}
+                    </li>
+                {% endfor %}
+            </ul>
+            </li>
+            {% endwith %}
+            {% endfor %}
+        </ol>
+
+    {% if editable %}
+        <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> {% trans "Save the new answers" %}</button>
+    {% endif %}
+    </form>
+
+{% endblock %}
+
+{% block extra_script %}
+    <script type="text/javascript">
+        $(function() {
+            $('.propositions').each(function() {
+                var that = $(this);
+                var labels = that.find('label');
+                labels.each(function() {
+                    var label = $(this);
+                    var input = $(label.find('input'));
+                    input.change(function(e) {
+                        if ($(this).prop('checked')) {
+                            labels.removeClass('checked');
+                            label.addClass('checked');
+                        }
+                    });
+                    if (input.prop('checked'))
+                        label.addClass('checked');
+                });
+            });
+        });
+    </script>
+{% endblock %}

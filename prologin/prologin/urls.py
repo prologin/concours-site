@@ -22,6 +22,9 @@ urlpatterns = patterns('',
     # Documents
     url(r'^docs/', include('documents.urls', namespace='documents')),
 
+    # Contest
+    url(r'^contest/(?P<year>[0-9]{4})/qcm/', include('qcm.urls', namespace='qcm')),
+
     # Authentication and accounts
     url(r'^user/', include('users.urls', namespace='users')),
 

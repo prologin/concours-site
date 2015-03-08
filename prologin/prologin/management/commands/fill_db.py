@@ -257,14 +257,15 @@ class Command(BaseCommand):
                     if random.choice((True, False)):
                         comments="Ouais pas mal.\n\nSinon il préfère les pâtes carbo."
                     contestant = contest.models.Contestant(user=user,
+                                                           edition=edition,
                                                            correction_by=random.choice(staff),
                                                            correction_comments=comments)
                     contestant.save()
-                    contestant.events.add(qualif)
+                    # contestant.events.add(qualif)
                     for i, regionale in enumerate(random.sample(regionales, 3)):
-                        contestant.events.add(regionale)
+                        # contestant.events.add(regionale)
                         contest.models.EventWish(contestant=contestant, event=regionale, order=i, is_approved=(i == 0)).save()
-                    contestant.events.add(finale)
+                    # contestant.events.add(finale)
                     # wish to finale (1/2 chance of getting in)
                     contest.models.EventWish(contestant=contestant, event=finale, is_approved=random.choice((True, False))).save()
 
@@ -303,8 +304,8 @@ class Command(BaseCommand):
                 prop.save()
 
         with django.db.transaction.atomic():
-            for qcmobj in qcm.models.Qcm.objects.prefetch_related('event__contestants', 'questions').all():
-                for contestant in qcmobj.event.contestants.all():
+            for qcmobj in qcm.models.Qcm.objects.select_related('event__edition__contestants', 'questions').all():
+                for contestant in qcmobj.event.edition.contestants.all():
                     for question in qcmobj.questions.all():
                         prop = random.choice(list(question.propositions.all()))
                         qcm.models.Answer(contestant=contestant, proposition=prop).save()

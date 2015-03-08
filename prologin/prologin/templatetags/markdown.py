@@ -1,14 +1,15 @@
 from django import template
 from django.template import Node, Variable
-from django.utils.html import escape
 from prologin.utils import real_value
 from markdown import markdown as markdown_to_html
 
 register = template.Library()
 
+
 @register.tag
 def markdown(parser, token):
     return MarkdownNode(token.split_contents()[1:])
+
 
 class MarkdownNode(Node):
     def __init__(self, tokens):

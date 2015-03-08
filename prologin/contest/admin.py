@@ -16,10 +16,10 @@ class EventWishesInline(admin.StackedInline):
 
 
 class ContestantAdmin(admin.ModelAdmin):
-    list_filter = ('events__edition', 'events__type',)
+    list_filter = ('edition',)
     list_display = ('user', 'edition', 'total_score',)
     fieldsets = (
-        (None, {'fields': ('user', 'events',)}),
+        (None, {'fields': ('user', 'edition',)}),
         (_("Qualification scores"), {'classes': ('collapse',), 'fields':
             ('score_qualif_qcm', 'score_qualif_algo', 'score_qualif_bonus',)}),
         (_("Regionale scores"), {'classes': ('collapse',), 'fields':
@@ -28,14 +28,6 @@ class ContestantAdmin(admin.ModelAdmin):
             ('score_finale', 'score_finale_bonus',)}),
     )
     inlines = [EventWishesInline]
-
-    def render_change_form(self, request, context, *args, **kwargs):
-        contestant = kwargs['obj']
-        # Restrict events to current edition for this contestant
-        qs = context['adminform'].form.fields['events'].queryset
-        context['adminform'].form.fields['events'].queryset = qs.filter(
-            edition=contestant.edition)
-        return super().render_change_form(request, context, *args, **kwargs)
 
 
 class EventAdmin(admin.ModelAdmin):
