@@ -15,6 +15,9 @@ def contestant_qcm_consistency_check(contestant, qcm):
 class Qcm(models.Model):
     event = models.ForeignKey(contest.models.Event, related_name='qcms')
 
+    def is_completed_for(self, contestant):
+        return contestant.qcm_answers.filter(proposition__question__qcm=self).count() == self.questions.count()
+
     def score_for_contestant(self, contestant):
         contestant_qcm_consistency_check(contestant, self)
         return Answer.objects.filter(

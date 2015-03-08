@@ -16,6 +16,10 @@ class DisplayQCMView(UpdateView):
     def year(self):
         return self.kwargs[self.pk_url_kwarg]
 
+    @property
+    def is_editable(self):
+        return self.request.user.is_authenticated() and self.get_object().event.is_active
+
     def get_success_url(self):
         return reverse('qcm:display', args=[self.year])
 
@@ -25,9 +29,10 @@ class DisplayQCMView(UpdateView):
     def get_form(self, form_class):
         kwargs = self.get_form_kwargs()
         kwargs['contestant'] = self.request.current_contestant
+        kwargs['readonly'] = not self.is_editable
         return form_class(**kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['editable'] = self.request.user.is_authenticated() and self.get_object().event.edition.is_current
+        context['editable'] = self.is_editable
         return context

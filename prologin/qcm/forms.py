@@ -9,8 +9,8 @@ class QcmForm(forms.ModelForm):
         fields = ()
 
     def __init__(self, *args, **kwargs):
-        contestant = kwargs.pop('contestant', None)
-        self.contestant = contestant
+        self.contestant = kwargs.pop('contestant', None)
+        self.readonly = kwargs.pop('readonly', False)
         super().__init__(*args, **kwargs)
         if self.contestant:
             answers = {e.proposition.question.pk: e.proposition
@@ -24,8 +24,10 @@ class QcmForm(forms.ModelForm):
                 widget=forms.RadioSelect,
                 empty_label=_("I don't know"),
             )
+            if self.readonly:
+                field.widget.attrs['disabled'] = 'disabled'
             field.question = question
-            if contestant:
+            if self.contestant:
                 field.initial = answers.get(question.pk)
                 print("well hello there!", field.initial)
 

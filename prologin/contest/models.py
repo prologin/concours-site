@@ -16,7 +16,7 @@ class Edition(models.Model):
         ordering = ('-year',)
 
     @property
-    def is_current(self):
+    def is_active(self):
         return self.date_begin <= timezone.now() <= self.date_end
 
     def __str__(self):
@@ -34,6 +34,10 @@ class Event(models.Model):
     type = models.SmallIntegerField(choices=EventType.choices(), db_index=True)
     date_begin = models.DateField(blank=True, null=True)
     date_end = models.DateField(blank=True, null=True)
+
+    @property
+    def is_active(self):
+        return self.date_begin <= timezone.now().date() <= self.date_end
 
     def __str__(self):
         return "{edition}: {type} starting {starting}{at}".format(

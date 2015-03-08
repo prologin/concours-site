@@ -29,7 +29,13 @@
 									<p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block">S'inscrire</a></p>
 									{% else %}
 									<ul class="list-unstyled checklist hide-no-active">
-										<li class="text-success"><a href="#QCM"><i class="fa fa-check-square-o"></i> QCM soumis</a></li>
+                                    {% if qcm_completed != None %}
+                                        {% if qcm_completed %}
+                                            <li class="text-success"><a href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-check-square-o"></i> {% trans "Quizz completed" %}</a></li>
+                                        {% else %}
+                                            <li class="text-danger"><a href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-square-o"></i> {% trans "Complete the quizz" %}</a></li>
+                                        {% endif %}
+                                    {% endif %}
 										<li class="text-danger"><a href="#EXOS"><i class="fa fa-square-o"></i> 1/4 exercices terminés</a></li>
 									</ul>
 									{% endif %}
