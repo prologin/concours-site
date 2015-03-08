@@ -1,0 +1,11 @@
+<ul class="breadcrumb">
+    {% for url, label in breadcrumbs %}
+        <li itemscope itemtype="http://data-vocabulary.org/Breadcrumb"{% ifequal forloop.counter breadcrumbs_total %} class="active"{% endifequal %}>
+            {% ifnotequal forloop.counter breadcrumbs_total %}
+                <a itemprop="url" href="{{ url }}"><span itemprop="title">{{ label|safe }}</span></a>
+            {% else %}
+                <span>{{ label|safe }}</span>
+            {% endifnotequal %}
+        </li>
+    {% endfor %}
+</ul>
