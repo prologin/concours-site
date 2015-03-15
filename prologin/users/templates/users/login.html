@@ -4,24 +4,33 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Connexion" "users:login" %}
+	{% breadcrumb "Sign in" "users:login" %}
 {% endblock breadcrumbs %}
 
-{% block title %}{% trans "Connexion" %}{% endblock %}
+{% block title %}{% trans "Sign in" %}{% endblock %}
 
 {% block content %}
 
-<h1>{% trans "Connexion" %}</h1>
+    <div class="row-fluid">
+        <div class="col-md-7">
+            <h2>{% trans "Sign in with your credentials" %}</h2>
+            <form method="POST" class="form-horizontal">
+                {% csrf_token %}
+                {{ form|bootstrap_horizontal }}
+                <input type="hidden" name="next" value="{{ next }}" />
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button class="btn btn-primary" type="submit"><i class="fa fa-sign-in"></i> {% trans "Sign in" %}</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="col-md-4 col-md-offset-1">
+            <h2>{% trans "Need an account?" %}</h2>
 
-<form method="POST" class="form-horizontal">
-	{% csrf_token %}
-	{{ form|bootstrap_horizontal }}
-	<input type="hidden" name="next" value="{{ next }}" />
-	<div class="form-group">
-		<div class="col-sm-offset-2 col-sm-10">
-			<input class="btn btn-primary" type="submit" value="{% trans "Connexion" %}">
-		</div>
-	</div>
-</form>
+            <p>{% blocktrans %}You can create a new account anytime. It's free, you just need an email address.{% endblocktrans %}</p>
+            <p><a href="{% url 'users:register' %}" class="btn btn-success"><i class="fa fa-user"></i> {% trans "Register now" %}</a></p>
+        </div>
+    </div>
 
 {% endblock %}

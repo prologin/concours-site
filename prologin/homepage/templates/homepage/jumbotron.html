@@ -26,9 +26,9 @@
 								<div class="desc">
 									<p>
                                     {% if request.current_qcm %}
-                                        {% blocktrans %}A quiz and {{ count }} exercises to solve online.{% endblocktrans %}
+                                        {% blocktrans %}A quiz and {{ problems_count }} problems to solve online.{% endblocktrans %}
                                     {% else %}
-                                        {% blocktrans %}{{ count }} exercises to solve online.{% endblocktrans %}
+                                        {% blocktrans %}{{ problems_count }} problems to solve online.{% endblocktrans %}
                                     {% endif %}
                                     </p>
 									{% if not user.is_authenticated %}
@@ -42,7 +42,9 @@
                                             <li class="text-danger"><a href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-square-o"></i> {% trans "Complete the quiz" %}</a></li>
                                         {% endif %}
                                     {% endif %}
-										<li class="text-danger"><a href="#EXOS"><i class="fa fa-square-o"></i> {% blocktrans %}{{ completed }}/{{ total }} exercises completed{% endblocktrans %}</a></li>
+										<li class="text-{% if problems_completed == problems_count %}success{% else %}danger{% endif %}">
+                                            <a href="#EXOS"><i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i> {% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems completed{% endblocktrans %}</a>
+                                        </li>
 									</ul>
 									{% endif %}
 								</div>
@@ -61,7 +63,7 @@
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
-									<p>{% trans "Consists of a written exam and some exercises to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
+									<p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
 									<p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
 								</div>
 							</div>

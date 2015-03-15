@@ -336,46 +336,6 @@ footer .legal {
 }
 
 /*
- * Forms
- */
-
-fieldset {
-    margin-top: 15px;
-}
-
-fieldset > div {
-    text-align: right;
-    padding-right: 25%;
-}
-
-
-/*
- * Elements
- */
-
-#title {
-    padding-top: 20px;
-    color: white;
-    text-shadow: #494e53 0px 1px 3px;
-    font-size: 1.5em;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: bold;
-}
-
-h2 {
-    font-size: 19px;
-    font-style: normal;
-    font-variant: normal;
-    font-weight: normal;
-    line-height: 24px;
-}
-
-a, a:visited {
-    color: #33449d;
-}
-
-/*
  * News
  */
 .entry-meta-line:before {

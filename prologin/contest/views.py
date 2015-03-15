@@ -1,4 +1,3 @@
-from django.views.generic.list_detail import object_detail
 from contest.models import Contestant
 from django.contrib.auth import get_user_model
 

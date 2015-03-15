@@ -1,16 +1,16 @@
-.propositions {
+.qcm .propositions {
 	padding-left: 1em;
 	margin-left: 0;
 }
-.propositions li {
+.qcm .propositions li {
 	list-style-type: none;
 }
 
 /* fancy radios */
-.propositions li label input[type=radio] {
+.qcm .propositions li label input[type=radio] {
 	display: none;
 }
-.propositions li label:before {
+.qcm .propositions li label:before {
 	font-family: 'FontAwesome';
 	position: absolute;
 	font-weight: normal;
@@ -19,25 +19,67 @@
 	content: '\f10c';
 	font-size: 18px; /* in px so the dot is centered */
 }
-.propositions li label.checked:before {
+.qcm .propositions li label.checked:before {
 	/*content: '\f046';*/
 	content: '\f192';
 }
-.propositions li label {
+.qcm .propositions li label {
 	font-weight: normal;
 	padding-left: 1.5em;
 	position: relative;
 }
-.propositions li label.checked {
+.qcm .propositions li label.checked {
 	color: #35479a;
 	font-weight: 700;
 }
 
-.question:not(:last-child) {
+.qcm .question:not(:last-child) {
 	margin-bottom: 1em;
 }
 
-.question .body {
-	font-size: 1.2em;
-	font-weight: 700;
+.qcm .question .body, ol.mainlist > li h3 {
+	margin-top: 0;
+	font-weight: 500;
+	font-size: 24px;
+	line-height: 28px;
+}
+
+ol.mainlist {
+	counter-reset: li;
+	list-style: none;
+	position: relative;
+	padding: 0 0 10px 20px;
+	margin: 0;
+}
+
+ol.mainlist > li {
+	padding: 5px 0 5px 50px;
+	position: relative;
+	margin: 0.5em 0;
+}
+
+ol.mainlist > li:before {
+	content: counter(li);
+	counter-increment: li;
+	position: absolute;
+	top: 5px;
+	left: 0;
+	height: 100%;
+	width: 30px;
+	padding: 0 10px 0 0;
+	color: #999;
+	font-size: 22px;
+	font-weight: bold;
+	line-height: 28px;
+	text-align: right;
+	border-right: 1px solid #ddd;
+}
+
+ol.mainlist > li:after {
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+	line-height: 0;
+	height: 0;
 }

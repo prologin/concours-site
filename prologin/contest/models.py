@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from ordered_model.models import OrderedModel
 from prologin.utils import ChoiceEnum
+import prologin.languages
 
 
 class Edition(models.Model):
@@ -49,9 +50,20 @@ class Event(models.Model):
 
 
 class Contestant(models.Model):
+    class TshirtSize(ChoiceEnum):
+        xs = "XS"
+        s = "S"
+        m = "M"
+        l = "L"
+        xl = "XL"
+        xxl = "XXL"
+
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
     edition = models.ForeignKey(Edition, related_name='contestants')
     event_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants')
+
+    tshirt_size = models.CharField(max_length=3, choices=TshirtSize.choices(), blank=True)
+    preferred_language = models.CharField(max_length=16, choices=prologin.languages.Language.choices(), blank=True)
 
     correction_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='corrections')
     correction_comments = models.TextField(blank=True)
@@ -68,6 +80,21 @@ class Contestant(models.Model):
 
     class Meta:
         unique_together = ('user', 'edition')
+
+    @property
+    def _is_complete(self):
+        return bool(self.tshirt_size) and bool(self.preferred_language)
+
+    @property
+    def is_complete_for_regionale(self):
+        # FIXME: 3 is a magic number
+        if self.event_wishes.filter(type=Event.EventType.qualification.value).distinct().count() < 3:
+            return False
+        return self._is_complete
+
+    @property
+    def is_complete_for_finale(self):
+        return self._is_complete
 
     @property
     def total_score(self):

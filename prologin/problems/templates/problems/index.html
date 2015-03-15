@@ -1,12 +1,57 @@
-{% extends "static/base.html" %}
+{% extends "prologin/base.html" %}
+{% load i18n markdown staticfiles django_bootstrap_breadcrumbs %}
 
-{% block title %} – Entraînement{% endblock %}
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Contest" "" %}
+	{% breadcrumb event.edition.year "" %}
+	{% breadcrumb "Qualification" '' %} {# TODO #}
+	{% breadcrumb "Problems" 'qcm-problems:index' event.edition.year %}
+{% endblock breadcrumbs %}
 
-{% block body %}
-<h1>Entraînement</h1>
-<ul>
-{% for challenge in challenges %}
-	<li><a href="{{ challenge.name }}">{{ challenge.title }}</a>
-{% endfor %}
-</ul>
+{% block extra_head %}
+    <link href="{% static 'qcm/qcm.css' %}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block title %}{% blocktrans with event.edition.year as year %}Qualification problems – Prologin {{ year }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+    <h1>{% blocktrans with event.edition.year as year %}Qualification problems – Prologin {{ year }}{% endblocktrans %}</h1>
+
+{% if not user.is_authenticated %}
+    {% url 'users:register' as register %}
+    {% url 'users:login' as login %}
+    <p class="alert alert-warning">{% blocktrans with register as register%}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your solutions.{% endblocktrans %}</p>
+{% endif %}
+
+
+    <form action="" method="POST">
+        {% csrf_token %}
+
+        <ol class="mainlist problems">
+            {% for field in form %}
+            {% with problem=field.field.problem %}
+            <li class="question">
+                <div class="body">
+                    <h3>{{ problem.title }}</h3>
+                    <div class="main">{% markdown problem.question %}</div>
+                    {% if problem.comments %}
+                        <div class="comments">{% markdown problem.comments %}</div>
+                    {% endif %}
+                </div>
+            {% if editable %}
+                <div class="answer">
+                    {{ field }}
+                </div>
+            {% endif %}
+            </li>
+            {% endwith %}
+            {% endfor %}
+        </ol>
+
+    {% if editable %}
+        <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> {% trans "Save the new solutions" %}</button>
+    {% endif %}
+    </form>
+
 {% endblock %}

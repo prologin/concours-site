@@ -1,21 +1,19 @@
 {% extends "prologin/base.html" %}
+{% load i18n markdown staticfiles django_bootstrap_breadcrumbs %}
 
-{% block title %} – L'équipe {{ year }}{% endblock %}
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Contest" "" %}
+	{% breadcrumb edition.year "" %}
+	{% breadcrumb "Qualification" '' %} {# TODO #}
+{% endblock breadcrumbs %}
+
+{% block title %}{% blocktrans with edition.year as year %}Prologin {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
-<h1>{{ contestant.username }}</h1>
-<h2>Participations</h2>
-{% for participation in participations %}
-	<h2>{{ participation.year }}</h2>
-	<ul>
-	{% for event in participation.events.all %}
-		<li>
-		{{ event.type }}
-		{% if event.type == 'épreuve régionale' %}
-			({{ event.center }})
-		{% endif %}
-		</li>
-	{% endfor %}
-	</ul>
-{% endfor %}
+
+    <h1>{% blocktrans with edition.year as year %}Prologin {{ year }}{% endblocktrans %}</h1>
+
+
+
 {% endblock %}

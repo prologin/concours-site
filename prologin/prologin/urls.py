@@ -23,7 +23,14 @@ urlpatterns = patterns('',
     url(r'^docs/', include('documents.urls', namespace='documents')),
 
     # Contest
-    url(r'^contest/(?P<year>[0-9]{4})/qcm/', include('qcm.urls', namespace='qcm')),
+    # url(r'^contest/(?P<year>[0-9]{4})/regionale/problems/', include('problems.urls', namespace='training-regionale-problems')),
+    url(r'^contest/(?P<year>[0-9]{4})/qualif/problems/', include('problems.urls', namespace='qcm-problems')),
+    url(r'^contest/(?P<year>[0-9]{4})/qualif/quiz/', include('qcm.urls', namespace='qcm')),
+
+    # Training
+    # url(r'^training/(?P<year>[0-9]{4})/regionale/problems/', include('problems.urls', namespace='training-regionale-problems')),
+    # url(r'^training/(?P<year>[0-9]{4})/qualif/problems/', include('problems.urls', namespace='training-qcm-problems')),
+    # url(r'^training/(?P<year>[0-9]{4})/qualif/quiz/', include('problems.urls', namespace='training-qcm')),
 
     # Authentication and accounts
     url(r'^user/', include('users.urls', namespace='users')),

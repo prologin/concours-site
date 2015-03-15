@@ -42,19 +42,21 @@ INSTALLED_APPS = (
     'bootstrapform',
     'django_bootstrap_breadcrumbs',
     'django_comments',
+    'ordered_model',
     'macros',
     'mptt',
     'tagging',
 
     # Prologin
+    'prologin',
     'captcha',
     'centers',
     'contest',
     'documents',
     'homepage',
     'qcm',
+    'problems',
     'news',
-    'prologin',
     'team',
     'users',
 

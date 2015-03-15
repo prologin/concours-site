@@ -29,7 +29,6 @@ class QcmForm(forms.ModelForm):
             field.question = question
             if self.contestant:
                 field.initial = answers.get(question.pk)
-                print("well hello there!", field.initial)
 
     def save(self, commit=True):
         instance = self.instance

@@ -14,6 +14,8 @@ import contest.models
 import datetime
 import django.db
 import itertools
+import problems.models
+import prologin.languages
 import prologin.models
 import random
 import requests
@@ -247,6 +249,9 @@ class Command(BaseCommand):
         assert staff, "Staff list is empty; run fill_db users"
         contest.models.Contestant.objects.all().delete()
 
+        tshirt_sizes = [k for k, v in contest.models.Contestant.TshirtSize.choices()]
+        languages = [l.name for l in prologin.languages.Language]
+
         with django.db.transaction.atomic():
             for edition in contest.models.Edition.objects.all():
                 qualif = contest.models.Event.objects.get(edition=edition, type=contest.models.Event.EventType.qualification.value)
@@ -258,6 +263,8 @@ class Command(BaseCommand):
                         comments="Ouais pas mal.\n\nSinon il préfère les pâtes carbo."
                     contestant = contest.models.Contestant(user=user,
                                                            edition=edition,
+                                                           tshirt_size=random.choice(tshirt_sizes),
+                                                           preferred_language=random.choice(languages),
                                                            correction_by=random.choice(staff),
                                                            correction_comments=comments)
                     contestant.save()
@@ -310,9 +317,37 @@ class Command(BaseCommand):
                         prop = random.choice(list(question.propositions.all()))
                         qcm.models.Answer(contestant=contestant, proposition=prop).save()
 
+    def fill_problems(self):
+        events = contest.models.Event.objects.filter(type=contest.models.Event.EventType.qualification.value)
+        titles = ["Prolego™", "Tour de magie", "Croissance", "Hâte", "Repli", "Sabotage", "Vantardise", "Expert-itinérant", "Rond-point", "Syracuse", "Triangles", "Wi-Fi"]
+        random.shuffle(titles)
+        titles = itertools.cycle(titles)
+        problems.models.Challenge.objects.all().delete()
+        with django.db.transaction.atomic():
+            for event in events:
+                for i in range(4):
+                    title = next(titles)
+                    problems.models.Challenge(
+                        event=event, title=title, problem_ref=slugify(title),
+                        question="\n".join(lorem_ipsum.paragraphs(2, False)),
+                    ).save()
+
+        languages = [l.name for l in prologin.languages.Language]
+        with django.db.transaction.atomic():
+            for challenge in problems.models.Challenge.objects.all():
+                for contestant in challenge.event.edition.contestants.all():
+                    problems.models.Answer(
+                        challenge=challenge, contestant=contestant,
+                        is_final=random.choice((True, True, False)),
+                        language=random.choice(languages),
+                        code="\n".join(lorem_ipsum.paragraphs(1, False)),
+                    ).save()
+
+
+
     def handle(self, *args, **options):
         if len(args) < 1 or args[0] == 'all':
-            args = ['users', 'profilepics', 'teams', 'news', 'sponsors', 'centers', 'contests', 'contestants', 'qcms']
+            args = ['users', 'profilepics', 'teams', 'news', 'sponsors', 'centers', 'contests', 'contestants', 'qcms', 'problems']
         for mod in args:
             try:
                 method = getattr(self, 'fill_%s' % mod)
