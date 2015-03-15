@@ -8,7 +8,6 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
-from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse_lazy
 import datetime
 import os
@@ -130,7 +129,6 @@ SITE_HOST = 'www.prologin.org'
 PROLOGIN_CONTACT_MAIL = "info@prologin.org"
 PROLOGIN_EDITION = 2015
 PROLOGIN_MAX_AGE = 21
-USER_ACTIVATION_MAIL_SUBJECT = _("Activez votre compte Prologin")
 USER_ACTIVATION_EXPIRATION = datetime.timedelta(hours=12)
 LATEX_GENERATION_PROC_TIMEOUT = 60  # in seconds
 PLAINTEXT_PASSWORD_LENGTH = 8

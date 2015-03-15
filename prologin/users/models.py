@@ -37,9 +37,9 @@ class ProloginUser(AbstractUser, AddressableModel):
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
-    phone = models.CharField(max_length=16, blank=True, verbose_name=_("Téléphone"))
-    birthday = models.DateField(blank=True, null=True, verbose_name=_("Date de naissance"))
-    newsletter = models.BooleanField(default=False, blank=True, verbose_name=_("Recevoir la newsletter"))
+    phone = models.CharField(max_length=16, blank=True, verbose_name=_("Phone"))
+    birthday = models.DateField(blank=True, null=True, verbose_name=_("Birth day"))
+    newsletter = models.BooleanField(default=False, blank=True, verbose_name=_("Subscribe to the newsletter"))
 
     avatar = models.ImageField(upload_to=upload_path('avatar'), blank=True, verbose_name=_("Profile picture"))
     picture = models.ImageField(upload_to=upload_path('picture'), blank=True, verbose_name=_("Official member picture"))
@@ -71,7 +71,7 @@ class ProloginUser(AbstractUser, AddressableModel):
             host=settings.SITE_HOST,
             path=reverse('users:activate', args=[self.pk, token.slug]))
         self.email_user(
-            settings.USER_ACTIVATION_MAIL_SUBJECT,
+            _("Activate your Prologin account"),
             render_to_string('users/activation_email.txt', {'user': self, 'token': token, 'url': url}),
             from_email=settings.PROLOGIN_CONTACT_MAIL,
             fail_silently=False)

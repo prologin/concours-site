@@ -14,7 +14,7 @@ def _regionale_wishes_from_year_center(year, center):
     else:
         center_qs = center_qs.filter(pk=center)
         if not center_qs:
-            raise django.http.Http404("No such center")
+            raise django.http.Http404(_("No such center"))
         center_name = center_qs[0].name
 
     wishes = contest.models.EventWish.objects.filter(

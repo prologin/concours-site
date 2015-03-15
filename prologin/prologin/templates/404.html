@@ -5,5 +5,7 @@
 {% block title       %}{% with 404 as number %}{{ block.super }}{% endwith %}{% endblock %}
 
 {% block explanation %}
-<p>{% trans "La page demandée n'existe pas ou a été supprimée." %}</p>
+<p>{% trans "The resource you asked for does not longer exist, or never has." %}</p>
+{# TODO: the said search engine #}
+<p>{% trans "You could use our search engine to find the content you are looking for." %}</p>
 {% endblock %}

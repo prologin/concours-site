@@ -4,19 +4,19 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Membres" "" %}
+	{% breadcrumb "Members" "" %}
 	{% breadcrumb shown_user "users:profile" shown_user.id %}
 {% endblock breadcrumbs %}
 
-{% block title %}{% blocktrans with shown_user.username as username %}Profil de {{ username }}{% endblocktrans %}{% endblock %}
+{% block title %}{% blocktrans with shown_user.username as username %}{{ username }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 
-{% trans "<em>non renseigné</em>" as noinfo %}
-<h1>{% blocktrans with shown_user.username as username %}Profil de {{ username }}{% endblocktrans %}</h1>
+{% trans "<em>not provided</em>" as noinfo %}
+<h1>{% blocktrans with shown_user.username as username %}{{ username }}{% endblocktrans %}</h1>
 
 {% if see_private %}
-<p class="text-right"><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Modifier" %}</a></p>
+<p class="text-right"><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Edit" %}</a></p>
 {% endif %}
 
 <div class="row">
@@ -26,28 +26,28 @@
 	{% else %}
 	<p><img src="{% static 'img/silhouette.png' %}" alt="{% trans "No profile picture" %}" style="max-width: 100%" /></p>
 	{% endif %}
-	<p>Des liens vers forums, news, etc. ici</p>
+    {# TODO: related links (forum posts, news, contest participations…) #}
 </div>
 
 <div class="col-sm-8">
 <dl class="dl-horizontal">
-	<dt>{% trans "Prénom" %}</dt>
+	<dt>{% trans "First name" %}</dt>
 	<dd>{{ shown_user.first_name|default:noinfo }}</dd>
 
-	<dt>{% trans "Nom de famille" %}</dt>
+	<dt>{% trans "Last name" %}</dt>
 	<dd>{{ shown_user.last_name|default:noinfo }}</dd>
 
 {% if see_private %}
-	<dt>{% trans "Téléphone" %}</dt>
+	<dt>{% trans "Phone number" %}</dt>
 	<dd>{{ shown_user.phone|default:noinfo }}</dd>
 
-	<dt>{% trans "Adresse email" %}</dt>
+	<dt>{% trans "Email address" %}</dt>
 	<dd>{{ shown_user.email|default:noinfo }}</dd>
 
-	<dt>{% trans "Date de naissance" %}</dt>
+	<dt>{% trans "Birth day" %}</dt>
 	<dd>{% if shown_user.birthday %}{{ shown_user.birthday }} ({{ shown_user.birthday|timesince }}){% else %}{{ noinfo }}{% endif %}</dd>
 
-	<dt>{% trans "Adresse postale" %}</dt>
+	<dt>{% trans "Postal address" %}</dt>
 	<dd>
 		{% if user.has_partial_address %}
 		<address>

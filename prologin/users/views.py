@@ -43,8 +43,8 @@ def register_view(request):
             # Send activation email
             user.send_activation_email(token)
             messages.success(request, _(
-                "Votre compte a été créé. Nous avons envoyé un email à %(mail)s "
-                "pour que vous puissiez valider votre inscription.") % {'mail': user.email})
+                "Your account was created. We sent an email to %(mail)s "
+                "so you can confirm your registration.") % {'mail': user.email})
             return redirect('home')
 
     return render(request, 'users/register.html', {
@@ -59,12 +59,12 @@ def activate(request, user_id, code):
     try:
         token = users.models.ActivationToken.objects.get(slug=code)
     except users.models.ActivationToken.DoesNotExist:
-        messages.error(request, _("Le lien d'activation que vous avez utilisé est invalide. Vérifiez qu'il n'y a pas d'erreur."))
+        messages.error(request, _("The activation link you provided is invalid. Please make sure there is no mistake."))
         return redirect('home')
 
     if not token.is_valid():
         # TODO: ouais, et du coup le mec il fait quoi ? il crée un second compte ? #genius
-        messages.error(request, _("Le lien d'activation que vous avez utilisé est périmé."))
+        messages.error(request, _("The activation link you provided is obsolete."))
         return redirect('home')
 
     user = token.user
@@ -72,7 +72,7 @@ def activate(request, user_id, code):
     user.save()
     token.delete()
 
-    messages.success(request, _("Votre compte est maintenant activé. Merci !"))
+    messages.success(request, _("Your account was successfully activated. Enjoy your visit!"))
     return redirect('home')
 
 
@@ -91,7 +91,7 @@ def edit_user(request, user_id):
     if request.method == 'POST':
         if user_form.is_valid():
             user_form.save()
-            messages.success(request, _("Modifications enregistrées."))
+            messages.success(request, _("Changes saved."))
             return redirect('users:edit', user_id=edited_user.pk)
 
     return render(request, 'users/edit.html', {'edited_user': edited_user, 'form': user_form, 'as_staff': as_staff})
@@ -113,7 +113,7 @@ def edit_user_password(request, user_id):
     if request.method == 'POST':
         if form.is_valid():
             form.save()
-            messages.success(request, _("Mot de passe modifié."))
+            messages.success(request, _("New password saved."))
             return redirect('users:edit', user_id=edited_user.pk)
 
     return render(request, 'users/edit_password.html', {'edited_user': edited_user, 'form': form, 'as_staff': as_staff})

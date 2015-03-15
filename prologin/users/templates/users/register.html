@@ -4,22 +4,22 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Créer un compte" "users:register" %}
+	{% breadcrumb "Register" "users:register" %}
 {% endblock breadcrumbs %}
 
-{% block title %}{% trans "Créer un compte" %}{% endblock %}
+{% block title %}{% trans "Register" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Créer un compte" %}</h1>
+<h1>{% trans "Register" %}</h1>
 
-<p>{% trans "Vous devez choisir un nom d'utilisateur et disposer d'une adresse email valide. Vous recevrez un message à cette adresse pour finaliser votre inscription." %}</p>
+<p>{% trans "Please choose a username. You must use a valid email address, as you will recieve a message to confirm your registration." %}</p>
 
 <form method="POST" class="form-horizontal" action="{% url 'users:register' %}?next={{ next }}">
 	{% csrf_token %}
 	{{ form|bootstrap_horizontal }}
 	<div class="form-group">
 		<div class="col-sm-offset-2 col-sm-10">
-			<input class="btn btn-primary" type="submit" value="{% trans "S'inscrire" %}">
+			<input class="btn btn-primary" type="submit" value="{% trans "Register" %}">
 		</div>
 	</div>
 </form>

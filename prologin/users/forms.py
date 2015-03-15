@@ -16,8 +16,8 @@ class UserSimpleForm(forms.ModelForm):
 
 
 class RegisterForm(forms.ModelForm):
-    captcha = CaptchaField(help_text=_("Recopiez les quatre lettres pour prouver que vous n'êtes pas un robot."))
-    newsletter = forms.BooleanField(required=False, label=_("Recevoir la newsletter"))
+    captcha = CaptchaField(help_text=_("Type the four letters to prove you are not an automated bot."))
+    newsletter = forms.BooleanField(required=False, label=_("Subscribe to the newsletter"))
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)

@@ -1,19 +1,19 @@
 {% extends "zinnia/base.html" %}
 {% load i18n zinnia news_tags %}
 
-{% block meta-description %}{% trans "Dernières nouvelles" %} {% if category %}{% trans "dans la catégorie" %} {{ category }}{% if category.description %}: {{ category.description|striptags|safe }}{% endif %}{% endif %}{% if tag %}{% trans "taguées" %} {{ tag }}{% endif %}{% if author %}{% trans "rédigées par" %} {{ author }}{% endif %}{% if page_obj %}{% ifnotequal page_obj.number 1 %} {% trans "page" %} {{ page_obj.number }}{% endifnotequal %}{% endif %}{% endblock %}
+{% block meta-description %}{% trans "Latest news" %} {% if category %}{% trans "in category" %} {{ category }}{% if category.description %}: {{ category.description|striptags|safe }}{% endif %}{% endif %}{% if tag %}{% trans "tagged" %} {{ tag }}{% endif %}{% if author %}{% trans "written by" %} {{ author }}{% endif %}{% if page_obj %}{% ifnotequal page_obj.number 1 %} {% trans "page" %} {{ page_obj.number }}{% endifnotequal %}{% endif %}{% endblock %}
 
 {% block link %}
   {{ block.super }}
   HELLO HERE
   {% if category %}
-    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed" %} {{ category }}" href="{% url 'zinnia:category_feed' category.tree_path %}" />
+    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS feed" %} {{ category }}" href="{% url 'zinnia:category_feed' category.tree_path %}" />
   {% endif %}
   {% if tag %}
-    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed" %} {{ tag }}" href="{% url 'zinnia:tag_feed' tag.name %}" />
+    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS feed" %} {{ tag }}" href="{% url 'zinnia:tag_feed' tag.name %}" />
   {% endif %}
   {% if author %}
-    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS Feed" %} {{ author }}" href="{% url 'zinnia:author_feed' author.username %}" />
+    <link rel="alternate" type="application/rss+xml" title="{% trans "RSS feed" %} {{ author }}" href="{% url 'zinnia:author_feed' author.username %}" />
   {% endif %}
 {% endblock %}
 

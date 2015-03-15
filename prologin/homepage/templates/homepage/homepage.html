@@ -1,7 +1,7 @@
 {% extends "prologin/base.html" %}
 {% load i18n static zinnia news_tags %}
 
-{% block super_title %}{% trans "Prologin, le concours national d'informatique" %}{% endblock %}
+{% block super_title %}{% trans "Prologin, the French National Computer Science Contest" %}{% endblock %}
 
 {% block body_class %}homepage{% endblock %}
 
@@ -18,7 +18,7 @@
 
 	<div class="row">
 	<div class="col-sm-9">
-	<h1>{% trans "Les dernières news" %}</h1>
+	<h1>{% trans "Latest news" %}</h1>
 
 	{% for article in articles %}
 
@@ -47,7 +47,7 @@
 		</div>
 		<div class="entry-content">
 			{{ article.html_content|cuthere_excerpt|safe }}
-			<p><i class='fa fa-angle-double-right'></i> <a href="{{ article.get_absolute_url }}#cuthere">{% trans "Lire la suite" %}</a></p>
+			<p><i class='fa fa-angle-double-right'></i> <a href="{{ article.get_absolute_url }}#cuthere">{% trans "Continue reading" %}</a></p>
 		</div>
 	</section>
 
@@ -57,13 +57,13 @@
 
 	<div class="col-sm-3">
 		<ul class="nav">
-			<li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Voir toutes les news" %}</a></li>
+			<li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li>
 		</ul>
 
-		<h2>{% trans "Plus d'infos" %}</h2>
+		<h2>{% trans "More info" %}</h2>
 		<ul class="nav">
-			<li><a href="#TODO">{% trans "L'association Prologin" %}</a></li>
-			<li><a href="#TODO">{% trans "Comment participer ?" %}</a></li>
+			<li><a href="#TODO">{% trans "The Prologin association" %}</a></li>
+			<li><a href="#TODO">{% trans "How can I join?" %}</a></li>
 		</ul>
 
 		{% include "homepage/sponsors.html" %}
