@@ -23,9 +23,21 @@ TEMPLATE_DEBUG = DEBUG
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'dev.db.sqlite'),
-    }
+        #'ENGINE': 'django.db.backends.sqlite3',
+        #'NAME': os.path.join(BASE_DIR, 'dev.db.sqlite'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': '192.168.56.101',
+        'NAME': 'prologin',
+        'USER': 'prologin',
+        'PASSWORD': 'prologin',
+    },
+    'mysql_legacy': {
+        'ENGINE': 'mysql.connector.django',
+        'HOST': '192.168.56.101',
+        'NAME': 'prologin',
+        'USER': 'prologin',
+        'PASSWORD': 'prologin',
+    },
 }
 
 INSTALLED_APPS += ('debug_toolbar',)
@@ -38,7 +50,7 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'INFO',
             'class': 'logging.StreamHandler',
         },
     },

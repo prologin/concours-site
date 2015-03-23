@@ -25,6 +25,28 @@ ALLOWED_HOSTS = []
 
 SITE_ID = 1
 
+
+# Databases
+# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'HOST': '',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+    },
+    'mysql_legacy': {
+        'ENGINE': 'mysql.connector.django',
+        'HOST': '',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
+    },
+}
+
+
 # Application definition
 
 INSTALLED_APPS = (
@@ -118,6 +140,9 @@ MEDIA_URL = '/media/'
 
 
 # Authentication
+AUTHENTICATION_BACKENDS = (
+    'prologin.backends.ModelBackendWithLegacy',
+)
 AUTH_USER_MODEL = 'users.ProloginUser'
 LOGIN_URL = reverse_lazy('users:login')
 LOGOUT_URL = reverse_lazy('users:logout')

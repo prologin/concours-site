@@ -5,8 +5,10 @@ from django.db import models
 from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from prologin.languages import Language
 from prologin.models import AddressableModel
-from prologin.utils import upload_path
+from prologin.utils import upload_path, ChoiceEnum
+from timezone_field import TimeZoneField
 import base64
 import hashlib
 import os
@@ -34,12 +36,23 @@ class ActivationToken(models.Model):
 
 
 class ProloginUser(AbstractUser, AddressableModel):
+    class Gender(ChoiceEnum):
+        m = 'male'
+        f = 'female'
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
+    gender = models.CharField(max_length=1, blank=True, db_index=True, choices=Gender.choices(), verbose_name=_("Gender"))
+    school_stage = models.CharField(max_length=128, blank=True, verbose_name=_("Educational stage"))
     phone = models.CharField(max_length=16, blank=True, verbose_name=_("Phone"))
     birthday = models.DateField(blank=True, null=True, verbose_name=_("Birth day"))
-    newsletter = models.BooleanField(default=False, blank=True, verbose_name=_("Subscribe to the newsletter"))
+    newsletter = models.BooleanField(default=False, blank=True, db_index=True, verbose_name=_("Subscribe to the newsletter"))
+    allow_mailing = models.BooleanField(default=True, blank=True, db_index=True, verbose_name=_("Allow Prologin to send emails"))
+    signature = models.TextField(blank=True, verbose_name=_("Signature"))
+    preferred_language = models.CharField(max_length=16, blank=True, choices=Language.choices(), verbose_name=_("Preferred coding language"))
+    timezone = TimeZoneField(default=settings.TIME_ZONE, verbose_name=_("Time zone"))
+    preferred_locale = models.CharField(max_length=8, blank=True, verbose_name=_("Locale"))
 
     avatar = models.ImageField(upload_to=upload_path('avatar'), blank=True, verbose_name=_("Profile picture"))
     picture = models.ImageField(upload_to=upload_path('picture'), blank=True, verbose_name=_("Official member picture"))

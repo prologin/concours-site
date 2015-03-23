@@ -6,7 +6,7 @@ import contest.models
 
 class AddressableModel(models.Model):
     address = models.TextField(blank=True, verbose_name=_("Address"))
-    postal_code = models.CharField(max_length=5, blank=True, verbose_name=_("Postal code"))
+    postal_code = models.CharField(max_length=32, blank=True, verbose_name=_("Postal code"))
     city = models.CharField(max_length=64, blank=True, verbose_name=_("City"))
     country = models.CharField(max_length=64, blank=True, verbose_name=_("Country"))
 
