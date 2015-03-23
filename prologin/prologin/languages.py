@@ -2,11 +2,11 @@ from prologin.utils import ChoiceEnum
 
 
 class LanguageDef:
-    def __init__(self, name, exts, doc=None, checkable=True):
+    def __init__(self, name, exts, doc=None, correctable=True):
         self.name = name
         self.exts = exts
         self.doc = doc
-        self.checkable = checkable
+        self.correctable = correctable
 
     def __str__(self):
         return self.name
@@ -34,4 +34,11 @@ class Language(ChoiceEnum):
     csharp = LanguageDef("C#", ['.cs'])
     fsharp = LanguageDef("F#", ['.fs'])
     brainfuck = LanguageDef("Brainfuck", ['.bf'])
-    pseudocode = LanguageDef("Pseudo-code", ['.txt'], checkable=False)
+    pseudocode = LanguageDef("Pseudo-code", ['.txt'], correctable=False)
+
+    @classmethod
+    def choices(cls):
+        # We hacked the member values to put LanguageDef-s instead of DB values (0-N)
+        # so we fix this here.
+        # ((0, "C"), (1, "C++"), ...)
+        return tuple((i, member.value.name) for i, member in enumerate(cls))

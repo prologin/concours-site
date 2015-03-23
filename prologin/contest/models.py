@@ -4,8 +4,8 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.utils import timezone
 from ordered_model.models import OrderedModel
+from prologin.models import EnumField, CodingLanguageField
 from prologin.utils import ChoiceEnum
-import prologin.languages
 
 
 class Edition(models.Model):
@@ -25,14 +25,14 @@ class Edition(models.Model):
 
 
 class Event(models.Model):
-    class EventType(ChoiceEnum):
+    class Type(ChoiceEnum):
         qualification = 0
         regionale = 1
         finale = 2
 
     edition = models.ForeignKey(Edition, related_name='events')
     center = models.ForeignKey(Center, blank=True, null=True, related_name='events')
-    type = models.SmallIntegerField(choices=EventType.choices(), db_index=True)
+    type = EnumField(Type, db_index=True)
     date_begin = models.DateField(blank=True, null=True)
     date_end = models.DateField(blank=True, null=True)
 
@@ -50,20 +50,20 @@ class Event(models.Model):
 
 
 class Contestant(models.Model):
-    class TshirtSize(ChoiceEnum):
-        xs = "XS"
-        s = "S"
-        m = "M"
-        l = "L"
-        xl = "XL"
-        xxl = "XXL"
+    class ShirtSize(ChoiceEnum):
+        xs = 0
+        s = 1
+        m = 2
+        l = 3
+        xl = 4
+        xxl = 5
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
     edition = models.ForeignKey(Edition, related_name='contestants')
     event_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants')
 
-    tshirt_size = models.CharField(max_length=3, choices=TshirtSize.choices(), blank=True)
-    preferred_language = models.CharField(max_length=16, choices=prologin.languages.Language.choices(), blank=True)
+    shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True)
+    preferred_language = CodingLanguageField(null=True, blank=True, db_index=True)
 
     correction_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='corrections')
     correction_comments = models.TextField(blank=True)
@@ -83,12 +83,12 @@ class Contestant(models.Model):
 
     @property
     def _is_complete(self):
-        return bool(self.tshirt_size) and bool(self.preferred_language)
+        return bool(self.shirt_size) and bool(self.preferred_language)
 
     @property
     def is_complete_for_regionale(self):
         # FIXME: 3 is a magic number
-        if self.event_wishes.filter(type=Event.EventType.qualification.value).distinct().count() < 3:
+        if self.event_wishes.filter(type=Event.Type.qualification.value).distinct().count() < 3:
             return False
         return self._is_complete
 

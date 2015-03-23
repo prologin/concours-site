@@ -1,27 +1,24 @@
 from django.db import models
+from prologin.models import AddressableModel, ContactModel, EnumField
 from prologin.utils import ChoiceEnum
 import geopy.geocoders
 
 
-class Center(models.Model):
-    class CenterType(ChoiceEnum):
-        centre = 'c'
-        restaurant = 'r'
-        hotel = 'h'
-        pizzeria = 'p'
-        autre = 'a'
+class Center(AddressableModel):
+    class Type(ChoiceEnum):
+        center = 0
+        restaurant = 1
+        hotel = 2
+        pizzeria = 3
+        other = 4
 
     name = models.CharField(max_length=64)
-    type = models.CharField(max_length=1, choices=CenterType.choices())
+    type = EnumField(Type)
     is_active = models.BooleanField(default=True)
 
-    address = models.CharField(max_length=256)
-    postal_code = models.CharField(max_length=5)
-    city = models.CharField(max_length=64)
     lat = models.DecimalField(default=0, max_digits=16, decimal_places=6)
     lng = models.DecimalField(default=0, max_digits=16, decimal_places=6)
 
-    phone_number = models.CharField(max_length=10, blank=True)
     comments = models.TextField(blank=True)
 
     class Meta:
@@ -64,3 +61,15 @@ class Center(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Contact(ContactModel):
+    class Type(ChoiceEnum):
+        manager = 0
+        contact = 1
+
+    center = models.ForeignKey(Center, related_name='contacts')
+    type = EnumField(Type, db_index=True)
+
+    def __str__(self):
+        return "{} ({})".format(self.get_full_name(), Contact.Type(self.type))

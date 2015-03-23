@@ -19,7 +19,7 @@ class Index(UpdateView):
         return self.kwargs[self.pk_url_kwarg]
 
     def get_object(self, queryset=None):
-        return self.model.objects.get(type=contest.models.Event.EventType.qualification.value,
+        return self.model.objects.get(type=contest.models.Event.Type.qualification.value,
                                       edition__year=self.year)
 
     def get_form(self, form_class):

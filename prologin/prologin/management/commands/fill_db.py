@@ -23,6 +23,8 @@ import team.models
 import zinnia.models
 
 
+# FIXME: this is completely broken by the EnumField refactor
+
 class Command(BaseCommand):
     PASSWORD = "plop"
     GETTY_KEY = "bckeejjtqz7mh8jjtzc5g9xk"
@@ -202,7 +204,7 @@ class Command(BaseCommand):
         with django.db.transaction.atomic():
             for name, road, postal_code, city in center_list:
                 centers.models.Center(
-                    name=name, type=centers.models.Center.CenterType.centre.value, is_active=True,
+                    name=name, type=centers.models.Center.Type.centre.value, is_active=True,
                     address=road, postal_code=postal_code, city=city, lat=0, lng=0,
                 ).save()
 
@@ -222,20 +224,20 @@ class Command(BaseCommand):
         with django.db.transaction.atomic():
             for edition in contest.models.Edition.objects.all():
                 qualif = contest.models.Event(
-                    edition=edition, type=contest.models.Event.EventType.qualification.value,
+                    edition=edition, type=contest.models.Event.Type.qualification.value,
                     date_begin=edition.date_begin,
                     date_end=edition.date_begin + datetime.timedelta(days=60),
                 )
                 qualif.save()
                 for center in centers:
                     regionale = contest.models.Event(
-                        edition=edition, center=center, type=contest.models.Event.EventType.regionale.value,
+                        edition=edition, center=center, type=contest.models.Event.Type.regionale.value,
                         date_begin=qualif.date_end + datetime.timedelta(days=60),
                         date_end=qualif.date_end + datetime.timedelta(days=90),
                     )
                     regionale.save()
                 finale = contest.models.Event(
-                    edition=edition, center=finale_center, type=contest.models.Event.EventType.finale.value,
+                    edition=edition, center=finale_center, type=contest.models.Event.Type.finale.value,
                     date_begin=regionale.date_end + datetime.timedelta(days=30),
                     date_end=regionale.date_end + datetime.timedelta(days=34),
                 )
@@ -249,14 +251,14 @@ class Command(BaseCommand):
         assert staff, "Staff list is empty; run fill_db users"
         contest.models.Contestant.objects.all().delete()
 
-        tshirt_sizes = [k for k, v in contest.models.Contestant.TshirtSize.choices()]
+        tshirt_sizes = [k for k, v in contest.models.Contestant.ShirtSize.choices()]
         languages = [l.name for l in prologin.languages.Language]
 
         with django.db.transaction.atomic():
             for edition in contest.models.Edition.objects.all():
-                qualif = contest.models.Event.objects.get(edition=edition, type=contest.models.Event.EventType.qualification.value)
-                regionales = list(contest.models.Event.objects.filter(edition=edition, type=contest.models.Event.EventType.regionale.value))
-                finale = contest.models.Event.objects.get(edition=edition, type=contest.models.Event.EventType.finale.value)
+                qualif = contest.models.Event.objects.get(edition=edition, type=contest.models.Event.Type.qualification.value)
+                regionales = list(contest.models.Event.objects.filter(edition=edition, type=contest.models.Event.Type.regionale.value))
+                finale = contest.models.Event.objects.get(edition=edition, type=contest.models.Event.Type.finale.value)
                 for user in users:
                     comments = ""
                     if random.choice((True, False)):
@@ -279,7 +281,7 @@ class Command(BaseCommand):
     def fill_qcms(self):
         import qcm.models  # I have no fucking idea why root level import does not work for this particular one
         qcm.models.Qcm.objects.all().delete()
-        events = contest.models.Event.objects.filter(type=contest.models.Event.EventType.qualification.value)
+        events = contest.models.Event.objects.filter(type=contest.models.Event.Type.qualification.value)
         questions = ["Who is the best?", "What is my fate?", "What about peanuts?", "How old is that?", "What is the airspeed velocity of an unladen swallow?", "Was 9/11 a conspiracy?"]
         question_len = len(questions)
         propositions = ["Twenty-two", "The answer to life and the rest", "Whatever dude", "I'm so high right now", "The D answer"]
@@ -318,7 +320,7 @@ class Command(BaseCommand):
                         qcm.models.Answer(contestant=contestant, proposition=prop).save()
 
     def fill_problems(self):
-        events = contest.models.Event.objects.filter(type=contest.models.Event.EventType.qualification.value)
+        events = contest.models.Event.objects.filter(type=contest.models.Event.Type.qualification.value)
         titles = ["Prolego™", "Tour de magie", "Croissance", "Hâte", "Repli", "Sabotage", "Vantardise", "Expert-itinérant", "Rond-point", "Syracuse", "Triangles", "Wi-Fi"]
         random.shuffle(titles)
         titles = itertools.cycle(titles)

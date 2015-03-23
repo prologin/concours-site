@@ -22,7 +22,7 @@ class QcmAdmin(admin.ModelAdmin):
         qs = context['adminform'].form.fields['event'].queryset
         # Restrict events to qualification only
         context['adminform'].form.fields['event'].queryset = qs.filter(
-            type=contest.models.Event.EventType.qualification.value)
+            type=contest.models.Event.Type.qualification.value)
         return super().render_change_form(request, context, *args, **kwargs)
 
     def questions__count(self, obj):

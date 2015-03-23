@@ -5,7 +5,7 @@ import centers.models
 
 def center_map(request):
     center_list = centers.models.Center.objects.filter(
-        type=centers.models.Center.CenterType.centre.value, is_active=True)
+        type=centers.models.Center.Type.centre.value, is_active=True)
     return render(request, "centers/map.html", {'centers': center_list})
 
 

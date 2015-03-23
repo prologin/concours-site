@@ -2,7 +2,6 @@ from django.template import VariableDoesNotExist, Variable
 from django.utils.html import escape
 import enum
 import hashlib
-import inspect
 import os
 import re
 import string
@@ -49,9 +48,6 @@ def upload_path(*base_path):
 
 
 class ChoiceEnum(enum.Enum):
-
     @classmethod
     def choices(cls):
-        members = inspect.getmembers(cls, lambda m: not inspect.isroutine(m))
-        props = [m for m in members if not m[0].startswith('_')]
-        return tuple((key, value.value) for key, value in props)
+        return tuple((m.value, m.name) for m in cls)

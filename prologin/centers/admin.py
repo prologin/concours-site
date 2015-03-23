@@ -4,10 +4,18 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
 
+class ContactInlineAdmin(admin.TabularInline):
+    model = centers.models.Contact
+
+
 class CenterAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'type', 'city',)
-    list_display = ('name', 'city', 'type', 'coordinates', 'is_active',)
+    list_display = ('name', 'city', 'type', 'coordinates', 'is_active', 'contact_names')
     actions = ('geocode_centers', 'normalize_centers',)
+    inlines = [ContactInlineAdmin]
+
+    def contact_names(self, obj):
+        return ', '.join(c.get_full_name() for c in obj.contacts.all())
 
     def geocode_centers(self, request, queryset):
         success = 0
