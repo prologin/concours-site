@@ -4,12 +4,12 @@ from django.utils.translation import ugettext as _
 
 
 class Role(models.Model):
-    rank = models.IntegerField()
+    rank = models.PositiveIntegerField(primary_key=True)
     name = models.CharField(max_length=32)
 
     class Meta:
-        verbose_name = _('Role')
-        verbose_name_plural = _('Roles')
+        verbose_name = _("Role")
+        verbose_name_plural = _("Roles")
 
     @property
     def member_count(self):
@@ -20,13 +20,13 @@ class Role(models.Model):
 
 
 class TeamMember(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='team_members')
-    year = models.IntegerField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='team_memberships')
     role = models.ForeignKey(Role, related_name='members')
+    year = models.PositiveIntegerField(db_index=True)
 
     class Meta:
-        verbose_name = _('Team member')
-        verbose_name_plural = _('Team members')
+        verbose_name = _("Team member")
+        verbose_name_plural = _("Team members")
 
     def __str__(self):
         return self.user.username

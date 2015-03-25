@@ -1,9 +1,9 @@
 from django import db
 from django.conf import settings
 from django.core.management.base import BaseCommand
+import itertools
 import os
 
-import centers.models
 import prologin.utils
 import prologin.models
 import users.models
@@ -66,9 +66,6 @@ class Command(BaseCommand):
         with self.mysql.cursor() as c:
             c.execute(USER_QUERY)
             for row in namedcolumns(c):
-                avatar = None
-                if row.picture:
-                    avatar = prologin.utils.upload_path('avatar')(None, os.path.split(row.picture)[1])
                 p_birthday = None
                 birthday = None
                 if row.p_birthday:
@@ -94,7 +91,7 @@ class Command(BaseCommand):
                     pk=row.uid, username=row.name, email=row.mail, first_name=nstrip(row.fn, 30), last_name=nstrip(row.ln, 30),
                     phone=nstrip(row.phone, 16), address=nstrip(row.a_addr), postal_code=nstrip(row.a_code, 32),
                     city=nstrip(row.a_city, 64), country=nstrip(row.country, 64), birthday=birthday,
-                    school_stage=row.grade, signature=row.signature, avatar=avatar, gender=gender,
+                    school_stage=row.grade, signature=row.signature, gender=gender,
                     timezone=user_timezone, allow_mailing=bool(row.mailing),
                     preferred_language=map_from_legacy_language(row.training_language),
                     date_joined=date_localize(date_joined, user_timezone),
@@ -107,7 +104,39 @@ class Command(BaseCommand):
         with db.transaction.atomic():
             users.models.ProloginUser.objects.bulk_create(new_users)
 
+    def migrate_user_pictures(self):
+        BASE_URL = "http://prologin.org/"
+        import requests
+        from django.core.files.base import ContentFile
+        with self.mysql.cursor() as c:
+            c.execute("SELECT uid, picture FROM users WHERE picture != '' ORDER BY uid")
+            for uid, picture in c:
+                try:
+                    user = users.models.ProloginUser.objects.get(pk=uid)
+                except users.models.ProloginUser.DoesNotExist:
+                    print("Used id %s not found in new database" % uid)
+                    continue
+                try:
+                    user.avatar.open()
+                    print("Already got picture for", user)
+                    continue
+                except ValueError:
+                    # Standard use case
+                    pass
+                except FileNotFoundError:
+                    # DB contains an avatar path that is not backed on disk, so download again
+                    print("No stored file for", user)
+                try:
+                    picture_req = requests.get(BASE_URL + picture)
+                    if not picture_req.ok:
+                        raise requests.RequestException("Status is not 2xx")
+                    user.avatar.save(os.path.split(picture)[1], ContentFile(picture_req.content))
+                    print("Imported picture for", user)
+                except requests.RequestException:
+                    print("Could not fetch picture for", user)
+
     def migrate_examcenters(self):
+        import centers.models
         field_map = (
             ('civilite', 'gender', lambda e: prologin.models.Gender.male.value if e == 'Monsieur'
                                              else prologin.models.Gender.female.value if e in ('Madame', 'Mademoiselle')
@@ -151,6 +180,30 @@ class Command(BaseCommand):
                         print("\tNew center contact:", contact)
                         contact.save()
 
+    def migrate_teams(self):
+        import team.models
+        role_table = {}
+        with self.mysql.cursor() as c:
+            c.execute("SELECT * FROM team_ranks")
+            for row in namedcolumns(c):
+                print("Migrated team role:", row.title)
+                role = team.models.Role(rank=row.id, name=row.title)
+                role_table[role.rank] = role
+        team.models.Role.objects.bulk_create(role_table.values())
+
+        with self.mysql.cursor() as c:
+            c.execute("SELECT * FROM team_years ORDER BY uid")
+            for uid, rows in itertools.groupby(list(namedcolumns(c)), lambda r: int(r.uid)):
+                try:
+                    user = users.models.ProloginUser.objects.get(pk=uid)
+                except users.models.ProloginUser.DoesNotExist:
+                    print("User id %d does not exist in migrated DB" % uid)
+                    continue
+                for row in rows:
+                    user.team_memberships.add(
+                        team.models.TeamMember(year=row.year, user=user, role=role_table[row.id_rank])
+                    )
+                print("Migrated team roles for", user)
 
     def handle(self, *args, **options):
         # check if we can access the legacy db
@@ -161,6 +214,8 @@ class Command(BaseCommand):
             tables = c.fetchall()
         print("Found {} tables".format(len(tables)))
 
-        self.migrate_users()
-        self.migrate_examcenters()
+        #self.migrate_users()
+        self.migrate_user_pictures()
+        #self.migrate_examcenters()
+        #self.migrate_teams()
         # TODO: the rest
