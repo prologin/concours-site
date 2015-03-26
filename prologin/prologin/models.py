@@ -1,12 +1,14 @@
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from prologin.utils import upload_path, ChoiceEnum
 from prologin.languages import Language
 
 
-class Gender(ChoiceEnum):
+class Gender(ChoiceEnum.tr(str.title), ChoiceEnum):
     male = 0
     female = 1
+    ugettext_noop("Male")
+    ugettext_noop("Female")
 
 
 class EnumField(models.PositiveSmallIntegerField):

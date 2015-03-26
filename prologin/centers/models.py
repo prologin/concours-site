@@ -1,16 +1,24 @@
 from django.db import models
+from django.utils.translation import ugettext_noop
+
+import geopy.geocoders
+
 from prologin.models import AddressableModel, ContactModel, EnumField
 from prologin.utils import ChoiceEnum
-import geopy.geocoders
 
 
 class Center(AddressableModel):
-    class Type(ChoiceEnum):
+    class Type(ChoiceEnum.tr(str.title), ChoiceEnum):
         center = 0
         restaurant = 1
         hotel = 2
         pizzeria = 3
         other = 4
+        ugettext_noop("Center")
+        ugettext_noop("Restaurant")
+        ugettext_noop("Hotel")
+        ugettext_noop("Pizzeria")
+        ugettext_noop("Other")
 
     name = models.CharField(max_length=64)
     type = EnumField(Type)
@@ -64,9 +72,11 @@ class Center(AddressableModel):
 
 
 class Contact(ContactModel):
-    class Type(ChoiceEnum):
+    class Type(ChoiceEnum.tr(str.title), ChoiceEnum):
         manager = 0
         contact = 1
+        ugettext_noop("Manager")
+        ugettext_noop("Contact")
 
     center = models.ForeignKey(Center, related_name='contacts')
     type = EnumField(Type, db_index=True)

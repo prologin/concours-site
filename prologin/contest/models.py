@@ -1,7 +1,7 @@
 from centers.models import Center
 from django.conf import settings
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django.utils import timezone
 from ordered_model.models import OrderedModel
 from prologin.models import EnumField, CodingLanguageField
@@ -25,10 +25,13 @@ class Edition(models.Model):
 
 
 class Event(models.Model):
-    class Type(ChoiceEnum):
+    class Type(ChoiceEnum.tr(str.title), ChoiceEnum):
         qualification = 0
         regionale = 1
         finale = 2
+        ugettext_noop("Qualification")
+        ugettext_noop("Regionale")
+        ugettext_noop("Finale")
 
     edition = models.ForeignKey(Edition, related_name='events')
     center = models.ForeignKey(Center, blank=True, null=True, related_name='events')
@@ -50,7 +53,7 @@ class Event(models.Model):
 
 
 class Contestant(models.Model):
-    class ShirtSize(ChoiceEnum):
+    class ShirtSize(ChoiceEnum.tr(str.upper), ChoiceEnum):
         xs = 0
         s = 1
         m = 2

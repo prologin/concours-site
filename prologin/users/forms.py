@@ -12,11 +12,16 @@ class UserSimpleForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'gender', 'email',
                   'address', 'postal_code', 'city', 'country',
                   'phone', 'birthday', 'preferred_language',
-                  'newsletter', 'allow_mailing', 'avatar', 'picture')
+                  'avatar', 'picture', 'allow_mailing', 'newsletter',)
         widgets = {
             'avatar': PreviewFileInput(),
             'picture': PreviewFileInput(),
         }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if not self.instance.team_memberships.count():
+            del self.fields['picture']
 
     def clean(self):
         if not self.cleaned_data['allow_mailing']:

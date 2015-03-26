@@ -1,0 +1,9 @@
+[main]
+host = https://www.transifex.com
+
+[prologin-site.django]
+file_filter = prologin/locale/<lang>/LC_MESSAGES/django.po
+source_file = prologin/locale/fr/LC_MESSAGES/django.po
+source_lang = en
+trans.fr = prologin/locale/fr/LC_MESSAGES/django.po
+

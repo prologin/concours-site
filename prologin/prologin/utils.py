@@ -1,5 +1,7 @@
 from django.template import VariableDoesNotExist, Variable
 from django.utils.html import escape
+from django.utils.translation import ugettext_lazy as _
+
 import enum
 import hashlib
 import os
@@ -48,9 +50,18 @@ def upload_path(*base_path):
 
 
 class ChoiceEnum(enum.Enum):
+    @staticmethod
+    def tr(func):
+        label_for = classmethod(lambda cls, member: _(func(member.name)))
+        return type('ChoiceEnumTr', (), {'label_for': label_for})
+
+    @classmethod
+    def label_for(cls, member):
+        return _(member.name)
+
     @classmethod
     def choices(cls, empty_label=None):
-        choices = tuple((m.value, m.name) for m in cls)
+        choices = tuple((m.value, cls.label_for(m)) for m in cls)
         if empty_label:
             choices = ((None, empty_label),) + choices
         return choices

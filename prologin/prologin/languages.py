@@ -36,7 +36,7 @@ class Language(ChoiceEnum):
     csharp = LanguageDef("C#", ['.cs'])
     fsharp = LanguageDef("F#", ['.fs'])
     brainfuck = LanguageDef("Brainfuck", ['.bf'])
-    pseudocode = LanguageDef(_("Pseudo-code"), ['.txt'], correctable=False)
+    pseudocode = LanguageDef(_("Pseudocode"), ['.txt'], correctable=False)
 
     @classmethod
     def choices(cls, empty_label=None):

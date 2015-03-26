@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.conf.urls.i18n import i18n_patterns
 from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -9,6 +10,16 @@ admin.autodiscover()
 urlpatterns = patterns('',
     # Homepage
     url(r'^$', 'homepage.views.homepage', name='home'),
+
+    # Captcha stuff
+    # TODO: remove that
+    url(r'^captcha/', include('captcha.urls')),
+
+    # Built-in Django admin
+    url(r'^admin/', include(admin.site.urls)),
+)
+
+urlpatterns += i18n_patterns('',
 
     # News (blog)
     url(r'^news/', include('news.urls')),
@@ -34,13 +45,6 @@ urlpatterns = patterns('',
 
     # Authentication and accounts
     url(r'^user/', include('users.urls', namespace='users')),
-
-    # Captcha stuff
-    # TODO: remove that
-    url(r'^captcha/', include('captcha.urls')),
-
-    # Built-in Django admin
-    url(r'^admin/', include(admin.site.urls)),
 )
 
 if settings.DEBUG:
