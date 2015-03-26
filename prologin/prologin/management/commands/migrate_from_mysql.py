@@ -108,32 +108,50 @@ class Command(BaseCommand):
         BASE_URL = "http://prologin.org/"
         import requests
         from django.core.files.base import ContentFile
+
+        def fetch_file(image_field, url):
+            try:
+                image_field.open()
+                return None
+            except ValueError:
+                # Standard use case
+                pass
+            except FileNotFoundError:
+                # DB contains an avatar path that is not backed on disk, so download again
+                pass
+            try:
+                picture_req = requests.get(BASE_URL + url)
+                if not picture_req.ok:
+                    raise requests.RequestException("Status is not 2xx")
+                image_field.save(os.path.split(url)[1], ContentFile(picture_req.content))
+                return True
+            except requests.RequestException:
+                return False
+
         with self.mysql.cursor() as c:
-            c.execute("SELECT uid, picture FROM users WHERE picture != '' ORDER BY uid")
+            c.execute("SELECT uid, picture FROM users ORDER BY name")
             for uid, picture in c:
                 try:
                     user = users.models.ProloginUser.objects.get(pk=uid)
                 except users.models.ProloginUser.DoesNotExist:
-                    print("Used id %s not found in new database" % uid)
                     continue
-                try:
-                    user.avatar.open()
-                    print("Already got picture for", user)
-                    continue
-                except ValueError:
-                    # Standard use case
-                    pass
-                except FileNotFoundError:
-                    # DB contains an avatar path that is not backed on disk, so download again
-                    print("No stored file for", user)
-                try:
-                    picture_req = requests.get(BASE_URL + picture)
-                    if not picture_req.ok:
-                        raise requests.RequestException("Status is not 2xx")
-                    user.avatar.save(os.path.split(picture)[1], ContentFile(picture_req.content))
-                    print("Imported picture for", user)
-                except requests.RequestException:
-                    print("Could not fetch picture for", user)
+
+                if picture:
+                    # Normal avatar
+                    res = fetch_file(user.avatar, picture)
+                    if res:
+                        print("Fetched picture for", user)
+                    elif res is False:
+                        print("Could not fetch picture for", user)
+
+                # Official profile picture
+                if user.team_memberships.count():
+                    # So reliable. Much Drupal. Wow.
+                    res = fetch_file(user.picture, 'files/team/%s.jpg' % user.username.lower())
+                    if res:
+                        print("Fetched official picture for", user)
+                    elif res is False:
+                        print("Could not fetch official picture for", user)
 
     def migrate_examcenters(self):
         import centers.models

@@ -396,3 +396,8 @@ footer .legal {
 	width: 100%;
 	max-width: 220px;
 }
+
+.avatar.avatar-full {
+	border: 1px solid rgba(0,0,0,0.2);
+	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}

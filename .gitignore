@@ -1,6 +1,9 @@
 data/*.csv
 data/*.json
 data/*.sql
+locale/
+.idea/
+.tx/
 fabfile.py
 *.pyc
 *.aux
@@ -8,3 +11,4 @@ fabfile.py
 *.pdf
 *.jpg
 *~
+*.bak

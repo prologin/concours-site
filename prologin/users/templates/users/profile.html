@@ -12,56 +12,72 @@
 
 {% block content %}
 
-{% trans "<em>not provided</em>" as noinfo %}
-<h1>{% blocktrans with shown_user.username as username %}{{ username }}{% endblocktrans %}</h1>
-
-{% if see_private %}
-<p class="text-right"><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Edit" %}</a></p>
-{% endif %}
-
-<div class="row">
-<div class="col-sm-4">
-	{% if shown_user.avatar %}
-	<p><img src="{{ shown_user.avatar.url }}" alt="{% blocktrans with shown_user.username as username %}{{username}}'s profile picture{% endblocktrans %}" style="max-width: 100%" /></p>
-	{% else %}
-	<p><img src="{% static 'img/silhouette.png' %}" alt="{% trans "No profile picture" %}" style="max-width: 100%" /></p>
+	{% trans "<em>not provided</em>" as noinfo %}
+	<h1>{% blocktrans with shown_user.username as username %}{{ username }}{% endblocktrans %}
+	{% if see_private %}
+		<p class="pull-right"><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i
+				class="fa fa-pencil"></i> {% trans "Edit" %}</a>
 	{% endif %}
-    {# TODO: related links (forum posts, news, contest participations…) #}
-</div>
+	</h1>
 
-<div class="col-sm-8">
-<dl class="dl-horizontal">
-	<dt>{% trans "First name" %}</dt>
-	<dd>{{ shown_user.first_name|default:noinfo }}</dd>
+	<div class="row">
 
-	<dt>{% trans "Last name" %}</dt>
-	<dd>{{ shown_user.last_name|default:noinfo }}</dd>
+		<div class="col-sm-8">
+			<dl class="dl-horizontal">
+			{% if see_private %}
+				<dt>{% trans "First name" %}</dt>
+				<dd>{{ shown_user.first_name|default:noinfo }}</dd>
 
-{% if see_private %}
-	<dt>{% trans "Phone number" %}</dt>
-	<dd>{{ shown_user.phone|default:noinfo }}</dd>
+				<dt>{% trans "Last name" %}</dt>
+				<dd>{{ shown_user.last_name|default:noinfo }}</dd>
 
-	<dt>{% trans "Email address" %}</dt>
-	<dd>{{ shown_user.email|default:noinfo }}</dd>
+				<dt>{% trans "Phone number" %}</dt>
+				<dd>{{ shown_user.phone|default:noinfo }}</dd>
 
-	<dt>{% trans "Birth day" %}</dt>
-	<dd>{% if shown_user.birthday %}{{ shown_user.birthday }} ({{ shown_user.birthday|timesince }}){% else %}{{ noinfo }}{% endif %}</dd>
+				<dt>{% trans "Email address" %}</dt>
+				<dd>{{ shown_user.email|default:noinfo }}</dd>
 
-	<dt>{% trans "Postal address" %}</dt>
-	<dd>
-		{% if user.has_partial_address %}
-		<address>
-			{{ shown_user.address }}<br>
-			{{ shown_user.postal_code }} {{ shown_user.city }}<br>
-			{{ shown_user.country }}
-		</address>
-		{% else %}
-		{{ noinfo }}
-		{% endif %}
-		</dd>
-{% endif %}
-</dl>
-</div>
-</div>
+				<dt>{% trans "Birth day" %}</dt>
+				<dd>{% if shown_user.birthday %}{{ shown_user.birthday }} ({{ shown_user.birthday|timesince }}
+					){% else %}{{ noinfo }}{% endif %}</dd>
+
+				<dt>{% trans "Postal address" %}</dt>
+				<dd>
+					{% if user.has_partial_address %}
+						<address>
+							{{ shown_user.address }}<br>
+							{{ shown_user.postal_code }} {{ shown_user.city }}<br>
+							{{ shown_user.country }}
+						</address>
+					{% else %}
+						{{ noinfo }}
+					{% endif %}
+				</dd>
+				{% endif %}
+				<dt>{% trans "Member for" %}</dt>
+				<dd>{{ shown_user.date_joined|timesince }}</dd>
+			</dl>
+		</div>
+
+		<div class="col-sm-4">
+			<p class="text-right">
+			{% if shown_user.avatar %}
+				<img class="avatar avatar-full" src="{{ shown_user.avatar.url }}" alt="
+						{% blocktrans with shown_user.username as username %}{{ username }}'s profile picture{% endblocktrans %}"
+						style="max-width: 100%"/>
+			{% elif not shown_user.picture %}
+				<img class="avatar avatar-full" src="{% static 'img/silhouette.png' %}"
+						alt="{% trans "No profile picture" %}" style="max-width: 100%"/>
+			{% endif %}
+			{% if shown_user.picture %}
+				<img class="avatar avatar-full" src="{{ shown_user.picture.url }}" alt="
+						{% blocktrans with shown_user.username as username %}{{ username }}'s staff picture{% endblocktrans %}"
+						style="max-width: 100%"/>
+			{% endif %}
+			</p>
+			{# TODO: related links (forum posts, news, contest participations…) #}
+		</div>
+
+	</div>
 
 {% endblock %}
