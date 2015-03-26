@@ -49,5 +49,8 @@ def upload_path(*base_path):
 
 class ChoiceEnum(enum.Enum):
     @classmethod
-    def choices(cls):
-        return tuple((m.value, m.name) for m in cls)
+    def choices(cls, empty_label=None):
+        choices = tuple((m.value, m.name) for m in cls)
+        if empty_label:
+            choices = ((None, empty_label),) + choices
+        return choices

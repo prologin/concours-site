@@ -11,14 +11,14 @@ class Gender(ChoiceEnum):
 
 class EnumField(models.PositiveSmallIntegerField):
     def __init__(self, enum, *args, **kwargs):
-        self.__enum = enum
         assert issubclass(enum, ChoiceEnum)
-        kwargs['choices'] = enum.choices()
+        kwargs['choices'] = enum.choices(empty_label=kwargs.pop('empty_label', None))
+        self._enum = enum
         super().__init__(*args, **kwargs)
 
     def deconstruct(self):
         name, path, args, kwargs = super().deconstruct()
-        return name, path, [self.__enum] + args, kwargs
+        return name, path, [self._enum] + args, kwargs
 
 
 def _enumfield_factory(enumcls, name, **fieldkwargs):
@@ -32,9 +32,11 @@ def _enumfield_factory(enumcls, name, **fieldkwargs):
     return type(name, (EnumField,), {'__init__': init, 'deconstruct': deconstruct})
 
 
-GenderField = _enumfield_factory(Gender, 'GenderField', verbose_name=_("Gender"))
+GenderField = _enumfield_factory(Gender, 'GenderField',
+                                 empty_label=_("Prefer not to tell"), verbose_name=_("Gender"))
 
-CodingLanguageField = _enumfield_factory(Language, 'CodingLanguageField', verbose_name=_("Coding language"))
+CodingLanguageField = _enumfield_factory(Language, 'CodingLanguageField',
+                                         verbose_name=_("Coding language"))
 
 
 class AddressableModel(models.Model):

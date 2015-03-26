@@ -1,3 +1,5 @@
+from django.utils.translation import ugettext_lazy as _
+
 from prologin.utils import ChoiceEnum
 
 
@@ -23,8 +25,8 @@ class Language(ChoiceEnum):
     scheme = LanguageDef("Scheme", ['.scm'], doc='scheme')
     haskell = LanguageDef("Haskell", ['.hs'], doc='haskell')
     java = LanguageDef("Java", ['.java'], doc='java')
-    python2 = LanguageDef("Python2", ['.py', '.py2'], doc='python2')
-    python3 = LanguageDef("Python3", ['.py3'], doc='python3')
+    python2 = LanguageDef("Python 2", ['.py', '.py2'], doc='python2')
+    python3 = LanguageDef("Python 3", ['.py3'], doc='python3')
     ada = LanguageDef("Ada", ['.adb'], doc='ada')
     php = LanguageDef("PHP", ['.php'], doc='php')
     js = LanguageDef("Javascript", ['.js'])
@@ -34,11 +36,14 @@ class Language(ChoiceEnum):
     csharp = LanguageDef("C#", ['.cs'])
     fsharp = LanguageDef("F#", ['.fs'])
     brainfuck = LanguageDef("Brainfuck", ['.bf'])
-    pseudocode = LanguageDef("Pseudo-code", ['.txt'], correctable=False)
+    pseudocode = LanguageDef(_("Pseudo-code"), ['.txt'], correctable=False)
 
     @classmethod
-    def choices(cls):
+    def choices(cls, empty_label=None):
         # We hacked the member values to put LanguageDef-s instead of DB values (0-N)
         # so we fix this here.
         # ((0, "C"), (1, "C++"), ...)
-        return tuple((i, member.value.name) for i, member in enumerate(cls))
+        choices = tuple((i, member.value.name) for i, member in enumerate(cls))
+        if empty_label:
+            choices = ((None, empty_label),) + choices
+        return choices
