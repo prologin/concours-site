@@ -25,7 +25,8 @@ class Edition(models.Model):
 
 
 class Event(models.Model):
-    class Type(ChoiceEnum.tr(str.title), ChoiceEnum):
+    @ChoiceEnum.labels(str.capitalize)
+    class Type(ChoiceEnum):
         qualification = 0
         regionale = 1
         finale = 2
@@ -53,7 +54,8 @@ class Event(models.Model):
 
 
 class Contestant(models.Model):
-    class ShirtSize(ChoiceEnum.tr(str.upper), ChoiceEnum):
+    @ChoiceEnum.labels(str.upper)
+    class ShirtSize(ChoiceEnum):
         xs = 0
         s = 1
         m = 2

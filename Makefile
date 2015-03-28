@@ -4,6 +4,9 @@ TX = tx --debug
 runserver:
 	$(MANAGE) runserver
 
+smtpserver:
+	python -m smtpd -n -c DebuggingServer localhost:1025
+
 # Transifex
 
 tx-push:

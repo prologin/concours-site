@@ -1,0 +1,28 @@
+{% load utils i18n %}
+{% get_setting_var 'PROLOGIN_CONTACT_MAIL' as contactmail %}
+{% autoescape off %}
+{% blocktrans with user.username as username %}
+Hi {{ username }}!
+
+Somebody requested to reset your password on the Prologin website.
+If you actually made this request, you can safely go forward and browse to
+the link below:
+
+{{ url }}
+
+If you cannot click on the link, copy-paste it in your browser address bar.
+
+If you did not ask for this password reset, it means a malicious user is
+trying to access your account. Do not click on the link above, just ignore
+this request and delete this email.
+
+If you keep receiving these password reset emails, please get in touch with
+our team using the email address below.
+
+Should you have any question, please contact us by sending an email at
+{{ contactmail }}.
+
+--
+The Prologin staff
+{% endblocktrans %}
+{% endautoescape %}

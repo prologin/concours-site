@@ -4,7 +4,8 @@ from prologin.utils import upload_path, ChoiceEnum
 from prologin.languages import Language
 
 
-class Gender(ChoiceEnum.tr(str.title), ChoiceEnum):
+@ChoiceEnum.labels(str.capitalize)
+class Gender(ChoiceEnum):
     male = 0
     female = 1
     ugettext_noop("Male")

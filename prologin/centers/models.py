@@ -8,7 +8,8 @@ from prologin.utils import ChoiceEnum
 
 
 class Center(AddressableModel):
-    class Type(ChoiceEnum.tr(str.title), ChoiceEnum):
+    @ChoiceEnum.labels(str.capitalize)
+    class Type(ChoiceEnum):
         center = 0
         restaurant = 1
         hotel = 2
@@ -72,7 +73,8 @@ class Center(AddressableModel):
 
 
 class Contact(ContactModel):
-    class Type(ChoiceEnum.tr(str.title), ChoiceEnum):
+    @ChoiceEnum.labels(str.capitalize)
+    class Type(ChoiceEnum):
         manager = 0
         contact = 1
         ugettext_noop("Manager")

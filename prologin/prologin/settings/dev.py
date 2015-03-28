@@ -64,6 +64,14 @@ LOGGING = {
 
 
 # Email
+# Run debug server with:
+#   $ make stmpserver
 
-EMAIL_HOST = 'smtp.free.fr'
-EMAIL_HOST_USER = 'servicesam@free.fr'
+EMAIL_HOST = "localhost"
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
+
+
+# Prologin specific
+SITE_HOST = "localhost:8000"

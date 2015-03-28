@@ -3,8 +3,22 @@ from django.conf import settings
 
 register = template.Library()
 
-# FIXME: in Dango 1.9, the following two tags can be refactored to simple_tag only
+@register.filter
+def phone_number(num):
+    """
+    Formats a French phone number: space separated groups of two digits.
+    Starts from the end, such that we do not care if it starts like +336, 06, or 6.
+    :param num: the phone number to format
+    :rtype sting
+    """
+    num = [c for c in num.strip()[::-1] if not c.isspace()]
+    if len(num) % 2 == 1:
+        # so zip() does not truncate to min length
+        num.append('')
+    return '\u00A0'.join(a + b for a, b in zip(num[-1::-2], num[-2::-2]))
 
+
+# FIXME: in Dango 1.9, the following two tags can be refactored to simple_tag only
 
 @register.simple_tag
 def get_setting(name):

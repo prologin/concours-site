@@ -1,8 +1,9 @@
-import contest.models
 from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
+
+import contest.models
 
 
 class EditionAdmin(admin.ModelAdmin):

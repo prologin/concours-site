@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n staticfiles %}
+{% load i18n staticfiles utils %}
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
@@ -32,7 +32,7 @@
 				<dd>{{ shown_user.last_name|default:noinfo }}</dd>
 
 				<dt>{% trans "Phone number" %}</dt>
-				<dd>{{ shown_user.phone|default:noinfo }}</dd>
+				<dd>{{ shown_user.phone|phone_number|default:noinfo }}</dd>
 
 				<dt>{% trans "Email address" %}</dt>
 				<dd>{{ shown_user.email|default:noinfo }}</dd>

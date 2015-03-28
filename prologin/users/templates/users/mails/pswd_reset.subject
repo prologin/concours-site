@@ -1,0 +1,1 @@
+{% load i18n %}{% trans "Your Prologin password reset request" %}

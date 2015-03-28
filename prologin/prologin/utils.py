@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.template import VariableDoesNotExist, Variable
 from django.utils.html import escape
 from django.utils.translation import ugettext_lazy as _
@@ -9,6 +10,14 @@ import re
 import string
 import unicodedata
 import uuid
+
+
+def absolute_site_url(request, absolute_path):
+    return "{protocol}://{host}{path}".format(
+        protocol="https" if request.is_secure() else "http",
+        host=settings.SITE_HOST,
+        path=absolute_path,
+    )
 
 
 def get_slug(name):
@@ -53,11 +62,13 @@ def upload_path(*base_path):
 
 class ChoiceEnum(enum.Enum):
     @staticmethod
-    def tr(func):
+    def labels(func):
         """
         Constructs a class that overloads label_for() to apply :param func on the label.
+        LT stands for Label Transform.
         Typical usage:
-            class MyEnum(ChoiceEnum.tr(str.title), ChoiceEnum):
+            @ChoiceEnum.with_labels(str.title)
+            class MyEnum(ChoiceEnum):
                 foo = 0
                 bar = 1
                 # Labels will be Foo and Bar.
@@ -66,8 +77,30 @@ class ChoiceEnum(enum.Enum):
                      ugettext_lazy()
         :rtype class
         """
-        label_for = classmethod(lambda cls, member: _(func(member.name)))
-        return type('ChoiceEnumTr', (), {'label_for': label_for})
+        assert(callable(func))
+        def classbuilder(klass):
+            klass.label_for = classmethod(lambda cls, member: _(func(member.name)))
+            return klass
+        return classbuilder
+
+    @staticmethod
+    def sort(key=None, reverse=False):
+        """
+        Constructs a class that overloads _get_choices() to sort the choices using :param key
+        and :param reverse.
+        :param key: callable to use for sorting; if None, sorts by label (case insensitive)
+        :param reverse: reverse the sort order
+        :rtype: class
+        """
+        if key is None:
+            key = lambda pair: pair[1].lower()
+        else:
+            assert(callable(key))
+        def classbuilder(klass):
+            orig_get_choices = klass._get_choices
+            klass._get_choices = classmethod(lambda cls: sorted(orig_get_choices(), key=key, reverse=reverse))
+            return klass
+        return classbuilder
 
     @classmethod
     def label_for(cls, member):
@@ -79,6 +112,15 @@ class ChoiceEnum(enum.Enum):
         return _(member.name)
 
     @classmethod
+    def _get_choices(cls):
+        """
+        Override this method in your ChoiceEnum subclass if you need to implement custom
+        behavior, eg. if your members are not of the form "name = db_value".
+        :return tuple of (db value, user facing string) pairs
+        """
+        return tuple((m.value, cls.label_for(m)) for m in cls)
+
+    @classmethod
     def choices(cls, empty_label=None):
         """
         Generate a tuple of pairs suitable for Django's `choices` model field kwarg.
@@ -86,7 +128,7 @@ class ChoiceEnum(enum.Enum):
                             for the empty value
         :rtype tuple of (db value, user facing string) pairs
         """
-        choices = tuple((m.value, cls.label_for(m)) for m in cls)
+        choices = cls._get_choices()
         if empty_label:
             choices = ((None, empty_label),) + choices
         return choices

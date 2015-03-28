@@ -1,34 +1,57 @@
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
-from django.core.urlresolvers import reverse
 from django.db import models
-from django.template.loader import render_to_string
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-from prologin.models import AddressableModel, GenderField, CodingLanguageField
-from prologin.utils import upload_path
-from timezone_field import TimeZoneField
+
 import base64
 import hashlib
 import os
 
+from prologin.models import AddressableModel, GenderField, CodingLanguageField
+from prologin.utils import upload_path
+from timezone_field import TimeZoneField
+
 ACTIVATION_TOKEN_LENGTH = 32
 
 
-class ActivationTokenManager(models.Manager):
-    def create_token(self, user):
+class InvalidActivationError(Exception):
+    pass
+
+
+class UserActivationManager(models.Manager):
+    def register(self, user):
         expiration_date = timezone.now() + settings.USER_ACTIVATION_EXPIRATION
         slug = base64.urlsafe_b64encode(os.urandom(ACTIVATION_TOKEN_LENGTH))
-        slug = slug[:ACTIVATION_TOKEN_LENGTH].decode('ascii')
-        return ActivationToken(user=user, slug=slug, expiration_date=expiration_date)
+        slug = slug.decode('ascii')[:ACTIVATION_TOKEN_LENGTH]
+        activation = self.model(user=user, slug=slug, expiration_date=expiration_date)
+        activation.save()
+        return activation
+
+    def activate(self, slug):
+        try:
+            activation = self.get(slug=slug)
+        except self.model.DoesNotExist:
+            raise InvalidActivationError("No such {}".format(self.model.__class__.__name__))
+        if not activation.is_valid():
+            raise InvalidActivationError("{} is obsolete".format(self.model.__class__.__name__))
+        user = activation.user
+        user.is_active = True
+        user.save()
+        activation.delete()
+        return user
+
+    def expired_users(self):
+        return get_user_model().objets.filter(is_active=False, activation__expiration_date__lt=timezone.now())
 
 
-class ActivationToken(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+class UserActivation(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='activation')
     slug = models.SlugField(max_length=ACTIVATION_TOKEN_LENGTH, db_index=True)
     expiration_date = models.DateTimeField()
 
-    objects = ActivationTokenManager()
+    objects = UserActivationManager()
 
     def is_valid(self):
         return timezone.now() < self.expiration_date
@@ -78,16 +101,6 @@ class ProloginUser(AbstractUser, AddressableModel):
 
     def has_complete_profile(self):
         return self.has_complete_address() and all((self.phone_number, self.birthday))
-
-    def send_activation_email(self, token):
-        url = 'https://{host}{path}'.format(
-            host=settings.SITE_HOST,
-            path=reverse('users:activate', args=[self.pk, token.slug]))
-        self.email_user(
-            _("Activate your Prologin account"),
-            render_to_string('users/activation_email.txt', {'user': self, 'token': token, 'url': url}),
-            from_email=settings.PROLOGIN_CONTACT_MAIL,
-            fail_silently=False)
 
 
 # Yay, monkey-path that bitch, thank you Django!

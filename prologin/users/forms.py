@@ -1,27 +1,41 @@
-from captcha.fields import CaptchaField
 from django import forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
+from django.utils.safestring import mark_safe
+
+from captcha.fields import CaptchaField
+
+from prologin.models import Gender
 from .widgets import PreviewFileInput
 
 
-class UserSimpleForm(forms.ModelForm):
+class UserProfileForm(forms.ModelForm):
     class Meta:
         # TODO: add preferred_locale with a language dropdown
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'gender', 'email',
+        fields = ('first_name', 'last_name', 'gender', 'birthday',
                   'address', 'postal_code', 'city', 'country',
-                  'phone', 'birthday', 'preferred_language',
-                  'avatar', 'picture', 'allow_mailing', 'newsletter',)
+                  'phone', 'email', 'allow_mailing', 'newsletter',
+                  'preferred_language', 'avatar', 'picture',)
         widgets = {
             'avatar': PreviewFileInput(),
             'picture': PreviewFileInput(),
+            'gender': forms.RadioSelect(),
+            'address': forms.Textarea(attrs=dict(rows=2)),
         }
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.fields['gender'].required = False
+        self.fields['gender'].label = _("How do you prefer to be described?")
+        self.fields['gender'].choices = [
+            (Gender.female.value, mark_safe(_("<em>She is writing code for the contest</em>"))),
+            (Gender.male.value, mark_safe(_("<em>He is writing code for the contest</em>"))),
+            ("", _("I prefer not to say")),
+        ]
         if not self.instance.team_memberships.count():
-            del self.fields['picture']
+            # If not part of any team, makes no sense to add a staff picture
+            self.fields.pop('picture', None)
 
     def clean(self):
         if not self.cleaned_data['allow_mailing']:
@@ -44,3 +58,8 @@ class RegisterForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['email'].required = True
+
+
+class PasswordResetForm(forms.Form):
+    email = forms.EmailField(label=_("Email"), max_length=254, required=True,
+                             widget=forms.EmailInput(attrs={'placeholder': _("Your email address")}))

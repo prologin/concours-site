@@ -1,4 +1,6 @@
 from django.contrib import admin
+from ordered_model.admin import OrderedModelAdmin
+
 import contest.models
 import qcm.models
 
@@ -32,7 +34,7 @@ class QcmAdmin(admin.ModelAdmin):
         return qcm.models.Answer.objects.filter(proposition__question__qcm=obj).count()
 
 
-class QuestionAdmin(admin.ModelAdmin):
+class QuestionAdmin(OrderedModelAdmin):
     list_filter = ('qcm__event__edition',)
     list_display = ('body', 'qcm', 'proposition_count', 'correct_proposition_count',)
     inlines = [PropositionsInline]

@@ -52,7 +52,6 @@ DATABASES = {
 
 INSTALLED_APPS = (
     # Django
-    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -64,9 +63,11 @@ INSTALLED_APPS = (
     'bootstrapform',
     'django_bootstrap_breadcrumbs',
     'django_comments',
+    'djmail',
     'ordered_model',
     'macros',
     'mptt',
+    'registration',
     'tagging',
 
     # Prologin
@@ -82,7 +83,8 @@ INSTALLED_APPS = (
     'team',
     'users',
 
-    # Vendor (for overwriting)
+    # Django or vendor (for overwriting)
+    'django.contrib.admin',
     'zinnia',
 )
 
@@ -137,6 +139,14 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Emails
+
+EMAIL_BACKEND = "djmail.backends.async.EmailBackend"
+DJMAIL_BODY_TEMPLATE_PROTOTYPE = "{name}.body.{type}"
+DJMAIL_SUBJECT_TEMPLATE_PROTOTYPE = "{name}.subject"
+DJMAIL_REAL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
@@ -151,27 +161,33 @@ MEDIA_URL = '/media/'
 
 
 # Authentication
+
 AUTHENTICATION_BACKENDS = (
     'prologin.backends.ModelBackendWithLegacy',
 )
 AUTH_USER_MODEL = 'users.ProloginUser'
+
 LOGIN_URL = reverse_lazy('users:login')
 LOGOUT_URL = reverse_lazy('users:logout')
 LOGIN_REDIRECT_URL = '/'
 
 
 # Prologin specific
+
 SITE_HOST = 'www.prologin.org'
-PROLOGIN_CONTACT_MAIL = "info@prologin.org"
+PROLOGIN_CONTACT_MAIL = 'info@prologin.org'
+DEFAULT_FROM_EMAIL = PROLOGIN_CONTACT_MAIL
 PROLOGIN_EDITION = 2015
 PROLOGIN_MAX_AGE = 21
-USER_ACTIVATION_EXPIRATION = datetime.timedelta(hours=12)
+USER_ACTIVATION_EXPIRATION = datetime.timedelta(days=7)
 LATEX_GENERATION_PROC_TIMEOUT = 60  # in seconds
 PLAINTEXT_PASSWORD_LENGTH = 8
 PLAINTEXT_PASSWORD_DISAMBIGUATION = str.maketrans("iIl1oO0/+=", "aAbcCD9234")
 PLAINTEXT_PASSWORD_SALT = "whatever1337leet"
 
+
 # Zinnia (news)
+
 HOMEPAGE_ARTICLES = 3
 ZINNIA_AUTO_CLOSE_COMMENTS_AFTER = 0  # disable comments
 ZINNIA_ENTRY_BASE_MODEL = 'news.models.NewsEntry'

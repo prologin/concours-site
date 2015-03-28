@@ -17,6 +17,7 @@ class LanguageDef:
         return str(self)
 
 
+@ChoiceEnum.sort()
 class Language(ChoiceEnum):
     c = LanguageDef("C", ['.c'], doc='c')
     cpp = LanguageDef("C++", ['.cc', '.c++', '.cpp'], doc='cpp')
@@ -39,11 +40,8 @@ class Language(ChoiceEnum):
     pseudocode = LanguageDef(_("Pseudocode"), ['.txt'], correctable=False)
 
     @classmethod
-    def choices(cls, empty_label=None):
+    def _get_choices(cls):
         # We hacked the member values to put LanguageDef-s instead of DB values (0-N)
         # so we fix this here.
         # ((0, "C"), (1, "C++"), ...)
-        choices = tuple((i, member.value.name) for i, member in enumerate(cls))
-        if empty_label:
-            choices = ((None, empty_label),) + choices
-        return choices
+        return tuple((i, member.value.name) for i, member in enumerate(cls))

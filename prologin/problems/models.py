@@ -11,6 +11,9 @@ class Challenge(OrderedModel):
     question = models.TextField()
     comments = models.TextField(blank=True)
 
+    class Meta(OrderedModel.Meta):
+        pass
+
     @property
     def edition(self):
         return self.event.edition

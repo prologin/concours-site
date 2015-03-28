@@ -7,7 +7,7 @@ def homepage(request):
     articles = Entry.published.prefetch_related('authors').all()[:settings.HOMEPAGE_ARTICLES]
 
     qcm_completed = None
-    if request.current_qcm:
+    if request.user.is_authenticated() and request.current_qcm:
         qcm_completed = request.current_qcm.is_completed_for(request.current_contestant)
 
     problems_count = request.current_qcm_problems.count()
