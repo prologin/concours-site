@@ -20,6 +20,14 @@
 }
 
 @media screen and (max-width: 768px) {
+	.home-jumbo {
+		padding: 0 0 1em;
+	}
+
+	.home-jumbo .htl {
+		margin-top: 2em;
+	}
+
 	.home-jumbo .line {
 		display: none;
 	}

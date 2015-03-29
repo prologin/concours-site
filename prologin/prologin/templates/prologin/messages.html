@@ -3,15 +3,22 @@
 
 {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
 <div class="alert alert-dismissable alert-danger">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<i class="fa fa-times-circle"></i>
 {% elif message.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
 <div class="alert alert-dismissable alert-warning">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<i class="fa fa-exclamation-triangle"></i>
 {% elif message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
 <div class="alert alert-dismissable alert-success">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<i class="fa fa-check-circle"></i>
 {% else %}
 <div class="alert alert-dismissable alert-info">
+	<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+	<i class="fa fa-info-circle"></i>
 {% endif %}
-  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-  {{ message }}
+	<div>{{ message }}</div>
 </div>
 
 {% endfor %}

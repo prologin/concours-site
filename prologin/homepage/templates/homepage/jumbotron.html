@@ -32,7 +32,7 @@
                                     {% endif %}
                                     </p>
 									{% if not user.is_authenticated %}
-									<p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block">{% trans "Register now!" %}</a></p>
+									<p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block"><i class="fa fa-rocket"></i> {% trans "Register now!" %}</a></p>
 									{% else %}
 									<ul class="list-unstyled checklist hide-no-active">
                                     {% if request.current_qcm %}

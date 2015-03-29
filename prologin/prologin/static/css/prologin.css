@@ -1,7 +1,8 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:700,300);
+
 /*
  * Page layout
  */
-@import url(http://fonts.googleapis.com/css?family=Roboto:700,300);
 
 html, body {
 	margin: 0;
@@ -13,17 +14,6 @@ html, body {
 	color: #494949;
 	text-rendering: optimizelegibility;
 }
-
-/*
-html {
-    position: relative;
-    min-height: 100%;
-}
-
-body {
-    margin: 0 0 150px;
-}
-*/
 
 .main-row {
 	margin-right: 0;
@@ -388,6 +378,16 @@ footer .legal {
 /*
  * Misc
  */
+
+.alert .glyphicon, .alert .fa, .alert button.close {
+	display: table-cell;
+}
+
+.alert div, .alert span {
+	padding-left: 8px;
+	display: table-cell;
+}
+
 .align-left {
 	text-align: left;
 }
@@ -398,6 +398,6 @@ footer .legal {
 }
 
 .avatar.avatar-full {
-	border: 1px solid rgba(0,0,0,0.2);
-	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	border: 1px solid rgba(0, 0, 0, 0.2);
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
