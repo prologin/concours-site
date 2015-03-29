@@ -225,12 +225,12 @@ class PasswordResetView(FormView):
             token = default_token_generator.make_token(user)
             url = absolute_site_url(self.request,
                                     reverse('users:password_reset_confirm', kwargs=dict(uidb64=uid, token=token)))
-            messages.success(self.request,
-                             _("You should receive an email at %(email)s in a few moments. "
-                               "Please follow the instructions to complete the password reset.")
-                             % {'email': user.email})
             send_email("users/mails/pswd_reset", user.email, {'user': user, 'url': url})
 
+        messages.success(self.request,
+                         _("You should receive an email at %(email)s in a few moments. "
+                           "Please follow the instructions to complete the password reset.")
+                         % {'email': email})
         return super().form_valid(form)
 
 
@@ -260,7 +260,7 @@ class PasswordResetConfirmView(PasswordFormMixin, UpdateView):
     def form_valid(self, form):
         messages.success(self.request, _("New password saved."))
         if auto_login(self.request, self.get_object()):
-            messages.success(self.request, "You have been automatically logged in.")
+            messages.success(self.request, _("You have been automatically logged in."))
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):

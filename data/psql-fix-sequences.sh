@@ -22,4 +22,3 @@ WHERE S.relkind = 'S'
 ORDER BY S.relname;
 
 EOSQL
-

@@ -82,7 +82,7 @@ INSTALLED_APPS = (
     'team',
     'users',
 
-    # Django or vendor (for overwriting)
+    # Django and vendor, at the bottom for template overriding
     'django.contrib.admin',
     'zinnia',
 )
@@ -140,10 +140,10 @@ USE_TZ = True
 
 # Emails
 
-EMAIL_BACKEND = "djmail.backends.async.EmailBackend"
-DJMAIL_BODY_TEMPLATE_PROTOTYPE = "{name}.body.{type}"
-DJMAIL_SUBJECT_TEMPLATE_PROTOTYPE = "{name}.subject"
+DJMAIL_BODY_TEMPLATE_PROTOTYPE = "{name}.body.{type}.{ext}"
+DJMAIL_SUBJECT_TEMPLATE_PROTOTYPE = "{name}.subject.{ext}"
 DJMAIL_REAL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_BACKEND = "djmail.backends.async.EmailBackend"
 
 
 # Static files (CSS, JavaScript, Images)
@@ -168,7 +168,8 @@ AUTH_USER_MODEL = 'users.ProloginUser'
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGOUT_URL = reverse_lazy('users:logout')
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = reverse_lazy('home')
+USER_ACTIVATION_EXPIRATION = datetime.timedelta(days=7)
 
 
 # Prologin specific
@@ -178,7 +179,6 @@ PROLOGIN_CONTACT_MAIL = 'info@prologin.org'
 DEFAULT_FROM_EMAIL = PROLOGIN_CONTACT_MAIL
 PROLOGIN_EDITION = 2015
 PROLOGIN_MAX_AGE = 21
-USER_ACTIVATION_EXPIRATION = datetime.timedelta(days=7)
 LATEX_GENERATION_PROC_TIMEOUT = 60  # in seconds
 PLAINTEXT_PASSWORD_LENGTH = 8
 PLAINTEXT_PASSWORD_DISAMBIGUATION = str.maketrans("iIl1oO0/+=", "aAbcCD9234")
