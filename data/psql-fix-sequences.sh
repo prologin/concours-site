@@ -1,5 +1,7 @@
 #!/bin/sh
 
+# Shamelessly stolen from https://wiki.postgresql.org/wiki/Fixing_Sequences
+
 psql -Atq $@ <<'EOSQL' | psql $@
 
 SELECT 'SELECT SETVAL(' ||

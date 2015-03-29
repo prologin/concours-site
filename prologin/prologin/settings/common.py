@@ -67,7 +67,6 @@ INSTALLED_APPS = (
     'ordered_model',
     'macros',
     'mptt',
-    'registration',
     'tagging',
 
     # Prologin
