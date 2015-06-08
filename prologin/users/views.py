@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model, REDIRECT_FIELD_NAME, login
-from django.contrib.auth.forms import AuthenticationForm, SetPasswordForm
+from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -109,7 +109,6 @@ class ActivationView(SingleObjectMixin, RedirectView):
 
     def get_object(self, queryset=None):
         slug = self.kwargs.get(self.slug_url_kwarg, None)
-        print("THE SLUG IS", slug)
         return self.model.objects.activate(slug)
 
     def get(self, request, *args, **kwargs):

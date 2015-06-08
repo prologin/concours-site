@@ -1,0 +1,109 @@
+{% extends "prologin/base.html" %}
+{% load i18n static utils zinnia news_tags %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "About the contest" 'pages:about-contest' %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Discover the Prologin contest" %}{% endblock %}
+
+{% block content %}
+	{% url 'pages:about-organization' as assoc_url %}
+	{% get_setting_var 'PROLOGIN_MAX_AGE' as max_age %}
+
+	<h1>{% trans "About the Prologin contest" %}</h1>
+	{% comment %}
+	Notre but est de faire connaître aux jeunes étudiants le monde de la programmation et de l'algorithmique,
+	en les soumettant à plusieurs problèmes classiques. Le concours s'articule autour de trois étapes de
+	sélection successives présentées dans les colonnes qui suivent.
+	{% endcomment %}
+	<p>{% blocktrans %}
+		Prologin is a computer science contest open to all students under {{ max_age }},
+		organized by the <a href="{{ assoc_url }}">Prologin organization</a>.
+		Our goal is to introduce young students to the world of programming and algorithms,
+		by subjecting them to several conventional problems and exciting challenges. The contest takes places in
+		three stages of successive selection presented in the following sections.
+		Prologin is a nonprofit organization, it is free to enter the contest.
+	{% endblocktrans %}</p>
+
+	{% url 'home' as home_url %}
+	<p>{% blocktrans %}For an accurate time-line of this year events, please see the <a href="{{ home_url }}">home page</a>.{% endblocktrans %}</p>
+
+</div> {# hack: end content_super container #}
+	<div class="bgcont" style="background-image: url({% static 'img/qualif.jpg' %}); background-position: 0 50%;">
+		<div class="container presentation-body">
+			<div class="row"><div class="col-sm-8">
+			<h2>{% trans "1<sup>st</sup> step – Qualification" %}</h2>
+			<p>{% blocktrans %}
+				The screening questionnaire allows to qualify for regional competitions.
+				It consists of a selection of algorithmic problems of increasing difficulty.
+				It is possible to submit the questionnaire by postal mail or directly on this website.
+			{% endblocktrans %}</p>
+			<p>{% trans "Registration is completly free, you just need an Internet access or an envelope to submit your answers." %}</p></div>
+			<div class="col-sm-4">
+				<h4>{% trans "Who can qualify?" %}</h4>
+				<p>{% trans "Any student under 21, living in the European Union, who can understand and write French." %}</p>
+				<p>{% trans "Students from EPITA/EPITECH are not allowed to participate." %}</p>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<div class="bgcont" style="background-image: url({% static 'img/regionales.jpg' %}); background-position: 0 0;">
+		<div class="container presentation-body">
+			<div class="row"><div class="col-sm-8">
+				<h2>{% trans "2<sup>nd</sup> step – Regional events" %}</h2>
+			<p>{% blocktrans %}
+				The regional events allows the 100 best contestants to qualify for the final.
+				The event lasts one day and takes place on a Saturday in January or February,
+				depending on the city. Candidates are divided into various sessions in
+				different examination centers all across France.
+				The evaluation is based on three primary points: a written exam on an
+				algorithmic problem, some unrelated problems to solve on the computer
+				and an interview with one of Prologin's staff members.
+			{% endblocktrans %}</p>
+			</div>
+			<div class="col-sm-4">
+				<h4>{% trans "Where can I seat the exam?" %}</h4>
+				{% url 'centers:center_map' as url_centers %}
+				<p>{% blocktrans %}
+					We organize the event in major cities across metropolitan France. You can check the nearest location
+					using the <a href="{{ url_centers }}">map of exam centers</a>.
+				{% endblocktrans %}</p>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	<div class="bgcont" style="background-image: url({% static 'img/finale.jpg' %}); background-position: 0 10%;">
+		<div class="container presentation-body">
+		<div class="row"><div class="col-sm-8">
+			<h2>{% trans "3<sup>rd</sup> step – The Final" %}</h2>
+			<p>{% blocktrans %}
+				The final takes place over three days in Paris, usually at the end of April.
+				Candidates have to program an artificial intelligence of their own for
+				some kind of game, in just 36 hours. All the candidate submissions are
+				assessed by competing against each other using an automated matchmaking system.
+				It is also a unique opportunity to meet other computer enthusiasts, in a cheerful
+				and relaxed mood!
+			{% endblocktrans %}</p></div>
+			<div class="col-sm-4">
+				<h4>{% trans "How much does it cost?" %}</h4>
+				<p>{% blocktrans %}All candidates are provided with free meals and a place to rest and sleep for the
+					duration of the finale. You only have to handle the cost of transportation.
+				{% endblocktrans %}</p>
+			</div>
+		</div>
+		</div>
+	</div>
+
+	{# un-hack: restore content_super container #}
+	<div class="container">
+
+	<p>{% blocktrans %}
+		Foobar about training and archives. Or maybe put that at the top.
+	{% endblocktrans %}</p>
+
+{% endblock content %}

@@ -45,6 +45,9 @@ urlpatterns += i18n_patterns('',
 
     # Authentication and accounts
     url(r'^user/', include('users.urls', namespace='users')),
+
+    # Pages
+    url('^', include('pages.urls', namespace='pages')),
 )
 
 if settings.DEBUG:

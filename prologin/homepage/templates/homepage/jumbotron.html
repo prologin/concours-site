@@ -5,6 +5,7 @@
 		<h1>{% trans "Prologin, the French National Computer Science Contest" %}</h1>
 		<p>{% blocktrans with born_year as born_year %}Born in {{ born_year }} or after? Join the Prologin contest! Registration is free.{% endblocktrans %}</p>
 
+		{% trans "Unknown date" as no_such_date %}
 		{# timeline #}
 		<div class="htl">
 			<div class="row">
@@ -20,32 +21,45 @@
 						<div class="row">
 							<div class="col-xs-5 col-sm-12">
 								<h4>{% trans "Qualification" %}</h4>
-								<p class="date">{{ request.current_qualification.date_begin|date:"d b Y" }}</p>
+								<p class="date">{{ request.current_qualification.date_begin|date:"d b Y"|default:no_such_date }}</p>
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
 									<p>
-                                    {% if request.current_qcm %}
-                                        {% blocktrans %}A quiz and {{ problems_count }} problems to solve online.{% endblocktrans %}
-                                    {% else %}
-                                        {% blocktrans %}{{ problems_count }} problems to solve online.{% endblocktrans %}
-                                    {% endif %}
-                                    </p>
+										{% if request.current_qcm %}
+											{% blocktrans %}A quiz and {{ problems_count }} problems to solve online.
+											{% endblocktrans %}
+										{% else %}
+											{% blocktrans %}{{ problems_count }} problems to solve online.
+											{% endblocktrans %}
+										{% endif %}
+									</p>
 									{% if not user.is_authenticated %}
-									<p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block"><i class="fa fa-rocket"></i> {% trans "Register now!" %}</a></p>
+										<p class="text-center signin"><a href="{% url 'users:register' %}"
+																		 class="btn btn-default btn-block"><i
+												class="fa fa-rocket"></i> {% trans "Register now!" %}</a></p>
 									{% else %}
-									<ul class="list-unstyled checklist hide-no-active">
-                                    {% if request.current_qcm %}
-                                        {% if qcm_completed %}
-                                            <li class="text-success"><a href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-check-square-o"></i> {% trans "Quiz completed" %}</a></li>
-                                        {% else %}
-                                            <li class="text-danger"><a href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-square-o"></i> {% trans "Complete the quiz" %}</a></li>
-                                        {% endif %}
-                                    {% endif %}
-										<li class="text-{% if problems_completed == problems_count %}success{% else %}danger{% endif %}">
-                                            <a href="#EXOS"><i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i> {% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems completed{% endblocktrans %}</a>
-                                        </li>
-									</ul>
+										<ul class="list-unstyled checklist hide-no-active">
+											{% if request.current_qcm %}
+												{% if qcm_completed %}
+													<li class="text-success"><a
+															href="{% url 'qcm:display' request.current_edition.year %}"><i
+															class="fa fa-check-square-o"></i> {% trans "Quiz completed" %}
+													</a></li>
+												{% else %}
+													<li class="text-danger"><a
+															href="{% url 'qcm:display' request.current_edition.year %}"><i
+															class="fa fa-square-o"></i> {% trans "Complete the quiz" %}
+													</a></li>
+												{% endif %}
+											{% endif %}
+											<li class="text-{% if problems_completed == problems_count %}success{% else %}danger{% endif %}">
+												<a href="#EXOS"><i
+														class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
+													{% blocktrans %}{{ problems_completed }}/{{ problems_count }}
+														problems completed{% endblocktrans %}</a>
+											</li>
+										</ul>
 									{% endif %}
 								</div>
 							</div>
@@ -59,7 +73,7 @@
 						<div class="row">
 							<div class="col-xs-5 col-sm-12">
 								<h4>{% trans "Regionales" %}</h4>
-								<p class="date">{{ request.current_regionales.first.date_begin|date:"d b Y" }}</p>
+								<p class="date">{{ request.current_regionales.first.date_begin|date:"d b Y"|default:no_such_date }}</p>
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
@@ -77,7 +91,7 @@
 						<div class="row">
 							<div class="col-xs-5 col-sm-12">
 								<h4>{% trans "Finale" %}</h4>
-								<p class="date">{{ request.current_finale.date_begin|date:"d b Y" }}</p>
+								<p class="date">{{ request.current_finale.date_begin|date:"d b Y"|default:no_such_date }}</p>
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">

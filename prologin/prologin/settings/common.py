@@ -77,6 +77,7 @@ INSTALLED_APPS = (
     'documents',
     'homepage',
     'qcm',
+    'pages',
     'problems',
     'news',
     'team',

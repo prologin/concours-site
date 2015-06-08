@@ -1,6 +1,6 @@
 {% load i18n navigation %}
 <ul class="nav navbar-nav pull-right">
-	<li class="{% active '^about/' %}"><a href="#">{% trans "Discover" %}</a></li>
+	<li class="{% active '^about/' %}"><a href="{% url 'pages:about-contest' %}">{% trans "Discover" %}</a></li>
 	<li><a href="{% active '^train/' %}">{% trans "Train" %}</a></li>
 	<li><a href="{% active '^train/' %}">{% trans "Archives" %}</a></li>
 	<li><a href="{% active '^forum/' %}">{% trans "Forums" %}</a></li>

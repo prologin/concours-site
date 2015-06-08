@@ -64,6 +64,9 @@ footer a:visited {
 	color: #ccc;
 	font-size: 0.9em;
 }
+footer a:hover {
+	color: #333;
+}
 
 footer a .fa.fa-inverse {
 	color: #ccc;
@@ -226,7 +229,7 @@ footer .legal {
 
 .breadcrumb > li + li:before {
 	color: #737ab9;
-	content: "›";
+	content: "\203a";
 }
 
 /*
@@ -400,4 +403,39 @@ footer .legal {
 .avatar.avatar-full {
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.bgcont {
+	padding: 1.5em;
+	padding-top: 2em;
+	position: relative;
+	z-index: 0;
+	background-repeat: no-repeat;
+	background-size: 100% auto;
+	margin-bottom: 1em;
+}
+
+.bgcont:after {
+	content: " ";
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: rgba(0, 0, 0, 0.7);
+	display: block;
+	z-index: -1;
+}
+
+.presentation-body p, .presentation-body h2, .presentation-body h4 {
+	color: white;
+	text-shadow: 0 1px 1px rgba(0,0,0,0.8);
+}
+.presentation-body h4 {
+	font-weight: bold;
+}
+.presentation-body h2 {
+	margin-top: 0;
+	padding-top: 0;
+	padding-bottom: 0.4em;
 }
