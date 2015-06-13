@@ -2,7 +2,7 @@ MANAGE = cd prologin && ./manage.py
 TX = tx --debug
 
 runserver:
-	$(MANAGE) runserver
+	$(MANAGE) runserver 0.0.0.0:8000
 
 smtpserver:
 	python -m smtpd -n -c DebuggingServer localhost:1025

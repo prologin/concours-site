@@ -64,6 +64,7 @@ footer a:visited {
 	color: #ccc;
 	font-size: 0.9em;
 }
+
 footer a:hover {
 	color: #333;
 }
@@ -340,7 +341,7 @@ footer .legal {
 	min-height: 80px;
 }
 
-.team-member > div > a {
+.team-member-avatar {
 	display: inline-block;
 	width: 64px;
 	height: 64px;
@@ -414,9 +415,20 @@ footer .legal {
 	background-size: auto 100%;
 	margin-bottom: 1em;
 }
+
 @media (min-width: 768px) {
 	.bgcont {
 		background-size: 100% auto;
+	}
+}
+
+.dl-horizontal.dl-narrow dt {
+	width: 5em;
+}
+
+@media (min-width: 768px) {
+	.dl-horizontal.dl-narrow dd {
+		margin-left: 6em;
 	}
 }
 
@@ -434,13 +446,21 @@ footer .legal {
 
 .presentation-body p, .presentation-body h2, .presentation-body h4 {
 	color: white;
-	text-shadow: 0 1px 1px rgba(0,0,0,0.8);
+	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
 }
+
 .presentation-body h4 {
 	font-weight: bold;
 }
+
 .presentation-body h2 {
 	margin-top: 0;
 	padding-top: 0;
 	padding-bottom: 0.4em;
+}
+
+.organization-team-box {
+	text-align: center;
+	line-height: 1.2;
+	margin-bottom: 1em;
 }

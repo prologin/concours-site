@@ -4,6 +4,7 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
+	{% breadcrumb "The organization" 'pages:about-organization' %}
 	{% breadcrumb "About the contest" 'pages:about-contest' %}
 {% endblock breadcrumbs %}
 

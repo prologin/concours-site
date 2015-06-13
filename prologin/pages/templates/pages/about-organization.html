@@ -7,7 +7,7 @@
 	{% breadcrumb "The organization" 'pages:about-organization' %}
 {% endblock breadcrumbs %}
 
-{% block title %}{% trans "Avout the Prologin organization" %}{% endblock %}
+{% block title %}{% trans "About the Prologin organization" %}{% endblock %}
 
 {% block content %}
 	{% url 'pages:about-contest' as contest_url %}
@@ -19,12 +19,14 @@
 		<a href="{{ contest_url }}">Prologin computing contest</a>.
 	{% endblocktrans %}</p>
 
+	<p class="visible-sm visible-xs text-center"><a href="#organization"><i class=" fa fa-arrow-down"></i> {% trans "Jump to description" %}</a></p>
+
 	<div class="row">
-		<div class="col-sm-6">
+		<div class="col-md-4 col-sm-6">
 			<div class="panel panel-default">
 				<div class="panel-heading"><h4 id="contact">{% trans "Contact info" %}</h4></div>
 				<div class="panel-body">
-					<dl class="dl-horizontal">
+					<dl class="dl-horizontal dl-narrow">
 						<dt>{% trans "Address" %}</dt>
 						<dd>
 							<address>Association Prologin<br>
@@ -40,24 +42,39 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-6">
+		<div class="col-md-3 col-sm-6">
+			<div class="panel panel-default">
+				<div class="panel-heading"><h4 id="legal">{% blocktrans with year=request.current_edition.year %}The {{ year }} team{% endblocktrans %}</h4></div>
+				<div class="panel-body">
+					<div class="organization-team-box">
+						<strong>{% trans "President" %}</strong><br>
+						<a href="{% url 'users:profile' team_pres.user.pk %}" class="team-member-avatar"
+						   style="{% if team_pres.user.picture_or_avatar %}background-image: url('{{ team_pres.user.picture_or_avatar.url }}'){% endif %}"/></a>
+						<br>{{ team_pres.user.get_full_name }}<br>
+						<small class="text-muted">{{ team_pres.user.username }}</small>
+					</div>
+					<p><a href="{% url 'team:year' request.current_edition.year %}" class="btn btn-block btn-default">
+						<i class="fa fa-users"></i> {% blocktrans with count=team.count %}See the {{ count }} volunteers{% endblocktrans %}</a></p>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5 col-sm-12">
 			<div class="panel panel-default">
 				<div class="panel-heading"><h4 id="legal">{% trans "Legal status" %}</h4></div>
 				<div class="panel-body">
-					{% blocktrans %}
-						<p>Prologin is a French “law 1901” association registered under the sub-prefecture of
-							<em>L'Hay-les-Roses</em> on 2000-08-04.</p>
-						<p>CNIL registration number: <code>830039</code>.</p>
-						<p><small>In accordance with Article 34 of the “Informatique et Liberté” law, you have
-							the right to access, modify and delete data concerning you.
-							To exercise this right, please contact Prologin using one of the methods listed on this page.</small></p>
-					{% endblocktrans %}
+					<p>{% blocktrans %}Prologin is a French “law 1901” association registered under the sub-prefecture of
+							<em>L'Hay-les-Roses</em> on 2000-08-04.{% endblocktrans %}</p>
+					<p>{% trans "CNIL registration number:" %} <code>830039</code>.</p>
+					<p><small>{% blocktrans %}In accordance with Article 34 of the “Informatique et Liberté” law, you have
+						the right to access, modify and delete data concerning you.
+						To exercise this right, please contact Prologin using one of the methods listed in
+						the “Contact info” box.{% endblocktrans %}</small></p>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<h2 id="association">{% trans "A computer enthusiasts association" %}</h2>
+	<h2 id="organization">{% trans "A computer enthusiasts association" %}</h2>
 	{% blocktrans %}
 	<p class="text-justify">The purpose of Prologin is to enable young computer enthusiasts to meet and compete with each other. Indeed,
 	computer science is still largely under represented in French schools. Therefore, those who practice it are
