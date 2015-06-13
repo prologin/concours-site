@@ -7,8 +7,8 @@ from django.views import generic
 
 
 class AboutContestView(generic.TemplateView):
-    template_name = 'pages/about.html'
+    template_name = 'pages/about-contest.html'
 
 
 class AboutOrganizationView(generic.TemplateView):
-    template_name = 'pages/about.html'
+    template_name = 'pages/about-organization.html'

@@ -411,8 +411,13 @@ footer .legal {
 	position: relative;
 	z-index: 0;
 	background-repeat: no-repeat;
-	background-size: 100% auto;
+	background-size: auto 100%;
 	margin-bottom: 1em;
+}
+@media (min-width: 768px) {
+	.bgcont {
+		background-size: 100% auto;
+	}
 }
 
 .bgcont:after {
