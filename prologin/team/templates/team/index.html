@@ -19,7 +19,7 @@
 </ul>
 
 <header class="page-header">
-	<h1>{% blocktrans %}Staff {{ year }}{% endblocktrans %}</h1>
+	<h1>{% blocktrans with count=team_count %}Staff {{ year }} <small>{{ count }} members</small>{% endblocktrans %}</h1>
 </header>
 
 <div class="row">
