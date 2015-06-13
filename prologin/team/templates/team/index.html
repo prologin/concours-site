@@ -30,7 +30,7 @@
 				<a href="{% url 'users:profile' member.user.pk %}" class="team-member-avatar" style="{% if member.user.picture_or_avatar %}background-image: url('{{ member.user.picture_or_avatar.url }}'){% endif %}" /></a>
 			</div>
 			<div class="media-body">
-				<h4 class="media-heading"><a href="{% url 'users:profile' member.user.pk %}">{{ member.user.username }}</a> {% if member.user.get_full_name %}<small>{{ member.user.get_full_name }}</small>{% endif %}</h4>
+				<h4 class="media-heading"><a href="{% url 'users:profile' member.user.pk %}">{{ member.user.username }}</a> {% if member.user.get_full_name %}<small><br>{{ member.user.get_full_name }}</small>{% endif %}</h4>
 				<p>{{ member.role }}</p>
 			</div>
 		</div>

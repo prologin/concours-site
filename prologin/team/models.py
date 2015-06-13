@@ -27,7 +27,7 @@ class TeamMember(models.Model):
     class Meta:
         verbose_name = _("Team member")
         verbose_name_plural = _("Team members")
-        ordering = ['role__rank']
+        ordering = ['role__rank', 'user__username']
 
     def __str__(self):
         return self.user.username
