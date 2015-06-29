@@ -27,6 +27,7 @@ Once installed, you must start your work sessions with the following:
 * Clone the repository: `git clone git@bitbucket.org:prologin/site.git`
 * Go to the website directory: `cd site/prologin/`
 * Create the configuration file; you way want to adapt it to suite your needs, although it already contains some sane defaults for a **development** environment: `cp prologin/settings/dev.sample.py prologin/settings/dev.py`
+* `export DJANGO_SETTINGS_MODULE=prologin.settings.dev`
 * Create the database: `python manage.py syncdb --noinput`
 * (optional) Loading some dummy data: `python manage.py fill_db all`
 
@@ -49,6 +50,7 @@ Don't put any file in `prologin/static/`. All the static files must be located i
 
 * On old systems using Python 2 as default, replace all `python` invocation by `python3` or equivalent. Better: use a virtualenv with python3 by default.
 * If the `settings.py.example` file changed, you may want to adapt your `settings.py` consequently.
+* Debian recommended packages : libxml2-dev libxslt1-dev python3-dev libpq-dev
 
 
 # Work status
