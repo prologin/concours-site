@@ -179,7 +179,7 @@ class Command(BaseCommand):
             for name in ("EPITA", "Éducation nationale", "École Polytechnique", "UPMC", "Délégation Internet"):
                 slug = slugify(name)
                 prologin.models.Sponsor(name=name, is_active=True, site="http://www.%s.fr" % slug,
-                                        email="contact@%s.fr" % slug).save()
+                                        contact_email="contact@%s.fr" % slug).save()
 
     def fill_centers(self):
         center_list = [('ISEG Lyon', '86, bd Marius Vivier Merle', '69003', 'LYON'),
