@@ -265,7 +265,7 @@ class Command(BaseCommand):
                         comments="Ouais pas mal.\n\nSinon il préfère les pâtes carbo."
                     contestant = contest.models.Contestant(user=user,
                                                            edition=edition,
-                                                           tshirt_size=random.choice(tshirt_sizes),
+                                                           shirt_size=random.choice(tshirt_sizes),
                                                            preferred_language=random.choice(languages),
                                                            correction_by=random.choice(staff),
                                                            correction_comments=comments)
