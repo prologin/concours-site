@@ -204,7 +204,7 @@ class Command(BaseCommand):
         with django.db.transaction.atomic():
             for name, road, postal_code, city in center_list:
                 centers.models.Center(
-                    name=name, type=centers.models.Center.Type.centre.value, is_active=True,
+                    name=name, type=centers.models.Center.Type.center.value, is_active=True,
                     address=road, postal_code=postal_code, city=city, lat=0, lng=0,
                 ).save()
 
