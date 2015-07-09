@@ -83,6 +83,6 @@ def map_from_legacy_language(language_num):
         return None
 
 map_from_legacy_language.mapping = {}
-for i, lang in enumerate(Language):
-    for ext in lang.value.exts:
-        map_from_legacy_language.mapping[ext] = i
+for lang in Language:
+    for ext in lang.value.extensions:
+        map_from_legacy_language.mapping[ext] = lang

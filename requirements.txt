@@ -15,3 +15,5 @@ pillow>=2.4
 psycopg2>=2.5
 requests
 django-debug-toolbar
+celery
+redis

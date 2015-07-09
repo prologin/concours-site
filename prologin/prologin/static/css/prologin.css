@@ -464,3 +464,51 @@ footer .legal {
 	line-height: 1.2;
 	margin-bottom: 1em;
 }
+
+.challenge-group {
+	margin: 0.5em;
+	padding: 0;
+	border: 1px solid #4155c0;
+	position: relative;
+}
+.challenge-group .challenge-year {
+	background: #4155c0;
+	position: absolute;
+	width: 80px;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	color: white;
+	float: left;
+	text-align: center;
+	font-size: 1.2em;
+	line-height: 2;
+}
+
+.challenge-event-list {
+	list-style-type: none;
+	margin: 0 0 0 80px;
+	padding: 0;
+}
+.challenge-event-list li a {
+	display: block;
+	padding: 0.4em 1em;
+	border-bottom: 1px solid #4155c0;
+	text-decoration: none;
+	color: #4155c0;
+}
+.challenge-event-list li a:hover, .challenge-event-list li a:active {
+	color: white;
+	background-color: #4155c0;
+}
+.challenge-event-list li:last-child a {
+	border-bottom: none;
+}
+
+.multiple-checkbox ul {
+	list-style-type: none;
+}
+
+.multiple-checkbox ul li {
+	float: left;
+}

@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 
 from django.core.urlresolvers import reverse_lazy
 from django.utils.translation import ugettext_lazy as _
+from collections import namedtuple
 import datetime
 import os
 
@@ -139,6 +140,18 @@ USE_L10N = True
 USE_TZ = True
 
 
+# Celery (task scheduler)
+
+BROKER_URL = 'redis://localhost:6379/0'
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = TIME_ZONE
+CELERY_ENABLE_UTC = True
+CELERY_RESULT_BACKEND = BROKER_URL  # also use redis to store the results
+CELERY_RESULT_PERSISTENT = True  # keep results on broker restart
+CELERY_TASK_RESULT_EXPIRES = 3600 * 12  # 12 hours
+
 # Emails
 
 DJMAIL_BODY_TEMPLATE_PROTOTYPE = "{name}.body.{type}.{ext}"
@@ -180,10 +193,31 @@ PROLOGIN_CONTACT_MAIL = 'info@prologin.org'
 DEFAULT_FROM_EMAIL = PROLOGIN_CONTACT_MAIL
 PROLOGIN_EDITION = 2015
 PROLOGIN_MAX_AGE = 21
+PROLOGIN_MAX_LEVEL_DIFFICULTY = 9
 LATEX_GENERATION_PROC_TIMEOUT = 60  # in seconds
 PLAINTEXT_PASSWORD_LENGTH = 8
 PLAINTEXT_PASSWORD_DISAMBIGUATION = str.maketrans("iIl1oO0/+=", "aAbcCD9234")
 PLAINTEXT_PASSWORD_SALT = "whatever1337leet"
+
+# Cache durations and keys
+CacheSetting = namedtuple('CacheSetting', 'key duration')
+PROLOGIN_CACHES = {
+    'challenge_list': CacheSetting('problems.challenge_list', 3600),
+    'challenge_details': CacheSetting('problems.challenge_details.{name}', 3600),
+}
+
+# Prologin correction system
+# List of strings (tried in order for load-balancing/fallback):
+#  - if local: 'local:///path/to/prefix'
+#  - if remote: 'http://thehost:55080/submit'
+TRAINING_CORRECTORS = (
+    'http://ceos.phanes.net:55080/submit',
+)
+
+# List of challenges (directory name), eg. ('demi2015', 'qcm2014')
+# Empty list allows everything
+TRAINING_CHALLENGE_WHITELIST = ()
+TRAINING_PROBLEM_REPOSITORY_PATH = os.path.join(BASE_DIR, 'problems')
 
 
 # Zinnia (news)

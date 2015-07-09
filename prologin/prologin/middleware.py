@@ -18,12 +18,12 @@ class ContestMiddleware(object):
         request.current_qcm = qcm.models.Qcm.objects.filter(
             event__type=contest.models.Event.Type.qualification.value,
             event__edition=request.current_edition).first()
-        request.current_qcm_problems = problems.models.Challenge.objects.filter(
-            event__type=contest.models.Event.Type.qualification.value,
-            event__edition=request.current_edition)
+        #request.current_qcm_problems = problems.models.Challenge.objects.filter(
+        #    event__type=contest.models.Event.Type.qualification.value,
+        #    event__edition=request.current_edition)
 
         request.current_contestant = None
-        request.current_contestant_qcm_problem_answers = problems.models.Answer.objects.none()
+        #request.current_contestant_qcm_problem_answers = problems.models.Answer.objects.none()
 
         if user.is_authenticated():
             try:
@@ -31,8 +31,8 @@ class ContestMiddleware(object):
             except ObjectDoesNotExist:
                 request.current_contestant = contest.models.Contestant(user=user, edition=request.current_edition)
                 request.current_contestant.save()
-            request.current_contestant_qcm_problem_answers = problems.models.Answer.objects.filter(
-                challenge__event__edition=request.current_edition,
-                contestant=request.current_contestant,
-                is_final=True,
-            )
+            #request.current_contestant_qcm_problem_answers = problems.models.Answer.objects.filter(
+            #    challenge__event__edition=request.current_edition,
+            #    contestant=request.current_contestant,
+            #    is_final=True,
+            #)

@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.cache import cache
 from django.template import VariableDoesNotExist, Variable
 from django.utils.html import escape
 from django.utils.translation import ugettext_lazy as _
@@ -132,3 +133,16 @@ class ChoiceEnum(enum.Enum):
         if empty_label:
             choices = ((None, empty_label),) + choices
         return choices
+
+
+def cached(func, cache_setting_name, **kwargs):
+    assert callable(func)
+    cache_setting = settings.PROLOGIN_CACHES[cache_setting_name]
+    key = cache_setting.key
+    if kwargs:
+        key = key.format(**kwargs)
+    value = cache.get(key)
+    if value is None:
+        value = func()
+        cache.set(key, value, cache_setting.duration)
+    return value

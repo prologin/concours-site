@@ -1,14 +1,17 @@
+import itertools
+import os
+
 from django import db
 from django.conf import settings
 from django.core.management.base import BaseCommand
-import itertools
-import os
+from django.utils import timezone
 
 import prologin.utils
 import prologin.models
 import users.models
 from ._migration_utils import *  # noqa lol I heard u like PEP8 well screw u
 
+CURRENT_TIMEZONE = timezone.get_current_timezone()
 
 USER_QUERY = """
 SELECT
@@ -93,7 +96,7 @@ class Command(BaseCommand):
                     city=nstrip(row.a_city, 64), country=nstrip(row.country, 64), birthday=birthday,
                     school_stage=row.grade, signature=row.signature, gender=gender,
                     timezone=user_timezone, allow_mailing=bool(row.mailing),
-                    preferred_language=map_from_legacy_language(row.training_language),
+                    preferred_language=map_from_legacy_language(row.training_language).name,
                     date_joined=date_localize(date_joined, user_timezone),
                     last_login=date_localize(last_login, user_timezone), is_active=bool(row.status),
                     is_superuser=bool(row.is_superuser), is_staff=bool(row.is_superuser) or bool(row.is_staff),
@@ -223,6 +226,69 @@ class Command(BaseCommand):
                     )
                 print("Migrated team roles for", user)
 
+    def migrate_problem_submissions(self, code_archive_path):
+        """
+        Migrate problem submissions and code snippets.
+
+        :param code_archive_path: the path to the archive folder containing all the code files.
+                                  the file naming scheme is 'challenge-problem-user.ext'.
+        """
+        import problems.models
+        import chardet  # so we can still use a nice TextField(), not a BinaryField(), to store codes
+
+        def get_codes(user, submission):
+            pattern = '{}-{}-{}'.format(submission.challenge, submission.problem, user.username)
+            pattern = os.path.join(code_archive_path, pattern)
+            for ext, lang in map_from_legacy_language.mapping.items():
+                fname = pattern + ext
+                if os.path.exists(fname):
+                    yield (fname, lang.name)
+
+        with self.mysql.cursor() as c:
+            c.execute("SELECT * FROM training_access ORDER BY uid")
+            for uid, rows in itertools.groupby(list(namedcolumns(c)), lambda r: int(r.uid)):
+                try:
+                    user = users.models.ProloginUser.objects.get(pk=uid)
+                except users.models.ProloginUser.DoesNotExist:
+                    print("User id %d does not exist in migrated DB" % uid)
+                    continue
+                for row in rows:
+                    # is_dst not available in Django 1.8. Fuck this.
+                    # date = timezone.make_aware(row.timestamp, CURRENT_TIMEZONE, is_dst=True)
+                    date = CURRENT_TIMEZONE.localize(row.timestamp, is_dst=True)
+                    submission, created = problems.models.Submission.objects.get_or_create(
+                        user=user,
+                        challenge=row.challenge,
+                        problem=row.problem)
+                    if not created:
+                        continue
+                    submission.score_base = row.score
+                    submission.malus = row.malus
+                    submission.save()
+                    with db.transaction.atomic():
+                        i = 0
+                        for i, (fname, lng) in enumerate(get_codes(user, submission)):
+                            with open(fname, 'rb') as f:
+                                code = f.read()
+                                try:
+                                    code = code.decode(chardet.detect(code)['encoding'])
+                                except TypeError:  # 'encoding' is None
+                                    print(fname)
+                                    print("chardet could not detect encoding")
+                                    continue
+                                except UnicodeDecodeError:
+                                    print(fname)
+                                    print("chardet said shit")
+                                    continue
+                            submission_code, created = problems.models.SubmissionCode.objects.get_or_create(
+                                submission=submission,
+                                code=code,
+                                language=lng,
+                                date_submitted=date)
+                            submission_code.save()
+                        if i:
+                            print("{} {}: {}".format(user.username, submission, i))
+
     def handle(self, *args, **options):
         # check if we can access the legacy db
         # mc is MySQL cursor
@@ -233,7 +299,8 @@ class Command(BaseCommand):
         print("Found {} tables".format(len(tables)))
 
         #self.migrate_users()
-        self.migrate_user_pictures()
+        #self.migrate_user_pictures()
         #self.migrate_examcenters()
         #self.migrate_teams()
+        self.migrate_problem_submissions('/tmp/archive')
         # TODO: the rest

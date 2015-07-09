@@ -1,12 +1,55 @@
-{% extends "static/base.html" %}
+{% extends "prologin/base.html" %}
+{% load i18n drupal utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
 
-{% block title %} – {{ challenge.props.title }}{% endblock %}
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Training" "training:index" %}
+	{% breadcrumb challenge.props.year "" %}
+	{% breadcrumb challenge.event_type.display_name "training:challenge" challenge.props.year challenge.event_type.code %}
+{% endblock breadcrumbs %}
 
-{% block body %}
-<h1>{{ challenge.props.title }}</h1>
-<ul>
-{% for problem in problems %}
-	<li><a href="{{ problem.name }}">{{ problem.props.title }}</a>
-{% endfor %}
-</ul>
+{% block title %}{% blocktrans with type=challenge.event_type.display_name year=challenge.props.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+	<h1>{% blocktrans with type=challenge.event_type.display_name year=challenge.props.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}</h1>
+
+	<article class="challenge-statement">
+		{{ challenge.subject|drupaltpl }}
+	</article>
+
+	<div class="list-group">
+		<div class="list-group-item list-group-item-info">{% trans "The problems" %}
+			<span class="badge alert-info">
+				{% if request.user.is_authenticated %}
+					{% if challenge_done %}{% trans "Congrats, you solved all the problems!" %} ⋅{% endif %}
+					{% blocktrans with score=challenge_score %}{{ score }} pts{% endblocktrans %}
+				{% endif %}
+			</span>
+		</div>
+		{% for problem in challenge.problems|dictsort:'props.difficulty' %}
+			<a class="list-group-item" href="#"> {# TODO: href #}
+				<div class="progress" style="width: 100px; float: left; margin-right: 1em"
+					 title="{% blocktrans with level=problem.props.difficulty %}Level {{ level }}{% endblocktrans %}">
+					<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+						 aria-valuemax="100" style="width: {{ problem.percentage_level }}%;">
+					</div>
+				</div>
+				{{ problem.props.title }}
+				{% if request.user.is_authenticated %}
+					{% if problem.submission %}
+						{% if problem.submission.succeeded %}
+							<span class="badge alert-success">{% blocktrans with score=problem.submission.score %}
+								{{ score }} pts{% endblocktrans %}</span>
+						{% else %}
+							<span class="badge alert-warning">{% trans "Failed" %}</span>
+						{% endif %}
+					{% else %}
+						<span class="badge">{% trans "Not submitted" %}</span>
+					{% endif %}
+				{% endif %}
+			</a>
+		{% endfor %}
+	</div>
+
 {% endblock %}

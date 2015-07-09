@@ -75,3 +75,4 @@ EMAIL_USE_SSL = False
 
 # Prologin specific
 SITE_HOST = "localhost:8000"
+TRAINING_PROBLEM_REPOSITORY_PATH = '/home/alex/dev/prologin-problems'

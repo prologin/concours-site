@@ -4,9 +4,9 @@ from prologin.utils import ChoiceEnum
 
 
 class LanguageDef:
-    def __init__(self, name, exts, doc=None, correctable=True):
+    def __init__(self, name, extensions, doc=None, correctable=True):
         self.name = name
-        self.exts = exts
+        self.extensions = extensions
         self.doc = doc
         self.correctable = correctable
 
@@ -19,6 +19,10 @@ class LanguageDef:
 
 @ChoiceEnum.sort()
 class Language(ChoiceEnum):
+    """
+    Machine-name (member name, left of equal sign) must be less than
+    16 characters long.
+    """
     c = LanguageDef("C", ['.c'], doc='c')
     cpp = LanguageDef("C++", ['.cc', '.c++', '.cpp'], doc='cpp')
     pascal = LanguageDef("Pascal", ['.pas', '.pascal'], doc='pascal')
@@ -32,7 +36,7 @@ class Language(ChoiceEnum):
     php = LanguageDef("PHP", ['.php'], doc='php')
     js = LanguageDef("Javascript", ['.js'])
     vb = LanguageDef("VB", ['.vb'])
-    perl = LanguageDef("Perl", ['.pl'])
+    perl = LanguageDef("Perl", ['.pl', '.perl'])
     lua = LanguageDef("Lua", ['.lua'])
     csharp = LanguageDef("C#", ['.cs'])
     fsharp = LanguageDef("F#", ['.fs'])
@@ -43,5 +47,5 @@ class Language(ChoiceEnum):
     def _get_choices(cls):
         # We hacked the member values to put LanguageDef-s instead of DB values (0-N)
         # so we fix this here.
-        # ((0, "C"), (1, "C++"), ...)
-        return tuple((i, member.value.name) for i, member in enumerate(cls))
+        # (("c", "C"), ("cpp", "C++"), ("csharp", "C#"), …)
+        return tuple((member.name, member.value.name) for member in cls)

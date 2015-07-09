@@ -1,11 +1,19 @@
-MANAGE = cd prologin && ./manage.py
+DIR = prologin
+MANAGE = cd $(DIR) && ./manage.py
+CELERY = cd $(DIR) && celery
 TX = tx --debug
+
+# Development servers and workers
+# NOT SUITABLE FOR USE IN PRODUCTION.
 
 runserver:
 	$(MANAGE) runserver 0.0.0.0:8000
 
 smtpserver:
 	python -m smtpd -n -c DebuggingServer localhost:1025
+
+celeryworker:
+	$(CELERY) -l debug -A prologin worker
 
 # Transifex
 

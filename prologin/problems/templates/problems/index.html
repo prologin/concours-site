@@ -1,57 +1,70 @@
 {% extends "prologin/base.html" %}
-{% load i18n markdown staticfiles django_bootstrap_breadcrumbs %}
+{% load i18n bootstrap django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Contest" "" %}
-	{% breadcrumb event.edition.year "" %}
-	{% breadcrumb "Qualification" '' %} {# TODO #}
-	{% breadcrumb "Problems" 'qcm-problems:index' event.edition.year %}
+	{% breadcrumb "Training" "training:index" %}
+	{% if event_category_name %}
+		{% breadcrumb event_category_name "training:index" event_type_arg %}
+	{% endif %}
 {% endblock breadcrumbs %}
 
-{% block extra_head %}
-    <link href="{% static 'qcm/qcm.css' %}" rel="stylesheet" type="text/css">
-{% endblock %}
-{% block title %}{% blocktrans with event.edition.year as year %}Qualification problems – Prologin {{ year }}{% endblocktrans %}{% endblock %}
+{% block title %}{% trans "Training challenges" %}{% endblock %}
 
 {% block content %}
 
-    <h1>{% blocktrans with event.edition.year as year %}Qualification problems – Prologin {{ year }}{% endblocktrans %}</h1>
+	<h1>{% trans "Training challenges" %}</h1>
 
-{% if not user.is_authenticated %}
+	<form class="form-inline well" method="GET">
+		<h4>{% trans "Search problems" %}</h4>
+		{{ search_form|bootstrap_inline }}
+		<button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
+	</form>
+
+	{% comment %}{% if not user.is_authenticated %}
     {% url 'users:register' as register %}
     {% url 'users:login' as login %}
     <p class="alert alert-warning">{% blocktrans with register as register%}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your solutions.{% endblocktrans %}</p>
-{% endif %}
+{% endif %}{% endcomment %}
+
+	{% regroup challenges|dictsortreversed:'props.year' by props.year as grouped_challenges %}
+
+	<div class="row">
+		{% for challenge in grouped_challenges %}
+			<div class="col-xs-12 col-sm-6 col-md-4">
+				<div class="challenge-group">
+					<div class="challenge-year">{{ challenge.grouper }}</div>
+					<ul class="challenge-event-list">
+						{% for c in challenge.list|dictsort:'event_type.code' %}
+							<li>
+								<a href="{% url 'training:challenge' challenge.grouper c.event_type.code %}">
+								{{ c.event_type.display_name }}
+								<small class="text-muted">({% blocktrans with count=c.problems|length %}{{ count }}
+									&nbsp;problems{% endblocktrans %})
+								</small></a>
+							</li>
+						{% endfor %}
+					</ul>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
 
 
-    <form action="" method="POST">
-        {% csrf_token %}
+	<div class="row">
+		<div class="col-sm-6">
+			<h3>{% trans "What is this?" %}</h3>
 
-        <ol class="mainlist problems">
-            {% for field in form %}
-            {% with problem=field.field.problem %}
-            <li class="question">
-                <div class="body">
-                    <h3>{{ problem.title }}</h3>
-                    <div class="main">{% markdown problem.question %}</div>
-                    {% if problem.comments %}
-                        <div class="comments">{% markdown problem.comments %}</div>
-                    {% endif %}
-                </div>
-            {% if editable %}
-                <div class="answer">
-                    {{ field }}
-                </div>
-            {% endif %}
-            </li>
-            {% endwith %}
-            {% endfor %}
-        </ol>
+			<p>{% blocktrans %}Want to find out what the Prologin algorithmic exercises are like?
+				In this section, you can browse and tackle all the problems from the previous Prologin events. These are
+				problems from both the Prologin online qualification and also the regional events.{% endblocktrans %}</p>
+		</div>
+		<div class="col-sm-6">
+			<h3>{% trans "How does it work?" %}</h3>
 
-    {% if editable %}
-        <button type="submit" class="btn btn-primary btn-lg"><i class="fa fa-save"></i> {% trans "Save the new solutions" %}</button>
-    {% endif %}
-    </form>
-
+			<p>{% blocktrans %}Read the problem statement carefully and submit your solution. The system will check your
+				submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you
+				need to solve the problem.{% endblocktrans %}</p>
+		</div>
+	</div>
 {% endblock %}

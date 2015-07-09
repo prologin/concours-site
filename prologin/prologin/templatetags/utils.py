@@ -4,6 +4,11 @@ from django.conf import settings
 register = template.Library()
 
 @register.filter
+def percentage_to_max(num, max):
+    return int(num / max * 100)
+
+
+@register.filter
 def phone_number(num):
     """
     Formats a French phone number: space separated groups of two digits.
