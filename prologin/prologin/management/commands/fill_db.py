@@ -231,13 +231,13 @@ class Command(BaseCommand):
                 qualif.save()
                 for center in centers:
                     regionale = contest.models.Event(
-                        edition=edition, center=center, type=contest.models.Event.Type.regionale.value,
+                        edition=edition, center=center, type=contest.models.Event.Type.semifinal.value,
                         date_begin=qualif.date_end + datetime.timedelta(days=60),
                         date_end=qualif.date_end + datetime.timedelta(days=90),
                     )
                     regionale.save()
                 finale = contest.models.Event(
-                    edition=edition, center=finale_center, type=contest.models.Event.Type.finale.value,
+                    edition=edition, center=finale_center, type=contest.models.Event.Type.final.value,
                     date_begin=regionale.date_end + datetime.timedelta(days=30),
                     date_end=regionale.date_end + datetime.timedelta(days=34),
                 )
@@ -257,8 +257,8 @@ class Command(BaseCommand):
         with django.db.transaction.atomic():
             for edition in contest.models.Edition.objects.all():
                 qualif = contest.models.Event.objects.get(edition=edition, type=contest.models.Event.Type.qualification.value)
-                regionales = list(contest.models.Event.objects.filter(edition=edition, type=contest.models.Event.Type.regionale.value))
-                finale = contest.models.Event.objects.get(edition=edition, type=contest.models.Event.Type.finale.value)
+                regionales = list(contest.models.Event.objects.filter(edition=edition, type=contest.models.Event.Type.semifinal.value))
+                finale = contest.models.Event.objects.get(edition=edition, type=contest.models.Event.Type.final.value)
                 for user in users:
                     comments = ""
                     if random.choice((True, False)):
@@ -272,10 +272,10 @@ class Command(BaseCommand):
                     contestant.save()
                     # contestant.events.add(qualif)
                     for i, regionale in enumerate(random.sample(regionales, 3)):
-                        # contestant.events.add(regionale)
+                        # contestant.events.add(semifinal)
                         contest.models.EventWish(contestant=contestant, event=regionale, order=i, is_approved=(i == 0)).save()
-                    # contestant.events.add(finale)
-                    # wish to finale (1/2 chance of getting in)
+                    # contestant.events.add(final)
+                    # wish to final (1/2 chance of getting in)
                     contest.models.EventWish(contestant=contestant, event=finale, is_approved=random.choice((True, False))).save()
 
     def fill_qcms(self):

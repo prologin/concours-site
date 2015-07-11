@@ -5,14 +5,9 @@ from django.conf import settings
 
 from django.core.urlresolvers import reverse
 
-from problems.problem import list_challenges, get_challenge
-
 from problems.forms import SearchForm
-from problems.models import Submission
-from prologin.utils import cached
-from problems import QUALIFICATION_TUP, REGIONAL_TUP
-
-CACHE_KEY_CHALLENGE_LIST = 'problems.index.challenges'
+from contest.models import Event
+import problems.models
 
 
 class Index(TemplateView):
@@ -20,8 +15,7 @@ class Index(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        challenges = cached(list_challenges, 'challenge_list')
-        context['challenges'] = challenges
+        context['challenges'] = [c for c in problems.models.Challenge.all() if c.displayable]
         context['search_form'] = SearchForm()
         return context
 
@@ -30,51 +24,55 @@ class Challenge(TemplateView):
     template_name = 'problems/challenge.html'
     # Event code → (tup, challenge prefix)
     event_category_mapping = {
-        QUALIFICATION_TUP.code: (QUALIFICATION_TUP, 'qcm'),
-        REGIONAL_TUP.code: (REGIONAL_TUP, 'demi'),
+        Event.Type.qualification.name: (Event.Type.qualification, 'qcm'),
+        Event.Type.semifinal.name: (Event.Type.semifinal, 'demi'),
     }
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        event_type, path_prefix = Challenge.event_category_mapping[self.kwargs['type']]
         year = context['year'] = int(self.kwargs['year'])
-        challenge_name = '{}{}'.format(path_prefix, year)
-        challenge = cached(
-            lambda: get_challenge(challenge_name, with_subject=True, with_problem_props=True, with_problem_data=False),
-            'challenge_details',
-            name=challenge_name)
-        context['challenge'] = challenge
-        challenge['problems'].sort(key=lambda e: e['props'].get('difficulty', 0))
+        event_type = Event.Type[self.kwargs['type']]
+        context['challenge'] = challenge = problems.models.Challenge.by_year_and_event_type(year, event_type)
+        if not challenge.displayable:
+            raise Http404()
+
+        context['problems'] = sorted(challenge.problems, key=lambda p: p.difficulty)
+
         challenge_score = 0
         challenge_done = 0
+
+        for problem in context['problems']:
+            # Monkey-patch the problem to add the progressbar width percentage
+            problem.percentage_level = int(problem.difficulty / settings.PROLOGIN_MAX_LEVEL_DIFFICULTY * 100)
+
         if self.request.user.is_authenticated():
-            submissions = (Submission.objects
-                           .filter(user=self.request.user, challenge=challenge_name)
+            # To display user scores on each problem
+            submissions = (problems.models.Submission.objects
+                           .filter(user=self.request.user, challenge=challenge.name)
                            .select_related('codes')
                            .annotate(code_count=Count('codes')))
             submissions = {sub.problem: sub for sub in submissions}
-            for problem in challenge['problems']:
-                submission = submissions.get(problem['name'])
-                problem['submission'] = submission
+            for problem in context['problems']:
+                # Monkey-patch the problem to add the submission object
+                submission = submissions.get(problem.name)
+                problem.submission = submission
                 if submission:
                     challenge_score += submission.score()
                     if submission.succeeded():
                         challenge_done += 1
-        for problem in challenge['problems']:
-            problem['percentage_level'] = int(problem['props'].get('difficulty', 0) / settings.PROLOGIN_MAX_LEVEL_DIFFICULTY * 100)
-        if not challenge.get('display_website', True):
-            raise Http404()
+
         context['challenge_score'] = challenge_score
-        context['challenge_done'] = challenge_done == len(challenge['problems'])
+        context['challenge_done'] = challenge_done == len(challenge.problems)
+
         return context
 
 
 class LegacyChallengeRedirect(RedirectView):
     mapping = {
-        'qcm': QUALIFICATION_TUP.code,
-        'demi': REGIONAL_TUP.code,
+        'qcm': Event.Type.qualification,
+        'demi': Event.Type.semifinal,
     }
 
     def get_redirect_url(self, *args, **kwargs):
-        event_type = LegacyChallengeRedirect.mapping[self.kwargs['type']]
+        event_type = LegacyChallengeRedirect.mapping[self.kwargs['type']].name
         return reverse('training:challenge', kwargs={'type': event_type, 'year': self.kwargs['year']})

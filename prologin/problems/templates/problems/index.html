@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n bootstrap django_bootstrap_breadcrumbs %}
+{% load i18n utils bootstrap django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
 	{{ block.super }}
@@ -27,19 +27,19 @@
     <p class="alert alert-warning">{% blocktrans with register as register%}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your solutions.{% endblocktrans %}</p>
 {% endif %}{% endcomment %}
 
-	{% regroup challenges|dictsortreversed:'props.year' by props.year as grouped_challenges %}
+	{% regroup challenges|dictsortreversed:'year' by year as grouped_challenges %}
 
 	<div class="row">
-		{% for challenge in grouped_challenges %}
+		{% for grouped_challenge in grouped_challenges %}
 			<div class="col-xs-12 col-sm-6 col-md-4">
 				<div class="challenge-group">
-					<div class="challenge-year">{{ challenge.grouper }}</div>
+					<div class="challenge-year">{{ grouped_challenge.grouper }}</div>
 					<ul class="challenge-event-list">
-						{% for c in challenge.list|dictsort:'event_type.code' %}
+						{% for challenge in grouped_challenge.list|dictsort:'event_type.name' %}
 							<li>
-								<a href="{% url 'training:challenge' challenge.grouper c.event_type.code %}">
-								{{ c.event_type.display_name }}
-								<small class="text-muted">({% blocktrans with count=c.problems|length %}{{ count }}
+								<a href="{% url 'training:challenge' grouped_challenge.grouper challenge.event_type.name %}">
+								{{ challenge.event_type|choiceenum_label }}
+								<small class="text-muted">({% blocktrans with count=challenge.problems|length %}{{ count }}
 									&nbsp;problems{% endblocktrans %})
 								</small></a>
 							</li>
@@ -57,7 +57,7 @@
 
 			<p>{% blocktrans %}Want to find out what the Prologin algorithmic exercises are like?
 				In this section, you can browse and tackle all the problems from the previous Prologin events. These are
-				problems from both the Prologin online qualification and also the regional events.{% endblocktrans %}</p>
+				problems from both the Prologin online qualifications and the on-site semifinals.{% endblocktrans %}</p>
 		</div>
 		<div class="col-sm-6">
 			<h3>{% trans "How does it work?" %}</h3>

@@ -1,11 +1,8 @@
 from django.db import models
 from django.conf import settings
-from ordered_model.models import OrderedModel
-
-from contest.models import Event
-from problems.problem import get_problem
 from prologin.languages import Language
 from prologin.models import CodingLanguageField
+from problems.models.problem import Challenge, Problem
 
 
 
@@ -22,8 +19,11 @@ class Submission(models.Model):
     def score(self):
         return self.score_base - self.malus
 
-    def problem_specification(self, **kwargs):
-        return get_problem(self.challenge, self.problem, **kwargs)
+    def challenge_model(self):
+        return Challenge.by_low_level_name(self.challenge)
+
+    def problem_model(self):
+        return Problem(self.challenge_model(), self.problem)
 
     def succeeded(self):
         return self.score_base > 0

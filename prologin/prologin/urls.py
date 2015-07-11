@@ -34,7 +34,7 @@ urlpatterns += i18n_patterns('',
     url(r'^docs/', include('documents.urls', namespace='documents')),
 
     # Contest
-    # url(r'^contest/(?P<year>[0-9]{4})/regionale/problems/', include('problems.urls', namespace='training-regionale-problems')),
+    # url(r'^contest/(?P<year>[0-9]{4})/semifinal/problems/', include('problems.urls', namespace='training-semifinal-problems')),
     url(r'^contest/(?P<year>[0-9]{4})/qualif/problems/', include('problems.urls', namespace='qcm-problems')),
     url(r'^contest/(?P<year>[0-9]{4})/qualif/quiz/', include('qcm.urls', namespace='qcm')),
 

@@ -4,15 +4,15 @@
 {% block breadcrumbs %}
 	{{ block.super }}
 	{% breadcrumb "Training" "training:index" %}
-	{% breadcrumb challenge.props.year "" %}
-	{% breadcrumb challenge.event_type.display_name "training:challenge" challenge.props.year challenge.event_type.code %}
+	{% breadcrumb challenge.year "" %}
+	{% breadcrumb challenge.event_type|choiceenum_label "training:challenge" challenge.year challenge.event_type.name %}
 {% endblock breadcrumbs %}
 
-{% block title %}{% blocktrans with type=challenge.event_type.display_name year=challenge.props.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}{% endblock %}
+{% block title %}{% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 
-	<h1>{% blocktrans with type=challenge.event_type.display_name year=challenge.props.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}</h1>
+	<h1>{% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}</h1>
 
 	<article class="challenge-statement">
 		{{ challenge.subject|drupaltpl }}
@@ -27,15 +27,15 @@
 				{% endif %}
 			</span>
 		</div>
-		{% for problem in challenge.problems|dictsort:'props.difficulty' %}
+		{% for problem in problems %}
 			<a class="list-group-item" href="#"> {# TODO: href #}
 				<div class="progress" style="width: 100px; float: left; margin-right: 1em"
-					 title="{% blocktrans with level=problem.props.difficulty %}Level {{ level }}{% endblocktrans %}">
+					 title="{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %}">
 					<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
 						 aria-valuemax="100" style="width: {{ problem.percentage_level }}%;">
 					</div>
 				</div>
-				{{ problem.props.title }}
+				{{ problem.title }}
 				{% if request.user.is_authenticated %}
 					{% if problem.submission %}
 						{% if problem.submission.succeeded %}

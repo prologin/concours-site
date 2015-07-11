@@ -1,6 +1,6 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from problems import QUALIFICATION_TUP, REGIONAL_TUP
+from contest.models import Event
 import contest.models
 import problems.models
 import prologin.languages
@@ -10,8 +10,8 @@ class SearchForm(forms.Form):
     query = forms.CharField(required=False,
                             widget=forms.TextInput(attrs={'placeholder': _("Problem name (optional)")}))
     event_type = forms.ChoiceField(choices=[('', _("Any event type")),
-                                            (QUALIFICATION_TUP.code, QUALIFICATION_TUP.display_name),
-                                            (REGIONAL_TUP.code, REGIONAL_TUP.display_name)],
+                                            (Event.Type.qualification.name, Event.Type.label_for(Event.Type.qualification)),
+                                            (Event.Type.semifinal.name, Event.Type.label_for(Event.Type.semifinal))],
                                    required=False)
     difficulty = forms.ChoiceField(choices=[(str(i), i) for i in range(1, 6)],
                                    widget=forms.CheckboxSelectMultiple(),

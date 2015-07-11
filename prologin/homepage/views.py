@@ -10,7 +10,7 @@ def homepage(request):
     if request.user.is_authenticated() and request.current_qcm:
         qcm_completed = request.current_qcm.is_completed_for(request.current_contestant)
 
-    problems_count = request.current_qcm_problems.count()
+    problems_count = len(request.current_qcm_challenge.problems)
     problems_completed = request.current_contestant_qcm_problem_answers.count()
 
     return render(request, 'homepage/homepage.html', {

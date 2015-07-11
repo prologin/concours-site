@@ -28,11 +28,11 @@ class Event(models.Model):
     @ChoiceEnum.labels(str.capitalize)
     class Type(ChoiceEnum):
         qualification = 0
-        regionale = 1
-        finale = 2
-        ugettext_noop("Qualification")
-        ugettext_noop("Regionale")
-        ugettext_noop("Finale")
+        semifinal = 1
+        final = 2
+        ugettext_noop("Qualifications")
+        ugettext_noop("Semifinal")
+        ugettext_noop("Final")
 
     edition = models.ForeignKey(Edition, related_name='events')
     center = models.ForeignKey(Center, blank=True, null=True, related_name='events')

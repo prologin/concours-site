@@ -9,6 +9,11 @@ def percentage_to_max(num, max):
 
 
 @register.filter
+def choiceenum_label(enum_member):
+    return enum_member.__class__.label_for(enum_member)
+
+
+@register.filter
 def phone_number(num):
     """
     Formats a French phone number: space separated groups of two digits.
