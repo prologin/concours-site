@@ -1,0 +1,22 @@
+{% load i18n %}
+<a class="list-group-item" href="{% url 'training:problem' problem.challenge.year problem.challenge.event_type.name problem.name %}">
+	<div class="progress" style="width: 100px; float: left; margin-right: 1em"
+		 title="{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %}">
+		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+			 aria-valuemax="100" style="width: {{ problem.percentage_difficulty }}%;">
+		</div>
+	</div>
+	{{ problem.title }}
+	{% if request.user.is_authenticated %}
+		{% if problem.submission %}
+			{% if problem.submission.succeeded %}
+				<span class="badge alert-success">{% blocktrans with score=problem.submission.score %}
+					{{ score }} pts{% endblocktrans %}</span>
+			{% else %}
+				<span class="badge alert-warning">{% trans "Failed" %}</span>
+			{% endif %}
+		{% else %}
+			<span class="badge">{% trans "Not submitted" %}</span>
+		{% endif %}
+	{% endif %}
+</a>

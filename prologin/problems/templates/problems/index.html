@@ -4,9 +4,7 @@
 {% block breadcrumbs %}
 	{{ block.super }}
 	{% breadcrumb "Training" "training:index" %}
-	{% if event_category_name %}
-		{% breadcrumb event_category_name "training:index" event_type_arg %}
-	{% endif %}
+	{% breadcrumb "The challenges" "" %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "Training challenges" %}{% endblock %}
@@ -15,17 +13,7 @@
 
 	<h1>{% trans "Training challenges" %}</h1>
 
-	<form class="form-inline well" method="GET">
-		<h4>{% trans "Search problems" %}</h4>
-		{{ search_form|bootstrap_inline }}
-		<button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
-	</form>
-
-	{% comment %}{% if not user.is_authenticated %}
-    {% url 'users:register' as register %}
-    {% url 'users:login' as login %}
-    <p class="alert alert-warning">{% blocktrans with register as register%}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your solutions.{% endblocktrans %}</p>
-{% endif %}{% endcomment %}
+	{% include "problems/stub_search_form.html" %}
 
 	{% regroup challenges|dictsortreversed:'year' by year as grouped_challenges %}
 

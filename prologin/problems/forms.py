@@ -1,21 +1,39 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.conf import settings
 from contest.models import Event
 import contest.models
 import problems.models
 import prologin.languages
 
 
+
 class SearchForm(forms.Form):
     query = forms.CharField(required=False,
-                            widget=forms.TextInput(attrs={'placeholder': _("Problem name (optional)")}))
+                            widget=forms.TextInput(attrs={'placeholder': _("Problem name (optional)")}),
+                            label=_("Query"))
     event_type = forms.ChoiceField(choices=[('', _("Any event type")),
                                             (Event.Type.qualification.name, Event.Type.label_for(Event.Type.qualification)),
                                             (Event.Type.semifinal.name, Event.Type.label_for(Event.Type.semifinal))],
-                                   required=False)
-    difficulty = forms.ChoiceField(choices=[(str(i), i) for i in range(1, 6)],
-                                   widget=forms.CheckboxSelectMultiple(),
-                                   label=_("Difficulty"))
+                                   required=False,
+                                   label=_("Event type"))
+    difficulty_min = forms.IntegerField(min_value=1, max_value=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
+                                        initial=1,
+                                        required=False,
+                                        label=_("Minimum difficulty"))
+    difficulty_max = forms.IntegerField(min_value=1, max_value=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
+                                        initial=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
+                                        required=False,
+                                        label=_("Maximum difficulty"))
+
+    def clean_query(self):
+        return self.cleaned_data['query'].lower().strip()
+
+    def clean(self):
+        cd = self.cleaned_data
+        if cd['difficulty_min'] and cd['difficulty_max'] and cd['difficulty_min'] > cd['difficulty_max']:
+            cd['difficulty_min'], cd['difficulty_max'] = cd['difficulty_max'], cd['difficulty_min']
+        return cd
 
 
 class ProblemWidget(forms.MultiWidget):

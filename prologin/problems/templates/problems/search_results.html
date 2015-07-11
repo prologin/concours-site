@@ -1,0 +1,33 @@
+{% extends "prologin/base.html" %}
+{% load i18n utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Training" "training:index" %}
+	{% breadcrumb "Search results" "" %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Search training problems" %}{% endblock %}
+
+{% block content %}
+
+	<h1>{% trans "Search training problems" %}</h1>
+
+	{% include "problems/stub_search_form.html" %}
+
+	<div class="list-group">
+		<div class="list-group-item list-group-item-info">
+			{% blocktrans count problem_count as count %}Found {{ count }} problem{% plural %}Found {{ count }} problems{% endblocktrans %}
+		</div>
+		{% for problem in page_obj %}
+			{% include "problems/stub_problem.html" %}
+		{% empty %}
+			<p class="list-group-item text-muted">
+				{% trans "No problem match your query. Try broader criteria." %}
+			</p>
+		{% endfor %}
+	</div>
+
+	{% include "stub_pagination.html" %}
+
+{% endblock %}

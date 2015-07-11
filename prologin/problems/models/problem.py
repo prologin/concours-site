@@ -1,24 +1,20 @@
 import os
+from collections import namedtuple
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from contest.models import Event
 
 
-def lazy_getattr(self, item):
-    """
-    __getattr__ = lazy_getattr
-
-    def _get_some_lazy(self):
-        return expensive()
-
-    def whatever(self):
-        return self._some_lazy
-    """
-    getter = '_get{}'.format(item)
-    func = getattr(self, getter)
-    setattr(self, item, func())
-    return getattr(self, item)
+def lazy_attr(prop_name, getter):
+    def wrapped(self, *args, **kwargs):
+        try:
+            return getattr(self, prop_name)
+        except AttributeError:
+            data = getter(self, *args, **kwargs)
+            setattr(self, prop_name, data)
+            return data
+    return property(wrapped)
 
 
 def read_props(filename):
@@ -63,8 +59,6 @@ class Challenge:
         Event.Type.qualification: 'qcm',
         Event.Type.semifinal: 'demi',
     }
-
-    __getattr__ = lazy_getattr
 
     @classmethod
     def all(cls):
@@ -117,12 +111,14 @@ class Challenge:
     def file_path(self, *tail):
         return os.path.abspath(os.path.join(settings.TRAINING_PROBLEM_REPOSITORY_PATH, self._low_level_name, *tail))
 
-    def _get_props(self):
+    def _get_properties(self):
         return read_props(self.file_path('challenge.props'))
+    properties = lazy_attr('_properties_', _get_properties)
 
     def _get_subject(self):
         with open(self.file_path('challenge.txt')) as f:
             return f.read()
+    subject = lazy_attr('_subject_', _get_subject)
 
     def _get_problems(self):
         # Do NOT use a generator
@@ -134,6 +130,7 @@ class Challenge:
                 except ObjectDoesNotExist:
                     pass
         return problems
+    problems = lazy_attr('_problems_', _get_problems)
 
     @property
     def year(self):
@@ -153,24 +150,12 @@ class Challenge:
         return '{} {}'.format(Event.Type.label_for(self._event_type), self._year)
 
     @property
-    def subject(self):
-        return self._subject
-
-    @property
     def displayable(self):
-        return self._props.get('display_website', True)
+        return self.properties.get('display_website', True)
 
     @property
     def type(self):
-        return self._props.get('type')
-
-    @property
-    def problems(self):
-        return self._problems
-
-    @property
-    def properties(self):
-        return self._props
+        return self.properties.get('type')
 
 
 class Problem:
@@ -187,7 +172,8 @@ class Problem:
     - problem.difficulty
     - problem.tests
     """
-    __getattr__ = lazy_getattr
+
+    Sample = namedtuple('Sample', 'input output comment')
 
     def __init__(self, challenge, name):
         assert isinstance(challenge, Challenge)
@@ -200,8 +186,9 @@ class Problem:
     def file_path(self, *tail):
         return self._challenge.file_path(self._name, *tail)
 
-    def _get_props(self):
+    def _get_properties(self):
         return read_props(self.file_path('problem.props'))
+    properties = lazy_attr('_properties_', _get_properties)
 
     def _get_subject(self):
         subject_path_md = self.file_path('subject.md')
@@ -212,6 +199,7 @@ class Problem:
         elif os.path.exists(subject_path_txt):
             with open(subject_path_txt) as f:
                 return f.read(), 'html'
+    subject = lazy_attr('_subject_', _get_subject)
 
     def _get_tests(self):
         tests = {}
@@ -221,6 +209,11 @@ class Problem:
                 with open(full_path) as f:
                     tests[item] = f.read()
         return tests
+    tests = lazy_attr('_tests_', _get_tests)
+
+    @property
+    def challenge(self):
+        return self._challenge
 
     @property
     def name(self):
@@ -228,20 +221,44 @@ class Problem:
 
     @property
     def title(self):
-        return self._props.get('title')
+        return str(self.properties.get('title', ''))
 
     @property
     def difficulty(self):
-        return self._props.get('difficulty', 0)
+        return self.properties.get('difficulty', 0)
 
     @property
-    def subject(self):
-        return self._subject
+    def percentage_difficulty(self):
+        return int(self.difficulty / settings.PROLOGIN_MAX_LEVEL_DIFFICULTY * 100)
 
     @property
-    def tests(self):
-        return self._tests
+    def subject_html(self):
+        content, type = self.subject
+        if type == 'html':
+            return content
 
     @property
-    def properties(self):
-        return self._props
+    def subject_markdown(self):
+        content, type = self.subject
+        if type == 'markdown':
+            return content
+
+    def _get_samples(self):
+        samples = []
+        for sample in str(self.properties.get('samples', '')).split():
+            try:
+                with open(self.file_path(sample) + '.in') as f:
+                    sample_in = f.read()
+                with open(self.file_path(sample) + '.out') as f:
+                    sample_out = f.read()
+                sample_comment = ''
+                try:
+                    with open(self.file_path(sample) + '.comment') as f:
+                        sample_comment = f.read()
+                except IOError:
+                    pass
+                samples.append(Problem.Sample(sample_in, sample_out, sample_comment))
+            except IOError:
+                pass
+        return samples
+    samples = lazy_attr('_samples_', _get_samples)

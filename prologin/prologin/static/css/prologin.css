@@ -401,6 +401,12 @@ footer .legal {
 	max-width: 220px;
 }
 
+@media (min-width: 768px) {
+	.dl-horizontal dt {
+		white-space: normal; /* the stupid bootstrap think it's a good idea to ellipsis the overflow */
+	}
+}
+
 .avatar.avatar-full {
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);

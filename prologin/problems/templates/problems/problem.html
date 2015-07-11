@@ -1,26 +1,72 @@
-{% extends "static/base.html" %}
+{% extends "prologin/base.html" %}
+{% load i18n markdown drupal utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
 
-{% load markup %}
 
-{% block title %} – {{ problem.props.title }}{% endblock %}
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "Training" "training:index" %}
+	{% breadcrumb challenge.year "" %}
+	{% breadcrumb challenge.event_type|choiceenum_label "training:challenge" challenge.year challenge.event_type.name %}
+	{% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
+{% endblock breadcrumbs %}
 
-{% block body %}
-<h1>{{ problem.props.title }}</h1>
-<p>Mémoire : {{ problem.props.mem }} octets</p>
-<p>Temps : {{ problem.props.time }} ms</p>
-{% if statement_markdown  %}
-  {{ statement|markdown }}
-{% else %}
-  {% autoescape off %}
-    {{ statement }}
-  {% endautoescape %}
-{% endif %}
-<h3>Exemples</h3>
-{% for example in examples %}
-	Exemple d'entrée :
-		<pre>{{ example.in }}</pre>
-	Exemple de sortie :
-		<pre>{{ example.out }}</pre>
-	{{ example.comment|markdown }}
-{% endfor %}
+{% block title %}{{ problem.title }}{% endblock %}
+
+{% block content %}
+
+	<h1>{{ problem.title }}</h1>
+
+	<div class="problem-meta-info text-muted">
+		<p>{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %} ⋅
+			{% blocktrans count meta_tackled_by as count %}Tackled by {{ count }} member{% plural %}Tackled by {{ count }} members{% endblocktrans %} ⋅
+			{% blocktrans count meta_solved_by as count %}Solved by {{ count }} member{% plural %}Solved by {{ count }} members{% endblocktrans %}</p>
+	</div>
+
+	{% if not request.user.is_authenticated %}
+		{% url 'users:register' as register %}
+		{% url 'users:login' as login %}
+		<p class="alert alert-warning">{% blocktrans with register as register %}You have to
+			<a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your
+			solution.{% endblocktrans %}</p>
+	{% endif %}
+
+	<article class="problem-statement">
+		{% if problem.subject_markdown %}
+			{% markdown problem.subject_markdown %}
+		{% else %}
+			{{ problem.subject_html|safe }}
+		{% endif %}
+	</article>
+
+	<article class="problem-constraints">
+		<h3>{% trans "Runtime constraints" %}</h3>
+		<dl class="dl-horizontal">
+			<dt>{% trans "Maximum memory usage" %}</dt>
+			<dd>{% blocktrans with amount=problem.properties.mem %}{{ amount }} kilobytes{% endblocktrans %}</dd>
+			<dt>{% trans "Maximum execution time" %}</dt>
+			<dd>{% blocktrans with amount=problem.properties.time %}{{ amount }} milliseconds{% endblocktrans %}</dd>
+		</dl>
+	</article>
+
+	<article class="problem-samples">
+		<h3>{% trans "Input/output samples" %}</h3>
+
+		{% for sample in problem.samples %}
+			<dl class="dl-horizontal problem-sample">
+				<dt>{% trans "Sample input" %}</dt>
+				<dd>
+					<pre><code>{{ sample.input }}</code></pre>
+				</dd>
+				<dt>{% trans "Sample output" %}</dt>
+				<dd>
+					<pre><code>{{ sample.output }}</code></pre>
+				</dd>
+				{% if sample.comment %}
+					<dt>{% trans "Note" %}</dt>
+					<dd>{% markdown sample.comment %}</dd>
+				{% endif %}
+			</dl>
+		{% endfor %}
+	</article>
+
 {% endblock %}
