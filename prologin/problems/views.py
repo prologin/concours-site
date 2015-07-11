@@ -1,4 +1,5 @@
-from django.views.generic import TemplateView, RedirectView
+from django.views.generic import TemplateView, RedirectView, ListView
+from django.views.generic.list import MultipleObjectMixin
 from django.http import Http404
 from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
@@ -8,6 +9,21 @@ from django.core.urlresolvers import reverse
 from problems.forms import SearchForm
 from contest.models import Event
 import problems.models
+
+
+def get_challenge(kwargs):
+    year = int(kwargs['year'])
+    try:
+        event_type = Event.Type[kwargs['type']]
+    except KeyError:
+        raise Http404()
+    try:
+        challenge = problems.models.Challenge.by_year_and_event_type(year, event_type)
+        if not challenge.displayable:
+            raise ObjectDoesNotExist
+    except ObjectDoesNotExist:
+        raise Http404()
+    return year, event_type, challenge
 
 
 class Index(TemplateView):
@@ -22,7 +38,7 @@ class Index(TemplateView):
 
 class Challenge(TemplateView):
     template_name = 'problems/challenge.html'
-    # Event code → (tup, challenge prefix)
+    # Event.Type name → (Event.Type, challenge prefix)
     event_category_mapping = {
         Event.Type.qualification.name: (Event.Type.qualification, 'qcm'),
         Event.Type.semifinal.name: (Event.Type.semifinal, 'demi'),
@@ -30,33 +46,24 @@ class Challenge(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        year = context['year'] = int(self.kwargs['year'])
-        try:
-            event_type = Event.Type[self.kwargs['type']]
-        except KeyError:
-            raise Http404()
-        try:
-            context['challenge'] = challenge = problems.models.Challenge.by_year_and_event_type(year, event_type)
-            if not challenge.displayable:
-                raise ObjectDoesNotExist
-        except ObjectDoesNotExist:
-            raise Http404()
 
-        context['problems'] = sorted(challenge.problems, key=lambda p: p.difficulty)
-
+        year, event_type, challenge = get_challenge(self.kwargs)
         challenge_score = 0
         challenge_done = 0
 
+        context['challenge'] = challenge
+        context['problems'] = sorted(challenge.problems, key=lambda p: p.difficulty)
+
         if self.request.user.is_authenticated():
-            # To display user scores on each problem
+            # To display user score on each problem
             submissions = (problems.models.Submission.objects
                            .filter(user=self.request.user, challenge=challenge.name)
                            .select_related('codes')
                            .annotate(code_count=Count('codes')))
             submissions = {sub.problem: sub for sub in submissions}
             for problem in context['problems']:
-                # Monkey-patch the problem to add the submission object
                 submission = submissions.get(problem.name)
+                # Monkey-patch the problem to add the submission object
                 problem.submission = submission
                 if submission:
                     challenge_score += submission.score()
@@ -74,39 +81,39 @@ class Problem(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        year = context['year'] = int(self.kwargs['year'])
+        year, event_type, challenge = get_challenge(self.kwargs)
+        context['challenge'] = challenge
         try:
-            event_type = Event.Type[self.kwargs['type']]
-        except KeyError:
-            raise Http404()
-        try:
-            context['challenge'] = challenge = problems.models.Challenge.by_year_and_event_type(year, event_type)
-            if not challenge.displayable:
-                raise ObjectDoesNotExist
             context['problem'] = problem = problems.models.Problem(challenge, self.kwargs['problem'])
-            tackled_by = list(problems.models.Submission.objects.filter(challenge=challenge.name,
-                                                                        problem=problem.name))
-            context['meta_tackled_by'] = len(tackled_by)
-            # Could also be written tackled_by.filter(score__gt=0).count() but
-            # 1. would do two queries 2. would fail if succeeded() impl changes
-            context['meta_solved_by'] = sum(1 for sub in tackled_by if sub.succeeded())
         except ObjectDoesNotExist:
             raise Http404()
+
+        tackled_by = list(problems.models.Submission.objects.filter(challenge=challenge.name,
+                                                                    problem=problem.name))
+        context['meta_tackled_by'] = len(tackled_by)
+        # Could also be written tackled_by.filter(score__gt=0).count() but
+        # 1. would do two queries 2. would fail if succeeded() impl changes
+        context['meta_solved_by'] = sum(1 for sub in tackled_by if sub.succeeded())
         return context
 
 
-class SearchProblems(TemplateView):
+class SearchProblems(ListView):
+    context_object_name = 'problems'
     template_name = 'problems/search_results.html'
+    paginate_by = 20
+    allow_empty = True
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['search_form'] = form = SearchForm(self.request.GET if self.request.GET else None)
+    def get(self, request, *args, **kwargs):
+        self.form = SearchForm(self.request.GET if self.request.GET else None)
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
         all_results = []
-        if form.is_valid():
-            query = form.cleaned_data['query']
-            event_type = form.cleaned_data['event_type']
-            difficulty_min = form.cleaned_data['difficulty_min']
-            difficulty_max = form.cleaned_data['difficulty_max']
+        if self.form.is_valid():
+            query = self.form.cleaned_data['query']
+            event_type = self.form.cleaned_data['event_type']
+            difficulty_min = self.form.cleaned_data['difficulty_min']
+            difficulty_max = self.form.cleaned_data['difficulty_max']
             for challenge in problems.models.Challenge.all():
                 if not challenge.displayable:
                     continue
@@ -120,17 +127,12 @@ class SearchProblems(TemplateView):
                     if not query or query in problem.title.lower():
                         all_results.append(problem)
 
-        all_results.sort(key=lambda p: p.title)
-        paginator = Paginator(all_results, 15)
-        page = self.request.GET.get('page')
-        try:
-            page_obj = paginator.page(page)
-        except PageNotAnInteger:
-            page_obj = paginator.page(1)
-        except EmptyPage:
-            page_obj = paginator.page(paginator.num_pages)
-        context['page_obj'] = page_obj
-        context['problem_count'] = len(all_results)
+        all_results.sort(key=lambda p: p.title.lower())
+        return all_results
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['search_form'] = self.form
         return context
 
 

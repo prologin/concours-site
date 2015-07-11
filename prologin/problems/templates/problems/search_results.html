@@ -17,7 +17,7 @@
 
 	<div class="list-group">
 		<div class="list-group-item list-group-item-info">
-			{% blocktrans count problem_count as count %}Found {{ count }} problem{% plural %}Found {{ count }} problems{% endblocktrans %}
+			{% blocktrans count problems|length as count %}Found {{ count }} problem{% plural %}Found {{ count }} problems{% endblocktrans %}
 		</div>
 		{% for problem in page_obj %}
 			{% include "problems/stub_problem.html" %}
