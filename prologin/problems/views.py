@@ -1,9 +1,7 @@
 from django.views.generic import TemplateView, RedirectView, ListView
-from django.views.generic.list import MultipleObjectMixin
+from django.db.models import Q
 from django.http import Http404
-from django.db.models import Count
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.urlresolvers import reverse
 
 from problems.forms import SearchForm
@@ -24,6 +22,13 @@ def get_challenge(kwargs):
     except ObjectDoesNotExist:
         raise Http404()
     return year, event_type, challenge
+
+
+def get_user_submissions(user, filter):
+    return (problems.models.Submission.objects
+                           .filter(user=user)
+                           .filter(filter)
+                           .select_related('codes'))
 
 
 class Index(TemplateView):
@@ -56,16 +61,14 @@ class Challenge(TemplateView):
 
         if self.request.user.is_authenticated():
             # To display user score on each problem
-            submissions = (problems.models.Submission.objects
-                           .filter(user=self.request.user, challenge=challenge.name)
-                           .select_related('codes')
-                           .annotate(code_count=Count('codes')))
+            submissions = get_user_submissions(self.request.user,
+                                               filter=Q(challenge=challenge.name))
             submissions = {sub.problem: sub for sub in submissions}
             for problem in context['problems']:
                 submission = submissions.get(problem.name)
                 # Monkey-patch the problem to add the submission object
-                problem.submission = submission
                 if submission:
+                    problem.submission = submission
                     challenge_score += submission.score()
                     if submission.succeeded():
                         challenge_done += 1
@@ -109,6 +112,7 @@ class SearchProblems(ListView):
 
     def get_queryset(self):
         all_results = []
+        filter = Q()
         if self.form.is_valid():
             query = self.form.cleaned_data['query']
             event_type = self.form.cleaned_data['event_type']
@@ -125,7 +129,16 @@ class SearchProblems(ListView):
                     if difficulty_max and problem.difficulty > difficulty_max:
                         continue
                     if not query or query in problem.title.lower():
+                        filter |= Q(challenge=challenge.name, problem=problem.name)
                         all_results.append(problem)
+
+        if self.request.user.is_authenticated():
+            # To display user score on each problem
+            submissions = get_user_submissions(self.request.user,
+                                               filter=filter)
+            submissions = {(sub.challenge, sub.problem): sub for sub in submissions}
+            for problem in all_results:
+                problem.submission = submissions.get((problem.challenge.name, problem.name))
 
         all_results.sort(key=lambda p: p.title.lower())
         return all_results

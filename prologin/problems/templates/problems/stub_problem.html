@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n utils %}
 <a class="list-group-item" href="{% url 'training:problem' problem.challenge.year problem.challenge.event_type.name problem.name %}">
 	<div class="progress" style="width: 100px; float: left; margin-right: 1em"
 		 title="{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %}">
@@ -7,6 +7,9 @@
 		</div>
 	</div>
 	{{ problem.title }}
+	{% if show_challenge %}
+		<small class="text-muted">({% blocktrans with challenge=problem.challenge.event_type|choiceenum_label year=problem.challenge.year %}{{ year }} {{ challenge }}{% endblocktrans %})</small>
+	{% endif %}
 	{% if request.user.is_authenticated %}
 		{% if problem.submission %}
 			{% if problem.submission.succeeded %}
