@@ -418,14 +418,8 @@ footer .legal {
 	position: relative;
 	z-index: 0;
 	background-repeat: no-repeat;
-	background-size: auto 100%;
+	background-size: cover;
 	margin-bottom: 1em;
-}
-
-@media (min-width: 768px) {
-	.bgcont {
-		background-size: 100% auto;
-	}
 }
 
 .dl-horizontal.dl-narrow dt {
@@ -450,7 +444,14 @@ footer .legal {
 	z-index: -1;
 }
 
-.presentation-body p, .presentation-body h2, .presentation-body h4 {
+.bgcont.bgcont-title {
+	min-height: 12em;
+}
+.bgcont.bgcont-title:after {
+	background: transparent linear-gradient(to bottom, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0) 50%);
+}
+
+.presentation-body p, .presentation-body h1, .presentation-body h2, .presentation-body h4 {
 	color: white;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
 }
@@ -463,6 +464,10 @@ footer .legal {
 	margin-top: 0;
 	padding-top: 0;
 	padding-bottom: 0.4em;
+}
+
+.presentation-body .btn-default {
+	text-shadow: none;
 }
 
 .organization-team-box {

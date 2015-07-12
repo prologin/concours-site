@@ -21,12 +21,12 @@
 						<div class="row">
 							<div class="col-xs-5 col-sm-12">
 								<h4>{% trans "Qualification" %}</h4>
-								<p class="date">{{ request.current_qualification.date_begin|date:"d b Y"|default:no_such_date }}</p>
+								<p class="date">{{ request.current_events.qualification.date_begin|date:"d b Y"|default:no_such_date }}</p>
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
 									<p>
-										{% if request.current_qcm %}
+										{% if current_qcm %}
 											{% blocktrans %}A quiz and {{ problems_count }} problems to solve online.
 											{% endblocktrans %}
 										{% else %}
@@ -40,7 +40,7 @@
 												class="fa fa-rocket"></i> {% trans "Register now!" %}</a></p>
 									{% else %}
 										<ul class="list-unstyled checklist hide-no-active">
-											{% if request.current_qcm %}
+											{% if current_qcm %}
 												{% if qcm_completed %}
 													<li class="text-success"><a
 															href="{% url 'qcm:display' request.current_edition.year %}"><i
@@ -73,7 +73,7 @@
 						<div class="row">
 							<div class="col-xs-5 col-sm-12">
 								<h4>{% trans "Semifinals" %}</h4>
-								<p class="date">{{ request.current_semifinal.first.date_begin|date:"d b Y"|default:no_such_date }}</p>
+								<p class="date">{{ request.current_events.semifinal.first.date_begin|date:"d b Y"|default:no_such_date }}</p>
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
@@ -91,7 +91,7 @@
 						<div class="row">
 							<div class="col-xs-5 col-sm-12">
 								<h4>{% trans "Finale" %}</h4>
-								<p class="date">{{ request.current_finale.date_begin|date:"d b Y"|default:no_such_date }}</p>
+								<p class="date">{{ request.current_events.final.date_begin|date:"d b Y"|default:no_such_date }}</p>
 							</div>
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">

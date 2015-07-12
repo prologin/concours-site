@@ -1,0 +1,118 @@
+{% extends "prologin/base.html" %}
+{% load i18n utils static %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "The organization" 'pages:about-organization' %}
+	{% breadcrumb "About the contest" 'pages:about-contest' %}
+	{% breadcrumb "The final" 'pages:about-final' %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "The final" %}{% endblock %}
+
+{% block content %}
+
+</div> {# hack: end content_super container #}
+	<div class="bgcont bgcont-title" style=" background-image: url({% static 'img/final.jpg' %}); background-position: 0 0;">
+		<div class="container presentation-body"><h1>{% trans "The final" %}</h1></div>
+	</div>
+<div class="container"> {# unhack #}
+
+	<p>TODO</p>
+
+	<h2>{% trans "The typical course of the final"  %}</h2>
+	{% get_setting_var 'FINAL_EVENT_DATE_FORMAT' as date_format %}
+
+	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-50 0 650 190" preserveAspectRatio="xMaxYmax" style="max-width: 800px">
+		<style type="text/css">
+			path { shape-rendering: crispEdges; }
+			text, tspan {
+				font-family: inherit;
+				font-size: 12px;
+				text-anchor: start;
+				dominant-baseline: central;
+			}
+			.right tspan { text-anchor: end; }
+			#hours text {
+				text-anchor: middle;
+			}
+			#events > g > rect {
+				rx: 4px;
+				ry: 4px;
+				stroke-width: 1px;
+			}
+			#layout rect {
+				fill: none;
+				stroke: black;
+				stroke-width: 2px;
+			}
+			#lines path {
+				stroke:black;
+				stroke-width: 1px;
+				stroke-dasharray: 1, 4;
+				vector-effect: non-scaling-stroke;
+			}
+		</style>
+			<g id="hours">
+				<text x="0" y="20">{{ final_day1|date:date_format }}</text>
+				<text x="150" y="20">{{ final_day2|date:date_format }}</text>
+				<text x="300" y="20">{{ final_day3|date:date_format }}</text>
+				<text x="450" y="20">{{ final_day4|date:date_format }}</text>
+			</g>
+			<g id="lines">
+				<path d="M75,20 l0,160"/>
+				<path d="M225,20 l0,160"/>
+				<path d="M375,20 l0,160"/>
+			</g>
+			<g id="events">
+				<g>
+					<rect x="-30" y="40" width="170" height="30" style="fill: #8cd4a0;"/>
+					<text x="-20" y="55">{% trans "Candidates reception" %}</text>
+				</g>
+				<g>
+					<rect x="110" y="90" width="260" height="30" style="fill: #d48e8e;"/>
+					<text x="120" y="105">{% trans "Contest" %}</text>
+				</g>
+				<g class="right">
+					<text y="105">{% blocktrans %}<tspan x="65" >Statement</tspan><tspan x="65" dy="15">distribution</tspan>{% endblocktrans %}</text>
+					<path d="M70,105 l40,0" style="stroke: black; stroke-width: 1px"/>
+					<circle cx="110" cy="105" r="5" style="fill: black; stroke: none;"/>
+				</g>
+				<g>
+					<rect x="380" y="90" width="75" height="45" style="fill: #8cd4a0;"/>
+					<text y="105">{% blocktrans %}<tspan x="390" >Selection,</tspan><tspan x="390" dy="15">jury</tspan>{% endblocktrans %}</text>
+				</g>
+				<g>
+					<rect x="460" y="90" width="110" height="45" style="fill: #d4bc8e;"/>
+					<text y="105">{% blocktrans %}
+						<tspan x="470">Award ceremony,</tspan><tspan x="470" dy="15">banquet</tspan>
+					{% endblocktrans %}</text>
+				</g>
+				<g>
+					<rect x="-30" y="140" width="400" height="30" style="fill: #d4bc8e;"/>
+					<text x="-20" y="155">{% trans "Animations" %}</text>
+				</g>
+			</g>
+		</g>
+	</svg>
+
+	<h2>{% trans "Logistics" %}</h2>
+	<p>TODO</p>
+
+	<h2>{% trans "The development environment" %}</h2>
+	<p>TODO</p>
+
+	<h2>{% trans "The statement" %}</h2>
+	<p>TODO</p>
+
+	<h2>{% trans "Evaluation methodology" %}</h2>
+	<p>TODO</p>
+
+	<h2>{% trans "Award ceremony" %}</h2>
+	<p>TODO</p>
+
+
+
+{% endblock %}

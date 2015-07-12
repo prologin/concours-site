@@ -4,12 +4,12 @@ from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
+from homepage.views import HomepageView
 
-admin.autodiscover()
 
 urlpatterns = patterns('',
     # Homepage
-    url(r'^$', 'homepage.views.homepage', name='home'),
+    url(r'^$', HomepageView.as_view(), name='home'),
 
     # Captcha stuff
     # TODO: remove that

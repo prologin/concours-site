@@ -1,0 +1,98 @@
+{% extends "prologin/base.html" %}
+{% load i18n static %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb "The organization" 'pages:about-organization' %}
+	{% breadcrumb "About the contest" 'pages:about-contest' %}
+	{% breadcrumb "The semifinals" 'pages:about-semifinal' %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "The semifinals" %}{% endblock %}
+
+{% block content %}
+
+</div> {# hack: end content_super container #}
+	<div class="bgcont bgcont-title" style=" background-image: url({% static 'img/semifinals.jpg' %}); background-position: 0 0;">
+		<div class="container presentation-body"><h1>{% trans "The semifinals" %}</h1></div>
+	</div>
+<div class="container"> {# unhack #}
+
+	<p>{% blocktrans %}The semifinal tests are intended to test the capability of candidates to solve algorithmic problems
+		but also to implement their solution on a machine, in the programming language they prefer. This is also an
+		opportunity for candidates to meet other enthusiasts, and for the organizers to relate their experience, to help
+		them progress.{% endblocktrans %}</p>
+	<p>{% blocktrans %}The 200 to 300 selected candidates are divided into different semifinals, which take place in
+		multiple sessions from mid-January, in the following French cities: Paris, Lyon, Toulouse, Strasbourg, Nantes,
+		Lille, Toulon, Louvain-la-Neuve and Bordeaux.{% endblocktrans %}</p>
+
+	<h2>{% trans "The three tests" %}</h2>
+
+	<h3>{% trans "The written exam" %}</h3>
+	<p>{% blocktrans %}This lasts three hours. The test consists of a series of five or six questions around a common
+		theme. These questions of increasing difficulty guide the candidate in the stages of resolution of an algorithmic
+		problem. The first exercives focuse on modeling the problem and are here to check that the candidate masters the
+		basic principles of algorithms, and the next exercises require the candidate to develop effective algorithms
+		for harder problems.{% endblocktrans%}</p>
+
+	<h3>{% trans "The interview" %}</h3>
+	<p>TODO</p>
+
+	<h3>{% trans "The practical test" %}</h3>
+	<p>TODO</p>
+
+	<h2>{% trans "The typical course of a semifinal day" %}</h2>
+
+	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 20 490 340" preserveAspectRatio="xMaxYmax" style="max-width: 500px">
+		<style type="text/css">
+			text, tspan {
+				font-family: inherit;
+				text-anchor: middle;
+				dominant-baseline: central;
+			}
+			#layout rect {
+				fill: none;
+				stroke: black;
+				stroke-width: 2px;
+			}
+		</style>
+			<g id="hours">
+				<text x="30" y="30">8h30</text>
+				<text x="30" y="60">9h00</text>
+				<text x="30" y="180">12h20</text>
+				<text x="30" y="210">13h30</text>
+				<text x="30" y="330">17h30</text>
+			</g>
+			<g id="layout">
+				<path d="M375,60 l0,120" style="stroke-dasharray: 4,4; stroke-width: 2px; stroke: black;"/>
+				<rect x="60" y="30" width="420" height="30" style="fill:#dae5fd"/>
+				<rect x="60" y="60" width="210" height="120" style="fill:#fde7da"/>
+				<rect x="270" y="60" width="210" height="120"/>
+				<rect x="315" y="95" width="120" height="50" style="fill:#fde7da"/>
+				<rect x="60" y="180" width="420" height="30" style="fill:#dae5fd"/>
+				<rect x="60" y="210" width="420" height="120" style="fill:#fde7da"/>
+			</g>
+			<g id="texts">
+				<text x="270" y="45">{% trans "Accueil des candidats, petit déjeuner offert" %}</text>
+				<text y="110">{% blocktrans %}<tspan x="170">Épreuve écrite</tspan>
+					<tspan x="170" dy="20">d'algorithmique (3h)</tspan>{% endblocktrans %}
+				</text>
+				<text y="110">{% blocktrans %}<tspan x="375">Entretien</tspan>
+					<tspan x="375" dy="20">(15-20 minutes)</tspan>{% endblocktrans %}
+				</text>
+				<text x="270" y="195">{% trans "Repas offert et correction de l'épreuve écrite" %}</text>
+				<text x="270" y="265">{% trans "Épreuve sur machine (4h)" %}</text>
+		</g>
+	</svg>
+
+	<h2>{% trans "Evaluation methodology" %}</h2>
+	<p>TODO</p>
+
+	<h2>{% trans "Logistics" %}</h2>
+	<p>TODO</p>
+
+
+
+{% endblock %}

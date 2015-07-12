@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n static utils zinnia news_tags %}
+{% load i18n static utils %}
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
@@ -47,12 +47,13 @@
 				<h4>{% trans "Who can qualify?" %}</h4>
 				<p>{% trans "Any student under 21, living in the European Union, who can understand and write French." %}</p>
 				<p>{% trans "Students from EPITA/EPITECH are not allowed to participate." %}</p>
+				<p><a href="{% url 'pages:about-qualification' %}" class="btn btn-default">{% trans "Learn more" %}</a></p>
 			</div>
 		</div>
 		</div>
 	</div>
 
-	<div class="bgcont" style="background-image: url({% static 'img/regionales.jpg' %}); background-position: 0 0;">
+	<div class="bgcont" style="background-image: url({% static 'img/semifinals.jpg' %}); background-position: 0 0;">
 		<div class="container presentation-body">
 			<div class="row"><div class="col-sm-8">
 				<h2>{% trans "2<sup>nd</sup> step – Semifinals" %}</h2>
@@ -73,12 +74,13 @@
 					We organize the event in major cities across metropolitan France. You can check the nearest location
 					using the <a href="{{ url_centers }}">map of exam centers</a>.
 				{% endblocktrans %}</p>
+				<p><a href="{% url 'pages:about-semifinals' %}" class="btn btn-default">{% trans "Learn more" %}</a></p>
 			</div>
 		</div>
 		</div>
 	</div>
 
-	<div class="bgcont" style="background-image: url({% static 'img/finale.jpg' %}); background-position: 0 10%;">
+	<div class="bgcont" style="background-image: url({% static 'img/final.jpg' %}); background-position: 0 10%;">
 		<div class="container presentation-body">
 		<div class="row"><div class="col-sm-8">
 			<h2>{% trans "3<sup>rd</sup> step – The Final" %}</h2>
@@ -95,6 +97,7 @@
 				<p>{% blocktrans %}All candidates are provided with free meals and a place to rest and sleep for the
 					duration of the finale. You only have to handle the cost of transportation.
 				{% endblocktrans %}</p>
+				<p><a href="{% url 'pages:about-final' %}" class="btn btn-default">{% trans "Learn more" %}</a></p>
 			</div>
 		</div>
 		</div>
