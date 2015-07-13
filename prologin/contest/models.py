@@ -76,12 +76,12 @@ class Contestant(models.Model):
     score_qualif_qcm = models.IntegerField(blank=True, null=True, verbose_name=_("QCM score"))
     score_qualif_algo = models.IntegerField(blank=True, null=True, verbose_name=_("Algo exercises score"))
     score_qualif_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
-    score_regionale_written = models.IntegerField(blank=True, null=True, verbose_name=_("Written exam score"))
-    score_regionale_interview = models.IntegerField(blank=True, null=True, verbose_name=_("Interview score"))
-    score_regionale_machine = models.IntegerField(blank=True, null=True, verbose_name=_("Machine exam score"))
-    score_regionale_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
-    score_finale = models.IntegerField(blank=True, null=True, verbose_name=_("Score"))
-    score_finale_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
+    score_semifinal_written = models.IntegerField(blank=True, null=True, verbose_name=_("Written exam score"))
+    score_semifinal_interview = models.IntegerField(blank=True, null=True, verbose_name=_("Interview score"))
+    score_semifinal_machine = models.IntegerField(blank=True, null=True, verbose_name=_("Machine exam score"))
+    score_semifinal_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
+    score_final = models.IntegerField(blank=True, null=True, verbose_name=_("Score"))
+    score_final_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
 
     class Meta:
         unique_together = ('user', 'edition')
@@ -91,9 +91,8 @@ class Contestant(models.Model):
         return bool(self.shirt_size) and bool(self.preferred_language)
 
     @property
-    def is_complete_for_regionale(self):
-        # FIXME: 3 is a magic number
-        if self.event_wishes.filter(type=Event.Type.qualification.value).distinct().count() < 3:
+    def is_complete_for_semifinal(self):
+        if self.event_wishes.filter(type=Event.Type.qualification.value).distinct().count() < settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT:
             return False
         return self._is_complete
 

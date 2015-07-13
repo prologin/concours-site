@@ -24,9 +24,9 @@ class ContestantAdmin(admin.ModelAdmin):
         (_("Qualification scores"), {'classes': ('collapse',), 'fields':
             ('score_qualif_qcm', 'score_qualif_algo', 'score_qualif_bonus',)}),
         (_("Regionale scores"), {'classes': ('collapse',), 'fields':
-            ('score_regionale_written', 'score_regionale_interview', 'score_regionale_machine', 'score_regionale_bonus',)}),
+            ('score_semifinal_written', 'score_semifinal_interview', 'score_semifinal_machine', 'score_semifinal_bonus',)}),
         (_("Finale scores"), {'classes': ('collapse',), 'fields':
-            ('score_finale', 'score_finale_bonus',)}),
+            ('score_final', 'score_final_bonus',)}),
     )
     inlines = [EventWishesInline]
 

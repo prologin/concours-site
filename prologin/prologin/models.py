@@ -39,9 +39,11 @@ def _enumfield_factory(basecls, enumcls, name, **fieldkwargs):
         defaults = dict(fieldkwargs)
         defaults.update(kwargs)
         basecls.__init__(self, enumcls, *args, **defaults)
+
     def deconstruct(self):
         name, path, args, kwargs = basecls.deconstruct(self)
         return name, path, args[1:], kwargs
+
     return type(name, (basecls,), {'__init__': init, 'deconstruct': deconstruct})
 
 

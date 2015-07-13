@@ -51,7 +51,7 @@ class SubmissionCodeAdmin(admin.ModelAdmin):
 
     def _title(self, obj):
         return _("Code %(id)s") % {'id': obj.pk}
-    _title.short_description = _("Code submission")
+    _title.short_description = problems.models.SubmissionCode._meta.verbose_name
     _title.admin_order_field = 'pk'
 
     def challenge(self, obj):
@@ -99,7 +99,7 @@ class SubmissionAdmin(admin.ModelAdmin):
 
     def _title(self, obj):
         return _("Submission %(id)s") % {'id': obj.pk}
-    _title.short_description = _("Submission")
+    _title.short_description = problems.models.Submission._meta.verbose_name
     _title.admin_order_field = 'pk'
 
     def username(self, obj):

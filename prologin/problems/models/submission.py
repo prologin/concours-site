@@ -33,6 +33,8 @@ class Submission(models.Model):
         return "{}/{} by {}".format(self.challenge, self.problem, self.user)
 
     class Meta:
+        verbose_name = _("Submission")
+        verbose_name_plural = _("Submissions")
         unique_together = ('challenge', 'problem', 'user')
 
 
@@ -65,5 +67,7 @@ class SubmissionCode(models.Model):
                                              self.score if self.succeeded() else self.status())
 
     class Meta:
+        verbose_name = _("Submission code")
+        verbose_name_plural = _("Submission codes")
         get_latest_by = 'date_submitted'
         ordering = ('-' + get_latest_by,)
