@@ -31,7 +31,7 @@ DATABASES = {
         'PASSWORD': 'prologin',
     },
     'mysql_legacy': {
-        'ENGINE': 'mysql.connector.django',
+        'ENGINE': 'django.db.backends.mysql',
         'HOST': '192.168.56.101',
         'NAME': 'prologin',
         'USER': 'prologin',

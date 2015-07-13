@@ -10,63 +10,128 @@
 	{% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
 {% endblock breadcrumbs %}
 
+{% block body_tag %}data-spy="scroll" data-target="#problem-nav"{% endblock %}
 {% block title %}{{ problem.title }}{% endblock %}
 
 {% block content %}
+	<div class="row">
+		<div class="col-md-9" role="main">
+			<h1>{{ problem.title }}</h1>
 
-	<h1>{{ problem.title }}</h1>
+			<div class="problem-meta-info text-muted">
+				<p>{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %} ⋅
+					{% blocktrans count meta_tackled_by as count %}Tackled by {{ count }} member{% plural %}Tackled by {{ count }} members{% endblocktrans %} ⋅
+					{% blocktrans count meta_solved_by as count %}Solved by {{ count }} member{% plural %}Solved by {{ count }} members{% endblocktrans %}
+				</p>
+			</div>
 
-	<div class="problem-meta-info text-muted">
-		<p>{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %} ⋅
-			{% blocktrans count meta_tackled_by as count %}Tackled by {{ count }} member{% plural %}Tackled by {{ count }} members{% endblocktrans %} ⋅
-			{% blocktrans count meta_solved_by as count %}Solved by {{ count }} member{% plural %}Solved by {{ count }} members{% endblocktrans %}</p>
+			<article class="problem-statement" id="statement">
+				{% if problem.subject_markdown %}
+					{% markdown problem.subject_markdown %}
+				{% else %}
+					{{ problem.subject_html|safe }}
+				{% endif %}
+			</article>
+
+			<article class="problem-constraints" id="constraints">
+				<h3>{% trans "Runtime constraints" %}</h3>
+				<dl class="dl-horizontal">
+					<dt>{% trans "Maximum memory usage" %}</dt>
+					<dd>{% blocktrans with amount=problem.properties.mem %}{{ amount }}kilobytes{% endblocktrans %}</dd>
+					<dt>{% trans "Maximum execution time" %}</dt>
+					<dd>{% blocktrans with amount=problem.properties.time %}{{ amount }}milliseconds{% endblocktrans %}</dd>
+				</dl>
+			</article>
+
+			<article class="problem-samples" id="samples">
+				<h3>{% trans "Input/output samples" %}</h3>
+
+				{% for sample in problem.samples %}
+					<dl class="dl-horizontal problem-sample">
+						<dt>{% trans "Sample input" %}</dt>
+						<dd>
+							<pre><code>{{ sample.input }}</code></pre>
+						</dd>
+						<dt>{% trans "Sample output" %}</dt>
+						<dd>
+							<pre><code>{{ sample.output }}</code></pre>
+						</dd>
+						{% if sample.comment %}
+							<dt>{% trans "Note" %}</dt>
+							<dd>{% markdown sample.comment %}</dd>
+						{% endif %}
+					</dl>
+				{% endfor %}
+			</article>
+
+			<article class="problem-submit" id="submit">
+				<h2>{% trans "Submit your solution" %}</h2>
+				{% if request.user.is_authenticated %}
+					<div style="min-height: 1000px;"></div>
+				{% else %}
+					{% url 'users:register' as register %}
+					{% url 'users:login' as login %}
+					<p class="alert alert-warning">{% blocktrans with register as register %}You have to
+						<a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit
+						your
+						solution.{% endblocktrans %}</p>
+				{% endif %}
+			</article>
+		</div>
+
+		<div class="col-md-3" role="complementary">
+			<nav class="hidden-print hidden-xs hidden-sm sidebar-affix" id="problem-nav">
+				<ul class="nav nav-pills nav-stacked">
+					<li><a href="#statement">{% trans "Statement" %}</a></li>
+					<li><a href="#constraints">{% trans "Runtime constraints" %}</a></li>
+					<li><a href="#samples">{% trans "Input/output samples" %}</a></li>
+					<li><a href="#submit">{% trans "Submit your solution" %}</a></li>
+				</ul>
+			</nav>
+			<nav class="hidden-print hidden-xs hidden-sm sidebar-affix" id="problem-submission-nav" style="margin-top: 1em">
+				<ul class="list-group">
+					<li class="list-group-item">Cras justo odio</li>
+					<li class="list-group-item">Dapibus ac facilisis in</li>
+					<li class="list-group-item">Morbi leo risus</li>
+					<li class="list-group-item">Porta ac consectetur ac</li>
+					<li class="list-group-item">Vestibulum at eros</li>
+				</ul>
+			</nav>
+		</div>
 	</div>
 
-	{% if not request.user.is_authenticated %}
-		{% url 'users:register' as register %}
-		{% url 'users:login' as login %}
-		<p class="alert alert-warning">{% blocktrans with register as register %}You have to
-			<a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your
-			solution.{% endblocktrans %}</p>
-	{% endif %}
+{% endblock %}
 
-	<article class="problem-statement">
-		{% if problem.subject_markdown %}
-			{% markdown problem.subject_markdown %}
-		{% else %}
-			{{ problem.subject_html|safe }}
-		{% endif %}
-	</article>
-
-	<article class="problem-constraints">
-		<h3>{% trans "Runtime constraints" %}</h3>
-		<dl class="dl-horizontal">
-			<dt>{% trans "Maximum memory usage" %}</dt>
-			<dd>{% blocktrans with amount=problem.properties.mem %}{{ amount }} kilobytes{% endblocktrans %}</dd>
-			<dt>{% trans "Maximum execution time" %}</dt>
-			<dd>{% blocktrans with amount=problem.properties.time %}{{ amount }} milliseconds{% endblocktrans %}</dd>
-		</dl>
-	</article>
-
-	<article class="problem-samples">
-		<h3>{% trans "Input/output samples" %}</h3>
-
-		{% for sample in problem.samples %}
-			<dl class="dl-horizontal problem-sample">
-				<dt>{% trans "Sample input" %}</dt>
-				<dd>
-					<pre><code>{{ sample.input }}</code></pre>
-				</dd>
-				<dt>{% trans "Sample output" %}</dt>
-				<dd>
-					<pre><code>{{ sample.output }}</code></pre>
-				</dd>
-				{% if sample.comment %}
-					<dt>{% trans "Note" %}</dt>
-					<dd>{% markdown sample.comment %}</dd>
-				{% endif %}
-			</dl>
-		{% endfor %}
-	</article>
-
+{% block extra_script %}
+	<script type="text/javascript">
+	$(function() {
+		var wtf;
+		var $nav = $('#problem-nav'), $pnav = $('#problem-submission-nav');
+		$nav.affix({
+			offset: {
+				top: function () {
+					var c = $nav.offset().top - 20;
+					wtf = c;
+					return this.top = c;
+				},
+				bottom: function() {
+					return this.bottom = $('footer').outerHeight(true);
+				}
+			}
+		});
+		$pnav.affix({
+			offset: {
+				top: function () {
+					console.log("wtf", wtf);
+					return this.top = wtf;
+				},
+				bottom: function() {
+					return this.bottom = $('footer').outerHeight(true);
+				}
+			}
+		}).on('affixed-top.bs.affix', function() {
+			$pnav.css('top', $nav.outerHeight(true) + 14);
+		});
+	});
+	</script>
 {% endblock %}

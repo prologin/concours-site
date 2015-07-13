@@ -1,9 +1,3 @@
-from django.conf import settings
-from django.core.cache import cache
-from django.template import VariableDoesNotExist, Variable
-from django.utils.html import escape
-from django.utils.translation import ugettext_lazy as _
-
 import enum
 import hashlib
 import os
@@ -11,6 +5,13 @@ import re
 import string
 import unicodedata
 import uuid
+
+from django.conf import settings
+from django.core.cache import cache
+from django.template import VariableDoesNotExist, Variable
+from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
+from django.utils.html import escape
 
 
 def absolute_site_url(request, absolute_path):
@@ -58,6 +59,7 @@ def upload_path(*base_path):
         rand = hashlib.sha1(uuid.uuid4().bytes).hexdigest()
         name = '%s%s' % (rand, ext)
         return os.path.join(*(parts + [name]))
+
     return func
 
 
@@ -78,10 +80,12 @@ class ChoiceEnum(enum.Enum):
                      ugettext_lazy()
         :rtype class
         """
-        assert(callable(func))
+        assert callable(func)
+
         def classbuilder(klass):
             klass.label_for = classmethod(lambda cls, member: _(func(member.name)))
             return klass
+
         return classbuilder
 
     @staticmethod
@@ -96,11 +100,13 @@ class ChoiceEnum(enum.Enum):
         if key is None:
             key = lambda pair: pair[1].lower()
         else:
-            assert(callable(key))
+            assert callable(key)
+
         def classbuilder(klass):
             orig_get_choices = klass._get_choices
             klass._get_choices = classmethod(lambda cls: sorted(orig_get_choices(), key=key, reverse=reverse))
             return klass
+
         return classbuilder
 
     @classmethod
@@ -146,3 +152,8 @@ def cached(func, cache_setting_name, **kwargs):
         value = func()
         cache.set(key, value, cache_setting.duration)
     return value
+
+
+def admin_url_for(obj, method='change', label=lambda e: str(e)):
+    return '<a href="{}">{}</a>'.format(reverse('admin:{}_{}_{}'.format(obj._meta.app_label, obj._meta.model_name, method),
+                                                args=[obj.pk]), escape(label(obj)))

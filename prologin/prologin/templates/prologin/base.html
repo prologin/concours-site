@@ -30,7 +30,7 @@
 
 	{% block extra_head %}{% endblock %}
 </head>
-<body class="{% block body_class %}{% endblock %}">
+<body class="{% block body_class %}{% endblock %}" {% block body_tag %}{% endblock %}>
 
 	{# Header #}
 	{% block super_header %}

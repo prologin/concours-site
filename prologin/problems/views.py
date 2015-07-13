@@ -28,7 +28,7 @@ def get_user_submissions(user, filter):
     return (problems.models.Submission.objects
                            .filter(user=user)
                            .filter(filter)
-                           .select_related('codes'))
+                           .prefetch_related('codes'))
 
 
 class Index(TemplateView):

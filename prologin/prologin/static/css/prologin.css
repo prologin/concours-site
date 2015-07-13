@@ -523,3 +523,12 @@ footer .legal {
 .multiple-checkbox ul li {
 	float: left;
 }
+
+.sidebar-affix.affix {
+	position: fixed;
+	top: 20px;
+}
+
+.sidebar-affix.affix-bottom {
+	position: absolute;
+}
