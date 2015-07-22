@@ -10,12 +10,20 @@ import os
 # openssl rand 64 -base64 | sed "s/[/10lO#+=]//g" | tr -d "\n"; echo
 SECRET_KEY = 'CHANGEME'
 
-# SECURITY WARNING: don't run with debug turned on in production!
+# SECURITY/PERFORMANCE WARNING: don't run with DEBUG turned on in production!
 DEBUG = True
 
 TEMPLATE_DEBUG = DEBUG
 
 ALLOWED_HOSTS = ['127.0.0.1']
+
+SITE_HOST = "localhost:8000"
+
+# Mandatory settings:
+# PROLOGIN_EDITION = 2015
+# TRAINING_PROBLEM_REPOSITORY_PATH = '/path/to/problems'
+# TRAINING_CORRECTORS = ()
+
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -48,3 +56,13 @@ LOGGING = {
         },
     },
 }
+
+
+# Email
+# Run debug server with:
+#   $ make stmpserver
+
+EMAIL_HOST = "localhost"
+EMAIL_PORT = 1025
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False
