@@ -32,11 +32,11 @@ En développant le site, vous allez naturellement créer de nouveaux textes qu'i
 1.  Vous devez tout d'abord demander à un `MANAGER` (Zopieux) l'accès `MAINTAINER` sur Transifex afin d'avoir le droit d'update les fichiers sources.
 2.  Créez `~/.transifexrc` contenant :  
 
-    [https://www.transifex.com]
-    hostname = https://www.transifex.com
-    username = MY_TRANSIFEX_USERNAME_AND_NOT_THE_EMAIL
-    password = MY_TRANSIFEX_PASSWORD_IN_PLAIN_TEXT
-    token =
+        [https://www.transifex.com]
+        hostname = https://www.transifex.com
+        username = MY_TRANSIFEX_USERNAME_AND_NOT_THE_EMAIL
+        password = MY_TRANSIFEX_PASSWORD_IN_PLAIN_TEXT
+        token =
 
 3.  Arrêtez de rager parce que vous avez un mot de passe en clair dans votre home, et non y'a [pas d'autre solution](http://docs.transifex.com/client/config#transifexrc).
 
@@ -49,10 +49,10 @@ Vous avez écrit/modifié des `{% trans "foo" %}` ou des `_("bar")`.
 1.  Relisez-vous pour éviter de faire traduire des cochonneries par les autres, c'est du temps perdu.
 2.  Dans la racine de prologin-site :  
 
-    $ make tx-push
+        $ make tx-push
 
 ### Cas de figure : les traductions ont avancé, je les veux en local
 
 1.  Dans la racine de prologin-site :  
 
-    $ make tx-pull
+        $ make tx-pull
