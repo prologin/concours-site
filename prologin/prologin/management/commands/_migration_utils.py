@@ -34,7 +34,7 @@ def nstrip(data, max_length=None):
 
 
 def namedcolumns(cursor):
-    nt = namedtuple('Row', cursor.column_names)
+    nt = namedtuple('Row', ','.join(e[0] for e in cursor.description))
     for row in cursor:
         yield nt(*row)
 

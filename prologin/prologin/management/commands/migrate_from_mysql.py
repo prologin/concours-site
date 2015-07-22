@@ -3,14 +3,17 @@ import os
 
 from django import db
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.sites.models import Site
 from django.core.management.base import BaseCommand
+from django.template.defaultfilters import slugify
 from django.utils import timezone
 
 import prologin.utils
 import prologin.models
-import users.models
 from ._migration_utils import *  # noqa lol I heard u like PEP8 well screw u
 
+User = get_user_model()
 CURRENT_TIMEZONE = timezone.get_current_timezone()
 
 USER_QUERY = """
@@ -90,7 +93,7 @@ class Command(BaseCommand):
                 if len(row.name) > 30:
                     print("Ignoring too long:", row.uid, row.name)
                     continue
-                user = users.models.ProloginUser(
+                user = User(
                     pk=row.uid, username=row.name, email=row.mail, first_name=nstrip(row.fn, 30), last_name=nstrip(row.ln, 30),
                     phone=nstrip(row.phone, 16), address=nstrip(row.a_addr), postal_code=nstrip(row.a_code, 32),
                     city=nstrip(row.a_city, 64), country=nstrip(row.country, 64), birthday=birthday,
@@ -105,7 +108,7 @@ class Command(BaseCommand):
 
         print("Now adding users to new DBs")
         with db.transaction.atomic():
-            users.models.ProloginUser.objects.bulk_create(new_users)
+            User.objects.bulk_create(new_users)
 
     def migrate_user_pictures(self):
         BASE_URL = "http://prologin.org/"
@@ -135,8 +138,8 @@ class Command(BaseCommand):
             c.execute("SELECT uid, picture FROM users ORDER BY name")
             for uid, picture in c:
                 try:
-                    user = users.models.ProloginUser.objects.get(pk=uid)
-                except users.models.ProloginUser.DoesNotExist:
+                    user = User.objects.get(pk=uid)
+                except User.DoesNotExist:
                     continue
 
                 if picture:
@@ -216,8 +219,8 @@ class Command(BaseCommand):
             c.execute("SELECT * FROM team_years ORDER BY uid")
             for uid, rows in itertools.groupby(list(namedcolumns(c)), lambda r: int(r.uid)):
                 try:
-                    user = users.models.ProloginUser.objects.get(pk=uid)
-                except users.models.ProloginUser.DoesNotExist:
+                    user = User.objects.get(pk=uid)
+                except User.DoesNotExist:
                     print("User id %d does not exist in migrated DB" % uid)
                     continue
                 for row in rows:
@@ -248,8 +251,8 @@ class Command(BaseCommand):
             c.execute("SELECT * FROM training_access ORDER BY uid")
             for uid, rows in itertools.groupby(list(namedcolumns(c)), lambda r: int(r.uid)):
                 try:
-                    user = users.models.ProloginUser.objects.get(pk=uid)
-                except users.models.ProloginUser.DoesNotExist:
+                    user = User.objects.get(pk=uid)
+                except User.DoesNotExist:
                     print("User id %d does not exist in migrated DB" % uid)
                     continue
                 for row in rows:
@@ -289,6 +292,48 @@ class Command(BaseCommand):
                         if i:
                             print("{} {}: {}".format(user.username, submission, i))
 
+    def migrate_news(self):
+        query = '''
+          SELECT n.nid, n.promote, n.uid, nr.title, nr.body, nr.teaser, n.created, n.changed, n.comment FROM node n
+          INNER JOIN node_revisions nr ON nr.nid = n.nid
+          WHERE n.type = 'story' AND n.status = 1 AND nr.title != '' AND nr.body != ''
+          GROUP BY n.nid
+          ORDER BY n.created ASC
+        '''
+        from zinnia.models import Entry
+        from zinnia.models.author import Author
+        from zinnia.managers import PUBLISHED, HIDDEN
+
+        main_site = Site.objects.get()
+
+        Entry.objects.all().delete()
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            with db.transaction.atomic():
+                for row in namedcolumns(c):
+                    date_created = CURRENT_TIMEZONE.localize(datetime.datetime.fromtimestamp(row.created), is_dst=True)
+                    date_changed = CURRENT_TIMEZONE.localize(datetime.datetime.fromtimestamp(row.changed), is_dst=True)
+                    entry = Entry(
+                        id=row.nid,
+                        title=row.title,
+                        slug=slugify(row.title),
+                        status=PUBLISHED if row.promote else HIDDEN,
+                        publication_date=date_created,
+                        start_publication=date_created,
+                        creation_date=date_created,
+                        last_update=date_changed,
+                        content=row.body,
+                        comment_enabled=row.comment == 2,
+                        lead='' if row.body == row.teaser else row.teaser,
+                    )
+                    entry.save()
+                    entry.sites.add(main_site)
+                    try:
+                        a = Author.objects.get(pk=row.uid)
+                        entry.authors.add(a)
+                    except Author.DoesNotExist:
+                        print("Unknown author: {}".format(row.uid))
+
     def handle(self, *args, **options):
         # check if we can access the legacy db
         # mc is MySQL cursor
@@ -302,5 +347,6 @@ class Command(BaseCommand):
         #self.migrate_user_pictures()
         #self.migrate_examcenters()
         #self.migrate_teams()
-        self.migrate_problem_submissions('/tmp/archive')
+        #self.migrate_problem_submissions('/tmp/archive')
+        self.migrate_news()
         # TODO: the rest

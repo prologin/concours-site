@@ -22,7 +22,7 @@
 
 	{% for article in articles %}
 
-	<section class="news-entry">
+	<section class="clearfix news-entry">
 		<h3><a href="{{ article.get_absolute_url }}" title="{{ article.title }}" rel="bookmark">{{ article.title }}</a></h3>
 		<div class="entry-meta-line text-muted">
 			<p class="entry-info">
@@ -46,18 +46,20 @@
 			</p>
 		</div>
 		<div class="entry-content">
-			{{ article.html_content|cuthere_excerpt|safe }}
-			<p><i class='fa fa-angle-double-right'></i> <a href="{{ article.get_absolute_url }}#cuthere">{% trans "Continue reading" %}</a></p>
+			{{ article.html_preview|safe }}
+			<p><i class="fa fa-angle-double-right"></i> <a href="{{ article.get_absolute_url }}#cuthere">{% trans "Continue reading" %}</a></p>
 		</div>
 	</section>
 
 	{% endfor %}
 
+	<ul class="clearfix nav hidden-xs"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
+
 	</div>
 
 	<div class="col-sm-3">
 		<ul class="nav">
-			<li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li>
+			<li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "All the news" %}</a></li>
 		</ul>
 
 		<h2>{% trans "More info" %}</h2>

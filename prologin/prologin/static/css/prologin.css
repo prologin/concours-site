@@ -375,8 +375,9 @@ footer .legal {
 	border-bottom: 1px solid #ddd;
 }
 
-.news-entry:last-child {
+.news-entry:last-of-type {
 	border: none;
+	margin-bottom: 2em;
 }
 
 /*
