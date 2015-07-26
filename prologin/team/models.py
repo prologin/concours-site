@@ -4,12 +4,13 @@ from django.utils.translation import ugettext as _
 
 
 class Role(models.Model):
-    rank = models.PositiveIntegerField(primary_key=True)
+    significance = models.SmallIntegerField()
     name = models.CharField(max_length=32)
 
     class Meta:
         verbose_name = _("Role")
         verbose_name_plural = _("Roles")
+        ordering = ('-significance',)
 
     @property
     def member_count(self):
@@ -27,7 +28,7 @@ class TeamMember(models.Model):
     class Meta:
         verbose_name = _("Team member")
         verbose_name_plural = _("Team members")
-        ordering = ['role__rank', 'user__username']
+        ordering = ['-role__significance', 'user__username']
 
     def __str__(self):
         return self.user.username

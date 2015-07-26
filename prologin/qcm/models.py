@@ -2,8 +2,9 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from ordered_model.models import OrderedModel
-import prologin.models
+
 import contest.models
+import sponsor.models
 
 
 def contestant_qcm_consistency_check(contestant, qcm):
@@ -38,7 +39,7 @@ class Question(OrderedModel):
 
     body = models.TextField(verbose_name=_("Question body"))
     verbose = models.TextField(blank=True, verbose_name=_("Verbose description"))
-    for_sponsor = models.ForeignKey(prologin.models.Sponsor, blank=True, null=True, related_name='qcm_questions')
+    for_sponsor = models.ForeignKey(sponsor.models.Sponsor, blank=True, null=True, related_name='qcm_questions')
 
     class Meta(OrderedModel.Meta):
         pass

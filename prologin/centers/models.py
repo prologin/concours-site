@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import ugettext_noop
-
 import geopy.geocoders
 
 from prologin.models import AddressableModel, ContactModel, EnumField

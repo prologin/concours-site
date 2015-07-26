@@ -70,7 +70,7 @@ INSTALLED_APPS = (
     'mptt',
     'tagging',
 
-    # Prologin
+    # Prologin apps
     'prologin',
     'captcha',
     'centers',
@@ -78,9 +78,10 @@ INSTALLED_APPS = (
     'documents',
     'homepage',
     'qcm',
+    'news',
     'pages',
     'problems',
-    'news',
+    'sponsor',
     'team',
     'users',
 
@@ -139,6 +140,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+MIGRATION_MODULES = {
+    'zinnia': 'news.migrations_zinnia',
+}
 
 # Celery (task scheduler)
 

@@ -35,5 +35,5 @@ class AboutOrganizationView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         team = TeamMember.objects.filter(year=self.request.current_edition.year).select_related('role', 'user')
         context['team'] = team
-        context['team_pres'] = team.filter(role__rank=1).first()
+        context['team_pres'] = team.filter(role__id=1).first()
         return context

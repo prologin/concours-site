@@ -1,17 +1,17 @@
+import base64
+import hashlib
+import os
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-
-import base64
-import hashlib
-import os
+from timezone_field import TimeZoneField
 
 from prologin.models import AddressableModel, GenderField, CodingLanguageField
 from prologin.utils import upload_path
-from timezone_field import TimeZoneField
 
 ACTIVATION_TOKEN_LENGTH = 32
 
@@ -79,6 +79,9 @@ class ProloginUser(AbstractUser, AddressableModel):
 
     avatar = models.ImageField(upload_to=upload_path('avatar'), blank=True, verbose_name=_("Profile picture"))
     picture = models.ImageField(upload_to=upload_path('picture'), blank=True, verbose_name=_("Official member picture"))
+
+    # MD5 password from <2015 Drupal website
+    legacy_md5_password = models.CharField(max_length=32, blank=True)
 
     @property
     def plaintext_password(self):

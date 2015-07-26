@@ -1,15 +1,16 @@
-from centers.models import Center
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django.utils import timezone
 from ordered_model.models import OrderedModel
+
+from centers.models import Center
 from prologin.models import EnumField, CodingLanguageField
 from prologin.utils import ChoiceEnum
 
 
 class Edition(models.Model):
-    year = models.PositiveIntegerField(db_index=True)
+    year = models.PositiveIntegerField(primary_key=True)
     date_begin = models.DateTimeField()
     date_end = models.DateTimeField()
 

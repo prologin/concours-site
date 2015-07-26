@@ -339,6 +339,7 @@ footer .legal {
 
 .team-member {
 	min-height: 80px;
+	white-space: nowrap;
 }
 
 .team-member-avatar {

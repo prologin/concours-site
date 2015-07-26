@@ -8,8 +8,8 @@ class TeamMemberAdmin(admin.ModelAdmin):
 
 
 class RoleAdmin(admin.ModelAdmin):
-    ordering = ('rank',)
-    list_display = ('name', 'rank', 'member_count',)
+    ordering = ('-significance',)
+    list_display = ('name', 'significance', 'member_count',)
 
 
 admin.site.register(TeamMember, TeamMemberAdmin)

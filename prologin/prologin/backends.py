@@ -1,6 +1,6 @@
 from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
-from django.db import connections
+import hashlib
 import logging
 
 logger = logging.getLogger('prologin.backends')
@@ -12,20 +12,18 @@ class ModelBackendWithLegacy(ModelBackend):
         if user is not None:
             return user
 
-        # Failed authentication with normal DB
-        # Let's see if user is in legacy
-        logger.info("User `%s` failed to connect; checking for legacy password", username)
-        mysql = connections['mysql_legacy']
-        with mysql.cursor() as cursor:
-            cursor.execute("SELECT uid FROM users WHERE status = 1 AND name = %s AND pass = MD5(%s)", [
-                username, password
-            ])
-            legacy = cursor.fetchone()
-            if legacy is not None:
-                user = get_user_model().objects.get(pk=legacy[0])
-                assert user.username.lower() == username.lower()
-                user.set_password(password)
-                user.save()
-                logger.info("User `%s` was found in legacy; password updated", username)
-                return user
-        # else return None, that's a real auth failure
+        # Failed authentication with Django password
+        # Check if user has a legacy password
+        User = get_user_model()
+        try:
+            user = User.objects.get(username__iexact=username,
+                                    legacy_md5_password=hashlib.md5(password.encode('utf-8')).hexdigest())
+            user.set_password(password)
+            # Empty out the legacy password (for security & progress stats purposes)
+            user.legacy_md5_password = ''
+            user.save()
+            logger.info("User `%s` authenticated with legacy password; "
+                        "Django password updated", username)
+            return user
+        except User.DoesNotExist:
+            return None

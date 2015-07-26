@@ -1,26 +1,28 @@
+import datetime
+import itertools
+import random
+
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.contrib.webdesign import lorem_ipsum
 from django.core.files import File
 from django.core.files.temp import NamedTemporaryFile
 from django.core.management.base import BaseCommand, CommandError
-from django.db.models import Q
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 from tagging.models import Tag
 from zinnia.managers import PUBLISHED
+import django.db
+import requests
+import zinnia.models
+
 import centers.models
 import contest.models
-import datetime
-import django.db
-import itertools
 import problems.models
 import prologin.languages
 import prologin.models
-import random
-import requests
+import sponsor.models
 import team.models
-import zinnia.models
 
 
 # FIXME: this is completely broken by the EnumField refactor
@@ -178,7 +180,7 @@ class Command(BaseCommand):
         with django.db.transaction.atomic():
             for name in ("EPITA", "Éducation nationale", "École Polytechnique", "UPMC", "Délégation Internet"):
                 slug = slugify(name)
-                prologin.models.Sponsor(name=name, is_active=True, site="http://www.%s.fr" % slug,
+                sponsor.models.Sponsor(name=name, is_active=True, site="http://www.%s.fr" % slug,
                                         contact_email="contact@%s.fr" % slug).save()
 
     def fill_centers(self):
@@ -290,7 +292,7 @@ class Command(BaseCommand):
             for event in events:
                 qcm.models.Qcm(event=event).save()
 
-        sponsors = list(prologin.models.Sponsor.objects.all())
+        sponsors = list(sponsor.models.Sponsor.objects.all())
         assert sponsors, "Sponsor list empty; run fill_db sponsors"
         random.shuffle(sponsors)
         sponsors = itertools.cycle(sponsors)

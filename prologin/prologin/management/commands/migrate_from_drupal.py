@@ -2,16 +2,14 @@ import itertools
 import os
 
 from django import db
-from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
-from django.core.management.base import BaseCommand
+from django.core.management.base import LabelCommand, CommandError
 from django.template.defaultfilters import slugify
 from django.utils import timezone
 
-import prologin.utils
 import prologin.models
-from ._migration_utils import *  # noqa lol I heard u like PEP8 well screw u
+from ._migration_utils import *  # noqa
 
 User = get_user_model()
 CURRENT_TIMEZONE = timezone.get_current_timezone()
@@ -26,6 +24,7 @@ SELECT
   timezone,
   picture,
   training_language,
+  u.pass                                        AS password,   # pass is a reserved keyword
   u.birthday                                    AS u_birthday,
   IF(created > 0, FROM_UNIXTIME(created), NULL) AS created,
   IF(access > 0, FROM_UNIXTIME(access), NULL)   AS access,
@@ -57,18 +56,42 @@ FROM users u
   LEFT JOIN profile_values pvac ON pvac.uid = u.uid AND pvac.fid = 10
   LEFT JOIN profile_values pvnm ON pvnm.uid = u.uid AND pvnm.fid = 11
   LEFT JOIN profile_values pvph ON pvph.uid = u.uid AND pvph.fid = 12
-WHERE u.name IS NOT NULL AND u.name != '' AND u.mail != ''
+WHERE u.name IS NOT NULL AND u.name != '' AND u.mail != '' AND u.pass != ''
 GROUP BY u.uid
 ORDER BY u.uid ASC
 """
 
 
-class Command(BaseCommand):
-    help = "Move data from old, shitty MySQL database to the shinny new Postgres one."
+class Command(LabelCommand):
+    help = "Move data from old, shitty MySQL/Drupal database to the shinny new Postgres/Django one."
 
     def migrate_users(self):
-        print("Migrating users")
+        self.stdout.write("Migrating users")
+
+        def looks_like_bot(user):
+            if '[url=' in user.signature:
+                return '[url] in signature', user.signature[:100]
+            if user.signature.count('http://') + user.signature.count('https://') >= 5:
+                return 'many URLs in signature', user.signature[:100]
+            if 'noong' in user.address.lower():
+                return 'noong in address', user.address
+            if 'yahoo.com' in user.email and user.username.startswith('rose'):
+                return 'rose/yahoo', user.username, user.email
+            if ('http://' in user.signature or 'https://' in user.signature) and '.ru' in user.signature:
+                # russians h4ck3rs
+                return '.ru website', user.signature[:100]
+            suspicious = any((user.username == user.first_name,
+                              user.username == user.last_name,
+                              user.last_name == user.first_name))
+            if suspicious and user.phone == '123456':
+                return '123456 phone',
+            if suspicious and '@gmail' in user.email and user.email.split('@', 1)[0].count('.') >= 4:
+                # savi.pr.e.c.h.e.y.sh.aqe.milk@gmail.com
+                return 'GMail dot trickery', user.email
+            return None
+
         new_users = []
+        ignored_bots = set()
         with self.mysql.cursor() as c:
             c.execute(USER_QUERY)
             for row in namedcolumns(c):
@@ -77,7 +100,7 @@ class Command(BaseCommand):
                 if row.p_birthday:
                     p_birthday = parse_php_birthday(row.p_birthday)
                 if row.u_birthday and p_birthday and row.u_birthday != p_birthday:
-                    print("Different u/p birthday:", row.u_birthday, p_birthday)
+                    self.stdout.write("Different u/p birthday: {} {}".format(row.u_birthday, p_birthday))
                     birthday = p_birthday
                 elif row.u_birthday and not p_birthday:
                     birthday = row.u_birthday
@@ -91,29 +114,48 @@ class Command(BaseCommand):
                 date_joined = min(date for date in (row.created, row.access, row.login) if date)
                 last_login = max(date for date in (row.created, row.access, row.login) if date)
                 if len(row.name) > 30:
-                    print("Ignoring too long:", row.uid, row.name)
+                    self.stdout.write("Ignoring too long:".format(row.uid, row.name))
                     continue
+                try:
+                    language = map_from_legacy_language(row.training_language).name
+                except AttributeError:
+                    language = ''
                 user = User(
-                    pk=row.uid, username=row.name, email=row.mail, first_name=nstrip(row.fn, 30), last_name=nstrip(row.ln, 30),
-                    phone=nstrip(row.phone, 16), address=nstrip(row.a_addr), postal_code=nstrip(row.a_code, 32),
-                    city=nstrip(row.a_city, 64), country=nstrip(row.country, 64), birthday=birthday,
-                    school_stage=row.grade, signature=row.signature, gender=gender,
-                    timezone=user_timezone, allow_mailing=bool(row.mailing),
-                    preferred_language=map_from_legacy_language(row.training_language).name,
+                    pk=row.uid, username=row.name, email=row.mail, first_name=nstrip(row.fn, 30),
+                    legacy_md5_password=row.password, last_name=nstrip(row.ln, 30), phone=nstrip(row.phone, 16),
+                    address=nstrip(row.a_addr), postal_code=nstrip(row.a_code, 32), city=nstrip(row.a_city, 64),
+                    country=nstrip(row.country, 64), birthday=birthday, school_stage=row.grade, signature=row.signature,
+                    gender=gender, timezone=user_timezone, allow_mailing=bool(row.mailing),
+                    preferred_language=language,
                     date_joined=date_localize(date_joined, user_timezone),
                     last_login=date_localize(last_login, user_timezone), is_active=bool(row.status),
                     is_superuser=bool(row.is_superuser), is_staff=bool(row.is_superuser) or bool(row.is_staff),
                 )
+                spam = looks_like_bot(user)
+                if spam is not None:
+                    reason, *data = spam
+                    ignored_bots.add(user.pk)
+                    self.stdout.write("Ignoring bot: {}: {!r}".format(reason, data))
+                    continue
                 new_users.append(user)
 
-        print("Now adding users to new DBs")
+        with self.mysql.cursor() as c:
+            c.execute('SELECT user_id FROM resultat_qcms GROUP BY user_id')
+            ids = set(u.user_id for u in namedcolumns(c))
+            self.stdout.write("Bot users intersected with users who sent a QCM (should be empty):")
+            self.stdout.write(ids & ignored_bots)
+
+        self.stdout.write("Committing users to new database")
         with db.transaction.atomic():
             User.objects.bulk_create(new_users)
 
     def migrate_user_pictures(self):
         BASE_URL = "http://prologin.org/"
         import requests
+        from concurrent.futures import ThreadPoolExecutor
         from django.core.files.base import ContentFile
+
+        session = requests.Session()
 
         def fetch_file(image_field, url):
             try:
@@ -126,7 +168,7 @@ class Command(BaseCommand):
                 # DB contains an avatar path that is not backed on disk, so download again
                 pass
             try:
-                picture_req = requests.get(BASE_URL + url)
+                picture_req = session.get(BASE_URL + url)
                 if not picture_req.ok:
                     raise requests.RequestException("Status is not 2xx")
                 image_field.save(os.path.split(url)[1], ContentFile(picture_req.content))
@@ -134,37 +176,45 @@ class Command(BaseCommand):
             except requests.RequestException:
                 return False
 
+        def handle_user(item):
+            uid, picture = item.uid, item.picture
+            try:
+                user = User.objects.prefetch_related('team_memberships').get(pk=uid)
+            except User.DoesNotExist:
+                return
+
+            self.stdout.write("Handling {}".format(item.uid))
+            if picture:
+                # Normal avatar
+                res = fetch_file(user.avatar, picture)
+                if res:
+                    self.stdout.write("Fetched picture for {}".format(user))
+                elif res is False:
+                    self.stdout.write("Could not fetch picture for {}".format(user))
+
+            # Official profile picture
+            if user.team_memberships.count():
+                # So reliable. Much Drupal. Wow.
+                res = fetch_file(user.picture, 'files/team/%s.jpg' % user.username.lower())
+                if res:
+                    self.stdout.write("Fetched official picture for {}".format(user))
+                elif res is False:
+                    self.stdout.write("Could not fetch official picture for {}".format(user))
+
+        self.stdout.write("Migrating user avatars and official pictures")
         with self.mysql.cursor() as c:
-            c.execute("SELECT uid, picture FROM users ORDER BY name")
-            for uid, picture in c:
-                try:
-                    user = User.objects.get(pk=uid)
-                except User.DoesNotExist:
-                    continue
-
-                if picture:
-                    # Normal avatar
-                    res = fetch_file(user.avatar, picture)
-                    if res:
-                        print("Fetched picture for", user)
-                    elif res is False:
-                        print("Could not fetch picture for", user)
-
-                # Official profile picture
-                if user.team_memberships.count():
-                    # So reliable. Much Drupal. Wow.
-                    res = fetch_file(user.picture, 'files/team/%s.jpg' % user.username.lower())
-                    if res:
-                        print("Fetched official picture for", user)
-                    elif res is False:
-                        print("Could not fetch official picture for", user)
+            c.execute("SELECT uid, picture FROM users WHERE picture != '' ORDER BY uid")
+            users = list(namedcolumns(c))
+            with ThreadPoolExecutor(max_workers=4) as executor:
+                executor.map(handle_user, users)
 
     def migrate_examcenters(self):
         import centers.models
+
         field_map = (
             ('civilite', 'gender', lambda e: prologin.models.Gender.male.value if e == 'Monsieur'
-                                             else prologin.models.Gender.female.value if e in ('Madame', 'Mademoiselle')
-                                             else None),
+            else prologin.models.Gender.female.value if e in ('Madame', 'Mademoiselle')
+            else None),
             ('nom', 'last_name', lambda e: nstrip(e, 64)),
             ('prenom', 'first_name', lambda e: nstrip(e, 64)),
             ('statut', 'position', lambda e: nstrip(e, 128)),
@@ -173,6 +223,8 @@ class Command(BaseCommand):
             ('fax', 'phone_fax', lambda e: nstrip(e, 16)),
             ('email', 'email', lambda e: e.strip().lower()),
         )
+
+        self.stdout.write("Migrating exam centers")
         with self.mysql.cursor() as c:
             c.execute("SELECT * FROM centre_examens ORDER BY id")
             for row in namedcolumns(c):
@@ -188,7 +240,7 @@ class Command(BaseCommand):
                     city=nstrip(row.ville, 64),
                     country="France",
                 )
-                print("Migrated center:", center)
+                self.stdout.write("Migrated center: {}".format(center))
                 center.save()
                 for prefix, newtype in (
                         ('resp', centers.models.Contact.Type.manager),
@@ -201,18 +253,21 @@ class Command(BaseCommand):
                             useful = True
                             setattr(contact, 'contact_%s' % newfield, value)
                     if useful:
-                        print("\tNew center contact:", contact)
+                        self.stdout.write("\tNew center contact: {}".format(contact))
                         contact.save()
 
     def migrate_teams(self):
         import team.models
+        self.stdout.write("Migrating teams")
         role_table = {}
         with self.mysql.cursor() as c:
+            c.execute("SELECT MAX(id) AS m FROM team_ranks")
+            max_id = next(namedcolumns(c)).m
             c.execute("SELECT * FROM team_ranks")
             for row in namedcolumns(c):
-                print("Migrated team role:", row.title)
-                role = team.models.Role(rank=row.id, name=row.title)
-                role_table[role.rank] = role
+                self.stdout.write("Migrated team role: {}".format(row.title))
+                role = team.models.Role(id=row.id, significance=max_id - row.id, name=row.title)
+                role_table[role.id] = role
         team.models.Role.objects.bulk_create(role_table.values())
 
         with self.mysql.cursor() as c:
@@ -221,13 +276,13 @@ class Command(BaseCommand):
                 try:
                     user = User.objects.get(pk=uid)
                 except User.DoesNotExist:
-                    print("User id %d does not exist in migrated DB" % uid)
+                    self.stdout.write("User id {} does not exist in migrated DB".format(uid))
                     continue
                 for row in rows:
                     user.team_memberships.add(
                         team.models.TeamMember(year=row.year, user=user, role=role_table[row.id_rank])
                     )
-                print("Migrated team roles for", user)
+                self.stdout.write("Migrated team roles for {}".format(user))
 
     def migrate_problem_submissions(self, code_archive_path):
         """
@@ -238,6 +293,8 @@ class Command(BaseCommand):
         """
         import problems.models
         import chardet  # so we can still use a nice TextField(), not a BinaryField(), to store codes
+
+        self.stdout.write("Migrating problem submissions")
 
         def get_codes(user, submission):
             pattern = '{}-{}-{}'.format(submission.challenge, submission.problem, user.username)
@@ -253,10 +310,11 @@ class Command(BaseCommand):
                 try:
                     user = User.objects.get(pk=uid)
                 except User.DoesNotExist:
-                    print("User id %d does not exist in migrated DB" % uid)
+                    self.stdout.write("User id {} does not exist in migrated DB".format(uid))
                     continue
+
                 for row in rows:
-                    # is_dst not available in Django 1.8. Fuck this.
+                    # is_dst not available in Django 1.8 make_aware(). Fuck this.
                     # date = timezone.make_aware(row.timestamp, CURRENT_TIMEZONE, is_dst=True)
                     date = CURRENT_TIMEZONE.localize(row.timestamp, is_dst=True)
                     submission, created = problems.models.Submission.objects.get_or_create(
@@ -265,6 +323,7 @@ class Command(BaseCommand):
                         problem=row.problem)
                     if not created:
                         continue
+
                     submission.score_base = row.score
                     submission.malus = row.malus
                     submission.save()
@@ -276,23 +335,30 @@ class Command(BaseCommand):
                                 try:
                                     code = code.decode(chardet.detect(code)['encoding'])
                                 except TypeError:  # 'encoding' is None
-                                    print(fname)
-                                    print("chardet could not detect encoding")
+                                    self.stdout.write("{}: chardet could not detect encoding".format(fname))
                                     continue
                                 except UnicodeDecodeError:
-                                    print(fname)
-                                    print("chardet said shit")
+                                    self.stdout.write("{}: chardet made a mistake".format(fname))
                                     continue
+
                             submission_code, created = problems.models.SubmissionCode.objects.get_or_create(
                                 submission=submission,
                                 code=code,
                                 language=lng,
                                 date_submitted=date)
                             submission_code.save()
+
                         if i:
-                            print("{} {}: {}".format(user.username, submission, i))
+                            self.stdout.write("{} {}: {}".format(user.username, submission, i))
 
     def migrate_news(self):
+        from zinnia.models import Entry
+        from zinnia.models.author import Author
+        from zinnia.managers import PUBLISHED, HIDDEN
+
+        self.stdout.write("Migrating news")
+        main_site = Site.objects.get()
+
         query = '''
           SELECT n.nid, n.promote, n.uid, nr.title, nr.body, nr.teaser, n.created, n.changed, n.comment FROM node n
           INNER JOIN node_revisions nr ON nr.nid = n.nid
@@ -300,11 +366,6 @@ class Command(BaseCommand):
           GROUP BY n.nid
           ORDER BY n.created ASC
         '''
-        from zinnia.models import Entry
-        from zinnia.models.author import Author
-        from zinnia.managers import PUBLISHED, HIDDEN
-
-        main_site = Site.objects.get()
 
         Entry.objects.all().delete()
         with self.mysql.cursor() as c:
@@ -332,21 +393,33 @@ class Command(BaseCommand):
                         a = Author.objects.get(pk=row.uid)
                         entry.authors.add(a)
                     except Author.DoesNotExist:
-                        print("Unknown author: {}".format(row.uid))
+                        self.stdout.write("Unknown author: {}".format(row.uid))
 
-    def handle(self, *args, **options):
+    # TODO: forum
+    # TODO: news comments
+
+    def handle_label(self, label, **options):
+        args = []
+        if label == 'problem_submissions':
+            self.stdout.write("Provide the absolute path to the `archive` folder (with contestant \n"
+                              "latest submissions):")
+            args = [input("`archive` folder absolute path: ")]
+
+        try:
+            func = getattr(self, 'migrate_{}'.format(label))
+        except AttributeError:
+            import inspect
+            labels = (_[0].split('_', 1)[1]
+                      for _ in inspect.getmembers(self,
+                                                  lambda e: inspect.ismethod(e) and e.__name__.startswith('migrate_')))
+            self.stderr.write("Available migrations: {}".format(", ".join(labels)))
+            raise CommandError("No such migration: {}".format(label))
+
         # check if we can access the legacy db
-        # mc is MySQL cursor
         self.mysql = db.connections['mysql_legacy']
         with self.mysql.cursor() as c:
             c.execute('SHOW TABLES')
             tables = c.fetchall()
-        print("Found {} tables".format(len(tables)))
+        self.stdout.write("Found {} tables".format(len(tables)))
 
-        #self.migrate_users()
-        #self.migrate_user_pictures()
-        #self.migrate_examcenters()
-        #self.migrate_teams()
-        #self.migrate_problem_submissions('/tmp/archive')
-        self.migrate_news()
-        # TODO: the rest
+        func(*args)

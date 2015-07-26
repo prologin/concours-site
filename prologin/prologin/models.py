@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
-from prologin.utils import upload_path, ChoiceEnum
+
+from prologin.utils import ChoiceEnum
 from prologin.languages import Language
 
 
@@ -82,13 +83,3 @@ class ContactModel(models.Model):
         abstract = True
 
 
-class Sponsor(AddressableModel, ContactModel):
-    name = models.CharField(max_length=255, db_index=True)
-    description = models.TextField(blank=True)
-    logo = models.ImageField(upload_to=upload_path('sponsor'), blank=True)
-    site = models.URLField(blank=True)
-    is_active = models.BooleanField(default=True)
-    editions = models.ManyToManyField('contest.Edition', blank=True)
-
-    def __str__(self):
-        return self.name
