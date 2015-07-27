@@ -107,7 +107,7 @@ without theses minimal objects, you can not add them using the admin. Use the `e
 command instead:
 
     :::console
-    cd prologin && python manage.py edition
+    cd prologin && python manage.py edition create
     # Answer the questions
 
 ## Importing data from the old website
