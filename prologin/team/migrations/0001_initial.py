@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
             options={
                 'verbose_name_plural': "Membres de l'équipe",
                 'verbose_name': "Membre de l'équipe",
-                'ordering': ['role__rank', 'user__username'],
+                'ordering': ['-role__significance', 'user__username'],
             },
         ),
     ]
