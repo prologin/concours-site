@@ -51,7 +51,7 @@ Then, check the following settings in the file you copied:
 1. Uncomment and update `TRAINING_PROBLEM_REPOSITORY_PATH` to the directory where
    you cloned the Prologin [`problem` repository](https://bitbucket.org/prologin/problems/).
 1. Add a local or remote correction VM to `TRAINING_CORRECTORS`.
-   
+
 Now proceed to the sub-section corresponding to your environment for specific
 instructions.
 
@@ -93,6 +93,22 @@ instructions.
         :::console
         celery -l warning -A prologin worker
 
+## Creating the database
+
+    :::console
+    cd prologin && python manage.py migrate
+
+## Creating the minimal context
+
+The website has to display some data about the current Prologin edition, upcoming events,
+and the like. That is why it is necessary to setup at least one `Edition` and the
+corresponding qualification (a.ka. QCM) `Event`. As the website crashes intentionally
+without theses minimal objects, you can not add them using the admin. Use the `edition`
+command instead:
+
+    :::console
+    cd prologin && python manage.py edition
+    # Answer the questions
 
 ## Importing data from the old website
 

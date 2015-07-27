@@ -11,3 +11,4 @@ fabfile.py
 *.jpg
 *~
 *.bak
+prologin/prologin/settings/dev.py
