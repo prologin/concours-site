@@ -1,21 +1,40 @@
+# For async tasks (sending mails, correcting submissions, etc.)
+celery
+# Django
 django<1.9
+# News / blog
 django-blog-zinnia==0.15.2
+# Breadcrumbs
 django-bootstrap-breadcrumbs>=0.7.0
+# Bootstrap-formatted forms
 django-bootstrap-form>=3.1
-django-simple-captcha>=0.4
+# Debug Toolbar
+django-debug-toolbar
+# Google Recaptcha/Nocaptcha support
+django-recaptcha
+# Model tagging support
 django-tagging
+# Model TimezoneField
 django-timezone-field
+# Micro mail framework for plaintext/HTML mails
 djmail>=0.10.0
+# TODO: remove this unmaintained dep
 git+https://github.com/bfirsh/django-ordered-model.git@python-3
 # This is a fork for 1.8 compat
 git+https://github.com/worldveil/django-templates-macros.git#egg=django-templates-macros
+# Tool to query Geoip services for exam center geo-localization
 geopy
+# XML parsing (eg. corrector communication)
 lxml
+# Markdown support
 markdown>=2.4
+# Image manipulation support, previously known as PIL
 pillow>=2.4
+# Postgres database connector
 psycopg2>=2.5
+# MySQL database connector (for Drupal legacy)
 mysqlclient
+# HTTP queries
 requests
-django-debug-toolbar
-celery
+# Celery storage & broker for async tasks
 redis

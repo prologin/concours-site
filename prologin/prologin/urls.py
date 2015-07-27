@@ -11,10 +11,6 @@ urlpatterns = patterns('',
     # Homepage
     url(r'^$', HomepageView.as_view(), name='home'),
 
-    # Captcha stuff
-    # TODO: remove that
-    url(r'^captcha/', include('captcha.urls')),
-
     # Built-in Django admin
     url(r'^admin/', include(admin.site.urls)),
 )

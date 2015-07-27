@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
-from captcha.fields import CaptchaField
+from captcha.fields import ReCaptchaField
 
 from prologin.models import Gender
 from .widgets import PreviewFileInput
@@ -44,8 +44,14 @@ class UserProfileForm(forms.ModelForm):
 
 
 class RegisterForm(forms.ModelForm):
-    captcha = CaptchaField(help_text=_("Type the four letters to prove you are not an automated bot."))
-    newsletter = forms.BooleanField(required=False, label=_("Subscribe to the newsletter"))
+    captcha = ReCaptchaField(label="",
+                             help_text='<small>{}</small>'.format(
+                                 _("Please check the box above and complete the additional tasks if any. "
+                                   "This is required to fight spamming bots on the website.")))
+    newsletter = forms.BooleanField(required=False, label=_("Subscribe to the newsletter"),
+                                    help_text='<small>{}</small>'.format(
+                                        _("We do not send more than a few mails each year! We use that to "
+                                          "notice you when new editions begin and when results are available.")))
 
     class Meta:
         model = get_user_model()

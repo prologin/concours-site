@@ -62,6 +62,7 @@ INSTALLED_APPS = (
 
     # Vendor
     'bootstrapform',
+    'captcha',
     'django_bootstrap_breadcrumbs',
     'django_comments',
     'djmail',
@@ -72,7 +73,6 @@ INSTALLED_APPS = (
 
     # Prologin apps
     'prologin',
-    'captcha',
     'centers',
     'contest',
     'documents',
@@ -223,6 +223,12 @@ TRAINING_CORRECTORS = (
 # Empty list allows everything
 TRAINING_CHALLENGE_WHITELIST = ()
 TRAINING_PROBLEM_REPOSITORY_PATH = os.path.join(BASE_DIR, 'problems')
+
+
+# Recaptcha
+
+NOCAPTCHA = True
+RECAPTCHA_USE_SSL = True
 
 
 # Zinnia (news)
