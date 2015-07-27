@@ -142,8 +142,8 @@ class Command(LabelCommand):
         with self.mysql.cursor() as c:
             c.execute('SELECT user_id FROM resultat_qcms GROUP BY user_id')
             ids = set(u.user_id for u in namedcolumns(c))
-            self.stdout.write("Bot users intersected with users who sent a QCM (should be empty):")
-            self.stdout.write(ids & ignored_bots)
+            self.stdout.write("Bot users intersected with users who sent a QCM "
+                              "(should be empty):\n{}".format(ids & ignored_bots))
 
         self.stdout.write("Committing users to new database")
         with db.transaction.atomic():
