@@ -150,11 +150,19 @@ class Command(LabelCommand):
             User.objects.bulk_create(new_users)
 
     def migrate_user_pictures(self):
-        BASE_URL = "http://prologin.org/"
         import requests
         from concurrent.futures import ThreadPoolExecutor
         from django.core.files.base import ContentFile
 
+        BASE_URL = "http://prologin.org/"
+        QUERY = """
+        SELECT u.uid, u.picture, COUNT(DISTINCT ty.year) AS years
+        FROM users u
+        LEFT JOIN team_years ty ON ty.uid = u.uid
+        GROUP BY u.uid
+        HAVING u.picture != '' OR years > 0
+        ORDER BY u.uid
+        """
         session = requests.Session()
 
         def fetch_file(image_field, url):
@@ -203,7 +211,7 @@ class Command(LabelCommand):
 
         self.stdout.write("Migrating user avatars and official pictures")
         with self.mysql.cursor() as c:
-            c.execute("SELECT uid, picture FROM users WHERE picture != '' ORDER BY uid")
+            c.execute(QUERY)
             users = list(namedcolumns(c))
             with ThreadPoolExecutor(max_workers=4) as executor:
                 executor.map(handle_user, users)
@@ -212,9 +220,10 @@ class Command(LabelCommand):
         import centers.models
 
         field_map = (
-            ('civilite', 'gender', lambda e: prologin.models.Gender.male.value if e == 'Monsieur'
-            else prologin.models.Gender.female.value if e in ('Madame', 'Mademoiselle')
-            else None),
+            ('civilite', 'gender', lambda e:
+                prologin.models.Gender.male.value if e == 'Monsieur'
+                else prologin.models.Gender.female.value if e in ('Madame', 'Mademoiselle')
+                else None),
             ('nom', 'last_name', lambda e: nstrip(e, 64)),
             ('prenom', 'first_name', lambda e: nstrip(e, 64)),
             ('statut', 'position', lambda e: nstrip(e, 128)),
@@ -270,19 +279,20 @@ class Command(LabelCommand):
                 role_table[role.id] = role
         team.models.Role.objects.bulk_create(role_table.values())
 
-        with self.mysql.cursor() as c:
-            c.execute("SELECT * FROM team_years ORDER BY uid")
-            for uid, rows in itertools.groupby(list(namedcolumns(c)), lambda r: int(r.uid)):
-                try:
-                    user = User.objects.get(pk=uid)
-                except User.DoesNotExist:
-                    self.stdout.write("User id {} does not exist in migrated DB".format(uid))
-                    continue
-                for row in rows:
-                    user.team_memberships.add(
-                        team.models.TeamMember(year=row.year, user=user, role=role_table[row.id_rank])
-                    )
-                self.stdout.write("Migrated team roles for {}".format(user))
+        with db.transaction.atomic():
+            with self.mysql.cursor() as c:
+                c.execute("SELECT * FROM team_years ORDER BY uid")
+                for uid, rows in itertools.groupby(list(namedcolumns(c)), lambda r: int(r.uid)):
+                    try:
+                        user = User.objects.get(pk=uid)
+                    except User.DoesNotExist:
+                        self.stdout.write("User id {} does not exist in migrated DB".format(uid))
+                        continue
+                    for row in rows:
+                        user.team_memberships.add(
+                            team.models.TeamMember(year=row.year, user=user, role=role_table[row.id_rank])
+                        )
+                    self.stdout.write("Migrated team roles for {}".format(user))
 
     def migrate_problem_submissions(self, code_archive_path):
         """
