@@ -1,5 +1,5 @@
 from django.forms.widgets import ClearableFileInput, CheckboxInput
-from django.utils.html import escape, conditional_escape
+from django.utils.html import conditional_escape, format_html
 from django.utils.safestring import mark_safe
 
 
@@ -20,9 +20,9 @@ class PreviewFileInput(ClearableFileInput):
         if value and hasattr(value, 'url'):
             template = self.template_with_initial
             attrs = self.build_attrs(attrs)
-            substitutions['initial'] = '<img src="{0}" {1}/>'.format(
-                escape(value.url),
-                " ".join('%s="%s"' % (escape(k), escape(v)) for k, v in attrs.items()) if attrs else "",
+            substitutions['initial'] = format_html(
+                '<img src="{{0}}" {0}/>'.format(" ".join(format_html('{}="{}"', k, v) for k, v in attrs.items()) if attrs else ""),
+                value.url,
             )
             if not self.is_required:
                 checkbox_name = self.clear_checkbox_name(name)
