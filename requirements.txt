@@ -38,3 +38,5 @@ mysqlclient
 requests
 # Celery storage & broker for async tasks
 redis
+# Transifex client for translation pull/push
+transifex-client==0.11b3
