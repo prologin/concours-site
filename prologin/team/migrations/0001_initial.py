@@ -39,4 +39,8 @@ class Migration(migrations.Migration):
                 'ordering': ['-role__significance', 'user__username'],
             },
         ),
+        migrations.AlterUniqueTogether(
+            name='teammember',
+            unique_together=set([('user', 'year')]),
+        ),
     ]
