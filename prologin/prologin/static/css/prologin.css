@@ -342,6 +342,10 @@ footer .legal {
 	white-space: nowrap;
 }
 
+.team-member.highlight .media-body * {
+	font-weight: bold;
+}
+
 .team-member-avatar {
 	display: inline-block;
 	width: 64px;
@@ -349,8 +353,7 @@ footer .legal {
 	border-radius: 32px;
 	background-image: url('../img/silhouette.png');
 	background-repeat: no-repeat;
-	background-position: 0 50%;
-	background-size: 64px auto;
+	background-size: cover;
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }

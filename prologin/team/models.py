@@ -26,9 +26,10 @@ class TeamMember(models.Model):
     year = models.PositiveIntegerField(db_index=True)
 
     class Meta:
+        ordering = ['-role__significance', 'user__username']
+        unique_together = ('user', 'year')
         verbose_name = _("Team member")
         verbose_name_plural = _("Team members")
-        ordering = ['-role__significance', 'user__username']
 
     def __str__(self):
         return self.user.username

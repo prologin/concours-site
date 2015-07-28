@@ -13,7 +13,11 @@
 {% block content %}
 
 	{% trans "<em>not provided</em>" as noinfo %}
-	<h1>{% blocktrans with shown_user.username as username %}{{ username }}{% endblocktrans %}
+	<h1>{% if shown_user.get_full_name %}
+		{{ shown_user.get_full_name }} <small>{{ shown_user.username }}</small>
+	{% else %}
+		{{ shown_user.username }}
+	{% endif %}
 	{% if see_private %}
 		<p class="pull-right"><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i
 				class="fa fa-pencil"></i> {% trans "Edit" %}</a>
@@ -57,6 +61,16 @@
 				<dt>{% trans "Member for" %}</dt>
 				<dd>{{ shown_user.date_joined|timesince }}</dd>
 			</dl>
+
+			{% with shown_user.team_memberships.all as team_memberships %}
+				{% if team_memberships %}
+					<h3>{% trans "Staff roles" %}</h3>
+					{% for membership in team_memberships|dictsortreversed:'year' %}
+						<a href="{% url 'team:year' membership.year %}#m{{ shown_user.pk }}" class="btn btn-default">{% blocktrans with year=membership.year role=membership.role %}{{ year }} ⋅ {{ role }}{% endblocktrans %}</a>
+					{% endfor %}
+				{% endif %}
+			{% endwith %}
+
 		</div>
 
 		<div class="col-sm-4">

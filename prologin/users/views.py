@@ -4,6 +4,7 @@ from django.contrib.auth import get_user_model, REDIRECT_FIELD_NAME, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
+from django.db.models import Prefetch
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic.base import RedirectView
@@ -16,6 +17,7 @@ import django.contrib.auth.forms
 from prologin.email import send_email
 from prologin.utils import absolute_site_url
 
+import team.models
 import users.forms
 import users.models
 
@@ -133,9 +135,14 @@ class ProfileView(DetailView):
     context_object_name = 'shown_user'
     template_name = 'users/profile.html'
 
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related(
+            Prefetch('team_memberships',
+                     queryset=team.models.TeamMember.objects.select_related('role__name')))
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        shown_user = self.get_object()
+        shown_user = context[self.context_object_name]
         context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
         return context
 

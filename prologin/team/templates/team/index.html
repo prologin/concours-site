@@ -25,7 +25,7 @@
 <div class="row">
 	{% for member in team %}
 	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-		<div class="media team-member">
+		<div class="media team-member" id="m{{ member.user.pk }}">
 			<div class="media-left">
 				<a href="{% url 'users:profile' member.user.pk %}" class="team-member-avatar" style="{% if member.user.picture_or_avatar %}background-image: url('{{ member.user.picture_or_avatar.url }}'){% endif %}" /></a>
 			</div>
@@ -40,4 +40,13 @@
 	{% endfor %}
 </div>
 
+{% endblock %}
+
+{% block extra_script %}
+	<script type="text/javascript">
+	$(function() {
+		var mid = window.location.hash.match(/(m[0-9]+)/)[1];
+		if (mid) $('#' + mid).addClass('highlight');
+	});
+	</script>
 {% endblock %}
