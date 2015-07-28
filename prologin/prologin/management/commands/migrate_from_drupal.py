@@ -14,6 +14,10 @@ from ._migration_utils import *  # noqa
 User = get_user_model()
 CURRENT_TIMEZONE = timezone.get_current_timezone()
 
+GENDER_PARSE = (lambda e: prologin.models.Gender.male.value if e == 'Monsieur'
+                else prologin.models.Gender.female.value if e in ('Madame', 'Mademoiselle')
+                else None)
+
 USER_QUERY = """
 SELECT
   u.uid,
@@ -106,10 +110,7 @@ class Command(LabelCommand):
                     birthday = row.u_birthday
                 elif p_birthday and not row.u_birthday:
                     birthday = p_birthday
-                gender = None
-                if row.gender is not None:
-                    gender = (prologin.models.Gender.male if row.gender == 'Monsieur'
-                              else prologin.models.Gender.female).value
+                gender = GENDER_PARSE(row.gender)
                 user_timezone = guess_timezone(row.timezone)
                 date_joined = min(date for date in (row.created, row.access, row.login) if date)
                 last_login = max(date for date in (row.created, row.access, row.login) if date)
@@ -220,10 +221,7 @@ class Command(LabelCommand):
         import centers.models
 
         field_map = (
-            ('civilite', 'gender', lambda e:
-                prologin.models.Gender.male.value if e == 'Monsieur'
-                else prologin.models.Gender.female.value if e in ('Madame', 'Mademoiselle')
-                else None),
+            ('civilite', 'gender', GENDER_PARSE),
             ('nom', 'last_name', lambda e: nstrip(e, 64)),
             ('prenom', 'first_name', lambda e: nstrip(e, 64)),
             ('statut', 'position', lambda e: nstrip(e, 128)),
