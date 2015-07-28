@@ -6,6 +6,9 @@ from django.core.exceptions import ObjectDoesNotExist
 from contest.models import Event
 
 
+ENCODING = 'utf-8'
+
+
 def lazy_attr(prop_name, getter):
     def wrapped(self, *args, **kwargs):
         try:
@@ -27,7 +30,7 @@ def read_props(filename):
             return value_lower == 'true'
         return value
 
-    with open(filename) as f:
+    with open(filename, encoding=ENCODING) as f:
         return {k.strip(): parse(v)
                 for line in f if line.strip()
                 for k, v in [line.split(':', 1)]}
@@ -116,7 +119,7 @@ class Challenge:
     properties = lazy_attr('_properties_', _get_properties)
 
     def _get_subject(self):
-        with open(self.file_path('challenge.txt')) as f:
+        with open(self.file_path('challenge.txt'), encoding=ENCODING) as f:
             return f.read()
     subject = lazy_attr('_subject_', _get_subject)
 
@@ -194,10 +197,10 @@ class Problem:
         subject_path_md = self.file_path('subject.md')
         subject_path_txt = self.file_path('subject.txt')
         if os.path.exists(subject_path_md):
-            with open(subject_path_md) as f:
+            with open(subject_path_md, encoding=ENCODING) as f:
                 return f.read(), 'markdown'
         elif os.path.exists(subject_path_txt):
-            with open(subject_path_txt) as f:
+            with open(subject_path_txt, encoding=ENCODING) as f:
                 return f.read(), 'html'
     subject = lazy_attr('_subject_', _get_subject)
 
@@ -206,7 +209,7 @@ class Problem:
         for item in os.listdir(self.file_path()):
             full_path = self.file_path(item)
             if item.endswith('.in') or item.endswith('.out'):
-                with open(full_path) as f:
+                with open(full_path, encoding=ENCODING) as f:
                     tests[item] = f.read()
         return tests
     tests = lazy_attr('_tests_', _get_tests)
@@ -247,13 +250,13 @@ class Problem:
         samples = []
         for sample in str(self.properties.get('samples', '')).split():
             try:
-                with open(self.file_path(sample) + '.in') as f:
+                with open(self.file_path(sample) + '.in', encoding=ENCODING) as f:
                     sample_in = f.read()
-                with open(self.file_path(sample) + '.out') as f:
+                with open(self.file_path(sample) + '.out', encoding=ENCODING) as f:
                     sample_out = f.read()
                 sample_comment = ''
                 try:
-                    with open(self.file_path(sample) + '.comment') as f:
+                    with open(self.file_path(sample) + '.comment', encoding=ENCODING) as f:
                         sample_comment = f.read()
                 except IOError:
                     pass
