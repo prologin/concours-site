@@ -17,8 +17,8 @@ class SearchForm(forms.Form):
                                             (Event.Type.semifinal.name, Event.Type.label_for(Event.Type.semifinal))],
                                    required=False,
                                    label=_("Event type"))
-    difficulty_min = forms.IntegerField(min_value=1, max_value=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
-                                        initial=1,
+    difficulty_min = forms.IntegerField(min_value=0, max_value=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
+                                        initial=0,
                                         required=False,
                                         label=_("Minimum difficulty"))
     difficulty_max = forms.IntegerField(min_value=1, max_value=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
