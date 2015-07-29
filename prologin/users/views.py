@@ -13,6 +13,7 @@ from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 import django.contrib.auth.forms
+from zinnia.models.author import Author
 
 from prologin.email import send_email
 from prologin.utils import absolute_site_url
@@ -136,6 +137,7 @@ class ProfileView(DetailView):
     template_name = 'users/profile.html'
 
     def get_queryset(self):
+        self.author = Author(pk=self.kwargs[self.pk_url_kwarg])
         return super().get_queryset().prefetch_related(
             Prefetch('team_memberships',
                      queryset=team.models.TeamMember.objects.select_related('role__name')))
@@ -143,6 +145,7 @@ class ProfileView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         shown_user = context[self.context_object_name]
+        context['shown_author'] = self.author
         context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
         return context
 

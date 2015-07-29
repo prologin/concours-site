@@ -66,11 +66,23 @@
 				{% if team_memberships %}
 					<h3>{% trans "Staff roles" %}</h3>
 					{% for membership in team_memberships|dictsortreversed:'year' %}
-						<a href="{% url 'team:year' membership.year %}#m{{ shown_user.pk }}" class="btn btn-default">{% blocktrans with year=membership.year role=membership.role %}{{ year }} ⋅ {{ role }}{% endblocktrans %}</a>
+						<a href="{% url 'team:year' membership.year %}#m{{ shown_user.pk }}" class="btn btn-default staff-flair-{{ membership.role.name|slugify }}">{% blocktrans with year=membership.year role=membership.role %}{{ year }} ⋅ {{ role }}{% endblocktrans %}</a>
 					{% endfor %}
 				{% endif %}
 			{% endwith %}
 
+			{% with shown_author.entries_published.all as entries_published %}
+				{% if entries_published %}
+					<h3>{% trans "Latest news entries" %}</h3>
+					<ul class="nav nav-stacked">
+					{% for entry in entries_published|slice:":10" %}
+						<li><a href="{{ entry.get_absolute_url }}">
+							<span class="text-muted">{{ entry.creation_date|date:"DATE_FORMAT" }} ⋅</span> {{ entry.title }}</a>
+						</li>
+					{% endfor %}
+					</ul>
+				{% endif %}
+			{% endwith %}
 		</div>
 
 		<div class="col-sm-4">

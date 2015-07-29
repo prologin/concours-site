@@ -11,7 +11,7 @@
 {% endblock breadcrumbs %}
 
 {% block body_tag %}data-spy="scroll" data-target="#problem-nav"{% endblock %}
-{% block title %}{{ problem.title }}{% endblock %}
+{% block title %}{{ problem.title }} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 	<div class="row">

@@ -81,7 +81,7 @@
     <ul>
       {% for entry in entry_related %}
       <li>
-	<a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" rel="bookmark">{{ entry.title }}</a>
+        <a href="{{ entry.get_absolute_url }}" title="{{ entry.title }}" rel="bookmark">{{ entry.title }}</a>
       </li>
       {% endfor %}
     </ul>
@@ -109,9 +109,9 @@
     <li id="pingback-{{ pingback.pk }}" class="pingback vcard {% cycle box1,box2 %}">
       {% block pingback-info %}
       <p class="pingback-info">
-	<a href="{{ pingback.url }}" rel="external nofollow"
+        <a href="{{ pingback.url }}" rel="external nofollow"
            class="fn url org">{{ pingback.name }}</a>
-	{% trans "on" context "on date" %}
+        {% trans "on" context "on date" %}
         <abbr class="pingback-published" title="{{ pingback.submit_date|date:"c" }}">
           {{ pingback.submit_date|date:"SHORT_DATETIME_FORMAT" }}
         </abbr>
@@ -122,7 +122,7 @@
       {% endblock pingback-info %}
       {% block pingback-content %}
       <p class="pingback-content">
-	{{ pingback.comment }}
+        {{ pingback.comment }}
       </p>
       {% endblock pingback-content %}
     </li>
@@ -153,9 +153,9 @@
     <li id="trackback-{{ trackback.pk }}" class="trackback vcard {% cycle box1,box2 %}">
       {% block trackback-info %}
       <p class="trackback-info">
-	<a href="{{ trackback.url }}" rel="external nofollow"
+        <a href="{{ trackback.url }}" rel="external nofollow"
            class="fn url org">{{ trackback.name }}</a>
-	{% trans "on" context "on date" %}
+       {% trans "on" context "on date" %}
         <abbr class="trackback-published" title="{{ trackback.submit_date|date:"c" }}">
           {{ trackback.submit_date|date:"SHORT_DATETIME_FORMAT" }}
         </abbr>
@@ -166,7 +166,7 @@
       {% endblock trackback-info %}
       {% block trackback-content %}
       <p class="trackback-content">
-	{{ trackback.comment }}
+        {{ trackback.comment }}
       </p>
       {% endblock trackback-content %}
     </li>

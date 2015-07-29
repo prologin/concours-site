@@ -371,8 +371,11 @@ footer .legal {
 .entry-meta-line {
 	position: relative;
 	padding-left: 2em;
-	/*border-left: 4px solid #ddd;*/
-	/*border-radius: 0 0 0 8px;*/
+	padding-bottom: 1em;
+}
+
+.entry-meta-line p {
+	margin: 0;
 }
 
 .news-entry {
@@ -536,4 +539,29 @@ footer .legal {
 
 .sidebar-affix.affix-bottom {
 	position: absolute;
+}
+
+@keyframes staff-flair-president {
+	0% { left: -50%; }
+	100% { left: 600%; }
+}
+.staff-flair-president {
+	position: relative;
+	overflow: hidden;
+	background-color: palegoldenrod;
+}
+
+.staff-flair-president:after {
+	position: absolute;
+	content: '';
+	top: -50px;
+	height: 100px;
+	width: 10px;
+	transform: rotate(45deg);
+	background: linear-gradient(to right, palegoldenrod, goldenrod, palegoldenrod);
+	opacity: 0.3;
+	animation-timing-function: ease-in;
+	animation-name: staff-flair-president;
+	animation-duration: 4s;
+	animation-iteration-count: infinite;
 }
