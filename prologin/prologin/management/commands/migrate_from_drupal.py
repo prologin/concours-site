@@ -199,7 +199,7 @@ class Command(LabelCommand):
                 if res:
                     self.stdout.write("Fetched picture for {}".format(user))
                 elif res is False:
-                    self.stdout.write("Could not fetch picture for {}".format(user))
+                    self.stderr.write("Could not fetch picture for {}".format(user))
 
             # Official profile picture
             if user.team_memberships.count():
@@ -208,7 +208,7 @@ class Command(LabelCommand):
                 if res:
                     self.stdout.write("Fetched official picture for {}".format(user))
                 elif res is False:
-                    self.stdout.write("Could not fetch official picture for {}".format(user))
+                    self.stderr.write("Could not fetch official picture for {}".format(user))
 
         self.stdout.write("Migrating user avatars and official pictures")
         with self.mysql.cursor() as c:
@@ -343,10 +343,10 @@ class Command(LabelCommand):
                                 try:
                                     code = code.decode(chardet.detect(code)['encoding'])
                                 except TypeError:  # 'encoding' is None
-                                    self.stdout.write("{}: chardet could not detect encoding".format(fname))
+                                    self.stderr.write("{}: chardet could not detect encoding".format(fname))
                                     continue
                                 except UnicodeDecodeError:
-                                    self.stdout.write("{}: chardet made a mistake".format(fname))
+                                    self.stderr.write("{}: chardet made a mistake".format(fname))
                                     continue
 
                             submission_code, created = problems.models.SubmissionCode.objects.get_or_create(
