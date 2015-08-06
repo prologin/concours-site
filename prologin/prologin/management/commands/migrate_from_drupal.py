@@ -1,4 +1,6 @@
+import concurrent.futures
 import itertools
+import operator
 import os
 
 from django import db
@@ -18,58 +20,58 @@ GENDER_PARSE = (lambda e: prologin.models.Gender.male.value if e == 'Monsieur'
                 else prologin.models.Gender.female.value if e in ('Madame', 'Mademoiselle')
                 else None)
 
-USER_QUERY = """
-SELECT
-  u.uid,
-  status,
-  name,
-  mail,
-  signature,
-  timezone,
-  picture,
-  training_language,
-  u.pass                                        AS password,   # pass is a reserved keyword
-  u.birthday                                    AS u_birthday,
-  IF(created > 0, FROM_UNIXTIME(created), NULL) AS created,
-  IF(access > 0, FROM_UNIXTIME(access), NULL)   AS access,
-  IF(login > 0, FROM_UNIXTIME(login), NULL)     AS login,
-  NOT(ISNULL(urc.uid))                          AS is_staff,
-  NOT(ISNULL(ura.uid))                          AS is_superuser,
-  pvg.value                                     AS gender,
-  pvln.value                                    AS ln,
-  pvfn.value                                    AS fn,
-  pvbd.value                                    AS p_birthday,
-  pvp.value                                     AS country,
-  pvl.value                                     AS grade,
-  pvaa.value                                    AS a_addr,
-  pvap.value                                    AS a_code,
-  pvac.value                                    AS a_city,
-  NOT (pvnm.value)                              AS mailing,
-  pvph.value                                    AS phone
-FROM users u
-  LEFT JOIN users_roles urc ON urc.uid = u.uid AND urc.rid = 6
-  LEFT JOIN users_roles ura ON ura.uid = u.uid AND ura.rid = 7
-  LEFT JOIN profile_values pvg ON pvg.uid = u.uid AND pvg.fid = 1
-  LEFT JOIN profile_values pvln ON pvln.uid = u.uid AND pvln.fid = 2
-  LEFT JOIN profile_values pvfn ON pvfn.uid = u.uid AND pvfn.fid = 3
-  LEFT JOIN profile_values pvbd ON pvbd.uid = u.uid AND pvbd.fid = 5
-  LEFT JOIN profile_values pvp ON pvp.uid = u.uid AND pvp.fid = 6
-  LEFT JOIN profile_values pvl ON pvl.uid = u.uid AND pvl.fid = 7
-  LEFT JOIN profile_values pvaa ON pvaa.uid = u.uid AND pvaa.fid = 8
-  LEFT JOIN profile_values pvap ON pvap.uid = u.uid AND pvap.fid = 9
-  LEFT JOIN profile_values pvac ON pvac.uid = u.uid AND pvac.fid = 10
-  LEFT JOIN profile_values pvnm ON pvnm.uid = u.uid AND pvnm.fid = 11
-  LEFT JOIN profile_values pvph ON pvph.uid = u.uid AND pvph.fid = 12
-WHERE u.name IS NOT NULL AND u.name != '' AND u.mail != '' AND u.pass != ''
-GROUP BY u.uid
-ORDER BY u.uid ASC
-"""
-
 
 class Command(LabelCommand):
     help = "Move data from old, shitty MySQL/Drupal database to the shinny new Postgres/Django one."
 
     def migrate_users(self):
+        USER_QUERY = """
+        SELECT
+          u.uid,
+          status,
+          name,
+          mail,
+          signature,
+          timezone,
+          picture,
+          training_language,
+          u.pass                                        AS password,   # pass is a reserved keyword
+          u.birthday                                    AS u_birthday,
+          IF(created > 0, FROM_UNIXTIME(created), NULL) AS created,
+          IF(access > 0, FROM_UNIXTIME(access), NULL)   AS access,
+          IF(login > 0, FROM_UNIXTIME(login), NULL)     AS login,
+          NOT(ISNULL(urc.uid))                          AS is_staff,
+          NOT(ISNULL(ura.uid))                          AS is_superuser,
+          pvg.value                                     AS gender,
+          pvln.value                                    AS ln,
+          pvfn.value                                    AS fn,
+          pvbd.value                                    AS p_birthday,
+          pvp.value                                     AS country,
+          pvl.value                                     AS grade,
+          pvaa.value                                    AS a_addr,
+          pvap.value                                    AS a_code,
+          pvac.value                                    AS a_city,
+          NOT (pvnm.value)                              AS mailing,
+          pvph.value                                    AS phone
+        FROM users u
+          LEFT JOIN users_roles urc ON urc.uid = u.uid AND urc.rid = 6
+          LEFT JOIN users_roles ura ON ura.uid = u.uid AND ura.rid = 7
+          LEFT JOIN profile_values pvg ON pvg.uid = u.uid AND pvg.fid = 1
+          LEFT JOIN profile_values pvln ON pvln.uid = u.uid AND pvln.fid = 2
+          LEFT JOIN profile_values pvfn ON pvfn.uid = u.uid AND pvfn.fid = 3
+          LEFT JOIN profile_values pvbd ON pvbd.uid = u.uid AND pvbd.fid = 5
+          LEFT JOIN profile_values pvp ON pvp.uid = u.uid AND pvp.fid = 6
+          LEFT JOIN profile_values pvl ON pvl.uid = u.uid AND pvl.fid = 7
+          LEFT JOIN profile_values pvaa ON pvaa.uid = u.uid AND pvaa.fid = 8
+          LEFT JOIN profile_values pvap ON pvap.uid = u.uid AND pvap.fid = 9
+          LEFT JOIN profile_values pvac ON pvac.uid = u.uid AND pvac.fid = 10
+          LEFT JOIN profile_values pvnm ON pvnm.uid = u.uid AND pvnm.fid = 11
+          LEFT JOIN profile_values pvph ON pvph.uid = u.uid AND pvph.fid = 12
+        WHERE u.name IS NOT NULL AND u.name != '' AND u.mail != '' AND u.pass != ''
+        GROUP BY u.uid
+        ORDER BY u.uid ASC
+        """
+
         self.stdout.write("Migrating users")
 
         def looks_like_bot(user):
@@ -152,7 +154,6 @@ class Command(LabelCommand):
 
     def migrate_user_pictures(self):
         import requests
-        from concurrent.futures import ThreadPoolExecutor
         from django.core.files.base import ContentFile
 
         BASE_URL = "http://prologin.org/"
@@ -214,8 +215,8 @@ class Command(LabelCommand):
         with self.mysql.cursor() as c:
             c.execute(QUERY)
             users = list(namedcolumns(c))
-            with ThreadPoolExecutor(max_workers=4) as executor:
-                executor.map(handle_user, users)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            executor.map(handle_user, users)
 
     def migrate_examcenters(self):
         import centers.models
@@ -300,64 +301,108 @@ class Command(LabelCommand):
                                   the file naming scheme is 'challenge-problem-user.ext'.
         """
         import problems.models
+        from collections import Counter
         import chardet  # so we can still use a nice TextField(), not a BinaryField(), to store codes
+
+        SUBMISSION_QUERY = """
+        SELECT uid, challenge, problem,
+               MAX(score) AS score,
+               MAX(malus) AS malus,
+               MAX(timestamp) AS timestamp
+        FROM training_access
+        GROUP BY uid, challenge, problem
+        ORDER BY uid, challenge, problem
+        """
 
         self.stdout.write("Migrating problem submissions")
 
+        code_archive_path = os.path.abspath(code_archive_path)
+        all_files = set(os.listdir(code_archive_path))
+        lang_stats = Counter()
+        chardet_stats = Counter()
+
+        if len(all_files) < 100:
+            self.stderr.write("There are less than 100 files in {}. You must have given the wrong path."
+                              .format(code_archive_path))
+            return
+
+        self.stdout.write("Found {} files".format(len(all_files)))
+
         def get_codes(user, submission):
             pattern = '{}-{}-{}'.format(submission.challenge, submission.problem, user.username)
-            pattern = os.path.join(code_archive_path, pattern)
             for ext, lang in map_from_legacy_language.mapping.items():
                 fname = pattern + ext
-                if os.path.exists(fname):
+                if fname in all_files:
                     yield (fname, lang.name)
 
-        with self.mysql.cursor() as c:
-            c.execute("SELECT * FROM training_access ORDER BY uid")
-            for uid, rows in itertools.groupby(list(namedcolumns(c)), lambda r: int(r.uid)):
-                try:
-                    user = User.objects.get(pk=uid)
-                except User.DoesNotExist:
-                    self.stdout.write("User id {} does not exist in migrated DB".format(uid))
-                    continue
+        def retrieve_submissions():
+            with self.mysql.cursor() as c:
+                c.execute(SUBMISSION_QUERY)
+                user_to_rows = {uid: list(rows)
+                                for uid, rows
+                                in itertools.groupby(list(namedcolumns(c)), lambda r: int(r.uid))}
+                for user in User.objects.filter(pk__in=user_to_rows.keys()):
+                    for row in user_to_rows[user.pk]:
+                        yield user, row
 
-                for row in rows:
-                    # is_dst not available in Django 1.8 make_aware(). Fuck this.
-                    # date = timezone.make_aware(row.timestamp, CURRENT_TIMEZONE, is_dst=True)
-                    date = CURRENT_TIMEZONE.localize(row.timestamp, is_dst=True)
-                    submission, created = problems.models.Submission.objects.get_or_create(
-                        user=user,
-                        challenge=row.challenge,
-                        problem=row.problem)
-                    if not created:
+        def handle_submission(args):
+            user, row = args
+            submission = problems.models.Submission(user=user,
+                                                    challenge=row.challenge,
+                                                    problem=row.problem,
+                                                    score_base=row.score,
+                                                    malus=row.malus)
+            submission.save()
+            # is_dst not available in Django 1.8 make_aware(). Fuck this.
+            # date = timezone.make_aware(row.timestamp, CURRENT_TIMEZONE, is_dst=True)
+            date = CURRENT_TIMEZONE.localize(row.timestamp, is_dst=True)
+            return user, submission, date
+
+        def handle_submission_codes(args):
+            user, submission, date = args
+            i = 0
+            fnames = set()
+            for i, (fname, lng) in enumerate(get_codes(user, submission)):
+                with open(os.path.join(code_archive_path, fname), 'rb') as f:
+                    code = f.read()
+                    try:
+                        encoding = chardet.detect(code)['encoding']
+                        code = code.decode(encoding)
+                        chardet_stats[encoding] += 1
+                        lang_stats[lng] += 1
+                    except TypeError:  # 'encoding' is None
+                        self.stderr.write("{}: chardet could not detect encoding".format(fname))
+                        continue
+                    except UnicodeDecodeError:
+                        self.stderr.write("{}: chardet made a mistake".format(fname))
                         continue
 
-                    submission.score_base = row.score
-                    submission.malus = row.malus
-                    submission.save()
-                    with db.transaction.atomic():
-                        i = 0
-                        for i, (fname, lng) in enumerate(get_codes(user, submission)):
-                            with open(fname, 'rb') as f:
-                                code = f.read()
-                                try:
-                                    code = code.decode(chardet.detect(code)['encoding'])
-                                except TypeError:  # 'encoding' is None
-                                    self.stderr.write("{}: chardet could not detect encoding".format(fname))
-                                    continue
-                                except UnicodeDecodeError:
-                                    self.stderr.write("{}: chardet made a mistake".format(fname))
-                                    continue
+                submission_code = problems.models.SubmissionCode(submission=submission,
+                                                                 code=code,
+                                                                 language=lng,
+                                                                 date_submitted=date)
+                submission_code.save()
+                fnames.add(fname)
+            if i:
+                self.stdout.write("{} {}: {}".format(user.username, submission, i))
+            return fnames
 
-                            submission_code, created = problems.models.SubmissionCode.objects.get_or_create(
-                                submission=submission,
-                                code=code,
-                                language=lng,
-                                date_submitted=date)
-                            submission_code.save()
+        user_submissions = retrieve_submissions()
 
-                        if i:
-                            self.stdout.write("{} {}: {}".format(user.username, submission, i))
+        with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
+            self.stdout.write("Creating submissions")
+            with db.transaction.atomic():
+                submissions = executor.map(handle_submission, user_submissions)
+            self.stdout.write("Submission committed. Creating submission codes")
+            with db.transaction.atomic():
+                used_fname_sets = executor.map(handle_submission_codes, submissions)
+            self.stdout.write("Codes committed.")
+
+        used_fnames = functools.reduce(operator.or_, used_fname_sets)
+        unused_fnames = all_files - used_fnames
+        self.stdout.write("\n{} source code files were rejected or unused.\n".format(len(unused_fnames)))
+        self.stdout.write("Source encoding stats: {!r}\n".format(chardet_stats))
+        self.stdout.write("Source language stats: {!r}".format(lang_stats))
 
     def migrate_news(self):
         from zinnia.models import Entry
@@ -423,11 +468,5 @@ class Command(LabelCommand):
             self.stderr.write("Available migrations: {}".format(", ".join(labels)))
             raise CommandError("No such migration: {}".format(label))
 
-        # check if we can access the legacy db
         self.mysql = db.connections['mysql_legacy']
-        with self.mysql.cursor() as c:
-            c.execute('SHOW TABLES')
-            tables = c.fetchall()
-        self.stdout.write("Found {} tables".format(len(tables)))
-
         func(*args)
