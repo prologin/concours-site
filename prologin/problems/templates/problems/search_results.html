@@ -17,7 +17,7 @@
 
 	<div class="list-group">
 		<div class="list-group-item list-group-item-info">
-			{% blocktrans count problems|length as count %}Found {{ count }} problem{% plural %}Found {{ count }} problems{% endblocktrans %}
+			{% blocktrans with page_obj.paginator.count as count and page_obj.start_index as from and page_obj.end_index as to %}Problems {{ from }}-{{ to }} of {{ count }}{% endblocktrans %}
 		</div>
 		{% with show_challenge=True %}
 		{% for problem in page_obj %}

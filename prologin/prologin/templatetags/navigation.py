@@ -15,3 +15,10 @@ def active(context, pattern_or_urlname):
     if re.search(pattern, path):
         return 'active'
     return ''
+
+
+@register.simple_tag(takes_context=True)
+def url_args_replace(context, field, value):
+    get = context['request'].GET.copy()
+    get[field] = value
+    return get.urlencode()

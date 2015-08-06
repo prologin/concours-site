@@ -21,7 +21,7 @@ class SearchForm(forms.Form):
                                         initial=0,
                                         required=False,
                                         label=_("Minimum difficulty"))
-    difficulty_max = forms.IntegerField(min_value=1, max_value=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
+    difficulty_max = forms.IntegerField(min_value=0, max_value=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
                                         initial=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
                                         required=False,
                                         label=_("Maximum difficulty"))
@@ -31,7 +31,7 @@ class SearchForm(forms.Form):
 
     def clean(self):
         cd = self.cleaned_data
-        if cd['difficulty_min'] and cd['difficulty_max'] and cd['difficulty_min'] > cd['difficulty_max']:
+        if cd['difficulty_min'] is not None and cd['difficulty_max'] is not None and cd['difficulty_min'] > cd['difficulty_max']:
             cd['difficulty_min'], cd['difficulty_max'] = cd['difficulty_max'], cd['difficulty_min']
         return cd
 

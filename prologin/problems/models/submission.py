@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from prologin.languages import Language
@@ -42,10 +43,11 @@ class SubmissionCode(models.Model):
     submission = models.ForeignKey(Submission, related_name='codes')
     language = CodingLanguageField()
     code = models.TextField()
+    summary = models.TextField(blank=True)
     score = models.IntegerField(null=True, blank=True)
     exec_time = models.IntegerField(null=True, blank=True)
     exec_memory = models.IntegerField(null=True, blank=True)
-    date_submitted = models.DateTimeField(auto_now_add=True)
+    date_submitted = models.DateTimeField(default=timezone.now)
 
     def done(self):
         return self.score is not None
@@ -71,3 +73,11 @@ class SubmissionCode(models.Model):
         verbose_name_plural = _("Submission codes")
         get_latest_by = 'date_submitted'
         ordering = ('-' + get_latest_by,)
+
+
+class SubmissionCodeChoice(models.Model):
+    submission = models.ForeignKey(Submission, related_name='submission_choices')
+    code = models.ForeignKey(SubmissionCode, related_name='submission_code_choices')
+
+    class Meta:
+        unique_together = [('submission', 'code')]

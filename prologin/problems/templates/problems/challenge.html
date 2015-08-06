@@ -20,7 +20,7 @@
 
 	<div class="list-group">
 		<div class="list-group-item list-group-item-info">
-			{% trans "The problems" %}
+			{% blocktrans count problems|length as count %}The problem{% plural %}The {{ count }} problems{% endblocktrans %}
 			<span class="badge alert-info">
 				{% if request.user.is_authenticated %}
 					{% if challenge_done %}{% trans "Congrats, you solved all the problems!" %} ⋅{% endif %}
