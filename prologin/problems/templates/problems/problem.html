@@ -67,14 +67,64 @@
 			<article class="problem-submit" id="submit">
 				<h2>{% trans "Submit your solution" %}</h2>
 				{% if request.user.is_authenticated %}
-					<div style="min-height: 1000px;"></div>
+					<p><small class="text-muted">{% trans "You can write your solution in the area below or use your favorite editor and upload a file. Don't forget to set the right language using the dropdown next to the “Submit” button." %}</small></p>
+					<div class="panel panel-default">
+						<form method="POST" id="editor-form" class="form-inline">
+						<div class="panel-body">
+							<select id="code-editor-theme" class="hide">{# filled by Javascript from Ace themelist #}</select>
+							<select id="code-editor-font-size" class="hide">
+								<option value="11">11px</option>
+								<option value="12" selected>12px</option>
+								<option value="14">14px</option>
+								<option value="18">18px</option>
+							</select>
+
+							<textarea name="code" class="clearfix form-control" style="margin-top: 15px; font-family: monospace;" rows="20"></textarea>
+							<div id="code-editor" class="code-editor" style="border-top: 1px solid #ddd; margin: 15px -15px -15px -15px;"></div>
+						</div>
+						<div class="panel-footer">
+							<div class="row">
+								<div class="col-md-7">
+									<small>{% trans "Upload a file instead" %}</small><br>
+									<input type="file" name="sourcefile" class="form-control" title="{% trans "Upload a source file" %}"/>
+								</div>
+								<div class="col-md-5 text-right">
+									<select name="language" style="width: auto;" class="form-control">{% for lng in languages %}
+										<option value="{{ lng.name }}" data-mode="{{ lng.value.ace_mode }}" {% if lng.value.correctable %}data-correctable{% endif %}>{{ lng.value.name }}</option>
+									{% endfor %}</select>
+									<button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> {% trans "Submit" %}</button>
+								</div>
+							</div>
+						</div>
+						</form>
+					</div>
+
+					<div class="panel panel-default">
+						<div class="panel-heading">{% trans "Submission history" %}</div>
+						<div class="panel-body">
+							<div class="submission-history">
+								<ul class="submission-history-inner">{% spaceless %}
+									<li class="submission-history-item">
+										<div class="side"><i class="fa fa-code"></i></div>
+										<a href="#">{% trans "Current version" %}</a><br>
+										<span class="text-muted">{% trans "Just now" %}</span>
+									</li>
+								{% for i in "abcdef" %}
+									<li class="submission-history-item">
+										<div class="side {% cycle 'valid' 'invalid' %}"><i class="fa fa-check-circle-o"></i></div>
+										<a href="#">Version #{{ i }}</a><br>
+										<span class="text-muted">2015-06-12 08:49</span>
+									</li>
+								{% endfor %}{% endspaceless %}
+								</ul>
+							</div>
+						</div>
+					</div>
+
 				{% else %}
 					{% url 'users:register' as register %}
 					{% url 'users:login' as login %}
-					<p class="alert alert-warning">{% blocktrans with register as register %}You have to
-						<a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit
-						your
-						solution.{% endblocktrans %}</p>
+					<p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your solution.{% endblocktrans %}</p>
 				{% endif %}
 			</article>
 		</div>
@@ -88,25 +138,19 @@
 					<li><a href="#submit">{% trans "Submit your solution" %}</a></li>
 				</ul>
 			</nav>
-			<nav class="hidden-print hidden-xs hidden-sm sidebar-affix" id="problem-submission-nav" style="margin-top: 1em">
-				<ul class="list-group">
-					<li class="list-group-item">Cras justo odio</li>
-					<li class="list-group-item">Dapibus ac facilisis in</li>
-					<li class="list-group-item">Morbi leo risus</li>
-					<li class="list-group-item">Porta ac consectetur ac</li>
-					<li class="list-group-item">Vestibulum at eros</li>
-				</ul>
-			</nav>
 		</div>
 	</div>
 
 {% endblock %}
 
 {% block extra_script %}
+	<script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ace.js' %}"></script>
+	<script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ext-themelist.js' %}"></script>
+	<script type="text/javascript" charset="utf-8" src="{% static 'problems/js/code-editor.js' %}"></script>
 	<script type="text/javascript">
 	$(function() {
-		var wtf;
-		var $nav = $('#problem-nav'), $pnav = $('#problem-submission-nav');
+		// Affix navigation
+		var $nav = $('#problem-nav');
 		$nav.affix({
 			offset: {
 				top: function () {
@@ -118,19 +162,6 @@
 					return this.bottom = $('footer').outerHeight(true);
 				}
 			}
-		});
-		$pnav.affix({
-			offset: {
-				top: function () {
-					console.log("wtf", wtf);
-					return this.top = wtf;
-				},
-				bottom: function() {
-					return this.bottom = $('footer').outerHeight(true);
-				}
-			}
-		}).on('affixed-top.bs.affix', function() {
-			$pnav.css('top', $nav.outerHeight(true) + 14);
 		});
 	});
 	</script>

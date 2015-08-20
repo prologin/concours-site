@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 
 from problems.forms import SearchForm
 from contest.models import Event
+from prologin.languages import Language
 import problems.models
 
 
@@ -85,6 +86,7 @@ class Problem(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         year, event_type, challenge = get_challenge(self.kwargs)
+        context['languages'] = list(Language)
         context['challenge'] = challenge
         try:
             context['problem'] = problem = problems.models.Problem(challenge, self.kwargs['problem'])
@@ -97,6 +99,13 @@ class Problem(TemplateView):
         # Could also be written tackled_by.filter(score__gt=0).count() but
         # 1. would do two queries 2. would fail if succeeded() impl changes
         context['meta_solved_by'] = sum(1 for sub in tackled_by if sub.succeeded())
+
+        context['user_submissions'] = None
+        if self.request.user.is_authenticated():
+            context['user_submissions'] = (self.request.user.training_submissions
+                                           .prefetch_related('codes', 'submission_choices')
+                                           .filter(challenge=challenge.name, problem=problem.name)
+                                           .first())
         return context
 
 
@@ -124,9 +133,9 @@ class SearchProblems(ListView):
                 if event_type and challenge.event_type.name == event_type:
                     continue
                 for problem in challenge.problems:
-                    if difficulty_min and problem.difficulty < difficulty_min:
+                    if difficulty_min is not None and problem.difficulty < difficulty_min:
                         continue
-                    if difficulty_max and problem.difficulty > difficulty_max:
+                    if difficulty_max is not None and problem.difficulty > difficulty_max:
                         continue
                     if not query or query in problem.title.lower():
                         filter |= Q(challenge=challenge.name, problem=problem.name)

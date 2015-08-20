@@ -565,3 +565,56 @@ footer .legal {
 	animation-duration: 4s;
 	animation-iteration-count: infinite;
 }
+
+.submission-history {
+	overflow-y: hidden;
+	overflow-x: scroll;
+	height: 70px;
+	box-sizing: content-box;
+	margin: -15px;
+}
+.submission-history-inner {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	white-space: nowrap;
+}
+.submission-history li {
+	position: relative;
+	margin: 0;
+	padding: 0.3em 1em 0.3em 30px;
+	display: inline-block;
+	border-right: 1px solid #ccc;
+	max-width: 20em;
+	text-overflow: ellipsis;
+	overflow: hidden;
+}
+.submission-history li:hover {
+	background: #efefef;
+}
+.submission-history li:last-child {
+	border: none;
+}
+.submission-history li .side {
+	width: 24px;
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	text-align: center;
+	padding: 0.3em 0;
+	color: white;
+	background-color: #444444;
+}
+.submission-history li .side.valid {
+	background-color: #5cb85c; /* success color */
+}
+.submission-history li:hover .side.valid {
+	background-color: #4d994d; /* success color */
+}
+.submission-history li .side.invalid {
+	background-color: #d9534f; /* danger color */
+}
+.submission-history li:hover .side.invalid {
+	background-color: #ba4745; /* danger color */
+}

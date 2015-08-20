@@ -1,0 +1,3 @@
+[submodule "prologin/problems/static/problems/lib/ace"]
+	path = prologin/problems/static/problems/lib/ace
+	url = https://github.com/ajaxorg/ace-builds.git
