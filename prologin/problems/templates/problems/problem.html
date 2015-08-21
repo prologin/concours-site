@@ -67,9 +67,9 @@
 			<article class="problem-submit" id="submit">
 				<h2>{% trans "Submit your solution" %}</h2>
 				{% if request.user.is_authenticated %}
-					<p><small class="text-muted">{% trans "You can write your solution in the area below or use your favorite editor and upload a file. Don't forget to set the right language using the dropdown next to the “Submit” button." %}</small></p>
 					<div class="panel panel-default">
 						<form method="POST" id="editor-form" class="form-inline">
+						{% csrf_token %}
 						<div class="panel-body">
 							<select id="code-editor-theme" class="hide">{# filled by Javascript from Ace themelist #}</select>
 							<select id="code-editor-font-size" class="hide">
@@ -79,22 +79,40 @@
 								<option value="18">18px</option>
 							</select>
 
-							<textarea name="code" class="clearfix form-control" style="margin-top: 15px; font-family: monospace;" rows="20"></textarea>
-							<div id="code-editor" class="code-editor" style="border-top: 1px solid #ddd; margin: 15px -15px -15px -15px;"></div>
+							<div style="margin-top: 15px;">
+								{% if form.code.errors %}<span class="text-danger">
+									{% for error in form.code.errors %}{{ error|escape }} {% endfor %}
+								</span>{% endif %}
+								<textarea name="code" class="clearfix form-control" style="font-family: monospace;" rows="20"></textarea>
+								<div id="code-editor" class="code-editor" style="border-top: 1px solid #ddd; margin: 0 -15px -15px -15px;"></div>
+							</div>
 						</div>
 						<div class="panel-footer">
 							<div class="row">
-								<div class="col-md-7">
-									<small>{% trans "Upload a file instead" %}</small><br>
-									<input type="file" name="sourcefile" class="form-control" title="{% trans "Upload a source file" %}"/>
+								<div class="col-sm-6">
+									<small>{% trans "You can also upload a file instead:" %}</small><br>
+									<input type="file" name="sourcefile" class="form-control" title="{% trans "Upload a source file" %}" style="width: auto;"/>
 								</div>
-								<div class="col-md-5 text-right">
+								<div class="col-sm-6 text-right">
+									<small>{% trans "Select the programming language:" %}</small><br>
+									{% if form.language.errors %}<span class="text-danger">
+										{% for error in form.error.errors %}{{ error|escape }} {% endfor %}
+									</span>{% endif %}
 									<select name="language" style="width: auto;" class="form-control">{% for lng in languages %}
 										<option value="{{ lng.name }}" data-mode="{{ lng.value.ace_mode }}" {% if lng.value.correctable %}data-correctable{% endif %}>{{ lng.value.name }}</option>
 									{% endfor %}</select>
-									<button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> {% trans "Submit" %}</button>
 								</div>
 							</div>
+							<!--<div class="row">
+								<div class="col-xs-12">-->
+									<div class="input-group" style="margin-top: 15px">
+										<input type="text" name="summary" class="form-control" placeholder="{% trans "Optional short summary of your changes" %}"/>
+										<span class="input-group-btn">
+											<button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> {% trans "Submit" %}</button>
+										</span>
+									</div>
+								<!--</div>
+							</div>-->
 						</div>
 						</form>
 					</div>
@@ -106,14 +124,22 @@
 								<ul class="submission-history-inner">{% spaceless %}
 									<li class="submission-history-item">
 										<div class="side"><i class="fa fa-code"></i></div>
-										<a href="#">{% trans "Current version" %}</a><br>
-										<span class="text-muted">{% trans "Just now" %}</span>
+										<a href="#">{% trans "Current version (unsaved)" %}</a><br>
+										<small class="text-muted">
+											<span id="editor-current-lang">{% trans "Unknown language" %}</span> ⋅
+											{% trans "Just now" %}
+										</small>
 									</li>
-								{% for i in "abcdef" %}
+								{% trans "<em>No summary</em>" as no_description %}
+								{% for sub in user_submission.codes.distinct %}
 									<li class="submission-history-item">
-										<div class="side {% cycle 'valid' 'invalid' %}"><i class="fa fa-check-circle-o"></i></div>
-										<a href="#">Version #{{ i }}</a><br>
-										<span class="text-muted">2015-06-12 08:49</span>
+										<div class="side {% if sub.succeeded %}valid{% elif sub.done %}invalid{% endif %}"
+												title="{% if sub.succeeded %}{% trans "Correct solution" %}{% elif sub.done %}{% trans "Invalid solution" %}{% else %}{% trans "Pending or aborted check" %}{% endif %}"><i class="fa fa-{% if sub.succeeded %}check-circle-o{% elif sub.done %}times-circle-o{% else %}clock-o{% endif %}"></i></div>
+										<a href="#">{{ sub.summary|default:no_description }}</a><br>
+										<small class="text-muted">
+											{{ sub.get_language_display }} ⋅
+											<span title="{{ sub.date_submitted|date:'c' }}">{{ sub.date_submitted|date:'SHORT_DATETIME_FORMAT' }}</span>
+										</small>
 									</li>
 								{% endfor %}{% endspaceless %}
 								</ul>

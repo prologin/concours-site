@@ -1,4 +1,9 @@
 (function ($) {
+    // some constants for localStorages
+    var THEME_STORAGE_KEY = 'prologin.code-editor.theme', THEME_DEFAULT = 'monokai';
+    var FONT_SIZE_STORAGE_KEY = 'prologin.code-editor.font-size', FONT_SIZE_DEFAULT = '11';
+
+    // select-to-bootstrap-dropdown jQuery plugin (for graceful degradation)
     $.fn.bootstrapSelect = function (options) {
         var settings = $.extend({
             icon: null,
@@ -52,10 +57,9 @@
 
     $(function () {
         // hide basic textarea
-        $('textarea[name="code"]').hide();
+        var $code_textarea = $('textarea[name="code"]').hide();
         // ACE code editor
         var editor = ace.edit("code-editor");
-        editor.setTheme("ace/theme/monokai");
         editor.setOptions({
             minLines: 30,
             maxLines: 30,
@@ -64,19 +68,22 @@
             showPrintMargin: false,
             autoScrollEditorIntoView: true
         });
-        var theme_list = ace.require("ace/ext/themelist").themesByName;
 
+        var $current_language_label = $('#editor-current-lang');
         $('#editor-form select[name="language"]').bootstrapSelect({
             renderSelect: function ($opt, $el) {
                 $el.text($opt.text()).prepend(' ').prepend($('<i class="fa fa-code"/>'));
             },
             callback: function (item) {
-                var mode = $(item).attr('data-mode');
+                var $item = $(item);
+                var mode = $item.attr('data-mode');
                 editor.getSession().setMode("ace/mode/" + mode);
+                $current_language_label.text($item.text());
             }
         });
 
         // Build the themes select
+        var theme_list = ace.require("ace/ext/themelist").themesByName;
         var $editor_themes = $('#editor-form select#code-editor-theme');
         $.each(theme_list, function(i, theme) {
             $editor_themes.append(
@@ -85,6 +92,8 @@
                     .attr('data-dark', theme.isDark)
                     .text(theme.caption));
         });
+        var preferred_theme = localStorage.getItem(THEME_STORAGE_KEY) || THEME_DEFAULT;
+        $editor_themes.val(preferred_theme).change();
         $editor_themes.bootstrapSelect({
             renderSelect: function ($opt, $el) {
                 $el.text($opt.text()).prepend(' ').prepend($('<i class="fa fa-paint-brush"/>'));
@@ -94,18 +103,30 @@
             },
             callback: function (item) {
                 var name = $(item).attr('value');
+                localStorage.setItem(THEME_STORAGE_KEY, name);
                 editor.setTheme("ace/theme/" + name);
             }
         });
 
-        $('#editor-form select#code-editor-font-size').bootstrapSelect({
+        var $editor_font_sizes = $('#editor-form select#code-editor-font-size');
+        var preferred_font_size = localStorage.getItem(FONT_SIZE_STORAGE_KEY) || FONT_SIZE_DEFAULT;
+        $editor_font_sizes.val(preferred_font_size).change();
+        $editor_font_sizes.bootstrapSelect({
             renderSelect: function ($opt, $el) {
                 $el.text($opt.text()).prepend(' ').prepend($('<i class="fa fa-font"/>'));
             },
             callback: function (item) {
-                var size = parseInt($(item).attr('value'));
-                editor.setFontSize(size);
+                var size = $(item).attr('value');
+                localStorage.setItem(FONT_SIZE_STORAGE_KEY, size);
+                editor.setFontSize(parseInt(size));
             }
+        });
+
+        // store solution in textarea on submit
+        $('#editor-form').submit(function(e) {
+            e.preventDefault();
+            $code_textarea.val(editor.getSession().getDocument().getValue());
+            this.submit();
         });
 
     });

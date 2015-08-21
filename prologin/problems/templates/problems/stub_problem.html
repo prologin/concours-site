@@ -1,16 +1,18 @@
 {% load i18n utils %}
-<a class="list-group-item" href="{% url 'training:problem' problem.challenge.year problem.challenge.event_type.name problem.name %}">
-	<div class="progress" style="width: 100px; float: left; margin-right: 1em"
+<a class="list-group-item clearfix" href="{% url 'training:problem' problem.challenge.year problem.challenge.event_type.name problem.name %}">
+	<div class="col-sm-2 col-xs-2" style="padding: 0"><div class="progress" style="margin: 0"
 		 title="{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %}">
 		<div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
 			 aria-valuemax="100" style="width: {{ problem.percentage_difficulty }}%;">
 		</div>
-	</div>
-	{{ problem.title }}
+	</div></div>
+	<div class="col-sm-8 col-xs-10">{{ problem.title }}
 	{% if show_challenge %}
 		<small class="text-muted">({% blocktrans with challenge=problem.challenge.event_type|choiceenum_label year=problem.challenge.year %}{{ year }} {{ challenge }}{% endblocktrans %})</small>
 	{% endif %}
+	</div>
 	{% if request.user.is_authenticated %}
+		<div class="col-sm-2 col-xs-12 text-right" style="padding: 0">
 		{% if problem.submission %}
 			{% if problem.submission.succeeded %}
 				<span class="badge alert-success">{% blocktrans with score=problem.submission.score %}
@@ -21,5 +23,6 @@
 		{% else %}
 			<span class="badge">{% trans "Not submitted" %}</span>
 		{% endif %}
+	</div>
 	{% endif %}
 </a>

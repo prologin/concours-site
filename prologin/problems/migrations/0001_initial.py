@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
             ],
             options={
                 'verbose_name': 'Submission code',
-                'ordering': ('-date_submitted',),
+                'ordering': ('-date_submitted', '-pk'),
                 'verbose_name_plural': 'Submission codes',
                 'get_latest_by': 'date_submitted',
             },

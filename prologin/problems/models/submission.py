@@ -72,7 +72,7 @@ class SubmissionCode(models.Model):
         verbose_name = _("Submission code")
         verbose_name_plural = _("Submission codes")
         get_latest_by = 'date_submitted'
-        ordering = ('-' + get_latest_by,)
+        ordering = ('-' + get_latest_by, '-pk')
 
 
 class SubmissionCodeChoice(models.Model):

@@ -1,10 +1,10 @@
-from django.views.generic import TemplateView, RedirectView, ListView
+from django.views.generic import TemplateView, RedirectView, ListView, CreateView
 from django.db.models import Q
-from django.http import Http404
+from django.http import Http404, HttpResponseForbidden
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 
-from problems.forms import SearchForm
+from problems.forms import SearchForm, CodeSubmissionForm
 from contest.models import Event
 from prologin.languages import Language
 import problems.models
@@ -80,18 +80,25 @@ class Challenge(TemplateView):
         return context
 
 
-class Problem(TemplateView):
+class Problem(CreateView):
+    form_class = CodeSubmissionForm
+    model = problems.models.SubmissionCode
+    context_object_name = 'submission_form'
     template_name = 'problems/problem.html'
+
+    def get_success_url(self):
+        return reverse('training:problem', kwargs=self.kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         year, event_type, challenge = get_challenge(self.kwargs)
-        context['languages'] = list(Language)
-        context['challenge'] = challenge
         try:
             context['problem'] = problem = problems.models.Problem(challenge, self.kwargs['problem'])
         except ObjectDoesNotExist:
             raise Http404()
+
+        context['languages'] = list(Language)
+        context['challenge'] = challenge
 
         tackled_by = list(problems.models.Submission.objects.filter(challenge=challenge.name,
                                                                     problem=problem.name))
@@ -100,13 +107,25 @@ class Problem(TemplateView):
         # 1. would do two queries 2. would fail if succeeded() impl changes
         context['meta_solved_by'] = sum(1 for sub in tackled_by if sub.succeeded())
 
-        context['user_submissions'] = None
+        user_submission = None
         if self.request.user.is_authenticated():
-            context['user_submissions'] = (self.request.user.training_submissions
-                                           .prefetch_related('codes', 'submission_choices')
-                                           .filter(challenge=challenge.name, problem=problem.name)
-                                           .first())
+            user_submission = (self.request.user.training_submissions
+                               .prefetch_related('codes', 'submission_choices')
+                               .filter(challenge=challenge.name, problem=problem.name)
+                               .first())
+        context['user_submission'] = user_submission
         return context
+
+    def form_valid(self, form):
+        if not self.request.user.is_authenticated():
+            return HttpResponseForbidden()
+        context = self.get_context_data()
+        submission_code = form.save(commit=False)
+        submission_code.submission = context['user_submission']
+        submission_code.save()
+        # TODO: schedule correction, wait for a result a few seconds
+        # redirect to result if got result, redirect to submission if timeout
+        return super().form_valid(form)
 
 
 class SearchProblems(ListView):

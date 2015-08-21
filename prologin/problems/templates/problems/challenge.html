@@ -20,13 +20,17 @@
 
 	<div class="list-group">
 		<div class="list-group-item list-group-item-info">
-			{% blocktrans count problems|length as count %}The problem{% plural %}The {{ count }} problems{% endblocktrans %}
-			<span class="badge alert-info">
+			<div class="row">
+				<div class="col-sm-4">
+					{% blocktrans count problems|length as count %}The problem{% plural %}The {{ count }} problems{% endblocktrans %}
+				</div>
+				<div class="col-sm-8 text-right"><small>
 				{% if request.user.is_authenticated %}
 					{% if challenge_done %}{% trans "Congrats, you solved all the problems!" %} ⋅{% endif %}
 					{% blocktrans with score=challenge_score %}{{ score }} pts{% endblocktrans %}
 				{% endif %}
-			</span>
+				</small></div>
+			</div>
 		</div>
 		{% for problem in problems %}
 			{% include "problems/stub_problem.html" %}

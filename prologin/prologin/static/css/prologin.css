@@ -592,9 +592,6 @@ footer .legal {
 .submission-history li:hover {
 	background: #efefef;
 }
-.submission-history li:last-child {
-	border: none;
-}
 .submission-history li .side {
 	width: 24px;
 	position: absolute;

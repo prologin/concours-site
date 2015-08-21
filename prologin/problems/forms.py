@@ -87,3 +87,9 @@ class ProblemsForm(forms.ModelForm):
 
     def save(self, commit=True):
         return self.instance
+
+
+class CodeSubmissionForm(forms.ModelForm):
+    class Meta:
+        model = problems.models.SubmissionCode
+        fields = ('language', 'code', 'summary')

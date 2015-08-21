@@ -13,11 +13,12 @@
 
 	<h1>{% trans "Training challenges" %}</h1>
 
+	<p class="visible-xs"><a href="#problems"><i class="fa fa-angle-double-down"></i> {% trans "Jump to problem index" %}</a></p>
 	{% include "problems/stub_search_form.html" %}
 
 	{% regroup challenges|dictsortreversed:'year' by year as grouped_challenges %}
 
-	<div class="row">
+	<div class="row" id="problems">
 		{% for grouped_challenge in grouped_challenges %}
 			<div class="col-xs-12 col-sm-6 col-md-4">
 				<div class="challenge-group">
