@@ -113,10 +113,10 @@
 									{% endfor %}</select>
 								</div>
 							</div>
-							<div class="input-group clearfix" style="margin-top: 15px">
-								{# FIXME: this fucking input should be 100% width but for some reason this does not work for > sm screen widths #}
+							{# All the !important CSS fixes are hacks to make the summary field be 100% width even on larges screens (dunno why it does not work out of the box) #}
+							<div class="input-group clearfix" style="margin-top: 15px; vertical-align: inherit!important; width: 100%!important;">
 								<input type="text" name="summary" class="form-control" placeholder="{% trans "Optional short summary of your changes" %}" value="{{ prefill_submission.summary }}"/>
-								<span class="input-group-btn">
+								<span class="input-group-btn" style="width: 1%!important;">
 									<button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> {% trans "Submit" %}</button>
 								</span>
 							</div>

@@ -67,7 +67,6 @@
 	</div>
 
 	{% if submission.done and not submission.expired_result %}
-	<p>{% blocktrans with rem=submission.expired_result_datetime|naturaltime %}The following results will be gone {{ rem }}.{% endblocktrans %}</p>
 	{% with results=submission.correction_results %}
 	<div class="row">
 		<div class="col-md-6">
@@ -96,11 +95,13 @@
 		</div>
 	</div>
 	{% endwith %}
+	<p class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> {% blocktrans with rem=submission.expired_result_datetime|naturaltime %}These results will be gone {{ rem }}.{% endblocktrans %}</p>
 	{% elif submission.expired_result %}
 		<p class="alert alert-info">{% blocktrans %}Submission results are not available anymore. This is because the code was submitted a long time ago.
 			You can still try to submit your code again using the “Edit and submit again” button.{% endblocktrans %}</p>
 	{% else %}
-		<p class="alert alert-info">{% trans "This submission is pending correction." %}</p>
+		<p class="alert alert-info">{% trans "This submission is pending correction. This can take from a few seconds to some minutes." %}</p>
+		<noscript><p class="alert alert-warning">{% trans "Your browser does not support Javascript. You will have to manually reload this page once in a while to check if results have arrived." %}</p></noscript>
 	{% endif %}
 
 {% endblock %}
@@ -113,11 +114,10 @@
 		function check_for_result() {
 			$.getJSON('{% url 'training:ajax-submission-corrected' submission.pk %}')
 					.done(function(has_result) {
-						console.log("Has result?", has_result);
-						if (has_result)
+						if (has_result === true)
 							window.location.reload();
 						else
-							setTimeout(check_for_result, 3000);
+							setTimeout(check_for_result, {% get_setting 'TRAINING_RESULT_POLL_INTERVAL' %});
 					});
 		}
 		check_for_result();

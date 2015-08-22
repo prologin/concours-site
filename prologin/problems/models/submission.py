@@ -95,8 +95,8 @@ class SubmissionCode(models.Model):
                 continue
             result_obj = SubmissionResult(name=result['id'],
                                           success=result['passed'],
-                                          expected=result.get('ref'),
-                                          returned=result.get('program'))
+                                          expected=result.get('ref', ''),
+                                          returned=result.get('program', ''))
             (results_perf if result['performance'] else results_corr).append(result_obj)
         return SubmissionResults(correction=results_corr, performance=results_perf)
 

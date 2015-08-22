@@ -220,11 +220,14 @@ TRAINING_CORRECTORS = (
     'http://ceos.phanes.net:55080/submit',
 )
 
-# How long to wait, in seconds, before displaying the submission result page
+# How long to wait, in seconds, before displaying the submission result page.
 # Don't use a too small value because the corrector system will most of the time
 # not have the time to compile & run the tests.
 # Don't use a too large value because it makes the page load for too long.
 TRAINING_RESULT_TIMEOUT = 3
+# Interval, in milliseconds, between checks for results in the submission page
+# (this is done using Javascript).
+TRAINING_RESULT_POLL_INTERVAL = 3 * 1000
 
 # List of challenges (directory name), eg. ('demi2015', 'qcm2014')
 # Empty list allows everything

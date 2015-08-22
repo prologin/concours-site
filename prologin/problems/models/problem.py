@@ -1,5 +1,5 @@
 import os
-from collections import namedtuple, OrderedDict
+from collections import namedtuple
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist

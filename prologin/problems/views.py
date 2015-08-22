@@ -18,7 +18,7 @@ import problems.models
 
 def get_challenge(kwargs):
     """
-    Load a challenge from URL kwargs.
+    Loads a challenge from URL kwargs.
     """
     year = int(kwargs['year'])
     try:
@@ -36,7 +36,7 @@ def get_challenge(kwargs):
 
 def get_problem(kwargs):
     """
-    Load a problem (and its challenge) from URL kwargs.
+    Loads a problem (and its challenge) from URL kwargs.
     """
     year, event_type, challenge = get_challenge(kwargs)
     try:
@@ -48,7 +48,7 @@ def get_problem(kwargs):
 
 def get_user_submissions(user, extra_filters=Q()):
     """
-    Fetch all submissions for the given user, using extra filters if needed.
+    Fetches all submissions for the given user, using extra filters if needed.
     """
     return (problems.models.Submission.objects
                            .filter(user=user)
@@ -58,7 +58,7 @@ def get_user_submissions(user, extra_filters=Q()):
 
 class Index(TemplateView):
     """
-    The problem index view. Displays a table of challenges grouped by year and the search form.
+    Displays a table of challenges grouped by year and the search form.
     """
     template_name = 'problems/index.html'
 
@@ -71,8 +71,8 @@ class Index(TemplateView):
 
 class Challenge(TemplateView):
     """
-    The challenge index view. Displays the challenge statement and the list of
-    all problems within a challenge along with the user score, if authenticated.
+    Displays the challenge statement and the list of all problems within a
+    challenge along with the user score, if authenticated.
     """
     template_name = 'problems/challenge.html'
     # Event.Type name → (Event.Type, challenge prefix)
@@ -149,15 +149,18 @@ class Problem(CreateView):
         context['user_submission'] = user_submission
 
         # load forked submission if wanted, and if everything is fine (right user)
-        # TODO: allow is_staff to fork other's submissions
+        # staff users can fork (thus see) everyone's submissions
         prefill_submission = None
         try:
-            prefill_submission = (problems.models.SubmissionCode.objects.select_related('submission', 'submission__user')
-                                                                        .get(pk=int(self.request.GET['fork']),
-                                                                             submission__problem=problem.name,
-                                                                             submission__challenge=challenge.name,
-                                                                             submission__user=self.request.user))
-        except (KeyError, ValueError, ObjectDoesNotExist):  # no "fork=", invalid fork id, non-existing fork id
+            prefill_submission = (problems.models.SubmissionCode.objects
+                                  .select_related('submission', 'submission__user')
+                                  .filter(pk=int(self.request.GET['fork']),
+                                          submission__problem=problem.name,
+                                          submission__challenge=challenge.name)
+                                  .filter(Q(submission__user=self.request.user,
+                                            submission__user__is_staff=True))
+                                  .first())
+        except (KeyError, ValueError):  # (no "fork=", non-numeric fork id)
             pass
         context['prefill_submission'] = prefill_submission
 
@@ -199,6 +202,22 @@ class Problem(CreateView):
 
 
 class Submission(DetailView):
+    """
+    Displays a code submission and, if they are still available, the correction & performance results.
+
+    In case the page is rendered before the correction system has finished correcting the program,
+    we use Javascript to regularly ask if the correction is done yet. If it is, we just reload the
+    page.
+
+    The correction & performance results are stored in the Celery backend (typically Redis) and are
+    not supposed to be long-lived. Hence the following cases:
+        - submission is corrected (score is not empty): we display the results if still available
+        - submission is not yet corrected (score is empty):
+            - submission is too old to have any result OR it has not Celery task id, eg. if the
+              submission was imported from legacy Drupal: we explain that to the user
+            - submission is young enough: we display a "waiting" status and try to fetch the result
+              with Javascript
+    """
     model = problems.models.SubmissionCode
     context_object_name = 'submission'
     template_name = 'problems/submission.html'
@@ -216,6 +235,9 @@ class Submission(DetailView):
 
 
 class SearchProblems(ListView):
+    """
+    Searches for problems and display them in a paginated listing.
+    """
     context_object_name = 'problems'
     template_name = 'problems/search_results.html'
     paginate_by = 20
@@ -265,8 +287,16 @@ class SearchProblems(ListView):
 
 
 class AjaxSubmissionCorrected(BaseDetailView):
+    """
+    Ajax endpoint that returns a JSON boolean: true if the given submission is done (i.e. has a score),
+    false otherwise.
+    This is used in the Submission view, to poll for results when they eventually become available.
+    """
     model = problems.models.SubmissionCode
     pk_url_kwarg = 'submission'
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('submission__user').filter(submission__user=self.request.user)
 
     def render_to_response(self, context):
         has_result = self.object.done()
@@ -274,6 +304,10 @@ class AjaxSubmissionCorrected(BaseDetailView):
 
 
 class LegacyChallengeRedirect(RedirectView):
+    """
+    RedirectView for legacy (Drupal) challenge URLs of the form:
+        /challenge/{demi|qcm}{year}
+    """
     permanent = False
     legacy_mapping = {
         'qcm': Event.Type.qualification,
@@ -290,6 +324,10 @@ class LegacyChallengeRedirect(RedirectView):
 
 
 class LegacyProblemRedirect(LegacyChallengeRedirect):
+    """
+    RedirectView for legacy (Drupal) problem URLs of the form:
+        /challenge/{demi|qcm}{year}/{problem-name}
+    """
     def get_redirect_url(self, *args, **kwargs):
         year, event_type = super().parse()
         return reverse('training:problem', kwargs={'year': year,
