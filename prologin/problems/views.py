@@ -66,6 +66,8 @@ class Index(TemplateView):
         context = super().get_context_data(**kwargs)
         context['challenges'] = [c for c in problems.models.Challenge.all() if c.displayable]
         context['search_form'] = SearchForm()
+        if not self.request.user.is_authenticated():
+            del context['search_form'].fields['solved']
         return context
 
 
@@ -245,6 +247,8 @@ class SearchProblems(ListView):
 
     def get(self, request, *args, **kwargs):
         self.form = SearchForm(self.request.GET if self.request.GET else None)
+        if not self.request.user.is_authenticated:
+            del self.form.fields['solved']
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -255,6 +259,13 @@ class SearchProblems(ListView):
             event_type = self.form.cleaned_data['event_type']
             difficulty_min = self.form.cleaned_data['difficulty_min']
             difficulty_max = self.form.cleaned_data['difficulty_max']
+            solved = self.form.cleaned_data['solved']
+            solved_problems = set()
+            if self.request.user.is_authenticated() and solved:
+                solved_problems = set(problems.models.Submission.objects
+                                      .filter(user=self.request.user,
+                                              score_base__gt=0)
+                                      .values_list('challenge', 'problem'))
             for challenge in problems.models.Challenge.all():
                 if not challenge.displayable:
                     continue
@@ -265,6 +276,11 @@ class SearchProblems(ListView):
                         continue
                     if difficulty_max is not None and problem.difficulty > difficulty_max:
                         continue
+                    if solved and solved_problems:
+                        key = (challenge.name, problem.name)
+                        if ((solved == 'solved' and key not in solved_problems)
+                                or solved == 'unsolved' and key in solved_problems):
+                            continue
                     if not query or query in problem.title.lower():
                         filter |= Q(challenge=challenge.name, problem=problem.name)
                         all_results.append(problem)

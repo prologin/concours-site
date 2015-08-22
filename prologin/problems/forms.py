@@ -1,11 +1,11 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
+from django.utils.translation import ugettext_lazy as _
+
 from contest.models import Event
 import contest.models
 import problems.models
 import prologin.languages
-
 
 
 class SearchForm(forms.Form):
@@ -25,6 +25,10 @@ class SearchForm(forms.Form):
                                         initial=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
                                         required=False,
                                         label=_("Maximum difficulty"))
+    solved = forms.ChoiceField(required=False, initial='', label=_("Solved"),
+                               choices=[('', _("All problems")),
+                                        ('solved', _("Problems I solved")),
+                                        ('unsolved', _("Problems I did not solve"))])
 
     def clean_query(self):
         return self.cleaned_data['query'].lower().strip()

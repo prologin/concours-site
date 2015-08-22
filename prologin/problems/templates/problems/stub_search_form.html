@@ -13,6 +13,7 @@
 			{{ search_form.difficulty_max|bootstrap_inline }}
 		</div>
 	</div>
+	{% if search_form.solved %}{{ search_form.solved|bootstrap }}{% endif %}
 	<div class="form-group">
 		<label class="control-label"></label>
 		<div>
