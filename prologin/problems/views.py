@@ -1,16 +1,25 @@
-from django.views.generic import TemplateView, RedirectView, ListView, CreateView
-from django.db.models import Q
-from django.http import Http404, HttpResponseForbidden
+from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.db.models import Q
+from django.http import Http404, HttpResponseForbidden, JsonResponse
+from django.views.generic import TemplateView, RedirectView, ListView, DetailView, CreateView
+from django.views.generic.detail import BaseDetailView
+from django.views.generic.edit import ModelFormMixin
+import celery
+import celery.exceptions
 
-from problems.forms import SearchForm, CodeSubmissionForm
 from contest.models import Event
+from problems.forms import SearchForm, CodeSubmissionForm
 from prologin.languages import Language
+from problems.tasks import submit_problem_code
 import problems.models
 
 
 def get_challenge(kwargs):
+    """
+    Load a challenge from URL kwargs.
+    """
     year = int(kwargs['year'])
     try:
         event_type = Event.Type[kwargs['type']]
@@ -25,14 +34,32 @@ def get_challenge(kwargs):
     return year, event_type, challenge
 
 
-def get_user_submissions(user, filter):
+def get_problem(kwargs):
+    """
+    Load a problem (and its challenge) from URL kwargs.
+    """
+    year, event_type, challenge = get_challenge(kwargs)
+    try:
+        problem = problems.models.Problem(challenge, kwargs['problem'])
+    except ObjectDoesNotExist:
+        raise Http404()
+    return year, event_type, challenge, problem
+
+
+def get_user_submissions(user, extra_filters=Q()):
+    """
+    Fetch all submissions for the given user, using extra filters if needed.
+    """
     return (problems.models.Submission.objects
                            .filter(user=user)
-                           .filter(filter)
+                           .filter(extra_filters)
                            .prefetch_related('codes'))
 
 
 class Index(TemplateView):
+    """
+    The problem index view. Displays a table of challenges grouped by year and the search form.
+    """
     template_name = 'problems/index.html'
 
     def get_context_data(self, **kwargs):
@@ -43,6 +70,10 @@ class Index(TemplateView):
 
 
 class Challenge(TemplateView):
+    """
+    The challenge index view. Displays the challenge statement and the list of
+    all problems within a challenge along with the user score, if authenticated.
+    """
     template_name = 'problems/challenge.html'
     # Event.Type name → (Event.Type, challenge prefix)
     event_category_mapping = {
@@ -63,7 +94,7 @@ class Challenge(TemplateView):
         if self.request.user.is_authenticated():
             # To display user score on each problem
             submissions = get_user_submissions(self.request.user,
-                                               filter=Q(challenge=challenge.name))
+                                               extra_filters=Q(challenge=challenge.name))
             submissions = {sub.problem: sub for sub in submissions}
             for problem in context['problems']:
                 submission = submissions.get(problem.name)
@@ -81,22 +112,24 @@ class Challenge(TemplateView):
 
 
 class Problem(CreateView):
+    """
+    Displays a single problem with its statement, its constraints, its samples
+    and if the user is authenticated, the code editor and her previous submissions.
+    """
     form_class = CodeSubmissionForm
     model = problems.models.SubmissionCode
-    context_object_name = 'submission_form'
     template_name = 'problems/problem.html'
 
     def get_success_url(self):
-        return reverse('training:problem', kwargs=self.kwargs)
+        kwargs = self.kwargs.copy()
+        kwargs['submission'] = self.submission_code.pk
+        return reverse('training:submission', kwargs=kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        year, event_type, challenge = get_challenge(self.kwargs)
-        try:
-            context['problem'] = problem = problems.models.Problem(challenge, self.kwargs['problem'])
-        except ObjectDoesNotExist:
-            raise Http404()
+        year, event_type, challenge, problem = get_problem(self.kwargs)
 
+        context['problem'] = problem
         context['languages'] = list(Language)
         context['challenge'] = challenge
 
@@ -114,18 +147,72 @@ class Problem(CreateView):
                                .filter(challenge=challenge.name, problem=problem.name)
                                .first())
         context['user_submission'] = user_submission
+
+        # load forked submission if wanted, and if everything is fine (right user)
+        # TODO: allow is_staff to fork other's submissions
+        prefill_submission = None
+        try:
+            prefill_submission = (problems.models.SubmissionCode.objects.select_related('submission', 'submission__user')
+                                                                        .get(pk=int(self.request.GET['fork']),
+                                                                             submission__problem=problem.name,
+                                                                             submission__challenge=challenge.name,
+                                                                             submission__user=self.request.user))
+        except (KeyError, ValueError, ObjectDoesNotExist):  # no "fork=", invalid fork id, non-existing fork id
+            pass
+        context['prefill_submission'] = prefill_submission
+
         return context
 
     def form_valid(self, form):
         if not self.request.user.is_authenticated():
             return HttpResponseForbidden()
         context = self.get_context_data()
-        submission_code = form.save(commit=False)
-        submission_code.submission = context['user_submission']
-        submission_code.save()
-        # TODO: schedule correction, wait for a result a few seconds
-        # redirect to result if got result, redirect to submission if timeout
-        return super().form_valid(form)
+        self.submission_code = form.save(commit=False)
+        submission = context['user_submission']
+        if not submission:
+            # first code submission; create parent submission
+            submission = problems.models.Submission(user=self.request.user,
+                                                    challenge=context['challenge'].name,
+                                                    problem=context['problem'].name)
+            submission.save()
+        self.submission_code.submission = submission
+        self.submission_code.celery_task_id = celery.uuid()
+        self.submission_code.save()
+
+        # FIXME: according to the challenge type (qualif, semifinals) we need to
+        # do something different here:
+        #  - check (if training or qualif)
+        #  - check and unlock (if semifinals)
+
+        # schedule correction
+        future = submit_problem_code.apply_async(args=[self.submission_code.pk],
+                                                 task_id=self.submission_code.celery_task_id,
+                                                 throw=False)
+        try:
+            # wait a bit for the result, but not too much to prevent the site from looking buggy
+            future.get(timeout=settings.TRAINING_RESULT_TIMEOUT)
+        except celery.exceptions.TimeoutError:
+            pass
+        # we don't use super() because CreateView.form_valid() calls form.save() which overrides
+        # the code submission, even if it is modified by the correction task!
+        return super(ModelFormMixin, self).form_valid(form)
+
+
+class Submission(DetailView):
+    model = problems.models.SubmissionCode
+    context_object_name = 'submission'
+    template_name = 'problems/submission.html'
+
+    def get_object(self, queryset=None):
+        submission_code = self.model.objects.select_related('submission', 'submission__user').get(pk=self.kwargs['submission'])
+        return submission_code
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        year, event_type, challenge, problem = get_problem(self.kwargs)
+        context['challenge'] = challenge
+        context['problem'] = problem
+        return context
 
 
 class SearchProblems(ListView):
@@ -163,7 +250,7 @@ class SearchProblems(ListView):
         if self.request.user.is_authenticated():
             # To display user score on each problem
             submissions = get_user_submissions(self.request.user,
-                                               filter=filter)
+                                               extra_filters=filter)
             submissions = {(sub.challenge, sub.problem): sub for sub in submissions}
             for problem in all_results:
                 problem.submission = submissions.get((problem.challenge.name, problem.name))
@@ -175,6 +262,15 @@ class SearchProblems(ListView):
         context = super().get_context_data(**kwargs)
         context['search_form'] = self.form
         return context
+
+
+class AjaxSubmissionCorrected(BaseDetailView):
+    model = problems.models.SubmissionCode
+    pk_url_kwarg = 'submission'
+
+    def render_to_response(self, context):
+        has_result = self.object.done()
+        return JsonResponse(has_result, safe=False)
 
 
 class LegacyChallengeRedirect(RedirectView):

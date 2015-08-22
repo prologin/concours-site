@@ -11,6 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 from timezone_field import TimeZoneField
 
 from prologin.models import AddressableModel, GenderField, CodingLanguageField
+from prologin.languages import Language
 from prologin.utils import upload_path
 
 ACTIVATION_TOKEN_LENGTH = 32
@@ -82,6 +83,10 @@ class ProloginUser(AbstractUser, AddressableModel):
 
     # MD5 password from <2015 Drupal website
     legacy_md5_password = models.CharField(max_length=32, blank=True)
+
+    @property
+    def preferred_language_def(self):
+        return Language[self.preferred_language].value
 
     @property
     def plaintext_password(self):

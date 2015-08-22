@@ -37,6 +37,7 @@ class Migration(migrations.Migration):
                 ('language', prologin.models.CodingLanguageField(max_length=64, choices=[('ada', 'Ada'), ('brainfuck', 'Brainfuck'), ('c', 'C'), ('csharp', 'C#'), ('cpp', 'C++'), ('fsharp', 'F#'), ('haskell', 'Haskell'), ('java', 'Java'), ('js', 'Javascript'), ('lua', 'Lua'), ('ocaml', 'OCaml'), ('pascal', 'Pascal'), ('perl', 'Perl'), ('php', 'PHP'), ('pseudocode', 'Pseudocode'), ('python2', 'Python 2'), ('python3', 'Python 3'), ('scheme', 'Scheme'), ('vb', 'VB')], verbose_name='Coding language')),
                 ('code', models.TextField()),
                 ('summary', models.TextField(blank=True)),
+                ('celery_task_id', models.CharField(max_length=128, blank=True)),
                 ('score', models.IntegerField(null=True, blank=True)),
                 ('exec_time', models.IntegerField(null=True, blank=True)),
                 ('exec_memory', models.IntegerField(null=True, blank=True)),

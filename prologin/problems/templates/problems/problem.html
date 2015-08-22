@@ -16,12 +16,17 @@
 {% block content %}
 	<div class="row">
 		<div class="col-md-9" role="main">
-			<h1>{{ problem.title }}</h1>
+			<h1>{{ problem.title }}
+				<small>– {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}</small>
+			</h1>
 
 			<div class="problem-meta-info text-muted">
 				<p>{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %} ⋅
 					{% blocktrans count meta_tackled_by as count %}Tackled by {{ count }} member{% plural %}Tackled by {{ count }} members{% endblocktrans %} ⋅
 					{% blocktrans count meta_solved_by as count %}Solved by {{ count }} member{% plural %}Solved by {{ count }} members{% endblocktrans %}
+				{% if user_submission.succeeded %}⋅ <span class="text-success"><i class="fa fa-check"></i> {% trans "You solved this problem." %}</span>
+				{% elif user_submission %}⋅ <span class="text-warning"><i class="fa fa-times"></i> {% trans "You tackled this problem without success." %}</span>
+				{% endif %}
 				</p>
 			</div>
 
@@ -37,9 +42,9 @@
 				<h3>{% trans "Runtime constraints" %}</h3>
 				<dl class="dl-horizontal">
 					<dt>{% trans "Maximum memory usage" %}</dt>
-					<dd>{% blocktrans with amount=problem.properties.mem %}{{ amount }}kilobytes{% endblocktrans %}</dd>
+					<dd>{% blocktrans with kb=problem.properties.mem %}{{ kb }}&nbsp;kilobytes{% endblocktrans %}</dd>
 					<dt>{% trans "Maximum execution time" %}</dt>
-					<dd>{% blocktrans with amount=problem.properties.time %}{{ amount }}milliseconds{% endblocktrans %}</dd>
+					<dd>{% blocktrans with ms=problem.properties.time %}{{ ms }}&nbsp;milliseconds{% endblocktrans %}</dd>
 				</dl>
 			</article>
 
@@ -67,8 +72,13 @@
 			<article class="problem-submit" id="submit">
 				<h2>{% trans "Submit your solution" %}</h2>
 				{% if request.user.is_authenticated %}
+					{% if user_submission.succeeded %}
+						<p class="alert alert-success"><i class="fa fa-check"></i>
+							{% blocktrans with score=user_submission.score base=user_submission.score_base malus=user_submission.malus %}You already solved this problem. You won <strong>{{ score }}</strong> points for it, which is {{ base }} base points minus {{ malus }} malus points.{% endblocktrans %}</p>
+					{% endif %}
+
 					<div class="panel panel-default">
-						<form method="POST" id="editor-form" class="form-inline">
+						<form method="POST" id="editor-form" class="form-inline" enctype="multipart/form-data">
 						{% csrf_token %}
 						<div class="panel-body">
 							<select id="code-editor-theme" class="hide">{# filled by Javascript from Ace themelist #}</select>
@@ -83,7 +93,7 @@
 								{% if form.code.errors %}<span class="text-danger">
 									{% for error in form.code.errors %}{{ error|escape }} {% endfor %}
 								</span>{% endif %}
-								<textarea name="code" class="clearfix form-control" style="font-family: monospace;" rows="20"></textarea>
+								<textarea name="code" class="clearfix form-control" style="font-family: monospace;" rows="20" data-mode="{{ prefill_submission.language_def.ace_mode }}">{{ prefill_submission.code }}</textarea>
 								<div id="code-editor" class="code-editor" style="border-top: 1px solid #ddd; margin: 0 -15px -15px -15px;"></div>
 							</div>
 						</div>
@@ -99,20 +109,17 @@
 										{% for error in form.error.errors %}{{ error|escape }} {% endfor %}
 									</span>{% endif %}
 									<select name="language" style="width: auto;" class="form-control">{% for lng in languages %}
-										<option value="{{ lng.name }}" data-mode="{{ lng.value.ace_mode }}" {% if lng.value.correctable %}data-correctable{% endif %}>{{ lng.value.name }}</option>
+										<option value="{{ lng.name }}" data-mode="{{ lng.value.ace_mode }}"{% if lng.value.correctable %} data-correctable{% endif %}{% if prefill_submission and prefill_submission.language_def == lng.value or not prefill_submission and request.user.preferred_language_def == lng.value %} selected{% endif %}>{{ lng.value.name }}</option>
 									{% endfor %}</select>
 								</div>
 							</div>
-							<!--<div class="row">
-								<div class="col-xs-12">-->
-									<div class="input-group" style="margin-top: 15px">
-										<input type="text" name="summary" class="form-control" placeholder="{% trans "Optional short summary of your changes" %}"/>
-										<span class="input-group-btn">
-											<button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> {% trans "Submit" %}</button>
-										</span>
-									</div>
-								<!--</div>
-							</div>-->
+							<div class="input-group clearfix" style="margin-top: 15px">
+								{# FIXME: this fucking input should be 100% width but for some reason this does not work for > sm screen widths #}
+								<input type="text" name="summary" class="form-control" placeholder="{% trans "Optional short summary of your changes" %}" value="{{ prefill_submission.summary }}"/>
+								<span class="input-group-btn">
+									<button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> {% trans "Submit" %}</button>
+								</span>
+							</div>
 						</div>
 						</form>
 					</div>
@@ -130,12 +137,12 @@
 											{% trans "Just now" %}
 										</small>
 									</li>
-								{% trans "<em>No summary</em>" as no_description %}
+								{% trans "<em>No summary</em>" as no_summary %}
 								{% for sub in user_submission.codes.distinct %}
 									<li class="submission-history-item">
 										<div class="side {% if sub.succeeded %}valid{% elif sub.done %}invalid{% endif %}"
-												title="{% if sub.succeeded %}{% trans "Correct solution" %}{% elif sub.done %}{% trans "Invalid solution" %}{% else %}{% trans "Pending or aborted check" %}{% endif %}"><i class="fa fa-{% if sub.succeeded %}check-circle-o{% elif sub.done %}times-circle-o{% else %}clock-o{% endif %}"></i></div>
-										<a href="#">{{ sub.summary|default:no_description }}</a><br>
+												title="{% if sub.succeeded %}{% trans "Correct solution" %}{% elif sub.done %}{% trans "Invalid solution" %}{% elif not sub.expired_result %}{% trans "Pending check" %}{% else %}Unavailable status{% endif %}"><i class="fa fa-{% if sub.succeeded %}check-circle-o{% elif sub.done %}times-circle-o{% elif not sub.expired_result %}clock-o{% else %}question{% endif %}"></i></div>
+										<a href="{% url 'training:submission' challenge.year challenge.event_type.name problem.name sub.pk %}">{{ sub.summary|default:no_summary }}</a><br>
 										<small class="text-muted">
 											{{ sub.get_language_display }} ⋅
 											<span title="{{ sub.date_submitted|date:'c' }}">{{ sub.date_submitted|date:'SHORT_DATETIME_FORMAT' }}</span>

@@ -90,6 +90,15 @@ class ProblemsForm(forms.ModelForm):
 
 
 class CodeSubmissionForm(forms.ModelForm):
+    sourcefile = forms.FileField(required=False)
+
     class Meta:
         model = problems.models.SubmissionCode
-        fields = ('language', 'code', 'summary')
+        fields = ('language', 'code', 'summary', 'sourcefile')
+
+    def clean(self):
+        if self.cleaned_data['sourcefile']:
+            # FIXME: DoS hazard, uploaded sourcefile might be huge
+            self.cleaned_data['code'] = self.cleaned_data['sourcefile'].read()
+            self.cleaned_data['sourcefile'] = None
+        return self.cleaned_data

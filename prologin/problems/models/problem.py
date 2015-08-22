@@ -1,5 +1,5 @@
 import os
-from collections import namedtuple
+from collections import namedtuple, OrderedDict
 
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -111,6 +111,12 @@ class Challenge:
         if not os.path.exists(path):
             raise ObjectDoesNotExist("No such Challenge: not such file: {}".format(path))
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return '<Challenge: {} {}>'.format(self.event_type.name, self.year)
+
     def file_path(self, *tail):
         return os.path.abspath(os.path.join(settings.TRAINING_PROBLEM_REPOSITORY_PATH, self._low_level_name, *tail))
 
@@ -186,6 +192,12 @@ class Problem:
         self._challenge = challenge
         self._name = name
 
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return '<Problem: {} in {!r}>'.format(self, self.challenge)
+
     def file_path(self, *tail):
         return self._challenge.file_path(self._name, *tail)
 
@@ -213,6 +225,15 @@ class Problem:
                     tests[item] = f.read()
         return tests
     tests = lazy_attr('_tests_', _get_tests)
+
+    def _get_correction_tests(self):
+        perf_tests = set(self.performance_tests)
+        return sorted(test for test in set(test.split('.', 1)[0] for test in self.tests) if test not in perf_tests)
+    correction_tests = lazy_attr('_correction_tests_', _get_correction_tests)
+
+    def _get_performance_tests(self):
+        return str(self.properties.get('performance', '')).split()
+    performance_tests = lazy_attr('_performance_tests_', _get_performance_tests)
 
     @property
     def challenge(self):

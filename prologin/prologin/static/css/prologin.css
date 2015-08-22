@@ -1,4 +1,4 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto:700,300);
+@import url(https://fonts.googleapis.com/css?family=Roboto:700,300);
 
 /*
  * Page layout
@@ -390,10 +390,6 @@ footer .legal {
 /*
  * Misc
  */
-
-.alert .glyphicon, .alert .fa, .alert button.close {
-	display: table-cell;
-}
 
 .alert div, .alert span {
 	padding-left: 8px;

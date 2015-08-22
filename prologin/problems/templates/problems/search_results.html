@@ -13,9 +13,10 @@
 
 	<h1>{% trans "Search training problems" %}</h1>
 
+	<p class="visible-xs"><a href="#problems"><i class="fa fa-angle-double-down"></i> {% trans "Jump to results" %}</a></p>
 	{% include "problems/stub_search_form.html" %}
 
-	<div class="list-group">
+	<div class="list-group" id="problems">
 		<div class="list-group-item list-group-item-info">
 			{% blocktrans with page_obj.paginator.count as count and page_obj.start_index as from and page_obj.end_index as to %}Problems {{ from }}-{{ to }} of {{ count }}{% endblocktrans %}
 		</div>

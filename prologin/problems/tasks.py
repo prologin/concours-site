@@ -74,10 +74,10 @@ def submit_problem_code(code_submission_id):
         elif this_score == 0 and submission.score_base == 0 and submission.malus < max_malus:
             incr = int(4 ** (difficulty - 1))
             submission.malus += incr
-            logger.debug("Increased malus by %d to %d", incr, submission.malus)
+            logger.info("Increased malus by %d to %d", incr, submission.malus)
 
         code_submission.score = this_score
-        logger.debug("Score is %d", code_submission.score)
+        logger.info("Score is %d", code_submission.score)
         # TODO: implement when data available in VM
         # code_submission.exec_time = get exec_time from `result`
         # code_submission.exec_memory = get exec_memory from `result`
@@ -103,9 +103,9 @@ def submit_problem_code(code_submission_id):
             result = remote_check(uri.geturl(), submission.challenge, submission.problem, code_submission.code,
                                   filename)
             result = parse_xml(result)
-            logger.debug("Raw result: %r", result)
-            problem = submission.problem_specification()
-            difficulty = int(problem['props']['difficulty'])
+            logger.info("Raw result: %r", result)
+            problem = submission.problem_model()
+            difficulty = problem.difficulty
             score = get_score(difficulty, result)
             update_submission(difficulty, score, result)
             return result
@@ -117,7 +117,7 @@ def submit_problem_code(code_submission_id):
     # Stop at first working
     for corrector_uri in settings.TRAINING_CORRECTORS:
         try:
-            logger.debug("[%s] correcting: %s…", corrector_uri, code_submission)
+            logger.info("[%s] correcting: %s…", corrector_uri, code_submission)
             result = submit(corrector_uri)
             logger.info("[%s] corrected successfully: %s", corrector_uri, code_submission)
             return result

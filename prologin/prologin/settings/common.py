@@ -59,6 +59,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
 
     # Vendor
     'bootstrapform',
@@ -218,6 +219,12 @@ PROLOGIN_CACHES = {
 TRAINING_CORRECTORS = (
     'http://ceos.phanes.net:55080/submit',
 )
+
+# How long to wait, in seconds, before displaying the submission result page
+# Don't use a too small value because the corrector system will most of the time
+# not have the time to compile & run the tests.
+# Don't use a too large value because it makes the page load for too long.
+TRAINING_RESULT_TIMEOUT = 3
 
 # List of challenges (directory name), eg. ('demi2015', 'qcm2014')
 # Empty list allows everything

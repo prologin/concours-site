@@ -2,10 +2,16 @@ from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+import collections
+import datetime
 
 from prologin.languages import Language
 from prologin.models import CodingLanguageField
 from problems.models.problem import Challenge, Problem
+
+
+SubmissionResults = collections.namedtuple('SubmissionResults', 'correction performance')
+SubmissionResult = collections.namedtuple('SubmissionResult', 'name success expected returned')
 
 
 class Submission(models.Model):
@@ -48,6 +54,7 @@ class SubmissionCode(models.Model):
     exec_time = models.IntegerField(null=True, blank=True)
     exec_memory = models.IntegerField(null=True, blank=True)
     date_submitted = models.DateTimeField(default=timezone.now)
+    celery_task_id = models.CharField(max_length=128, blank=True)
 
     def done(self):
         return self.score is not None
@@ -62,6 +69,36 @@ class SubmissionCode(models.Model):
         return (_("Pending") if self.score is None
                 else _("Failed") if self.score == 0
                 else _("Corrected"))
+
+    def expired_result_datetime(self):
+        return self.date_submitted + datetime.timedelta(seconds=settings.CELERY_TASK_RESULT_EXPIRES)
+
+    def expired_result(self):
+        if not self.celery_task_id:
+            # not a chance!
+            return True
+        # submission is older that Celery task time-to-live
+        return self.expired_result_datetime() < timezone.now()
+
+    def correction_results(self):
+        if not self.celery_task_id:
+            return None
+        from problems.tasks import submit_problem_code
+        results = submit_problem_code.AsyncResult(self.celery_task_id).result
+        if results is None:
+            return None
+        results = results[1]
+        results_corr = []
+        results_perf = []
+        for result in results:
+            if result.get('hidden'):
+                continue
+            result_obj = SubmissionResult(name=result['id'],
+                                          success=result['passed'],
+                                          expected=result.get('ref'),
+                                          returned=result.get('program'))
+            (results_perf if result['performance'] else results_corr).append(result_obj)
+        return SubmissionResults(correction=results_corr, performance=results_perf)
 
     def __str__(self):
         return "{} in {} (score: {})".format(self.submission,
