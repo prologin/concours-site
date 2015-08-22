@@ -98,7 +98,7 @@
 	<p class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> {% blocktrans with rem=submission.expired_result_datetime|naturaltime %}These results will be gone {{ rem }}.{% endblocktrans %}</p>
 	{% elif submission.expired_result %}
 		<p class="alert alert-info">{% blocktrans %}Submission results are not available anymore. This is because the code was submitted a long time ago.
-			You can still try to submit your code again using the “Edit and submit again” button.{% endblocktrans %}</p>
+You can still try to submit your code again using the “Edit and submit again” button.{% endblocktrans %}</p>
 	{% else %}
 		<p class="alert alert-info">{% trans "This submission is pending correction. This can take from a few seconds to some minutes." %}</p>
 		<noscript><p class="alert alert-warning">{% trans "Your browser does not support Javascript. You will have to manually reload this page once in a while to check if results have arrived." %}</p></noscript>

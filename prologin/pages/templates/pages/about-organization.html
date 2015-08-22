@@ -14,10 +14,8 @@
 
 	<h1>{% trans "About the Prologin organization" %}</h1>
 
-	<p>{% blocktrans %}
-		Prologin is a non-profit organization whose main mission is to develop and organize the
-		<a href="{{ contest_url }}">Prologin computing contest</a>.
-	{% endblocktrans %}</p>
+	<p>{% blocktrans %}Prologin is a non-profit organization whose main mission is to develop and organize the
+<a href="{{ contest_url }}">Prologin computing contest</a>.{% endblocktrans %}</p>
 
 	<p class="visible-sm visible-xs text-center"><a href="#organization"><i class=" fa fa-arrow-down"></i> {% trans "Jump to description" %}</a></p>
 
@@ -63,50 +61,48 @@
 				<div class="panel-heading"><h4 id="legal">{% trans "Legal status" %}</h4></div>
 				<div class="panel-body">
 					<p>{% blocktrans %}Prologin is a French “law 1901” association registered under the sub-prefecture of
-							<em>L'Hay-les-Roses</em> on 2000-08-04.{% endblocktrans %}</p>
+<em>L'Hay-les-Roses</em> on 2000-08-04.{% endblocktrans %}</p>
 					<p>{% trans "CNIL registration number:" %} <code>830039</code>.</p>
 					<p><small>{% blocktrans %}In accordance with Article 34 of the “Informatique et Liberté” law, you have
-						the right to access, modify and delete data concerning you.
-						To exercise this right, please contact Prologin using one of the methods listed in
-						the “Contact info” box.{% endblocktrans %}</small></p>
+the right to access, modify and delete data concerning you.
+To exercise this right, please contact Prologin using one of the methods listed in
+the “Contact info” box.{% endblocktrans %}</small></p>
 				</div>
 			</div>
 		</div>
 	</div>
 
 	<h2 id="organization">{% trans "A computer enthusiasts association" %}</h2>
-	{% blocktrans %}
-	<p class="text-justify">The purpose of Prologin is to enable young computer enthusiasts to meet and compete with each other. Indeed,
-	computer science is still largely under represented in French schools. Therefore, those who practice it are
-	often self-taught and have an individual practice of it. However, any large project requires teamwork. This is
-	why, even though candidates seat the exam individually, the competition should facilitate the exchange of ideas
-	between candidates. To promote these exchanges, the Prologin team tries to design the contest topics so they
-	put forward playful aspects. Meanwhile, everything is done so that participants can and should exchange ideas
-	within a cheerful atmoshpere. Combining work and pleasure is therefore a key objective of Prologin.</p>
+	{% blocktrans %}<p class="text-justify">The purpose of Prologin is to enable young computer enthusiasts to meet and compete with each other. Indeed,
+computer science is still largely under represented in French schools. Therefore, those who practice it are
+often self-taught and have an individual practice of it. However, any large project requires teamwork. This is
+why, even though candidates seat the exam individually, the competition should facilitate the exchange of ideas
+between candidates. To promote these exchanges, the Prologin team tries to design the contest topics so they
+put forward playful aspects. Meanwhile, everything is done so that participants can and should exchange ideas
+within a cheerful atmoshpere. Combining work and pleasure is therefore a key objective of Prologin.</p>
 
-	<p class="text-justify">We want to allow candidates to take advantage of the competition to enhance their skills. We try to cover as
-	many areas of computer science: artificial intelligence algorithms, general culture, various programming
-	languages…</p>
+<p class="text-justify">We want to allow candidates to take advantage of the competition to enhance their skills. We try to cover as
+many areas of computer science: artificial intelligence algorithms, general culture, various programming
+languages…</p>
 
-	<p class="text-justify">For the organizers, the competition is an opportunity to manage a team and to organize a event. We must also
-	learn how to communicate effectively in order to make it known to a wider public. Managing relations with
-	sponsors, creating statements and solving both technological and logistic issues are also an enriching
-	experiences for our staff members.</p>
+<p class="text-justify">For the organizers, the competition is an opportunity to manage a team and to organize a event. We must also
+learn how to communicate effectively in order to make it known to a wider public. Managing relations with
+sponsors, creating statements and solving both technological and logistic issues are also an enriching
+experiences for our staff members.</p>
 
-	<p class="text-justify">Finally, for all the survivors who reach the final, it is also the opportunity to spend a super crazy weekend
-	with us!</p>
-	{% endblocktrans %}
+<p class="text-justify">Finally, for all the survivors who reach the final, it is also the opportunity to spend a super crazy weekend
+with us!</p>
+{% endblocktrans %}
 
 	<h2 id="contribute">{% trans "Everyone can contribute to Prologin" %}</h2>
 	{# TODO: link to forums; link to how to promote (posters) #}
-	{% blocktrans %}
-	<p class="text-justify">Contributing can be done in various ways: promoting the event, developing the website and
-	the software architecture for the final, helping during the semifinals, contributing in the forums, and so on.
-	We also appreciate your feedback and your suggestions.</p>
+	{% blocktrans %}<p class="text-justify">Contributing can be done in various ways: promoting the event, developing the website and
+the software architecture for the final, helping during the semifinals, contributing in the forums, and so on.
+We also appreciate your feedback and your suggestions.</p>
 
-	<p class="text-justify">We also need your help with the training section, where users can try themselves on a large set of statements.
-	If you can give us a hand, please do: we are looking for new statments (originals or translations of third parties),
-	courses, and corrections. Of course, please contact us before contributing so we can prevent certain parts
-	being done in duplicate.</p>
-	{% endblocktrans %}
+<p class="text-justify">We also need your help with the training section, where users can try themselves on a large set of statements.
+If you can give us a hand, please do: we are looking for new statments (originals or translations of third parties),
+courses, and corrections. Of course, please contact us before contributing so we can prevent certain parts
+being done in duplicate.</p>
+{% endblocktrans %}
 {% endblock %}

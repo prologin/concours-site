@@ -28,8 +28,7 @@
 							<li>
 								<a href="{% url 'training:challenge' grouped_challenge.grouper challenge.event_type.name %}">
 								{{ challenge.event_type|choiceenum_label }}
-								<small class="text-muted">({% blocktrans with count=challenge.problems|length %}{{ count }}
-									&nbsp;problems{% endblocktrans %})
+								<small class="text-muted">({% blocktrans with count=challenge.problems|length %}{{ count }}&nbsp;problems{% endblocktrans %})
 								</small></a>
 							</li>
 						{% endfor %}
@@ -45,15 +44,15 @@
 			<h3>{% trans "What is this?" %}</h3>
 
 			<p>{% blocktrans %}Want to find out what the Prologin algorithmic exercises are like?
-				In this section, you can browse and tackle all the problems from the previous Prologin events. These are
-				problems from both the Prologin online qualifications and the on-site semifinals.{% endblocktrans %}</p>
+In this section, you can browse and tackle all the problems from the previous Prologin events. These are
+problems from both the Prologin online qualifications and the on-site semifinals.{% endblocktrans %}</p>
 		</div>
 		<div class="col-sm-6">
 			<h3>{% trans "How does it work?" %}</h3>
 
 			<p>{% blocktrans %}Read the problem statement carefully and submit your solution. The system will check your
-				submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you
-				need to solve the problem.{% endblocktrans %}</p>
+submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you
+need to solve the problem.{% endblocktrans %}</p>
 		</div>
 	</div>
 {% endblock %}

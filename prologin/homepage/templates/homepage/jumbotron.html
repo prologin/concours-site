@@ -27,11 +27,9 @@
 								<div class="desc">
 									<p>
 										{% if current_qcm %}
-											{% blocktrans %}A quiz and {{ problems_count }} problems to solve online.
-											{% endblocktrans %}
+											{% blocktrans %}A quiz and {{ problems_count }} problems to solve online.{% endblocktrans %}
 										{% else %}
-											{% blocktrans %}{{ problems_count }} problems to solve online.
-											{% endblocktrans %}
+											{% blocktrans %}{{ problems_count }} problems to solve online.{% endblocktrans %}
 										{% endif %}
 									</p>
 									{% if not user.is_authenticated %}
@@ -56,8 +54,7 @@
 											<li class="text-{% if problems_completed == problems_count %}success{% else %}danger{% endif %}">
 												<a href="#EXOS"><i
 														class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
-													{% blocktrans %}{{ problems_completed }}/{{ problems_count }}
-														problems completed{% endblocktrans %}</a>
+													{% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems completed{% endblocktrans %}</a>
 											</li>
 										</ul>
 									{% endif %}
@@ -78,7 +75,7 @@
 							<div class="col-xs-7 col-sm-12">
 								<div class="desc">
 									<p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
-									<p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
+									<p class="hide-no-active"><a href="{% url 'training:index' %}" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
 								</div>
 							</div>
 						</div>

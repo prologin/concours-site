@@ -15,8 +15,7 @@
 		<div class="col-sm-2 col-xs-12 text-right" style="padding: 0">
 		{% if problem.submission %}
 			{% if problem.submission.succeeded %}
-				<span class="badge alert-success">{% blocktrans with score=problem.submission.score %}
-					{{ score }} pts{% endblocktrans %}</span>
+				<span class="badge alert-success">{% blocktrans with score=problem.submission.score %}{{ score }} pts{% endblocktrans %}</span>
 			{% else %}
 				<span class="badge alert-warning">{% trans "Failed" %}</span>
 			{% endif %}
