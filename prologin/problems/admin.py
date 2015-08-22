@@ -126,7 +126,7 @@ class SubmissionAdmin(admin.ModelAdmin):
 
     def succeeded(self, obj):
         return obj.c_succeeded
-    succeeded.short_description = _("Succeeded")
+    succeeded.short_description = _("Solved")
     succeeded.boolean = True
     succeeded.admin_order_field = 'c_succeeded'
 

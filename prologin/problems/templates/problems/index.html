@@ -28,7 +28,7 @@
 							<li>
 								<a href="{% url 'training:challenge' grouped_challenge.grouper challenge.event_type.name %}">
 								{{ challenge.event_type|choiceenum_label }}
-								<small class="text-muted">({% blocktrans with count=challenge.problems|length %}{{ count }}&nbsp;problems{% endblocktrans %})
+								<small class="text-muted">({% blocktrans count challenge.problems|length as count %}{{ count }}&nbsp;problem{% plural %}{{ count }}&nbsp;problems{% endblocktrans %})
 								</small></a>
 							</li>
 						{% endfor %}

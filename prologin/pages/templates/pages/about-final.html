@@ -56,10 +56,10 @@
 			}
 		</style>
 			<g id="hours">
-				<text x="0" y="20">{{ final_day1|date:date_format }}</text>
-				<text x="150" y="20">{{ final_day2|date:date_format }}</text>
-				<text x="300" y="20">{{ final_day3|date:date_format }}</text>
-				<text x="450" y="20">{{ final_day4|date:date_format }}</text>
+				{% trans "Day 1" as day_1 %}<text x="0" y="20">{{ final_day1|date:date_format|default:day_1 }}</text>
+				{% trans "Day 2" as day_2 %}<text x="150" y="20">{{ final_day2|date:date_format|default:day_2 }}</text>
+				{% trans "Day 3" as day_3 %}<text x="300" y="20">{{ final_day3|date:date_format|default:day_3 }}</text>
+				{% trans "Day 4" as day_4 %}<text x="450" y="20">{{ final_day4|date:date_format|default:day_4 }}</text>
 			</g>
 			<g id="lines">
 				<path d="M75,20 l0,160"/>
