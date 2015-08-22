@@ -71,7 +71,8 @@ class Challenge:
         :return list of Challenge instances
         """
         for challenge_dir in os.listdir(settings.TRAINING_PROBLEM_REPOSITORY_PATH):
-            if not challenge_dir.startswith('.') and any(challenge_dir.startswith(e) for e in cls._type_to_low_level.values()):
+            if not challenge_dir.startswith('.') and any(challenge_dir.startswith(e)
+                                                         for e in cls._type_to_low_level.values()):
                 try:
                     yield Challenge.by_low_level_name(challenge_dir)
                 except ObjectDoesNotExist:

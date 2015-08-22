@@ -19,7 +19,9 @@ def submit_problem_code(code_submission_id):
     :param code_submission_id: primary key of a prologin.problems.models.SubmissionCode instance
     :return parse_xml() output
     """
-    code_submission = SubmissionCode.objects.select_related('submission', 'submission__user').get(pk=code_submission_id)
+    code_submission = (SubmissionCode.objects
+                       .select_related('submission', 'submission__user')
+                       .get(pk=code_submission_id))
     submission = code_submission.submission
 
     def get_score(difficulty, result):

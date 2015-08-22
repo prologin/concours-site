@@ -1,8 +1,12 @@
+from django.conf import settings
 from django.contrib import admin
-from django.db.models import F, Count
+from django.db.models import F
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-import problems.models
+import datetime
+
 from prologin.utils import admin_url_for
+import problems.models
 
 
 class SucceededFilter(admin.SimpleListFilter):
@@ -27,16 +31,23 @@ class CodeStatusFilter(admin.SimpleListFilter):
 
     def lookups(self, request, model_admin):
         return (('pending', _("Pending")),
-                ('failed', _("Failed")),
-                ('corrected', _("Corrected")))
+                ('expired', _("Expired")),
+                ('corrected', _("Corrected")),
+                ('corrected-success', _("Corrected & succeeded")),
+                ('corrected-fail', _("Corrected & failed")))
 
     def queryset(self, request, queryset):
+        expiration_date = timezone.now() - datetime.timedelta(seconds=settings.CELERY_TASK_RESULT_EXPIRES)
         if self.value() == 'pending':
-            return queryset.filter(score__isnull=True)
-        elif self.value() == 'failed':
-            return queryset.filter(score=0)
+            return queryset.filter(score__isnull=True, date_submitted__gt=expiration_date)
+        elif self.value() == 'expired':
+            return queryset.filter(score__isnull=True, date_submitted__lt=expiration_date)
         elif self.value() == 'corrected':
+            return queryset.filter(score__isnull=False)
+        elif self.value() == 'corrected-success':
             return queryset.filter(score__gt=0)
+        elif self.value() == 'corrected-fail':
+            return queryset.filter(score=0)
         return queryset
 
 

@@ -66,8 +66,8 @@ class SubmissionCode(models.Model):
         return Language[self.language].value
 
     def status(self):
-        return (_("Pending") if self.score is None
-                else _("Failed") if self.score == 0
+        return (_("Expired") if self.expired_result() and not self.done()
+                else _("Pending") if not self.done()
                 else _("Corrected"))
 
     def expired_result_datetime(self):

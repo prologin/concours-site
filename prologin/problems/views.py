@@ -208,24 +208,25 @@ class Submission(DetailView):
     Displays a code submission and, if they are still available, the correction & performance results.
 
     In case the page is rendered before the correction system has finished correcting the program,
-    we use Javascript to regularly ask if the correction is done yet. If it is, we just reload the
+    we use Javascript to regularly ask if the correction is done already. If it is, we just reload the
     page.
 
     The correction & performance results are stored in the Celery backend (typically Redis) and are
     not supposed to be long-lived. Hence the following cases:
-        - submission is corrected (score is not empty): we display the results if still available
+        - submission is corrected (score is not empty): we display the results if still available;
         - submission is not yet corrected (score is empty):
-            - submission is too old to have any result OR it has not Celery task id, eg. if the
-              submission was imported from legacy Drupal: we explain that to the user
             - submission is young enough: we display a "waiting" status and try to fetch the result
-              with Javascript
+              with Javascript;
+            - submission is too old to have any result OR it has no Celery task id, eg. if the
+              submission was imported from legacy Drupal: we explain that to the user.
     """
     model = problems.models.SubmissionCode
     context_object_name = 'submission'
     template_name = 'problems/submission.html'
 
     def get_object(self, queryset=None):
-        submission_code = self.model.objects.select_related('submission', 'submission__user').get(pk=self.kwargs['submission'])
+        submission_code = (self.model.objects.select_related('submission', 'submission__user')
+                           .get(pk=self.kwargs['submission']))
         return submission_code
 
     def get_context_data(self, **kwargs):
@@ -312,7 +313,8 @@ class AjaxSubmissionCorrected(BaseDetailView):
     pk_url_kwarg = 'submission'
 
     def get_queryset(self):
-        return super().get_queryset().select_related('submission__user').filter(submission__user=self.request.user)
+        return (super().get_queryset().select_related('submission__user')
+                .filter(submission__user=self.request.user))
 
     def render_to_response(self, context):
         has_result = self.object.done()

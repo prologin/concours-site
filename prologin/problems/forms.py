@@ -13,8 +13,10 @@ class SearchForm(forms.Form):
                             widget=forms.TextInput(attrs={'placeholder': _("Problem name (optional)")}),
                             label=_("Query"))
     event_type = forms.ChoiceField(choices=[('', _("Any event type")),
-                                            (Event.Type.qualification.name, Event.Type.label_for(Event.Type.qualification)),
-                                            (Event.Type.semifinal.name, Event.Type.label_for(Event.Type.semifinal))],
+                                            (Event.Type.qualification.name,
+                                             Event.Type.label_for(Event.Type.qualification)),
+                                            (Event.Type.semifinal.name,
+                                             Event.Type.label_for(Event.Type.semifinal))],
                                    required=False,
                                    label=_("Event type"))
     difficulty_min = forms.IntegerField(min_value=0, max_value=settings.PROLOGIN_MAX_LEVEL_DIFFICULTY,
@@ -35,7 +37,9 @@ class SearchForm(forms.Form):
 
     def clean(self):
         cd = self.cleaned_data
-        if cd['difficulty_min'] is not None and cd['difficulty_max'] is not None and cd['difficulty_min'] > cd['difficulty_max']:
+        if (cd['difficulty_min'] is not None
+                and cd['difficulty_max'] is not None
+                and cd['difficulty_min'] > cd['difficulty_max']):
             cd['difficulty_min'], cd['difficulty_max'] = cd['difficulty_max'], cd['difficulty_min']
         return cd
 
