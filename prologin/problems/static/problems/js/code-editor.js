@@ -74,6 +74,7 @@
             showPrintMargin: false,
             showFoldWidgets: false
         });
+        editor.renderer.setScrollMargin(4, 4);
 
         // fill theme select,
         var theme_list = ace.require("ace/ext/themelist").themesByName;
