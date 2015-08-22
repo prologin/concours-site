@@ -31,9 +31,9 @@ def submit_problem_code(code_submission_id):
         :param result: the submission result, as computed by parse_xml()
         :return the computed score
         """
-        (compilation_ok, compilation_debug), tests = result
+        compilation, tests = result
 
-        if not compilation_ok:
+        if not compilation['success']:
             # compilation failure
             return 0
 

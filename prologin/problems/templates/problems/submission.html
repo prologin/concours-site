@@ -36,9 +36,9 @@
 				<div class="panel-body text-center {% if submission.succeeded %}bg-success{% elif submission.done %}bg-danger{% endif %}">
 					<p class="{% if submission.succeeded %}text-success{% elif submission.done %}text-danger{% endif %}">
 					{% if submission.succeeded %}
-					<i class="fa fa-check-circle-o text-success"></i> {% trans "Solution passes tests" %}
+					<i class="fa fa-check-circle text-success"></i> {% trans "Solution passes tests" %}
 					{% elif submission.done %}
-					<i class="fa fa-times-circle-o"></i> {% trans "Solution is invalid" %}
+					<i class="fa fa-times-circle"></i> {% trans "Solution is invalid" %}
 					{% elif not submission.expired_result %}
 					<i class="fa fa-clock-o"></i> {% trans "Not corrected yet" %}
 					{% else %}
@@ -68,6 +68,14 @@
 
 	{% if submission.done and not submission.expired_result %}
 	{% with results=submission.correction_results %}
+	<div class="alert alert-{% if results.compilation.success %}success{% else %}warning{% endif %}">
+	{% if results.compilation.success %}
+		<p><i class="fa fa-check-circle"></i> {% trans "The compilation went fine." %}</p>
+	{% else %}
+		<p><i class="fa fa-times-circle"></i> {% trans "The compilation failed:" %}</p>
+		<pre><code>{{ results.compilation.value }}</code></pre>
+	{% endif %}
+	</div>
 	<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default">
@@ -95,7 +103,7 @@
 		</div>
 	</div>
 	{% endwith %}
-	<p class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> {% blocktrans with rem=submission.expired_result_datetime|naturaltime %}These results will be gone {{ rem }}.{% endblocktrans %}</p>
+	<p class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> {% blocktrans with rem=submission.expired_result_datetime|naturaltime %}These compilation and test results will be gone {{ rem }}.{% endblocktrans %}</p>
 	{% elif submission.expired_result %}
 		<p class="alert alert-info">{% blocktrans %}Submission results are not available anymore. This is because the code was submitted a long time ago.
 You can still try to submit your code again using the “Edit and submit again” button.{% endblocktrans %}</p>

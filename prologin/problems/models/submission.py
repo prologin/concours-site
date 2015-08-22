@@ -1,17 +1,17 @@
+import collections
+import datetime
+
 from django.db import models
 from django.conf import settings
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
-import collections
-import datetime
 
 from prologin.languages import Language
 from prologin.models import CodingLanguageField
 from problems.models.problem import Challenge, Problem
 
-
-SubmissionResults = collections.namedtuple('SubmissionResults', 'correction performance')
-SubmissionResult = collections.namedtuple('SubmissionResult', 'name success expected returned')
+SubmissionResults = collections.namedtuple('SubmissionResults', 'compilation correction performance')
+SubmissionTest = collections.namedtuple('SubmissionTest', 'name success expected returned')
 
 
 class Submission(models.Model):
@@ -87,18 +87,18 @@ class SubmissionCode(models.Model):
         results = submit_problem_code.AsyncResult(self.celery_task_id).result
         if results is None:
             return None
-        results = results[1]
-        results_corr = []
-        results_perf = []
-        for result in results:
-            if result.get('hidden'):
+        compilation, tests = results
+        test_corr = []
+        test_perf = []
+        for test in tests:
+            if test.get('hidden'):
                 continue
-            result_obj = SubmissionResult(name=result['id'],
-                                          success=result['passed'],
-                                          expected=result.get('ref', ''),
-                                          returned=result.get('program', ''))
-            (results_perf if result['performance'] else results_corr).append(result_obj)
-        return SubmissionResults(correction=results_corr, performance=results_perf)
+            result_obj = SubmissionTest(name=test['id'],
+                                        success=test['passed'],
+                                        expected=test.get('ref', ''),
+                                        returned=test.get('program', ''))
+            (test_perf if test['performance'] else test_corr).append(result_obj)
+        return SubmissionResults(compilation=compilation, correction=test_corr, performance=test_perf)
 
     def __str__(self):
         return "{} in {} (score: {})".format(self.submission,

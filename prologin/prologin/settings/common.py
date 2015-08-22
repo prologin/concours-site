@@ -217,7 +217,6 @@ PROLOGIN_CACHES = {
 #  - if local: 'local:///path/to/prefix'
 #  - if remote: 'http://thehost:55080/submit'
 TRAINING_CORRECTORS = (
-    'http://ceos.phanes.net:55080/submit',
 )
 
 # How long to wait, in seconds, before displaying the submission result page.
