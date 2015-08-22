@@ -219,6 +219,8 @@ PROLOGIN_CACHES = {
 TRAINING_CORRECTORS = (
 )
 
+# How long to wait, in seconds, for a remote corrector
+TRAINING_CORRECTOR_REQUEST_TIMEOUT = 5
 # How long to wait, in seconds, before displaying the submission result page.
 # Don't use a too small value because the corrector system will most of the time
 # not have the time to compile & run the tests.

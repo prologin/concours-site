@@ -19,7 +19,7 @@ urlpatterns = [
         name='problem'),
 
     url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/(?P<problem>[a-zA-Z0-9_-]+)/(?P<submission>[0-9]+)$',
-        problems.views.Submission.as_view(),
+        problems.views.SubmissionCode.as_view(),
         name='submission'),
 
     url(r'^submission-corrected/(?P<submission>[0-9]+)$',

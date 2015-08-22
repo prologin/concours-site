@@ -76,6 +76,7 @@
 		<pre><code>{{ results.compilation.value }}</code></pre>
 	{% endif %}
 	</div>
+	{% if results.compilation.success %}
 	<div class="row">
 		<div class="col-md-6">
 			<div class="panel panel-default">
@@ -102,6 +103,7 @@
 			</div>
 		</div>
 	</div>
+	{% endif %}
 	{% endwith %}
 	<p class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> {% blocktrans with rem=submission.expired_result_datetime|naturaltime %}These compilation and test results will be gone {{ rem }}.{% endblocktrans %}</p>
 	{% elif submission.expired_result %}

@@ -1,3 +1,4 @@
+from django.conf import settings
 import urllib.request
 import urllib.parse
 import xml.etree.ElementTree as ElementTree
@@ -24,9 +25,8 @@ def remote_check(url, challenge, problem, source, filename):
                        'application/x-www-form-urlencoded;charset:utf-8')
     request.add_header('User-Agent', 'prologin-vm-interface/{}'.format(USER_AGENT_VERSION))
 
-    result = urllib.request.urlopen(request, data)
-    result = result.read().decode('utf-8').strip()
-    return result
+    with urllib.request.urlopen(request, data, timeout=settings.TRAINING_CORRECTOR_REQUEST_TIMEOUT) as response:
+        return response.read().decode('utf-8').strip()
 
 
 def parse_xml(s):

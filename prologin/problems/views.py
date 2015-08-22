@@ -159,8 +159,8 @@ class Problem(CreateView):
                                   .filter(pk=int(self.request.GET['fork']),
                                           submission__problem=problem.name,
                                           submission__challenge=challenge.name)
-                                  .filter(Q(submission__user=self.request.user,
-                                            submission__user__is_staff=True))
+                                  .filter(Q(submission__user=self.request.user) |
+                                          Q(submission__user__is_staff=True))
                                   .first())
         except (KeyError, ValueError):  # (no "fork=", non-numeric fork id)
             pass
@@ -203,7 +203,7 @@ class Problem(CreateView):
         return super(ModelFormMixin, self).form_valid(form)
 
 
-class Submission(DetailView):
+class SubmissionCode(DetailView):
     """
     Displays a code submission and, if they are still available, the correction & performance results.
 
@@ -222,12 +222,14 @@ class Submission(DetailView):
     """
     model = problems.models.SubmissionCode
     context_object_name = 'submission'
+    pk_url_kwarg = 'submission'
     template_name = 'problems/submission.html'
 
-    def get_object(self, queryset=None):
-        submission_code = (self.model.objects.select_related('submission', 'submission__user')
-                           .get(pk=self.kwargs['submission']))
-        return submission_code
+    def get_queryset(self):
+        return (super().get_queryset()
+                .select_related('submission', 'submission__user')
+                .filter(Q(submission__user=self.request.user) |
+                        Q(submission__user__is_staff=True)))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
