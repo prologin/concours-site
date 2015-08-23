@@ -358,6 +358,26 @@ footer .legal {
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 
+
+/*
+ * Code (pygments)
+ */
+.pyg-hltable, .pyg-hltable td.code {
+	width: 100%;
+}
+
+.pyg-hltable pre {
+	color: inherit;
+	background: inherit;
+	font-style: inherit;
+	text-decoration: inherit;
+	font-weight: inherit;
+	border: none;
+	border-radius: 0;
+	margin: 0;
+}
+
+
 /*
  * News
  */
@@ -398,6 +418,11 @@ footer .legal {
 
 .align-left {
 	text-align: left;
+}
+
+.fa[data-indicator] {
+	width: 1em;
+	text-align: center;
 }
 
 .sponsor {

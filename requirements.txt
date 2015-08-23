@@ -32,6 +32,8 @@ markdown>=2.4
 pillow>=2.4
 # Postgres database connector
 psycopg2>=2.5
+# Code highlighting
+pygments>=2.0.2
 # MySQL database connector (for Drupal legacy)
 mysqlclient
 # HTTP queries

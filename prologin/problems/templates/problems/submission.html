@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n humanize markdown drupal utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
+{% load i18n humanize markup drupal utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
 
 
 {% block breadcrumbs %}
@@ -12,6 +12,10 @@
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans with problem=problem.title %}Submission for {{ problem }}{% endblocktrans %} â€“ {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}
+
+{% block extra_head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/pygments-monokai.css' %}" media="screen"/>
+{% endblock %}
 
 {% block content %}
 	<h1>{% blocktrans with problem=problem.title %}Submission for {{ problem }}{% endblocktrans %}
@@ -59,10 +63,10 @@
 
 	<div class="panel panel-default clearfix">
 		<div class="panel-heading">
-			<a role="button" data-toggle="collapse" href="#submission-code" aria-expanded="false" aria-controls="submission-code">
-				<i class="fa fa-angle-double-down"></i> {% trans "Solution code" %}</a></div>
-		<div class="panel-body panel-collapse collapse" id="submission-code" role="tabpanel" aria-labelledby="{% trans "Solution code" %}">
-			<pre id="submission-code-contents" style="border-radius: 0; border: none; margin: -15px;"><code>{{ submission.code }}</code></pre>
+			<i class="fa" data-indicator="#submission-code"></i>
+			<a role="button" data-toggle="collapse" href="#submission-code" aria-expanded="false" aria-controls="submission-code">{% trans "Solution code" %}</a></div>
+		<div class="panel-body panel-collapse collapse" style="padding: 0;" id="submission-code" role="tabpanel" aria-labelledby="{% trans "Solution code" %}">
+			{% pygmentize submission.code submission.language_def.ace_mode %}
 		</div>
 	</div>
 
@@ -81,8 +85,8 @@
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<a role="button" data-toggle="collapse" href="#correction-tests" aria-expanded="true" aria-controls="correction-tests">
-						<i class="fa fa-angle-double-down"></i> {% trans "Correction tests" %}</a></div>
+					<i class="fa" data-indicator="#correction-tests"></i>
+					<a role="button" data-toggle="collapse" href="#correction-tests" aria-expanded="true" aria-controls="correction-tests">{% trans "Correction tests" %}</a></div>
 				<ul class="list-group collapse in" id="correction-tests" aria-labelledby="{% trans "Correction tests" %}">
 					{% for result in results.correction %}
 						{% include 'problems/stub_submission_result.html' %}
@@ -93,8 +97,8 @@
 		<div class="col-md-6">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<a role="button" data-toggle="collapse" href="#performance-tests" aria-expanded="true" aria-controls="performance-tests">
-						<i class="fa fa-angle-double-down"></i> {% trans "Performance tests" %}</a></div>
+					<i class="fa" data-indicator="#performance-tests"></i>
+					<a role="button" data-toggle="collapse" href="#performance-tests" aria-expanded="true" aria-controls="performance-tests">{% trans "Performance tests" %}</a></div>
 				<ul class="list-group collapse in" id="performance-tests" aria-labelledby="{% trans "Performance tests" %}">
 					{% for result in results.performance %}
 						{% include 'problems/stub_submission_result.html' %}
@@ -113,13 +117,13 @@ You can still try to submit your code again using the â€œEdit and submit againâ€
 		<p class="alert alert-info">{% trans "This submission is pending correction. This can take from a few seconds to some minutes." %}</p>
 		<noscript><p class="alert alert-warning">{% trans "Your browser does not support Javascript. You will have to manually reload this page once in a while to check if results have arrived." %}</p></noscript>
 	{% endif %}
-
 {% endblock %}
 
+
 {% block extra_script %}
-	<script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ace.js' %}"></script>
-	{# if the submission is not corrected yet but we may get the result later #}
+	<script type="text/javascript" src="{% static 'js/collapse-indicator.js' %}"></script>
 	{% if not submission.done and not submission.expired_result %}
+	{# if the submission is not corrected yet but we may get the result later #}
 	<script type="text/javascript" charset="utf-8">
 		function check_for_result() {
 			$.getJSON('{% url 'training:ajax-submission-corrected' submission.pk %}')
@@ -133,18 +137,4 @@ You can still try to submit your code again using the â€œEdit and submit againâ€
 		check_for_result();
 	</script>
 	{% endif %}
-	<script type="text/javascript">
-		var editor = ace.edit("submission-code-contents");
-		editor.getSession().setMode('ace/mode/{{ submission.language_def.ace_mode }}');
-		editor.setTheme('ace/theme/monokai');
-		editor.setOptions({
-			showLineNumbers: true,
-			highlightActiveLine: false,
-			showPrintMargin: false,
-			showFoldWidgets: false,
-			readOnly: true,
-			maxLines: Infinity
-		});
-		editor.renderer.setScrollMargin(4, 4);
-	</script>
 {% endblock %}

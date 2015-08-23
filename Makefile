@@ -26,10 +26,13 @@ tx-pull:
 	$(TX) pull -l fr
 	$(MANAGE) compilemessages
 
-# Subsystems
+# Producing statics
 
 static-img:
 	$(MAKE) all clean-aux -C prologin/prologin/static/img
+
+pygments-stylesheet:
+	pygmentize -S monokai -f html -a .pyg-hl > prologin/prologin/static/css/pygments-monokai.css
 
 # Main rules
 
