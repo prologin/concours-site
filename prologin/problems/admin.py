@@ -1,60 +1,81 @@
 from django.conf import settings
 from django.contrib import admin
-from django.db.models import F
+from django.db.models import F, Q
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+import celery
 import datetime
 
+from problems.tasks import submit_problem_code
 from prologin.utils import admin_url_for
 import problems.models
 
 
-class SucceededFilter(admin.SimpleListFilter):
-    title = _("succeeded")
-    parameter_name = 'succeeded'
+class BooleanFilter(admin.SimpleListFilter):
+    q_filter = Q()
 
     def lookups(self, request, model_admin):
         return (('1', _("Yes")),
                 ('0', _("No")))
 
+    def get_queryset(self, request, queryset):
+        return queryset
+
+    def get_q_filter(self, request, queryset):
+        return self.q_filter
+
+    def queryset_for_true(self, request, queryset):
+        return self.get_queryset(request, queryset).filter(self.get_q_filter(request, queryset))
+
+    def queryset_for_false(self, request, queryset):
+        return self.get_queryset(request, queryset).exclude(self.get_q_filter(request, queryset))
+
     def queryset(self, request, queryset):
         if self.value() == '1':
-            return queryset.filter(score_base__gt=0)
+            return self.queryset_for_true(request, queryset)
         elif self.value() == '0':
-            return queryset.filter(score_base=0)
+            return self.queryset_for_false(request, queryset)
         return queryset
 
 
-class CodeStatusFilter(admin.SimpleListFilter):
-    title = _("status")
-    parameter_name = 'status'
+class SucceededFilter(BooleanFilter):
+    title = _("succeeded")
+    parameter_name = 'succeeded'
+    q_filter = Q(score_base__gt=0)
 
-    def lookups(self, request, model_admin):
-        return (('pending', _("Pending")),
-                ('expired', _("Expired")),
-                ('corrected', _("Corrected")),
-                ('corrected-success', _("Corrected & succeeded")),
-                ('corrected-fail', _("Corrected & failed")))
+    def get_queryset(self, request, queryset):
+        return queryset.filter(score_base__isnull=False)
 
-    def queryset(self, request, queryset):
+
+class CodeSucceededFilter(BooleanFilter):
+    title = _("succeeded")
+    parameter_name = 'succeeded'
+    q_filter = Q(score__gt=0)
+
+    def get_queryset(self, request, queryset):
+        return queryset.filter(score__isnull=False)
+
+
+class CodeCorrectedFilter(BooleanFilter):
+    title = _("corrected")
+    parameter_name = 'corrected'
+    q_filter = Q(score__isnull=False)
+
+
+class CodeExpiredFilter(BooleanFilter):
+    title = _("results expired")
+    parameter_name = 'expired'
+
+    def get_q_filter(self, request, queryset):
         expiration_date = timezone.now() - datetime.timedelta(seconds=settings.CELERY_TASK_RESULT_EXPIRES)
-        if self.value() == 'pending':
-            return queryset.filter(score__isnull=True, date_submitted__gt=expiration_date)
-        elif self.value() == 'expired':
-            return queryset.filter(score__isnull=True, date_submitted__lt=expiration_date)
-        elif self.value() == 'corrected':
-            return queryset.filter(score__isnull=False)
-        elif self.value() == 'corrected-success':
-            return queryset.filter(score__gt=0)
-        elif self.value() == 'corrected-fail':
-            return queryset.filter(score=0)
-        return queryset
+        return Q(score__isnull=True) & (Q(date_corrected__isnull=True) | Q(date_corrected__lt=expiration_date))
 
 
 class SubmissionCodeAdmin(admin.ModelAdmin):
     readonly_fields = ('submission',)
-    list_display = ('_title', 'challenge', 'problem', 'username', 'language', 'score', 'status')
-    list_filter = (CodeStatusFilter, 'language', 'submission__challenge')
+    list_display = ('_title', 'challenge', 'problem', 'username', 'language', 'correctable', 'score', 'status')
+    list_filter = (CodeSucceededFilter, CodeCorrectedFilter, CodeExpiredFilter, 'language', 'submission__challenge')
+    actions = ('submit_to_correction',)
 
     def has_add_permission(self, request):
         # Add permission makes no sense as user is read-only
@@ -86,6 +107,29 @@ class SubmissionCodeAdmin(admin.ModelAdmin):
     status.short_description = _("Status")
     status.admin_order_field = 'score'
 
+    def correctable(self, obj):
+        return obj.correctable()
+    correctable.short_description = _("Correctable")
+    correctable.boolean = True
+    correctable.admin_order_field = 'language'
+
+    def submit_to_correction(self, request, queryset):
+        success = 0
+        errors = 0
+        for submission in queryset:
+            if submission.correctable():
+                if not submission.celery_task_id:
+                    submission.celery_task_id = celery.uuid()
+                    submission.save()
+                submit_problem_code.apply_async(args=[submission.pk], task_id=submission.celery_task_id, throw=False)
+                success += 1
+            else:
+                errors += 1
+        self.message_user(request, "{success} submissions sent to correction, {errors} uncorrectable skipped".format(
+            success=success, errors=errors,
+        ))
+    submit_to_correction.short_description = _("Submit to correction")
+
     def get_queryset(self, request):
         # Prevent O(n) queries
         return (super().get_queryset(request)
@@ -101,7 +145,7 @@ class SubmissionCodeInline(admin.StackedInline):
 class SubmissionAdmin(admin.ModelAdmin):
     inlines = [SubmissionCodeInline]
     list_display = ('_title', 'challenge', 'problem', 'username', 'score', 'succeeded')
-    list_filter = ('challenge', SucceededFilter)
+    list_filter = (SucceededFilter, 'challenge')
     readonly_fields = ('user',)
 
     def has_add_permission(self, request):
