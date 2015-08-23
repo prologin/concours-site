@@ -29,19 +29,6 @@ def get_slug(name):
     return name
 
 
-def real_value(var, context):
-    """Return the real value based on the context."""
-    if var is None:
-        return None
-    try:
-        if not isinstance(var, Variable):
-            var = Variable(var)
-        real_var = var.resolve(context)
-    except VariableDoesNotExist:
-        real_var = str(var)
-    return escape(real_var)
-
-
 def upload_path(*base_path):
     """
     Generate upload path for a FileInput.

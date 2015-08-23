@@ -1,21 +1,10 @@
 from django import template
-from django.template import Node, Variable
-from prologin.utils import real_value
+from django.utils.text import mark_safe
 from markdown import markdown as markdown_to_html
 
 register = template.Library()
 
 
-@register.tag
-def markdown(parser, token):
-    return MarkdownNode(token.split_contents()[1:])
-
-
-class MarkdownNode(Node):
-    def __init__(self, tokens):
-        self.content = Variable(tokens[0])
-
-    def render(self, context):
-        content = real_value(self.content, context)
-        content = markdown_to_html(content)
-        return content
+@register.filter
+def markdown(value):
+    return mark_safe(markdown_to_html(value))

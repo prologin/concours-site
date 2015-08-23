@@ -32,7 +32,7 @@
 
 			<article class="problem-statement" id="statement">
 				{% if problem.subject_markdown %}
-					{% markdown problem.subject_markdown %}
+					{{ problem.subject_markdown|markdown }}
 				{% else %}
 					{{ problem.subject_html|safe }}
 				{% endif %}
@@ -63,7 +63,7 @@
 						</dd>
 						{% if sample.comment %}
 							<dt>{% trans "Note" %}</dt>
-							<dd>{% markdown sample.comment %}</dd>
+							<dd>{{ sample.comment|markdown }}</dd>
 						{% endif %}
 					</dl>
 				{% endfor %}
