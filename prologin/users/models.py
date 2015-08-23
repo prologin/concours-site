@@ -85,8 +85,8 @@ class ProloginUser(AbstractUser, AddressableModel):
     legacy_md5_password = models.CharField(max_length=32, blank=True)
 
     @property
-    def preferred_language_def(self):
-        return Language[self.preferred_language].value
+    def preferred_language_enum(self):
+        return Language[self.preferred_language]
 
     @property
     def plaintext_password(self):

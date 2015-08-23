@@ -54,6 +54,7 @@ class SubmissionCode(models.Model):
     exec_time = models.IntegerField(null=True, blank=True)
     exec_memory = models.IntegerField(null=True, blank=True)
     date_submitted = models.DateTimeField(default=timezone.now)
+    date_corrected = models.DateTimeField(null=True, blank=True)
     celery_task_id = models.CharField(max_length=128, blank=True)
 
     def done(self):
@@ -62,8 +63,11 @@ class SubmissionCode(models.Model):
     def succeeded(self):
         return self.done() and self.score > 0
 
-    def language_def(self):
-        return Language[self.language].value
+    def language_enum(self):
+        return Language[self.language]
+
+    def correctable(self):
+        return self.language_enum().correctable()
 
     def status(self):
         return (_("Expired") if self.expired_result() and not self.done()
@@ -71,17 +75,19 @@ class SubmissionCode(models.Model):
                 else _("Corrected"))
 
     def expired_result_datetime(self):
-        return self.date_submitted + datetime.timedelta(seconds=settings.CELERY_TASK_RESULT_EXPIRES)
+        if not self.date_corrected:
+            return None
+        return self.date_corrected + datetime.timedelta(seconds=settings.CELERY_TASK_RESULT_EXPIRES)
 
     def expired_result(self):
-        if not self.celery_task_id:
-            # not a chance!
+        expired_datetime = self.expired_result_datetime()
+        if not expired_datetime:
             return True
         # submission is older that Celery task time-to-live
-        return self.expired_result_datetime() < timezone.now()
+        return expired_datetime < timezone.now()
 
     def correction_results(self):
-        if not self.celery_task_id:
+        if not self.celery_task_id or not self.date_corrected:
             return None
         from problems.tasks import submit_problem_code
         results = submit_problem_code.AsyncResult(self.celery_task_id).result
@@ -102,7 +108,7 @@ class SubmissionCode(models.Model):
 
     def __str__(self):
         return "{} in {} (score: {})".format(self.submission,
-                                             self.language_def().name,
+                                             self.language_enum().name_display(),
                                              self.score if self.succeeded() else self.status())
 
     class Meta:

@@ -154,13 +154,15 @@ class Problem(CreateView):
         # staff users can fork (thus see) everyone's submissions
         prefill_submission = None
         try:
+            permissions = Q()
+            if not self.request.user.is_staff:
+                permissions = Q(submission__user=self.request.user)
             prefill_submission = (problems.models.SubmissionCode.objects
                                   .select_related('submission', 'submission__user')
                                   .filter(pk=int(self.request.GET['fork']),
                                           submission__problem=problem.name,
                                           submission__challenge=challenge.name)
-                                  .filter(Q(submission__user=self.request.user) |
-                                          Q(submission__user__is_staff=True))
+                                  .filter(permissions)
                                   .first())
         except (KeyError, ValueError):  # (no "fork=", non-numeric fork id)
             pass
@@ -181,7 +183,8 @@ class Problem(CreateView):
                                                     problem=context['problem'].name)
             submission.save()
         self.submission_code.submission = submission
-        self.submission_code.celery_task_id = celery.uuid()
+        if self.submission_code.correctable():
+            self.submission_code.celery_task_id = celery.uuid()
         self.submission_code.save()
 
         # FIXME: according to the challenge type (qualif, semifinals) we need to
@@ -189,15 +192,16 @@ class Problem(CreateView):
         #  - check (if training or qualif)
         #  - check and unlock (if semifinals)
 
-        # schedule correction
-        future = submit_problem_code.apply_async(args=[self.submission_code.pk],
-                                                 task_id=self.submission_code.celery_task_id,
-                                                 throw=False)
-        try:
-            # wait a bit for the result, but not too much to prevent the site from looking buggy
-            future.get(timeout=settings.TRAINING_RESULT_TIMEOUT)
-        except celery.exceptions.TimeoutError:
-            pass
+        if self.submission_code.correctable():
+            # schedule correction
+            future = submit_problem_code.apply_async(args=[self.submission_code.pk],
+                                                     task_id=self.submission_code.celery_task_id,
+                                                     throw=False)
+            try:
+                # wait a bit for the result
+                future.get(timeout=settings.TRAINING_RESULT_TIMEOUT)
+            except celery.exceptions.TimeoutError:
+                pass
         # we don't use super() because CreateView.form_valid() calls form.save() which overrides
         # the code submission, even if it is modified by the correction task!
         return super(ModelFormMixin, self).form_valid(form)
@@ -226,10 +230,12 @@ class SubmissionCode(DetailView):
     template_name = 'problems/submission.html'
 
     def get_queryset(self):
+        permissions = Q()
+        if not self.request.user.is_staff:
+            permissions = Q(submission__user=self.request.user)
         return (super().get_queryset()
                 .select_related('submission', 'submission__user')
-                .filter(Q(submission__user=self.request.user) |
-                        Q(submission__user__is_staff=True)))
+                .filter(permissions))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

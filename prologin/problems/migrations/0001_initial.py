@@ -42,6 +42,7 @@ class Migration(migrations.Migration):
                 ('exec_time', models.IntegerField(null=True, blank=True)),
                 ('exec_memory', models.IntegerField(null=True, blank=True)),
                 ('date_submitted', models.DateTimeField(default=django.utils.timezone.now)),
+                ('date_corrected', models.DateTimeField(blank=True, null=True)),
                 ('submission', models.ForeignKey(to='problems.Submission', related_name='codes')),
             ],
             options={

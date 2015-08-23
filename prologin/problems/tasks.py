@@ -4,6 +4,7 @@ from celery import shared_task
 from celery.utils.log import get_task_logger
 from django.conf import settings
 from django.db import transaction
+from django.utils import timezone
 
 from problems.corrector import remote_check, parse_xml
 from problems.models import SubmissionCode
@@ -79,6 +80,7 @@ def submit_problem_code(code_submission_id):
             logger.info("Increased malus by %d to %d", incr, submission.malus)
 
         code_submission.score = this_score
+        code_submission.date_corrected = timezone.now()
         logger.info("Score is %d", code_submission.score)
         # TODO: implement when data available in VM
         # code_submission.exec_time = get exec_time from `result`
@@ -101,7 +103,7 @@ def submit_problem_code(code_submission_id):
 
         elif uri.scheme in ('http', 'https'):
             # TODO: don't use a filename, pass the language code to VM
-            filename = 'submission' + code_submission.language_def().extensions[0]
+            filename = 'submission' + code_submission.language_enum().extensions()[0]
             result = remote_check(uri.geturl(), submission.challenge, submission.problem, code_submission.code,
                                   filename)
             result = parse_xml(result)

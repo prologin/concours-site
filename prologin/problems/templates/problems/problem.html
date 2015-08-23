@@ -93,7 +93,7 @@
 								{% if form.code.errors %}<span class="text-danger">
 									{% for error in form.code.errors %}{{ error|escape }} {% endfor %}
 								</span>{% endif %}
-								<textarea name="code" class="clearfix form-control" style="font-family: monospace;" rows="20" data-mode="{{ prefill_submission.language_def.ace_mode }}">{{ prefill_submission.code }}</textarea>
+								<textarea name="code" class="clearfix form-control" style="font-family: monospace;" rows="20" data-mode="{{ prefill_submission.language_enum.ace_lexer }}">{{ prefill_submission.code }}</textarea>
 								<div id="code-editor" class="code-editor" style="border-top: 1px solid #ddd; margin: 0 -15px -15px -15px;"></div>
 							</div>
 						</div>
@@ -109,7 +109,7 @@
 										{% for error in form.error.errors %}{{ error|escape }} {% endfor %}
 									</span>{% endif %}
 									<select name="language" style="width: auto;" class="form-control">{% for lng in languages %}
-										<option value="{{ lng.name }}" data-mode="{{ lng.value.ace_mode }}"{% if lng.value.correctable %} data-correctable{% endif %}{% if prefill_submission and prefill_submission.language_def == lng.value or not prefill_submission and request.user.preferred_language_def == lng.value %} selected{% endif %}>{{ lng.value.name }}</option>
+										<option value="{{ lng.name }}" data-mode="{{ lng.ace_lexer }}"{% if lng.correctable %} data-correctable{% endif %}{% if prefill_submission and prefill_submission.language_enum == lng or not prefill_submission and request.user.preferred_language_enum == lng %} selected{% endif %}>{{ lng.name_display }}</option>
 									{% endfor %}</select>
 								</div>
 							</div>
