@@ -80,22 +80,21 @@
 					<div class="panel panel-default">
 						<form method="POST" id="editor-form" class="form-inline" enctype="multipart/form-data">
 						{% csrf_token %}
-						<div class="panel-body">
-							<select id="code-editor-theme" class="hide">{# filled by Javascript from Ace themelist #}</select>
-							<select id="code-editor-font-size" class="hide">
-								<option value="11">11px</option>
-								<option value="12" selected>12px</option>
-								<option value="14">14px</option>
-								<option value="18">18px</option>
-							</select>
-
-							<div style="margin-top: 15px;">
-								{% if form.code.errors %}<span class="text-danger">
-									{% for error in form.code.errors %}{{ error|escape }} {% endfor %}
-								</span>{% endif %}
-								<textarea name="code" class="clearfix form-control" style="font-family: monospace;" rows="20" data-mode="{{ prefill_submission.language_enum.ace_lexer }}">{{ prefill_submission.code }}</textarea>
-								<div id="code-editor" class="code-editor" style="border-top: 1px solid #ddd; margin: 0 -15px -15px -15px;"></div>
+						<div class="panel-body" style="padding: 0;">
+							<div style="padding: 15px;">
+								<select id="code-editor-theme" class="hide">{# filled by Javascript from Ace themelist #}</select>
+								<select id="code-editor-font-size" class="hide">
+									<option value="11">11px</option>
+									<option value="12" selected>12px</option>
+									<option value="14">14px</option>
+									<option value="18">18px</option>
+								</select>
 							</div>
+							{% if form.code.errors %}<p class="text-danger" style="padding: 0 15px;">
+								{% for error in form.code.errors %}{{ error|escape }} {% endfor %}
+							</p>{% endif %}
+							<textarea name="code" class="clearfix form-control" style="font-family: monospace;" rows="20" data-mode="{{ prefill_submission.language_enum.ace_lexer }}">{{ prefill_submission.code }}</textarea>
+							<div id="code-editor" class="code-editor" style="border-top: 1px solid #ddd;"></div>
 						</div>
 						<div class="panel-footer">
 							<div class="row">
