@@ -1,7 +1,7 @@
 TOP := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 STATIC_DIR := ../prologin/prologin/static
-IMG_DIR = $(STATIC_DIR)/img
-LIB_DIR = $(STATIC_DIR)/lib
+IMG_DIR := $(STATIC_DIR)/img
+LIB_DIR := $(STATIC_DIR)/lib
 
 SVGRASTERTRIM := inkscape --export-area-drawing
 SVGRASTER := inkscape --export-area-page
