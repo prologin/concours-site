@@ -9,24 +9,25 @@
 
 	<title>{% block super_title %}{% block title %}{% endblock %} – Prologin{% endblock %}</title>
 
-	{# Boostrap, FontAwesome #}
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-	<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+	{# Google font, Boostrap, FontAwesome #}
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,300"/>
+	<link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}"/>
+	<link rel="stylesheet" href="{% static 'lib/css/font-awesome.min.css' %}"/>
 
 	{# Custom #}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/prologin.css' %}" />
+	<link rel="stylesheet" type="text/css" href="{% static 'css/prologin.css' %}"/>
 
-    <meta name="description" content="{% block "meta_descr" %}{% endblock %}">
+	<meta name="description" content="{% block "meta_descr" %}{% endblock %}">
 
-    <meta property="og:title" content="Prologin" />
-    <meta property="og:type" content="product" />
-    <meta property="og:image" content="" />
-    <meta property="og:site_name" content="Prologin" />
-    <meta property="fb:admins" content="" />
+	<meta property="og:title" content="{% trans "Prologin, the French computing contest" %}"/>
+	<meta property="og:type" content="product"/>
+	<meta property="og:image" content="{% static 'img/logo_cube.png' %}"/>
+	<meta property="og:site_name" content="{% trans "Prologin, the French computing contest" %}"/>
+	<meta property="fb:admins" content=""/>
 
-    <link rel="shortcut icon" href="{% static 'img/favicon.png' %}" />
+	<link rel="shortcut icon" href="{% static 'img/favicon.png' %}"/>
 
-    <link rel="alternate" type="application/atom+xml" title="{% trans "Latest blog articles" %}" href="{% url 'zinnia:entry_latest_feed' %}" />
+	<link rel="alternate" type="application/atom+xml" title="{% trans "Latest blog articles" %}" href="{% url 'zinnia:entry_latest_feed' %}"/>
 
 	{% block extra_head %}{% endblock %}
 </head>
@@ -83,8 +84,8 @@
 	</footer>
 
 	{# Scripts #}
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+	<script src="{% static 'lib/js/jquery.min.js' %}"></script>
+	<script src="{% static 'lib/js/bootstrap.min.js' %}"></script>
 	{% block extra_script %}{% endblock %}
 </body>
 </html>

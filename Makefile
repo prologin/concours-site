@@ -26,16 +26,13 @@ tx-pull:
 	$(TX) pull -l fr
 	$(MANAGE) compilemessages
 
-# Producing statics
+# Building/updating assets
 
-static-img:
-	$(MAKE) all clean-aux -C prologin/prologin/static/img
-
-pygments-stylesheet:
-	pygmentize -S monokai -f html -a .pyg-hl > prologin/prologin/static/css/pygments-monokai.css
+assets:
+	$(MAKE) all clean-aux -C assets
 
 # Main rules
 
 all: static-img
 
-.PHONY: all runserver static-img tx-push tx-pull
+.PHONY: all runserver smtpserver celeryworker assets tx-push tx-pull

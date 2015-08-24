@@ -138,11 +138,12 @@
 									</li>
 								{% trans "<em>No summary</em>" as no_summary %}
 								{% for sub in user_submission.codes.distinct %}
-									<li class="submission-history-item">
-										<div class="side {% if sub.succeeded %}valid{% elif sub.done %}invalid{% endif %}"
+									<li class="submission-history-item {% if sub.succeeded %}succeeded{% elif sub.done %}failed{% endif %}">
+										<div class="side"
 												title="{% if sub.succeeded %}{% trans "Correct solution" %}{% elif sub.done %}{% trans "Invalid solution" %}{% elif not sub.expired_result %}{% trans "Pending check" %}{% else %}Unavailable status{% endif %}"><i class="fa fa-{% if sub.succeeded %}check-circle-o{% elif sub.done %}times-circle-o{% elif not sub.expired_result %}clock-o{% else %}question{% endif %}"></i></div>
 										<a href="{% url 'training:submission' challenge.year challenge.event_type.name problem.name sub.pk %}">{{ sub.summary|default:no_summary }}</a><br>
 										<small class="text-muted">
+											{% if sub.succeeded %}<span class="label label-success pts-won" title="{% trans "Base points won by solving this problem. Malus points are not taken into account." %}" class="label label-success">{{ sub.score }}</span>{% endif %}
 											{{ sub.get_language_display }} ⋅
 											<span title="{{ sub.date_submitted|date:'c' }}">{{ sub.date_submitted|date:'SHORT_DATETIME_FORMAT' }}</span>
 										</small>
@@ -187,7 +188,6 @@
 			offset: {
 				top: function () {
 					var c = $nav.offset().top - 20;
-					wtf = c;
 					return this.top = c;
 				},
 				bottom: function() {

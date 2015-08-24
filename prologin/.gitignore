@@ -1,10 +1,10 @@
 media/*
+locale/*
+prologin/static/lib/*
+prologin/settings/dev.py
 documents/*.pdf
 documents/*.aux
 documents/*.log
 documents/*.csv
 *.json
 *.sqlite
-users/*.json
-prologin/settings.py
-static/*

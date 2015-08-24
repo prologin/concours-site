@@ -1,10 +1,8 @@
-prologin/prologin/settings/dev.py
-fabfile.py
-.idea/
-locale/
 data/*.csv
 data/*.json
 data/*.sql
+.idea/
+fabfile.py
 *.pyc
 *.aux
 *.log

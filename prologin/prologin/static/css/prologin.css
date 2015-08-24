@@ -1,5 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Roboto:700,300);
-
 /*
  * Page layout
  */
@@ -354,7 +352,7 @@ footer .legal {
 	background-image: url('../img/silhouette.png');
 	background-repeat: no-repeat;
 	background-size: cover;
-	border: 1px solid rgba(0, 0, 0, 0.2);
+	border: 1px solid #ccc;
 	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
 }
 
@@ -609,6 +607,7 @@ footer .legal {
 	max-width: 20em;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	z-index: 0;
 }
 .submission-history li:hover {
 	background: #efefef;
@@ -623,16 +622,23 @@ footer .legal {
 	padding: 0.3em 0;
 	color: white;
 	background-color: #444444;
+	z-index: -1;
 }
-.submission-history li .side.valid {
+.submission-history li.succeeded .side {
 	background-color: #5cb85c; /* success color */
 }
-.submission-history li:hover .side.valid {
+.submission-history li.succeeded:hover .side, .submission-history li.succeeded:hover .pts-won {
 	background-color: #4d994d; /* success color */
 }
-.submission-history li .side.invalid {
+.submission-history li.failed .side {
 	background-color: #d9534f; /* danger color */
 }
-.submission-history li:hover .side.invalid {
+.submission-history li.failed:hover .side {
 	background-color: #ba4745; /* danger color */
+}
+.submission-history li.succeeded small {
+	margin-left: -2em;
+}
+.submission-history li .pts-won {
+	font-size: 90%;
 }

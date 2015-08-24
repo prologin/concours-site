@@ -14,7 +14,7 @@
 {% block title %}{% blocktrans with problem=problem.title %}Submission for {{ problem }}{% endblocktrans %} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block extra_head %}
-	<link rel="stylesheet" type="text/css" href="{% static 'css/pygments-monokai.css' %}" media="screen"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'lib/css/pygments-monokai.css' %}" media="screen"/>
 {% endblock %}
 
 {% block content %}
