@@ -418,7 +418,7 @@ footer .legal {
 	text-align: left;
 }
 
-.fa[data-indicator] {
+.fa[data-indicator], .fa.fa-centered {
 	width: 1em;
 	text-align: center;
 }
