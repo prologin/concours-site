@@ -99,6 +99,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'csp.middleware.CSPMiddleware',
     'prologin.middleware.ContestMiddleware',
 )
 
@@ -241,6 +242,15 @@ TRAINING_PROBLEM_REPOSITORY_PATH = os.path.join(BASE_DIR, 'problems')
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = True
 
+
+# Content Security Policy
+
+CSP_DEFAULT_SRC = ("'self'",)
+CSP_FONT_SRC = ("'self'", "fonts.gstatic.com",)
+CSP_FRAME_SRC = ("'self'", "player.vimeo.com",)
+CSP_IMG_SRC = ("'self'", "data:", "'unsafe-inline'", "*.googleapis.com", "*.gstatic.com",)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "*.googleapis.com",)
+CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "*.googleapis.com",)
 
 # Zinnia (news)
 
