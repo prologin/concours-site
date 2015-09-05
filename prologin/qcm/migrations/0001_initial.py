@@ -61,6 +61,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='answer',
-            unique_together=set([('contestant', 'proposition')]),
+            unique_together={('contestant', 'proposition')},
         ),
     ]

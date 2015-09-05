@@ -2,6 +2,7 @@ from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django.utils import timezone
+from jsonfield import JSONField
 from ordered_model.models import OrderedModel
 
 from centers.models import Center
@@ -67,12 +68,10 @@ class Contestant(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
     edition = models.ForeignKey(Edition, related_name='contestants')
     event_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants')
+    assigned_event = models.ForeignKey(Event, related_name='assigned_contestants', blank=True, null=True)
 
     shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True)
     preferred_language = CodingLanguageField(null=True, blank=True, db_index=True)
-
-    correction_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='corrections')
-    correction_comments = models.TextField(blank=True)
 
     score_qualif_qcm = models.IntegerField(blank=True, null=True, verbose_name=_("QCM score"))
     score_qualif_algo = models.IntegerField(blank=True, null=True, verbose_name=_("Algo exercises score"))
@@ -107,10 +106,6 @@ class Contestant(models.Model):
                    for name in self._meta.get_all_field_names()
                    if name.startswith('score_'))
 
-    @property
-    def approved_wishes(self):
-        return EventWish.objects.select_related('event').filter(contestant=self, is_approved=True)
-
     def __str__(self):
         return "{edition}: {user}".format(user=self.user, edition=self.edition)
 
@@ -118,15 +113,22 @@ class Contestant(models.Model):
 class EventWish(OrderedModel):
     contestant = models.ForeignKey(Contestant)
     event = models.ForeignKey(Event)
-    is_approved = models.BooleanField(default=False)
 
     class Meta(OrderedModel.Meta):
         pass
 
     def __str__(self):
-        return "{edition}: {who} to go to {where}{approved}".format(
+        return "{edition}: {who} to go to {where}".format(
             edition=self.event.edition,
             who=self.contestant.user,
             where=self.event.center,
-            approved=" (approved)" if self.is_approved else "",
         )
+
+
+class ContestantCorrection(models.Model):
+    contestant = models.ForeignKey(Contestant)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='correction_comments', null=True, blank=True)
+    comment = models.TextField(blank=True)
+    event_type = EnumField(Event.Type, db_index=True)
+    changes = JSONField(blank=True)
+    date_added = models.DateTimeField(default=timezone.now)

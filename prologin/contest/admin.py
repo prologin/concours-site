@@ -36,6 +36,9 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('type', 'edition', 'center', 'date_begin', 'date_end',)
     actions = ['export_selected_objects']
 
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('edition', 'center')
+
     def export_selected_objects(modeladmin, request, queryset):
         selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
         ct = ContentType.objects.get_for_model(queryset.model)

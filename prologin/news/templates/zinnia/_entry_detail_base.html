@@ -80,7 +80,7 @@
 		{% block continue-reading %}
 		{% if continue_reading and object_content.has_more %}
 		<p class="continue-reading">
-			<a href="{{ object.get_absolute_url }}"
+			<i class="fa fa-angle-double-right"></i> <a href="{{ object.get_absolute_url }}"
 				 title="{% blocktrans with object=object.title percent=object_content.remaining_percent|floatformat:0 %}{{ percent }}% of {{ object }} still remains to read.{% endblocktrans %}"
 				 rel="bookmark" itemprop="url">
 				{% trans "Continue reading" %}

@@ -1,10 +1,15 @@
 from collections import namedtuple
+from django.core.files.base import ContentFile
+from django.utils import timezone
 from prologin.languages import Language
+import prologin.models
+import requests
 import datetime
 import functools
 import pytz
 
 DEFAULT_TIME_ZONE = pytz.timezone('Europe/Paris')
+CURRENT_TIMEZONE = timezone.get_current_timezone()
 
 
 @functools.lru_cache(64)
@@ -44,6 +49,48 @@ def date_localize(dt, tz):
         # actually is naive, MySQL returns tz=UTF as fallback
         return dt.replace(tzinfo=tz)
     return tz.localize(dt, is_dst=False)
+
+
+def localize(date_or_datetime):
+    def _localize(d):
+        # is_dst not available in Django 1.8 make_aware(). Fuck this.
+        # date = timezone.make_aware(row.timestamp, CURRENT_TIMEZONE, is_dst=True)
+        return CURRENT_TIMEZONE.localize(d, is_dst=True)
+
+    if isinstance(date_or_datetime, datetime.date):
+        return _localize(datetime.datetime.combine(date_or_datetime, datetime.time.min))
+    elif isinstance(date_or_datetime, datetime.datetime):
+        return _localize(date_or_datetime)
+    raise TypeError("localize() argument 1 must be one of datetime.date, datetime.datetime")
+
+
+def field_fetch_file(session, field, url):
+    try:
+        field.open()
+        return None
+    except ValueError:
+        # Standard use case
+        pass
+    except FileNotFoundError:
+        # DB contains an avatar path that is not backed on disk, so download again
+        pass
+    try:
+        req = session.get(url)
+        if not req.ok:
+            raise requests.RequestException("Status is not 2xx")
+        field.save(os.path.split(url)[1], ContentFile(req.content))
+        return True
+    except requests.RequestException:
+        return False
+
+
+def parse_gender(what):
+    what = what.lower().strip()
+    if what == 'monsieur':
+        return prologin.models.Gender.male.value
+    elif what in ('madame', 'mademoiselle'):
+        return prologin.models.Gender.female.value
+    return None
 
 
 def parse_php_birthday(serialized):

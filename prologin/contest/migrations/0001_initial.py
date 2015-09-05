@@ -2,10 +2,11 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from django.conf import settings
-
-import prologin.models
 import contest.models
+import django.utils.timezone
+from jsonfield import JSONField
+from django.conf import settings
+import prologin.models
 
 
 class Migration(migrations.Migration):
@@ -22,7 +23,6 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('shirt_size', prologin.models.EnumField(contest.models.Contestant.ShirtSize, null=True, blank=True, choices=[(0, 'XS'), (1, 'S'), (2, 'M'), (3, 'L'), (4, 'XL'), (5, 'XXL')], db_index=True)),
                 ('preferred_language', prologin.models.CodingLanguageField(null=True, choices=[('ada', 'Ada'), ('brainfuck', 'Brainfuck'), ('c', 'C'), ('csharp', 'C#'), ('cpp', 'C++'), ('fsharp', 'F#'), ('haskell', 'Haskell'), ('java', 'Java'), ('js', 'Javascript'), ('lua', 'Lua'), ('ocaml', 'OCaml'), ('pascal', 'Pascal'), ('perl', 'Perl'), ('php', 'PHP'), ('pseudocode', 'Pseudocode'), ('python2', 'Python 2'), ('python3', 'Python 3'), ('scheme', 'Scheme'), ('vb', 'VB')], verbose_name='Coding language', max_length=64, blank=True, db_index=True)),
-                ('correction_comments', models.TextField(blank=True)),
                 ('score_qualif_qcm', models.IntegerField(verbose_name='QCM score', null=True, blank=True)),
                 ('score_qualif_algo', models.IntegerField(verbose_name='Algo exercises score', null=True, blank=True)),
                 ('score_qualif_bonus', models.IntegerField(verbose_name='Bonus score', null=True, blank=True)),
@@ -32,7 +32,6 @@ class Migration(migrations.Migration):
                 ('score_semifinal_bonus', models.IntegerField(verbose_name='Bonus score', null=True, blank=True)),
                 ('score_final', models.IntegerField(verbose_name='Score', null=True, blank=True)),
                 ('score_final_bonus', models.IntegerField(verbose_name='Bonus score', null=True, blank=True)),
-                ('correction_by', models.ForeignKey(null=True, to=settings.AUTH_USER_MODEL, related_name='corrections', blank=True)),
             ],
         ),
         migrations.CreateModel(
@@ -62,7 +61,6 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('order', models.PositiveIntegerField(editable=False, db_index=True)),
-                ('is_approved', models.BooleanField(default=False)),
                 ('contestant', models.ForeignKey(to='contest.Contestant')),
                 ('event', models.ForeignKey(to='contest.Event')),
             ],
@@ -89,5 +87,22 @@ class Migration(migrations.Migration):
         migrations.AlterUniqueTogether(
             name='contestant',
             unique_together={('user', 'edition')},
+        ),
+        migrations.CreateModel(
+            name='ContestantCorrection',
+            fields=[
+                ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
+                ('comment', models.TextField(blank=True)),
+                ('event_type', prologin.models.EnumField(contest.models.Event.Type, choices=[(0, 'Qualification'), (1, 'Semifinal'), (2, 'Final')], db_index=True)),
+                ('changes', JSONField(blank=True)),
+                ('date_added', models.DateTimeField(default=django.utils.timezone.now)),
+                ('author', models.ForeignKey(related_name='correction_comments', to=settings.AUTH_USER_MODEL, blank=True, null=True)),
+                ('contestant', models.ForeignKey(to='contest.Contestant')),
+            ],
+        ),
+        migrations.AddField(
+            model_name='contestant',
+            name='assigned_event',
+            field=models.ForeignKey(null=True, to='contest.Event', blank=True, related_name='assigned_contestants'),
         ),
     ]

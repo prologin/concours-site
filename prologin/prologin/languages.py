@@ -19,7 +19,7 @@ class LanguageDef:
         self.correctable = correctable
 
     def __str__(self):
-        return self.name
+        return str(self.name)  # force gettext resolution
 
     def serialize(self):
         return str(self)
@@ -29,7 +29,7 @@ class LanguageDef:
 class Language(ChoiceEnum):
     """
     Machine-name (member name, left of equal sign) must be less than
-    16 characters long.
+    16 character long.
     """
     c = LanguageDef("C", ['.c'], doc='c')
     cpp = LanguageDef("C++", ['.cc', '.c++', '.cpp'], doc='cpp')
@@ -74,6 +74,32 @@ class Language(ChoiceEnum):
 
     def __repr__(self):
         return '<{}.{}>'.format(self.__class__.__name__, self.name)
+
+    @classmethod
+    def guess(cls, obj):
+        if isinstance(obj, cls):
+            return obj
+        if isinstance(obj, LanguageDef):
+            return cls(obj)
+        # assume string
+        obj = obj.lower().strip()
+        # some special cases
+        obj = {
+            'python': 'python2',
+            'caml': 'ocaml',
+        }.get(obj, obj)
+        try:
+            # 'cpp', 'PYTHON'
+            return cls[obj]
+        except KeyError:
+            pass
+        # try harder
+        for lang in cls:
+            if lang.name_display().lower() == obj:
+                return lang
+            if obj in lang.extensions() or '.' + obj in lang.extensions():
+                return lang
+        return None
 
     @classmethod
     def _get_choices(cls):

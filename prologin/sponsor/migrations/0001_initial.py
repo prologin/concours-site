@@ -28,6 +28,7 @@ class Migration(migrations.Migration):
                 ('contact_position', models.CharField(blank=True, max_length=128)),
                 ('country', models.CharField(blank=True, max_length=64, verbose_name='Country')),
                 ('description', models.TextField(blank=True)),
+                ('comment', models.TextField(blank=True)),
                 ('editions', models.ManyToManyField(blank=True, to='contest.Edition')),
                 ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('is_active', models.BooleanField(default=True)),

@@ -1,3 +1,5 @@
+# For code charset detection
+chardet
 # For async tasks (sending mails, correcting submissions, etc.)
 celery
 # Django
@@ -26,6 +28,8 @@ git+https://github.com/bfirsh/django-ordered-model.git@python-3
 git+https://github.com/worldveil/django-templates-macros.git#egg=django-templates-macros
 # Tool to query Geoip services for exam center geo-localization
 geopy
+# JSONField() for models
+jsonfield
 # XML parsing (eg. corrector communication)
 lxml
 # Markdown support

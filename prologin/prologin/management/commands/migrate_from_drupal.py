@@ -1,31 +1,38 @@
 import concurrent.futures
+import enum
 import itertools
 import operator
 import os
 
-from django import db
+from django.db import transaction, connections, IntegrityError
+from django.db.models import Prefetch
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
 from django.core.management.base import LabelCommand, CommandError
 from django.template.defaultfilters import slugify
-from django.utils import timezone
 
 import prologin.models
 from ._migration_utils import *  # noqa
 
 User = get_user_model()
-CURRENT_TIMEZONE = timezone.get_current_timezone()
+DRUPAL_SITE_BASE_URL = "http://prologin.org/"  # For downloading content (mainly files/)
 
-GENDER_PARSE = (lambda e: prologin.models.Gender.male.value if e == 'Monsieur'
-                else prologin.models.Gender.female.value if e in ('Madame', 'Mademoiselle')
-                else None)
+"""
+TODO:
+    - forum (categories, messages)
+    - news comments
+"""
 
 
 class Command(LabelCommand):
     help = "Move data from old, shitty MySQL/Drupal database to the shinny new Postgres/Django one."
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.mysql = connections['mysql_legacy']
+
     def migrate_users(self):
-        USER_QUERY = """
+        user_query = """
         SELECT
           u.uid,
           status,
@@ -69,7 +76,7 @@ class Command(LabelCommand):
           LEFT JOIN profile_values pvph ON pvph.uid = u.uid AND pvph.fid = 12
         WHERE u.name IS NOT NULL AND u.name != '' AND u.mail != '' AND u.pass != ''
         GROUP BY u.uid
-        ORDER BY u.uid ASC
+        ORDER BY u.uid
         """
 
         self.stdout.write("Migrating users")
@@ -99,7 +106,7 @@ class Command(LabelCommand):
         new_users = []
         ignored_bots = set()
         with self.mysql.cursor() as c:
-            c.execute(USER_QUERY)
+            c.execute(user_query)
             for row in namedcolumns(c):
                 p_birthday = None
                 birthday = None
@@ -112,7 +119,7 @@ class Command(LabelCommand):
                     birthday = row.u_birthday
                 elif p_birthday and not row.u_birthday:
                     birthday = p_birthday
-                gender = GENDER_PARSE(row.gender)
+                gender = parse_gender(row.gender)
                 user_timezone = guess_timezone(row.timezone)
                 date_joined = min(date for date in (row.created, row.access, row.login) if date)
                 last_login = max(date for date in (row.created, row.access, row.login) if date)
@@ -143,21 +150,17 @@ class Command(LabelCommand):
                 new_users.append(user)
 
         with self.mysql.cursor() as c:
-            c.execute('SELECT user_id FROM resultat_qcms GROUP BY user_id')
+            c.execute("""SELECT user_id FROM resultat_qcms GROUP BY user_id""")
             ids = set(u.user_id for u in namedcolumns(c))
             self.stdout.write("Bot users intersected with users who sent a QCM "
                               "(should be empty):\n{}".format(ids & ignored_bots))
 
         self.stdout.write("Committing users to new database")
-        with db.transaction.atomic():
+        with transaction.atomic():
             User.objects.bulk_create(new_users)
 
     def migrate_user_pictures(self):
-        import requests
-        from django.core.files.base import ContentFile
-
-        BASE_URL = "http://prologin.org/"
-        QUERY = """
+        query = """
         SELECT u.uid, u.picture, COUNT(DISTINCT ty.year) AS years
         FROM users u
         LEFT JOIN team_years ty ON ty.uid = u.uid
@@ -166,25 +169,6 @@ class Command(LabelCommand):
         ORDER BY u.uid
         """
         session = requests.Session()
-
-        def fetch_file(image_field, url):
-            try:
-                image_field.open()
-                return None
-            except ValueError:
-                # Standard use case
-                pass
-            except FileNotFoundError:
-                # DB contains an avatar path that is not backed on disk, so download again
-                pass
-            try:
-                picture_req = session.get(BASE_URL + url)
-                if not picture_req.ok:
-                    raise requests.RequestException("Status is not 2xx")
-                image_field.save(os.path.split(url)[1], ContentFile(picture_req.content))
-                return True
-            except requests.RequestException:
-                return False
 
         def handle_user(item):
             uid, picture = item.uid, item.picture
@@ -196,7 +180,7 @@ class Command(LabelCommand):
             self.stdout.write("Handling {}".format(item.uid))
             if picture:
                 # Normal avatar
-                res = fetch_file(user.avatar, picture)
+                res = field_fetch_file(session, user.avatar, '{}{}'.format(DRUPAL_SITE_BASE_URL, picture))
                 if res:
                     self.stdout.write("Fetched picture for {}".format(user))
                 elif res is False:
@@ -205,7 +189,8 @@ class Command(LabelCommand):
             # Official profile picture
             if user.team_memberships.count():
                 # So reliable. Much Drupal. Wow.
-                res = fetch_file(user.picture, 'files/team/%s.jpg' % user.username.lower())
+                res = field_fetch_file(session, user.picture, '{}files/team/{}.jpg'.format(DRUPAL_SITE_BASE_URL,
+                                                                                           user.username.lower()))
                 if res:
                     self.stdout.write("Fetched official picture for {}".format(user))
                 elif res is False:
@@ -213,7 +198,7 @@ class Command(LabelCommand):
 
         self.stdout.write("Migrating user avatars and official pictures")
         with self.mysql.cursor() as c:
-            c.execute(QUERY)
+            c.execute(query)
             users = list(namedcolumns(c))
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
             executor.map(handle_user, users)
@@ -222,7 +207,7 @@ class Command(LabelCommand):
         import centers.models
 
         field_map = (
-            ('civilite', 'gender', GENDER_PARSE),
+            ('civilite', 'gender', parse_gender),
             ('nom', 'last_name', lambda e: nstrip(e, 64)),
             ('prenom', 'first_name', lambda e: nstrip(e, 64)),
             ('statut', 'position', lambda e: nstrip(e, 128)),
@@ -278,7 +263,7 @@ class Command(LabelCommand):
                 role_table[role.id] = role
         team.models.Role.objects.bulk_create(role_table.values())
 
-        with db.transaction.atomic():
+        with transaction.atomic():
             with self.mysql.cursor() as c:
                 c.execute("SELECT * FROM team_years ORDER BY uid")
                 for uid, rows in itertools.groupby(list(namedcolumns(c)), lambda r: int(r.uid)):
@@ -304,7 +289,7 @@ class Command(LabelCommand):
         from collections import Counter
         import chardet  # so we can still use a nice TextField(), not a BinaryField(), to store codes
 
-        SUBMISSION_QUERY = """
+        submission_query = """
         SELECT uid, challenge, problem,
                MAX(score) AS score,
                MAX(malus) AS malus,
@@ -330,14 +315,15 @@ class Command(LabelCommand):
 
         def get_codes(user, submission):
             pattern = '{}-{}-{}'.format(submission.challenge, submission.problem, user.username)
-            for ext, lang in map_from_legacy_language.mapping.items():
-                fname = pattern + ext
-                if fname in all_files:
-                    yield (fname, lang.name)
+            for lang in Language:
+                for ext in lang.extensions():
+                    fname = pattern + ext
+                    if fname in all_files:
+                        yield (fname, lang.name)
 
         def retrieve_submissions():
             with self.mysql.cursor() as c:
-                c.execute(SUBMISSION_QUERY)
+                c.execute(submission_query)
                 user_to_rows = {uid: list(rows)
                                 for uid, rows
                                 in itertools.groupby(list(namedcolumns(c)), lambda r: int(r.uid))}
@@ -353,48 +339,46 @@ class Command(LabelCommand):
                                                     score_base=row.score,
                                                     malus=row.malus)
             submission.save()
-            # is_dst not available in Django 1.8 make_aware(). Fuck this.
-            # date = timezone.make_aware(row.timestamp, CURRENT_TIMEZONE, is_dst=True)
-            date = CURRENT_TIMEZONE.localize(row.timestamp, is_dst=True)
+            date = localize(row.timestamp)
             return user, submission, date
 
         def handle_submission_codes(args):
             user, submission, date = args
             i = 0
-            fnames = set()
-            for i, (fname, lng) in enumerate(get_codes(user, submission)):
-                with open(os.path.join(code_archive_path, fname), 'rb') as f:
+            file_names = set()
+            for i, (file_name, lang) in enumerate(get_codes(user, submission)):
+                with open(os.path.join(code_archive_path, file_name), 'rb') as f:
                     code = f.read()
                     try:
                         encoding = chardet.detect(code)['encoding']
                         code = code.decode(encoding)
                         chardet_stats[encoding] += 1
-                        lang_stats[lng] += 1
+                        lang_stats[lang] += 1
                     except TypeError:  # 'encoding' is None
-                        self.stderr.write("{}: chardet could not detect encoding".format(fname))
+                        self.stderr.write("{}: chardet could not detect encoding".format(file_name))
                         continue
                     except UnicodeDecodeError:
-                        self.stderr.write("{}: chardet made a mistake".format(fname))
+                        self.stderr.write("{}: chardet made a mistake".format(file_name))
                         continue
 
                 submission_code = problems.models.SubmissionCode(submission=submission,
                                                                  code=code,
-                                                                 language=lng,
+                                                                 language=lang,
                                                                  date_submitted=date)
                 submission_code.save()
-                fnames.add(fname)
+                file_names.add(file_name)
             if i:
                 self.stdout.write("{} {}: {}".format(user.username, submission, i))
-            return fnames
+            return file_names
 
         user_submissions = retrieve_submissions()
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=4) as executor:
             self.stdout.write("Creating submissions")
-            with db.transaction.atomic():
+            with transaction.atomic():
                 submissions = executor.map(handle_submission, user_submissions)
             self.stdout.write("Submission committed. Creating submission codes")
-            with db.transaction.atomic():
+            with transaction.atomic():
                 used_fname_sets = executor.map(handle_submission_codes, submissions)
             self.stdout.write("Codes committed.")
 
@@ -412,21 +396,20 @@ class Command(LabelCommand):
         self.stdout.write("Migrating news")
         main_site = Site.objects.get()
 
-        query = '''
+        query = """
           SELECT n.nid, n.promote, n.uid, nr.title, nr.body, nr.teaser, n.created, n.changed, n.comment FROM node n
           INNER JOIN node_revisions nr ON nr.nid = n.nid
           WHERE n.type = 'story' AND n.status = 1 AND nr.title != '' AND nr.body != ''
           GROUP BY n.nid
-          ORDER BY n.created ASC
-        '''
+          ORDER BY n.created
+        """
 
-        Entry.objects.all().delete()
         with self.mysql.cursor() as c:
             c.execute(query)
-            with db.transaction.atomic():
+            with transaction.atomic():
                 for row in namedcolumns(c):
-                    date_created = CURRENT_TIMEZONE.localize(datetime.datetime.fromtimestamp(row.created), is_dst=True)
-                    date_changed = CURRENT_TIMEZONE.localize(datetime.datetime.fromtimestamp(row.changed), is_dst=True)
+                    date_created = localize(datetime.datetime.fromtimestamp(row.created))
+                    date_changed = localize(datetime.datetime.fromtimestamp(row.changed))
                     entry = Entry(
                         id=row.nid,
                         title=row.title,
@@ -448,8 +431,430 @@ class Command(LabelCommand):
                     except Author.DoesNotExist:
                         self.stdout.write("Unknown author: {}".format(row.uid))
 
-    # TODO: forum
-    # TODO: news comments
+    def migrate_events(self):
+        import contest.models
+        import centers.models
+
+        query = """
+        SELECT c.id, c.annee, c.debut, c.fin, LOWER(TRIM(c.type)) AS type,
+        c.centre_examen_id AS centre_id, centre.nom AS centre_nom
+        FROM concours c
+        LEFT JOIN centre_examens centre ON centre.id = c.centre_examen_id
+        ORDER BY c.annee
+        """
+
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            rows = list(namedcolumns(c))
+
+        class DateType(enum.Enum):
+            begin = 'debut'
+            end = 'fin'
+
+        def get_date_or_guess(year, event, date_type):
+            """Guess date of event where it's not available in database."""
+            date = getattr(event, date_type.value)
+            if date:
+                return date
+            self.stderr.write("No date for year {} type {}, using guess".format(year, date_type.name))
+            if event.type == 'qcm':
+                if date_type == DateType.begin:
+                    return datetime.date(year - 1, 10, 1)
+                else:
+                    return datetime.date(year, 1, 1)
+            elif event.type == 'demifinale':
+                if date_type == DateType.begin:
+                    return datetime.date(year, 2, 1)
+                else:
+                    return datetime.date(year, 2, 1)
+            elif event.type == 'finale':
+                if date_type == DateType.begin:
+                    return datetime.date(year, 5, 1)
+                else:
+                    return datetime.date(year, 5, 3)
+            raise ValueError("Unknown event type: {}".format(event.type))
+
+        # Create the editions
+        with transaction.atomic():
+            for year, events in itertools.groupby(rows, key=lambda e: e.annee):
+                events = list(events)
+                date_begin = localize(min(get_date_or_guess(year, event, DateType.begin) for event in events))
+                date_end = localize(max(get_date_or_guess(year, event, DateType.end) for event in events))
+                edition = contest.models.Edition(year=year, date_begin=date_begin, date_end=date_end)
+                try:
+                    edition.save()
+                except IntegrityError:
+                    self.stdout.write("Edition {} already exists".format(year))
+
+        self.stdout.write("There are {} editions.".format(contest.models.Edition.objects.count()))
+
+        # Create the edition events
+        with transaction.atomic():
+            for year, events in itertools.groupby(rows, key=lambda e: e.annee):
+                try:
+                    edition = contest.models.Edition.objects.get(year=year)
+                except contest.models.Edition.DoesNotExist:
+                    self.stderr.write("No such edition: {}".format(year))
+                    continue
+
+                for row in events:
+                    kwargs = {}
+                    if row.type == 'qcm':
+                        type = contest.models.Event.Type.qualification
+                    elif row.type == 'demifinale':
+                        type = contest.models.Event.Type.semifinal
+                        try:
+                            kwargs['center'] = centers.models.Center.objects.get(pk=row.centre_id)
+                        except centers.models.Center.DoesNotExist:
+                            self.stderr.write("Warning: exam center (ID {}, name {}) does not exist for semifinal {}"
+                                              .format(row.centre_id, row.centre_nom, edition))
+                    elif row.type == 'finale':
+                        type = contest.models.Event.Type.final
+                    else:
+                        self.stderr.write("Unknown event type: {}".format(row.type))
+                        continue
+                    date_begin = get_date_or_guess(year, row, DateType.begin)
+                    date_end = get_date_or_guess(year, row, DateType.end)
+                    event, created = contest.models.Event.objects.get_or_create(
+                        pk=row.id, edition=edition, type=type.value,
+                        date_begin=date_begin, date_end=date_end, **kwargs)
+                    event.save()
+
+        # Consistency checks
+        for type in (contest.models.Event.Type.qualification, contest.models.Event.Type.final):
+            editions = (contest.models.Edition.objects
+                        .prefetch_related(Prefetch('events',
+                                                   to_attr='the_events',
+                                                   queryset=contest.models.Event.objects.filter(type=type.value))))
+            for edition in editions:
+                l = len(edition.the_events)
+                if l == 0:
+                    self.stderr.write("Consistency warning: edition {} has no {} event".format(edition, type.name))
+                elif l > 1:
+                    self.stderr.write("Consistency warning: edition {} has {} {} events".format(edition, l, type.name))
+
+        editions = (contest.models.Edition.objects
+                    .prefetch_related(Prefetch('events',
+                                               to_attr='semifinals',
+                                               queryset=contest.models.Event.objects.filter(
+                                                   type=contest.models.Event.Type.semifinal.value))))
+        for edition in editions:
+            if not edition.semifinals:
+                self.stderr.write("Consistency warning: edition {} has no semifinal events".format(edition))
+
+    def migrate_contest_results(self):
+        import contest.models
+
+        # We merge resultat_qcms and resultat_demi_finales so we can retrieve everything
+        # using one big query. Each row is processed according to 'type' with is either
+        # 'qualif' or 'semi'.
+        # We don't use COALESCE() for the dates because sometimes, it's equal to 0 (which
+        # is not NULL) so COALESCE() returns 0 instead of trying the next one. Hence the
+        # nested IF()s for 'date'.
+        # Finale results are ignored because there is nothing relevant in the table
+        # 'resultat_finales'.
+        query = """
+        SELECT
+          r.type,
+          r.user_id,
+          r.commentaires,
+          r.correcteur,
+          r.date,
+          r.note1,
+          r.note2,
+          r.note3,
+          r.note_finale,
+          r.choix_demis,
+          r.assignation,
+          r.size,
+          r.langage,
+          ev.annee AS year
+        FROM (
+               SELECT
+                 'qualif'                                                 AS type,
+                 r.user_id,
+                 r.qcm_id                                                 AS event_id,
+                 r.commentaires,
+                 r.correcteur,
+                 IF(r.date_correction IS NOT NULL AND r.date_correction != 0,
+                    r.date_correction,
+                    IF(r.updated_on IS NOT NULL AND r.updated_on != 0,
+                       r.updated_on,
+                       r.created_on))                                     AS date,
+                 r.note_qcm                                               AS note1,
+                 r.note_algo                                              AS note2,
+                 r.note_bonus                                             AS note3,
+                 r.note_finale                                            AS note_finale,
+                 CONCAT_WS(',', r.choix_demi_1, r.choix_demi_2, r.choix_demi_3) AS choix_demis,
+                 rdf.demi_finale_id                                       AS assignation,
+                 r.size                                                   AS size,
+                 r.langage                                                AS langage
+               FROM resultat_qcms r
+               LEFT JOIN resultat_demi_finales rdf ON rdf.id = r.resultat_demi_finale_id
+               UNION
+               SELECT
+                 'semi'                     AS type,
+                 user_id,
+                 demi_finale_id             AS event_id,
+                 commentaires,
+                 correcteur,
+                 IF(updated_on IS NOT NULL AND updated_on != 0,
+                    updated_on, created_on) AS date,
+                 note_entretien             AS note1,
+                 note_algo                  AS note2,
+                 note_prog                  AS note3,
+                 note_finale                AS note_finale,
+                 NULL                       AS choix_demis,
+                 NULL                       AS assignation,
+                 NULL                       AS size,
+                 NULL                       AS langage
+               FROM resultat_demi_finales
+             ) r
+          INNER JOIN concours ev ON ev.id = r.event_id
+        ORDER BY ev.annee, r.type, r.user_id
+        """
+
+        @functools.lru_cache(2000)
+        def get_user(user_id):
+            return User.objects.get(pk=user_id)
+
+        @functools.lru_cache(128)
+        def get_edition(year):
+            return contest.models.Edition.objects.get(year=year)
+
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            with transaction.atomic():
+                for row in namedcolumns(c):
+                    try:
+                        contestant, created = contest.models.Contestant.objects.get_or_create(
+                            edition=get_edition(row.year), user=get_user(row.user_id))
+                    except User.DoesNotExist:
+                        self.stderr.write("User {} does not exist".format(row.user_id))
+                        continue
+
+                    if row.type == 'qualif':
+                        # We have to keep the order of the wishes, so we first take all the
+                        # relevant Event objects and store them in a dict for later querying.
+                        semi_wish_pks = [int(e) for e in row.choix_demis.split(',') if e != '-1']
+                        if semi_wish_pks:
+                            event_wishes = {
+                                e.pk: e
+                                for e in contest.models.Event.objects.filter(
+                                    type=contest.models.Event.Type.semifinal.value,
+                                    edition__year=row.year,
+                                    pk__in=semi_wish_pks,
+                                )}
+                        # T-shirt size
+                        if row.size:
+                            contestant.shirt_size = contest.models.Contestant.ShirtSize[row.size.lower().strip()].value
+                        # Preferred language. This used to be a simple text <input/> so we don't try too hard to
+                        # guess the language.
+                        if row.langage:
+                            try:
+                                contestant.preferred_language = prologin.models.Language.guess(row.langage).name
+                            except AttributeError:
+                                self.stderr.write("Contestant {}: language could not be guessed: {}".format(
+                                    contestant, row.langage))
+                        # The event where contestant was actually assigned.
+                        if row.assignation:
+                            try:
+                                contestant.assigned_event = contest.models.Event.objects.get(
+                                    type=contest.models.Event.Type.semifinal.value,
+                                    edition__year=row.year,
+                                    pk=row.assignation,
+                                )
+                            except contest.models.Event.DoesNotExist:
+                                self.stderr.write("Contestant {}: assignation: event {} does exist".format(
+                                    contestant, row.assignation))
+
+                        # note1, note2, note3 = qcm, algo, bonus
+                        changes = {
+                            'score_qualif_qcm': row.note1,
+                            'score_qualif_algo': row.note2,
+                            'score_qualif_bonus': row.note3,
+                        }
+
+                    elif row.type == 'semi':
+                        # note1, note2, note3 = entretien, algo, prog
+                        changes = {
+                            'score_semifinal_interview': row.note1,
+                            'score_semifinal_written': row.note2,
+                            'score_semifinal_machine': row.note3,
+                        }
+
+                    else:
+                        raise ValueError("Fix your query")
+
+                    # Update notes on contestant model
+                    for k, v in changes.items():
+                        setattr(contestant, k, v)
+
+                    contestant.save()
+
+                    # Have to be done after contestant.save()
+                    if row.type == 'qualif':
+                        for n, pk in enumerate(semi_wish_pks):
+                            try:
+                                contest.models.EventWish(contestant=contestant,
+                                                         event=event_wishes[pk],
+                                                         order=n).save()
+                            except KeyError:
+                                self.stderr.write("Contestant {}: event whish #{} ID {} does not exist "
+                                                  "or is not a semifinal".format(contestant, n, pk))
+
+                    correction = contest.models.ContestantCorrection(contestant=contestant)
+                    if row.correcteur is not None:
+                        correction.author = User.objects.filter(username__icontains=row.correcteur).first()
+                    correction.comment = row.commentaires or ''
+                    correction.date_added = localize(row.date)
+                    correction.event_type = (contest.models.Event.Type.qualification if row.type == 'qcm'
+                                             else contest.models.Event.Type.semifinal).value
+                    correction.changes = changes
+                    correction.save()
+                    self.stdout.write("Contestant {} was {}".format(contestant, "created" if created else "updated"))
+
+    def migrate_quizz(self):
+        import contest.models
+        import qcm.models
+        import sponsor.models
+
+        query = """
+        SELECT DISTINCT qcm.annee, question.id, question.question, question.commentaires, question.reponse,
+          question.proposition_1, question.proposition_2, question.proposition_3, question.proposition_4,
+          IF(sid.id IS NOT NULL, sid.id, skey.id) AS sponsor_id
+        FROM epreuve_qcms question
+        INNER JOIN concours qcm ON question.qcm_id = qcm.id
+        LEFT JOIN sponsors sid  ON sid.id   = question.sponsor -- \ because you can query by ID or by 'key', genius!
+        LEFT JOIN sponsors skey ON skey.cle = question.sponsor -- /
+        WHERE TRIM(LOWER(qcm.type)) = 'qcm'
+          AND TRIM(question.proposition_2) != ''
+          AND reponse != '0'
+          AND question.qcm_id < 1990 -- lol. half the QCM questions have the edition year as their qcm_id,
+                                     -- instead of a real foreign to concours.id
+        ORDER BY qcm.annee, question.ordre
+        """
+
+        self.stdout.write("Migrating QCM quizzes (questions and propositions)")
+
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            with transaction.atomic():
+                for year, questions in itertools.groupby(namedcolumns(c), key=lambda e: e.annee):
+                    event = contest.models.Event.objects.get(edition__year=year,
+                                                             type=contest.models.Event.Type.qualification.value)
+                    qcm_obj = qcm.models.Qcm(event=event)
+                    qcm_obj.save()
+                    for order, question in enumerate(questions):
+                        q_obj = qcm.models.Question(pk=question.id,
+                                                    qcm=qcm_obj,
+                                                    body=question.question,
+                                                    verbose=question.commentaires,
+                                                    order=order)
+                        if question.sponsor_id:
+                            try:
+                                q_obj.for_sponsor = sponsor.models.Sponsor.objects.get(pk=question.sponsor_id)
+                            except sponsor.models.Sponsor.DoesNotExist:
+                                self.stderr.write("Question {}: sponsor ID {} does not exist".format(
+                                    q_obj, question.sponsor_id))
+                        q_obj.save()
+
+                        for n in range(1, 4 + 1):
+                            prop = getattr(question, 'proposition_{}'.format(n))
+                            if not prop:
+                                continue
+                            qcm.models.Proposition(question=q_obj, text=prop,
+                                                   is_correct=str(n) in str(question.reponse)).save()
+
+        self.stdout.write("Migrating user answers to QCM quizzes")
+
+        query = """
+        SELECT DISTINCT c.annee AS year, results.user_id, question.id AS question_id, answers.reponse
+        FROM resultat_qcm_reponses answers
+        INNER JOIN resultat_qcms results ON results.id = answers.resultat_qcm_id
+        INNER JOIN epreuve_qcms question ON question.id = answers.epreuve_qcm_id
+        INNER JOIN concours c ON c.id = question.qcm_id
+        WHERE TRIM(LOWER(c.type)) = 'qcm'
+          AND TRIM(question.proposition_2) != ''
+          AND answers.reponse != '0'
+          AND question.qcm_id < 1990
+        ORDER BY answers.epreuve_qcm_id /* = question.id */
+        """
+
+        @functools.lru_cache(2000)
+        def get_contestant(year, user_id):
+            return contest.models.Contestant.objects.get(edition__year=year, user__pk=user_id)
+
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            with transaction.atomic():
+                for question_id, answers in itertools.groupby(namedcolumns(c), key=lambda e: e.question_id):
+                    propositions = qcm.models.Proposition.objects.filter(question__pk=question_id).order_by('pk')
+                    for answer in answers:
+                        try:
+                            contestant = get_contestant(answer.year, answer.user_id)
+                        except contest.models.Contestant.DoesNotExist:
+                            self.stderr.write("Contestant user ID {} does not exist".format(answer.user_id))
+                            continue
+                        for sub_answer in str(answer.reponse):
+                            ind = int(sub_answer) - 1
+                            if ind == 4:
+                                # « Ne pas répondre »
+                                self.stdout.write("Ignored 'do not answer' for question {}, user {}".format(
+                                    question_id, answer.user_id))
+                                continue
+                            try:
+                                proposition = propositions[ind]  # this is fragile but fuck it
+                            except IndexError:
+                                print("Index error. Should not happen.")
+                                print(answer, question_id, propositions)
+                                raise
+                            try:
+                                qcm.models.Answer(contestant=contestant, proposition=proposition).save()
+                            except IntegrityError:
+                                print("Integrity error. Should not happen.")
+                                print(answer, question_id, propositions)
+                                raise
+
+    def migrate_sponsors(self):
+        import sponsor.models
+        query = """SELECT DISTINCT * FROM sponsors"""
+        session = requests.Session()
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            with transaction.atomic():
+                for row in namedcolumns(c):
+                    contact_name = row.contact.strip().split()
+                    fn = ln = ''
+                    if contact_name:
+                        particle = contact_name[0].lower()
+                        if particle.endswith('.') or particle in ('m', 'mme', 'mlle', 'mr'):
+                            contact_name.pop(0)
+                        try:
+                            fn, *ln = contact_name
+                        except ValueError:
+                            try:
+                                fn = contact_name[0]
+                            except IndexError:
+                                fn = ''
+                            ln = []
+                        ln = ' '.join(ln)
+                    site = 'http://' + row.web if not row.web.startswith('http') else row.web
+                    sponsor_obj = sponsor.models.Sponsor(pk=row.id, name=row.nom, is_active=row.actif, site=site,
+                                                         description=row.descriptif, comment=row.commentaires,
+                                                         address=row.adresse, postal_code=row.code_postal,
+                                                         city=row.ville,
+                                                         contact_position=row.statut, contact_email=row.email,
+                                                         contact_first_name=fn, contact_last_name=ln,
+                                                         contact_phone_desk=row.tel_fixe or row.tel_direct,
+                                                         contact_phone_mobile=row.tel_mobile, contact_phone_fax=row.fax)
+                    ok = field_fetch_file(session, sponsor_obj.logo,
+                                          '{}files/images/sponsors/{}'.format(DRUPAL_SITE_BASE_URL, row.image))
+                    if ok:
+                        self.stdout.write("Downladed image for {}".format(sponsor_obj))
+                    else:
+                        self.stderr.write("Unable to downlad image for {}".format(sponsor_obj))
+                    sponsor_obj.save()
 
     def handle_label(self, label, **options):
         args = []
@@ -468,5 +873,4 @@ class Command(LabelCommand):
             self.stderr.write("Available migrations: {}".format(", ".join(labels)))
             raise CommandError("No such migration: {}".format(label))
 
-        self.mysql = db.connections['mysql_legacy']
         func(*args)
