@@ -6,6 +6,7 @@ import prologin.models
 import requests
 import datetime
 import functools
+import os
 import pytz
 
 DEFAULT_TIME_ZONE = pytz.timezone('Europe/Paris')
