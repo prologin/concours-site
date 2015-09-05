@@ -26,6 +26,12 @@ class Edition(models.Model):
         return "Prologin {}".format(self.year)
 
 
+class EventManager(models.Manager):
+    def get_queryset(self):
+        return (super().get_queryset()
+                .select_related('edition', 'center'))
+
+
 class Event(models.Model):
     @ChoiceEnum.labels(str.capitalize)
     class Type(ChoiceEnum):
@@ -42,6 +48,8 @@ class Event(models.Model):
     date_begin = models.DateField(blank=True, null=True)
     date_end = models.DateField(blank=True, null=True)
 
+    objects = EventManager()
+
     @property
     def is_active(self):
         return self.date_begin <= timezone.now().date() <= self.date_end
@@ -53,6 +61,12 @@ class Event(models.Model):
             starting=self.date_begin,
             at=" at %s" % self.center if self.center else "",
         )
+
+
+class ContestantManager(models.Manager):
+    def get_queryset(self):
+        return (super().get_queryset()
+                .select_related('edition', 'user'))
 
 
 class Contestant(models.Model):
@@ -82,6 +96,8 @@ class Contestant(models.Model):
     score_semifinal_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
     score_final = models.IntegerField(blank=True, null=True, verbose_name=_("Score"))
     score_final_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
+
+    objects = ContestantManager()
 
     class Meta:
         unique_together = ('user', 'edition')
@@ -126,7 +142,7 @@ class EventWish(OrderedModel):
 
 
 class ContestantCorrection(models.Model):
-    contestant = models.ForeignKey(Contestant)
+    contestant = models.ForeignKey(Contestant, related_name='corrections')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='correction_comments', null=True, blank=True)
     comment = models.TextField(blank=True)
     event_type = EnumField(Event.Type, db_index=True)

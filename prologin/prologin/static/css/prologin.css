@@ -561,8 +561,8 @@ footer .legal {
 }
 
 @keyframes staff-flair-president {
-	0% { left: -50%; }
-	100% { left: 600%; }
+	0% { left: -100%; }
+	100% { left: 200%; }
 }
 .staff-flair-president {
 	position: relative;
@@ -573,9 +573,9 @@ footer .legal {
 .staff-flair-president:after {
 	position: absolute;
 	content: '';
-	top: -50px;
+	top: -33px;
 	height: 100px;
-	width: 10px;
+	width: 50px;
 	transform: rotate(45deg);
 	background: linear-gradient(to right, palegoldenrod, goldenrod, palegoldenrod);
 	opacity: 0.3;

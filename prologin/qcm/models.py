@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.db.models import Prefetch, Count, Sum, Case, When, Value, IntegerField
 from django.utils.translation import ugettext_lazy as _
 from ordered_model.models import OrderedModel
 
@@ -13,11 +14,22 @@ def contestant_qcm_consistency_check(contestant, qcm):
                               .format(cont=contestant.edition, qcm=qcm.event.edition))
 
 
+class QcmManager(models.Manager):
+    def get_queryset(self):
+        return (super().get_queryset()
+                .select_related('event', 'event__edition')
+                .annotate(question_count=Count('questions', distinct=True),
+                          proposition_count=Count('questions__propositions', distinct=True),
+                          answer_count=Count('questions__propositions__answers', distinct=True)))
+
+
 class Qcm(models.Model):
     event = models.ForeignKey(contest.models.Event, related_name='qcms')
 
+    objects = QcmManager()
+
     def is_completed_for(self, contestant):
-        return contestant.qcm_answers.filter(proposition__question__qcm=self).count() == self.questions.count()
+        return contestant.qcm_answers.filter(proposition__question__qcm=self).count() == self.question_count
 
     def score_for_contestant(self, contestant):
         contestant_qcm_consistency_check(contestant, self)
@@ -30,8 +42,21 @@ class Qcm(models.Model):
     def __str__(self):
         return "QCM for {event} ({count} questions)".format(
             event=self.event,
-            count=self.questions.count(),
+            count=self.question_count,
         )
+
+
+class QuestionManager(models.Manager):
+    def get_queryset(self):
+        return (super().get_queryset()
+                .select_related('qcm', 'qcm__event', 'qcm__event__edition')
+                .prefetch_related(
+                                  Prefetch('propositions',
+                                           queryset=Proposition.objects.filter(is_correct=True),
+                                           to_attr='correct_propositions'))
+                .annotate(proposition_count=Count('propositions'),
+                          correct_proposition_count=Sum(Case(When(propositions__is_correct=True, then=Value(1)),
+                                                             output_field=IntegerField()))))
 
 
 class Question(OrderedModel):
@@ -41,20 +66,10 @@ class Question(OrderedModel):
     verbose = models.TextField(blank=True, verbose_name=_("Verbose description"))
     for_sponsor = models.ForeignKey(sponsor.models.Sponsor, blank=True, null=True, related_name='qcm_questions')
 
+    objects = QuestionManager()
+
     class Meta(OrderedModel.Meta):
         pass
-
-    @property
-    def proposition_count(self):
-        return self.propositions.count()
-
-    @property
-    def correct_propositions(self):
-        return self.propositions.filter(is_correct=True)
-
-    @property
-    def correct_proposition_count(self):
-        return self.correct_propositions.count()
 
     def __str__(self):
         return self.body

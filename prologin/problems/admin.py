@@ -75,6 +75,8 @@ class SubmissionCodeAdmin(admin.ModelAdmin):
     readonly_fields = ('submission',)
     list_display = ('_title', 'challenge', 'problem', 'username', 'language', 'correctable', 'score', 'status')
     list_filter = (CodeSucceededFilter, CodeCorrectedFilter, CodeExpiredFilter, 'language', 'submission__challenge')
+    search_fields = ('submission__user__username', 'submission__user__first_name', 'submission__user__last_name',
+                     'submission__challenge', 'submission__problem')
     actions = ('submit_to_correction',)
 
     def has_add_permission(self, request):
@@ -146,6 +148,7 @@ class SubmissionAdmin(admin.ModelAdmin):
     inlines = [SubmissionCodeInline]
     list_display = ('_title', 'challenge', 'problem', 'username', 'score', 'succeeded')
     list_filter = (SucceededFilter, 'challenge')
+    search_fields = ('user__username', 'user__first_name', 'user__last_name', 'challenge', 'problem')
     readonly_fields = ('user',)
 
     def has_add_permission(self, request):

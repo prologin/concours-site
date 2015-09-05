@@ -11,7 +11,7 @@ class Sponsor(AddressableModel, ContactModel):
     logo = models.ImageField(upload_to=upload_path('sponsor'), blank=True)
     site = models.URLField(blank=True)
     is_active = models.BooleanField(default=True)
-    editions = models.ManyToManyField('contest.Edition', blank=True)
+    editions = models.ManyToManyField('contest.Edition', blank=True, related_name='sponsors')
 
     def __str__(self):
         return self.name

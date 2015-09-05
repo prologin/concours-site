@@ -12,6 +12,7 @@ class CenterAdmin(admin.ModelAdmin):
     list_filter = ('is_active', 'type', 'city',)
     list_display = ('name', 'city', 'type', 'coordinates', 'is_active', 'contact_names')
     actions = ('geocode_centers', 'normalize_centers',)
+    search_fields = ('name', 'city', 'comments',)
     inlines = [ContactInlineAdmin]
 
     def contact_names(self, obj):
