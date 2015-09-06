@@ -49,7 +49,7 @@ def _enumfield_factory(basecls, enumcls, name, **fieldkwargs):
 
 
 GenderField = _enumfield_factory(EnumField, Gender, 'GenderField',
-                                 empty_label=_("Prefer not to tell"), verbose_name=_("Gender"))
+                                 empty_label=_("Other or prefer not to tell"), verbose_name=_("Gender"))
 
 CodingLanguageField = _enumfield_factory(TextEnumField, Language, 'CodingLanguageField',
                                          verbose_name=_("Coding language"))

@@ -6,8 +6,11 @@ from django.utils.translation import ugettext_lazy as _
 
 class ProloginUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
-        (_("Profil"), {'fields': ('avatar', 'picture', 'address', 'postal_code', 'city', 'country', 'phone', 'birthday')}),
-        (_("Settings"), {'fields': ('newsletter',)}),
+        (_("Profil"), {'fields': ('gender', 'address', 'postal_code', 'city', 'country', 'phone', 'birthday',
+                                  'school_stage',)}),
+        (_("Public identity"), {'fields': ('avatar', 'picture', 'signature')}),
+        (_("Settings"), {'fields': ('newsletter', 'allow_mailing', 'timezone', 'preferred_locale',
+                                    'preferred_language',)}),
     )
 
 admin.site.register(get_user_model(), ProloginUserAdmin)

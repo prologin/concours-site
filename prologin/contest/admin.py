@@ -109,8 +109,9 @@ class ContestantAdmin(admin.ModelAdmin):
     edition_link.admin_order_field = 'edition'
     edition_link.allow_tags = True
 
-    def get_field_queryset(self, db, db_field, request):
-        pass
+    def has_add_permission(self, request):
+        # Contestants are programmatically created
+        return False
 
 
 admin.site.register(contest.models.Edition, EditionAdmin)

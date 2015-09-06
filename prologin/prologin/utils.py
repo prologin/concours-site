@@ -11,7 +11,7 @@ from django.contrib.admin.views.main import EMPTY_CHANGELIST_VALUE
 from django.core.cache import cache
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
-from django.utils.html import escape
+from django.utils.html import conditional_escape
 
 
 def absolute_site_url(request, absolute_path):
@@ -145,4 +145,4 @@ def admin_url_for(obj, method='change', label=lambda e: str(e)):
     if obj is None:
         return EMPTY_CHANGELIST_VALUE
     return '<a href="{}">{}</a>'.format(reverse('admin:{}_{}_{}'.format(obj._meta.app_label, obj._meta.model_name, method),
-                                                args=[obj.pk]), escape(label(obj)))
+                                                args=[obj.pk]), conditional_escape(label(obj)))

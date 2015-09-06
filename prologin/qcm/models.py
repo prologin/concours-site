@@ -76,7 +76,7 @@ class Question(OrderedModel):
 
 
 class Proposition(models.Model):
-    question = models.ForeignKey(Question, related_name='propositions')
+    question = models.ForeignKey(Question, related_name='propositions', verbose_name=_("Question"))
     text = models.CharField(max_length=255)
     is_correct = models.BooleanField(default=False)
 
@@ -84,9 +84,17 @@ class Proposition(models.Model):
         return self.text
 
 
+class AnswerManager(models.Manager):
+    def get_queryset(self):
+        return (super().get_queryset()
+                .select_related('proposition__question__qcm__event__edition', 'contestant__user'))
+
+
 class Answer(models.Model):
     contestant = models.ForeignKey(contest.models.Contestant, related_name='qcm_answers')
-    proposition = models.ForeignKey(Proposition, related_name='answers')
+    proposition = models.ForeignKey(Proposition, related_name='answers', verbose_name=_("Answer"))
+
+    objects = AnswerManager()
 
     class Meta:
         unique_together = ('contestant', 'proposition',)
