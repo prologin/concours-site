@@ -3,10 +3,10 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Contest" "" %}
+	{% breadcrumb_for "" %}{% trans "Contest" %}{% endbreadcrumb_for %}
 	{% breadcrumb qcm.event.edition.year "" %}
-    {% breadcrumb "Qualification" '' %} {# TODO #}
-	{% breadcrumb "Quiz" 'qcm:display' qcm.event.edition.year %}
+    {% breadcrumb_for "" %}{% trans "Qualification" %}{% endbreadcrumb_for %} {# TODO #}
+	{% breadcrumb_for "qcm:display" qcm.event.edition.year %}{% trans "Quiz" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block extra_head %}

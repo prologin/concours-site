@@ -63,7 +63,7 @@
 	<div class="container">
 		{% block breadcrumbs %}
 			{% clear_breadcrumbs %}
-			{% breadcrumb "Prologin" "home" %}
+			{% breadcrumb_for "home" %}{% trans "Prologin" %}{% endbreadcrumb_for %}
 		{% endblock %}
 
 		{% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}

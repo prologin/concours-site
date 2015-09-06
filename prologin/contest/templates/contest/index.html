@@ -3,9 +3,9 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Contest" "" %}
+	{% breadcrumb_for "" %}{% trans "Contest" %}{% endbreadcrumb_for %}
 	{% breadcrumb edition.year "" %}
-	{% breadcrumb "Qualification" '' %} {# TODO #}
+	{% breadcrumb_for "" %}{% trans "Qualification" %}{% endbreadcrumb_for %} {# TODO #}
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans with edition.year as year %}Prologin {{ year }}{% endblocktrans %}{% endblock %}

@@ -18,6 +18,7 @@ celeryworker:
 # Transifex
 
 tx-push:
+	$(MANAGE) makemessages -l en
 	$(MANAGE) makemessages -a
 	$(TX) push -s -t
 

@@ -4,7 +4,7 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Members" "" %}
+	{% breadcrumb_for "" %}{% trans "Members" %}{% endbreadcrumb_for %}
 	{% breadcrumb shown_user "users:profile" shown_user.id %}
 {% endblock breadcrumbs %}
 

@@ -4,8 +4,8 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "The organization" 'pages:about-organization' %}
-	{% breadcrumb "About the contest" 'pages:about-contest' %}
+	{% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
+	{% breadcrumb_for "pages:about-contest" %}{% trans "About the contest" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "Discover the Prologin contest" %}{% endblock %}

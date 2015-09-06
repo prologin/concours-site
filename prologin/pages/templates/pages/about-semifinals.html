@@ -4,9 +4,9 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "The organization" 'pages:about-organization' %}
-	{% breadcrumb "About the contest" 'pages:about-contest' %}
-	{% breadcrumb "The semifinals" 'pages:about-semifinal' %}
+	{% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
+	{% breadcrumb_for "pages:about-contest" %}{% trans "About the contest" %}{% endbreadcrumb_for %}
+	{% breadcrumb_for "pages:about-semifinal" %}{% trans "The semifinals" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "The semifinals" %}{% endblock %}

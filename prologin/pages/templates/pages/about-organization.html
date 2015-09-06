@@ -4,7 +4,7 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "The organization" 'pages:about-organization' %}
+	{% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "About the Prologin organization" %}{% endblock %}

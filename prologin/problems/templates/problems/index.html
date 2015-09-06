@@ -3,8 +3,8 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Training" "training:index" %}
-	{% breadcrumb "The challenges" "" %}
+	{% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
+	{% breadcrumb_for "" %}{% trans "The challenges" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "Training challenges" %}{% endblock %}

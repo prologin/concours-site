@@ -4,7 +4,7 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Register" "users:register" %}
+	{% breadcrumb_for "users:register" %}{% trans "Register" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "Register" %}{% endblock %}

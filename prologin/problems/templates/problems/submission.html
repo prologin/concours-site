@@ -4,11 +4,11 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Training" "training:index" %}
+	{% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
 	{% breadcrumb challenge.year "" %}
 	{% breadcrumb challenge.event_type|choiceenum_label "training:challenge" challenge.year challenge.event_type.name %}
 	{% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
-	{% breadcrumb "Submission" "training:submission" challenge.year challenge.event_type.name problem.name submission.pk %}
+	{% breadcrumb_for "training:submission" challenge.year challenge.event_type.name problem.name submission.pk %}{% trans "Submission" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans with problem=problem.title %}Submission for {{ problem }}{% endblocktrans %} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}

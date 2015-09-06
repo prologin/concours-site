@@ -1,5 +1,4 @@
 from django.conf.urls import patterns, include, url
-from django.conf.urls.i18n import i18n_patterns
 from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
@@ -7,16 +6,18 @@ from django.contrib import admin
 from homepage.views import HomepageView
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Homepage
     url(r'^$', HomepageView.as_view(), name='home'),
 
     # Built-in Django admin
     url(r'^admin/', include(admin.site.urls)),
-)
 
-urlpatterns += i18n_patterns('',
+    # Language selector
+    url(r'^lang/', include('django.conf.urls.i18n')),
+]
 
+urlpatterns += [
     # News (blog)
     url(r'^news/', include('news.urls')),
 
@@ -44,13 +45,13 @@ urlpatterns += i18n_patterns('',
 
     # Pages
     url('^', include('pages.urls', namespace='pages')),
-)
+]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += patterns('',
+    urlpatterns += [
         url(r'^e/400/$', TemplateView.as_view(template_name='400.html')),
         url(r'^e/403/$', TemplateView.as_view(template_name='403.html')),
         url(r'^e/404/$', TemplateView.as_view(template_name='404.html')),
         url(r'^e/500/$', TemplateView.as_view(template_name='500.html')),
-    )
+    ]

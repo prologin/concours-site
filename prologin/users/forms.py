@@ -15,7 +15,8 @@ class UserProfileForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'gender', 'birthday',
                   'address', 'postal_code', 'city', 'country',
                   'phone', 'email', 'allow_mailing', 'newsletter',
-                  'preferred_language', 'avatar', 'picture',)
+                  'preferred_language', 'school_stage', 'timezone',
+                  'preferred_locale', 'avatar', 'picture',)
         widgets = {
             'avatar': PreviewFileInput(),
             'picture': PreviewFileInput(),
@@ -30,7 +31,7 @@ class UserProfileForm(forms.ModelForm):
         self.fields['gender'].choices = [
             (Gender.female.value, mark_safe(_("<em>She is writing code for the contest</em>"))),
             (Gender.male.value, mark_safe(_("<em>He is writing code for the contest</em>"))),
-            ("", _("I prefer not to say")),
+            ("", _("Other or prefer not to tell")),
         ]
         if not self.instance.team_memberships.count():
             # If not part of any team, makes no sense to add a staff picture

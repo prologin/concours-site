@@ -4,9 +4,9 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Members" "#TODO" %}
+	{% breadcrumb_for "#TODO" %}{% trans "Members" %}{% endbreadcrumb_for %}
 	{% breadcrumb edited_user "users:profile" edited_user.id %}
-	{% breadcrumb "Edit" "" %}
+	{% breadcrumb_for "" %}{% trans "Edit" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans with edited_user.username as username %}Editing {{ username }}'s profile{% endblocktrans %}{% endblock %}

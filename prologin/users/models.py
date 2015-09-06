@@ -5,9 +5,10 @@ import os
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.signals import user_logged_in
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import LANGUAGE_SESSION_KEY, ugettext_lazy as _
 from timezone_field import TimeZoneField
 
 from prologin.models import AddressableModel, GenderField, CodingLanguageField
@@ -74,9 +75,10 @@ class ProloginUser(AbstractUser, AddressableModel):
                                                     "during the various stages of the contest. "
                                                     "We hate spam as much as you do!"))
     signature = models.TextField(blank=True, verbose_name=_("Signature"))
-    preferred_language = CodingLanguageField(blank=True, null=True, db_index=True, verbose_name=_("Preferred coding language"))
+    preferred_language = CodingLanguageField(blank=True, null=True, db_index=True,
+                                             verbose_name=_("Preferred coding language"))
     timezone = TimeZoneField(default=settings.TIME_ZONE, verbose_name=_("Time zone"))
-    preferred_locale = models.CharField(max_length=8, blank=True, verbose_name=_("Locale"))
+    preferred_locale = models.CharField(max_length=8, blank=True, verbose_name=_("Locale"), choices=settings.LANGUAGES)
 
     avatar = models.ImageField(upload_to=upload_path('avatar'), blank=True, verbose_name=_("Profile picture"))
     picture = models.ImageField(upload_to=upload_path('picture'), blank=True, verbose_name=_("Official member picture"))
@@ -115,3 +117,10 @@ class ProloginUser(AbstractUser, AddressableModel):
 ProloginUser._meta.get_field('email')._unique = True
 ProloginUser._meta.get_field('email').blank = False
 ProloginUser._meta.get_field('email').db_index = True
+
+
+def assign_preferred_language(sender, user, request, **kwargs):
+    if request.user.is_authenticated():
+        request.session[LANGUAGE_SESSION_KEY] = request.user.preferred_locale
+
+user_logged_in.connect(assign_preferred_language)

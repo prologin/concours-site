@@ -57,26 +57,26 @@ footer .nav > li > a {
 	padding: 5px 15px;
 }
 
-footer a,
-footer a:visited {
+footer .nav > li > a,
+footer .nav > li > a:visited {
 	color: #ccc;
 	font-size: 0.9em;
 }
 
-footer a:hover {
+footer .nav > li > a:hover {
 	color: #333;
 }
 
-footer a .fa.fa-inverse {
+footer .nav > li > a .fa.fa-inverse {
 	color: #ccc;
 }
 
-footer a:hover .fa.fa-inverse {
+footer .nav > li > a:hover .fa.fa-inverse {
 	color: #efefef;
 }
 
-footer a.social,
-footer a.social:hover {
+footer .nav > li > a.social,
+footer .nav > li > a.social:hover {
 	text-decoration: none;
 }
 
@@ -482,6 +482,9 @@ footer .legal {
 	color: white;
 	text-shadow: 0 1px 1px rgba(0, 0, 0, 0.8);
 }
+.presentation-body a:not(.btn) {
+	color: #78c2fa;
+}
 
 .presentation-body h4 {
 	font-weight: bold;
@@ -534,6 +537,9 @@ footer .legal {
 	border-bottom: 1px solid #4155c0;
 	text-decoration: none;
 	color: #4155c0;
+}
+.challenge-event-list li a:hover .text-muted {
+	color: white;
 }
 .challenge-event-list li a:hover, .challenge-event-list li a:active {
 	color: white;

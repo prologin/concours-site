@@ -3,7 +3,7 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "Training" "training:index" %}
+	{% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
 	{% breadcrumb challenge.year "" %}
 	{% breadcrumb challenge.event_type|choiceenum_label "training:challenge" challenge.year challenge.event_type.name %}
 {% endblock breadcrumbs %}

@@ -4,8 +4,8 @@
 
 {% block breadcrumbs %}
 	{{ block.super }}
-	{% breadcrumb "The organization" 'pages:about-organization' %}
-	{% breadcrumb "Teams" "" %}
+	{% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
+	{% breadcrumb_for "" %}{% trans "Teams" %}{% endbreadcrumb_for %}
 	{% breadcrumb year "team:year" year %}
 {% endblock breadcrumbs %}
 
