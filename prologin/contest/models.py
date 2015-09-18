@@ -1,9 +1,9 @@
+from adminsortable.models import SortableMixin
 from django.conf import settings
 from django.db import models
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django.utils import timezone
 from jsonfield import JSONField
-from ordered_model.models import OrderedModel
 
 from centers.models import Center
 from prologin.models import EnumField, CodingLanguageField
@@ -126,12 +126,13 @@ class Contestant(models.Model):
         return "{edition}: {user}".format(user=self.user, edition=self.edition)
 
 
-class EventWish(OrderedModel):
+class EventWish(SortableMixin):
     contestant = models.ForeignKey(Contestant)
     event = models.ForeignKey(Event)
+    order = models.IntegerField(editable=False, db_index=True)
 
-    class Meta(OrderedModel.Meta):
-        pass
+    class Meta:
+        ordering = ('order',)
 
     def __str__(self):
         return "{edition}: {who} to go to {where}".format(

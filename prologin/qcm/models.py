@@ -1,8 +1,8 @@
+from adminsortable.models import SortableMixin
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Prefetch, Count, Sum, Case, When, Value, IntegerField
 from django.utils.translation import ugettext_lazy as _
-from ordered_model.models import OrderedModel
 
 import contest.models
 import sponsor.models
@@ -39,6 +39,18 @@ class Qcm(models.Model):
             proposition__is_correct=True,
         ).count()
 
+    def __getattr__(self, item):
+        # FIXME: this is so hackish I'm gonna die
+        # The idea is: annotations are only added to the instances retrieved by using
+        # Qcm.objects.something(), they're obviously not available when accessing the
+        # instance by other means (eg. related object). Hence __str__ fails because
+        # question_count is not hydrated. So we have to do a new query to retrieve
+        # the annotations. Same issue in all other damn models using "complex"
+        # annotations in their __str__ that may be called from anywhere.
+        if item in ('question_count',):
+            return getattr(type(self).objects.get(pk=self.pk), item)
+        raise AttributeError()
+
     def __str__(self):
         return "QCM for {event} ({count} questions)".format(
             event=self.event,
@@ -59,17 +71,18 @@ class QuestionManager(models.Manager):
                                                              output_field=IntegerField()))))
 
 
-class Question(OrderedModel):
+class Question(SortableMixin):
     qcm = models.ForeignKey(Qcm, related_name='questions')
 
     body = models.TextField(verbose_name=_("Question body"))
     verbose = models.TextField(blank=True, verbose_name=_("Verbose description"))
     for_sponsor = models.ForeignKey(sponsor.models.Sponsor, blank=True, null=True, related_name='qcm_questions')
+    order = models.IntegerField(editable=False, db_index=True)
 
     objects = QuestionManager()
 
-    class Meta(OrderedModel.Meta):
-        pass
+    class Meta:
+        ordering = ('order',)
 
     def __str__(self):
         return self.body

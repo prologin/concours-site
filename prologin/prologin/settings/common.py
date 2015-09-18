@@ -62,12 +62,12 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 
     # Vendor
+    'adminsortable',
     'bootstrapform',
     'captcha',
     'django_bootstrap_breadcrumbs',
     'django_comments',
     'djmail',
-    'ordered_model',
     'macros',
     'mptt',
     'tagging',

@@ -60,7 +60,7 @@ class Migration(migrations.Migration):
             name='EventWish',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('order', models.PositiveIntegerField(editable=False, db_index=True)),
+                ('order', models.IntegerField(editable=False, db_index=True)),
                 ('contestant', models.ForeignKey(to='contest.Contestant')),
                 ('event', models.ForeignKey(to='contest.Event')),
             ],
@@ -97,7 +97,7 @@ class Migration(migrations.Migration):
                 ('changes', JSONField(blank=True)),
                 ('date_added', models.DateTimeField(default=django.utils.timezone.now)),
                 ('author', models.ForeignKey(related_name='correction_comments', to=settings.AUTH_USER_MODEL, blank=True, null=True)),
-                ('contestant', models.ForeignKey(to='contest.Contestant')),
+                ('contestant', models.ForeignKey(to='contest.Contestant', related_name='corrections')),
             ],
         ),
         migrations.AddField(

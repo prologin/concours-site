@@ -1,9 +1,9 @@
+from adminsortable.admin import NonSortableParentAdmin, SortableStackedInline
 from django import forms
 from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
-
 import contest.models
 from prologin.utils import admin_url_for
 
@@ -31,7 +31,7 @@ class EventInline(admin.StackedInline):
     extra = 1
 
 
-class EventWishesInline(admin.StackedInline):
+class EventWishesInline(SortableStackedInline):
     # FIXME: event queryset repeated N times
     model = contest.models.EventWish
     extra = 1
@@ -76,7 +76,7 @@ class EventAdmin(admin.ModelAdmin):
     center_link.allow_tags = True
 
 
-class ContestantAdmin(admin.ModelAdmin):
+class ContestantAdmin(NonSortableParentAdmin):
     list_filter = ('edition',)
     list_display = ('contestant', 'user_link', 'edition_link', 'total_score',)
     search_fields = ('user__username', 'user__first_name', 'user__last_name', 'edition__year',)

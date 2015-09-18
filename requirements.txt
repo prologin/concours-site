@@ -4,6 +4,8 @@ chardet
 celery
 # Django
 django<1.9
+# For ordered models (QCM questions, semifinal whishes, etc.)
+django-admin-sortable
 # News / blog
 django-blog-zinnia==0.15.2
 # Breadcrumbs
@@ -22,8 +24,6 @@ django-tagging
 django-timezone-field
 # Micro mail framework for plaintext/HTML mails
 djmail>=0.10.0
-# TODO: remove this unmaintained dep
-git+https://github.com/bfirsh/django-ordered-model.git@python-3
 # This is a fork for 1.8 compat
 git+https://github.com/worldveil/django-templates-macros.git#egg=django-templates-macros
 # Tool to query Geoip services for exam center geo-localization
