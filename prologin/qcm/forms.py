@@ -1,6 +1,34 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+import random
+
 import qcm.models
+
+
+class RandomOrderingModelChoiceModel(forms.ModelChoiceField):
+    """
+    Implementation of ModelChoiceField that shuffle the field choices according
+    to the seed given as kwarg `ordering_seed`, so the ordering is kept
+    consistent between requests.
+    """
+    def __init__(self, *args, **kwargs):
+        self.ordering_seed = kwargs.pop('ordering_seed')
+        super().__init__(*args, **kwargs)
+
+        choices = list(self.choices)
+        if self.empty_label is not None:
+            # empty label is always the first item
+            empty_label = choices.pop(0)
+        # save state
+        state = random.getstate()
+        # apply our own seed
+        random.seed(self.ordering_seed)
+        random.shuffle(choices)
+        if self.empty_label is not None:
+            choices.append(empty_label)
+        # restore state
+        random.setstate(state)
+        self.choices = choices
 
 
 class QcmForm(forms.ModelForm):
@@ -11,6 +39,7 @@ class QcmForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.contestant = kwargs.pop('contestant', None)
         self.readonly = kwargs.pop('readonly', False)
+        ordering_seed = kwargs.pop('ordering_seed')
         super().__init__(*args, **kwargs)
         if self.contestant:
             answers = {e.proposition.question.pk: e.proposition
@@ -18,11 +47,12 @@ class QcmForm(forms.ModelForm):
                                                  .filter(contestant=self.contestant, proposition__question__qcm=self.instance)}
         for question in self.instance.questions.prefetch_related('propositions').all():
             field_key = 'qcm_q_%d' % question.pk
-            field = self.fields[field_key] = forms.ModelChoiceField(
+            field = self.fields[field_key] = RandomOrderingModelChoiceModel(
                 required=False,
                 queryset=question.propositions.all(),
                 widget=forms.RadioSelect,
                 empty_label=_("I don't know"),
+                ordering_seed=ordering_seed,
             )
             if self.readonly:
                 field.widget.attrs['disabled'] = 'disabled'

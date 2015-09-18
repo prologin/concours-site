@@ -1,5 +1,7 @@
 from django.views.generic import UpdateView
 from django.core.urlresolvers import reverse
+import random
+
 import qcm.models
 import qcm.forms
 
@@ -26,11 +28,19 @@ class DisplayQCMView(UpdateView):
     def get_object(self, queryset=None):
         return self.model.objects.prefetch_related('questions__propositions').get(event__edition__year=self.year)
 
-    def get_form(self, form_class):
-        kwargs = self.get_form_kwargs()
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
         kwargs['contestant'] = self.request.current_contestant
         kwargs['readonly'] = not self.is_editable
-        return form_class(**kwargs)
+        if self.request.user.is_authenticated():
+            ordering_seed = self.request.user.pk
+        else:
+            try:
+                ordering_seed = self.request.session['ordering_seed']
+            except KeyError:
+                ordering_seed = self.request.session['ordering_seed'] = random.random()
+        kwargs['ordering_seed'] = ordering_seed
+        return kwargs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
