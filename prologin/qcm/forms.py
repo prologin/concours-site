@@ -5,7 +5,7 @@ import random
 import qcm.models
 
 
-class RandomOrderingModelChoiceModel(forms.ModelChoiceField):
+class RandomOrderingModelChoiceField(forms.ModelChoiceField):
     """
     Implementation of ModelChoiceField that shuffle the field choices according
     to the seed given as kwarg `ordering_seed`, so the ordering is kept
@@ -47,7 +47,7 @@ class QcmForm(forms.ModelForm):
                                                  .filter(contestant=self.contestant, proposition__question__qcm=self.instance)}
         for question in self.instance.questions.prefetch_related('propositions').all():
             field_key = 'qcm_q_%d' % question.pk
-            field = self.fields[field_key] = RandomOrderingModelChoiceModel(
+            field = self.fields[field_key] = RandomOrderingModelChoiceField(
                 required=False,
                 queryset=question.propositions.all(),
                 widget=forms.RadioSelect,
