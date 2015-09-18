@@ -51,6 +51,14 @@ class Event(models.Model):
     objects = EventManager()
 
     @property
+    def is_finished(self):
+        return self.date_end < timezone.now().date()
+
+    @property
+    def is_in_future(self):
+        return timezone.now().date() < self.date_begin
+
+    @property
     def is_active(self):
         return self.date_begin <= timezone.now().date() <= self.date_end
 

@@ -18,6 +18,7 @@ class QcmManager(models.Manager):
     def get_queryset(self):
         return (super().get_queryset()
                 .select_related('event', 'event__edition')
+                .prefetch_related('questions', 'questions__propositions')
                 .annotate(question_count=Count('questions', distinct=True),
                           proposition_count=Count('questions__propositions', distinct=True),
                           answer_count=Count('questions__propositions__answers', distinct=True)))

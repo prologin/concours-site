@@ -23,6 +23,12 @@
 	/*content: '\f046';*/
 	content: '\f192';
 }
+
+.qcm .propositions li label p {
+	margin: 0;
+	padding: 0;
+}
+
 .qcm .propositions li label {
 	font-weight: normal;
 	padding-left: 1.5em;
@@ -33,15 +39,22 @@
 	font-weight: 700;
 }
 
+.qcm .propositions li.correct label {
+	color: #5cb85c; /* success color */
+}
+
+.qcm .propositions li.incorrect label {
+	color: #d9534f; /* danger color */
+}
+
 .qcm .question:not(:last-child) {
 	margin-bottom: 1em;
 }
 
 .qcm .question .body, ol.mainlist > li h3 {
-	margin-top: 0;
-	font-weight: 500;
-	font-size: 24px;
-	line-height: 28px;
+	margin-top: 2px;
+	font-size: larger;
+	line-height: 1.4;
 }
 
 ol.mainlist {

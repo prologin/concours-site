@@ -52,7 +52,7 @@
 												{% endif %}
 											{% endif %}
 											<li class="text-{% if problems_completed == problems_count %}success{% else %}danger{% endif %}">
-												<a href="#EXOS"><i
+												<a href="{% url 'training:challenge' request.current_edition.year 'qualification' %}"><i
 														class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
 													{% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems completed{% endblocktrans %}</a>
 											</li>

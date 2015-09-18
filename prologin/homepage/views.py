@@ -1,9 +1,10 @@
 from django.conf import settings
-from zinnia.models import Entry
+from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
 from django.views.generic import TemplateView
+from zinnia.models import Entry
 
-import qcm.models
 import contest.models
+import qcm.models
 import problems.models
 
 
@@ -17,9 +18,13 @@ class HomepageView(TemplateView):
         current_qcm = qcm.models.Qcm.objects.filter(
             event__type=contest.models.Event.Type.qualification.value,
             event__edition=self.request.current_edition).first()
-        # FIXME: this is *training* challenge! not contest!
-        current_qcm_challenge = problems.models.Challenge.by_year_and_event_type(
-            self.request.current_edition.year, contest.models.Event.Type.qualification)
+        try:
+            # FIXME: this is *training* challenge! not contest!
+            current_qcm_challenge = problems.models.Challenge.by_year_and_event_type(
+                self.request.current_edition.year, contest.models.Event.Type.qualification)
+        except ObjectDoesNotExist:
+            raise ImproperlyConfigured("You must create the problem statement for edition {}"
+                                       .format(settings.PROLOGIN_EDITION))
         # FIXME: this is *training* challenge! not contest!
         current_contestant_qcm_problem_answers = problems.models.Submission.objects.none()
 

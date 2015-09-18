@@ -3,6 +3,7 @@ from django.conf import settings
 
 register = template.Library()
 
+
 @register.filter
 def percentage_to_max(num, max):
     return int(num / max * 100)

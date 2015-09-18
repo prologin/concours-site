@@ -1,8 +1,32 @@
 from django import forms
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 import random
 
+from prologin.templatetags.markup import markdown
 import qcm.models
+
+
+class RadioChoiceInputWithInstance(forms.widgets.RadioChoiceInput):
+    """
+    So we can access the instance underlying this choice in the template.
+    """
+    def __init__(self, name, value, attrs, instance, index):
+        if isinstance(instance, (tuple, list)):
+            self.instance = None
+            choice = instance
+        else:
+            self.instance = instance
+            choice = (instance.pk, markdown(force_text(instance)))
+        super().__init__(name, value, attrs, choice, index)
+
+
+class PropositionRadioFieldRenderer(forms.widgets.RadioFieldRenderer):
+    choice_input_class = RadioChoiceInputWithInstance
+
+
+class PropositionRadioSelect(forms.widgets.RadioSelect):
+    renderer = PropositionRadioFieldRenderer
 
 
 class RandomOrderingModelChoiceField(forms.ModelChoiceField):
@@ -15,17 +39,14 @@ class RandomOrderingModelChoiceField(forms.ModelChoiceField):
         self.ordering_seed = kwargs.pop('ordering_seed')
         super().__init__(*args, **kwargs)
 
-        choices = list(self.choices)
-        if self.empty_label is not None:
-            # empty label is always the first item
-            empty_label = choices.pop(0)
+        choices = list(self.queryset)
         # save state
         state = random.getstate()
         # apply our own seed
         random.seed(self.ordering_seed)
         random.shuffle(choices)
         if self.empty_label is not None:
-            choices.append(empty_label)
+            choices.append(('', self.empty_label))
         # restore state
         random.setstate(state)
         self.choices = choices
@@ -50,7 +71,7 @@ class QcmForm(forms.ModelForm):
             field = self.fields[field_key] = RandomOrderingModelChoiceField(
                 required=False,
                 queryset=question.propositions.all(),
-                widget=forms.RadioSelect,
+                widget=PropositionRadioSelect,
                 empty_label=_("I don't know"),
                 ordering_seed=ordering_seed,
             )
