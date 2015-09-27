@@ -1,6 +1,6 @@
 from django.contrib import admin
-from forum.models import Category, Post
-from users.models import UserProfile
+from forum.models import Category, Post, Thread
+from users.models import ProloginUser
 from prologin.utils import get_slug
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -21,24 +21,26 @@ class CategoryAdmin(admin.ModelAdmin):
 
 admin.site.register(Category, CategoryAdmin)
 
+
+
 class PostAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['title', 'category', 'content', 'published']}),
+        (None, {'fields': ['title', 'category', 'content']}),
     ]
-    list_display = ('title', 'category', 'created_by', 'created_on', 'edited_by', 'edited_on', 'published')
+    list_display = ('title', 'category', 'created_by', 'created_on')
 
     def save_model(self, request, obj, form, change):
-        user = UserProfile.objects.get(user__id=request.user.id)
+        user = ProloginUser.objects.get(user__id=request.user.id)
         try:
             obj.created_by.id
-        except UserProfile.DoesNotExist:
+        except ProloginUser.DoesNotExist:
             obj.created_by = user
         obj.edited_by = user
         obj.slug = get_slug(obj.title)
         obj.save()
 
     def save_formset(self, request, form, formset, change):
-        user = UserProfile.objects.get(user__id=request.user.id)
+        user = ProloginUser.objects.get(user__id=request.user.id)
         instances = formset.save(commit=False)
         for instance in instances:
             instance.slug = get_slug(instance.title)

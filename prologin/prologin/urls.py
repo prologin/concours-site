@@ -18,6 +18,9 @@ urlpatterns = [
 ]
 
 urlpatterns += [
+	#Forum
+	url(r'^forum/', include('forum.urls', namespace='forum')),
+
     # News (blog)
     url(r'^news/', include('news.urls')),
 

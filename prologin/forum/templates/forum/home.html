@@ -1,20 +1,17 @@
 {% extends "prologin/base.html" %}
-{% load menu_display %}
-{% load breadcrumbs %}
-{% load static %}
-
-{% block title %}Forums{% endblock %}
-
-{% block breadcrumbs %}
-{% breadcrumb Accueil home %}
-{% breadcrumb Forums %}
-{% endblock %}
 
 {% block content %}
-{% for cat in categories %}
-<div>
-  <h3>{{ cat.name }}</h3>
-  <p>{{ cat.description }}</p>
-</div>
-{% endfor %}
+
+<h1>Forums</h1>
+
+<ul>
+	{% for cat in cats %}
+		<li>
+		<h3><a href="{{cat.slug}}">{{cat.name}}</a></h3>
+		<p>{{cat.description}}</p>		
+		</li>
+		{% empty %}
+			<p class="empty">Empty</p>		
+	{% endfor %}
+</ul>
 {% endblock %}

@@ -1,0 +1,38 @@
+{% extends "prologin/base.html" %}
+
+{% block content %}
+
+    <a href="/forum/{{back}}">Go Back to {{catName}}</a>
+    <h1>{{ThreadName}}</h1>     
+    <br>
+	
+    <ul>
+        {% for post in posts %}
+            <li>
+                <!--<h3>{{post.title}}</h3>-->
+                <p style="text-align: justify;">{{post.content}}</p>
+                <br>
+                <p>Posted by : {{post.created_by}}, the {{post.created_on}}</p>
+                <br><br>
+            </li>
+            {% empty %}
+                <p class="empty">Empty</p>         
+        {% endfor %}
+    </ul>	 
+	
+	<br><br><br>
+	<h3><b>Ajouter un nouveau sujet de discussion</b></h3>
+	<br>
+    
+	{% if not user.is_anonymous %}
+		<form action="" method="post">
+			<div class="forum_add">
+				{% csrf_token %}
+				{{ form.as_p}}
+				<input type="submit" value="Submit" />
+			</div>
+		</form>
+	{% else %}
+		<p>You have to be logged to add post !</p>
+    {% endif %}
+{% endblock %}
