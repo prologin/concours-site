@@ -1,12 +1,30 @@
 import os
 from collections import namedtuple
-
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
+
 from contest.models import Event
 
 
-ENCODING = 'utf-8'
+ENCODINGS = ('utf-8', 'latin1')
+
+
+def open_try_hard(callback, filename, *args, encodings=ENCODINGS, **kwargs):
+    """
+    Small wrapper around open() that tries to apply `callback` on all
+    encodings from `encodings` (in order) instead of failing directly on
+    UnicodeDecodeError.
+    """
+    for encoding in encodings:
+        try:
+            kwargs['encoding'] = encoding
+            with open(filename, *args, **kwargs) as f:
+                return callback(f)
+        except UnicodeDecodeError:
+            pass
+    else:
+        raise ValueError("Could not find proper encoding (tried {}) for file: {}"
+                         .format(', '.join(ENCODINGS), filename))
 
 
 def lazy_attr(prop_name, getter):
@@ -30,10 +48,11 @@ def read_props(filename):
             return value_lower == 'true'
         return value
 
-    with open(filename, encoding=ENCODING) as f:
+    def props(f):
         return {k.strip(): parse(v)
                 for line in f if line.strip()
                 for k, v in [line.split(':', 1)]}
+    return open_try_hard(props, filename)
 
 
 class Challenge:
@@ -112,6 +131,12 @@ class Challenge:
         if not os.path.exists(path):
             raise ObjectDoesNotExist("No such Challenge: not such file: {}".format(path))
 
+    def __hash__(self):
+        return hash(self._low_level_name)
+
+    def __eq__(self, other):
+        return other._low_level_name == self._low_level_name
+
     def __str__(self):
         return self.name
 
@@ -126,8 +151,7 @@ class Challenge:
     properties = lazy_attr('_properties_', _get_properties)
 
     def _get_subject(self):
-        with open(self.file_path('challenge.txt'), encoding=ENCODING) as f:
-            return f.read()
+        return open_try_hard(lambda f: f.read(), self.file_path('challenge.txt'))
     subject = lazy_attr('_subject_', _get_subject)
 
     def _get_problems(self):
@@ -193,6 +217,12 @@ class Problem:
         self._challenge = challenge
         self._name = name
 
+    def __hash__(self):
+        return hash(self._name)
+
+    def __eq__(self, other):
+        return other._name == self._name
+
     def __str__(self):
         return self.name
 
@@ -210,11 +240,9 @@ class Problem:
         subject_path_md = self.file_path('subject.md')
         subject_path_txt = self.file_path('subject.txt')
         if os.path.exists(subject_path_md):
-            with open(subject_path_md, encoding=ENCODING) as f:
-                return f.read(), 'markdown'
+            return open_try_hard(lambda f: f.read(), subject_path_md), 'markdown'
         elif os.path.exists(subject_path_txt):
-            with open(subject_path_txt, encoding=ENCODING) as f:
-                return f.read(), 'html'
+            return open_try_hard(lambda f: f.read(), subject_path_txt), 'html'
     subject = lazy_attr('_subject_', _get_subject)
 
     def _get_tests(self):
@@ -222,8 +250,9 @@ class Problem:
         for item in os.listdir(self.file_path()):
             full_path = self.file_path(item)
             if item.endswith('.in') or item.endswith('.out'):
-                with open(full_path, encoding=ENCODING) as f:
+                def store_item(f):
                     tests[item] = f.read()
+                open_try_hard(store_item, full_path)
         return tests
     tests = lazy_attr('_tests_', _get_tests)
 
@@ -272,14 +301,11 @@ class Problem:
         samples = []
         for sample in str(self.properties.get('samples', '')).split():
             try:
-                with open(self.file_path(sample) + '.in', encoding=ENCODING) as f:
-                    sample_in = f.read()
-                with open(self.file_path(sample) + '.out', encoding=ENCODING) as f:
-                    sample_out = f.read()
+                sample_in = open_try_hard(lambda f: f.read(), self.file_path(sample) + '.in')
+                sample_out = open_try_hard(lambda f: f.read(), self.file_path(sample) + '.out')
                 sample_comment = ''
                 try:
-                    with open(self.file_path(sample) + '.comment', encoding=ENCODING) as f:
-                        sample_comment = f.read()
+                    sample_comment = open_try_hard(lambda f: f.read(), self.file_path(sample) + '.comment')
                 except IOError:
                     pass
                 samples.append(Problem.Sample(sample_in, sample_out, sample_comment))
