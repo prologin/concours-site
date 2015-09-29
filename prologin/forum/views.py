@@ -1,26 +1,16 @@
 import datetime
 
 from django.views import generic
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.utils.text import slugify
 from django.http import Http404 
 from forum.models import Category, Post, Thread
 
 
-from forum.forms import PostForm, ThreadFrom
-
-class CategoryView(generic.ListView):
-    model = Category
-    template_name = 'forum/home.html'
-    context_object_name = 'categories'
-
-    def get_queryset(self):
-        return Category.objects.all().order_by('display')
-        
-        
+from forum.forms import PostForm, ThreadFrom       
 
 
-def HomeTest(request):
+def home(request):
     cats = Category.objects.all()
     current_url = request.get_full_path()
     if current_url == "/forum/": # home page for the forum
@@ -51,9 +41,8 @@ def HomeTest(request):
                         new_thread.save()
                         new_post.thread = new_thread
                         new_post.save()
-                        formPost = PostForm()
-                        formThread = ThreadFrom()
-                    return render(request, 'forum/threadList.html', {'catName':CAT.name, 'description':CAT.description, 'threads':threads, 'slug':CAT.slug, 'formThread':formThread, 'formPost':formPost})
+                        return redirect('/forum/' + CAT.slug + '/' + new_thread.slug)
+                    return render(request, 'forum/threadList.html', {'cat_name':CAT.name, 'description':CAT.description, 'threads':threads, 'slug':CAT.slug, 'form_thread':formThread, 'form_post':formPost})
                 else: # post
                     threads = Thread.objects.all().filter(category=CAT)
                     thread = None
@@ -75,6 +64,6 @@ def HomeTest(request):
                         obj.created_by = request.user
                         obj.created_on = datetime.datetime.now()
                         obj.save()
-                        form = PostForm() 
-                    return render(request, 'forum/post.html', {'ThreadName':thread.name, 'posts':posts, 'back':CAT.slug, 'form':form, 'catName':CAT.name})
+                        return redirect('/forum/' + CAT.slug + '/' + thread.slug)
+                    return render(request, 'forum/post.html', {'thread_name':thread.name, 'posts':posts, 'url':CAT.slug, 'form':form, 'cat_name':CAT.name})
         raise Http404   

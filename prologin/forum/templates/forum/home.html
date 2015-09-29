@@ -1,8 +1,10 @@
 {% extends "prologin/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Forums" %}{% endblock %}
 
 {% block content %}
 
-<h1>Forums</h1>
+<h1>{% trans "Forums" %}</h1>
 
 <ul>
 	{% for cat in cats %}

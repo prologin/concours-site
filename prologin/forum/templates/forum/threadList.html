@@ -1,38 +1,40 @@
 {% extends "prologin/base.html" %}
+{% load i18n %}
+{% block title %}{% trans "Forums" %} - {{cat_name}}{% endblock %}
 
 {% block content %}
 
-	<a href="/forum">Go Back to the index</a>
-	<h1>{{catName}}</h1>
+	<a href="/forum">{% trans "Go Back to the index" %}</a>
+	<h1>{{cat_name}}</h1>
 	<p>{{description}}</p>
 	<br>
-	
+
 	<ul>
 		{% for tread in threads %}
 			<li>
 				<h3><a href="{{slug}}/{{tread.slug}}">{{tread.name}}</a></h3>
-				<p>Cr&eacute;&eacute; le : {{tread.created_on|date:"d F Y à G:i" }} par {{tread.created_by}}</p>
+				<p>{% trans "Posted the :" %} {{tread.created_on|date:"d F Y à G:i" }} {% trans "by" %} {{tread.created_by}}</p>
 			</li>
 			{% empty %} 
-				<p class="empty">Empty</p>		
+				<p class="empty">{% trans "Empty" %}</p>		
 		{% endfor %}
 	</ul> 
 	
 	<br><br><br>
-	<h3><b>Ajouter un nouveau sujet de discussion</b></h3>
+	<h3><b>{% trans "Add new thread" %}</b></h3>
 	<br>
 	
-	{% if not user.is_anonymous %}
+	{% if user.is_authenticated %}
 		<form action="" method="post">
 			{% csrf_token %}
 			<div class="forum_add">
-				{{ formThread.as_p }}
-				{{ formPost.as_p }}
+				{{ form_thread.as_p }}
+				{{ form_post.as_p }}
 				<input type="submit" value="Submit" />
 			</div>
 		</form>
 	{% else %}
-		<p>You have to be logged to add a thread !</p>
+		<p>{% trans "You have to be logged to add post !" %}</p>
     {% endif %}
 	
 {% endblock %}

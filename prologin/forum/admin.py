@@ -1,6 +1,6 @@
 from django.contrib import admin
 from forum.models import Category, Post, Thread
-from users.models import ProloginUser
+from django.contrib.auth import get_user_model
 from prologin.utils import get_slug
 
 class CategoryAdmin(admin.ModelAdmin):
@@ -30,17 +30,19 @@ class PostAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'created_by', 'created_on')
 
     def save_model(self, request, obj, form, change):
-        user = ProloginUser.objects.get(user__id=request.user.id)
+        User = get_user_model()
+        user = User.objects.get(user__id=request.user.id)
         try:
             obj.created_by.id
-        except ProloginUser.DoesNotExist:
+        except User.DoesNotExist:
             obj.created_by = user
         obj.edited_by = user
         obj.slug = get_slug(obj.title)
         obj.save()
 
     def save_formset(self, request, form, formset, change):
-        user = ProloginUser.objects.get(user__id=request.user.id)
+        User = get_user_model()
+        user = User.objects.get(user__id=request.user.id)
         instances = formset.save(commit=False)
         for instance in instances:
             instance.slug = get_slug(instance.title)

@@ -1,9 +1,11 @@
 {% extends "prologin/base.html" %}
+{% load i18n  %}
+{% block title %}Forums{% endblock %}
 
 {% block content %}
 
-    <a href="/forum/{{back}}">Go Back to {{catName}}</a>
-    <h1>{{ThreadName}}</h1>     
+    <a href="/forum/{{url}}">{% trans "Go Back to" %} {{cat_name}}</a>
+    <h1>{{thread_name}}</h1>     
     <br>
 	
     <ul>
@@ -11,20 +13,31 @@
             <li>
                 <!--<h3>{{post.title}}</h3>-->
                 <p style="text-align: justify;">{{post.content}}</p>
-                <br>
-                <p>Posted by : {{post.created_by}}, the {{post.created_on}}</p>
-                <br><br>
+				<div class="forum_image">
+					{% if post.created_by.avatar %}
+						<img class="avatar avatar-full" src="{{ post.created_by.avatar.url }}" alt="
+							{% blocktrans with post.created_by.username as username %}{{ username }}'s staff picture{% endblocktrans %}"
+							style="max-width: 100%"/>
+					{% else %}
+						<!--<i class="fa fa-user"></i>-->
+						<br><br>
+					{% endif %}
+				</div>
+
+                <div class="posted_by">
+					<p>{% trans "Posted by :" %} {{post.created_by}}, the {{post.created_on}}</p>
+				</div>				
             </li>
             {% empty %}
-                <p class="empty">Empty</p>         
+                <p class="empty">{% trans "Empty" %}</p>         
         {% endfor %}
     </ul>	 
 	
 	<br><br><br>
-	<h3><b>Ajouter un nouveau sujet de discussion</b></h3>
+	<h3><b>{% trans "Add new thread" %}</b></h3>
 	<br>
     
-	{% if not user.is_anonymous %}
+	{% if user.is_authenticated %}
 		<form action="" method="post">
 			<div class="forum_add">
 				{% csrf_token %}
@@ -33,6 +46,6 @@
 			</div>
 		</form>
 	{% else %}
-		<p>You have to be logged to add post !</p>
+		<p>{% trans "You have to be logged to add post !" %}</p>
     {% endif %}
 {% endblock %}
