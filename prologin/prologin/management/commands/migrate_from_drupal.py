@@ -2,12 +2,12 @@ import concurrent.futures
 import enum
 import itertools
 import operator
-import os
 
 from django.db import transaction, connections, IntegrityError
 from django.db.models import Prefetch
 from django.contrib.auth import get_user_model
 from django.contrib.sites.models import Site
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.management.base import LabelCommand, CommandError
 from django.template.defaultfilters import slugify
 
@@ -277,6 +277,99 @@ class Command(LabelCommand):
                             team.models.TeamMember(year=row.year, user=user, role=role_table[row.id_rank])
                         )
                     self.stdout.write("Migrated team roles for {}".format(user))
+
+    def migrate_legacy_problem_submissions(self):
+        """
+        Migrate oldish (pre-2007) problem submissions and code snippets.
+        """
+        import problems.models
+        from difflib import SequenceMatcher
+        from collections import defaultdict
+
+        # First pass: map plain text problem names to problems/ names
+
+        query = """
+        SELECT DISTINCT id, nom, description
+        FROM sujets
+        WHERE nom != '' AND description != ''
+        ORDER BY nom, description
+        """
+
+        challenge_problems = defaultdict(list)
+        problem_mapping = {}
+
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            for row in namedcolumns(c):
+                if row.id == 106:
+                    # hey! let's copy paste a problem from demi 2002 in demi 2006
+                    # without changing the name! lol such fun!
+                    challenge_name = 'demi2006'
+                else:
+                    challenge_name = row.nom.split('.', 1)[0].lower()
+
+                try:
+                    challenge = problems.models.Challenge.by_low_level_name(challenge_name)
+                    challenge_problems[challenge].append(row)
+                except ObjectDoesNotExist:
+                    continue
+
+        for challenge, legacy_problems in challenge_problems.items():
+            new_problem_pool = list(challenge.problems)
+
+            for legacy_problem in legacy_problems:
+                if not new_problem_pool:
+                    self.stderr.write("Could not find an existing problem for {!r}; skipped".format(legacy_problem))
+                    continue
+
+                def distance(problem):
+                    title = legacy_problem.description.lower().replace('qcm', '').replace('demi-finale', '')
+                    return SequenceMatcher(None, title, problem.title.lower()).ratio()
+
+                found = max(new_problem_pool, key=distance)
+                new_problem_pool.remove(found)
+                problem_mapping[legacy_problem.id] = found
+
+            if new_problem_pool:
+                self.stderr.write("Problems not tackled by any submission: {!r}".format(new_problem_pool))
+
+        # We got the mapping. Let's actually import the code snippets.
+
+        submission_query = """
+        SELECT user_id, sujet_id, date, language, source
+        FROM sujet_soumissions
+        ORDER BY user_id, sujet_id, date
+        """
+
+        with self.mysql.cursor() as c:
+            c.execute(submission_query)
+            with transaction.atomic():
+                for user_id, rows in itertools.groupby(namedcolumns(c), key=lambda r: r.user_id):
+                    try:
+                        user = User.objects.get(pk=user_id)
+                    except User.DoesNotExist:
+                        self.stderr.write("Unknown user: {}".format(user_id))
+                        continue
+
+                    for sujet_id, rows in itertools.groupby(rows, key=lambda r: r.sujet_id):
+                        try:
+                            problem = problem_mapping[sujet_id]
+                        except KeyError:
+                            self.stderr.write("Unknown challenge/problem: {}".format(sujet_id))
+                            continue
+
+                        # we don't know the score base nor malus
+                        submission = problems.models.Submission(user=user,
+                                                                challenge=problem.challenge.name,
+                                                                problem=problem.name)
+                        submission.save()
+                        for row in rows:
+                            language = Language.guess(row.language.strip('_.')) or Language['pseudocode']
+                            code = problems.models.SubmissionCode(submission=submission,
+                                                                  code=row.source,
+                                                                  language=language.name,
+                                                                  date_submitted=localize(row.date))
+                            code.save()
 
     def migrate_problem_submissions(self, code_archive_path):
         """
@@ -806,14 +899,14 @@ class Command(LabelCommand):
                             try:
                                 proposition = propositions[ind]  # this is fragile but fuck it
                             except IndexError:
-                                print("Index error. Should not happen.")
-                                print(answer, question_id, propositions)
+                                self.stderr.write("Index error. Should not happen.")
+                                self.stderr.write("{} {} {}".format(answer, question_id, propositions))
                                 raise
                             try:
                                 qcm.models.Answer(contestant=contestant, proposition=proposition).save()
                             except IntegrityError:
-                                print("Integrity error. Should not happen.")
-                                print(answer, question_id, propositions)
+                                self.stderr.write("Integrity error. Should not happen.")
+                                self.stderr.write("{} {} {}".format(answer, question_id, propositions))
                                 raise
 
     def migrate_sponsors(self):

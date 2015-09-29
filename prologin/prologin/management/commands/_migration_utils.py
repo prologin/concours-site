@@ -53,15 +53,17 @@ def date_localize(dt, tz):
 
 
 def localize(date_or_datetime):
-    def _localize(d):
+    def _localize(d: datetime.datetime):
         # is_dst not available in Django 1.8 make_aware(). Fuck this.
-        # date = timezone.make_aware(row.timestamp, CURRENT_TIMEZONE, is_dst=True)
+        # return timezone.make_aware(d, CURRENT_TIMEZONE, is_dst=True)
+        if timezone.is_aware(d):
+            return d
         return CURRENT_TIMEZONE.localize(d, is_dst=True)
 
-    if isinstance(date_or_datetime, datetime.date):
-        return _localize(datetime.datetime.combine(date_or_datetime, datetime.time.min))
-    elif isinstance(date_or_datetime, datetime.datetime):
+    if isinstance(date_or_datetime, datetime.datetime):
         return _localize(date_or_datetime)
+    elif isinstance(date_or_datetime, datetime.date):
+        return _localize(datetime.datetime.combine(date_or_datetime, datetime.time.min))
     raise TypeError("localize() argument 1 must be one of datetime.date, datetime.datetime")
 
 
