@@ -1,10 +1,11 @@
 {% extends "prologin/base.html" %}
-{% load i18n  %}
+{% load i18n %}
 {% block title %}Forums{% endblock %}
+
 
 {% block content %}
 
-    <a href="/forum/{{url}}">{% trans "Go Back to" %} {{cat_name}}</a>
+    <a href="/forum/{{url}}">{% blocktrans with category=cat_name %}Go back to {{ category }}{% endblocktrans %}</a>
     <h1>{{thread_name}}</h1>     
     <br>
 	
@@ -25,7 +26,7 @@
 				</div>
 
                 <div class="posted_by">
-					<p>{% trans "Posted by :" %} {{post.created_by}}, the {{post.created_on}}</p>
+					<p>{% blocktrans with by=post.created_by on=post.created_on|date:"d F Y G:i" %}Posted by : {{by}}, the {{on}}{% endblocktrans %}</p>
 				</div>				
             </li>
             {% empty %}
@@ -34,10 +35,12 @@
     </ul>	 
 	
 	<br><br><br>
-	<h3><b>{% trans "Add new thread" %}</b></h3>
-	<br>
     
 	{% if user.is_authenticated %}
+		<div class="add_thread">
+			<h3>{% trans "Add new thread" %}</h3>
+		</div>
+		<br>
 		<form action="" method="post">
 			<div class="forum_add">
 				{% csrf_token %}
@@ -46,6 +49,6 @@
 			</div>
 		</form>
 	{% else %}
-		<p>{% trans "You have to be logged to add post !" %}</p>
+		<p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your solution.{% endblocktrans %}</p>
     {% endif %}
 {% endblock %}

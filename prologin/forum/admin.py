@@ -25,9 +25,9 @@ admin.site.register(Category, CategoryAdmin)
 
 class PostAdmin(admin.ModelAdmin):
     fieldsets = [
-        (None, {'fields': ['title', 'category', 'content']}),
+        (None, {'fields': ['category', 'content']}),
     ]
-    list_display = ('title', 'category', 'created_by', 'created_on')
+    list_display = ('category', 'created_by', 'created_on')
 
     def save_model(self, request, obj, form, change):
         User = get_user_model()

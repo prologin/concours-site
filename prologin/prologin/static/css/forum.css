@@ -36,3 +36,14 @@
 	position: relative;
     top: -38px;
 }
+
+.add_thread h3 {
+	font-weight: bold;
+}
+
+.nb_stuff p {
+	position: relative;
+    top: -12px;
+    font-weight: lighter;
+    font-style: italic;
+}

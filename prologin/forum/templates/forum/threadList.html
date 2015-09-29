@@ -13,7 +13,10 @@
 		{% for tread in threads %}
 			<li>
 				<h3><a href="{{slug}}/{{tread.slug}}">{{tread.name}}</a></h3>
-				<p>{% trans "Posted the :" %} {{tread.created_on|date:"d F Y à G:i" }} {% trans "by" %} {{tread.created_by}}</p>
+				<p>{% blocktrans with by=tread.created_by on=tread.created_on|date:"d F Y G:i" %}Posted by : {{by}}, the {{on}}{% endblocktrans %}</p>
+				<div class="nb_stuff">
+					<p>{% blocktrans with post_nb=tread.nb_post on=tread.last_edited_on|date:"d F Y G:i" by=tread.last_edited_by %}Posts : {{post_nb}}, Last post by : {{by}}, the {{on}}{% endblocktrans %}</p>
+				</div>
 			</li>
 			{% empty %} 
 				<p class="empty">{% trans "Empty" %}</p>		
@@ -21,10 +24,12 @@
 	</ul> 
 	
 	<br><br><br>
-	<h3><b>{% trans "Add new thread" %}</b></h3>
-	<br>
 	
 	{% if user.is_authenticated %}
+		<div class="add_thread">
+			<h3>{% trans "Add new thread" %}</h3>
+		</div>
+		<br>
 		<form action="" method="post">
 			{% csrf_token %}
 			<div class="forum_add">
@@ -34,7 +39,7 @@
 			</div>
 		</form>
 	{% else %}
-		<p>{% trans "You have to be logged to add post !" %}</p>
+		<p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your solution.{% endblocktrans %}</p>
     {% endif %}
 	
 {% endblock %}

@@ -9,7 +9,11 @@ class Category(models.Model):
     slug = models.SlugField(max_length=64, db_index=True)
     description = models.TextField(verbose_name=_('Description'))
     display = models.IntegerField(verbose_name=_('Display order'))
-
+    nb_post = models.IntegerField(verbose_name=_('Number of Post'))
+    nb_thread = models.IntegerField(verbose_name=_('Number of Thread'))
+    last_edited_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='post_edited_by')
+    last_edited_on = models.DateTimeField(auto_now=True,)
+	
     def __str__(self):
         return str(_(self.name))
 
@@ -26,10 +30,10 @@ class Thread(models.Model):
     created_on = models.DateTimeField(default=timezone.now())
     last_edited_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='T_post_edited_by')
     last_edited_on = models.DateTimeField(auto_now=True)
+    nb_post = models.IntegerField(verbose_name=_('Number of Post'))
 
 
 class Post(models.Model):
-    title = models.CharField(max_length=200, verbose_name=_('Title'))
     slug = models.SlugField(max_length=128, db_index=True)
     category = models.ForeignKey(Category, related_name='category')
     thread = models.ForeignKey(Thread, related_name='thread')
