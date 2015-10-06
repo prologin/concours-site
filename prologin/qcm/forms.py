@@ -66,15 +66,20 @@ class QcmForm(forms.ModelForm):
             answers = {e.proposition.question.pk: e.proposition
                        for e in qcm.models.Answer.objects.prefetch_related('proposition', 'proposition__question')
                                                  .filter(contestant=self.contestant, proposition__question__qcm=self.instance)}
+        # The form is either text box (open ended question) or a list of
+        # choices (otherwise).
         for question in self.instance.questions.prefetch_related('propositions').all():
             field_key = 'qcm_q_%d' % question.pk
-            field = self.fields[field_key] = RandomOrderingModelChoiceField(
-                required=False,
-                queryset=question.propositions.all(),
-                widget=PropositionRadioSelect,
-                empty_label=_("I don't know"),
-                ordering_seed=ordering_seed,
-            )
+            if question.is_open_ended:
+                field = self.fields[field_key] = forms.CharField()
+            else:
+                field = self.fields[field_key] = RandomOrderingModelChoiceField(
+                    required=False,
+                    queryset=question.propositions.all(),
+                    widget=PropositionRadioSelect,
+                    empty_label=_("I don't know"),
+                    ordering_seed=ordering_seed,
+                )
             if self.readonly:
                 field.widget.attrs['disabled'] = 'disabled'
             field.question = question
@@ -86,8 +91,14 @@ class QcmForm(forms.ModelForm):
         # delete previous answers
         self.contestant.qcm_answers.filter(proposition__question__qcm=instance).delete()
         answers = []
-        for proposition in self.cleaned_data.values():
+        for field_key, proposition in self.cleaned_data.items():
             if proposition is not None:
-                answers.append(qcm.models.Answer(contestant=self.contestant, proposition=proposition))
+                # field key is 'qcm_q_ID' where ID is the primary key
+                question_pk = int(field_key.split('_')[-1])
+                question_obj = qcm.models.Question.objects.get(pk=question_pk)
+                # TODO(halfr): handle non openeded questions
+                proposition_obj = question_obj.propositions.all()[0]
+                answers.append(qcm.models.Answer(contestant=self.contestant,
+                    proposition=proposition_obj, textual_answer=proposition))
         qcm.models.Answer.objects.bulk_create(answers)
         return instance

@@ -79,6 +79,9 @@ class Question(SortableMixin):
     verbose = models.TextField(blank=True, verbose_name=_("Verbose description"))
     for_sponsor = models.ForeignKey(sponsor.models.Sponsor, blank=True, null=True, related_name='qcm_questions')
     order = models.IntegerField(editable=False, db_index=True)
+    # Open ended questions have only one correct proposition.
+    # The user only sees a text input and has to give his or her answer.
+    is_open_ended = models.BooleanField(default=False)
 
     objects = QuestionManager()
 
@@ -107,6 +110,8 @@ class AnswerManager(models.Manager):
 class Answer(models.Model):
     contestant = models.ForeignKey(contest.models.Contestant, related_name='qcm_answers')
     proposition = models.ForeignKey(Proposition, related_name='answers', verbose_name=_("Answer"))
+    # Textual answer given by the contestant if the question is open ended.
+    textual_answer = models.TextField(blank=True, null=True, verbose_name=_("Textual answer"))
 
     objects = AnswerManager()
 
@@ -119,7 +124,10 @@ class Answer(models.Model):
 
     @property
     def is_correct(self):
-        return self.proposition.is_correct
+        if self.proposition.question.is_open_ended:
+            return self.textual_answer == self.proposition.text
+        else:
+            return self.proposition.is_correct
 
     def __str__(self):
         return "{contestant} {correct} answers {answer}".format(
