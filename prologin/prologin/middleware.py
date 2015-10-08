@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
+
 import contest.models
+import qcm.models
 
 
 class ContestMiddleware(object):
@@ -19,8 +21,12 @@ class ContestMiddleware(object):
         request.current_events = {event_type.name: events_dict.get(event_type.value)
                                   for event_type in contest.models.Event.Type}
 
-        request.current_contestant = None
+        request.current_qcm = qcm.models.Qcm.objects.filter(
+            event__type=contest.models.Event.Type.qualification.value,
+            event__edition=request.current_edition).first()
+
         # Logged-in user related queries
+        request.current_contestant = None
         user = request.user
         if user.is_authenticated():
             # Create the contestant if it does not exist

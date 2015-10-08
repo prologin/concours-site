@@ -29,8 +29,11 @@ class Qcm(models.Model):
 
     objects = QcmManager()
 
+    def completed_question_count_for(self, contestant):
+        return contestant.qcm_answers.filter(proposition__question__qcm=self).count()
+
     def is_completed_for(self, contestant):
-        return contestant.qcm_answers.filter(proposition__question__qcm=self).count() == self.question_count
+        return self.completed_question_count_for(contestant) == self.question_count
 
     def score_for_contestant(self, contestant):
         contestant_qcm_consistency_check(contestant, self)

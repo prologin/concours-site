@@ -34,6 +34,7 @@ urlpatterns += [
     # url(r'^contest/(?P<year>[0-9]{4})/semifinal/problems/', include('problems.urls', namespace='training-semifinal-problems')),
     url(r'^contest/(?P<year>[0-9]{4})/qualif/problems/', include('problems.urls', namespace='qcm-problems')),
     url(r'^contest/(?P<year>[0-9]{4})/qualif/quiz/', include('qcm.urls', namespace='qcm')),
+    url(r'^contest/', include('contest.urls', namespace='contest')),
 
     # Training
     url(r'^train/', include('problems.urls', namespace='training')),

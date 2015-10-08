@@ -1,5 +1,6 @@
 from adminsortable.models import SortableMixin
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django.utils import timezone
@@ -62,6 +63,14 @@ class Event(models.Model):
     def is_active(self):
         return self.date_begin <= timezone.now().date() <= self.date_end
 
+    @property
+    def challenge(self):
+        from problems.models import Challenge  # circular import
+        try:
+            return Challenge.by_year_and_event_type(self.edition.year, Event.Type(self.type))
+        except ObjectDoesNotExist:
+            return None
+
     def __str__(self):
         return "{edition}: {type} starting {starting}{at}".format(
             edition=self.edition,
@@ -89,11 +98,14 @@ class Contestant(models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
     edition = models.ForeignKey(Edition, related_name='contestants')
-    event_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants')
+    event_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants', blank=True)
     assigned_event = models.ForeignKey(Event, related_name='assigned_contestants', blank=True, null=True)
 
-    shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True)
-    preferred_language = CodingLanguageField(null=True, blank=True, db_index=True)
+    shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True, verbose_name=_("T-shirt size"),
+                           help_text=_("We usually provide unisex Prologin t-shirts to the finalists."))
+    preferred_language = CodingLanguageField(null=True, blank=True, db_index=True,
+                                             help_text=_("The programming language you will most likely use during the "
+                                                         "regional events"))
 
     score_qualif_qcm = models.IntegerField(blank=True, null=True, verbose_name=_("QCM score"))
     score_qualif_algo = models.IntegerField(blank=True, null=True, verbose_name=_("Algo exercises score"))

@@ -8,9 +8,10 @@ import uuid
 
 from django.conf import settings
 from django.contrib.admin.views.main import EMPTY_CHANGELIST_VALUE
+from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
-from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 from django.utils.html import conditional_escape
 
 
@@ -48,6 +49,13 @@ def upload_path(*base_path):
         return os.path.join(*(parts + [name]))
 
     return func
+
+
+class LoginRequiredMixin:
+    @classmethod
+    def as_view(cls, **kwargs):
+        view = super().as_view(**kwargs)
+        return login_required(view)
 
 
 class ChoiceEnum(enum.Enum):
