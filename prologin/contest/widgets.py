@@ -4,6 +4,7 @@ from django.utils.html import format_html_join, format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _, ungettext
 from itertools import zip_longest
+from collections import OrderedDict
 
 """
 This implements EventWishChoiceField. To this end, it needs three more subclasses of Django form fields/widgets.
@@ -87,12 +88,13 @@ class EventWishChoiceField(forms.MultiValueField):
         super().__init__(widget=widget, fields=fields, require_all_fields=False, *args, **kwargs)
 
     def clean(self, value):
-        value = super().clean(value)
-        if sum(1 for item in value if item) < self._min_choices:
+        events = super().clean(value)
+        events = list(OrderedDict((event, None) for event in events if event).keys())
+        if len(events) < self._min_choices:
             raise forms.ValidationError(ungettext("You must provide at least %(count)d choice.",
                                                   "You must provide at least %(count)d choices.",
                                                   self._min_choices) % {'count': self._min_choices})
-        return value
+        return events
 
     def compress(self, data_list):
         return data_list
