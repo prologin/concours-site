@@ -1,5 +1,6 @@
 from django.conf import settings
-from django.views.generic import TemplateView, UpdateView
+from django.db import transaction
+from django.views.generic import UpdateView
 from django.views.generic.edit import ModelFormMixin
 from django.core.urlresolvers import reverse
 
@@ -25,7 +26,7 @@ class QualificationSummary(LoginRequiredMixin, UpdateView):
         return self.request.current_contestant
 
     def get_success_url(self):
-        return reverse('contest:summary', kwargs=self.kwargs)
+        return reverse('contest:qualification_summary', kwargs=self.kwargs)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -33,8 +34,12 @@ class QualificationSummary(LoginRequiredMixin, UpdateView):
         return kwargs
 
     def form_valid(self, form):
-        self.object = form.save(commit=False)
-        self.object.save()
+        with transaction.atomic():
+            self.object = form.save(commit=False)
+            self.object.save()
+            self.object.event_wishes.clear()
+            for i, event in enumerate(event for event in form.cleaned_data['event_wishes'] if event):
+                contest.models.EventWish(contestant=self.object, event=event, order=i).save()
         return super(ModelFormMixin, self).form_valid(form)
 
     def get_context_data(self, **kwargs):

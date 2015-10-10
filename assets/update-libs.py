@@ -61,6 +61,24 @@ def bootstrap():
                 print("Extracted", path)
 
 
+def select2():
+    print("Updating select2 CSS/JS")
+    releases = requests.get('https://api.github.com/repos/select2/select2/releases').json()
+    # most recent 4.x release
+    release = [rel for rel in releases if rel['tag_name'].startswith('4.') and all(p not in rel['tag_name'] for p in DEV_SUFFIXES)][0]
+    print("Release is", release['tag_name'])
+    zipball_url = release['zipball_url']
+    print("Downlading", zipball_url)
+    zipball = io.BytesIO(requests.get(zipball_url).content)
+    with zipfile.ZipFile(zipball) as zipball:
+        for member in zipball.namelist():
+            path = strip_components(member, 1)  # strip root dir
+            if path in ('dist/js/select2.min.js', 'dist/js/i18n/fr.js', 'dist/js/i18n/en.js', 'dist/css/select2.min.css'):
+                path = strip_components(path, 1)  # strip dist/
+                extract_from_zip(zipball, member, path)
+                print("Extracted", path)
+
+
 def font_awesome():
     print("Updating Fontawesome CSS")
     tags = requests.get('https://api.github.com/repos/FortAwesome/Font-Awesome/tags').json()
@@ -142,10 +160,12 @@ def main():
     jquery()
     bootstrap()
     font_awesome()
-    google_font('roboto',
-                font_variants={'regular', '300', '300italic'},
-                url_prefix='../fonts/',
-                css_name='css/gfont-{font}.css')
+    select2()
+    # Offline Google Fonts do not render correctly depending on the browser. Just let the browser fallback when offline.
+    # google_font('roboto',
+    #             font_variants={'regular', '300', '300italic'},
+    #             url_prefix='../fonts/',
+    #             css_name='css/gfont-{font}.css')
 
 if __name__ == '__main__':
     main()

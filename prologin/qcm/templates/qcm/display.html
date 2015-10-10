@@ -5,7 +5,7 @@
 	{{ block.super }}
 	{% breadcrumb_for "" %}{% trans "Contest" %}{% endbreadcrumb_for %}
 	{% breadcrumb qcm.event.edition.year "" %}
-	{% breadcrumb_for "" %}{% trans "Qualification" %}{% endbreadcrumb_for %}
+	{% breadcrumb_for "contest:qualification_summary" qcm.event.edition.year %}{% trans "Qualification" %}{% endbreadcrumb_for %} {# FIXME: always contest, no archive! #}
 	{% breadcrumb_for "qcm:display" qcm.event.edition.year %}{% trans "Quiz" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 

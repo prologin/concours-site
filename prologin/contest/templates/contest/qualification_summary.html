@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n django_bootstrap_breadcrumbs bootstrap %}
+{% load i18n static django_bootstrap_breadcrumbs bootstrap %}
 
 {% block breadcrumbs %}
 	{{ block.super }}
@@ -8,6 +8,10 @@
 	{% breadcrumb_for "" %}{% trans "Qualification" %}{% endbreadcrumb_for %}
 	{% breadcrumb_for "contest:qualification-summary" request.current_edition.year %}{% trans "Application summary" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
+
+{% block extra_head %}
+	<link href="{% static 'lib/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
+{% endblock %}
 
 {% block title %}{% blocktrans with request.current_edition.year as year %}Application summary – Prologin {{ year }}{% endblocktrans %}{% endblock %}
 
@@ -23,7 +27,7 @@
 		{% blocktrans with request.current_events.qualification.date_end|date as end_date %}The qualification step ends <strong>{{ end_date }}</strong>. Be sure to have the green light on this page before this date!{% endblocktrans %}
 	</p>
 
-	<h2>{% trans "First, complete the exercices, as best as you can" %}</h2>
+	<h2>{% trans "Complete the exercices, as best as you can" %}</h2>
 	<div class="row">
 	{% if request.current_qcm %}
 		<div class="col-md-6">
@@ -37,7 +41,6 @@
 					{% trans "The quiz" %}
 				</div>
 				<div class="panel-body">
-					<p class="text-muted">{% blocktrans %}Although you are not required to answer them all, it is recommended to answer as many as you can to improve you chances of being selected.{% endblocktrans %}</p>
 					<p>
 						{% blocktrans count request.current_qcm.question_count as count %}There is {{ count }} quiz question this year.{% plural %}There are {{ count }} quiz questions this year.{% endblocktrans %}
 						{% blocktrans count completed_quiz_question_count as count %}You completed {{ count }} question.{% plural %}You completed {{ count }} questions.{% endblocktrans %}
@@ -50,6 +53,7 @@
 						<a href="{{ quiz_url }}" class="btn btn-primary"><i class="fa fa-pencil"></i> {% trans "Complete answers" %}</a>
 					{% endif %}
 					</p>
+					<p class="text-muted">{% blocktrans %}Although you are not required to answer all questions, it is recommended to answer as many as you can to improve you chances of being selected.{% endblocktrans %}</p>
 				</div>
 			</div>
 		</div>
@@ -65,7 +69,6 @@
 					{% trans "The problems" %}
 				</div>
 				<div class="panel-body">
-					<p class="text-muted">{% blocktrans %}Your submissions do not have to pass all the tests. Nevertheless, the jury will favor codes that both compile, answer the statement and have a minimal runtime/memory complexity. You are even free to submit pseudo-code but keep in mind that you will have to write actual code for the regional events and the finale.{% endblocktrans %}</p>
 					<p>
 						{% blocktrans count problem_count as count %}There is {{ count }} problem this year.{% plural %}There are {{ count }} problems this year.{% endblocktrans %}
 						{% blocktrans count completed_problem_count as count %}You completed {{ count }} problem.{% plural %}You completed {{ count }} problems.{% endblocktrans %}
@@ -78,16 +81,65 @@
 						<a href="{{ problem_url }}" class="btn btn-primary"><i class="fa fa-pencil"></i> {% trans "Complete submissions" %}</a>
 					{% endif %}
 					</p>
+					<p class="text-muted">{% blocktrans %}Your submissions do not have to pass all the tests. Nevertheless, the jury will favor codes that both compile, answer the statement and have a minimal runtime/memory complexity. You are even free to submit pseudo-code but keep in mind that you will have to write actual code for the regional events and the finale.{% endblocktrans %}</p>
 				</div>
 			</div>
 		</div>
 	</div>
 
-	<h2>{% trans "Then, fill in the extra details" %}</h2>
+	<h2>{% trans "Fill in the extra details" %}
+		{% if form.is_valid or not form.is_bound %}<div style="font-size: 1ex;" class="pull-right">{% if contestant.is_complete_for_semifinal %}
+			<span class="label label-success"><i class="fa fa-check"></i> {% trans "Completed" %}</span>
+		{% else %}
+			<span class="label label-warning"><i class="fa fa-warning"></i> {% trans "Incomplete" %}</span>
+		{% endif %}</div>{% endif %}
+	</h2>
 	<form method="POST" class="form-horizontal">
 		{% csrf_token %}
 		{{ form|bootstrap_horizontal }}
-		<button type="submit" class="btn btn-primary">{% trans "Save application" %}</button>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i> {% trans "Save application" %}</button>
+			</div>
+		</div>
 	</form>
 
+{% endblock %}
+
+{% block extra_script %}
+	<script src="{% static 'lib/js/select2.min.js' %}"></script>
+	<script type="text/javascript">
+		{# Some logic to prevent user from selecting the same event twice in the wish selects #}
+		$(function () {
+			var opts = {placeholder: '{% trans "Make your choice" %}', allowClear: true};
+			$('select[name="preferred_language"]').select2(opts);
+			var $event_wish_selects = $('.event-wish-select');
+			$event_wish_selects
+					.select2($.extend(opts, {
+						templateResult: function (state) {
+							console.log(state.element);
+							var e = $(state.element);
+							var $name = $('<strong>').text(e.attr('data-name'));
+							var $addr = $('<span>').addClass('text-muted').text(e.attr('data-addr'));
+							return $('<span>').append($name).append('<br>').append($addr);
+						}
+					}))
+					.on('change', function () {
+						var taken_vals = [];
+						$event_wish_selects.each(function (i, select) {
+							taken_vals.push($(select).val());
+						});
+						$event_wish_selects.each(function (i, select) {
+							var $select = $(select);
+							$select.select2('destroy'); // because this shit plugin does not propagates 'disabled'
+							$select.find('option').prop('disabled', false);
+							$.each(taken_vals, function (j, val) {
+								if (val === "" || i == j) return; // self
+								$select.find('option[value="' + val + '"]').prop('disabled', true);
+							});
+							$select.select2(opts); // so we have to recreate the shit everytime
+						});
+					}).trigger('change');
+		});
+	</script>
 {% endblock %}

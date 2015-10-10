@@ -33,28 +33,26 @@
 										{% endif %}
 									</p>
 									{% if not user.is_authenticated %}
-										<p class="text-center signin"><a href="{% url 'users:register' %}"
-																		 class="btn btn-default btn-block"><i
-												class="fa fa-rocket"></i> {% trans "Register now!" %}</a></p>
+										<p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block"><i class="fa fa-rocket"></i> {% trans "Register now!" %}</a></p>
 									{% else %}
 										<ul class="list-unstyled checklist hide-no-active">
 											{% if current_qcm %}
 												{% if qcm_completed %}
 													<li class="text-success"><a
-															href="{% url 'qcm:display' request.current_edition.year %}"><i
-															class="fa fa-check-square-o"></i> {% trans "Quiz completed" %}
+															href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-check-square-o"></i> {% trans "Quiz completed" %}
 													</a></li>
 												{% else %}
 													<li class="text-danger"><a
-															href="{% url 'qcm:display' request.current_edition.year %}"><i
-															class="fa fa-square-o"></i> {% trans "Complete the quiz" %}
+															href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-square-o"></i> {% trans "Complete the quiz" %}
 													</a></li>
 												{% endif %}
 											{% endif %}
 											<li class="text-{% if problems_completed == problems_count %}success{% else %}danger{% endif %}">
-												<a href="{% url 'training:challenge' request.current_edition.year 'qualification' %}"><i
-														class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
+												<a href="{% url 'training:challenge' request.current_edition.year 'qualification' %}"><i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
 													{% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems completed{% endblocktrans %}</a>
+											</li>
+											<li class="text-{% if request.current_contestant.is_complete_for_semifinal %}success{% else %}danger{% endif %}">
+												<a href="{% url 'contest:qualification_summary' request.current_edition.year %}"><i class="fa fa-{% if request.current_contestant.is_complete_for_semifinal %}check-{% endif %}square-o"></i> {% trans "Review the extra details" %}</a>
 											</li>
 										</ul>
 									{% endif %}

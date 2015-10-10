@@ -101,11 +101,12 @@ class Contestant(models.Model):
     event_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants', blank=True)
     assigned_event = models.ForeignKey(Event, related_name='assigned_contestants', blank=True, null=True)
 
-    shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True, verbose_name=_("T-shirt size"),
+    shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True,
+                           verbose_name=_("T-shirt size"), empty_label=_("Choose your size"),
                            help_text=_("We usually provide unisex Prologin t-shirts to the finalists."))
     preferred_language = CodingLanguageField(null=True, blank=True, db_index=True,
                                              help_text=_("The programming language you will most likely use during the "
-                                                         "regional events"))
+                                                         "regional events."))
 
     score_qualif_qcm = models.IntegerField(blank=True, null=True, verbose_name=_("QCM score"))
     score_qualif_algo = models.IntegerField(blank=True, null=True, verbose_name=_("Algo exercises score"))
@@ -128,7 +129,7 @@ class Contestant(models.Model):
 
     @property
     def is_complete_for_semifinal(self):
-        if self.event_wishes.filter(type=Event.Type.qualification.value).distinct().count() < settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT:
+        if self.event_wishes.filter(type=Event.Type.semifinal.value).distinct().count() < settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT:
             return False
         return self._is_complete
 
