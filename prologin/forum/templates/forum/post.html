@@ -5,7 +5,7 @@
 
 {% block content %}
 
-    <a href="/forum/{{url}}">{% blocktrans with category=cat_name %}Go back to {{ category }}{% endblocktrans %}</a>
+    <a href="{% url 'forum:home' %}{{url}}">{% blocktrans with category=cat_name %}Go back to {{ category }}{% endblocktrans %}</a>
     <h1>{{thread_name}}</h1>     
     <br>
 	

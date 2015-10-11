@@ -4,7 +4,7 @@
 
 {% block content %}
 
-	<a href="/forum">{% trans "Go Back to the index" %}</a>
+	<a href="{% url 'forum:home' %}">{% trans "Go Back to the index" %}</a>
 	<h1>{{cat_name}}</h1>
 	<p>{{description}}</p>
 	<br>
@@ -12,7 +12,7 @@
 	<ul>
 		{% for tread in threads %}
 			<li>
-				<h3><a href="{{slug}}/{{tread.slug}}">{{tread.name}}</a></h3>
+				<h3><a href="{{tread.slug}}">{{tread.name}}</a></h3>
 				<p>{% blocktrans with by=tread.created_by on=tread.created_on|date:"d F Y G:i" %}Posted by : {{by}}, the {{on}}{% endblocktrans %}</p>
 				<div class="nb_stuff">
 					<p>{% blocktrans with post_nb=tread.nb_post on=tread.last_edited_on|date:"d F Y G:i" by=tread.last_edited_by %}Posts : {{post_nb}}, Last post by : {{by}}, the {{on}}{% endblocktrans %}</p>
