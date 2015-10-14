@@ -648,3 +648,35 @@ footer .legal {
 .submission-history li .pts-won {
 	font-size: 90%;
 }
+
+/**
+ * select2 with Bootstrap 3
+ */
+.select2-container--default .select2-selection--single {
+	border: 1px solid #ccc !important;
+	padding: 6px 12px !important;
+	height: 34px !important;
+	font-size: 14px;
+	line-height: 1.42857143;
+}
+.select2-dropdown {
+	border: 1px solid #ccc !important;
+}
+.select2-container--open .select2-dropdown--below {
+	border-top: none !important;
+}
+.select2-container--open .select2-dropdown--above {
+	border-bottom: none !important;
+}
+.select2-container .select2-selection--single .select2-selection__rendered {
+	padding: 0 10px 0 0 !important; /* clear button */
+}
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	line-height: inherit !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow {
+	height: 34px !important;
+}
+.select2-container--default .select2-selection--single .select2-selection__arrow b {
+	border-color: black transparent transparent transparent !important; /* down arrow color */
+}
