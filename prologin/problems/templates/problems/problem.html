@@ -177,6 +177,7 @@
 {% endblock %}
 
 {% block extra_script %}
+{% if request.user.is_authenticated %}
 	<script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ace.js' %}"></script>
 	<script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ext-themelist.js' %}"></script>
 	<script type="text/javascript" charset="utf-8" src="{% static 'problems/js/code-editor.js' %}"></script>
@@ -197,4 +198,5 @@
 		});
 	});
 	</script>
+{% endif %}
 {% endblock %}
