@@ -1,9 +1,37 @@
+from betterforms.multiform import MultiModelForm
+from collections import OrderedDict
 from django import forms
 from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from contest.widgets import EventWishChoiceField
 import contest.models
+
+
+class ContestantUserForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('first_name', 'last_name', 'address', 'postal_code', 'city', 'country')
+        widgets = {
+            'address': forms.Textarea(attrs={'rows': 2}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        kwargs.pop('edition')
+        super().__init__(*args, **kwargs)
+        self.fields['last_name'].help_text = _("We need your real name and address for legal reasons, as the Prologin "
+                                               "staff engages its responsibility to supervise you during the regional "
+                                               "events and the finale.")
+        if self.instance:
+            url = reverse('users:profile', args=[self.instance.pk])
+            self.fields[self.Meta.fields[-1]].help_text = ('<i class="fa fa-info-circle"></i> ' +
+                                                           _('You can modify or review all your personal information '
+                                                             'on your <a href="%(url)s">profile page</a>.')
+                                                           % {'url': url})
+        for field in self.fields.values():
+            field.required = True
 
 
 class ContestantForm(forms.ModelForm):
@@ -15,7 +43,7 @@ class ContestantForm(forms.ModelForm):
         edition = kwargs.pop('edition')
         super().__init__(*args, **kwargs)
         # Overwrite event_wishes with our custom over-engineered field
-        event_wishes = self.fields['event_wishes'] = EventWishChoiceField(
+        self.fields['event_wishes'] = EventWishChoiceField(
             queryset=(contest.models.Event.objects
                       .select_related('center')
                       .filter(edition=edition, type=contest.models.Event.Type.semifinal.value)),
@@ -27,5 +55,15 @@ class ContestantForm(forms.ModelForm):
                         "order of preference. Most of the time, we are able to satisfy "
                         "your first choice."))
         if self.instance:
-            event_wishes.initial = self.instance.event_wishes
+            # FIXME: figure why we have to do the ordering manually
+            self.initial['event_wishes'] = list(self.instance.event_wishes
+                                                .order_by('eventwish__order')
+                                                .values_list('pk', flat=True))
         self._edition = edition
+
+
+class CombinedContestantUserForm(MultiModelForm):
+    form_classes = OrderedDict([
+        ('user', ContestantUserForm),
+        ('contestant', ContestantForm),
+    ])

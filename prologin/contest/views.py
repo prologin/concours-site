@@ -18,7 +18,7 @@ class QualificationSummary(LoginRequiredMixin, UpdateView):
     template_name = 'contest/qualification_summary.html'
     pk_url_kwarg = 'year'
     context_object_name = 'contestant'
-    form_class = contest.forms.ContestantForm
+    form_class = contest.forms.CombinedContestantUserForm
     model = contest.models.Contestant
 
     def get_object(self, queryset=None):
@@ -30,16 +30,25 @@ class QualificationSummary(LoginRequiredMixin, UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
+        if kwargs.get('instance') is not None:
+            kwargs['instance'] = {
+                'contestant': kwargs['instance'],
+                'user': kwargs['instance'].user,
+            }
         kwargs['edition'] = self.request.current_edition
         return kwargs
 
     def form_valid(self, form):
         with transaction.atomic():
-            self.object = form.save(commit=False)
+            objects = form.save(commit=False)
+            self.object = objects['contestant']
             self.object.save()
             self.object.event_wishes.clear()
-            for i, event in enumerate(event for event in form.cleaned_data['event_wishes'] if event):
+            print(form.cleaned_data['contestant']['event_wishes'])
+            for i, event in enumerate(event for event in form.cleaned_data['contestant']['event_wishes'] if event):
                 contest.models.EventWish(contestant=self.object, event=event, order=i).save()
+            user = objects['user']
+            user.save()
         return super(ModelFormMixin, self).form_valid(form)
 
     def get_context_data(self, **kwargs):

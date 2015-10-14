@@ -6,6 +6,9 @@ celery
 django<1.9
 # For ordered models (QCM questions, semifinal whishes, etc.)
 django-admin-sortable
+# BetterForms: allows merged ModelForms
+# TODO: use PyPi version when Django 1.8 PR eventually gets merged; ref. https://github.com/fusionbox/django-betterforms/pull/30
+git+https://github.com/frankier/django-betterforms.git@django1.8
 # News / blog
 django-blog-zinnia==0.15.2
 # Breadcrumbs
