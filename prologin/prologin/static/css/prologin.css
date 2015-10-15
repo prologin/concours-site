@@ -409,6 +409,11 @@ footer .legal {
  * Misc
  */
 
+.alert > .fa {
+	display: table-cell;
+	vertical-align: middle;
+}
+
 .alert div, .alert span {
 	padding-left: 8px;
 	display: table-cell;
