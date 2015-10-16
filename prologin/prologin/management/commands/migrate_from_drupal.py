@@ -359,10 +359,12 @@ class Command(LabelCommand):
                             continue
 
                         # we don't know the score base nor malus
-                        submission = problems.models.Submission(user=user,
-                                                                challenge=problem.challenge.name,
-                                                                problem=problem.name)
-                        submission.save()
+                        submission, created = (problems.models.Submission
+                                               .objects.get_or_create(user=user,
+                                                                      challenge=problem.challenge.name,
+                                                                      problem=problem.name))
+                        if created:
+                            submission.save()
                         for row in rows:
                             language = Language.guess(row.language.strip('_.')) or Language['pseudocode']
                             code = problems.models.SubmissionCode(submission=submission,
@@ -442,17 +444,17 @@ class Command(LabelCommand):
             for i, (file_name, lang) in enumerate(get_codes(user, submission)):
                 with open(os.path.join(code_archive_path, file_name), 'rb') as f:
                     code = f.read()
-                    try:
-                        encoding = chardet.detect(code)['encoding']
-                        code = code.decode(encoding)
-                        chardet_stats[encoding] += 1
-                        lang_stats[lang] += 1
-                    except TypeError:  # 'encoding' is None
-                        self.stderr.write("{}: chardet could not detect encoding".format(file_name))
-                        continue
-                    except UnicodeDecodeError:
-                        self.stderr.write("{}: chardet made a mistake".format(file_name))
-                        continue
+                try:
+                    encoding = chardet.detect(code)['encoding']
+                    code = code.decode(encoding)
+                    chardet_stats[encoding] += 1
+                    lang_stats[lang] += 1
+                except TypeError:  # 'encoding' is None
+                    self.stderr.write("{}: chardet could not detect encoding".format(file_name))
+                    continue
+                except UnicodeDecodeError:
+                    self.stderr.write("{}: chardet made a mistake".format(file_name))
+                    continue
 
                 submission_code = problems.models.SubmissionCode(submission=submission,
                                                                  code=code,
