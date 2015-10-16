@@ -60,6 +60,7 @@
         var $editor_modes = $('#editor-form select[name="language"]');
         var $editor_themes = $('#editor-form select#code-editor-theme');
         var $editor_font_sizes = $('#editor-form select#code-editor-font-size');
+        var $button_insert_stub = $('#btn-insert-stub');
 
         // hide basic textarea
         $code_textarea.hide();
@@ -107,8 +108,10 @@
             callback: function (item) {
                 var $item = $(item);
                 var mode = $item.attr('data-mode');
+                var templatable = $item.attr('data-template') === 'true';
                 editor.getSession().setMode("ace/mode/" + mode);
                 $current_language_label.text($item.text());
+                $button_insert_stub[templatable ? 'fadeIn' : 'fadeOut'](300); // good lord, jQuery API is so broken
             }
         });
 
@@ -137,6 +140,20 @@
                 localStorage.setItem(FONT_SIZE_STORAGE_KEY, size);
                 editor.setFontSize(parseInt(size));
             }
+        });
+
+        // code stub button
+        $button_insert_stub.hide().click(function(e) {
+            e.preventDefault();
+            var lang = $editor_modes.val();
+            $.getJSON($button_insert_stub.attr('data-url'), {lang: lang})
+                .done(function(template) {
+                    var doc = editor.getSession().getDocument();
+                    doc.insert({row: doc.getLength(), col: 0}, "\n" + template);
+                })
+                .fail(function(err) {
+                    console.error(err);
+                });
         });
 
         // store solution in textarea on submit

@@ -4,7 +4,7 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 
 from contest.models import Event
-
+from prologin.languages import Language
 
 ENCODINGS = ('utf-8', 'latin1')
 
@@ -264,6 +264,28 @@ class Problem:
     def _get_performance_tests(self):
         return str(self.properties.get('performance', '')).split()
     performance_tests = lazy_attr('_performance_tests_', _get_performance_tests)
+
+    def _get_language_templates(self):
+        templates = {}
+        for item in os.listdir(self.file_path()):
+            full_path = self.file_path(item)
+            try:
+                base_name, ext = os.path.splitext(os.path.basename(full_path))
+            except ValueError:
+                # unpacking error
+                continue
+            if base_name != self.name:
+                # not a template
+                continue
+            lang = Language.guess(ext)
+            if lang is None:
+                # unknown extension
+                continue
+            def store_item(f):
+                templates[lang] = f.read()
+            open_try_hard(store_item, full_path)
+        return templates
+    language_templates = lazy_attr('_language_templates_', _get_language_templates)
 
     @property
     def challenge(self):

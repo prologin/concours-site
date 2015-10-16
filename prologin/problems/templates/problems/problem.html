@@ -107,8 +107,9 @@
 									{% if form.language.errors %}<span class="text-danger">
 										{% for error in form.error.errors %}{{ error|escape }} {% endfor %}
 									</span>{% endif %}
+									<button id="btn-insert-stub" class="btn btn-default" data-url="{% url 'training:ajax-language-template' challenge.year challenge.event_type.name problem.name %}" title="{% trans "Insert parsing code stub at the end of your code" %}"><i class="fa fa-file-code-o"></i> {% trans "Code stub" %}</button>
 									<select name="language" style="width: auto;" class="form-control">{% for lng in languages %}
-										<option value="{{ lng.name }}" data-mode="{{ lng.ace_lexer }}"{% if lng.correctable %} data-correctable{% endif %}{% if prefill_submission and prefill_submission.language_enum == lng or not prefill_submission and request.user.preferred_language_enum == lng %} selected{% endif %}>{{ lng.name_display }}</option>
+										<option value="{{ lng.name }}" data-mode="{{ lng.ace_lexer }}" data-template="{% if lng in templatable_languages %}true{% else %}false{% endif %}"{% if lng.correctable %} data-correctable{% endif %}{% if prefill_submission and prefill_submission.language_enum == lng or not prefill_submission and request.user.preferred_language_enum == lng %} selected{% endif %}>{{ lng.name_display }}</option>
 									{% endfor %}</select>
 								</div>
 							</div>
@@ -181,6 +182,7 @@
 	<script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ace.js' %}"></script>
 	<script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ext-themelist.js' %}"></script>
 	<script type="text/javascript" charset="utf-8" src="{% static 'problems/js/code-editor.js' %}"></script>
+{% endif %}
 	<script type="text/javascript">
 	$(function() {
 		// Affix navigation
@@ -198,5 +200,4 @@
 		});
 	});
 	</script>
-{% endif %}
 {% endblock %}

@@ -2,8 +2,8 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db.models import Q
-from django.http import Http404, HttpResponseForbidden, JsonResponse
-from django.views.generic import TemplateView, RedirectView, ListView, DetailView, CreateView
+from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
+from django.views.generic import TemplateView, RedirectView, ListView, DetailView, CreateView, View
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import ModelFormMixin
 import celery
@@ -16,7 +16,7 @@ from problems.tasks import submit_problem_code
 import problems.models
 
 
-def get_challenge(kwargs):
+def get_challenge(kwargs) -> (int, Event.Type, problems.models.Challenge):
     """
     Loads a challenge from URL kwargs.
     """
@@ -34,7 +34,7 @@ def get_challenge(kwargs):
     return year, event_type, challenge
 
 
-def get_problem(kwargs):
+def get_problem(kwargs) -> (int, Event.Type, problems.models.Challenge, problems.models.Problem):
     """
     Loads a problem (and its challenge) from URL kwargs.
     """
@@ -134,6 +134,7 @@ class Problem(CreateView):
         context['problem'] = problem
         context['languages'] = list(Language)
         context['challenge'] = challenge
+        context['templatable_languages'] = list(problem.language_templates.keys())
 
         tackled_by = list(problems.models.Submission.objects.filter(challenge=challenge.name,
                                                                     problem=problem.name))
@@ -327,6 +328,22 @@ class AjaxSubmissionCorrected(BaseDetailView):
     def render_to_response(self, context):
         has_result = self.object.done()
         return JsonResponse(has_result, safe=False)
+
+
+class AjaxLanguageTemplate(View):
+    """
+    Ajax endpoint that returns the code stub for the language template of a problem, for a given language.
+    """
+    def get(self, request, *args, **kwargs):
+        try:
+            lang = Language.guess(request.GET['lang'])
+            if lang is None:
+                raise KeyError
+            year, event_type, challenge, problem = get_problem(kwargs)
+            template = problem.language_templates[lang]
+            return JsonResponse(template, safe=False)
+        except KeyError:
+            return HttpResponseBadRequest()
 
 
 class LegacyChallengeRedirect(RedirectView):
