@@ -7,6 +7,7 @@ from django.utils.text import slugify
 from django.http import Http404
 from forum.models import Category, Post, Thread
 from django.core.urlresolvers import reverse
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 from forum.forms import PostForm, ThreadFrom, ThreadFromStaff
 
@@ -57,7 +58,7 @@ def category(request, cat):
                 CAT.last_edited_by = request.user
                 CAT.last_edited_on = datetime.datetime.now()
                 CAT.save()
-                return redirect(reverse('forum:home') + CAT.slug + '/' + new_thread.slug + '/0')
+                return redirect(reverse('forum:home') + CAT.slug + '/' + new_thread.slug + '/1')
             return render(request, 'forum/threadList.html', {'cat_name':CAT.name, 'description':CAT.description, 'threads':threads, 'slug':CAT.slug, 'form_thread':formThread, 'form_post':formPost, 'nb_post':threads.count(), 'pin':pinThreads})
     raise Http404
 
@@ -75,7 +76,8 @@ def post(request, cat, pos, page):
             if thread is None:
                 raise Http404
             page_nb = int (page)
-            posts = Post.objects.all().filter(category=CAT).filter(thread=thread)[page_nb * 10:(page_nb + 1) * 10]
+            posts = Post.objects.all().filter(category=CAT).filter(thread=thread)
+            paginator = Paginator(posts, 10)
             form = PostForm(request.POST or None)
             if form.is_valid():
                 if Post.objects.all().filter(category=CAT).filter(thread=thread).count() == (page_nb + 1) * 10:
@@ -97,5 +99,11 @@ def post(request, cat, pos, page):
                 CAT.last_edited_on = datetime.datetime.now()
                 CAT.save()
                 return redirect(reverse('forum:home') + CAT.slug + '/' + thread.slug + '/' + page)
-            return render(request, 'forum/post.html', {'thread_name':thread.name, 'posts':posts, 'url':CAT.slug, 'form':form, 'cat_name':CAT.name, 'page_nb':page_nb, 'thread_slug':thread.slug})
+            try:
+                posts = paginator.page(page)
+            except PageNotAnInteger:
+                posts = paginator.page(1)
+            except EmptyPage:
+                posts = paginator.page(paginator.num_pages)
+            return render(request, 'forum/post.html', {'thread_name':thread.name, 'posts':posts, 'url':CAT.slug, 'form':form, 'cat_name':CAT.name, 'page_nb':page_nb, 'thread_slug':thread.slug, 'max_page':paginator.num_pages})
     raise Http404

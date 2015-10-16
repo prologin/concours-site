@@ -7,7 +7,15 @@
 
     <a href="{% url 'forum:home' %}{{url}}">{% blocktrans with category=cat_name %}Go back to {{ category }}{% endblocktrans %}</a>
     <h1>{{thread_name}}</h1>
-    <a href="{% url 'forum:home' %}{{url}}/{{thread_slug}}/{{page_nb|add:"1"}}">{% trans "Go to the next page" %}</a>
+    <div class="forum_nav">
+      {% if page_nb != 1  %}
+          <a href="{% url 'forum:home' %}{{url}}/{{thread_slug}}/{{page_nb|add:"-1"}}">{% trans "<< Previous " %}</a>
+      {% endif %}
+      {{page_nb}}
+      {% if page_nb != max_page %}
+         <a href="{% url 'forum:home' %}{{url}}/{{thread_slug}}/{{page_nb|add:"1"}}">{% trans " Next >>" %}</a>
+      {% endif %}  
+    </div>
     <br>
 	
     <ul>
@@ -37,7 +45,18 @@
         {% endfor %}
     </ul>	 
 	
-	<br><br><br>
+    <br>
+    <div class="forum_nav">
+      {% if page_nb != 1  %}
+          <a href="{% url 'forum:home' %}{{url}}/{{thread_slug}}/{{page_nb|add:"-1"}}">{% trans "<< Previous " %}</a>
+      {% endif %}
+      {{page_nb}}
+      {% if page_nb != max_page %}
+         <a href="{% url 'forum:home' %}{{url}}/{{thread_slug}}/{{page_nb|add:"1"}}">{% trans " Next >>" %}</a>
+      {% endif %}  
+    </div>
+    
+    <br><br>
     
 	{% if user.is_authenticated %}
 		<div class="add_thread">

@@ -31,7 +31,7 @@
     top: -13px;
     left: 92.7%;
 }
-
+ 
 .posted_by p {
 	position: relative;
     top: -38px;
@@ -61,4 +61,13 @@
 
 .pin_thread p {
 	margin-left: 15px
+}
+
+.forum_nav {
+        text-align: center;
+}
+
+.forum_nav a{
+    margin-right: 15px;
+    margin-left: 15px;
 }
