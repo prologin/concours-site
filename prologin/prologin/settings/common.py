@@ -248,9 +248,9 @@ RECAPTCHA_USE_SSL = True
 
 CSP_DEFAULT_SRC = ("'self'",)
 CSP_FONT_SRC = ("'self'", "fonts.gstatic.com",)
-CSP_FRAME_SRC = ("'self'", "player.vimeo.com",)
+CSP_FRAME_SRC = ("'self'", "*.google.com", "player.vimeo.com",)
 CSP_IMG_SRC = ("'self'", "data:", "'unsafe-inline'", "*.googleapis.com", "*.gstatic.com",)
-CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "*.googleapis.com",)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "*.googleapis.com", "*.gstatic.com", "*.google.com",)
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "*.googleapis.com",)
 
 # Zinnia (news)
