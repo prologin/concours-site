@@ -8,6 +8,12 @@ class PostForm(forms.ModelForm):
         fields = ['content']
 
 
+class ThreadFromStaff(forms.ModelForm):
+    class Meta:
+        model = Thread
+        fields = ['name', 'pin']
+
+
 class ThreadFrom(forms.ModelForm):
     class Meta:
         model = Thread

@@ -1,4 +1,4 @@
-{% extends "prologin/base.html" %}
+{% extends "forum/base.html" %}
 {% load i18n %}
 {% block title %}Forums{% endblock %}
 
@@ -6,14 +6,17 @@
 {% block content %}
 
     <a href="{% url 'forum:home' %}{{url}}">{% blocktrans with category=cat_name %}Go back to {{ category }}{% endblocktrans %}</a>
-    <h1>{{thread_name}}</h1>     
+    <h1>{{thread_name}}</h1>
+    <a href="{% url 'forum:home' %}{{url}}/{{thread_slug}}/{{page_nb|add:"1"}}">{% trans "Go to the next page" %}</a>
     <br>
 	
     <ul>
         {% for post in posts %}
             <li>
                 <!--<h3>{{post.title}}</h3>-->
-                <p style="text-align: justify;">{{post.content}}</p>
+				{% autoescape off %}
+					<p style="text-align: justify;">{{post.content}}</p>
+				{% endautoescape %}
 				<div class="forum_image">
 					{% if post.created_by.avatar %}
 						<img class="avatar avatar-full" src="{{ post.created_by.avatar.url }}" alt="

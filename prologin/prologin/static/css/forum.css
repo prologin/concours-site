@@ -47,3 +47,18 @@
     font-weight: lighter;
     font-style: italic;
 }
+
+.pin_thread {
+    background-color: #EEF5FF;
+    border-radius: 15px;
+}
+
+.pin_thread h3 {
+	margin-left: 15px;
+	position: relative;
+    top: 10px;
+}
+
+.pin_thread p {
+	margin-left: 15px
+}

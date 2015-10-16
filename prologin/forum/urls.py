@@ -5,5 +5,5 @@ from forum import views
 urlpatterns = patterns('',
     url(r'^$', views.home, name='home'),
     url(r'^(?P<cat>\w+)/$', views.category, name='cat'),
-    url(r'^(?P<cat>\w+)/(?P<pos>\w+)/$', views.post, name='post'),
+    url(r'^(?P<cat>\w+)/(?P<pos>\w+)/(?P<page>\w+)/$', views.post, name='post'),
 )

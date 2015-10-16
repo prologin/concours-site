@@ -25,17 +25,17 @@ class Category(models.Model):
 class Thread(models.Model):
     name = models.CharField(max_length=64, verbose_name=_("Thread's Name"))
     slug = models.SlugField(max_length=64, db_index=True)
-    category = models.ForeignKey(Category, related_name='T_category')
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='T_post_created_by')
+    category = models.ForeignKey(Category, related_name='threads_category')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='threads_post_created_by')
     created_on = models.DateTimeField(default=timezone.now())
-    last_edited_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='T_post_edited_by')
+    last_edited_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='threads_post_edited_by')
     last_edited_on = models.DateTimeField(auto_now=True)
-    nb_post = models.IntegerField(verbose_name=_('Number of Post'))
+    pin = models.BooleanField(default=False)
 
 
 class Post(models.Model):
     slug = models.SlugField(max_length=128, db_index=True)
-    category = models.ForeignKey(Category, related_name='category')
+    category = models.ForeignKey(Category, related_name='post_category')
     thread = models.ForeignKey(Thread, related_name='thread')
     content = models.TextField(verbose_name=_('Content'))
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='post_created_by')
