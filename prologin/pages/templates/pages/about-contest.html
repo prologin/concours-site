@@ -35,7 +35,7 @@ Prologin is a nonprofit organization, it is free to enter the contest.
 It consists of a selection of algorithmic problems of increasing difficulty.
 It is possible to submit the questionnaire by postal mail or directly on this website.
 {% endblocktrans %}</p>
-			<p>{% trans "Registration is entirely free, you only need an Internet access or an envelope to submit your answers." %}</p></div>
+			<p>{% trans "Registration is entirely free, you only need an Internet access to submit your answers." %}</p></div>
 			<div class="col-sm-4">
 				<h4>{% trans "Who can qualify?" %}</h4>
 				<p>{% trans "Any student under 21, living in the European Union, who can understand and write French." %}</p>
@@ -60,7 +60,7 @@ and an interview with one of Prologin's staff members.
 {% endblocktrans %}</p>
 			</div>
 			<div class="col-sm-4">
-				<h4>{% trans "Where can I seat the exam?" %}</h4>
+				<h4>{% trans "Where can I sit for the exam?" %}</h4>
 				{% url 'centers:center_map' as url_centers %}
 				<p>{% blocktrans %}
 We organize the event in major cities across metropolitan France. You can check the nearest location
@@ -77,15 +77,15 @@ using the <a href="{{ url_centers }}">map of exam centers</a>.{% endblocktrans %
 			<h2>{% trans "3<sup>rd</sup> step – The Final" %}</h2>
 			<p>{% blocktrans %}The final takes place over three days in Paris, usually at the end of April.
 Candidates have to program an artificial intelligence of their own for
-some kind of game, in just 36 hours. All the candidate submissions are
-assessed by competing against each other using an automated matchmaking system.
+a custom-made game, in just 36 hours. All the candidate submissions are
+assessed by competing against each other using an automated match-making system.
 It is also a unique opportunity to meet other computer enthusiasts, in a cheerful
 and relaxed mood!
 {% endblocktrans %}</p></div>
 			<div class="col-sm-4">
 				<h4>{% trans "How much does it cost?" %}</h4>
 				<p>{% blocktrans %}All candidates are provided with free meals and a place to rest and sleep for the
-duration of the finale. You only have to handle the cost of transportation.{% endblocktrans %}</p>
+duration of the final. You only have to handle the cost of transportation.{% endblocktrans %}</p>
 				<p><a href="{% url 'pages:about-final' %}" class="btn btn-default">{% trans "Learn more" %}</a></p>
 			</div>
 		</div>
