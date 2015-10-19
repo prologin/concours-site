@@ -53,24 +53,13 @@
 
 	{% endfor %}
 
-	<ul class="clearfix nav hidden-xs"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
+	<ul class="clearfix nav hidden-xs text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
 
 	</div>
 
 	<div class="col-sm-3">
-		<ul class="nav">
-			<li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o fa-centered"></i> {% trans "All the news" %}</a></li>
-		</ul>
-
-		<h2>{% trans "More info" %}</h2>
-		<ul class="nav">
-			<li><a href="{% url 'pages:about-organization' %}"><i class="fa fa-cube fa-centered"></i> {% trans "The Prologin organization" %}</a></li>
-			<li><a href="#TODO"><i class="fa fa-question fa-centered"></i> {% trans "How can I join?" %}</a></li>
-		</ul>
-
 		{% include "homepage/sponsors.html" %}
 	</div>
-
 	</div>
 
 	{% endblock content %}
