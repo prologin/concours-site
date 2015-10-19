@@ -389,7 +389,7 @@ footer .legal {
 .entry-meta-line {
 	position: relative;
 	padding-left: 2em;
-	padding-bottom: 1em;
+	padding-bottom: .5em;
 }
 
 .entry-meta-line p {
