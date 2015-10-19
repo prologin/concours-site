@@ -1,3 +1,4 @@
+import base64
 import urllib.parse
 
 from celery import shared_task
@@ -5,6 +6,7 @@ from celery.utils.log import get_task_logger
 from django.conf import settings
 from django.db import transaction
 from django.utils import timezone
+from xml.etree import ElementTree
 
 from problems.corrector import remote_check, parse_xml
 from problems.models import SubmissionCode
@@ -106,7 +108,11 @@ def submit_problem_code(code_submission_id):
             filename = 'submission' + code_submission.language_enum().extensions()[0]
             result = remote_check(uri.geturl(), submission.challenge, submission.problem, code_submission.code,
                                   filename)
-            result = parse_xml(result)
+            try:
+                result = parse_xml(result)
+            except ElementTree.ParseError:
+                logger.error("Malformed XML: {}".format(base64.b64encode(result.encode('utf8')).decode('ascii')))
+                raise
             logger.info("Raw result: %r", result)
             problem = submission.problem_model()
             difficulty = problem.difficulty
