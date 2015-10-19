@@ -36,4 +36,4 @@ class TrainingStaticFinder(BaseFinder):
         for f in glob.glob(root + self.pattern):
             if matches_patterns(f, ignore_patterns):
                 continue
-            yield f[len(root) + 1:], storage
+            yield os.path.relpath(f, root), storage
