@@ -37,6 +37,7 @@ $(IMG_DIR)/small_cube.big.png: $(IMG_DIR)/small_cube.alone.png
 
 # Main rules
 update-libs:
+	mkdir -p $(LIB_DIR)
 	cd $(LIB_DIR) && python $(TOP)/update-libs.py
 
 all: $(OBJS) update-libs

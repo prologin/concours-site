@@ -113,7 +113,7 @@
 	</div>
 	{% endif %}
 	{% endwith %}
-	<p class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> {% blocktrans with rem=submission.expired_result_datetime|naturaltime %}These compilation and test results will be gone {{ rem }}.{% endblocktrans %}</p>
+	<div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> <div>{% blocktrans with rem=submission.expired_result_datetime|naturaltime %}These compilation and test results will be gone {{ rem }}.{% endblocktrans %}</div></div>
 	{% elif not submission.correctable %}
 		<p class="alert alert-info">{% blocktrans %}The submission can not be corrected as it was written in a language that can not be compiled nor executed.{% endblocktrans %}</p>
 	{% elif submission.expired_result %}

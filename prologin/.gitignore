@@ -1,5 +1,4 @@
 media/*
-locale/*
 prologin/static/lib/*
 prologin/settings/dev.py
 documents/*.pdf
@@ -8,3 +7,4 @@ documents/*.log
 documents/*.csv
 *.json
 *.sqlite
+*.mo

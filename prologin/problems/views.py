@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
-from django.views.generic import TemplateView, RedirectView, ListView, DetailView, CreateView, View
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, View
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import ModelFormMixin
 import celery
@@ -16,7 +16,7 @@ from problems.tasks import submit_problem_code
 import problems.models
 
 
-def get_challenge(kwargs) -> (int, Event.Type, problems.models.Challenge):
+def get_challenge(request, kwargs) -> (int, Event.Type, problems.models.Challenge):
     """
     Loads a challenge from URL kwargs.
     """
@@ -27,18 +27,18 @@ def get_challenge(kwargs) -> (int, Event.Type, problems.models.Challenge):
         raise Http404()
     try:
         challenge = problems.models.Challenge.by_year_and_event_type(year, event_type)
-        if not challenge.displayable:
-            raise ObjectDoesNotExist
+        if not (challenge.displayable or request.user.is_staff):
+            raise ObjectDoesNotExist()
     except ObjectDoesNotExist:
         raise Http404()
     return year, event_type, challenge
 
 
-def get_problem(kwargs) -> (int, Event.Type, problems.models.Challenge, problems.models.Problem):
+def get_problem(request, kwargs) -> (int, Event.Type, problems.models.Challenge, problems.models.Problem):
     """
     Loads a problem (and its challenge) from URL kwargs.
     """
-    year, event_type, challenge = get_challenge(kwargs)
+    year, event_type, challenge = get_challenge(request, kwargs)
     try:
         problem = problems.models.Problem(challenge, kwargs['problem'])
     except ObjectDoesNotExist:
@@ -64,7 +64,8 @@ class Index(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['challenges'] = [c for c in problems.models.Challenge.all() if c.displayable]
+        context['challenges'] = [c for c in problems.models.Challenge.all()
+                if c.displayable or self.request.user.is_staff]
         context['search_form'] = SearchForm()
         if not self.request.user.is_authenticated():
             del context['search_form'].fields['solved']
@@ -86,7 +87,7 @@ class Challenge(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        year, event_type, challenge = get_challenge(self.kwargs)
+        year, event_type, challenge = get_challenge(self.request, self.kwargs)
         challenge_score = 0
         challenge_done = 0
 
@@ -129,7 +130,7 @@ class Problem(CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        year, event_type, challenge, problem = get_problem(self.kwargs)
+        year, event_type, challenge, problem = get_problem(self.request, self.kwargs)
 
         context['problem'] = problem
         context['languages'] = list(Language)
@@ -240,7 +241,7 @@ class SubmissionCode(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        year, event_type, challenge, problem = get_problem(self.kwargs)
+        year, event_type, challenge, problem = get_problem(self.request, self.kwargs)
         context['challenge'] = challenge
         context['problem'] = problem
         return context
@@ -339,40 +340,8 @@ class AjaxLanguageTemplate(View):
             lang = Language.guess(request.GET['lang'])
             if lang is None:
                 raise KeyError
-            year, event_type, challenge, problem = get_problem(kwargs)
+            year, event_type, challenge, problem = get_problem(self.request, kwargs)
             template = problem.language_templates[lang]
             return JsonResponse(template, safe=False)
         except KeyError:
             return HttpResponseBadRequest()
-
-
-class LegacyChallengeRedirect(RedirectView):
-    """
-    RedirectView for legacy (Drupal) challenge URLs of the form:
-        /challenge/{demi|qcm}{year}
-    """
-    permanent = False
-    legacy_mapping = {
-        'qcm': Event.Type.qualification,
-        'demi': Event.Type.semifinal,
-    }
-
-    def parse(self):
-        return self.kwargs['year'], LegacyChallengeRedirect.legacy_mapping[self.kwargs['type']].name
-
-    def get_redirect_url(self, *args, **kwargs):
-        year, event_type = self.parse()
-        return reverse('training:challenge', kwargs={'year': year,
-                                                     'type': event_type})
-
-
-class LegacyProblemRedirect(LegacyChallengeRedirect):
-    """
-    RedirectView for legacy (Drupal) problem URLs of the form:
-        /challenge/{demi|qcm}{year}/{problem-name}
-    """
-    def get_redirect_url(self, *args, **kwargs):
-        year, event_type = super().parse()
-        return reverse('training:problem', kwargs={'year': year,
-                                                   'type': event_type,
-                                                   'problem': self.kwargs['problem']})
