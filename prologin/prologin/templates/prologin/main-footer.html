@@ -5,19 +5,22 @@
 		<ul class="nav">
 			<li><a href="{% url 'pages:about-organization' %}"><i class="fa fa-cube fa-centered"></i> {% trans "The organization" %}</a></li>
 			<li><a href="{% url 'pages:about-organization' %}#contact"><i class="fa fa-envelope fa-centered"></i> {% trans "Contact us" %}</a></li>
-			<li><a href="#TODO"><i class="fa fa-question fa-centered"></i> {% trans "How can I join?" %}</a></li>
+			<li><a href="{% url 'pages:about-organization' %}#contribute"><i class="fa fa-question fa-centered"></i> {% trans "How can I help?" %}</a></li>
 		</ul>
+        {% comment TODO %}
 		<h3>{% trans "More" %}</h3>
 		<ul class="nav">
 			<li><a href="#TODO">{% trans "Press kit" %}</a></li>
 		</ul>
+        {% endcomment %}
 	</div>
 	<div class="col-xs-6 col-md-4">
+        {% comment TODO %}
 		<h3>{% trans "Terms" %}</h3>
 		<ul class="nav">
-			<li><a href="#TODO">{% trans "Legal notice" %}</a></li>
 			<li><a href="#TODO">{% trans "Contest rules" %}</a></li>
 		</ul>
+        {% endcomment %}
 		<h3>{% trans "Stay tuned!" %}</h3>
 		<a href="{% url 'zinnia:entry_latest_feed' %}" title="{% trans "Prologin news Atom stream" %}" class="social">
 			<span class="fa-stack fa-lg">
