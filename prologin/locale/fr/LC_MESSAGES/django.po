@@ -15,7 +15,7 @@ msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-19 20:40+0200\n"
-"PO-Revision-Date: 2015-10-19 18:52+0000\n"
+"PO-Revision-Date: 2015-10-19 18:55+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -850,7 +850,7 @@ msgid ""
 "by subjecting them to several conventional problems and exciting challenges. The contest takes places in\n"
 "three stages of successive selection presented in the following sections.\n"
 "Prologin is a nonprofit organization, it is free to enter the contest.\n"
-msgstr "Prologin est un concours d'informatique ouvert à tous les étudiants agés de moins de %(max_age)s,\n organisé par <a href=\"%(assoc_url)s\">l'association Prologin</a>.\n Notre but est de faire découvrir le monde de la programmation et de l'algorithmique \naux étudiants et de les confronter à des problèmes classiques et des challenges excitants. Le concours se déroule en trois étapes de sélections consécutives présentées dans les sections suivantes.\nPrologin est une association à but non lucratif, et son concours et totalement gratuit.\n"
+msgstr "Prologin est un concours d'informatique ouvert à tous les étudiants agés de moins de %(max_age)s ans,\n organisé par <a href=\"%(assoc_url)s\">l'association Prologin</a>.\n Notre but est de faire découvrir le monde de la programmation et de l'algorithmique \naux étudiants et de les confronter à des problèmes classiques et des challenges excitants. Le concours se déroule en trois étapes de sélections consécutives présentées dans les sections suivantes.\nPrologin est une association à but non lucratif, et son concours et totalement gratuit.\n"
 
 #: pages/templates/pages/about-contest.html:27
 #, python-format
