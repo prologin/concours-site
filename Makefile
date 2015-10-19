@@ -23,6 +23,7 @@ tx-push:
 	$(TX) push -s -t
 
 tx-pull:
+	mkdir -p "$(DIR)/locale"
 	find "$(DIR)/locale" -mindepth 1 -maxdepth 1 -type d -exec rm -r "{}" \;
 	$(TX) pull -l fr
 	$(MANAGE) compilemessages
