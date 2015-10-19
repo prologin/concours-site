@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-19 19:56+0200\n"
-"PO-Revision-Date: 2015-10-19 17:57+0000\n"
+"POT-Creation-Date: 2015-10-19 20:40+0200\n"
+"PO-Revision-Date: 2015-10-19 18:44+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -194,7 +194,7 @@ msgstr "Score"
 
 #: contest/templates/contest/index.html:6
 #: contest/templates/contest/qualification_summary.html:6
-#: pages/templates/pages/about-final.html:76 qcm/templates/qcm/display.html:6
+#: pages/templates/pages/about-final.html:82 qcm/templates/qcm/display.html:6
 msgid "Contest"
 msgstr "Épreuves"
 
@@ -953,67 +953,167 @@ msgstr "Durant toute la durée de la finale, les repas sont pris en charge et de
 msgid "The final"
 msgstr "La finale"
 
-#: pages/templates/pages/about-final.html:24
-msgid "The typical course of the final"
-msgstr "Déroulement typique d'une finale"
+#: pages/templates/pages/about-final.html:22
+msgid "A 36-hours nonstop contest"
+msgstr "Une épreuve de programmation de 36 heures non-stop"
 
-#: pages/templates/pages/about-final.html:59
+#: pages/templates/pages/about-final.html:25
+msgid ""
+"The final takes place for three days in the EPITA\n"
+"    school, which is closed for the event. The Prologin team is assisted by\n"
+"    some EPITA students and former contestants. At least ten organizers assist\n"
+"    technically the contestants during the whole contest. The contestants are\n"
+"    authorized (and invited) to communicate together."
+msgstr "La finale se déroule pendant trois jours dans les locaux de l'EPITA, qui sont réservés au concours durant cette période. L'équipe de Prologin est complétée par des élèves d'EPITA et des anciens candidats, pour réunir un minimum de 30 personnes. Une dizaine d'organisateurs s'occupe d'assister techniquement les candidats tout au long de l'épreuve. Ces derniers sont également autorisés (pour ne pas dire incités) à communiquer entre eux."
+
+#: pages/templates/pages/about-final.html:65
 msgid "Day 1"
 msgstr "Journée 1"
 
-#: pages/templates/pages/about-final.html:60
+#: pages/templates/pages/about-final.html:66
 msgid "Day 2"
 msgstr "Journée 2"
 
-#: pages/templates/pages/about-final.html:61
+#: pages/templates/pages/about-final.html:67
 msgid "Day 3"
 msgstr "Journée 3"
 
-#: pages/templates/pages/about-final.html:62
+#: pages/templates/pages/about-final.html:68
 msgid "Day 4"
 msgstr "Journée 4"
 
-#: pages/templates/pages/about-final.html:72
+#: pages/templates/pages/about-final.html:78
 msgid "Candidates reception"
 msgstr "Accueil des candidats"
 
-#: pages/templates/pages/about-final.html:79
+#: pages/templates/pages/about-final.html:85
 msgid "<tspan x=\"65\" >Statement</tspan><tspan x=\"65\" dy=\"15\">distribution</tspan>"
 msgstr "<tspan x=\"65\" >Distribution</tspan><tspan x=\"65\" dy=\"15\">du sujet</tspan>"
 
-#: pages/templates/pages/about-final.html:85
+#: pages/templates/pages/about-final.html:91
 msgid "<tspan x=\"390\" >Selection,</tspan><tspan x=\"390\" dy=\"15\">jury</tspan>"
 msgstr "<tspan x=\"390\" >Sélection,</tspan><tspan x=\"390\" dy=\"15\">jury</tspan>"
 
-#: pages/templates/pages/about-final.html:89
+#: pages/templates/pages/about-final.html:95
 msgid "<tspan x=\"470\">Award ceremony,</tspan><tspan x=\"470\" dy=\"15\">banquet</tspan>"
 msgstr "<tspan x=\"470\">Cérémonie,</tspan><tspan x=\"470\" dy=\"15\">banquet</tspan>"
 
-#: pages/templates/pages/about-final.html:93
+#: pages/templates/pages/about-final.html:99
 msgid "Animations"
 msgstr "Animations"
 
-#: pages/templates/pages/about-final.html:99
+#: pages/templates/pages/about-final.html:105
+msgid ""
+"The main goal of the final is of course to select the\n"
+"    best contestants, but also to allow them to meet together and share their\n"
+"    knowledge and ideas, and to work on a real project that requires them to\n"
+"    give the best of themselves, from a technical perspective but also from a\n"
+"    time management perspective."
+msgstr "L'objectif principal de la finale est bien sûr de sélectionner les meilleurs candidats, mais aussi de leur permettre de se rencontrer, d'échanger des idées, et de travailler sur un véritable projet qui leur demande de donner le meilleur d'eux-mêmes, d'une part du point de vue informatique, et d'autre part du point de vue de leur organisation et de la gestion du temps."
+
+#: pages/templates/pages/about-final.html:111
+msgid ""
+"The judging system is a client-server architecture\n"
+"    programmed every year by the Prologin team. The contestant being free of\n"
+"    the systems programming part, he can focuses on all the algorithmic aspects\n"
+"    of his submission."
+msgstr "L'architecture d'évaluation est un système client-serveur réalisé chaque année par l'équipe Prologin. Le candidat étant affranchi de toute la partie programmation système, il peut se concentrer sur les aspects algorithmiques."
+
+#: pages/templates/pages/about-final.html:116
 #: pages/templates/pages/about-semifinals.html:130
 msgid "Logistics"
 msgstr "Logistique"
 
-#: pages/templates/pages/about-final.html:102
+#: pages/templates/pages/about-final.html:118
+msgid ""
+"Prologin takes care of the breakfasts, lunches and\n"
+"    dinners. As the final is also a party, unlimited (alcohol-free) drinks,\n"
+"    crepes and cotton candy are available, even after the meal hours.\n"
+"    "
+msgstr "Prologin assure un service de restauration matin, midi et soir. Mais parce que la finale est aussi une fête, boissons (sans alcool), crêpes et barbe-à-papa sont à disposition des candidats à volonté, y compris en dehors des heures de repas."
+
+#: pages/templates/pages/about-final.html:123
+msgid ""
+"Mattresses are of course available for every contestant,\n"
+"    but they need to bring their own sleeping bags."
+msgstr "Des matelas sont bien sûr disponibles pour chaque candidat, mais chacun doit néanmoins apporter son sac de couchage."
+
+#: pages/templates/pages/about-final.html:126
 msgid "The development environment"
 msgstr "L'environnement de développement"
 
-#: pages/templates/pages/about-final.html:105
+#: pages/templates/pages/about-final.html:128
+msgid ""
+"Every one of the 100 contestants can work during the\n"
+"    whole contest on a computer running GNU/Linux. It is a good occasion for\n"
+"    them to familiarize with the UNIX environment, unknown for most of them.\n"
+"    Some documentation on the subject is available, and the Prologin team is\n"
+"    there to help them if needed."
+msgstr "Chacun des 100 candidats se voit attribuer pour toute la durée du concours un ordinateur tournant sous GNU/Linux. C'est l'occasion pour les candidats de se familiariser avec l'environnement UNIX, méconnu d'une grande partie d'entre eux. Diverses documentations à ce sujet leur sont bien sûr fournies, et tout au long de l'épreuve l'équipe de Prologin est là pour les aider si besoin est."
+
+#: pages/templates/pages/about-final.html:134
 msgid "The statement"
 msgstr "Le sujet"
 
-#: pages/templates/pages/about-final.html:108
+#: pages/templates/pages/about-final.html:136
+msgid ""
+"Every year, an original contest statement is created by\n"
+"    the Prologin team. It generally consists of a game whose rules define a\n"
+"    world in which the programs of the contestants have to compete. It has a\n"
+"    playful aspect, while needing a lot of algorithmic and technical skills,\n"
+"    generally related to artificial intelligence."
+msgstr "Chaque année, un sujet original est conçu par l'équipe Prologin. Il s'agit généralement d'un jeu dont les règles définissent un monde dans lequel les programmes des candidats doivent s'affronter les uns aux autres. Il présente donc un aspect ludique, tout en faisant appel à de nombreux problèmes algorithmiques, orientés vers l'intelligence artificielle."
+
+#: pages/templates/pages/about-final.html:142
+msgid ""
+"The complex environment of the subject requires\n"
+"    technical skills, an analytical mind, and good time\n"
+"    management."
+msgstr "L'environnement complexe du sujet leur demande de faire preuve, en plus de leurs compétences techniques, d'un esprit de synthèse, et d'une bonne capacité à gérer leur temps."
+
+#: pages/templates/pages/about-final.html:146
 #: pages/templates/pages/about-semifinals.html:113
 msgid "Evaluation methodology"
 msgstr "Méthode d'évaluation"
 
-#: pages/templates/pages/about-final.html:111
+#: pages/templates/pages/about-final.html:148
+msgid ""
+"The first phase of the evaluation consists of a great\n"
+"    tournament during which the programs of all the contestants compete\n"
+"    together. As soon as the contest ends, at 1 AM, all the computers are used\n"
+"    by a distributed tournament system, in order to make thousands of matches,\n"
+"    and get a precise ranking in equitable conditions."
+msgstr "La première phase de l'évaluation consiste en un grand tournoi, au cours duquel les programmes de tous les candidats vont s'affronter les uns aux autres. Dès la fin de l'épreuve, vers 1h du matin, toutes les machines sont exploitées par un système de tournoi réparti, afin de réaliser des dizaines de milliers de matchs, et obtenir ainsi un classement très précis dans les conditions les plus équitables possibles."
+
+#: pages/templates/pages/about-final.html:154
+msgid ""
+"The ten best programs of this tournament are then\n"
+"    analyzed in depth: the source code and the documentation provided by the\n"
+"    contestant are studied to write an evaluation sheet that will be used\n"
+"    during the defense."
+msgstr "Les dix meilleurs projets issus de ce tournoi sont ensuite analysés plus en profondeur : le code source et la documentation fournis par le candidat sont étudiés pour constituer une fiche d'évaluation détaillée qui servira de base au déroulement de la soutenance."
+
+#: pages/templates/pages/about-final.html:159
+msgid ""
+"A special jury defines the final ranking after a twenty\n"
+"    minutes defense with each of the ten best contestants. This ranking, highly\n"
+"    influenced by the results of the tournament, also takes in account the\n"
+"    capacity of the contestant to justify his technical choices, the quality of\n"
+"    the design of his program and the potential improvements he could have\n"
+"    worked on."
+msgstr "Un jury définit le classement final après un entretien de vingt minutes avec chacun des dix candidats sélectionnés. Ce classement, fortement influencé par le résultat du tournoi, tient aussi compte entre autres de la capacité de chaque candidat à justifier ses choix techniques, de la qualité de l'architecture de son projet, et des possibilités d'améliorations envisagées."
+
+#: pages/templates/pages/about-final.html:166
 msgid "Award ceremony"
 msgstr "Remise des prix"
+
+#: pages/templates/pages/about-final.html:168
+msgid ""
+"The awards are given at noon, after the individual\n"
+"    defenses. The main sponsors are generally here and give prizes and awards\n"
+"    to the winning contestants. Everyone is then invited to a feast that ends\n"
+"    the contest."
+msgstr "La remise des prix a lieu vers midi, après la fin des soutenances. Les principaux sponsors et un certain nombre de personnalités associées au concours sont généralement présents, et remettent les lots et trophées aux gagnants. Tout le monde est ensuite convié au banquet qui clôture le concours."
 
 #: pages/templates/pages/about-organization.html:10
 #: pages/templates/pages/about-organization.html:15

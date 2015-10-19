@@ -19,10 +19,16 @@
 	</div>
 <div class="container"> {# unhack #}
 
-	<p>TODO</p>
-
-	<h2>{% trans "The typical course of the final"  %}</h2>
+	<h2>{% trans "A 36-hours nonstop contest" %}</h2>
 	{% get_setting_var 'FINAL_EVENT_DATE_FORMAT' as date_format %}
+
+    <p>{% blocktrans %}The final takes place for three days in the EPITA
+    school, which is closed for the event. The Prologin team is assisted by
+    some EPITA students and former contestants. At least ten organizers assist
+    technically the contestants during the whole contest. The contestants are
+    authorized (and invited) to communicate together.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}{% endblocktrans %}</p>
 
 	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-50 0 650 190" preserveAspectRatio="xMaxYmax" style="max-width: 800px">
@@ -96,21 +102,72 @@
 		</g>
 	</svg>
 
+    <p>{% blocktrans %}The main goal of the final is of course to select the
+    best contestants, but also to allow them to meet together and share their
+    knowledge and ideas, and to work on a real project that requires them to
+    give the best of themselves, from a technical perspective but also from a
+    time management perspective.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}The judging system is a client-server architecture
+    programmed every year by the Prologin team. The contestant being free of
+    the systems programming part, he can focuses on all the algorithmic aspects
+    of his submission.{% endblocktrans %}</p>
+
 	<h2>{% trans "Logistics" %}</h2>
-	<p>TODO</p>
+
+    <p>{% blocktrans %}Prologin takes care of the breakfasts, lunches and
+    dinners. As the final is also a party, unlimited (alcohol-free) drinks,
+    crepes and cotton candy are available, even after the meal hours.
+    {% endblocktrans %}</p>
+
+    <p>{% blocktrans %}Mattresses are of course available for every contestant,
+    but they need to bring their own sleeping bags.{% endblocktrans %}</p>
 
 	<h2>{% trans "The development environment" %}</h2>
-	<p>TODO</p>
+
+    <p>{% blocktrans %}Every one of the 100 contestants can work during the
+    whole contest on a computer running GNU/Linux. It is a good occasion for
+    them to familiarize with the UNIX environment, unknown for most of them.
+    Some documentation on the subject is available, and the Prologin team is
+    there to help them if needed.{% endblocktrans %}</p>
 
 	<h2>{% trans "The statement" %}</h2>
-	<p>TODO</p>
+
+    <p>{% blocktrans %}Every year, an original contest statement is created by
+    the Prologin team. It generally consists of a game whose rules define a
+    world in which the programs of the contestants have to compete. It has a
+    playful aspect, while needing a lot of algorithmic and technical skills,
+    generally related to artificial intelligence.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}The complex environment of the subject requires
+    technical skills, an analytical mind, and good time
+    management.{% endblocktrans %}</p>
 
 	<h2>{% trans "Evaluation methodology" %}</h2>
-	<p>TODO</p>
+
+    <p>{% blocktrans %}The first phase of the evaluation consists of a great
+    tournament during which the programs of all the contestants compete
+    together. As soon as the contest ends, at 1 AM, all the computers are used
+    by a distributed tournament system, in order to make thousands of matches,
+    and get a precise ranking in equitable conditions.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}The ten best programs of this tournament are then
+    analyzed in depth: the source code and the documentation provided by the
+    contestant are studied to write an evaluation sheet that will be used
+    during the defense.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}A special jury defines the final ranking after a twenty
+    minutes defense with each of the ten best contestants. This ranking, highly
+    influenced by the results of the tournament, also takes in account the
+    capacity of the contestant to justify his technical choices, the quality of
+    the design of his program and the potential improvements he could have
+    worked on.{% endblocktrans %}</p>
 
 	<h2>{% trans "Award ceremony" %}</h2>
-	<p>TODO</p>
 
-
+    <p>{% blocktrans %}The awards are given at noon, after the individual
+    defenses. The main sponsors are generally here and give prizes and awards
+    to the winning contestants. Everyone is then invited to a feast that ends
+    the contest.{% endblocktrans %}</p>
 
 {% endblock %}
