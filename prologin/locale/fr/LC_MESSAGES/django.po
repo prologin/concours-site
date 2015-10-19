@@ -6,6 +6,7 @@
 # Alexandre <artifere@gmail.com>, 2015
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
 # Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
+# Antoine Pietri <antoine.pietri1@gmail.com>, 2015
 # Robin Thoni <rob57530@gmail.com>, 2015
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
 # Yves Stadler <mvyonline@gmail.com>, 2015
@@ -13,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-10 17:47+0200\n"
-"PO-Revision-Date: 2015-10-17 18:30+0000\n"
-"Last-Translator: Alexandre <artifere@gmail.com>\n"
+"POT-Creation-Date: 2015-10-19 19:56+0200\n"
+"PO-Revision-Date: 2015-10-19 17:57+0000\n"
+"Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -109,10 +110,24 @@ msgid "User"
 msgstr "Utilisateur"
 
 #: contest/forms.py:24
+msgid ""
+"We need your real name and address for legal reasons, as the Prologin staff "
+"engages its responsibility to supervise you during the regional events and "
+"the finale."
+msgstr ""
+
+#: contest/forms.py:30
+#, python-format
+msgid ""
+"You can modify or review all your personal information on your <a "
+"href=\"%(url)s\">profile page</a>."
+msgstr ""
+
+#: contest/forms.py:52
 msgid "Semifinal center wishes"
 msgstr "Centres de régionale"
 
-#: contest/forms.py:25
+#: contest/forms.py:53
 msgid ""
 "This is where you would like to seat the regional events if you are "
 "selected. Choose at least one and up to three wishes, in order of "
@@ -323,23 +338,23 @@ msgstr "Enregistrer la participation"
 msgid "Make your choice"
 msgstr "Faites votre choix"
 
-#: contest/widgets.py:12
+#: contest/widgets.py:13
 msgid "First choice"
 msgstr "Premier choix"
 
-#: contest/widgets.py:12
+#: contest/widgets.py:13
 msgid "Second choice"
 msgstr "Deuxième choix"
 
-#: contest/widgets.py:12
+#: contest/widgets.py:13
 msgid "Third choice"
 msgstr "Troisième choix"
 
-#: contest/widgets.py:31
+#: contest/widgets.py:32
 msgid "Choice"
 msgstr "Choix"
 
-#: contest/widgets.py:92
+#: contest/widgets.py:94
 #, python-format
 msgid "You must provide at least %(count)d choice."
 msgid_plural "You must provide at least %(count)d choices."
@@ -426,22 +441,6 @@ msgstr "Continuer la lecture"
 #: homepage/templates/homepage/homepage.html:56
 msgid "Browse all news"
 msgstr "Consulter toutes les actualités"
-
-#: homepage/templates/homepage/homepage.html:62
-msgid "All the news"
-msgstr "Toutes les actualités"
-
-#: homepage/templates/homepage/homepage.html:65
-msgid "More info"
-msgstr "Plus d'infos"
-
-#: homepage/templates/homepage/homepage.html:67
-msgid "The Prologin organization"
-msgstr "L'association Prologin"
-
-#: homepage/templates/homepage/homepage.html:68
-msgid "How can I join?"
-msgstr "Comment participer ?"
 
 #: homepage/templates/homepage/jumbotron.html:6
 #, python-format
@@ -995,7 +994,7 @@ msgid "Animations"
 msgstr "Animations"
 
 #: pages/templates/pages/about-final.html:99
-#: pages/templates/pages/about-semifinals.html:91
+#: pages/templates/pages/about-semifinals.html:130
 msgid "Logistics"
 msgstr "Logistique"
 
@@ -1008,7 +1007,7 @@ msgid "The statement"
 msgstr "Le sujet"
 
 #: pages/templates/pages/about-final.html:108
-#: pages/templates/pages/about-semifinals.html:88
+#: pages/templates/pages/about-semifinals.html:113
 msgid "Evaluation methodology"
 msgstr "Méthode d'évaluation"
 
@@ -1168,7 +1167,7 @@ msgid ""
 "but also to implement their solution on a machine, in the programming language they prefer. This is also an\n"
 "opportunity for candidates to meet other enthusiasts, and for the organizers to relate their experience, to help\n"
 "them progress."
-msgstr ""
+msgstr "Les épreuves de demi-finale sont destinées à tester les capacités des candidats d'une part à résoudre des problèmes de manière algorithmique, et d'autre part à mettre en oeuvre cette démarche sur une machine, dans le langage de leur choix. Ce doit aussi être l'occasion pour les candidats de rencontrer d'autres passionnés, et pour les organisateurs de leur faire part de leur expérience, pour les aider à progresser."
 
 #: pages/templates/pages/about-semifinals.html:26
 msgid ""
@@ -1187,48 +1186,143 @@ msgstr "L'examen écrit"
 
 #: pages/templates/pages/about-semifinals.html:33
 msgid ""
-"This lasts three hours. The test consists of a series of five or six questions around a common\n"
-"theme. These questions of increasing difficulty guide the candidate in the stages of resolution of an algorithmic\n"
-"problem. The first exercives focuse on modeling the problem and are here to check that the candidate masters the\n"
-"basic principles of algorithms, and the next exercises require the candidate to develop effective algorithms\n"
-"for harder problems."
-msgstr ""
+"The written exam lasts three hours. The test consists of\n"
+"    a series of five or six questions around a common theme. These questions of\n"
+"    increasing difficulty guide the contestant in the stages of resolution of\n"
+"    an algorithmic problem. The first exercices focus on modeling the problem\n"
+"    and are here to check that the candidate masters the basic principles of\n"
+"    algorithms, and the next exercises require the contestant to code effective\n"
+"    algorithms for harder problems."
+msgstr "L'épreuve d'algorithmique sur papier, d'une durée de trois heures, est composée d'une série de cinq ou six questions autour d'un thème commun. Ces questions, de difficulté croissante, guident le candidat dans les étapes de résolution d'un problème d'algorithmique. Les premières portent sur la modélisation du problème et permettent de vérifier que le candidat maîtrise les principes de base de l'algorithmique, et les dernières consistent à rechercher et évaluer des algorithmes efficaces, pour des problèmes plus difficiles."
 
-#: pages/templates/pages/about-semifinals.html:39
+#: pages/templates/pages/about-semifinals.html:41
 msgid "The interview"
 msgstr "L'entretien"
 
 #: pages/templates/pages/about-semifinals.html:42
+msgid ""
+"The interview lasts between ten and twenty hours. It\n"
+"    is a way for us to meet individually every contestant, test his knowledge,\n"
+"    learn about the personal projects he works on, while giving him advices to\n"
+"    improve."
+msgstr "L'entretien d'une vingtaine de minutes nous permet de faire la connaissance de chaque candidat individuellement, de tester ses connaissances, et de l'écouter présenter les projets informatiques personnels qu'il a pu réaliser, tout en le conseillant éventuellement sur les moyens de progresser."
+
+#: pages/templates/pages/about-semifinals.html:47
 msgid "The practical test"
 msgstr "L'épreuve sur machine"
 
-#: pages/templates/pages/about-semifinals.html:45
+#: pages/templates/pages/about-semifinals.html:48
+msgid ""
+"The practical test lasts four hours. Every contestant\n"
+"    works on algorithmic exercises on a computer. A judging program evaluates\n"
+"    the code submissions of the contestant. The goal of this test is to check\n"
+"    that the contestant is able to code a program on a computer (choose an\n"
+"    algorithm, implement it in a programming language, test it and debug it).\n"
+"    "
+msgstr " L'épreuve pratique, d'une durée de quatre heures, consiste en une série d'exercices de programmation de difficulté croissante. Une machine est mise à disposition de chaque candidat, et un programme de test lui fournit les sujets, et vérifie le fonctionnement des programmes qu'il soumet. Cette épreuve a pour but de vérifier que le candidat est capable de mettre en oeuvre ce qu'il sait pour réaliser un programme sur un ordinateur (choix de l'algorithme, implémentation dans le langage choisi, tests et déboguage)."
+
+#: pages/templates/pages/about-semifinals.html:55
+msgid ""
+"All these tests are individual. No other documents than\n"
+"    those given by Prologin are authorized."
+msgstr "Toutes ces épreuves sont individuelles : aucun document autre que ceux fournis par Prologin ne sont autorisés."
+
+#: pages/templates/pages/about-semifinals.html:58
 msgid "The typical course of a semifinal day"
 msgstr "Le déroulement typique d'une journée de demi-finale"
 
-#: pages/templates/pages/about-semifinals.html:78
-msgid "Accueil des candidats, petit déjeuner offert"
-msgstr "Welcome breakfast (free)."
+#: pages/templates/pages/about-semifinals.html:91
+msgid "Welcoming contestants, free breakfast"
+msgstr "Accueil des candidats, petit-déjeuner offert"
 
-#: pages/templates/pages/about-semifinals.html:79
-msgid ""
-"<tspan x=\"170\">Épreuve écrite</tspan> <tspan x=\"170\" "
-"dy=\"20\">d'algorithmique (3h)</tspan>"
-msgstr "<tspan x=\"170\">Written examination</tspan> <tspan x=\"170\" dy=\"20\">(3h)</tspan>"
+#: pages/templates/pages/about-semifinals.html:92
+msgid "<tspan x=\"170\">Written exam</tspan> <tspan x=\"170\" dy=\"20\">(3 hours)</tspan>"
+msgstr "<tspan x=\"170\">Épreuve écrite</tspan> <tspan x=\"170\" dy=\"20\">(3 hours)</tspan>"
 
-#: pages/templates/pages/about-semifinals.html:81
+#: pages/templates/pages/about-semifinals.html:94
 msgid ""
-"<tspan x=\"375\">Entretien</tspan> <tspan x=\"375\" dy=\"20\">(15-20 "
+"<tspan x=\"375\">Interview</tspan> <tspan x=\"375\" dy=\"20\">(15-20 "
 "minutes)</tspan>"
-msgstr "<tspan x=\"375\">Interview</tspan> <tspan x=\"375\" dy=\"20\">(15-20 minutes)</tspan>"
+msgstr "<tspan x=\"375\">Entretiens</tspan> <tspan x=\"375\" dy=\"20\">(15-20 minutes)</tspan>"
 
-#: pages/templates/pages/about-semifinals.html:83
-msgid "Repas offert et correction de l'épreuve écrite"
-msgstr "Complimentary lunch service and written examination review."
+#: pages/templates/pages/about-semifinals.html:96
+msgid "Free lunch"
+msgstr "Repas offert"
 
-#: pages/templates/pages/about-semifinals.html:84
-msgid "Épreuve sur machine (4h)"
-msgstr ""
+#: pages/templates/pages/about-semifinals.html:97
+msgid "Algorithmic exercises on computer (4h)"
+msgstr "Épreuve machine (4h)"
+
+#: pages/templates/pages/about-semifinals.html:101
+msgid ""
+"The contestants are welcomed at 8h30 AM, and meet together\n"
+"    while having a free breakfast provided by Prologin. The written exam takes\n"
+"    place between 9 AM and 12 AM, during which they also interview with a\n"
+"    Prologin organizer."
+msgstr "Les candidats sont accueillis vers 8h30 le matin, et font connaissance en prenant le petit-déjeuner, offert par Prologin. L'épreuve d'algorithmique se déroule de 9h à 12h, et en parallèle les candidats passent chacun à leur tour un entretien avec un organisateur."
+
+#: pages/templates/pages/about-semifinals.html:106
+msgid ""
+"Before or during the lunch, also provided by Prologin,\n"
+"    the organizers present a quick correction of some of the problems they\n"
+"    just worked on."
+msgstr "Avant ou pendant le repas du midi, également offert par Prologin, les organisateurs présentent une rapide correction des problèmes les plus difficiles de l'épreuve écrite."
+
+#: pages/templates/pages/about-semifinals.html:110
+msgid ""
+"The day continues with the practical test, which lasts\n"
+"    four hours, and ends at 7:30 PM."
+msgstr "La journée se poursuit avec l'épreuve machine, d'une durée de quatre heures, et se termine vers 17h30."
+
+#: pages/templates/pages/about-semifinals.html:114
+msgid ""
+"The exam submissions are marked according to the\n"
+"    validity and the efficiency of the proposed algorithms. The syntax of the\n"
+"    languages used and other similar aspects are not taken in account, as they\n"
+"    are already needed for the coding exercises."
+msgstr "Les copies de l'épreuve papier sont notées en fonction de la validité et de l'efficacité des algorithmes proposés. La maîtrise de la syntaxe du langage et autres aspects similaires ne sont pas pris en compte : ils sont sanctionnés par l'épreuve machine."
+
+#: pages/templates/pages/about-semifinals.html:119
+msgid ""
+"After the interview, a grade is also given according to\n"
+"    various criteria."
+msgstr "À l'issue de l'entretien, une note est également attribuée en fonction de différents critères d'évaluation."
+
+#: pages/templates/pages/about-semifinals.html:122
+msgid ""
+"The grade of the practical test is attributed\n"
+"    automatically by the juding system, according to the number of solved\n"
+"    exercises, the number of tries to achieve that, and the time spent on each\n"
+"    exercise before a correct solution was found."
+msgstr "La note de l'épreuve machine est attribuée automatiquement par le système de test, en fonction du nombre d'exercices résolus, du nombre d'essais effectués pour y parvenir, et du temps passé sur chacun avant qu'une solution correcte ne soit obtenue."
+
+#: pages/templates/pages/about-semifinals.html:127
+msgid ""
+"The final ranking, after which a hundred contestants are\n"
+"    selected, is obtained from these three grades."
+msgstr "Le classement final, à l'issue duquel 110 candidats sont sélectionnés, est effectué à partir de ces trois notes."
+
+#: pages/templates/pages/about-semifinals.html:132
+msgid ""
+"The semifinals are spread over several week-ends, during\n"
+"    which between one to three semifinals take place in different locations.\n"
+"    "
+msgstr "Les demi-finales sont réparties en plusieurs week-ends, pendant lesquels se déroulent simultanément une à trois demi-finales, dans des lieux différents."
+
+#: pages/templates/pages/about-semifinals.html:136
+msgid ""
+"A team of at least three Prologin members is dedicated\n"
+"    to the logistics of each event, to prepare the equipment, welcome the\n"
+"    contestants, monitor the tests, take care of the food and assist the\n"
+"    contestants during the practical test."
+msgstr "Une équipe d'au moins trois membres de Prologin est dédiée à l'organisation de chaque événement, pour préparer le matériel, accueillir les candidats, surveiller les épreuves, faire passer les entretiens, fournir les repas, et assister les candidats pendant l'épreuve machine."
+
+#: pages/templates/pages/about-semifinals.html:141
+msgid ""
+"All the exam centers where the semifinals take place\n"
+"    provide us with the computer equipment and the classrooms needed, and we\n"
+"    are very grateful to them for their help."
+msgstr "Chacun des établissements où se déroulent les demi-finales met à notre disposition les salles de cours et le matériel informatique nécessaires à leur organisation, ce dont nous leur sommes très reconnaissants."
 
 #: problems/admin.py:18
 msgid "Yes"
@@ -1408,22 +1502,26 @@ msgid_plural "%(count)s&nbsp;problems"
 msgstr[0] "%(count)s&nbsp;problème"
 msgstr[1] "%(count)s&nbsp;problèmes"
 
-#: problems/templates/problems/index.html:44
+#: problems/templates/problems/index.html:35
+msgid "Challenge is hidden to regular users"
+msgstr "Le challenge est caché pour les utilisateurs normaux"
+
+#: problems/templates/problems/index.html:50
 msgid "What is this?"
 msgstr "Q'est-ce que c'est&nbsp;?"
 
-#: problems/templates/problems/index.html:46
+#: problems/templates/problems/index.html:52
 msgid ""
 "Want to find out what the Prologin algorithmic exercises are like?\n"
 "In this section, you can browse and tackle all the problems from the previous Prologin events. These are\n"
 "problems from both the Prologin online qualifications and the on-site semifinals."
 msgstr "Vous voulez découvrir à quoi ressemblent les exercices d'algorithmiques de Prologin ? Dans cette section, vous pouvez parcourir les précédentes éditions du concours Prologin et vous entraîner sur tous les problèmes correspondants. Ces exercices proviennent des qualifications en ligne et des demi-finales."
 
-#: problems/templates/problems/index.html:51
+#: problems/templates/problems/index.html:57
 msgid "How does it work?"
 msgstr "Comment ça marche&nbsp;?"
 
-#: problems/templates/problems/index.html:53
+#: problems/templates/problems/index.html:59
 msgid ""
 "Read the problem statement carefully and submit your solution. The system will check your\n"
 "submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you\n"
@@ -1468,7 +1566,7 @@ msgid "You tackled this problem without success."
 msgstr "Vous avez abordé ce problème sans succès."
 
 #: problems/templates/problems/problem.html:42
-#: problems/templates/problems/problem.html:169
+#: problems/templates/problems/problem.html:170
 msgid "Runtime constraints"
 msgstr "Contraintes d'exécution"
 
@@ -1491,7 +1589,7 @@ msgid "%(ms)s&nbsp;milliseconds"
 msgstr "%(ms)s&nbsp;millisecondes"
 
 #: problems/templates/problems/problem.html:52
-#: problems/templates/problems/problem.html:170
+#: problems/templates/problems/problem.html:171
 msgid "Input/output samples"
 msgstr "Exemples d'entrée/sortie"
 
@@ -1508,7 +1606,7 @@ msgid "Note"
 msgstr "Commentaire"
 
 #: problems/templates/problems/problem.html:73
-#: problems/templates/problems/problem.html:171
+#: problems/templates/problems/problem.html:172
 msgid "Submit your solution"
 msgstr "Proposez votre solution"
 
@@ -1531,60 +1629,68 @@ msgstr "Envoyer un fichier source"
 msgid "Select the programming language:"
 msgstr "Sélectionnez le langage de programmation&nbsp;:"
 
-#: problems/templates/problems/problem.html:117
+#: problems/templates/problems/problem.html:110
+msgid "Insert parsing code stub at the end of your code"
+msgstr "Insère un squelette de code à compléter à la fin de votre code"
+
+#: problems/templates/problems/problem.html:110
+msgid "Code stub"
+msgstr "Code à compléter"
+
+#: problems/templates/problems/problem.html:118
 msgid "Optional short summary of your changes"
 msgstr "Message facultatif résumant vos modifications"
 
-#: problems/templates/problems/problem.html:119
+#: problems/templates/problems/problem.html:120
 msgid "Submit"
 msgstr "Envoyer"
 
-#: problems/templates/problems/problem.html:127
+#: problems/templates/problems/problem.html:128
 msgid "Submission history"
 msgstr "Historique des soumissions"
 
-#: problems/templates/problems/problem.html:133
+#: problems/templates/problems/problem.html:134
 msgid "Current version (unsaved)"
 msgstr "Version en cours (non soumise)"
 
-#: problems/templates/problems/problem.html:135
+#: problems/templates/problems/problem.html:136
 msgid "Unknown language"
 msgstr "Langage inconnu"
 
-#: problems/templates/problems/problem.html:136
+#: problems/templates/problems/problem.html:137
 msgid "Just now"
 msgstr "À l'instant"
 
-#: problems/templates/problems/problem.html:139
+#: problems/templates/problems/problem.html:140
 msgid "<em>No summary</em>"
 msgstr "<em>Pas de résumé</em>"
 
-#: problems/templates/problems/problem.html:143
+#: problems/templates/problems/problem.html:144
 msgid "Correct solution"
 msgstr "Solution correcte"
 
-#: problems/templates/problems/problem.html:143
+#: problems/templates/problems/problem.html:144
 msgid "Invalid solution"
 msgstr "Solution incorrecte"
 
-#: problems/templates/problems/problem.html:143
+#: problems/templates/problems/problem.html:144
 msgid "Pending check"
 msgstr "Vérification en attente"
 
-#: problems/templates/problems/problem.html:146
+#: problems/templates/problems/problem.html:147
 msgid ""
 "Base points won by solving this problem. Malus points are not taken into "
 "account."
 msgstr "Points de base gagnés en résolvant ce problème. Les points de malus ne sont pas pris en compte."
 
-#: problems/templates/problems/problem.html:160
+#: problems/templates/problems/problem.html:161
 #, python-format
 msgid ""
 "You have to <a href=\"%(register)s\">register</a> or <a "
 "href=\"%(login)s\">log in</a> to be able to submit your solution."
 msgstr "Vous devez vous <a href=\"%(register)s\">inscrire</a> ou <a href=\"%(login)s\">vous connecter</a> pour soumettre votre solution."
 
-#: problems/templates/problems/problem.html:168
+#: problems/templates/problems/problem.html:169
 msgid "Statement"
 msgstr "Énoncé"
 
@@ -1881,51 +1987,55 @@ msgstr "Prologin"
 msgid "Contact us"
 msgstr "Contactez-nous"
 
-#: prologin/templates/prologin/main-footer.html:9
+#: prologin/templates/prologin/main-footer.html:8
+msgid "How can I join?"
+msgstr "Comment participer ?"
+
+#: prologin/templates/prologin/main-footer.html:10
 msgid "More"
 msgstr "En plus"
 
-#: prologin/templates/prologin/main-footer.html:11
+#: prologin/templates/prologin/main-footer.html:12
 msgid "Press kit"
 msgstr "Kit de presse"
 
-#: prologin/templates/prologin/main-footer.html:15
+#: prologin/templates/prologin/main-footer.html:16
 msgid "Terms"
 msgstr "Conditions"
 
-#: prologin/templates/prologin/main-footer.html:17
+#: prologin/templates/prologin/main-footer.html:18
 msgid "Legal notice"
 msgstr "Mentions légales"
 
-#: prologin/templates/prologin/main-footer.html:18
+#: prologin/templates/prologin/main-footer.html:19
 msgid "Contest rules"
 msgstr "Règlement"
 
-#: prologin/templates/prologin/main-footer.html:20
+#: prologin/templates/prologin/main-footer.html:21
 msgid "Stay tuned!"
 msgstr "Suivez nous !"
 
-#: prologin/templates/prologin/main-footer.html:21
+#: prologin/templates/prologin/main-footer.html:22
 msgid "Prologin news Atom stream"
 msgstr "Flux Atom des actualités Prologin"
 
-#: prologin/templates/prologin/main-footer.html:28
+#: prologin/templates/prologin/main-footer.html:29
 msgid "Prologin on Facebook"
 msgstr "Prologin sur Facebook"
 
-#: prologin/templates/prologin/main-footer.html:34
+#: prologin/templates/prologin/main-footer.html:35
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: prologin/templates/prologin/main-footer.html:42
+#: prologin/templates/prologin/main-footer.html:43
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: prologin/templates/prologin/main-footer.html:55
+#: prologin/templates/prologin/main-footer.html:56
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prologin/templates/prologin/main-footer.html:58
+#: prologin/templates/prologin/main-footer.html:59
 #, python-format
 msgid ""
 "Save your\n"
@@ -1961,7 +2071,7 @@ msgid "Sign out"
 msgstr "Déconnexion"
 
 #: prologin/templates/prologin/main-menu.html:23
-#: users/templates/users/login.html:7 users/templates/users/login.html.py:10
+#: users/templates/users/login.html:7 users/templates/users/login.html:10
 #: users/templates/users/login.html:26
 msgid "Sign in"
 msgstr "Connexion"

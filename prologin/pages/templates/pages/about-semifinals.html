@@ -30,17 +30,30 @@ Lille, Toulon, Louvain-la-Neuve and Bordeaux.{% endblocktrans %}</p>
 	<h2>{% trans "The three tests" %}</h2>
 
 	<h3>{% trans "The written exam" %}</h3>
-	<p>{% blocktrans %}This lasts three hours. The test consists of a series of five or six questions around a common
-theme. These questions of increasing difficulty guide the candidate in the stages of resolution of an algorithmic
-problem. The first exercives focuse on modeling the problem and are here to check that the candidate masters the
-basic principles of algorithms, and the next exercises require the candidate to develop effective algorithms
-for harder problems.{% endblocktrans%}</p>
+    <p>{% blocktrans %}The written exam lasts three hours. The test consists of
+    a series of five or six questions around a common theme. These questions of
+    increasing difficulty guide the contestant in the stages of resolution of
+    an algorithmic problem. The first exercices focus on modeling the problem
+    and are here to check that the candidate masters the basic principles of
+    algorithms, and the next exercises require the contestant to code effective
+    algorithms for harder problems.{% endblocktrans%}</p>
 
 	<h3>{% trans "The interview" %}</h3>
-	<p>TODO</p>
+    <p>{% blocktrans %}The interview lasts between ten and twenty hours. It
+    is a way for us to meet individually every contestant, test his knowledge,
+    learn about the personal projects he works on, while giving him advices to
+    improve.{% endblocktrans %}</p>
 
 	<h3>{% trans "The practical test" %}</h3>
-	<p>TODO</p>
+    <p>{% blocktrans %}The practical test lasts four hours. Every contestant
+    works on algorithmic exercises on a computer. A judging program evaluates
+    the code submissions of the contestant. The goal of this test is to check
+    that the contestant is able to code a program on a computer (choose an
+    algorithm, implement it in a programming language, test it and debug it).
+    {% endblocktrans %}</p>
+
+    <p>{% blocktrans %}All these tests are individual. No other documents than
+    those given by Prologin are authorized.{% endblocktrans %}</p>
 
 	<h2>{% trans "The typical course of a semifinal day" %}</h2>
 
@@ -75,22 +88,58 @@ for harder problems.{% endblocktrans%}</p>
 				<rect x="60" y="210" width="420" height="120" style="fill:#fde7da"/>
 			</g>
 			<g id="texts">
-				<text x="270" y="45">{% trans "Accueil des candidats, petit déjeuner offert" %}</text>
-				<text y="110">{% blocktrans %}<tspan x="170">Épreuve écrite</tspan> <tspan x="170" dy="20">d'algorithmique (3h)</tspan>{% endblocktrans %}
+				<text x="270" y="45">{% trans "Welcoming contestants, free breakfast" %}</text>
+				<text y="110">{% blocktrans %}<tspan x="170">Written exam</tspan> <tspan x="170" dy="20">(3 hours)</tspan>{% endblocktrans %}
 				</text>
-				<text y="110">{% blocktrans %}<tspan x="375">Entretien</tspan> <tspan x="375" dy="20">(15-20 minutes)</tspan>{% endblocktrans %}
+				<text y="110">{% blocktrans %}<tspan x="375">Interview</tspan> <tspan x="375" dy="20">(15-20 minutes)</tspan>{% endblocktrans %}
 				</text>
-				<text x="270" y="195">{% trans "Repas offert et correction de l'épreuve écrite" %}</text>
-				<text x="270" y="265">{% trans "Épreuve sur machine (4h)" %}</text>
+				<text x="270" y="195">{% trans "Free lunch" %}</text>
+				<text x="270" y="265">{% trans "Algorithmic exercises on computer (4h)" %}</text>
 		</g>
 	</svg>
 
+    <p>{% blocktrans %}The contestants are welcomed at 8h30 AM, and meet together
+    while having a free breakfast provided by Prologin. The written exam takes
+    place between 9 AM and 12 AM, during which they also interview with a
+    Prologin organizer.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}Before or during the lunch, also provided by Prologin,
+    the organizers present a quick correction of some of the problems they
+    just worked on.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}The day continues with the practical test, which lasts
+    four hours, and ends at 7:30 PM.{% endblocktrans %}</p>
+
 	<h2>{% trans "Evaluation methodology" %}</h2>
-	<p>TODO</p>
+    <p>{% blocktrans %}The exam submissions are marked according to the
+    validity and the efficiency of the proposed algorithms. The syntax of the
+    languages used and other similar aspects are not taken in account, as they
+    are already needed for the coding exercises.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}After the interview, a grade is also given according to
+    various criteria.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}The grade of the practical test is attributed
+    automatically by the juding system, according to the number of solved
+    exercises, the number of tries to achieve that, and the time spent on each
+    exercise before a correct solution was found.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}The final ranking, after which a hundred contestants are
+    selected, is obtained from these three grades.{% endblocktrans %}</p>
 
 	<h2>{% trans "Logistics" %}</h2>
-	<p>TODO</p>
 
+    <p>{% blocktrans %}The semifinals are spread over several week-ends, during
+    which between one to three semifinals take place in different locations.
+    {% endblocktrans %}</p>
 
+    <p>{% blocktrans %}A team of at least three Prologin members is dedicated
+    to the logistics of each event, to prepare the equipment, welcome the
+    contestants, monitor the tests, take care of the food and assist the
+    contestants during the practical test.{% endblocktrans %}</p>
+
+    <p>{% blocktrans %}All the exam centers where the semifinals take place
+    provide us with the computer equipment and the classrooms needed, and we
+    are very grateful to them for their help.{% endblocktrans %}</p>
 
 {% endblock %}
