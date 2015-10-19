@@ -57,8 +57,8 @@ instructions.
 
 ### Development setup
 
-* *Django Debug Toolbar* is here to help; use it. If you don't want to, disable
-  it to get better performances by commenting/removing the line:
+* *Django Debug Toolbar* is here to help; you can use it by adding the
+  following line to your settingss:
 
         :::python
         INSTALLED_APPS += ('debug_toolbar',)
