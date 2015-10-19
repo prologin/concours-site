@@ -3,7 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db.models import Q
 from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
-from django.views.generic import TemplateView, RedirectView, ListView, DetailView, CreateView, View
+from django.views.generic import TemplateView, ListView, DetailView, CreateView, View
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import ModelFormMixin
 import celery
@@ -345,35 +345,3 @@ class AjaxLanguageTemplate(View):
             return JsonResponse(template, safe=False)
         except KeyError:
             return HttpResponseBadRequest()
-
-
-class LegacyChallengeRedirect(RedirectView):
-    """
-    RedirectView for legacy (Drupal) challenge URLs of the form:
-        /challenge/{demi|qcm}{year}
-    """
-    permanent = False
-    legacy_mapping = {
-        'qcm': Event.Type.qualification,
-        'demi': Event.Type.semifinal,
-    }
-
-    def parse(self):
-        return self.kwargs['year'], LegacyChallengeRedirect.legacy_mapping[self.kwargs['type']].name
-
-    def get_redirect_url(self, *args, **kwargs):
-        year, event_type = self.parse()
-        return reverse('training:challenge', kwargs={'year': year,
-                                                     'type': event_type})
-
-
-class LegacyProblemRedirect(LegacyChallengeRedirect):
-    """
-    RedirectView for legacy (Drupal) problem URLs of the form:
-        /challenge/{demi|qcm}{year}/{problem-name}
-    """
-    def get_redirect_url(self, *args, **kwargs):
-        year, event_type = super().parse()
-        return reverse('training:problem', kwargs={'year': year,
-                                                   'type': event_type,
-                                                   'problem': self.kwargs['problem']})
