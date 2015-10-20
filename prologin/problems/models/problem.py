@@ -267,6 +267,8 @@ class Problem:
 
     def _get_language_templates(self):
         templates = {}
+        if not os.path.exists(self.file_path('skeleton')):
+            return templates
         for item in os.listdir(self.file_path('skeleton')):
             full_path = self.file_path('skeleton', item)
             try:
