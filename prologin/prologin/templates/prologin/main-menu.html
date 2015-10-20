@@ -1,8 +1,8 @@
 {% load i18n navigation %}
 <ul class="nav navbar-nav pull-right">
-  <li class="{% active '[a-z]+/about/' %}"><a href="{% url 'contest:qualification_summary' request.current_edition.year %}">{% trans "Participate" %}</a></li>
-  <li class="{% active '[a-z]+/about/' %}"><a href="{% url 'pages:about-contest' %}">{% trans "Discover" %}</a></li>
-  <li class="{% active '[a-z]+/train/' %}"><a href="{% url 'training:index' %}">{% trans "Train" %}</a></li>
+  <li class="{% active 'contest/' %}"><a href="{% url 'contest:qualification_summary' request.current_edition.year %}">{% trans "Participate" %}</a></li>
+  <li class="{% active 'about/' %}"><a href="{% url 'pages:about-contest' %}">{% trans "Discover" %}</a></li>
+  <li class="{% active 'train/' %}"><a href="{% url 'training:index' %}">{% trans "Train" %}</a></li>
     {% comment TODO %}
   <li><a href="{% active '^archives/' %}">{% trans "Archives" %}</a></li>
   <li><a href="{% active '^forum/' %}">{% trans "Forums" %}</a></li>
