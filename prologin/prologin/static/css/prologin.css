@@ -428,6 +428,11 @@ footer .legal {
 	text-align: center;
 }
 
+.empty-table-row {
+	background-color: #f5f5f5;
+	padding: 1em;
+}
+
 .sponsor {
 	width: 100%;
 	max-width: 220px;

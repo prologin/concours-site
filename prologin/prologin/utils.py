@@ -51,6 +51,14 @@ def upload_path(*base_path):
     return func
 
 
+def refresh_model_instance(instance):
+    """
+    Select and return instance from database.
+    Usage: instance = refresh(instance)
+    """
+    return instance.__class__.objects.get(pk=instance.pk)
+
+
 class LoginRequiredMixin:
     @classmethod
     def as_view(cls, **kwargs):

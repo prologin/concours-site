@@ -1,109 +1,117 @@
 import datetime
-import re
-
-from django.views import generic
-from django.shortcuts import render, redirect
-from django.utils.text import slugify
-from django.http import Http404
-from forum.models import Category, Post, Thread
+from django.conf import settings
+from django.shortcuts import get_object_or_404, redirect
+from django.utils.functional import cached_property
+from django.views.generic import ListView, RedirectView
 from django.core.urlresolvers import reverse
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.views.generic.detail import SingleObjectMixin
 
-from forum.forms import PostForm, ThreadFrom, ThreadFromStaff
+from guardian.mixins import PermissionRequiredMixin
+from guardian.shortcuts import get_objects_for_user
 
-def replace_url_to_link(value):
-    urls = re.compile(r"((https?):((//)|(\\\\))+[\w\d:#@%/;$()~_?\+-=\\\.&]*)", re.MULTILINE|re.UNICODE)
-    value = urls.sub(r'<a href="\1" target="_blank">\1</a>', value)
-    urls = re.compile(r"([\w\-\.]+@(\w[\w\-]+\.)+[\w\-]+)", re.MULTILINE|re.UNICODE)
-    value = urls.sub(r'<a href="mailto:\1">\1</a>', value)
-    return value
-
-def home(request):
-    cats = Category.objects.all()
-    return render(request, 'forum/home.html', {'cats':cats})
+import forum.models
 
 
-def category(request, cat):
-    cats = Category.objects.all()
-    for CAT in cats:
-        if cat.startswith(CAT.slug):
-            threads = Thread.objects.all().filter(category=CAT, pin=False).order_by('-last_edited_on')
-            pinThreads = Thread.objects.all().filter(category=CAT, pin=True).order_by('-last_edited_on')
-            user = request.user
-            if user.is_staff:
-                formThread = ThreadFromStaff(request.POST or None)
-            else:
-                formThread = ThreadFrom(request.POST or None)
-            formPost = PostForm(request.POST or None)
-            if formThread.is_valid() & formPost.is_valid():
-                new_thread = formThread.save(commit=False)
-                new_post = formPost.save(commit=False)
-                new_thread.slug = slugify(new_thread.name).replace('-', '')
-                new_thread.category = CAT
-                new_thread.created_by = request.user
-                new_thread.last_edited_by = request.user
-                new_thread.created_on = datetime.datetime.now()
-                new_thread.last_edited_on = datetime.datetime.now()
-                new_post.title = "noTitle"
-                new_post.slug = slugify(new_post.title)
-                new_post.category = CAT
-                new_post.content = replace_url_to_link(new_post.content)
-                new_post.created_by = request.user
-                new_post.created_on = datetime.datetime.now()
-                new_thread.save()
-                new_post.thread = new_thread
-                new_post.save()
-                CAT.nb_thread = CAT.nb_thread + 1
-                CAT.nb_post = CAT.nb_post + 1
-                CAT.last_edited_by = request.user
-                CAT.last_edited_on = datetime.datetime.now()
-                CAT.save()
-                return redirect(reverse('forum:home') + CAT.slug + '/' + new_thread.slug + '/1')
-            return render(request, 'forum/threadList.html', {'cat_name':CAT.name, 'description':CAT.description, 'threads':threads, 'slug':CAT.slug, 'form_thread':formThread, 'form_post':formPost, 'nb_post':threads.count(), 'pin':pinThreads})
-    raise Http404
+class IndexView(ListView):
+    template_name = 'forum/index.html'
+    model = forum.models.Forum
+    context_object_name = 'forums'
+
+    def get_queryset(self):
+        return get_objects_for_user(self.request.user, 'forum.view_forum', forum.models.Forum)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        forums = context['forums']
+        context['total_thread_count'] = sum(f.thread_count for f in forums)
+        context['total_post_count'] = sum(f.post_count for f in forums)
+        return context
 
 
-def post(request, cat, pos, page):
-    cats = Category.objects.all()
-    for CAT in cats:
-        if cat.startswith(CAT.slug):
-            threads = Thread.objects.all().filter(category=CAT)
-            thread = None
-            for t in threads:
-                if pos == t.slug:
-                    thread = t
-                    break
-            if thread is None:
-                raise Http404
-            page_nb = int (page)
-            posts = Post.objects.all().filter(category=CAT).filter(thread=thread)
-            paginator = Paginator(posts, 10)
-            form = PostForm(request.POST or None)
-            if form.is_valid():
-                if Post.objects.all().filter(category=CAT).filter(thread=thread).count() == (page_nb + 1) * 10:
-                    page = str(page_nb + 1)
-                obj = form.save(commit=False)
-                obj.title = "noTitle"
-                obj.slug = slugify(obj.title).replace('-', '')
-                obj.category = CAT
-                obj.thread = thread
-                obj.content = replace_url_to_link(obj.content)
-                obj.created_by = request.user
-                obj.created_on = datetime.datetime.now()
-                obj.save()
-                thread.last_edited_by = request.user
-                thread.last_edited_on = datetime.datetime.now()
-                thread.save()
-                CAT.nb_post = CAT.nb_post + 1
-                CAT.last_edited_by = request.user
-                CAT.last_edited_on = datetime.datetime.now()
-                CAT.save()
-                return redirect(reverse('forum:home') + CAT.slug + '/' + thread.slug + '/' + page)
-            try:
-                posts = paginator.page(page)
-            except PageNotAnInteger:
-                posts = paginator.page(1)
-            except EmptyPage:
-                posts = paginator.page(paginator.num_pages)
-            return render(request, 'forum/post.html', {'thread_name':thread.name, 'posts':posts, 'url':CAT.slug, 'form':form, 'cat_name':CAT.name, 'page_nb':page_nb, 'thread_slug':thread.slug, 'max_page':paginator.num_pages})
-    raise Http404
+class ForumView(PermissionRequiredMixin, ListView):
+    template_name = 'forum/forum_threads.html'
+    model = forum.models.Thread
+    context_object_name = 'threads'
+    paginate_by = settings.FORUM_THREADS_PER_PAGE
+    permission_required = 'forum.view_forum'
+
+    def get_permission_object(self):
+        return self.get_forum()
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('author')
+
+    def get_forum(self):
+        return get_object_or_404(forum.models.Forum, pk=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['forum'] = self.get_forum()
+        # The announces will be displayed on each page of the forum
+        context['announces'] = self.get_forum().threads.filter(type=forum.models.Thread.Type.announce.value)
+        return context
+
+    def get(self, request, *args, **kwargs):
+        # Check if slug is valid, redirect if not
+        forum = self.get_forum()
+        if forum.slug != kwargs['slug']:
+            return redirect('forum:forum', args=[forum.slug, forum.pk])
+        return super().get(request, *args, **kwargs)
+
+
+class ThreadView(PermissionRequiredMixin, ListView):
+    template_name = 'forum/thread.html'
+    model = forum.models.Post
+    context_object_name = 'posts'
+    paginate_by = settings.FORUM_POSTS_PER_PAGE
+    permission_required = 'forum.view_forum'
+
+    def get_permission_object(self):
+        return self.get_thread().forum
+
+    def get_queryset(self):
+        self.thread = self.get_thread()
+        return self.thread.posts.select_related('author')
+
+    @cached_property
+    def get_thread(self):
+        return get_object_or_404(forum.models.Thread.objects.select_related('forum', 'author'), pk=self.kwargs['pk'])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        thread = self.get_thread()
+        context['thread'] = thread
+        context['forum'] = thread.forum
+        return context
+
+    def get(self, request, *args, **kwargs):
+        thread = self.get_thread()
+        # Check if slugs are valid, redirect if not
+        if thread.forum.slug != kwargs['forum_slug'] or thread.slug != kwargs['slug']:
+            return redirect('forum:thread', kwargs={'forum_slug': thread.forum.slug,
+                                                    'forum_pk': thread.forum.pk,
+                                                    'slug': thread.slug,
+                                                    'pk': thread.pk})
+        return super().get(request, *args, **kwargs)
+
+
+class PostRedirectView(PermissionRequiredMixin, RedirectView, SingleObjectMixin):
+    permanent = False
+    model = forum.models.Post
+    permission_required = 'forum.view_forum'
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('thread__forum')
+
+    def get_permission_object(self):
+        return self.get_object().thread.forum
+
+    def get_redirect_url(self, *args, **kwargs):
+        # Compute page number
+        post = self.get_object()
+        thread = post.thread
+        page = (post.position // ThreadView.paginate_by) + 1
+        return (reverse('forum:thread', kwargs={'forum_slug': thread.forum.slug,
+                                                'forum_pk': thread.forum.pk,
+                                                'slug': thread.slug,
+                                                'pk': thread.pk}) + '?page={}'.format(page))

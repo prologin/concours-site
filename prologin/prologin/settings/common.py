@@ -68,6 +68,7 @@ INSTALLED_APPS = (
     'django_bootstrap_breadcrumbs',
     'django_comments',
     'djmail',
+    'guardian',
     'macros',
     'mptt',
     'tagging',
@@ -77,6 +78,7 @@ INSTALLED_APPS = (
     'centers',
     'contest',
     'documents',
+    'forum',
     'homepage',
     'qcm',
     'news',
@@ -89,6 +91,11 @@ INSTALLED_APPS = (
     # Django and vendor, at the bottom for template overriding
     'django.contrib.admin',
     'zinnia',
+)
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'guardian.backends.ObjectPermissionBackend',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -185,12 +192,17 @@ AUTHENTICATION_BACKENDS = (
     'prologin.backends.ModelBackendWithLegacy',
 )
 AUTH_USER_MODEL = 'users.ProloginUser'
+ANONYMOUS_USER_ID = -1  # django-guardian requirement
 
 LOGIN_URL = reverse_lazy('users:login')
 LOGOUT_URL = reverse_lazy('users:logout')
 LOGIN_REDIRECT_URL = reverse_lazy('home')
 USER_ACTIVATION_EXPIRATION = datetime.timedelta(days=7)
 
+# Forum
+
+FORUM_THREADS_PER_PAGE = 25
+FORUM_POSTS_PER_PAGE = 25
 
 # Prologin specific
 

@@ -1,10 +1,10 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
-from homepage.views import HomepageView
 
+from homepage.views import HomepageView
 
 urlpatterns = [
     # Homepage
@@ -18,11 +18,11 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-   #Forum
-   url(r'^forum/', include('forum.urls', namespace='forum')),
-
     # News (blog)
     url(r'^news/', include('news.urls')),
+
+    # Forum
+    url(r'^forum/', include('forum.urls', namespace='forum')),
 
     # Teams
     url(r'^team/', include('team.urls', namespace='team')),
