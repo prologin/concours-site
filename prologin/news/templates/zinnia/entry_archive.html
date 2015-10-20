@@ -15,12 +15,12 @@
 {% if date_list %}
 <h2>{% trans "Yearly archives" %}</h2>
 <nav>
-	<ul class="pager align-left">
-		{% for date in date_list %}
-		<li>
-			<a href="{% url 'zinnia:entry_archive_year' date|date:"Y" %}" rel="archives">{{ date|date:"Y" }}</a>
-		</li>
-		{% endfor %}
-	</ul>
+  <ul class="pager align-left">
+    {% for date in date_list %}
+    <li>
+      <a href="{% url 'zinnia:entry_archive_year' date|date:"Y" %}" rel="archives">{{ date|date:"Y" }}</a>
+    </li>
+    {% endfor %}
+  </ul>
 {% endif %}
 {% endblock content-related %}

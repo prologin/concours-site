@@ -3,107 +3,107 @@
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "" %}{% trans "Members" %}{% endbreadcrumb_for %}
-	{% breadcrumb shown_user "users:profile" shown_user.id %}
+  {{ block.super }}
+  {% breadcrumb_for "" %}{% trans "Members" %}{% endbreadcrumb_for %}
+  {% breadcrumb shown_user "users:profile" shown_user.id %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans with shown_user.username as username %}{{ username }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 
-	{% trans "<em>not provided</em>" as noinfo %}
-	<h1>{% if shown_user.get_full_name %}
-		{{ shown_user.get_full_name }} <small>{{ shown_user.username }}</small>
-	{% else %}
-		{{ shown_user.username }}
-	{% endif %}
-	{% if see_private %}
-		<p class="pull-right"><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i
-				class="fa fa-pencil"></i> {% trans "Edit" %}</a>
-	{% endif %}
-	</h1>
+  {% trans "<em>not provided</em>" as noinfo %}
+  <h1>{% if shown_user.get_full_name %}
+    {{ shown_user.get_full_name }} <small>{{ shown_user.username }}</small>
+  {% else %}
+    {{ shown_user.username }}
+  {% endif %}
+  {% if see_private %}
+    <p class="pull-right"><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i
+        class="fa fa-pencil"></i> {% trans "Edit" %}</a>
+  {% endif %}
+  </h1>
 
-	<div class="row">
+  <div class="row">
 
-		<div class="col-sm-8">
-			<dl class="dl-horizontal">
-			{% if see_private %}
-				<dt>{% trans "First name" %}</dt>
-				<dd>{{ shown_user.first_name|default:noinfo }}</dd>
+    <div class="col-sm-8">
+      <dl class="dl-horizontal">
+      {% if see_private %}
+        <dt>{% trans "First name" %}</dt>
+        <dd>{{ shown_user.first_name|default:noinfo }}</dd>
 
-				<dt>{% trans "Last name" %}</dt>
-				<dd>{{ shown_user.last_name|default:noinfo }}</dd>
+        <dt>{% trans "Last name" %}</dt>
+        <dd>{{ shown_user.last_name|default:noinfo }}</dd>
 
-				<dt>{% trans "Phone number" %}</dt>
-				<dd>{{ shown_user.phone|phone_number|default:noinfo }}</dd>
+        <dt>{% trans "Phone number" %}</dt>
+        <dd>{{ shown_user.phone|phone_number|default:noinfo }}</dd>
 
-				<dt>{% trans "Email address" %}</dt>
-				<dd>{{ shown_user.email|default:noinfo }}</dd>
+        <dt>{% trans "Email address" %}</dt>
+        <dd>{{ shown_user.email|default:noinfo }}</dd>
 
-				<dt>{% trans "Birth day" %}</dt>
-				<dd>{% if shown_user.birthday %}{{ shown_user.birthday }} ({{ shown_user.birthday|timesince }}
-					){% else %}{{ noinfo }}{% endif %}</dd>
+        <dt>{% trans "Birth day" %}</dt>
+        <dd>{% if shown_user.birthday %}{{ shown_user.birthday }} ({{ shown_user.birthday|timesince }}
+          ){% else %}{{ noinfo }}{% endif %}</dd>
 
-				<dt>{% trans "Postal address" %}</dt>
-				<dd>
-					{% if user.has_partial_address %}
-						<address>
-							{{ shown_user.address|linebreaksbr }}<br>
-							{{ shown_user.postal_code }} {{ shown_user.city }}<br>
-							{{ shown_user.country }}
-						</address>
-					{% else %}
-						{{ noinfo }}
-					{% endif %}
-				</dd>
-				{% endif %}
-				<dt>{% trans "Member for" %}</dt>
-				<dd>{{ shown_user.date_joined|timesince }}</dd>
-			</dl>
+        <dt>{% trans "Postal address" %}</dt>
+        <dd>
+          {% if user.has_partial_address %}
+            <address>
+              {{ shown_user.address|linebreaksbr }}<br>
+              {{ shown_user.postal_code }} {{ shown_user.city }}<br>
+              {{ shown_user.country }}
+            </address>
+          {% else %}
+            {{ noinfo }}
+          {% endif %}
+        </dd>
+        {% endif %}
+        <dt>{% trans "Member for" %}</dt>
+        <dd>{{ shown_user.date_joined|timesince }}</dd>
+      </dl>
 
-			{% with shown_user.team_memberships.all as team_memberships %}
-				{% if team_memberships %}
-					<h3>{% trans "Staff roles" %}</h3>
-					{% for membership in team_memberships|dictsortreversed:'year' %}
-						<a href="{% url 'team:year' membership.year %}#m{{ shown_user.pk }}" class="btn btn-default staff-flair-{{ membership.role.name|slugify }}">{% blocktrans with year=membership.year role=membership.role %}{{ year }} ⋅ {{ role }}{% endblocktrans %}</a>
-					{% endfor %}
-				{% endif %}
-			{% endwith %}
+      {% with shown_user.team_memberships.all as team_memberships %}
+        {% if team_memberships %}
+          <h3>{% trans "Staff roles" %}</h3>
+          {% for membership in team_memberships|dictsortreversed:'year' %}
+            <a href="{% url 'team:year' membership.year %}#m{{ shown_user.pk }}" class="btn btn-default staff-flair-{{ membership.role.name|slugify }}">{% blocktrans with year=membership.year role=membership.role %}{{ year }} ⋅ {{ role }}{% endblocktrans %}</a>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
 
-			{% with shown_author.entries_published.all as entries_published %}
-				{% if entries_published %}
-					<h3>{% trans "Latest news entries" %}</h3>
-					<ul class="nav nav-stacked">
-					{% for entry in entries_published|slice:":10" %}
-						<li><a href="{{ entry.get_absolute_url }}">
-							<span class="text-muted">{{ entry.creation_date|date:"DATE_FORMAT" }} ⋅</span> {{ entry.title }}</a>
-						</li>
-					{% endfor %}
-					</ul>
-				{% endif %}
-			{% endwith %}
-		</div>
+      {% with shown_author.entries_published.all as entries_published %}
+        {% if entries_published %}
+          <h3>{% trans "Latest news entries" %}</h3>
+          <ul class="nav nav-stacked">
+          {% for entry in entries_published|slice:":10" %}
+            <li><a href="{{ entry.get_absolute_url }}">
+              <span class="text-muted">{{ entry.creation_date|date:"DATE_FORMAT" }} ⋅</span> {{ entry.title }}</a>
+            </li>
+          {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
+    </div>
 
-		<div class="col-sm-4">
-			<p class="text-right">
-			{% if shown_user.avatar %}
-				<img class="avatar avatar-full" src="{{ shown_user.avatar.url }}" alt="
-						{% blocktrans with shown_user.username as username %}{{ username }}'s profile picture{% endblocktrans %}"
-						style="max-width: 100%"/>
-			{% elif not shown_user.picture %}
-				<img class="avatar avatar-full" src="{% static 'img/silhouette.png' %}"
-						alt="{% trans "No profile picture" %}" style="max-width: 100%"/>
-			{% endif %}
-			{% if shown_user.picture %}
-				<img class="avatar avatar-full" src="{{ shown_user.picture.url }}" alt="
-						{% blocktrans with shown_user.username as username %}{{ username }}'s staff picture{% endblocktrans %}"
-						style="max-width: 100%"/>
-			{% endif %}
-			</p>
-			{# TODO: related links (forum posts, news, contest participations…) #}
-		</div>
+    <div class="col-sm-4">
+      <p class="text-right">
+      {% if shown_user.avatar %}
+        <img class="avatar avatar-full" src="{{ shown_user.avatar.url }}" alt="
+            {% blocktrans with shown_user.username as username %}{{ username }}'s profile picture{% endblocktrans %}"
+            style="max-width: 100%"/>
+      {% elif not shown_user.picture %}
+        <img class="avatar avatar-full" src="{% static 'img/silhouette.png' %}"
+            alt="{% trans "No profile picture" %}" style="max-width: 100%"/>
+      {% endif %}
+      {% if shown_user.picture %}
+        <img class="avatar avatar-full" src="{{ shown_user.picture.url }}" alt="
+            {% blocktrans with shown_user.username as username %}{{ username }}'s staff picture{% endblocktrans %}"
+            style="max-width: 100%"/>
+      {% endif %}
+      </p>
+      {# TODO: related links (forum posts, news, contest participations…) #}
+    </div>
 
-	</div>
+  </div>
 
 {% endblock %}

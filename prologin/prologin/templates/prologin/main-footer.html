@@ -1,67 +1,67 @@
 {% load i18n %}
 <div class="row">
-	<div class="col-xs-6 col-md-4">
-		<h3>{% trans "Prologin" %}</h3>
-		<ul class="nav">
-			<li><a href="{% url 'pages:about-organization' %}"><i class="fa fa-cube fa-centered"></i> {% trans "The organization" %}</a></li>
-			<li><a href="{% url 'pages:about-organization' %}#contact"><i class="fa fa-envelope fa-centered"></i> {% trans "Contact us" %}</a></li>
-			<li><a href="{% url 'pages:about-organization' %}#contribute"><i class="fa fa-question fa-centered"></i> {% trans "How can I help?" %}</a></li>
-		</ul>
+  <div class="col-xs-6 col-md-4">
+    <h3>{% trans "Prologin" %}</h3>
+    <ul class="nav">
+      <li><a href="{% url 'pages:about-organization' %}"><i class="fa fa-cube fa-centered"></i> {% trans "The organization" %}</a></li>
+      <li><a href="{% url 'pages:about-organization' %}#contact"><i class="fa fa-envelope fa-centered"></i> {% trans "Contact us" %}</a></li>
+      <li><a href="{% url 'pages:about-organization' %}#contribute"><i class="fa fa-question fa-centered"></i> {% trans "How can I help?" %}</a></li>
+    </ul>
         {% comment TODO %}
-		<h3>{% trans "More" %}</h3>
-		<ul class="nav">
-			<li><a href="#TODO">{% trans "Press kit" %}</a></li>
-		</ul>
+    <h3>{% trans "More" %}</h3>
+    <ul class="nav">
+      <li><a href="#TODO">{% trans "Press kit" %}</a></li>
+    </ul>
         {% endcomment %}
-	</div>
-	<div class="col-xs-6 col-md-4">
+  </div>
+  <div class="col-xs-6 col-md-4">
         {% comment TODO %}
-		<h3>{% trans "Terms" %}</h3>
-		<ul class="nav">
-			<li><a href="#TODO">{% trans "Contest rules" %}</a></li>
-		</ul>
+    <h3>{% trans "Terms" %}</h3>
+    <ul class="nav">
+      <li><a href="#TODO">{% trans "Contest rules" %}</a></li>
+    </ul>
         {% endcomment %}
-		<h3>{% trans "Stay tuned!" %}</h3>
-		<a href="{% url 'zinnia:entry_latest_feed' %}" title="{% trans "Prologin news Atom stream" %}" class="social">
-			<span class="fa-stack fa-lg">
-				<i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
-				<i class="fa fa-rss fa-stack-1x fa-inverse"></i>
-			</span>
-		</a>
-		{# social shit #}
-		<a href="https://www.facebook.com/prologin" title="{% trans "Prologin on Facebook" %}" class="social">
-			<span class="fa-stack fa-lg">
-				<i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
-				<i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
-			</span>
-		</a>
-		<a href="https://www.twitter.com/prologin" title="{% trans "Prologin on Twitter" %}" class="social">
-			<span class="fa-stack fa-lg">
-				<i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
-				<i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-			</span>
-		</a>
-	</div>
-	<div class="col-xs-12 col-md-4">
-		<h3>{% trans "Change locale" %} <i class=" fa fa-globe"></i></h3>
-		{% get_current_language as LANGUAGE_CODE %}
-		<form action="{% url 'set_language' %}" method="post" id="change-lang-form" class="form-inline">
-			{% csrf_token %}
-			{# <input name="next" type="hidden" value="{{ redirect_to }}"/> #}
-			<select name="language" id="set-language" class="form-control" onchange="$('#change-lang-form').submit();">
-				{% get_available_languages as LANGUAGES %}
-				{% get_language_info_list for LANGUAGES as languages %}
-				{% for language in languages %}
-					<option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
-							selected="selected"{% endif %}>{{ language.name_local.title }}</option>
-				{% endfor %}
-			</select>
-			<noscript><input type="submit" class="btn btn-default" value="{% trans "Apply" %}"/></noscript>
-			{% if request.user.is_authenticated and LANGUAGE_CODE != request.user.preferred_locale %}
-				{% url 'users:edit' request.user.pk as user_edit_url %}
-				<p><small class="text-muted">{% blocktrans with url=user_edit_url %}Save your
+    <h3>{% trans "Stay tuned!" %}</h3>
+    <a href="{% url 'zinnia:entry_latest_feed' %}" title="{% trans "Prologin news Atom stream" %}" class="social">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
+        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+    {# social shit #}
+    <a href="https://www.facebook.com/prologin" title="{% trans "Prologin on Facebook" %}" class="social">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
+        <i class="fa fa-facebook fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+    <a href="https://www.twitter.com/prologin" title="{% trans "Prologin on Twitter" %}" class="social">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
+        <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+  </div>
+  <div class="col-xs-12 col-md-4">
+    <h3>{% trans "Change locale" %} <i class=" fa fa-globe"></i></h3>
+    {% get_current_language as LANGUAGE_CODE %}
+    <form action="{% url 'set_language' %}" method="post" id="change-lang-form" class="form-inline">
+      {% csrf_token %}
+      {# <input name="next" type="hidden" value="{{ redirect_to }}"/> #}
+      <select name="language" id="set-language" class="form-control" onchange="$('#change-lang-form').submit();">
+        {% get_available_languages as LANGUAGES %}
+        {% get_language_info_list for LANGUAGES as languages %}
+        {% for language in languages %}
+          <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %}
+              selected="selected"{% endif %}>{{ language.name_local.title }}</option>
+        {% endfor %}
+      </select>
+      <noscript><input type="submit" class="btn btn-default" value="{% trans "Apply" %}"/></noscript>
+      {% if request.user.is_authenticated and LANGUAGE_CODE != request.user.preferred_locale %}
+        {% url 'users:edit' request.user.pk as user_edit_url %}
+        <p><small class="text-muted">{% blocktrans with url=user_edit_url %}Save your
 preferred locale in your <a href="{{ url }}#id_preferred_locale">user settings</a>.{% endblocktrans %}</small></p>
-			{% endif %}
-		</form>
-	</div>
+      {% endif %}
+    </form>
+  </div>
 </div>

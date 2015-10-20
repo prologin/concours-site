@@ -2,87 +2,87 @@
 {% load i18n markup staticfiles django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "" %}{% trans "Contest" %}{% endbreadcrumb_for %}
-	{% breadcrumb qcm.event.edition.year "" %}
-	{% breadcrumb_for "contest:qualification_summary" qcm.event.edition.year %}{% trans "Qualification" %}{% endbreadcrumb_for %} {# FIXME: always contest, no archive! #}
-	{% breadcrumb_for "qcm:display" qcm.event.edition.year %}{% trans "Quiz" %}{% endbreadcrumb_for %}
+  {{ block.super }}
+  {% breadcrumb_for "" %}{% trans "Contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb qcm.event.edition.year "" %}
+  {% breadcrumb_for "contest:qualification_summary" qcm.event.edition.year %}{% trans "Qualification" %}{% endbreadcrumb_for %} {# FIXME: always contest, no archive! #}
+  {% breadcrumb_for "qcm:display" qcm.event.edition.year %}{% trans "Quiz" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block extra_head %}
-	<link href="{% static 'qcm/qcm.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'qcm/qcm.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
 {% block title %}{% blocktrans with qcm.event.edition.year as year %}Qualification quiz – Prologin {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 
-	<h1>{% blocktrans with qcm.event.edition.year as year %}Qualification quiz – Prologin {{ year }}{% endblocktrans %}</h1>
+  <h1>{% blocktrans with qcm.event.edition.year as year %}Qualification quiz – Prologin {{ year }}{% endblocktrans %}</h1>
 
-	<p class="well">
-		{% blocktrans %}Please answer the following questions. There is only one correct answer for each question.{% endblocktrans %}<br>
-		{% blocktrans %}Correct answers give one point, wrong ones remove one point. Not answering a question neither gives nor removes any point.{% endblocktrans %}
-	</p>
+  <p class="well">
+    {% blocktrans %}Please answer the following questions. There is only one correct answer for each question.{% endblocktrans %}<br>
+    {% blocktrans %}Correct answers give one point, wrong ones remove one point. Not answering a question neither gives nor removes any point.{% endblocktrans %}
+  </p>
 
-	{% if not request.user.is_authenticated %}
-		{% url 'users:register' as register %}
-		{% url 'users:login' as login %}
-		<p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to fill the quiz.{% endblocktrans %}</p>
-	{% endif %}
+  {% if not request.user.is_authenticated %}
+    {% url 'users:register' as register %}
+    {% url 'users:login' as login %}
+    <p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to fill the quiz.{% endblocktrans %}</p>
+  {% endif %}
 
-	<form action="" method="POST">
-		{% csrf_token %}
+  <form action="" method="POST">
+    {% csrf_token %}
 
-		<ol class="mainlist qcm">
-			{% for field in form %}
-				{% with question=field.field.question %}
-					<li class="question">
-						<div class="body">
-							<div class="main">{{ question.body|markdown }}</div>
-							{% if question.verbose %}
-								<div class="verbose">{{ question.verbose|markdown }}</div>
-							{% endif %}
-						</div>
-						<ul class="propositions">
-							{% for proposition in field %}
-								<li class="{% if correction %}{% if proposition.instance.is_correct %}correct{% endif %}{% if proposition.is_checked and not proposition.instance.is_correct %}incorrect{% endif %}{% endif %}">
-									{{ proposition }}
-								</li>
-							{% endfor %}
-						</ul>
-					</li>
-				{% endwith %}
-			{% endfor %}
-		</ol>
+    <ol class="mainlist qcm">
+      {% for field in form %}
+        {% with question=field.field.question %}
+          <li class="question">
+            <div class="body">
+              <div class="main">{{ question.body|markdown }}</div>
+              {% if question.verbose %}
+                <div class="verbose">{{ question.verbose|markdown }}</div>
+              {% endif %}
+            </div>
+            <ul class="propositions">
+              {% for proposition in field %}
+                <li class="{% if correction %}{% if proposition.instance.is_correct %}correct{% endif %}{% if proposition.is_checked and not proposition.instance.is_correct %}incorrect{% endif %}{% endif %}">
+                  {{ proposition }}
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endwith %}
+      {% endfor %}
+    </ol>
 
-		{% if editable %}
-			<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {% trans "Save the new answers" %}</button>
-		{% elif qcm.event.is_finished %}
-			<button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i> {% trans "Check your answers" %}</button>
-		{% endif %}
-	</form>
+    {% if editable %}
+      <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {% trans "Save the new answers" %}</button>
+    {% elif qcm.event.is_finished %}
+      <button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i> {% trans "Check your answers" %}</button>
+    {% endif %}
+  </form>
 
 {% endblock %}
 
 {% block extra_script %}
-	<script type="text/javascript">
-		$(function () {
-			$('.propositions').each(function () {
-				var that = $(this);
-				var labels = that.find('label');
-				labels.each(function () {
-					var label = $(this);
-					var input = $(label.find('input'));
-					input.change(function (e) {
-						if ($(this).prop('checked')) {
-							labels.removeClass('checked');
-							label.addClass('checked');
-						}
-					});
-					if (input.prop('checked'))
-						label.addClass('checked');
-				});
-			});
-		});
-	</script>
+  <script type="text/javascript">
+    $(function () {
+      $('.propositions').each(function () {
+        var that = $(this);
+        var labels = that.find('label');
+        labels.each(function () {
+          var label = $(this);
+          var input = $(label.find('input'));
+          input.change(function (e) {
+            if ($(this).prop('checked')) {
+              labels.removeClass('checked');
+              label.addClass('checked');
+            }
+          });
+          if (input.prop('checked'))
+            label.addClass('checked');
+        });
+      });
+    });
+  </script>
 {% endblock %}

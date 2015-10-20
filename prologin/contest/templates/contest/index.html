@@ -2,10 +2,10 @@
 {% load i18n markup staticfiles django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "" %}{% trans "Contest" %}{% endbreadcrumb_for %}
-	{% breadcrumb edition.year "" %}
-	{% breadcrumb_for "" %}{% trans "Qualification" %}{% endbreadcrumb_for %} {# TODO #}
+  {{ block.super }}
+  {% breadcrumb_for "" %}{% trans "Contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb edition.year "" %}
+  {% breadcrumb_for "" %}{% trans "Qualification" %}{% endbreadcrumb_for %} {# TODO #}
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans with edition.year as year %}Prologin {{ year }}{% endblocktrans %}{% endblock %}

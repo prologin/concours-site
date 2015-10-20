@@ -12,57 +12,57 @@
 
 <div class="container">
 
-	{% include "prologin/messages.html" %}
+  {% include "prologin/messages.html" %}
 
-	{% block content %}
+  {% block content %}
 
-	<div class="row">
-	<div class="col-sm-9">
-	<h1>{% trans "Latest news" %}</h1>
+  <div class="row">
+  <div class="col-sm-9">
+  <h1>{% trans "Latest news" %}</h1>
 
-	{% for article in articles %}
+  {% for article in articles %}
 
-	<section class="clearfix news-entry">
-		<h3><a href="{{ article.get_absolute_url }}" title="{{ article.title }}" rel="bookmark">{{ article.title }}</a></h3>
-		<div class="entry-meta-line text-muted">
-			<p class="entry-info">
-				{% with authors=article.authors.all %}
-				{% if authors|length %}
-				{% trans "Written by" %}
-				{% for author in authors %}
-				<span class="vcard author">
-					<a href="{{ author.get_absolute_url }}" class="fn url{% if not author.get_full_name %} nickname{% endif %}" rel="author"
-					title="{% blocktrans %}Show all {{ author }}'s entries{% endblocktrans %}">{{ author }}</a></span>{% if not forloop.last %}, {% endif %}
-					{% endfor %}
-					{% trans "on" %}
-					{% else %}
-					{% trans "Written on" %}
-					{% endif %}
-					{% endwith %}
-					<abbr class="published" title="{{ article.creation_date|date:"c" }}">{{ article.creation_date|date:"DATE_FORMAT" }}</abbr>
-				{% for tag in article.tags_list %}
-					<a href="{% url 'zinnia:tag_detail' tag %}"><span class="label label-default">{{ tag }}</span></a>
-				{% endfor %}
-			</p>
-		</div>
-		<div class="entry-content">
-			{{ article.html_preview|safe }}
-			<p><i class="fa fa-angle-double-right"></i> <a href="{{ article.get_absolute_url }}#cuthere">{% trans "Continue reading" %}</a></p>
-		</div>
-	</section>
+  <section class="clearfix news-entry">
+    <h3><a href="{{ article.get_absolute_url }}" title="{{ article.title }}" rel="bookmark">{{ article.title }}</a></h3>
+    <div class="entry-meta-line text-muted">
+      <p class="entry-info">
+        {% with authors=article.authors.all %}
+        {% if authors|length %}
+        {% trans "Written by" %}
+        {% for author in authors %}
+        <span class="vcard author">
+          <a href="{{ author.get_absolute_url }}" class="fn url{% if not author.get_full_name %} nickname{% endif %}" rel="author"
+          title="{% blocktrans %}Show all {{ author }}'s entries{% endblocktrans %}">{{ author }}</a></span>{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+          {% trans "on" %}
+          {% else %}
+          {% trans "Written on" %}
+          {% endif %}
+          {% endwith %}
+          <abbr class="published" title="{{ article.creation_date|date:"c" }}">{{ article.creation_date|date:"DATE_FORMAT" }}</abbr>
+        {% for tag in article.tags_list %}
+          <a href="{% url 'zinnia:tag_detail' tag %}"><span class="label label-default">{{ tag }}</span></a>
+        {% endfor %}
+      </p>
+    </div>
+    <div class="entry-content">
+      {{ article.html_preview|safe }}
+      <p><i class="fa fa-angle-double-right"></i> <a href="{{ article.get_absolute_url }}#cuthere">{% trans "Continue reading" %}</a></p>
+    </div>
+  </section>
 
-	{% endfor %}
+  {% endfor %}
 
-	<ul class="clearfix nav hidden-xs text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
+  <ul class="clearfix nav hidden-xs text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
 
-	</div>
+  </div>
 
-	<div class="col-sm-3">
-		{% include "homepage/sponsors.html" %}
-	</div>
-	</div>
+  <div class="col-sm-3">
+    {% include "homepage/sponsors.html" %}
+  </div>
+  </div>
 
-	{% endblock content %}
+  {% endblock content %}
 </div>
 
 {% endblock super_content %}

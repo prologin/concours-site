@@ -1,105 +1,105 @@
 {% load i18n %}
 <section class="home-jumbo jumbotron">
-	<div class="container">
+  <div class="container">
 
-		<h1>{% trans "Prologin, the French National Computer Science Contest" %}</h1>
-		<p>{% blocktrans with born_year as born_year %}Born in {{ born_year }} or after? Join the Prologin contest! Registration is free.{% endblocktrans %}</p>
+    <h1>{% trans "Prologin, the French National Computer Science Contest" %}</h1>
+    <p>{% blocktrans with born_year as born_year %}Born in {{ born_year }} or after? Join the Prologin contest! Registration is free.{% endblocktrans %}</p>
 
-		{% trans "Unknown date" as no_such_date %}
-		{# timeline #}
-		<div class="htl">
-			<div class="row">
-				<div class="col-sm-offset-2 col-sm-8">
-					<div class="line">
-						<i class="fa fa-chevron-right" style="left: 25%"></i>
-						<i class="fa fa-chevron-right" style="left: 75%"></i>
-					</div>
-				</div>
-				{# block-1 #}
-				<div class="col-sm-4">
-					<div class="tl-block active">
-						<div class="row">
-							<div class="col-xs-5 col-sm-12">
-								<h4>{% trans "Qualification" %}</h4>
-								<p class="date">{{ request.current_events.qualification.date_begin|date:"d b Y"|default:no_such_date }}</p>
-							</div>
-							<div class="col-xs-7 col-sm-12">
-								<div class="desc">
-									<p>
-										{% if request.current_qcm %}
-											{% blocktrans %}A quiz and {{ problems_count }} problems to solve online.{% endblocktrans %}
-										{% else %}
-											{% blocktrans %}{{ problems_count }} problems to solve online.{% endblocktrans %}
-										{% endif %}
-									</p>
-									{% if not user.is_authenticated %}
-										<p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block"><i class="fa fa-rocket"></i> {% trans "Register now!" %}</a></p>
-									{% else %}
-										<ul class="list-unstyled checklist hide-no-active">
-											{% if current_qcm %}
-												{% if qcm_completed %}
-													<li class="text-success"><a
-															href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-check-square-o"></i> {% trans "Quiz completed" %}
-													</a></li>
-												{% else %}
-													<li class="text-danger"><a
-															href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-square-o"></i> {% trans "Complete the quiz" %}
-													</a></li>
-												{% endif %}
-											{% endif %}
-											<li class="text-{% if problems_completed == problems_count %}success{% else %}danger{% endif %}">
-												<a href="{% url 'training:challenge' request.current_edition.year 'qualification' %}"><i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
-													{% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems completed{% endblocktrans %}</a>
-											</li>
-											<li class="text-{% if request.current_contestant.is_complete_for_semifinal %}success{% else %}danger{% endif %}">
-												<a href="{% url 'contest:qualification_summary' request.current_edition.year %}"><i class="fa fa-{% if request.current_contestant.is_complete_for_semifinal %}check-{% endif %}square-o"></i> {% trans "Review the extra details" %}</a>
-											</li>
-										</ul>
-									{% endif %}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				{# /block-1 #}
-				{# block-2 #}
-				<div class="col-sm-4">
-					<div class="tl-block">
-						<div class="row">
-							<div class="col-xs-5 col-sm-12">
-								<h4>{% trans "Semifinals" %}</h4>
-								<p class="date">{{ request.current_events.semifinal.first.date_begin|date:"d b Y"|default:no_such_date }}</p>
-							</div>
-							<div class="col-xs-7 col-sm-12">
-								<div class="desc">
-									<p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
-									<p class="hide-no-active"><a href="{% url 'training:index' %}" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				{# /block-2 #}
-				{# block-3 #}
-				<div class="col-sm-4">
-					<div class="tl-block last">
-						<div class="row">
-							<div class="col-xs-5 col-sm-12">
-								<h4>{% trans "Finale" %}</h4>
-								<p class="date">{{ request.current_events.final.date_begin|date:"d b Y"|default:no_such_date }}</p>
-							</div>
-							<div class="col-xs-7 col-sm-12">
-								<div class="desc">
-									<p>{% trans "You have one weekend to develop an Artificial Intelligence for a custom-made game, in Paris." %}</p>
-									<p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				{# /block-3 #}
-			</div>
-		</div>
-		{# /timeline #}
-	</div>
+    {% trans "Unknown date" as no_such_date %}
+    {# timeline #}
+    <div class="htl">
+      <div class="row">
+        <div class="col-sm-offset-2 col-sm-8">
+          <div class="line">
+            <i class="fa fa-chevron-right" style="left: 25%"></i>
+            <i class="fa fa-chevron-right" style="left: 75%"></i>
+          </div>
+        </div>
+        {# block-1 #}
+        <div class="col-sm-4">
+          <div class="tl-block active">
+            <div class="row">
+              <div class="col-xs-5 col-sm-12">
+                <h4>{% trans "Qualification" %}</h4>
+                <p class="date">{{ request.current_events.qualification.date_begin|date:"d b Y"|default:no_such_date }}</p>
+              </div>
+              <div class="col-xs-7 col-sm-12">
+                <div class="desc">
+                  <p>
+                    {% if request.current_qcm %}
+                      {% blocktrans %}A quiz and {{ problems_count }} problems to solve online.{% endblocktrans %}
+                    {% else %}
+                      {% blocktrans %}{{ problems_count }} problems to solve online.{% endblocktrans %}
+                    {% endif %}
+                  </p>
+                  {% if not user.is_authenticated %}
+                    <p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block"><i class="fa fa-rocket"></i> {% trans "Register now!" %}</a></p>
+                  {% else %}
+                    <ul class="list-unstyled checklist hide-no-active">
+                      {% if current_qcm %}
+                        {% if qcm_completed %}
+                          <li class="text-success"><a
+                              href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-check-square-o"></i> {% trans "Quiz completed" %}
+                          </a></li>
+                        {% else %}
+                          <li class="text-danger"><a
+                              href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-square-o"></i> {% trans "Complete the quiz" %}
+                          </a></li>
+                        {% endif %}
+                      {% endif %}
+                      <li class="text-{% if problems_completed == problems_count %}success{% else %}danger{% endif %}">
+                        <a href="{% url 'training:challenge' request.current_edition.year 'qualification' %}"><i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
+                          {% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems completed{% endblocktrans %}</a>
+                      </li>
+                      <li class="text-{% if request.current_contestant.is_complete_for_semifinal %}success{% else %}danger{% endif %}">
+                        <a href="{% url 'contest:qualification_summary' request.current_edition.year %}"><i class="fa fa-{% if request.current_contestant.is_complete_for_semifinal %}check-{% endif %}square-o"></i> {% trans "Review the extra details" %}</a>
+                      </li>
+                    </ul>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {# /block-1 #}
+        {# block-2 #}
+        <div class="col-sm-4">
+          <div class="tl-block">
+            <div class="row">
+              <div class="col-xs-5 col-sm-12">
+                <h4>{% trans "Semifinals" %}</h4>
+                <p class="date">{{ request.current_events.semifinal.first.date_begin|date:"d b Y"|default:no_such_date }}</p>
+              </div>
+              <div class="col-xs-7 col-sm-12">
+                <div class="desc">
+                  <p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
+                  <p class="hide-no-active"><a href="{% url 'training:index' %}" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {# /block-2 #}
+        {# block-3 #}
+        <div class="col-sm-4">
+          <div class="tl-block last">
+            <div class="row">
+              <div class="col-xs-5 col-sm-12">
+                <h4>{% trans "Finale" %}</h4>
+                <p class="date">{{ request.current_events.final.date_begin|date:"d b Y"|default:no_such_date }}</p>
+              </div>
+              <div class="col-xs-7 col-sm-12">
+                <div class="desc">
+                  <p>{% trans "You have one weekend to develop an Artificial Intelligence for a custom-made game, in Paris." %}</p>
+                  <p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {# /block-3 #}
+      </div>
+    </div>
+    {# /timeline #}
+  </div>
 </section>

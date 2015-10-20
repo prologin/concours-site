@@ -2,10 +2,10 @@
 {% load i18n django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "" %}
-		{% blocktrans %}Error {{ number }}{% endblocktrans %}
-	{% endbreadcrumb_for %}
+  {{ block.super }}
+  {% breadcrumb_for "" %}
+    {% blocktrans %}Error {{ number }}{% endblocktrans %}
+  {% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block content %}
