@@ -1,14 +1,15 @@
-import datetime
 from django.conf import settings
+from django.db import transaction
+from django.http.response import HttpResponseForbidden
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.functional import cached_property
-from django.views.generic import ListView, RedirectView
+from django.views.generic import ListView, RedirectView, CreateView, UpdateView
 from django.core.urlresolvers import reverse
 from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.edit import ModelFormMixin, FormMixin
+from rules.contrib.views import PermissionRequiredMixin
 
-from guardian.mixins import PermissionRequiredMixin
-from guardian.shortcuts import get_objects_for_user
-
+import forum.forms
 import forum.models
 
 
@@ -18,7 +19,7 @@ class IndexView(ListView):
     context_object_name = 'forums'
 
     def get_queryset(self):
-        return get_objects_for_user(self.request.user, 'forum.view_forum', forum.models.Forum)
+        return list(filter(lambda f: self.request.user.has_perm('forum.view_forum', f), super().get_queryset()))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -29,21 +30,56 @@ class IndexView(ListView):
 
 
 class ForumView(PermissionRequiredMixin, ListView):
+    # TODO: check perms for view
     template_name = 'forum/forum_threads.html'
     model = forum.models.Thread
     context_object_name = 'threads'
     paginate_by = settings.FORUM_THREADS_PER_PAGE
     permission_required = 'forum.view_forum'
 
+    @cached_property
+    def get_forum(self):
+        return get_object_or_404(forum.models.Forum, pk=self.kwargs['pk'])
+
     def get_permission_object(self):
         return self.get_forum
 
     def get_queryset(self):
-        return super().get_queryset().filter(forum=self.get_forum).select_related('forum', 'author')
+        # FIXME: un-fuck this fuckery
+        # Super hacky way of retrieving the first post and last post of each thread so we don't make O(3n) queries in
+        # the forum thread list. Instead we do 3 queries, one for thread list, one for {first,last} posts.
+        # OH I WISH I HAD AN ACTUAL ORM.
 
-    @cached_property
-    def get_forum(self):
-        return get_object_or_404(forum.models.Forum, pk=self.kwargs['pk'])
+        # Standard queryset with sub-queries (not *that* bad, is it?) for fist and last post ID
+        thread_qs = (super().get_queryset()
+                            .filter(forum=self.get_forum)
+                            .select_related('forum')
+                            .extra(select={
+                                'first_post_id': "SELECT p.id FROM forum_post p WHERE p.thread_id = forum_thread.id ORDER BY date_created ASC LIMIT 1",
+                                'last_post_id': "SELECT p.id FROM forum_post p WHERE p.thread_id = forum_thread.id ORDER BY date_created DESC LIMIT 1",
+                            }))
+        zipped_post_ids = thread_qs.values_list('first_post_id', 'last_post_id')
+        first_post_ids = set()
+        last_post_ids = set()
+        for first, last in zipped_post_ids:
+            first_post_ids.add(first)
+            last_post_ids.add(last)
+
+        # Map threads to their first and last post
+        # If we don't include 'thread' in select_related, Django is stupid enough to trigger a new query for thread.pk
+        # even though it is available as thread_id.
+        thread_to_posts = {}
+        for post in forum.models.Post.visible.filter(pk__in=first_post_ids).select_related('author', 'thread'):
+            thread_to_posts[post.thread.pk] = [post]
+        for post in forum.models.Post.visible.filter(pk__in=last_post_ids).select_related('author', 'thread'):
+            thread_to_posts[post.thread.pk].append(post)
+
+        # Hydrate the threads
+        items = []
+        for item in thread_qs:
+            item._first_post, item._last_post = thread_to_posts[item.pk]
+            items.append(item)
+        return items
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -63,29 +99,66 @@ class ForumView(PermissionRequiredMixin, ListView):
         return super().get(request, *args, **kwargs)
 
 
-class ThreadView(PermissionRequiredMixin, ListView):
-    template_name = 'forum/thread_posts.html'
-    model = forum.models.Post
-    context_object_name = 'posts'
-    paginate_by = settings.FORUM_POSTS_PER_PAGE
-    permission_required = 'forum.view_forum'
+class CreateThreadView(PermissionRequiredMixin, CreateView):
+    # TODO: permission checking
+    template_name = 'forum/create_thread.html'
+    model = forum.models.Thread
+    form_class = forum.forms.ThreadForm
+    permission_required = 'forum.create_thread'
+
+    @cached_property
+    def get_forum(self):
+        return get_object_or_404(forum.models.Forum, pk=self.kwargs['forum_pk'])
 
     def get_permission_object(self):
-        return self.get_thread.forum
+        return self.get_forum
+
+    def get_success_url(self):
+        # Django tries to do smart shit
+        return self.success_url
+
+    def form_valid(self, form):
+        thread = form.save(commit=False)
+        thread.forum = self.get_forum
+        with transaction.atomic():
+            thread.save()
+            first_post = forum.models.Post(author=self.request.user, content=form.cleaned_data['content'], thread=thread)
+            first_post.save()  # will trigger thread update
+        self.success_url = first_post.get_absolute_url()
+        return super(ModelFormMixin, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['forum'] = self.get_forum
+        return context
+
+
+class ThreadView(PermissionRequiredMixin, FormMixin, ListView):
+    # TODO: check perms for view AND post (ie. new post in thread)
+    template_name = 'forum/thread_posts.html'
+    model = forum.models.Post
+    form_class = forum.forms.PostForm
+    context_object_name = 'posts'
+    paginate_by = settings.FORUM_POSTS_PER_PAGE
+    permission_required = 'forum.view_thread'
+
+    @cached_property
+    def get_thread(self):
+        return get_object_or_404(forum.models.Thread.objects.select_related('forum'), pk=self.kwargs['pk'])
+
+    def get_permission_object(self):
+        return self.get_thread
 
     def get_queryset(self):
         self.thread = self.get_thread
         return self.thread.posts.select_related('author')
-
-    @cached_property
-    def get_thread(self):
-        return get_object_or_404(forum.models.Thread.objects.select_related('forum', 'author'), pk=self.kwargs['pk'])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         thread = self.get_thread
         context['thread'] = thread
         context['forum'] = thread.forum
+        context['form'] = kwargs.get('form', self.get_form())
         return context
 
     def get(self, request, *args, **kwargs):
@@ -98,17 +171,62 @@ class ThreadView(PermissionRequiredMixin, ListView):
                                                     'pk': thread.pk})
         return super().get(request, *args, **kwargs)
 
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.author = self.request.user
+        post.thread = self.get_thread
+        post.save()
+        self.success_url = post.get_absolute_url()
+        return super().form_valid(form)
+
+    def post(self, request, *args, **kwargs):
+        if not self.request.user.has_perm('forum.create_post', self.get_thread):
+            return HttpResponseForbidden()
+
+        form = self.get_form()
+        if form.is_valid():
+            return self.form_valid(form)
+        else:
+            return self.get(request, *args, **kwargs)
+
+
+class EditPostView(PermissionRequiredMixin, UpdateView):
+    template_name = 'forum/edit_post.html'
+    model = forum.models.Post
+    permission_required = 'forum.edit_post'
+
+    def get_queryset(self):
+        return super().get_queryset().select_related('thread', 'thread__forum')
+
+    @cached_property
+    def get_thread(self):
+        return self.get_object().thread
+
+    def get_form_class(self):
+        if self.request.user.is_staff:
+            return forum.forms.StaffUpdatePostForm
+        return forum.forms.UpdatePostForm
+
+    def form_valid(self, form):
+        post = form.save(commit=False)
+        post.last_edited_author = self.request.user
+        post.save()
+        return super(ModelFormMixin, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['thread'] = self.get_thread
+        context['forum'] = self.get_thread.forum
+        return context
+
 
 class PostRedirectView(PermissionRequiredMixin, RedirectView, SingleObjectMixin):
     permanent = False
     model = forum.models.Post
-    permission_required = 'forum.view_forum'
+    permission_required = 'forum.view_post'
 
     def get_queryset(self):
         return super().get_queryset().select_related('thread__forum')
-
-    def get_permission_object(self):
-        return self.get_object().thread.forum
 
     def get_redirect_url(self, *args, **kwargs):
         # Compute page number
@@ -119,3 +237,9 @@ class PostRedirectView(PermissionRequiredMixin, RedirectView, SingleObjectMixin)
                                                 'forum_pk': thread.forum.pk,
                                                 'slug': thread.slug,
                                                 'pk': thread.pk}) + '?page={}#message-{}'.format(page, post.pk))
+
+
+class EditPostVisibilityView(PermissionRequiredMixin, UpdateView):
+    model = forum.models.Post
+    fields = ('is_visible',)
+    permission_required = 'forum.edit_post_visibility'

@@ -28,9 +28,6 @@ class Forum(SortableMixin):
         ordering = ('order',)
         verbose_name = _("Forum")
         verbose_name_plural = _("Forums")
-        permissions = (
-            ('view_forum', _("View forum")),
-        )
 
     def __str__(self):
         return self.name
@@ -88,9 +85,6 @@ class Thread(models.Model):
     status = EnumField(Status, db_index=True, verbose_name=_("Thread status"), default=Status.normal.value)
     is_visible = models.BooleanField(default=True, db_index=True, verbose_name=_("Visible"))
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='forum_threads')
-
-    date_created = models.DateTimeField(default=timezone.now)
     date_last_edited = models.DateTimeField(auto_now=True)
     last_edited_author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='forum_last_edited_threads', blank=True, null=True)
 
@@ -119,6 +113,14 @@ class Thread(models.Model):
         return self.status == Thread.Status.closed.value
 
     @cached_property
+    def is_open(self):
+        return not self.is_closed
+
+    @cached_property
+    def is_standard(self):
+        return self.type == Thread.Type.normal.value
+
+    @cached_property
     def is_sticky(self):
         return self.type == Thread.Type.sticky.value
 
@@ -127,10 +129,18 @@ class Thread(models.Model):
         return self.type == Thread.Type.announce.value
 
     @cached_property
+    def date_created(self):
+        return self.first_post.date_created
+
+    @cached_property
+    def author(self):
+        return self.first_post.author
+
+    @cached_property
     def first_post(self):
-        """
-        Try to fetch the first post associated with the current thread.
-        """
+        # Try an externally hydrated first_post first
+        if hasattr(self, '_first_post'):
+            return self._first_post
         posts = self.posts.select_related('author').order_by('date_created')
         try:
             return posts[0]
@@ -139,9 +149,9 @@ class Thread(models.Model):
 
     @cached_property
     def last_post(self):
-        """
-        Try to fetch the last post associated with the current thread.
-        """
+        # Try an externally hydrated last_post first
+        if hasattr(self, '_last_post'):
+            return self._last_post
         posts = self.posts.select_related('author').order_by('-date_created')
         try:
             return posts[0]
@@ -243,12 +253,19 @@ class Post(models.Model):
         self.thread.update_trackers()
 
     def delete(self, using=None):
-        if self.is_thread_head and self.is_thread_tail:
-            # Both head and tail: this is the only post of this thread. Delete thread instead.
+        if self.is_thread_head:
             self.thread.delete()
         else:
             super().delete(using)
             self.thread.update_trackers()
 
     def get_absolute_url(self):
+        thread = self.thread
+        page = (self.position - 1) // settings.FORUM_POSTS_PER_PAGE + 1
+        return (reverse('forum:thread', kwargs={'forum_slug': thread.forum.slug,
+                                                'forum_pk': thread.forum.pk,
+                                                'slug': thread.slug,
+                                                'pk': thread.pk}) + '?page={}#message-{}'.format(page, self.pk))
+
+    def get_permalink(self):
         return reverse('forum:post', kwargs={'thread_slug': self.thread.slug, 'pk': self.pk})

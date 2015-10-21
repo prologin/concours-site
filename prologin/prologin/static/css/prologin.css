@@ -444,6 +444,10 @@ footer .legal {
 	}
 }
 
+.pagination-narrow .pagination {
+	margin: 0 0 10px;
+}
+
 .avatar.avatar-full {
 	border: 1px solid rgba(0, 0, 0, 0.2);
 	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);

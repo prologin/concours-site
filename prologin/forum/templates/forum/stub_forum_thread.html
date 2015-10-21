@@ -8,19 +8,16 @@
 			</div>
 			<a href="{{ thread.get_absolute_url }}">
 				<h3>{{ thread.title }}</h3>
-				{% url 'users:profile' thread.author.pk as author_url %}
-							<span class="text-muted forum-meta">
-								{% blocktrans with username=thread.author.username date_full=thread.date_created|date:"c" date=thread.date_created|date:"DATETIME_FORMAT" %}
-									By <span class="thread-item-author">{{ username }}</span> ⋅
-									<span title="{{ date_full }}">{{ date }}</span>{% endblocktrans %}
-							</span>
+				<span class="text-muted forum-meta">
+					{% blocktrans with username=thread.author.username date_full=thread.date_created|date:"c" date=thread.date_created|date:"DATETIME_FORMAT" %}By <span class="thread-item-author">{{ username }}</span> ⋅ <span title="{{ date_full }}">{{ date }}</span>{% endblocktrans %}
+				</span>
 			</a>
 		</div>
 		<div class="col-sm-2 hidden-xs forum-meta text-center">
 			{% blocktrans count thread.post_count as count %}{{ count }} message{% plural %}{{ count }}
 				messages{% endblocktrans %}<br>
 		</div>
-		<div class="col-sm-3 col-xs-4 forum-meta text-center"><a href="{{ thread.last_post.get_absolute_url }}">
+		<div class="col-sm-3 col-xs-4 forum-meta text-center"><a href="{{ thread.last_post.get_permalink }}">
 			{% blocktrans with username=thread.last_post.author.username %}Last message by
 				<span class="thread-item-author">{{ username }}</span>{% endblocktrans %}<br>
 			{{ thread.last_post.date_created|naturaltime|capfirst }}

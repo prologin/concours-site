@@ -19,8 +19,6 @@ django-bootstrap-form>=3.1
 django-csp
 # Debug Toolbar
 django-debug-toolbar
-# Fined-tuned (object-level) permissions
-django-guardian
 # Google Recaptcha/Nocaptcha support
 django-recaptcha
 # Model tagging support
@@ -39,6 +37,8 @@ jsonfield
 lxml
 # Markdown support
 markdown>=2.4
+# Advanced markdown support
+mistune==0.7.1
 # Image manipulation support, previously known as PIL
 pillow>=2.4
 # Postgres database connector
@@ -51,5 +51,7 @@ mysqlclient
 requests
 # Celery storage & broker for async tasks
 redis
+# Generic rules/permissions
+rules
 # Transifex client for translation pull/push
 transifex-client==0.11b3

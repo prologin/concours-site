@@ -1,0 +1,25 @@
+{% extends "forum/base.html" %}
+{% load i18n bootstrap django_bootstrap_breadcrumbs %}
+
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb_for "forum:index" %}{% trans "Forums" %}{% endbreadcrumb_for %}
+	{% breadcrumb_for "forum:forum" forum.slug forum.pk %}{{ forum.name }}{% endbreadcrumb_for %}
+	{% breadcrumb_for "forum:create-thread" forum.slug forum.pk %}{% trans "New thread" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "New thread" %} – {{ forum.name }}{% endblock %}
+
+{% block content %}
+
+	<h1>{% trans "Create a new thread" %} <small>{% blocktrans with name=forum.name %}in {{ name }}{% endblocktrans %}</small></h1>
+	<form class="form form-horizontal" method="POST">
+		{% csrf_token %}
+		{{ form|bootstrap_horizontal }}
+		<button type="submit" class="btn btn-primary">
+			<i class="fa fa-send"></i> {% trans "Create the new thread" %}
+		</button>
+	</form>
+
+{% endblock %}

@@ -18,17 +18,17 @@
 		{% for forum in forums %}
 			<li>
 				<div class="row row-vmiddle">{% spaceless %}
-					<div class="col-sm-7">
+					<div class="col-xs-7">
 						<a href="{{ forum.get_absolute_url }}">
 						<h3>{{ forum.name }}</h3>
 						<span class="text-muted forum-meta">{{ forum.description|markdown }}</span>
 						</a>
 					</div>
-					<div class="col-sm-2 forum-meta text-center">
+					<div class="col-sm-2 hidden-xs forum-meta text-center">
 						{% blocktrans count forum.thread_count as count %}{{ count }} thread{% plural %}{{ count }} threads{% endblocktrans %}<br>
 						{% blocktrans count forum.post_count as count %}{{ count }} message{% plural %}{{ count }} messages{% endblocktrans %}<br>
 					</div>
-					<div class="col-sm-3 forum-meta text-center">{% if forum.last_post %}<a href="{{ forum.last_post.get_absolute_url }}">
+					<div class="col-sm-3 col-xs-5 forum-meta text-center">{% if forum.last_post %}<a href="{{ forum.last_post.get_permalink }}">
 						{% blocktrans with username=forum.last_post.author.username %}Last message by <span class="thread-item-author">{{ username }}</span>{% endblocktrans %}<br>
 						{{ forum.last_post.date_created|naturaltime|capfirst }}
 					</a>{% endif %}</div>

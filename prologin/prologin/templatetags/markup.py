@@ -1,9 +1,12 @@
-from django import template
-from django.utils.text import mark_safe
 from markdown import markdown as markdown_to_html
 import pygments
 import pygments.lexers
 import pygments.formatters
+
+from django import template
+from django.utils.text import mark_safe
+
+from prologin.utils import Markdown
 
 register = template.Library()
 
@@ -11,6 +14,11 @@ register = template.Library()
 @register.filter
 def markdown(value):
     return mark_safe(markdown_to_html(value))
+
+
+@register.filter
+def flavored_markdown(value):
+    return mark_safe(Markdown(escape=True)(value))
 
 
 @register.simple_tag

@@ -14,6 +14,8 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 from django.utils.html import conditional_escape
 
+from .markdown.markdown import Markdown
+
 
 def absolute_site_url(request, absolute_path):
     return "{protocol}://{host}{path}".format(

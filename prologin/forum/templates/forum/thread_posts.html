@@ -1,5 +1,5 @@
 {% extends "forum/base.html" %}
-{% load i18n humanize markup django_bootstrap_breadcrumbs %}
+{% load i18n static rules humanize markup bootstrap django_bootstrap_breadcrumbs %}
 
 
 {% block breadcrumbs %}
@@ -13,17 +13,26 @@
 	{% endif %}
 {% endblock breadcrumbs %}
 
+{% block extra_head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'lib/css/pygments-monokai.css' %}" media="screen"/>
+	{{ block.super }}
+{% endblock %}
+
 {% block title %}{{ thread.title }}{% endblock %}
 
 {% block content %}
 
 	<h1>{{ thread.title }}</h1>
 
-	<section class="forum-post-list">
-		{% include "stub_pagination.html" %}
+	{% has_perm 'forum.create_post' request.user thread as user_can_post %}
+	<div class="row">
+		<div class="col-sm-8 pagination-narrow">{% include "stub_pagination.html" %}</div>
+		{% if user_can_post  %}<div class="col-sm-4 text-right"><a href="#reply-thread"><i class="fa fa-angle-double-down"></i> {% trans "Reply to the thread" %}</a></div>{% endif %}
+	</div>
 
+	<section class="forum-post-list" id="forum-list">
 		{% for post in posts %}
-			<article class="forum-post" id="message-{{ post.pk }}">
+			<article class="forum-post clearfix" id="message-{{ post.pk }}">
 				<div class="row">
 					<div class="col-sm-2">
 						<div class="post-author">
@@ -34,29 +43,82 @@
 									</div>
 								</div>
 								<div class="col-sm-12 col-xs-4 post-author-avatar">
-								{% if post.author.avatar %}
-									<img class="avatar avatar-full" src="{{ post.author.avatar.url }}" alt="
-											{% blocktrans with post.author.username as username %}{{ username }}'s profile picture{% endblocktrans %}"/>
+								{% if post.is_visible and post.author.avatar %}
+									<img class="avatar avatar-full" src="{{ post.author.avatar.url }}" alt="{% blocktrans with post.author.username as username %}{{ username }}'s profile picture{% endblocktrans %}"/>
 								{% endif %}
 								</div>
 							</div>
 						</div>
 					</div>
 					<div class="col-sm-10">
-						<p class="text-muted forum-meta">
-							<a href="{{ post.get_absolute_url }}" title="{{ post.date_created|date:"c" }}">{{ post.date_created|date:"DATETIME_FORMAT" }}</a>
-							{% if post.is_edited %}EDITED{% endif %}
-						</p>
-
+						<div class="text-muted forum-meta forum-ellipsis">
+							<div class="pull-right forum-actions">
+								{% has_perm 'forum.edit_post' request.user post as user_can_edit_post %}
+								{% has_perm 'forum.edit_post_visibility' request.user post as user_can_edit_post_visibility %}
+								{% if user_can_edit_post %}
+									<a href="{% url 'forum:edit-post' thread.slug post.pk %}" class="btn btn-default btn-xs"><i class="fa fa-pencil"></i> {% trans "Edit" %}</a>
+								{% endif %}
+								{% if user_can_edit_post_visibility %}
+									<form action="{% url 'forum:edit-post-visibility' thread.slug post.pk %}" method="POST" style="display: inline">
+										{% csrf_token %}
+										<input type="hidden" name="is_visible" value="{% if post.is_visible %}false{% else %}true{% endif %}">
+										<button type="submit" class="btn btn-default btn-xs"><i class="fa fa-eye{% if post.is_visible %}-slash{% else %}{% endif %}"></i> {% if post.is_visible %}{% trans "Hide" %}{% else %}{% trans "Unhide" %}{% endif %}</button>
+									</form>
+								{% endif %}
+							</div>
+							<a href="{{ post.get_permalink }}" title="{{ post.date_created|date:"c" }}" class="message-permalink">{{ post.date_created|date:"DATETIME_FORMAT" }}</a>
+							{% if post.is_edited %}
+								<span class="separator">⋅</span> <span class="text-muted">
+									<i class="fa fa-pencil"></i> {% blocktrans with date_iso=post.date_last_edited|date:"c" date=post.date_last_edited|date:"DATETIME_FORMAT" %}Edited on <span title="{{ date_iso }}">{{ date }}{% endblocktrans %}</span>
+									{% if post.last_edited_author != post.author %}{% blocktrans with username=post.last_edited_author %}by {{ username }}{% endblocktrans %}{% endif %}
+									{% if post.last_edited_reason %}({{ post.last_edited_reason }}){% endif %}
+								</span>
+							{% endif %}
+						</div>
 						<div class="post-content">
-							{{ post.content|markdown }}
+							{% if post.is_visible %}{{ post.content|flavored_markdown }}{% else %}
+								<p class="text-muted"><i class="fa fa-trash"></i> {% trans "Message is deleted." %}</p>
+							{% endif %}
 						</div>
 					</div>
 				</div>
 			</article>
 		{% endfor %}
-
-		{% include "stub_pagination.html" %}
 	</section>
 
+	<div class="row">
+		<div class="col-sm-8 pagination-narrow">{% include "stub_pagination.html" %}</div>
+		<div class="col-sm-4 text-right"><a href="#forum-list"><i class="fa fa-angle-double-up"></i> {% trans "Back to top" %}</a></div>
+	</div>
+
+	<h3 id="reply-thread">{% trans "Reply to the thread" %}</h3>
+	{% if user_can_post %}
+		{% if user.is_authenticated %}
+			<form method="POST">
+				{% csrf_token %}
+				{{ form|bootstrap }}
+				<button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> {% trans "Add reply" %}</button>
+			</form>
+		{% else %}
+			{% include "forum/stub_login_required.html" %}
+		{% endif %}
+	{% else %}
+		<div class="alert alert-info">
+			<i class="fa fa-lock"></i> <div>{% trans "Sorry, you are not allowed to post new messages in this thread." %}</div>
+		</div>
+	{% endif %}
+
+{% endblock %}
+
+{% block extra_script %}
+	<script type="text/javascript">
+		/* When clicking permalinks, just scroll to message, don't do the full redirect */
+		$('.message-permalink').click(function (e) {
+			e.preventDefault();
+			document.location.hash = $(this).parents('.forum-post').attr('id');
+		});
+		$('a[href="#reply-thread"]').click(function() {
+			try { $('#id_content').focus(); } catch(e) {};
+		});
+	</script>
 {% endblock %}
