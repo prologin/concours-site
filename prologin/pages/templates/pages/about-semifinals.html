@@ -3,10 +3,10 @@
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
-	{% breadcrumb_for "pages:about-contest" %}{% trans "About the contest" %}{% endbreadcrumb_for %}
-	{% breadcrumb_for "pages:about-semifinal" %}{% trans "The semifinals" %}{% endbreadcrumb_for %}
+  {{ block.super }}
+  {% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "pages:about-contest" %}{% trans "About the contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "pages:about-semifinal" %}{% trans "The semifinals" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "The semifinals" %}{% endblock %}
@@ -14,22 +14,22 @@
 {% block content %}
 
 </div> {# hack: end content_super container #}
-	<div class="bgcont bgcont-title" style=" background-image: url({% static 'pages/img/semifinals.jpg' %}); background-position: 0 0;">
-		<div class="container presentation-body"><h1>{% trans "The semifinals" %}</h1></div>
-	</div>
+  <div class="bgcont bgcont-title" style=" background-image: url({% static 'pages/img/semifinals.jpg' %}); background-position: 0 0;">
+    <div class="container presentation-body"><h1>{% trans "The semifinals" %}</h1></div>
+  </div>
 <div class="container"> {# unhack #}
 
-	<p>{% blocktrans %}The semifinal tests are intended to test the capability of candidates to solve algorithmic problems
-but also to implement their solution on a machine, in the programming language they prefer. This is also an
+  <p>{% blocktrans %}The semifinal tests are intended to test the capability of candidates to solve algorithmic problems
+but also to implement theirs solution on a machine, in the programming language they prefer. This is also an
 opportunity for candidates to meet other enthusiasts, and for the organizers to relate their experience, to help
 them progress.{% endblocktrans %}</p>
-	<p>{% blocktrans %}The 200 to 300 selected candidates are divided into different semifinals, which take place in
+  <p>{% blocktrans %}The 200 to 300 selected candidates are divided into different semifinals, which take place in
 multiple sessions from mid-January, in the following French cities: Paris, Lyon, Toulouse, Strasbourg, Nantes,
 Lille, Toulon, Louvain-la-Neuve and Bordeaux.{% endblocktrans %}</p>
 
-	<h2>{% trans "The three tests" %}</h2>
+  <h2>{% trans "The three tests" %}</h2>
 
-	<h3>{% trans "The written exam" %}</h3>
+  <h3>{% trans "The written exam" %}</h3>
     <p>{% blocktrans %}The written exam lasts three hours. The test consists of
     a series of five or six questions around a common theme. These questions of
     increasing difficulty guide the contestant in the stages of resolution of
@@ -38,13 +38,13 @@ Lille, Toulon, Louvain-la-Neuve and Bordeaux.{% endblocktrans %}</p>
     algorithms, and the next exercises require the contestant to code effective
     algorithms for harder problems.{% endblocktrans%}</p>
 
-	<h3>{% trans "The interview" %}</h3>
-    <p>{% blocktrans %}The interview lasts between ten and twenty hours. It
-    is a way for us to meet individually every contestant, test his knowledge,
+  <h3>{% trans "The interview" %}</h3>
+    <p>{% blocktrans %}The interview lasts between ten and twenty minutes. It
+    is a way for us to meet individually every contestant, test their knowledge,
     learn about the personal projects he works on, while giving him advices to
     improve.{% endblocktrans %}</p>
 
-	<h3>{% trans "The practical test" %}</h3>
+  <h3>{% trans "The practical test" %}</h3>
     <p>{% blocktrans %}The practical test lasts four hours. Every contestant
     works on algorithmic exercises on a computer. A judging program evaluates
     the code submissions of the contestant. The goal of this test is to check
@@ -55,62 +55,62 @@ Lille, Toulon, Louvain-la-Neuve and Bordeaux.{% endblocktrans %}</p>
     <p>{% blocktrans %}All these tests are individual. No other documents than
     those given by Prologin are authorized.{% endblocktrans %}</p>
 
-	<h2>{% trans "The typical course of a semifinal day" %}</h2>
+  <h2>{% trans "The typical course of a semifinal day" %}</h2>
 
-	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 20 490 340" preserveAspectRatio="xMaxYmax" style="max-width: 500px">
-		<style type="text/css">
-			text, tspan {
-				font-family: inherit;
-				text-anchor: middle;
-				dominant-baseline: central;
-			}
-			#layout rect {
-				fill: none;
-				stroke: black;
-				stroke-width: 2px;
-			}
-		</style>
-			<g id="hours">
-				<text x="30" y="30">8h30</text>
-				<text x="30" y="60">9h00</text>
-				<text x="30" y="180">12h20</text>
-				<text x="30" y="210">13h30</text>
-				<text x="30" y="330">17h30</text>
-			</g>
-			<g id="layout">
-				<path d="M375,60 l0,120" style="stroke-dasharray: 4,4; stroke-width: 2px; stroke: black;"/>
-				<rect x="60" y="30" width="420" height="30" style="fill:#dae5fd"/>
-				<rect x="60" y="60" width="210" height="120" style="fill:#fde7da"/>
-				<rect x="270" y="60" width="210" height="120"/>
-				<rect x="315" y="95" width="120" height="50" style="fill:#fde7da"/>
-				<rect x="60" y="180" width="420" height="30" style="fill:#dae5fd"/>
-				<rect x="60" y="210" width="420" height="120" style="fill:#fde7da"/>
-			</g>
-			<g id="texts">
-				<text x="270" y="45">{% trans "Welcoming contestants, free breakfast" %}</text>
-				<text y="110">{% blocktrans %}<tspan x="170">Written exam</tspan> <tspan x="170" dy="20">(3 hours)</tspan>{% endblocktrans %}
-				</text>
-				<text y="110">{% blocktrans %}<tspan x="375">Interview</tspan> <tspan x="375" dy="20">(15-20 minutes)</tspan>{% endblocktrans %}
-				</text>
-				<text x="270" y="195">{% trans "Free lunch" %}</text>
-				<text x="270" y="265">{% trans "Algorithmic exercises on computer (4h)" %}</text>
-		</g>
-	</svg>
+  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 20 490 340" preserveAspectRatio="xMaxYmax" style="max-width: 500px">
+    <style type="text/css">
+      text, tspan {
+        font-family: inherit;
+        text-anchor: middle;
+        dominant-baseline: central;
+      }
+      #layout rect {
+        fill: none;
+        stroke: black;
+        stroke-width: 2px;
+      }
+    </style>
+      <g id="hours">
+        <text x="30" y="30">8h30</text>
+        <text x="30" y="60">9h00</text>
+        <text x="30" y="180">12h20</text>
+        <text x="30" y="210">13h30</text>
+        <text x="30" y="330">17h30</text>
+      </g>
+      <g id="layout">
+        <path d="M375,60 l0,120" style="stroke-dasharray: 4,4; stroke-width: 2px; stroke: black;"/>
+        <rect x="60" y="30" width="420" height="30" style="fill:#dae5fd"/>
+        <rect x="60" y="60" width="210" height="120" style="fill:#fde7da"/>
+        <rect x="270" y="60" width="210" height="120"/>
+        <rect x="315" y="95" width="120" height="50" style="fill:#fde7da"/>
+        <rect x="60" y="180" width="420" height="30" style="fill:#dae5fd"/>
+        <rect x="60" y="210" width="420" height="120" style="fill:#fde7da"/>
+      </g>
+      <g id="texts">
+        <text x="270" y="45">{% trans "Welcoming contestants, free breakfast" %}</text>
+        <text y="110">{% blocktrans %}<tspan x="170">Written exam</tspan> <tspan x="170" dy="20">(3 hours)</tspan>{% endblocktrans %}
+        </text>
+        <text y="110">{% blocktrans %}<tspan x="375">Interview</tspan> <tspan x="375" dy="20">(15-20 minutes)</tspan>{% endblocktrans %}
+        </text>
+        <text x="270" y="195">{% trans "Free lunch" %}</text>
+        <text x="270" y="265">{% trans "Algorithmic exercises on computer (4h)" %}</text>
+    </g>
+  </svg>
 
     <p>{% blocktrans %}The contestants are welcomed at 8h30 AM, and meet together
     while having a free breakfast provided by Prologin. The written exam takes
-    place between 9 AM and 12 AM, during which they also interview with a
+    place between 9 AM and 12 AM, during which they also have an interview with a
     Prologin organizer.{% endblocktrans %}</p>
 
     <p>{% blocktrans %}Before or during the lunch, also provided by Prologin,
-    the organizers present a quick correction of some of the problems they
+    the organizers present a quick correction of some of the problems the candidates have
     just worked on.{% endblocktrans %}</p>
 
     <p>{% blocktrans %}The day continues with the practical test, which lasts
     four hours, and ends at 7:30 PM.{% endblocktrans %}</p>
 
-	<h2>{% trans "Evaluation methodology" %}</h2>
+  <h2>{% trans "Evaluation methodology" %}</h2>
     <p>{% blocktrans %}The exam submissions are marked according to the
     validity and the efficiency of the proposed algorithms. The syntax of the
     languages used and other similar aspects are not taken in account, as they
@@ -127,9 +127,9 @@ Lille, Toulon, Louvain-la-Neuve and Bordeaux.{% endblocktrans %}</p>
     <p>{% blocktrans %}The final ranking, after which a hundred contestants are
     selected, is obtained from these three grades.{% endblocktrans %}</p>
 
-	<h2>{% trans "Logistics" %}</h2>
+  <h2>{% trans "Logistics" %}</h2>
 
-    <p>{% blocktrans %}The semifinals are spread over several week-ends, during
+    <p>{% blocktrans %}The semifinals are spread over several weekends, during
     which between one to three semifinals take place in different locations.
     {% endblocktrans %}</p>
 

@@ -1,120 +1,120 @@
 {% load i18n zinnia %}
 <div id="entry-{{ object.pk }}" class="hentry{% if object.featured %} featured{% endif %}" itemscope itemtype="http://schema.org/NewsArticle">
-	{% block entry-header %}
-	<header class="entry-header">
-		{% block entry-title %}
-		<h2 class="entry-title" itemprop="name">
-			<a href="{{ object.get_absolute_url }}" title="{{ object.title }}" rel="bookmark" itemprop="url">
-				{{ object.title|widont }}
-			</a>
-		</h2>
-		{% endblock entry-title %}
-		{% block entry-info %}
-		<div class="entry-meta-line text-muted">
-			<p class="entry-info">
-				{% with authors=object.authors.all %}
-				{% if authors|length %}
-				{% trans "Written by" %}
-				{% for author in authors %}
-				<span class="vcard author">
-					<a href="{{ author.get_absolute_url }}" class="fn url{% if not author.get_full_name %} nickname{% endif %}" rel="author"
-					title="{% blocktrans %}Show all {{ author }}'s entries{% endblocktrans %}">{{ author }}</a></span>{% if not forloop.last %}, {% endif %}
-					{% endfor %}
-					{% trans "on" context "Written by <user> *on* <date>" %}
-					{% else %}
-					{% trans "Written on" context "*Written on* <date>" %}
-					{% endif %}
-					{% endwith %}
-					<abbr class="published" title="{{ object.creation_date|date:"c" }}">{{ object.creation_date|date:"DATE_FORMAT" }}</abbr>
-					<meta itemprop="datePublished" content="{{ object.creation_date|date:"c" }}" />
-				{% for tag in object.tags_list %}
-					<a href="{% url 'zinnia:tag_detail' tag %}"><span class="label label-default">{{ tag }}</span></a>
-				{% endfor %}
-			</p>
-			<p class="entry-last-update">
-				{% trans "Last update on" %} <abbr class="updated" title="{{ object.last_update|date:"c" }}">{{ object.last_update|date:"DATE_FORMAT" }}</abbr>
-			</p>
-		</div>
-		{% endblock entry-info %}
-		{% block entry-last-update %}
-		{% endblock entry-last-update %}
-	</header>
-	{% endblock entry-header %}
+  {% block entry-header %}
+  <header class="entry-header">
+    {% block entry-title %}
+    <h2 class="entry-title" itemprop="name">
+      <a href="{{ object.get_absolute_url }}" title="{{ object.title }}" rel="bookmark" itemprop="url">
+        {{ object.title|widont }}
+      </a>
+    </h2>
+    {% endblock entry-title %}
+    {% block entry-info %}
+    <div class="entry-meta-line text-muted">
+      <p class="entry-info">
+        {% with authors=object.authors.all %}
+        {% if authors|length %}
+        {% trans "Written by" %}
+        {% for author in authors %}
+        <span class="vcard author">
+          <a href="{{ author.get_absolute_url }}" class="fn url{% if not author.get_full_name %} nickname{% endif %}" rel="author"
+          title="{% blocktrans %}Show all {{ author }}'s entries{% endblocktrans %}">{{ author }}</a></span>{% if not forloop.last %}, {% endif %}
+          {% endfor %}
+          {% trans "on" context "Written by <user> *on* <date>" %}
+          {% else %}
+          {% trans "Written on" context "*Written on* <date>" %}
+          {% endif %}
+          {% endwith %}
+          <abbr class="published" title="{{ object.creation_date|date:"c" }}">{{ object.creation_date|date:"DATE_FORMAT" }}</abbr>
+          <meta itemprop="datePublished" content="{{ object.creation_date|date:"c" }}" />
+        {% for tag in object.tags_list %}
+          <a href="{% url 'zinnia:tag_detail' tag %}"><span class="label label-default">{{ tag }}</span></a>
+        {% endfor %}
+      </p>
+      <p class="entry-last-update">
+        {% trans "Last update on" %} <abbr class="updated" title="{{ object.last_update|date:"c" }}">{{ object.last_update|date:"DATE_FORMAT" }}</abbr>
+      </p>
+    </div>
+    {% endblock entry-info %}
+    {% block entry-last-update %}
+    {% endblock entry-last-update %}
+  </header>
+  {% endblock entry-header %}
 
-	{% block entry-body %}
-	<div class="entry-body">
-		{% block entry-image %}
-		{% if object.image %}
-		<div class="entry-image">
-			{% if continue_reading %}
-				<a href="{{ object.get_absolute_url }}" title="{{ object.title }}" rel="bookmark">
-			{% endif %}
-			<figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
-				<img src="{{ object.image.url }}" alt="{{ object.image_caption|default:object.title }}"
-					 itemprop="contentUrl"/>
-				{% if object.image_caption %}
-					<figcaption itemprop="caption">{{ object.image_caption }}</figcaption>
-				{% endif %}
-			</figure>
-			{% if continue_reading %}
-				</a>
-			{% endif %}
-		</div>
-		{% endif %}
-		{% endblock entry-image %}
+  {% block entry-body %}
+  <div class="entry-body">
+    {% block entry-image %}
+    {% if object.image %}
+    <div class="entry-image">
+      {% if continue_reading %}
+        <a href="{{ object.get_absolute_url }}" title="{{ object.title }}" rel="bookmark">
+      {% endif %}
+      <figure itemprop="image" itemscope itemtype="http://schema.org/ImageObject">
+        <img src="{{ object.image.url }}" alt="{{ object.image_caption|default:object.title }}"
+           itemprop="contentUrl"/>
+        {% if object.image_caption %}
+          <figcaption itemprop="caption">{{ object.image_caption }}</figcaption>
+        {% endif %}
+      </figure>
+      {% if continue_reading %}
+        </a>
+      {% endif %}
+    </div>
+    {% endif %}
+    {% endblock entry-image %}
 
-		{% block entry-lead %}
-		{% if not continue_reading and object.lead %}
-		<div class="entry-summary" itemprop="headline">
-			{{ object.html_lead|safe }}
-		</div>
-		{% endif %}
-		{% endblock entry-lead %}
+    {% block entry-lead %}
+    {% if not continue_reading and object.lead %}
+    <div class="entry-summary" itemprop="headline">
+      {{ object.html_lead|safe }}
+    </div>
+    {% endif %}
+    {% endblock entry-lead %}
 
-		{% block entry-content %}
-		<div class="entry-content" itemprop="articleBody">
-			{{ object_content|safe }}
-		</div>
-		{% endblock entry-content %}
+    {% block entry-content %}
+    <div class="entry-content" itemprop="articleBody">
+      {{ object_content|safe }}
+    </div>
+    {% endblock entry-content %}
 
-		{% block continue-reading %}
-		{% if continue_reading and object_content.has_more %}
-		<p class="continue-reading">
-			<i class="fa fa-angle-double-right"></i> <a href="{{ object.get_absolute_url }}"
-				 title="{% blocktrans with object=object.title percent=object_content.remaining_percent|floatformat:0 %}{{ percent }}% of {{ object }} still remains to read.{% endblocktrans %}"
-				 rel="bookmark" itemprop="url">
-				{% trans "Continue reading" %}
-			</a>
-		</p>
-		{% endif %}
-		{% endblock continue-reading %}
-	</div>
-	{% endblock entry-body %}
+    {% block continue-reading %}
+    {% if continue_reading and object_content.has_more %}
+    <p class="continue-reading">
+      <i class="fa fa-angle-double-right"></i> <a href="{{ object.get_absolute_url }}"
+         title="{% blocktrans with object=object.title percent=object_content.remaining_percent|floatformat:0 %}{{ percent }}% of {{ object }} still remains to read.{% endblocktrans %}"
+         rel="bookmark" itemprop="url">
+        {% trans "Continue reading" %}
+      </a>
+    </p>
+    {% endif %}
+    {% endblock continue-reading %}
+  </div>
+  {% endblock entry-body %}
 
-	{% block entry-footer %}
-	<div class="entry-footer well">
-		{% block entry-tags %}
-		<p class="entry-tags">
-			<strong>{% trans "Tags:" %}</strong>
-			{% for tag in object.tags_list %}
-			<a href="{% url 'zinnia:tag_detail' tag %}"
-				 title="{% blocktrans %}Show all entries tagged by {{ tag }}{% endblocktrans %}"
-				 rel="tag">{{ tag }}</a>
-			{% empty %}
-			<span>{% trans "No tags" %}</span>
-			{% endfor %}
-		</p>
-		{% endblock entry-tags %}
-		{% block entry-shorturl %}
-		<p class="entry-shorturl">
-			<strong>{% trans "Persistent URL:" %}</strong>
-			<a href="{{ object.short_url }}"
-				 title="{% blocktrans with object=object.title %}Short URL to {{ object }}{% endblocktrans %}"
-				 rel="shortlink">
-				{{ object.short_url }}
-			</a>
-		</p>
-		{% endblock entry-shorturl %}
-	</div>
-	{% endblock entry-footer %}
+  {% block entry-footer %}
+  <div class="entry-footer well">
+    {% block entry-tags %}
+    <p class="entry-tags">
+      <strong>{% trans "Tags:" %}</strong>
+      {% for tag in object.tags_list %}
+      <a href="{% url 'zinnia:tag_detail' tag %}"
+         title="{% blocktrans %}Show all entries tagged by {{ tag }}{% endblocktrans %}"
+         rel="tag">{{ tag }}</a>
+      {% empty %}
+      <span>{% trans "No tags" %}</span>
+      {% endfor %}
+    </p>
+    {% endblock entry-tags %}
+    {% block entry-shorturl %}
+    <p class="entry-shorturl">
+      <strong>{% trans "Persistent URL:" %}</strong>
+      <a href="{{ object.short_url }}"
+         title="{% blocktrans with object=object.title %}Short URL to {{ object }}{% endblocktrans %}"
+         rel="shortlink">
+        {{ object.short_url }}
+      </a>
+    </p>
+    {% endblock entry-shorturl %}
+  </div>
+  {% endblock entry-footer %}
 </div>

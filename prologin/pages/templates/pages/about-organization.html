@@ -3,77 +3,77 @@
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
+  {{ block.super }}
+  {% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "About the Prologin organization" %}{% endblock %}
 
 {% block content %}
-	{% url 'pages:about-contest' as contest_url %}
+  {% url 'pages:about-contest' as contest_url %}
 
-	<h1>{% trans "About the Prologin organization" %}</h1>
+  <h1>{% trans "About the Prologin organization" %}</h1>
 
-	<p>{% blocktrans %}Prologin is a non-profit organization whose main mission is to develop and organize the
+  <p>{% blocktrans %}Prologin is a nonprofit organization whose main mission is to develop and organize the
 <a href="{{ contest_url }}">Prologin computing contest</a>.{% endblocktrans %}</p>
 
-	<p class="visible-sm visible-xs text-center"><a href="#organization"><i class=" fa fa-arrow-down"></i> {% trans "Jump to description" %}</a></p>
+  <p class="visible-sm visible-xs text-center"><a href="#organization"><i class=" fa fa-arrow-down"></i> {% trans "Jump to description" %}</a></p>
 
-	<div class="row">
-		<div class="col-md-4 col-sm-6">
-			<div class="panel panel-default">
-				<div class="panel-heading"><h4 id="contact">{% trans "Contact info" %}</h4></div>
-				<div class="panel-body">
-					<dl class="dl-horizontal dl-narrow">
-						<dt>{% trans "Address" %}</dt>
-						<dd>
-							<address>Association Prologin<br>
-								14-16 Rue Voltaire<br>
-								94270 Le Kremlin Bicêtre
-							</address>
-						</dd>
-						<dt>{% trans "Phone" %}</dt>
-						<dd><a href="tel:+33144080190">+331 44 08 01 90</a></dd>
-						<dt>{% trans "Mail" %}</dt>
-						<dd><code>info@prologin.org</code></dd>
-					</dl>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-3 col-sm-6">
-			<div class="panel panel-default">
-				<div class="panel-heading"><h4 id="legal">{% blocktrans with year=request.current_edition.year %}The {{ year }} team{% endblocktrans %}</h4></div>
-				<div class="panel-body">
-					{% if team_pres %}<div class="organization-team-box">
-						<strong>{% trans "President" %}</strong><br>
-						<a href="{% url 'users:profile' team_pres.user.pk %}" class="team-member-avatar"
-						   style="text-indent: -9999px;{% if team_pres.user.picture_or_avatar %}background-image: url('{{ team_pres.user.picture_or_avatar.url }}'){% endif %}">{% trans "President" %}</a>
-						<br>{{ team_pres.user.get_full_name }}<br>
-						<small class="text-muted">{{ team_pres.user.username }}</small>
-					</div>{% endif %}
-					<p><a href="{% url 'team:year' request.current_edition.year %}" class="btn btn-block btn-default">
-						<i class="fa fa-users"></i> {% blocktrans with count=team.count %}See the {{ count }} volunteers{% endblocktrans %}</a></p>
-				</div>
-			</div>
-		</div>
-		<div class="col-md-5 col-sm-12">
-			<div class="panel panel-default">
-				<div class="panel-heading"><h4 id="legal">{% trans "Legal status" %}</h4></div>
-				<div class="panel-body">
-					<p>{% blocktrans %}Prologin is a French “law 1901” organization registered under the sub-prefecture of
+  <div class="row">
+    <div class="col-md-4 col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4 id="contact">{% trans "Contact info" %}</h4></div>
+        <div class="panel-body">
+          <dl class="dl-horizontal dl-narrow">
+            <dt>{% trans "Address" %}</dt>
+            <dd>
+              <address>Association Prologin<br>
+                14-16 Rue Voltaire<br>
+                94270 Le Kremlin Bicêtre
+              </address>
+            </dd>
+            <dt>{% trans "Phone" %}</dt>
+            <dd><a href="tel:+33144080190">+331 44 08 01 90</a></dd>
+            <dt>{% trans "Mail" %}</dt>
+            <dd><code>info@prologin.org</code></dd>
+          </dl>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4 id="legal">{% blocktrans with year=request.current_edition.year %}The {{ year }} team{% endblocktrans %}</h4></div>
+        <div class="panel-body">
+          {% if team_pres %}<div class="organization-team-box">
+            <strong>{% trans "President" %}</strong><br>
+            <a href="{% url 'users:profile' team_pres.user.pk %}" class="team-member-avatar"
+               style="text-indent: -9999px;{% if team_pres.user.picture_or_avatar %}background-image: url('{{ team_pres.user.picture_or_avatar.url }}'){% endif %}">{% trans "President" %}</a>
+            <br>{{ team_pres.user.get_full_name }}<br>
+            <small class="text-muted">{{ team_pres.user.username }}</small>
+          </div>{% endif %}
+          <p><a href="{% url 'team:year' request.current_edition.year %}" class="btn btn-block btn-default">
+            <i class="fa fa-users"></i> {% blocktrans with count=team.count %}See the {{ count }} volunteers{% endblocktrans %}</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading"><h4 id="legal">{% trans "Legal status" %}</h4></div>
+        <div class="panel-body">
+          <p>{% blocktrans %}Prologin is a French “law 1901” organization registered under the sub-prefecture of
 <em>L'Hay-les-Roses</em> on 2000-08-04.{% endblocktrans %}</p>
-					<p>{% trans "CNIL registration number:" %} <code>830039</code>.</p>
-					<p><small>{% blocktrans %}In accordance with Article 34 of the “Informatique et Liberté” law, you have
+          <p>{% trans "CNIL registration number:" %} <code>830039</code>.</p>
+          <p><small>{% blocktrans %}In accordance with Article 34 of the “Informatique et Liberté” law, you have
 the right to access, modify and delete data concerning you.
 To exercise this right, please contact Prologin using one of the methods listed in
 the “Contact info” box.{% endblocktrans %}</small></p>
-				</div>
-			</div>
-		</div>
-	</div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-	<h2 id="organization">{% trans "A computer enthusiasts organization" %}</h2>
-	{% blocktrans %}<p class="text-justify">The purpose of Prologin is to enable young computer enthusiasts to meet and compete with each other. Indeed,
+  <h2 id="organization">{% trans "A computer enthusiasts organization" %}</h2>
+  {% blocktrans %}<p class="text-justify">The purpose of Prologin is to enable young computer enthusiasts to meet and compete with one another. Indeed,
 computer science is still largely under represented in French schools. Therefore, those who practice it are
 often self-taught and have an individual practice of it. However, any large project requires teamwork. This is
 why, even though candidates seat the exam individually, the competition should facilitate the exchange of ideas
@@ -81,7 +81,7 @@ between candidates. To promote these exchanges, the Prologin team tries to desig
 put forward playful aspects. Meanwhile, everything is done so that participants can and should exchange ideas
 within a cheerful atmoshpere. Combining work and pleasure is therefore a key objective of Prologin.</p>
 
-<p class="text-justify">We want to allow candidates to take advantage of the competition to enhance their skills. We try to cover as
+<p class="text-justify">We want to allow the candidates to take advantage of the competition to enhance their skills. We try to cover as
 many areas of computer science: artificial intelligence algorithms, general culture, various programming
 languages…</p>
 
@@ -94,9 +94,9 @@ experiences for our staff members.</p>
 with us!</p>
 {% endblocktrans %}
 
-	<h2 id="contribute">{% trans "Everyone can contribute to Prologin" %}</h2>
-	{# TODO: link to forums; link to how to promote (posters) #}
-	{% blocktrans %}<p class="text-justify">Contributing can be done in various ways: promoting the event, developing the website and
+  <h2 id="contribute">{% trans "Everyone can contribute to Prologin" %}</h2>
+  {# TODO: link to forums; link to how to promote (posters) #}
+  {% blocktrans %}<p class="text-justify">Contributing can be done in various ways: promoting the event, developing the website and
 the software architecture for the final, helping during the semifinals, contributing in the forums, and so on.
 We also appreciate your feedback and your suggestions.</p>
 

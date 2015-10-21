@@ -78,7 +78,11 @@ class AnswerAdmin(admin.ModelAdmin):
     form = AnswerAdminForm
 
     def answer_display(self, obj):
-        return _("Answer %(id)s") % {'id': obj.pk}
+        if obj.proposition.question.is_open_ended:
+            return _("Answer %(id)s: %(answer)s") % {'id': obj.pk,
+                                                     'answer': obj.textual_answer}
+        else:
+            return _("Answer %(id)s") % {'id': obj.pk}
 
     def proposition_question_qcm_event_edition(self, obj):
         return admin_url_for(obj.proposition.question.qcm.event.edition)

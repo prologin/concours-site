@@ -3,144 +3,144 @@
 
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
-	{% breadcrumb challenge.year "" %}
-	{% breadcrumb challenge.event_type|choiceenum_label "training:challenge" challenge.year challenge.event_type.name %}
-	{% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
-	{% breadcrumb_for "training:submission" challenge.year challenge.event_type.name problem.name submission.pk %}{% trans "Submission" %}{% endbreadcrumb_for %}
+  {{ block.super }}
+  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
+  {% breadcrumb challenge.year "" %}
+  {% breadcrumb challenge.event_type|choiceenum_label "training:challenge" challenge.year challenge.event_type.name %}
+  {% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
+  {% breadcrumb_for "training:submission" challenge.year challenge.event_type.name problem.name submission.pk %}{% trans "Submission" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans with problem=problem.title %}Submission for {{ problem }}{% endblocktrans %} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block extra_head %}
-	<link rel="stylesheet" type="text/css" href="{% static 'lib/css/pygments-monokai.css' %}" media="screen"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/css/pygments-monokai.css' %}" media="screen"/>
 {% endblock %}
 
 {% block content %}
-	<h1>{% blocktrans with problem=problem.title %}Submission for {{ problem }}{% endblocktrans %}
-		<small>– {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}</small>
-	</h1>
+  <h1>{% blocktrans with problem=problem.title %}Submission for {{ problem }}{% endblocktrans %}
+    <small>– {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}</small>
+  </h1>
 
-	<div class="row">
-		<div class="col-md-9 col-sm-7">
-			<p class="text-muted">
-			{% if submission.submission.user != request.user %}{% blocktrans with username=submission.submission.user.username %}Submitted by <strong>{{ username }}</strong>{% endblocktrans %} ⋅{% endif %}
-				{% blocktrans with lang=submission.get_language_display %}Programmed in <strong>{{ lang }}</strong>{% endblocktrans %}
-				⋅ {% blocktrans with date=submission.date_submitted|date:'DATETIME_FORMAT' short_date=submission.date_submitted|date:'c' %}Submitted on <strong title="{{ short_date }}">{{ date }}</strong>{% endblocktrans %}
-			</p>
-			<blockquote>
-			{% if submission.summary %}
-				{{ submission.summary }}
-			{% else %}
-				<em>{% trans "No summary." %}</em>
-			{% endif %}
-			</blockquote>
-		</div>
-		<div class="col-md-3 col-sm-5">
-			<div class="panel panel-default">
-				<div class="panel-body text-center {% if submission.succeeded %}bg-success{% elif submission.done %}bg-danger{% endif %}">
-					<p class="{% if submission.succeeded %}text-success{% elif submission.done %}text-danger{% endif %}">
-					{% if not submission.correctable %}
-					<i class="fa fa-circle-o"></i> {% trans "Not correctable" %}
-					{% elif submission.succeeded %}
-					<i class="fa fa-check-circle text-success"></i> {% trans "Solution passes tests" %}
-					{% elif submission.done %}
-					<i class="fa fa-times-circle"></i> {% trans "Solution is invalid" %}
-					{% elif not submission.expired_result %}
-					<i class="fa fa-clock-o"></i> {% trans "Not corrected yet" %}
-					{% else %}
-					<i class="fa fa-question"></i> {% trans "Unavailable status" %}
-					{% endif %}</p>
-				{% if submission.done %}
-					<p>{% trans "Points won:" %} <span class="label label-{% if submission.succeeded %}success{% else %}danger{% endif %}">{{ submission.score }}</span></p>
-					{% if submission.exec_time != None or submission.exec_memory != None %}<p><small>
-						{% blocktrans with ms=submission.exec_time|default:'?' %}Execution time: {{ ms }}&nbsp;ms{% endblocktrans %}<br>
-						{% blocktrans with kb=submission.exec_memory|default:'?' %}Memory used: {{ kb }}&nbsp;kB{% endblocktrans %}
-					</small></p>{% endif %}
-				{% endif %}
-					<a href="{% url 'training:problem' challenge.year challenge.event_type.name problem.name %}?fork={{ submission.pk }}#submit" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Edit and submit again" %}</a>
-				</div>
-			</div>
-		</div>
-	</div> {# /row #}
+  <div class="row">
+    <div class="col-md-9 col-sm-7">
+      <p class="text-muted">
+      {% if submission.submission.user != request.user %}{% blocktrans with username=submission.submission.user.username %}Submitted by <strong>{{ username }}</strong>{% endblocktrans %} ⋅{% endif %}
+        {% blocktrans with lang=submission.get_language_display %}Programmed in <strong>{{ lang }}</strong>{% endblocktrans %}
+        ⋅ {% blocktrans with date=submission.date_submitted|date:'DATETIME_FORMAT' short_date=submission.date_submitted|date:'c' %}Submitted on <strong title="{{ short_date }}">{{ date }}</strong>{% endblocktrans %}
+      </p>
+      <blockquote>
+      {% if submission.summary %}
+        {{ submission.summary }}
+      {% else %}
+        <em>{% trans "No summary." %}</em>
+      {% endif %}
+      </blockquote>
+    </div>
+    <div class="col-md-3 col-sm-5">
+      <div class="panel panel-default">
+        <div class="panel-body text-center {% if submission.succeeded %}bg-success{% elif submission.done %}bg-danger{% endif %}">
+          <p class="{% if submission.succeeded %}text-success{% elif submission.done %}text-danger{% endif %}">
+          {% if not submission.correctable %}
+          <i class="fa fa-circle-o"></i> {% trans "Not correctable" %}
+          {% elif submission.succeeded %}
+          <i class="fa fa-check-circle text-success"></i> {% trans "Solution passes tests" %}
+          {% elif submission.done %}
+          <i class="fa fa-times-circle"></i> {% trans "Solution is invalid" %}
+          {% elif not submission.expired_result %}
+          <i class="fa fa-clock-o"></i> {% trans "Not corrected yet" %}
+          {% else %}
+          <i class="fa fa-question"></i> {% trans "Unavailable status" %}
+          {% endif %}</p>
+        {% if submission.done %}
+          <p>{% trans "Points won:" %} <span class="label label-{% if submission.succeeded %}success{% else %}danger{% endif %}">{{ submission.score }}</span></p>
+          {% if submission.exec_time != None or submission.exec_memory != None %}<p><small>
+            {% blocktrans with ms=submission.exec_time|default:'?' %}Execution time: {{ ms }}&nbsp;ms{% endblocktrans %}<br>
+            {% blocktrans with kb=submission.exec_memory|default:'?' %}Memory used: {{ kb }}&nbsp;kB{% endblocktrans %}
+          </small></p>{% endif %}
+        {% endif %}
+          <a href="{% url 'training:problem' challenge.year challenge.event_type.name problem.name %}?fork={{ submission.pk }}#submit" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Edit and submit again" %}</a>
+        </div>
+      </div>
+    </div>
+  </div> {# /row #}
 
-	<div class="panel panel-default clearfix">
-		<div class="panel-heading">
-			<i class="fa" data-indicator="#submission-code"></i>
-			<a role="button" data-toggle="collapse" href="#submission-code" aria-expanded="false" aria-controls="submission-code">{% trans "Solution code" %}</a></div>
-		<div class="panel-body panel-collapse collapse" style="padding: 0;" id="submission-code" role="tabpanel" aria-labelledby="{% trans "Solution code" %}">
-			{% pygmentize submission.code submission.language_enum.pygments_lexer %}
-		</div>
-	</div>
+  <div class="panel panel-default clearfix">
+    <div class="panel-heading">
+      <i class="fa" data-indicator="#submission-code"></i>
+      <a role="button" data-toggle="collapse" href="#submission-code" aria-expanded="false" aria-controls="submission-code">{% trans "Solution code" %}</a></div>
+    <div class="panel-body panel-collapse collapse" style="padding: 0;" id="submission-code" role="tabpanel" aria-labelledby="{% trans "Solution code" %}">
+      {% pygmentize submission.code submission.language_enum.pygments_lexer %}
+    </div>
+  </div>
 
-	{% if submission.correctable and submission.done and not submission.expired_result %}
-	{% with results=submission.correction_results %}
-	<div class="alert alert-{% if results.compilation.success %}success{% else %}warning{% endif %}">
-	{% if results.compilation.success %}
-		<p><i class="fa fa-check-circle"></i> {% trans "The compilation went fine." %}</p>
-	{% else %}
-		<p><i class="fa fa-times-circle"></i> {% trans "The compilation failed:" %}</p>
-		<pre><code>{{ results.compilation.value }}</code></pre>
-	{% endif %}
-	</div>
-	{% if results.compilation.success %}
-	<div class="row">
-		<div class="col-md-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa" data-indicator="#correction-tests"></i>
-					<a role="button" data-toggle="collapse" href="#correction-tests" aria-expanded="true" aria-controls="correction-tests">{% trans "Correction tests" %}</a></div>
-				<ul class="list-group collapse in" id="correction-tests" aria-labelledby="{% trans "Correction tests" %}">
-					{% for result in results.correction %}
-						{% include 'problems/stub_submission_result.html' %}
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-		<div class="col-md-6">
-			<div class="panel panel-default">
-				<div class="panel-heading">
-					<i class="fa" data-indicator="#performance-tests"></i>
-					<a role="button" data-toggle="collapse" href="#performance-tests" aria-expanded="true" aria-controls="performance-tests">{% trans "Performance tests" %}</a></div>
-				<ul class="list-group collapse in" id="performance-tests" aria-labelledby="{% trans "Performance tests" %}">
-					{% for result in results.performance %}
-						{% include 'problems/stub_submission_result.html' %}
-					{% endfor %}
-				</ul>
-			</div>
-		</div>
-	</div>
-	{% endif %}
-	{% endwith %}
-	<div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> <div>{% blocktrans with rem=submission.expired_result_datetime|naturaltime %}These compilation and test results will be gone {{ rem }}.{% endblocktrans %}</div></div>
-	{% elif not submission.correctable %}
-		<p class="alert alert-info">{% blocktrans %}The submission can not be corrected as it was written in a language that can not be compiled nor executed.{% endblocktrans %}</p>
-	{% elif submission.expired_result %}
-		<p class="alert alert-info">{% blocktrans %}Submission results are not available anymore. This is because the code was submitted a long time ago.
+  {% if submission.correctable and submission.done and not submission.expired_result %}
+  {% with results=submission.correction_results %}
+  <div class="alert alert-{% if results.compilation.success %}success{% else %}warning{% endif %}">
+  {% if results.compilation.success %}
+    <p><i class="fa fa-check-circle"></i> {% trans "The compilation went fine." %}</p>
+  {% else %}
+    <p><i class="fa fa-times-circle"></i> {% trans "The compilation failed:" %}</p>
+    <pre><code>{{ results.compilation.value }}</code></pre>
+  {% endif %}
+  </div>
+  {% if results.compilation.success %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="fa" data-indicator="#correction-tests"></i>
+          <a role="button" data-toggle="collapse" href="#correction-tests" aria-expanded="true" aria-controls="correction-tests">{% trans "Correction tests" %}</a></div>
+        <ul class="list-group collapse in" id="correction-tests" aria-labelledby="{% trans "Correction tests" %}">
+          {% for result in results.correction %}
+            {% include 'problems/stub_submission_result.html' %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <i class="fa" data-indicator="#performance-tests"></i>
+          <a role="button" data-toggle="collapse" href="#performance-tests" aria-expanded="true" aria-controls="performance-tests">{% trans "Performance tests" %}</a></div>
+        <ul class="list-group collapse in" id="performance-tests" aria-labelledby="{% trans "Performance tests" %}">
+          {% for result in results.performance %}
+            {% include 'problems/stub_submission_result.html' %}
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+  {% endwith %}
+  <div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> <div>{% blocktrans with rem=submission.expired_result_datetime|naturaltime %}These compilation and test results will be gone {{ rem }}.{% endblocktrans %}</div></div>
+  {% elif not submission.correctable %}
+    <p class="alert alert-info">{% blocktrans %}The submission can not be corrected as it was written in a language that can not be compiled nor executed.{% endblocktrans %}</p>
+  {% elif submission.expired_result %}
+    <p class="alert alert-info">{% blocktrans %}Submission results are not available anymore. This is because the code was submitted a long time ago.
 You can still try to submit your code again using the “Edit and submit again” button.{% endblocktrans %}</p>
-	{% else %}
-		<p class="alert alert-info">{% trans "This submission is pending correction. This can take from a few seconds to some minutes." %}</p>
-		<noscript><p class="alert alert-warning">{% trans "Your browser does not support Javascript. You will have to manually reload this page once in a while to check if results have arrived." %}</p></noscript>
-	{% endif %}
+  {% else %}
+    <p class="alert alert-info">{% trans "This submission is pending correction. This can take from a few seconds to some minutes." %}</p>
+    <noscript><p class="alert alert-warning">{% trans "Your browser does not support Javascript. You will have to manually reload this page once in a while to check if results have arrived." %}</p></noscript>
+  {% endif %}
 {% endblock %}
 
 
 {% block extra_script %}
-	<script type="text/javascript" src="{% static 'js/collapse-indicator.js' %}"></script>
-	{% if not submission.done and not submission.expired_result %}
-	{# if the submission is not corrected yet but we may get the result later #}
-	<script type="text/javascript" charset="utf-8">
-		function check_for_result() {
-			$.getJSON('{% url 'training:ajax-submission-corrected' submission.pk %}')
-					.done(function(has_result) {
-						if (has_result === true)
-							window.location.reload();
-						else
-							setTimeout(check_for_result, {% get_setting 'TRAINING_RESULT_POLL_INTERVAL' %});
-					});
-		}
-		check_for_result();
-	</script>
-	{% endif %}
+  <script type="text/javascript" src="{% static 'js/collapse-indicator.js' %}"></script>
+  {% if not submission.done and not submission.expired_result %}
+  {# if the submission is not corrected yet but we may get the result later #}
+  <script type="text/javascript" charset="utf-8">
+    function check_for_result() {
+      $.getJSON('{% url 'training:ajax-submission-corrected' submission.pk %}')
+          .done(function(has_result) {
+            if (has_result === true)
+              window.location.reload();
+            else
+              setTimeout(check_for_result, {% get_setting 'TRAINING_RESULT_POLL_INTERVAL' %});
+          });
+    }
+    check_for_result();
+  </script>
+  {% endif %}
 {% endblock %}

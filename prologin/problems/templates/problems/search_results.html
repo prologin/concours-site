@@ -2,35 +2,35 @@
 {% load i18n utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
-	{% breadcrumb_for "" %}{% trans "Search results" %}{% endbreadcrumb_for %}
+  {{ block.super }}
+  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "" %}{% trans "Search results" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "Search training problems" %}{% endblock %}
 
 {% block content %}
 
-	<h1>{% trans "Search training problems" %}</h1>
+  <h1>{% trans "Search training problems" %}</h1>
 
-	<p class="visible-xs"><a href="#problems"><i class="fa fa-angle-double-down"></i> {% trans "Jump to results" %}</a></p>
-	{% include "problems/stub_search_form.html" %}
+  <p class="visible-xs"><a href="#problems"><i class="fa fa-angle-double-down"></i> {% trans "Jump to results" %}</a></p>
+  {% include "problems/stub_search_form.html" %}
 
-	<div class="list-group" id="problems">
-		<div class="list-group-item list-group-item-info">
-			{% blocktrans with page_obj.paginator.count as count and page_obj.start_index as from and page_obj.end_index as to %}Problems {{ from }}-{{ to }} of {{ count }}{% endblocktrans %}
-		</div>
-		{% with show_challenge=True %}
-		{% for problem in page_obj %}
-			{% include "problems/stub_problem.html" %}
-		{% empty %}
-			<p class="list-group-item text-muted">
-				{% trans "No problem match your query. Try broader criteria." %}
-			</p>
-		{% endfor %}
-		{% endwith %}
-	</div>
+  <div class="list-group" id="problems">
+    <div class="list-group-item list-group-item-info">
+      {% blocktrans with page_obj.paginator.count as count and page_obj.start_index as from and page_obj.end_index as to %}Problems {{ from }}-{{ to }} of {{ count }}{% endblocktrans %}
+    </div>
+    {% with show_challenge=True %}
+    {% for problem in page_obj %}
+      {% include "problems/stub_problem.html" %}
+    {% empty %}
+      <p class="list-group-item text-muted">
+        {% trans "No problem match your query. Try broader criteria." %}
+      </p>
+    {% endfor %}
+    {% endwith %}
+  </div>
 
-	{% include "stub_pagination.html" %}
+  {% include "stub_pagination.html" %}
 
 {% endblock %}

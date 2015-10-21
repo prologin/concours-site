@@ -2,63 +2,63 @@
 {% load i18n utils bootstrap django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
-	{% breadcrumb_for "" %}{% trans "The challenges" %}{% endbreadcrumb_for %}
+  {{ block.super }}
+  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "" %}{% trans "The challenges" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "Training challenges" %}{% endblock %}
 
 {% block content %}
 
-	<h1>{% trans "Training challenges" %}</h1>
+  <h1>{% trans "Training challenges" %}</h1>
 
-	<p class="visible-xs"><a href="#problems"><i class="fa fa-angle-double-down"></i> {% trans "Jump to problem index" %}</a></p>
-	{% include "problems/stub_search_form.html" %}
+  <p class="visible-xs"><a href="#problems"><i class="fa fa-angle-double-down"></i> {% trans "Jump to problem index" %}</a></p>
+  {% include "problems/stub_search_form.html" %}
 
-	{% regroup challenges|dictsortreversed:'year' by year as grouped_challenges %}
+  {% regroup challenges|dictsortreversed:'year' by year as grouped_challenges %}
 
-	<div class="row" id="problems">
-		{% for grouped_challenge in grouped_challenges %}
-			<div class="col-xs-12 col-sm-6 col-md-4">
-				<div class="challenge-group">
-					<div class="challenge-year">{{ grouped_challenge.grouper }}</div>
-					<ul class="challenge-event-list">
-						{% for challenge in grouped_challenge.list|dictsort:'event_type.name' %}
-							<li>
-								<a href="{% url 'training:challenge' grouped_challenge.grouper challenge.event_type.name %}">
-								{{ challenge.event_type|choiceenum_label }}
-								<small class="text-muted">({% blocktrans count challenge.problems|length as count %}{{ count }}&nbsp;problem{% plural %}{{ count }}&nbsp;problems{% endblocktrans %}) </small>
-								{% if not challenge.displayable %}
-								  <span class="fa-stack fa-lg" style="font-size: 0.7em">
-									<i class="fa fa-eye fa-stack-1x"></i>
-									<i title="{% trans "Challenge is hidden to regular users" %}" class="fa fa-ban fa-stack-2x text-danger"></i>
-								  </span>
-								{% endif %}
-								</a>
-							</li>
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
-		{% endfor %}
-	</div>
+  <div class="row" id="problems">
+    {% for grouped_challenge in grouped_challenges %}
+      <div class="col-xs-12 col-sm-6 col-md-4">
+        <div class="challenge-group">
+          <div class="challenge-year">{{ grouped_challenge.grouper }}</div>
+          <ul class="challenge-event-list">
+            {% for challenge in grouped_challenge.list|dictsort:'event_type.name' %}
+              <li>
+                <a href="{% url 'training:challenge' grouped_challenge.grouper challenge.event_type.name %}">
+                {{ challenge.event_type|choiceenum_label }}
+                <small class="text-muted">({% blocktrans count challenge.problems|length as count %}{{ count }}&nbsp;problem{% plural %}{{ count }}&nbsp;problems{% endblocktrans %}) </small>
+                {% if not challenge.displayable %}
+                  <span class="fa-stack fa-lg" style="font-size: 0.7em">
+                  <i class="fa fa-eye fa-stack-1x"></i>
+                  <i title="{% trans "Challenge is hidden to regular users" %}" class="fa fa-ban fa-stack-2x text-danger"></i>
+                  </span>
+                {% endif %}
+                </a>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
 
 
-	<div class="row">
-		<div class="col-sm-6">
-			<h3>{% trans "What is this?" %}</h3>
+  <div class="row">
+    <div class="col-sm-6">
+      <h3>{% trans "What is this?" %}</h3>
 
-			<p>{% blocktrans %}Want to find out what the Prologin algorithmic exercises are like?
+      <p>{% blocktrans %}Want to find out what the Prologin algorithmic exercises are like?
 In this section, you can browse and tackle all the problems from the previous Prologin events. These are
 problems from both the Prologin online qualifications and the on-site semifinals.{% endblocktrans %}</p>
-		</div>
-		<div class="col-sm-6">
-			<h3>{% trans "How does it work?" %}</h3>
+    </div>
+    <div class="col-sm-6">
+      <h3>{% trans "How does it work?" %}</h3>
 
-			<p>{% blocktrans %}Read the problem statement carefully and submit your solution. The system will check your
+      <p>{% blocktrans %}Read the problem statement carefully and submit your solution. The system will check your
 submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you
 need to solve the problem.{% endblocktrans %}</p>
-		</div>
-	</div>
+    </div>
+  </div>
 {% endblock %}

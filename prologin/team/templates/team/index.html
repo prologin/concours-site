@@ -3,50 +3,50 @@
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
-	{% breadcrumb_for "" %}{% trans "Teams" %}{% endbreadcrumb_for %}
-	{% breadcrumb year "team:year" year %}
+  {{ block.super }}
+  {% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "" %}{% trans "Teams" %}{% endbreadcrumb_for %}
+  {% breadcrumb year "team:year" year %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans %}Staff {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 <ul class="pager">
-	{% for team in timeline %}
-	<li{% if team.year == year %} class="active"{% endif %}><a href="{% url 'team:year' team.year %}">{{ team.year }}</a></li>
-	{% endfor %}
+  {% for team in timeline %}
+  <li{% if team.year == year %} class="active"{% endif %}><a href="{% url 'team:year' team.year %}">{{ team.year }}</a></li>
+  {% endfor %}
 </ul>
 
 <header class="page-header">
-	<h1>{% blocktrans with count=team_count %}Staff {{ year }} <small>{{ count }} members</small>{% endblocktrans %}</h1>
+  <h1>{% blocktrans with count=team_count %}Staff {{ year }} <small>{{ count }} members</small>{% endblocktrans %}</h1>
 </header>
 
 <div class="row">
-	{% for member in team %}
-	<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-		<div class="media team-member" id="m{{ member.user.pk }}">
-			<div class="media-left">
-				<a href="{% url 'users:profile' member.user.pk %}" class="team-member-avatar" style="{% if member.user.picture_or_avatar %}background-image: url('{{ member.user.picture_or_avatar.url }}'){% endif %}" /></a>
-			</div>
-			<div class="media-body">
-				<h4 class="media-heading">
-					<a href="{% url 'users:profile' member.user.pk %}">{{ member.user.get_full_name|default:member.user.username }}</a>
-						<small><br>{{ member.user.username }}</small></h4>
-				<p>{{ member.role }}</p>
-			</div>
-		</div>
-	</div>
-	{% endfor %}
+  {% for member in team %}
+  <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="media team-member" id="m{{ member.user.pk }}">
+      <div class="media-left">
+        <a href="{% url 'users:profile' member.user.pk %}" class="team-member-avatar" style="{% if member.user.picture_or_avatar %}background-image: url('{{ member.user.picture_or_avatar.url }}'){% endif %}" /></a>
+      </div>
+      <div class="media-body">
+        <h4 class="media-heading">
+          <a href="{% url 'users:profile' member.user.pk %}">{{ member.user.get_full_name|default:member.user.username }}</a>
+            <small><br>{{ member.user.username }}</small></h4>
+        <p>{{ member.role }}</p>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
 </div>
 
 {% endblock %}
 
 {% block extra_script %}
-	<script type="text/javascript">
-	$(function() {
-		var mid = window.location.hash.match(/(m[0-9]+)/)[1];
-		if (mid) $('#' + mid).addClass('highlight');
-	});
-	</script>
+  <script type="text/javascript">
+  $(function() {
+    var mid = window.location.hash.match(/(m[0-9]+)/)[1];
+    if (mid) $('#' + mid).addClass('highlight');
+  });
+  </script>
 {% endblock %}

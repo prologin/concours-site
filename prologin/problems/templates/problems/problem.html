@@ -3,201 +3,201 @@
 
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
-	{% breadcrumb challenge.year "" %}
-	{% breadcrumb challenge.event_type|choiceenum_label "training:challenge" challenge.year challenge.event_type.name %}
-	{% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
+  {{ block.super }}
+  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
+  {% breadcrumb challenge.year "" %}
+  {% breadcrumb challenge.event_type|choiceenum_label "training:challenge" challenge.year challenge.event_type.name %}
+  {% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
 {% endblock breadcrumbs %}
 
 {% block body_tag %}data-spy="scroll" data-target="#problem-nav"{% endblock %}
 {% block title %}{{ problem.title }} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
-	<div class="row">
-		<div class="col-md-9" role="main">
-			<h1>{{ problem.title }}
-				<small>– {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}</small>
-			</h1>
+  <div class="row">
+    <div class="col-md-9" role="main">
+      <h1>{{ problem.title }}
+        <small>– {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}</small>
+      </h1>
 
-			<div class="problem-meta-info text-muted">
-				<p>{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %} ⋅
-					{% blocktrans count meta_tackled_by as count %}Tackled by {{ count }} member{% plural %}Tackled by {{ count }} members{% endblocktrans %} ⋅
-					{% blocktrans count meta_solved_by as count %}Solved by {{ count }} member{% plural %}Solved by {{ count }} members{% endblocktrans %}
-				{% if user_submission.succeeded %}⋅ <span class="text-success"><i class="fa fa-check"></i> {% trans "You solved this problem." %}</span>
-				{% elif user_submission %}⋅ <span class="text-warning"><i class="fa fa-times"></i> {% trans "You tackled this problem without success." %}</span>
-				{% endif %}
-				</p>
-			</div>
+      <div class="problem-meta-info text-muted">
+        <p>{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %} ⋅
+          {% blocktrans count meta_tackled_by as count %}Tackled by {{ count }} member{% plural %}Tackled by {{ count }} members{% endblocktrans %} ⋅
+          {% blocktrans count meta_solved_by as count %}Solved by {{ count }} member{% plural %}Solved by {{ count }} members{% endblocktrans %}
+        {% if user_submission.succeeded %}⋅ <span class="text-success"><i class="fa fa-check"></i> {% trans "You solved this problem." %}</span>
+        {% elif user_submission %}⋅ <span class="text-warning"><i class="fa fa-times"></i> {% trans "You tackled this problem without success." %}</span>
+        {% endif %}
+        </p>
+      </div>
 
-			<article class="problem-statement" id="statement">
-				{% if problem.subject_markdown %}
-					{{ problem.subject_markdown|markdown }}
-				{% else %}
-					{{ problem.subject_html|safe }}
-				{% endif %}
-			</article>
+      <article class="problem-statement" id="statement">
+        {% if problem.subject_markdown %}
+          {{ problem.subject_markdown|markdown }}
+        {% else %}
+          {{ problem.subject_html|safe }}
+        {% endif %}
+      </article>
 
-			<article class="problem-constraints" id="constraints">
-				<h3>{% trans "Runtime constraints" %}</h3>
-				<dl class="dl-horizontal">
-					<dt>{% trans "Maximum memory usage" %}</dt>
-					<dd>{% blocktrans with kb=problem.properties.mem %}{{ kb }}&nbsp;kilobytes{% endblocktrans %}</dd>
-					<dt>{% trans "Maximum execution time" %}</dt>
-					<dd>{% blocktrans with ms=problem.properties.time %}{{ ms }}&nbsp;milliseconds{% endblocktrans %}</dd>
-				</dl>
-			</article>
+      <article class="problem-constraints" id="constraints">
+        <h3>{% trans "Runtime constraints" %}</h3>
+        <dl class="dl-horizontal">
+          <dt>{% trans "Maximum memory usage" %}</dt>
+          <dd>{% blocktrans with kb=problem.properties.mem %}{{ kb }}&nbsp;kilobytes{% endblocktrans %}</dd>
+          <dt>{% trans "Maximum execution time" %}</dt>
+          <dd>{% blocktrans with ms=problem.properties.time %}{{ ms }}&nbsp;milliseconds{% endblocktrans %}</dd>
+        </dl>
+      </article>
 
-			<article class="problem-samples" id="samples">
-				<h3>{% trans "Input/output samples" %}</h3>
+      <article class="problem-samples" id="samples">
+        <h3>{% trans "Input/output samples" %}</h3>
 
-				{% for sample in problem.samples %}
-					<dl class="dl-horizontal problem-sample">
-						<dt>{% trans "Sample input" %}</dt>
-						<dd>
-							<pre><code>{{ sample.input }}</code></pre>
-						</dd>
-						<dt>{% trans "Sample output" %}</dt>
-						<dd>
-							<pre><code>{{ sample.output }}</code></pre>
-						</dd>
-						{% if sample.comment %}
-							<dt>{% trans "Note" %}</dt>
-							<dd>{{ sample.comment|markdown }}</dd>
-						{% endif %}
-					</dl>
-				{% endfor %}
-			</article>
+        {% for sample in problem.samples %}
+          <dl class="dl-horizontal problem-sample">
+            <dt>{% trans "Sample input" %}</dt>
+            <dd>
+              <pre><code>{{ sample.input }}</code></pre>
+            </dd>
+            <dt>{% trans "Sample output" %}</dt>
+            <dd>
+              <pre><code>{{ sample.output }}</code></pre>
+            </dd>
+            {% if sample.comment %}
+              <dt>{% trans "Note" %}</dt>
+              <dd>{{ sample.comment|markdown }}</dd>
+            {% endif %}
+          </dl>
+        {% endfor %}
+      </article>
 
-			<article class="problem-submit" id="submit">
-				<h2>{% trans "Submit your solution" %}</h2>
-				{% if request.user.is_authenticated %}
-					{% if user_submission.succeeded %}
-						<p class="alert alert-success"><i class="fa fa-check"></i>
-							{% blocktrans with score=user_submission.score base=user_submission.score_base malus=user_submission.malus %}You already solved this problem. You won <strong>{{ score }}</strong> points for it, which is {{ base }} base points minus {{ malus }} malus points.{% endblocktrans %}</p>
-					{% endif %}
+      <article class="problem-submit" id="submit">
+        <h2>{% trans "Submit your solution" %}</h2>
+        {% if request.user.is_authenticated %}
+          {% if user_submission.succeeded %}
+            <p class="alert alert-success"><i class="fa fa-check"></i>
+              {% blocktrans with score=user_submission.score base=user_submission.score_base malus=user_submission.malus %}You already solved this problem. You won <strong>{{ score }}</strong> points for it, which is {{ base }} base points minus {{ malus }} malus points.{% endblocktrans %}</p>
+          {% endif %}
 
-					<div class="panel panel-default">
-						<form method="POST" id="editor-form" class="form-inline" enctype="multipart/form-data">
-						{% csrf_token %}
-						<div class="panel-body" style="padding: 0;">
-							<div style="padding: 15px;">
-								<select id="code-editor-theme" class="hide">{# filled by Javascript from Ace themelist #}</select>
-								<select id="code-editor-font-size" class="hide">
-									<option value="11">11px</option>
-									<option value="12" selected>12px</option>
-									<option value="14">14px</option>
-									<option value="18">18px</option>
-								</select>
-							</div>
-							{% if form.code.errors %}<p class="text-danger" style="padding: 0 15px;">
-								{% for error in form.code.errors %}{{ error|escape }} {% endfor %}
-							</p>{% endif %}
-							<textarea name="code" class="clearfix form-control" style="font-family: monospace;" rows="20" data-mode="{{ prefill_submission.language_enum.ace_lexer }}">{{ prefill_submission.code }}</textarea>
-							<div id="code-editor" class="code-editor" style="border-top: 1px solid #ddd;"></div>
-						</div>
-						<div class="panel-footer">
-							<div class="row">
-								<div class="col-sm-6">
-									<small>{% trans "You can also upload a file instead:" %}</small><br>
-									<input type="file" name="sourcefile" class="form-control" title="{% trans "Upload a source file" %}" style="width: auto;"/>
-								</div>
-								<div class="col-sm-6 text-right">
-									<small>{% trans "Select the programming language:" %}</small><br>
-									{% if form.language.errors %}<span class="text-danger">
-										{% for error in form.error.errors %}{{ error|escape }} {% endfor %}
-									</span>{% endif %}
-									<button id="btn-insert-stub" class="btn btn-default" data-url="{% url 'training:ajax-language-template' challenge.year challenge.event_type.name problem.name %}" title="{% trans "Insert parsing code stub at the end of your code" %}"><i class="fa fa-file-code-o"></i> {% trans "Code stub" %}</button>
-									<select name="language" style="width: auto;" class="form-control">{% for lng in languages %}
-										<option value="{{ lng.name }}" data-mode="{{ lng.ace_lexer }}" data-template="{% if lng in templatable_languages %}true{% else %}false{% endif %}"{% if lng.correctable %} data-correctable{% endif %}{% if prefill_submission and prefill_submission.language_enum == lng or not prefill_submission and request.user.preferred_language_enum == lng %} selected{% endif %}>{{ lng.name_display }}</option>
-									{% endfor %}</select>
-								</div>
-							</div>
-							{# All the !important CSS fixes are hacks to make the summary field be 100% width even on larges screens (dunno why it does not work out of the box) #}
-							<div class="input-group clearfix" style="margin-top: 15px; vertical-align: inherit!important; width: 100%!important;">
-								<input type="text" name="summary" class="form-control" placeholder="{% trans "Optional short summary of your changes" %}" value="{{ prefill_submission.summary }}"/>
-								<span class="input-group-btn" style="width: 1%!important;">
-									<button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> {% trans "Submit" %}</button>
-								</span>
-							</div>
-						</div>
-						</form>
-					</div>
+          <div class="panel panel-default">
+            <form method="POST" id="editor-form" class="form-inline" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="panel-body" style="padding: 0;">
+              <div style="padding: 15px;">
+                <select id="code-editor-theme" class="hide">{# filled by Javascript from Ace themelist #}</select>
+                <select id="code-editor-font-size" class="hide">
+                  <option value="11">11px</option>
+                  <option value="12" selected>12px</option>
+                  <option value="14">14px</option>
+                  <option value="18">18px</option>
+                </select>
+              </div>
+              {% if form.code.errors %}<p class="text-danger" style="padding: 0 15px;">
+                {% for error in form.code.errors %}{{ error|escape }} {% endfor %}
+              </p>{% endif %}
+              <textarea name="code" class="clearfix form-control" style="font-family: monospace;" rows="20" data-mode="{{ prefill_submission.language_enum.ace_lexer }}">{{ prefill_submission.code }}</textarea>
+              <div id="code-editor" class="code-editor" style="border-top: 1px solid #ddd;"></div>
+            </div>
+            <div class="panel-footer">
+              <div class="row">
+                <div class="col-sm-6">
+                  <small>{% trans "You can also upload a file instead:" %}</small><br>
+                  <input type="file" name="sourcefile" class="form-control" title="{% trans "Upload a source file" %}" style="width: auto;"/>
+                </div>
+                <div class="col-sm-6 text-right">
+                  <small>{% trans "Select the programming language:" %}</small><br>
+                  {% if form.language.errors %}<span class="text-danger">
+                    {% for error in form.error.errors %}{{ error|escape }} {% endfor %}
+                  </span>{% endif %}
+                  <button id="btn-insert-stub" class="btn btn-default" data-url="{% url 'training:ajax-language-template' challenge.year challenge.event_type.name problem.name %}" title="{% trans "Insert parsing code stub at the end of your code" %}"><i class="fa fa-file-code-o"></i> {% trans "Code stub" %}</button>
+                  <select name="language" style="width: auto;" class="form-control">{% for lng in languages %}
+                    <option value="{{ lng.name }}" data-mode="{{ lng.ace_lexer }}" data-template="{% if lng in templatable_languages %}true{% else %}false{% endif %}"{% if lng.correctable %} data-correctable{% endif %}{% if prefill_submission and prefill_submission.language_enum == lng or not prefill_submission and request.user.preferred_language_enum == lng %} selected{% endif %}>{{ lng.name_display }}</option>
+                  {% endfor %}</select>
+                </div>
+              </div>
+              {# All the !important CSS fixes are hacks to make the summary field be 100% width even on larges screens (dunno why it does not work out of the box) #}
+              <div class="input-group clearfix" style="margin-top: 15px; vertical-align: inherit!important; width: 100%!important;">
+                <input type="text" name="summary" class="form-control" placeholder="{% trans "Optional short summary of your changes" %}" value="{{ prefill_submission.summary }}"/>
+                <span class="input-group-btn" style="width: 1%!important;">
+                  <button type="submit" class="btn btn-success"><i class="fa fa-upload"></i> {% trans "Submit" %}</button>
+                </span>
+              </div>
+            </div>
+            </form>
+          </div>
 
-					<div class="panel panel-default">
-						<div class="panel-heading">{% trans "Submission history" %}</div>
-						<div class="panel-body">
-							<div class="submission-history">
-								<ul class="submission-history-inner">{% spaceless %}
-									<li class="submission-history-item">
-										<div class="side"><i class="fa fa-code"></i></div>
-										<a href="#">{% trans "Current version (unsaved)" %}</a><br>
-										<small class="text-muted">
-											<span id="editor-current-lang">{% trans "Unknown language" %}</span> ⋅
-											{% trans "Just now" %}
-										</small>
-									</li>
-								{% trans "<em>No summary</em>" as no_summary %}
-								{% for sub in user_submission.codes.distinct %}
-									<li class="submission-history-item {% if sub.succeeded %}succeeded{% elif sub.done %}failed{% endif %}">
-										<div class="side"
-												title="{% if sub.succeeded %}{% trans "Correct solution" %}{% elif sub.done %}{% trans "Invalid solution" %}{% elif not sub.expired_result %}{% trans "Pending check" %}{% else %}Unavailable status{% endif %}"><i class="fa fa-{% if sub.succeeded %}check-circle-o{% elif sub.done %}times-circle-o{% elif not sub.expired_result %}clock-o{% else %}question{% endif %}"></i></div>
-										<a href="{% url 'training:submission' challenge.year challenge.event_type.name problem.name sub.pk %}">{{ sub.summary|default:no_summary }}</a><br>
-										<small class="text-muted">
-											{% if sub.succeeded %}<span class="label label-success pts-won" title="{% trans "Base points won by solving this problem. Malus points are not taken into account." %}" class="label label-success">{{ sub.score }}</span>{% endif %}
-											{{ sub.get_language_display }} ⋅
-											<span title="{{ sub.date_submitted|date:'c' }}">{{ sub.date_submitted|date:'SHORT_DATETIME_FORMAT' }}</span>
-										</small>
-									</li>
-								{% endfor %}{% endspaceless %}
-								</ul>
-							</div>
-						</div>
-					</div>
+          <div class="panel panel-default">
+            <div class="panel-heading">{% trans "Submission history" %}</div>
+            <div class="panel-body">
+              <div class="submission-history">
+                <ul class="submission-history-inner">{% spaceless %}
+                  <li class="submission-history-item">
+                    <div class="side"><i class="fa fa-code"></i></div>
+                    <a href="#">{% trans "Current version (unsaved)" %}</a><br>
+                    <small class="text-muted">
+                      <span id="editor-current-lang">{% trans "Unknown language" %}</span> ⋅
+                      {% trans "Just now" %}
+                    </small>
+                  </li>
+                {% trans "<em>No summary</em>" as no_summary %}
+                {% for sub in user_submission.codes.distinct %}
+                  <li class="submission-history-item {% if sub.succeeded %}succeeded{% elif sub.done %}failed{% endif %}">
+                    <div class="side"
+                        title="{% if sub.succeeded %}{% trans "Correct solution" %}{% elif sub.done %}{% trans "Invalid solution" %}{% elif not sub.expired_result %}{% trans "Pending check" %}{% else %}Unavailable status{% endif %}"><i class="fa fa-{% if sub.succeeded %}check-circle-o{% elif sub.done %}times-circle-o{% elif not sub.expired_result %}clock-o{% else %}question{% endif %}"></i></div>
+                    <a href="{% url 'training:submission' challenge.year challenge.event_type.name problem.name sub.pk %}">{{ sub.summary|default:no_summary }}</a><br>
+                    <small class="text-muted">
+                      {% if sub.succeeded %}<span class="label label-success pts-won" title="{% trans "Base points won by solving this problem. Malus points are not taken into account." %}" class="label label-success">{{ sub.score }}</span>{% endif %}
+                      {{ sub.get_language_display }} ⋅
+                      <span title="{{ sub.date_submitted|date:'c' }}">{{ sub.date_submitted|date:'SHORT_DATETIME_FORMAT' }}</span>
+                    </small>
+                  </li>
+                {% endfor %}{% endspaceless %}
+                </ul>
+              </div>
+            </div>
+          </div>
 
-				{% else %}
-					{% url 'users:register' as register %}
-					{% url 'users:login' as login %}
-					<p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your solution.{% endblocktrans %}</p>
-				{% endif %}
-			</article>
-		</div>
+        {% else %}
+          {% url 'users:register' as register %}
+          {% url 'users:login' as login %}
+          <p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your solution.{% endblocktrans %}</p>
+        {% endif %}
+      </article>
+    </div>
 
-		<div class="col-md-3" role="complementary">
-			<nav class="hidden-print hidden-xs hidden-sm sidebar-affix" id="problem-nav">
-				<ul class="nav nav-pills nav-stacked">
-					<li><a href="#statement">{% trans "Statement" %}</a></li>
-					<li><a href="#constraints">{% trans "Runtime constraints" %}</a></li>
-					<li><a href="#samples">{% trans "Input/output samples" %}</a></li>
-					<li><a href="#submit">{% trans "Submit your solution" %}</a></li>
-				</ul>
-			</nav>
-		</div>
-	</div>
+    <div class="col-md-3" role="complementary">
+      <nav class="hidden-print hidden-xs hidden-sm sidebar-affix" id="problem-nav">
+        <ul class="nav nav-pills nav-stacked">
+          <li><a href="#statement">{% trans "Statement" %}</a></li>
+          <li><a href="#constraints">{% trans "Runtime constraints" %}</a></li>
+          <li><a href="#samples">{% trans "Input/output samples" %}</a></li>
+          <li><a href="#submit">{% trans "Submit your solution" %}</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
 
 {% endblock %}
 
 {% block extra_script %}
 {% if request.user.is_authenticated %}
-	<script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ace.js' %}"></script>
-	<script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ext-themelist.js' %}"></script>
-	<script type="text/javascript" charset="utf-8" src="{% static 'problems/js/code-editor.js' %}"></script>
+  <script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ace.js' %}"></script>
+  <script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ext-themelist.js' %}"></script>
+  <script type="text/javascript" charset="utf-8" src="{% static 'problems/js/code-editor.js' %}"></script>
 {% endif %}
-	<script type="text/javascript">
-	$(function() {
-		// Affix navigation
-		var $nav = $('#problem-nav');
-		$nav.affix({
-			offset: {
-				top: function () {
-					var c = $nav.offset().top - 20;
-					return this.top = c;
-				},
-				bottom: function() {
-					return this.bottom = $('footer').outerHeight(true);
-				}
-			}
-		});
-	});
-	</script>
+  <script type="text/javascript">
+  $(function() {
+    // Affix navigation
+    var $nav = $('#problem-nav');
+    $nav.affix({
+      offset: {
+        top: function () {
+          var c = $nav.offset().top - 20;
+          return this.top = c;
+        },
+        bottom: function() {
+          return this.bottom = $('footer').outerHeight(true);
+        }
+      }
+    });
+  });
+  </script>
 {% endblock %}

@@ -1,3 +1,5 @@
+import collections
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 
@@ -17,7 +19,12 @@ class ContestMiddleware(object):
             raise ImproperlyConfigured("You need to configure at least one Edition "
                                        "and one related Event for this year ({})".format(settings.PROLOGIN_EDITION))
 
-        events_dict = {event.type: event for event in events}
+        events_dict = collections.defaultdict(list)
+        for event in events:
+            events_dict[event.type].append(event)
+        events_dict = {k: v[0] if len(v) == 1
+                           else sorted(v, key=lambda x: x.date_begin)
+                           for k, v in events_dict.items()}
         request.current_events = {event_type.name: events_dict.get(event_type.value)
                                   for event_type in contest.models.Event.Type}
 

@@ -3,10 +3,10 @@
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
-	{% breadcrumb_for "pages:about-contest" %}{% trans "About the contest" %}{% endbreadcrumb_for %}
-	{% breadcrumb_for "pages:about-final" %}{% trans "The final" %}{% endbreadcrumb_for %}
+  {{ block.super }}
+  {% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "pages:about-contest" %}{% trans "About the contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "pages:about-final" %}{% trans "The final" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "The final" %}{% endblock %}
@@ -14,13 +14,13 @@
 {% block content %}
 
 </div> {# hack: end content_super container #}
-	<div class="bgcont bgcont-title" style=" background-image: url({% static 'pages/img/final.jpg' %}); background-position: 0 0;">
-		<div class="container presentation-body"><h1>{% trans "The final" %}</h1></div>
-	</div>
+  <div class="bgcont bgcont-title" style=" background-image: url({% static 'pages/img/final.jpg' %}); background-position: 0 0;">
+    <div class="container presentation-body"><h1>{% trans "The final" %}</h1></div>
+  </div>
 <div class="container"> {# unhack #}
 
-	<h2>{% trans "A 36-hours nonstop contest" %}</h2>
-	{% get_setting_var 'FINAL_EVENT_DATE_FORMAT' as date_format %}
+  <h2>{% trans "A 36-hour nonstop contest" %}</h2>
+  {% get_setting_var 'FINAL_EVENT_DATE_FORMAT' as date_format %}
 
     <p>{% blocktrans %}The final takes place for three days in the EPITA
     school, which is closed for the event. The Prologin team is assisted by
@@ -28,77 +28,77 @@
     technically the contestants during the whole contest. The contestants are
     authorized (and invited) to communicate together.{% endblocktrans %}</p>
 
-	<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-	<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-50 0 650 190" preserveAspectRatio="xMaxYmax" style="max-width: 800px">
-		<style type="text/css">
-			path { shape-rendering: crispEdges; }
-			text, tspan {
-				font-family: inherit;
-				font-size: 12px;
-				text-anchor: start;
-				dominant-baseline: central;
-			}
-			.right tspan { text-anchor: end; }
-			#hours text {
-				text-anchor: middle;
-			}
-			#events > g > rect {
-				rx: 4px;
-				ry: 4px;
-				stroke-width: 1px;
-			}
-			#layout rect {
-				fill: none;
-				stroke: black;
-				stroke-width: 2px;
-			}
-			#lines path {
-				stroke:black;
-				stroke-width: 1px;
-				stroke-dasharray: 1, 4;
-				vector-effect: non-scaling-stroke;
-			}
-		</style>
-			<g id="hours">
-				{% trans "Day 1" as day_1 %}<text x="0" y="20">{{ final_day1|date:date_format|default:day_1 }}</text>
-				{% trans "Day 2" as day_2 %}<text x="150" y="20">{{ final_day2|date:date_format|default:day_2 }}</text>
-				{% trans "Day 3" as day_3 %}<text x="300" y="20">{{ final_day3|date:date_format|default:day_3 }}</text>
-				{% trans "Day 4" as day_4 %}<text x="450" y="20">{{ final_day4|date:date_format|default:day_4 }}</text>
-			</g>
-			<g id="lines">
-				<path d="M75,20 l0,160"/>
-				<path d="M225,20 l0,160"/>
-				<path d="M375,20 l0,160"/>
-			</g>
-			<g id="events">
-				<g>
-					<rect x="-30" y="40" width="170" height="30" style="fill: #8cd4a0;"/>
-					<text x="-20" y="55">{% trans "Candidates reception" %}</text>
-				</g>
-				<g>
-					<rect x="110" y="90" width="260" height="30" style="fill: #d48e8e;"/>
-					<text x="120" y="105">{% trans "Contest" %}</text>
-				</g>
-				<g class="right">
-					<text y="105">{% blocktrans %}<tspan x="65" >Statement</tspan><tspan x="65" dy="15">distribution</tspan>{% endblocktrans %}</text>
-					<path d="M70,105 l40,0" style="stroke: black; stroke-width: 1px"/>
-					<circle cx="110" cy="105" r="5" style="fill: black; stroke: none;"/>
-				</g>
-				<g>
-					<rect x="380" y="90" width="75" height="45" style="fill: #8cd4a0;"/>
-					<text y="105">{% blocktrans %}<tspan x="390" >Selection,</tspan><tspan x="390" dy="15">jury</tspan>{% endblocktrans %}</text>
-				</g>
-				<g>
-					<rect x="460" y="90" width="110" height="45" style="fill: #d4bc8e;"/>
-					<text y="105">{% blocktrans %}<tspan x="470">Award ceremony,</tspan><tspan x="470" dy="15">banquet</tspan>{% endblocktrans %}</text>
-				</g>
-				<g>
-					<rect x="-30" y="140" width="400" height="30" style="fill: #d4bc8e;"/>
-					<text x="-20" y="155">{% trans "Animations" %}</text>
-				</g>
-			</g>
-		</g>
-	</svg>
+  <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+  <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-50 0 650 190" preserveAspectRatio="xMaxYmax" style="max-width: 800px">
+    <style type="text/css">
+      path { shape-rendering: crispEdges; }
+      text, tspan {
+        font-family: inherit;
+        font-size: 12px;
+        text-anchor: start;
+        dominant-baseline: central;
+      }
+      .right tspan { text-anchor: end; }
+      #hours text {
+        text-anchor: middle;
+      }
+      #events > g > rect {
+        rx: 4px;
+        ry: 4px;
+        stroke-width: 1px;
+      }
+      #layout rect {
+        fill: none;
+        stroke: black;
+        stroke-width: 2px;
+      }
+      #lines path {
+        stroke:black;
+        stroke-width: 1px;
+        stroke-dasharray: 1, 4;
+        vector-effect: non-scaling-stroke;
+      }
+    </style>
+      <g id="hours">
+        {% trans "Day 1" as day_1 %}<text x="0" y="20">{{ final_day1|date:date_format|default:day_1 }}</text>
+        {% trans "Day 2" as day_2 %}<text x="150" y="20">{{ final_day2|date:date_format|default:day_2 }}</text>
+        {% trans "Day 3" as day_3 %}<text x="300" y="20">{{ final_day3|date:date_format|default:day_3 }}</text>
+        {% trans "Day 4" as day_4 %}<text x="450" y="20">{{ final_day4|date:date_format|default:day_4 }}</text>
+      </g>
+      <g id="lines">
+        <path d="M75,20 l0,160"/>
+        <path d="M225,20 l0,160"/>
+        <path d="M375,20 l0,160"/>
+      </g>
+      <g id="events">
+        <g>
+          <rect x="-30" y="40" width="170" height="30" style="fill: #8cd4a0;"/>
+          <text x="-20" y="55">{% trans "Candidates reception" %}</text>
+        </g>
+        <g>
+          <rect x="110" y="90" width="260" height="30" style="fill: #d48e8e;"/>
+          <text x="120" y="105">{% trans "Contest" %}</text>
+        </g>
+        <g class="right">
+          <text y="105">{% blocktrans %}<tspan x="65" >Statement</tspan><tspan x="65" dy="15">distribution</tspan>{% endblocktrans %}</text>
+          <path d="M70,105 l40,0" style="stroke: black; stroke-width: 1px"/>
+          <circle cx="110" cy="105" r="5" style="fill: black; stroke: none;"/>
+        </g>
+        <g>
+          <rect x="380" y="90" width="75" height="45" style="fill: #8cd4a0;"/>
+          <text y="105">{% blocktrans %}<tspan x="390" >Selection,</tspan><tspan x="390" dy="15">jury</tspan>{% endblocktrans %}</text>
+        </g>
+        <g>
+          <rect x="460" y="90" width="110" height="45" style="fill: #d4bc8e;"/>
+          <text y="105">{% blocktrans %}<tspan x="470">Award ceremony,</tspan><tspan x="470" dy="15">banquet</tspan>{% endblocktrans %}</text>
+        </g>
+        <g>
+          <rect x="-30" y="140" width="400" height="30" style="fill: #d4bc8e;"/>
+          <text x="-20" y="155">{% trans "Animations" %}</text>
+        </g>
+      </g>
+    </g>
+  </svg>
 
     <p>{% blocktrans %}The main goal of the final is of course to select the
     best contestants, but also to allow them to meet together and share their
@@ -108,10 +108,10 @@
 
     <p>{% blocktrans %}The judging system is a client-server architecture
     programmed every year by the Prologin team. The contestant being free of
-    the systems programming part, he can focuses on all the algorithmic aspects
+    the systems programming part, they can focuse on all the algorithmic aspects
     of his submission.{% endblocktrans %}</p>
 
-	<h2>{% trans "Logistics" %}</h2>
+  <h2>{% trans "Logistics" %}</h2>
 
     <p>{% blocktrans %}Prologin takes care of the breakfasts, lunches and
     dinners. As the final is also a party, unlimited (alcohol-free) drinks,
@@ -121,7 +121,7 @@
     <p>{% blocktrans %}Mattresses are of course available for every contestant,
     but they need to bring their own sleeping bags.{% endblocktrans %}</p>
 
-	<h2>{% trans "The development environment" %}</h2>
+  <h2>{% trans "The development environment" %}</h2>
 
     <p>{% blocktrans %}Every one of the 100 contestants can work during the
     whole contest on a computer running GNU/Linux. It is a good occasion for
@@ -129,7 +129,7 @@
     Some documentation on the subject is available, and the Prologin team is
     there to help them if needed.{% endblocktrans %}</p>
 
-	<h2>{% trans "The statement" %}</h2>
+  <h2>{% trans "The statement" %}</h2>
 
     <p>{% blocktrans %}Every year, an original contest statement is created by
     the Prologin team. It generally consists of a game whose rules define a
@@ -141,11 +141,11 @@
     technical skills, an analytical mind, and good time
     management.{% endblocktrans %}</p>
 
-	<h2>{% trans "Evaluation methodology" %}</h2>
+  <h2>{% trans "Evaluation methodology" %}</h2>
 
     <p>{% blocktrans %}The first phase of the evaluation consists of a great
     tournament during which the programs of all the contestants compete
-    together. As soon as the contest ends, at 1 AM, all the computers are used
+    against one another. As soon as the contest ends, at 1 AM, all the computers are used
     by a distributed tournament system, in order to make thousands of matches,
     and get a precise ranking in equitable conditions.{% endblocktrans %}</p>
 
@@ -154,14 +154,14 @@
     contestant are studied to write an evaluation sheet that will be used
     during the defense.{% endblocktrans %}</p>
 
-    <p>{% blocktrans %}A special jury defines the final ranking after a twenty
-    minutes defense with each of the ten best contestants. This ranking, highly
-    influenced by the results of the tournament, also takes in account the
-    capacity of the contestant to justify his technical choices, the quality of
-    the design of his program and the potential improvements he could have
+    <p>{% blocktrans %}A special jury defines the final ranking after a 
+    twenty-minutes defense with each of the ten best contestants. This ranking, highly
+    influenced by the results of the tournament, also takes into account the
+    capacity of the contestant to justify their technical choices, the quality of
+    the design of his program and the potential improvements they could have
     worked on.{% endblocktrans %}</p>
 
-	<h2>{% trans "Award ceremony" %}</h2>
+  <h2>{% trans "Award ceremony" %}</h2>
 
     <p>{% blocktrans %}The awards are given at noon, after the individual
     defenses. The main sponsors are generally here and give prizes and awards

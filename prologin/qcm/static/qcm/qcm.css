@@ -1,98 +1,98 @@
 .qcm .propositions {
-	padding-left: 1em;
-	margin-left: 0;
+  padding-left: 1em;
+  margin-left: 0;
 }
 .qcm .propositions li {
-	list-style-type: none;
+  list-style-type: none;
 }
 
 /* fancy radios */
 .qcm .propositions li label input[type=radio] {
-	display: none;
+  display: none;
 }
 .qcm .propositions li label:before {
-	font-family: 'FontAwesome';
-	position: absolute;
-	font-weight: normal;
-	left: 0;
-	/*content: '\f096';*/
-	content: '\f10c';
-	font-size: 18px; /* in px so the dot is centered */
+  font-family: 'FontAwesome';
+  position: absolute;
+  font-weight: normal;
+  left: 0;
+  /*content: '\f096';*/
+  content: '\f10c';
+  font-size: 18px; /* in px so the dot is centered */
 }
 .qcm .propositions li label.checked:before {
-	/*content: '\f046';*/
-	content: '\f192';
+  /*content: '\f046';*/
+  content: '\f192';
 }
 
 .qcm .propositions li label p {
-	margin: 0;
-	padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 .qcm .propositions li label {
-	font-weight: normal;
-	padding-left: 1.5em;
-	position: relative;
+  font-weight: normal;
+  padding-left: 1.5em;
+  position: relative;
 }
 .qcm .propositions li label.checked {
-	color: #35479a;
-	font-weight: 700;
+  color: #35479a;
+  font-weight: 700;
 }
 
 .qcm .propositions li.correct label {
-	color: #5cb85c; /* success color */
+  color: #5cb85c; /* success color */
 }
 
 .qcm .propositions li.incorrect label {
-	color: #d9534f; /* danger color */
+  color: #d9534f; /* danger color */
 }
 
 .qcm .question:not(:last-child) {
-	margin-bottom: 1em;
+  margin-bottom: 1em;
 }
 
 .qcm .question .body, ol.mainlist > li h3 {
-	margin-top: 2px;
-	font-size: larger;
-	line-height: 1.4;
+  margin-top: 2px;
+  font-size: larger;
+  line-height: 1.4;
 }
 
 ol.mainlist {
-	counter-reset: li;
-	list-style: none;
-	position: relative;
-	padding: 0 0 10px 20px;
-	margin: 0;
+  counter-reset: li;
+  list-style: none;
+  position: relative;
+  padding: 0 0 10px 20px;
+  margin: 0;
 }
 
 ol.mainlist > li {
-	padding: 5px 0 5px 50px;
-	position: relative;
-	margin: 0.5em 0;
+  padding: 5px 0 5px 50px;
+  position: relative;
+  margin: 0.5em 0;
 }
 
 ol.mainlist > li:before {
-	content: counter(li);
-	counter-increment: li;
-	position: absolute;
-	top: 5px;
-	left: 0;
-	height: 100%;
-	width: 30px;
-	padding: 0 10px 0 0;
-	color: #999;
-	font-size: 22px;
-	font-weight: bold;
-	line-height: 28px;
-	text-align: right;
-	border-right: 1px solid #ddd;
+  content: counter(li);
+  counter-increment: li;
+  position: absolute;
+  top: 5px;
+  left: 0;
+  height: 100%;
+  width: 30px;
+  padding: 0 10px 0 0;
+  color: #999;
+  font-size: 22px;
+  font-weight: bold;
+  line-height: 28px;
+  text-align: right;
+  border-right: 1px solid #ddd;
 }
 
 ol.mainlist > li:after {
-	content: ".";
-	display: block;
-	clear: both;
-	visibility: hidden;
-	line-height: 0;
-	height: 0;
+  content: ".";
+  display: block;
+  clear: both;
+  visibility: hidden;
+  line-height: 0;
+  height: 0;
 }

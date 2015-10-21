@@ -2,8 +2,8 @@
 {% load i18n l10n django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "" %}{% trans "The exam centers" %}{% endbreadcrumb_for %}
+  {{ block.super }}
+  {% breadcrumb_for "" %}{% trans "The exam centers" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "The exam centers" %}{% endblock %}

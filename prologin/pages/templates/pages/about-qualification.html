@@ -3,10 +3,10 @@
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
-	{{ block.super }}
-	{% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
-	{% breadcrumb_for "pages:about-contest" %}{% trans "About the contest" %}{% endbreadcrumb_for %}
-	{% breadcrumb_for "pages:about-qualification" %}{% trans "The qualification stage" %}{% endbreadcrumb_for %}
+  {{ block.super }}
+  {% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "pages:about-contest" %}{% trans "About the contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "pages:about-qualification" %}{% trans "The qualification stage" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "The qualification stage" %}{% endblock %}
@@ -14,20 +14,20 @@
 {% block content %}
 
 </div> {# <hack> end content_super container #}
-	<div class="bgcont bgcont-title" style="background-image: url({% static 'pages/img/qualif.jpg' %}); background-position: 0 50%;">
-		<div class="container presentation-body"><h1>{% trans "The qualification stage" %}</h1></div>
-	</div>
+  <div class="bgcont bgcont-title" style="background-image: url({% static 'pages/img/qualif.jpg' %}); background-position: 0 50%;">
+    <div class="container presentation-body"><h1>{% trans "The qualification stage" %}</h1></div>
+  </div>
 <div class="container"> {# </hack> #}
 
-	<p>{% blocktrans %}This test typically takes the form of four or five small algorithmic problems of increasing difficulty.
+  <p>{% blocktrans %}This test typically takes the form of four or five small algorithmic problems of increasing difficulty.
 This is both to publicize the contest and select candidates with the minimum level required to participate in the
 next stages. This is also an opportunity to encourage young people, including those who will not participate in
 the events which will follow, to tackle the various areas about computing that they may not had the opportunity
 to address so far.{% endblocktrans %}</p>
-	<p>{% blocktrans %}The questionnaire is distributed all over France: 15'000 printed questionnaires are sent to various schools
-(high schools, IUT, colleges, etc.) accompanied by posters. There are sent to former candidates as well,
+  <p>{% blocktrans %}The questionnaire is distributed all over France: posters are sent to various schools
+(high schools, IUT, colleges, etc.). There are sent to former candidates as well,
 who represent the most effective way to publicize the competition.{% endblocktrans %}</p>
-	<p>{% blocktrans %}Some years, the questionnaire is also published in various targeted computer magazines. For example,
+  <p>{% blocktrans %}Some years, the questionnaire is also published in various targeted computer magazines. For example,
 for the 2004 edition, 120'000 copies of the quiz were distributed on paper.{% endblocktrans %}</p>
 
 {% endblock %}

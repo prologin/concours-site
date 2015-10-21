@@ -1,23 +1,23 @@
 {% load i18n bootstrap %}
 <form class="form-inline well" method="GET" action="{% url 'training:search' %}#problems">
-	<h4>{% trans "Search problems" %}</h4>
-	{{ search_form.query|bootstrap }}
-	{{ search_form.event_type|bootstrap }}
-	<div class="form-group">
-		<label class="control-label">{% trans "Difficulty" %}</label>
+  <h4>{% trans "Search problems" %}</h4>
+  {{ search_form.query|bootstrap }}
+  {{ search_form.event_type|bootstrap }}
+  <div class="form-group">
+    <label class="control-label">{% trans "Difficulty" %}</label>
 
-		<div class="difficulty-range">
-			{% trans "From" %}
-			{{ search_form.difficulty_min|bootstrap_inline }}
-			{% trans "to" %}
-			{{ search_form.difficulty_max|bootstrap_inline }}
-		</div>
-	</div>
-	{% if search_form.solved %}{{ search_form.solved|bootstrap }}{% endif %}
-	<div class="form-group">
-		<label class="control-label"></label>
-		<div>
-			<button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
-		</div>
-	</div>
+    <div class="difficulty-range">
+      {% trans "From" %}
+      {{ search_form.difficulty_min|bootstrap_inline }}
+      {% trans "to" %}
+      {{ search_form.difficulty_max|bootstrap_inline }}
+    </div>
+  </div>
+  {% if search_form.solved %}{{ search_form.solved|bootstrap }}{% endif %}
+  <div class="form-group">
+    <label class="control-label"></label>
+    <div>
+      <button type="submit" class="btn btn-primary">{% trans "Search" %}</button>
+    </div>
+  </div>
 </form>

@@ -14,23 +14,23 @@
 {% block content-related %}
 <h2>{% trans "Monthly archives" %}</h2>
 <ul class="pager align-left">
-	{% for date in date_list %}
-	<li>
-		<a href="{% url 'zinnia:entry_archive_month' date|date:"Y" date|date:"m" %}" rel="archives">{{ date|date:"YEAR_MONTH_FORMAT" }}</a>
-	</li>
-	{% endfor %}
+  {% for date in date_list %}
+  <li>
+    <a href="{% url 'zinnia:entry_archive_month' date|date:"Y" date|date:"m" %}" rel="archives">{{ date|date:"YEAR_MONTH_FORMAT" }}</a>
+  </li>
+  {% endfor %}
 </ul>
 
 <ul class="pager">
-	{% if previous_year %}
-	<li class="previous">
-		<a href="{% url 'zinnia:entry_archive_year' previous_year|date:"Y" %}" rel="archives">&laquo; {% trans "Previous year" %} {{ previous_year|date:"Y" }}</a>
-	</li>
-	{% endif %}
-	{% if next_year %}
-	<li class="next">
-		<a href="{% url 'zinnia:entry_archive_year' next_year|date:"Y" %}" rel="archives">{% trans "Next year" %} {{ next_year|date:"Y" }} &raquo;</a>
-	</li>
-	{% endif %}
+  {% if previous_year %}
+  <li class="previous">
+    <a href="{% url 'zinnia:entry_archive_year' previous_year|date:"Y" %}" rel="archives">&laquo; {% trans "Previous year" %} {{ previous_year|date:"Y" }}</a>
+  </li>
+  {% endif %}
+  {% if next_year %}
+  <li class="next">
+    <a href="{% url 'zinnia:entry_archive_year' next_year|date:"Y" %}" rel="archives">{% trans "Next year" %} {{ next_year|date:"Y" }} &raquo;</a>
+  </li>
+  {% endif %}
 </ul>
 {% endblock content-related %}
