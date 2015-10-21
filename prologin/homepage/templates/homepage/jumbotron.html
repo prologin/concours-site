@@ -21,7 +21,8 @@
             <div class="row">
               <div class="col-xs-5 col-sm-12">
                 <h4>{% trans "Qualification" %}</h4>
-                <p class="date">{{ request.current_events.qualification.date_begin|date:"d b Y"|default:no_such_date }}</p>
+                <p class="date">{{ request.current_events.qualification.date_begin|date:"d b Y"|default:no_such_date }}
+                → {{ request.current_events.qualification.date_end|date:"d b Y"|default:no_such_date }}</p>
               </div>
               <div class="col-xs-7 col-sm-12">
                 <div class="desc">
@@ -68,11 +69,25 @@
             <div class="row">
               <div class="col-xs-5 col-sm-12">
                 <h4>{% trans "Semifinals" %}</h4>
-                <p class="date">{{ request.current_events.semifinal.first.date_begin|date:"d b Y"|default:no_such_date }}</p>
+                {% with firstsemi=request.current_events.semifinal|first lastsemi=request.current_events.semifinal|last %}
+                    <p class="date">{{ firstsemi.date_begin|date:"d b Y"|default:no_such_date }}
+                    → {{ lastsemi.date_begin|date:"d b Y"|default:no_such_date }}</p>
+                {% endwith %}
               </div>
               <div class="col-xs-7 col-sm-12">
                 <div class="desc">
-                  <p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
+                  <p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}
+                  <button type="button" class="btn btn-default btn-xs"
+                      data-container="body" data-toggle="popover"
+                      data-placement="bottom" data-html="true"
+                      data-content="
+                      {% for demi in request.current_events.semifinal %}
+                      {{ demi.center.name }} - {{ demi.date_begin|date:"d b Y"|default:no_such_date }}<br />
+                      {% endfor %}
+                      ">
+                      {% trans "See all dates" %}
+                  </button>
+                  </p>
                   <p class="hide-no-active"><a href="{% url 'training:index' %}" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
                 </div>
               </div>
@@ -86,7 +101,8 @@
             <div class="row">
               <div class="col-xs-5 col-sm-12">
                 <h4>{% trans "Finale" %}</h4>
-                <p class="date">{{ request.current_events.final.date_begin|date:"d b Y"|default:no_such_date }}</p>
+                <p class="date">{{ request.current_events.final.date_begin|date:"d b Y"|default:no_such_date }}
+                → {{ request.current_events.final.date_end|date:"d b Y"|default:no_such_date }}</p>
               </div>
               <div class="col-xs-7 col-sm-12">
                 <div class="desc">

@@ -66,3 +66,11 @@
 </div>
 
 {% endblock super_content %}
+
+{% block extra_script %}
+  <script type="text/javascript">
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    });
+  </script>
+{% endblock %}
