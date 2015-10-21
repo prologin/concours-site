@@ -1,10 +1,8 @@
 /* Forum style */
 
-.forum-table td, .thread-table td {
+.empty-list-item {
+	background: #f5f5f6;
 	padding: 1em;
-}
-.forum-table th, .thread-table th {
-	padding: 0 1em;
 }
 
 .forum-title h3 {
@@ -21,77 +19,120 @@
 .forum-description {
 	margin: 0 1em 1em;
 }
+
 .forum-title .forum-description {
 	margin: .5em;
 }
 
-.forum_add label {
-	float: left;
-	width: 150px;
-	text-align: left;
+.forum-listing {
+	list-style: none;
+	margin: 0;
+	padding: 0;
 }
 
-.forum_add textarea {
-	width: 80%;
+.forum-meta {
+	font-size: 0.9em;
+}
+
+.forum-listing > li {
+	margin: 0;
+	padding: 0;
+	height: auto;
+	vertical-align: middle;
+	box-sizing: border-box;
+}
+
+.forum-listing > li:nth-child(odd) {
+	background: #f5f5f5;
+}
+
+.forum-listing .row > div {
+	display: inline-block;
+	vertical-align: middle;
+	float: none;
+}
+
+.forum-listing .row > div > a {
+	display: block;
+	width: auto;
+	padding: 0.8em 0.8em 0.8em 42px;
+}
+
+.forum-listing .row > div > a:hover, .forum-listing .row > div > a:focus, .forum-listing .row > div > a:active {
+	text-decoration: none;
+}
+
+.forum-listing p {
+	margin: 0;
+	padding: 0;
+}
+
+.forum-listing h3 {
+	font-size: 1.1em;
+	margin: 0;
+	padding: 0;
+}
+
+.thread-item-main {
 	position: relative;
-	/*left: 10%;*/
 }
 
-.forum_add input[type~="submit"] {
-	position: relative;
-	width: 36%;
-	left: 32%;
+.thread-item-main .thread-item-icons {
+	position: absolute;
+	width: 1em; /* feel the hack */
+	text-align: center;
+	padding: 0.8em 1em;
 }
 
-.forum_add input[type~="text"] {
-	position: relative;
-	width: 80%;
-	/*left: 10%;*/
+.thread-item-meta {
+	font-size: 0.9em;
 }
 
-.forum_image img {
-	width: 7%;
-	position: relative;
-	top: -13px;
-	left: 92.7%;
-}
-
-.posted_by p {
-	position: relative;
-	top: -38px;
-}
-
-.add_thread h3 {
+.thread-item-author {
 	font-weight: bold;
 }
 
-.nb_stuff p {
-	position: relative;
-	top: -12px;
-	font-weight: lighter;
-	font-style: italic;
+.forum-post {
+	background: #f5f5f5;
+	border-bottom: 3px solid #202b66;
+	padding: 1em;
 }
 
-.pin_thread {
-	background-color: #EEF5FF;
-	border-radius: 15px;
+.forum-sticky-threads {
+	margin-bottom: 1em;
+	border-bottom: 3px solid #202b66;
 }
 
-.pin_thread h3 {
-	margin-left: 15px;
-	position: relative;
-	top: 10px;
+.post-author {
+	text-align: left;
 }
 
-.pin_thread p {
-	margin-left: 15px
+.post-author .avatar {
+	max-width: 60px;
+	max-height: 60px;
 }
 
-.forum_nav {
-	text-align: center;
+.post-author-avatar {
+	text-align: right;
 }
 
-.forum_nav a {
-	margin-right: 15px;
-	margin-left: 15px;
+@media (min-width: 768px) {
+
+	.post-author {
+		text-align: center;
+	}
+
+	.post-author-avatar {
+		text-align: center;
+	}
+
+	.post-author-link {
+		padding: 0 0 0.5em;
+	}
+
+	.post-author .avatar {
+		max-width: 100%;
+		max-height: 100px;
+	}
+
 }

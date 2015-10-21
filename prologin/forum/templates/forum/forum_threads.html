@@ -15,36 +15,28 @@
 	<h1>{{ forum.name }}</h1>
 	<div class="text-muted forum-description">{{ forum.description|markdown }}</div>
 
-	<table class="table-striped thread-table" style="width: 100%;">
-		<thead>
-		<tr>
-			<th>{% trans "Thread" %}</th>
-			<th>{% trans "Posts" %}</th>
-			<th>{% trans "Views" %}</th>
-			<th>{% trans "Last post" %}</th>
-		</tr>
-		</thead>
-		<tbody>
-		{% for thread in threads %}
-			<tr class="{% if thread.is_sticky %}thread-sticky {% endif %}{% if thread.is_closed %}thread-closed {% endif %}{% if thread.is_moved %}thread-moved {% endif %}">
-				<td class="thread-title">
-					<a href="{{ thread.get_absolute_url }}">{{ thread.title }}</a>
-					{% url 'users:profile' thread.author.pk as author_url %}
-					<p class="text-muted thread-meta">
-						<a href="{{ author_url }}">{{ thread.author.username }}</a> ⋅
-						<span title="{{ thread.date_created|date:"c" }}">{{ thread.date_created|date:"DATE_FORMAT" }}</span>
-					</p>
-				</td>
-				<td>{{ thread.post_count }}</td>
-				<td>{{ thread.view_count }}</td>
-				<td>TODO</td>
-			</tr>
-		{% empty %}
-			<tr>
-				<td class="empty-table-row" colspan="4"><i class="fa fa-frown-o"></i> <em>{% trans "This forum is empty." %}</em></td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+	{% if sticky_threads %}
+		<ul class="forum-listing forum-sticky-threads">
+			{% for thread in sticky_threads %}
+				{% include "forum/stub_forum_thread.html" %}
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	{% include "stub_pagination.html" %}
+
+	{% if normal_threads %}
+		<ul class="forum-listing">
+			{% for thread in normal_threads %}
+				{% include "forum/stub_forum_thread.html" %}
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p class="empty-list-item">
+			<i class="fa fa-frown-o"></i> {% trans "This forum is empty." %}
+		</p>
+	{% endif %}
+
+	{% include "stub_pagination.html" %}
 
 {% endblock %}

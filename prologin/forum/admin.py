@@ -5,7 +5,7 @@ import forum.models
 
 class ForumAdmin(admin.ModelAdmin):
     list_display = ('name', 'description',)
-    readonly_fields = ('date_last_post',)
+    readonly_fields = ()
 
 
 class ThreadAdmin(admin.ModelAdmin):
@@ -14,7 +14,7 @@ class ThreadAdmin(admin.ModelAdmin):
 
 
 class PostAdmin(admin.ModelAdmin):
-    raw_id_fields = ('author',)
+    raw_id_fields = ('author', 'last_edited_author',)
 
 
 admin.site.register(forum.models.Forum, ForumAdmin)

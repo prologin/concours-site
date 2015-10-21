@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.signals import user_logged_in
+from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import LANGUAGE_SESSION_KEY, ugettext_lazy as _
@@ -111,6 +112,9 @@ class ProloginUser(AbstractUser, AddressableModel):
 
     def has_complete_profile(self):
         return self.has_complete_address() and all((self.phone_number, self.birthday))
+
+    def get_absolute_url(self):
+        return reverse('users:profile', args=[self.pk])
 
 
 # Yay, monkey-path that bitch, thank you Django!

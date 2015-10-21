@@ -1,5 +1,5 @@
 {% extends "forum/base.html" %}
-{% load i18n markup django_bootstrap_breadcrumbs %}
+{% load i18n markup humanize django_bootstrap_breadcrumbs %}
 
 
 {% block breadcrumbs %}
@@ -13,32 +13,31 @@
 
 	<h1>{% trans "Forums" %}</h1>
 
-	<table class="table-striped forum-table" style="width: 100%">
-		<thead>
-		<tr>
-			<th>{% trans "Forum topic" %}</th>
-			<th>{% trans "Posts" %}</th>
-			<th>{% trans "Views" %}</th>
-			<th>{% trans "Last post" %}</th>
-		</tr>
-		</thead>
-		<tbody>
+	{% if forums %}
+		<ul class="forum-listing">
 		{% for forum in forums %}
-			<tr>
-				<td class="forum-title">
-					<h3><a href="{{ forum.get_absolute_url }}">{{ forum.name }}</a></h3>
-					<p class="text-muted forum-description"><small>{{ forum.description|markdown }}</small></p>
-				</td>
-				<td>{{ forum.thread_count }}</td>
-				<td>{{ forum.view_count }}</td>
-				<td>TODO</td>
-			</tr>
-		{% empty %}
-			<tr>
-				<td class="empty-table-row" colspan="4"><i class="fa fa-frown-o"></i> <em>{% trans "There is no forum." %}</em></td>
-			</tr>
+			<li>
+				<div class="row row-vmiddle">{% spaceless %}
+					<div class="col-sm-7">
+						<a href="{{ forum.get_absolute_url }}">
+						<h3>{{ forum.name }}</h3>
+						<span class="text-muted forum-meta">{{ forum.description|markdown }}</span>
+						</a>
+					</div>
+					<div class="col-sm-2 forum-meta text-center">
+						{% blocktrans count forum.thread_count as count %}{{ count }} thread{% plural %}{{ count }} threads{% endblocktrans %}<br>
+						{% blocktrans count forum.post_count as count %}{{ count }} message{% plural %}{{ count }} messages{% endblocktrans %}<br>
+					</div>
+					<div class="col-sm-3 forum-meta text-center">{% if forum.last_post %}<a href="{{ forum.last_post.get_absolute_url }}">
+						{% blocktrans with username=forum.last_post.author.username %}Last message by <span class="thread-item-author">{{ username }}</span>{% endblocktrans %}<br>
+						{{ forum.last_post.date_created|naturaltime|capfirst }}
+					</a>{% endif %}</div>
+				{% endspaceless %}</div>
+			</li>
 		{% endfor %}
-		</tbody>
-	</table>
+		</ul>
+	{% else %}
+		<p class="empty-list-item"><i class="fa fa-frown-o"></i> {% trans "There is no forum." %}</p>
+	{% endif %}
 
 {% endblock %}

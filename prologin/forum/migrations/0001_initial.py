@@ -2,10 +2,10 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
+import prologin.models
+import django.utils.timezone
 import forum.models
 from django.conf import settings
-import django.utils.timezone
-import prologin.models
 
 
 class Migration(migrations.Migration):
@@ -23,9 +23,8 @@ class Migration(migrations.Migration):
                 ('slug', models.SlugField(max_length=300)),
                 ('description', models.TextField(verbose_name='Description')),
                 ('order', models.IntegerField(editable=False, db_index=True)),
-                ('post_count', models.PositiveIntegerField(default=0, verbose_name='Number of posts', editable=False, blank=True)),
                 ('thread_count', models.PositiveIntegerField(default=0, verbose_name='Number of threads', editable=False, blank=True)),
-                ('date_last_post', models.DateTimeField(verbose_name='Last post added on', null=True, blank=True)),
+                ('post_count', models.PositiveIntegerField(default=0, verbose_name='Number of posts', editable=False, blank=True)),
             ],
             options={
                 'verbose_name_plural': 'Forums',
@@ -64,8 +63,7 @@ class Migration(migrations.Migration):
                 ('is_visible', models.BooleanField(default=True, verbose_name='Visible', db_index=True)),
                 ('date_created', models.DateTimeField(default=django.utils.timezone.now)),
                 ('date_last_edited', models.DateTimeField(auto_now=True)),
-                ('post_count', models.PositiveIntegerField(default=0, verbose_name='Posts count', editable=False, blank=True)),
-                ('view_count', models.PositiveIntegerField(default=0, verbose_name='Views count', editable=False, blank=True)),
+                ('post_count', models.PositiveIntegerField(default=0, verbose_name='Number of posts', editable=False, blank=True)),
                 ('date_last_post', models.DateTimeField(verbose_name='Last post added on', null=True, blank=True)),
                 ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='forum_threads')),
                 ('forum', models.ForeignKey(to='forum.Forum', related_name='threads')),

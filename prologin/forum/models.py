@@ -21,9 +21,8 @@ class Forum(SortableMixin):
     description = models.TextField(verbose_name=_("Description"))
     order = models.IntegerField(editable=False, db_index=True)
 
-    post_count = models.PositiveIntegerField(verbose_name=_("Number of posts"), editable=False, blank=True, default=0)
     thread_count = models.PositiveIntegerField(verbose_name=_("Number of threads"), editable=False, blank=True, default=0)
-    date_last_post = models.DateTimeField(verbose_name=_("Last post added on"), blank=True, null=True)
+    post_count = models.PositiveIntegerField(verbose_name=_("Number of posts"), editable=False, blank=True, default=0)
 
     class Meta:
         ordering = ('order',)
@@ -40,19 +39,21 @@ class Forum(SortableMixin):
         self.slug = slugify(force_text(self.name))
         super().save(*args, **kwargs)
 
+    @cached_property
+    def last_post(self):
+        return Post.visible.filter(thread__forum=self).latest()
+
     def update_trackers(self):
-        threads = Thread.objects.filter(forum=self).order_by('-date_last_post')
-        visible_threads = threads.filter(is_visible=True)
+        visible_threads = Thread.objects.filter(is_visible=True, forum=self).order_by('-date_last_post')
 
         self.thread_count = visible_threads.count()
-        self.post_count = sum(thread.post_count for thread in visible_threads)
+        self.post_count = Post.objects.filter(is_visible=True, thread__forum=self, thread__is_visible=True).count()
 
         try:
             self.date_last_post = visible_threads[0].date_last_post
         except IndexError:
             self.date_last_post = timezone.now()
 
-        # Bypass self.save()
         super().save()
 
     def get_absolute_url(self):
@@ -93,9 +94,8 @@ class Thread(models.Model):
     date_last_edited = models.DateTimeField(auto_now=True)
     last_edited_author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='forum_last_edited_threads', blank=True, null=True)
 
-    post_count = models.PositiveIntegerField(verbose_name=_("Posts count"), editable=False, blank=True, default=0)
-    view_count = models.PositiveIntegerField(verbose_name=_("Views count"), editable=False, blank=True, default=0)
-    date_last_post = models.DateTimeField(verbose_name=_("Last post added on"), blank=True, null=True)
+    post_count = models.PositiveIntegerField(verbose_name=_("Number of posts"), editable=False, blank=True, default=0)
+    date_last_post = models.DateTimeField(verbose_name=_("Last post added on"), blank=True, null=True)  # so we can sort
 
     # Managers
     objects = models.Manager()
@@ -106,6 +106,9 @@ class Thread(models.Model):
         get_latest_by = 'date_last_post'
         verbose_name = _("Thread")
         verbose_name_plural = _("Threads")
+
+    def __str__(self):
+        return self.title
 
     @cached_property
     def is_moved(self):
@@ -154,9 +157,6 @@ class Thread(models.Model):
         self.slug = slugify(force_text(self.title))
         super().save(*args, **kwargs)
 
-        # Trigger the forum-level trackers update
-        self.forum.update_trackers()
-
         # If any change has been made to the parent forum, trigger the update of the counters
         if old_instance and old_instance.forum != self.forum:
             self.update_trackers()
@@ -164,6 +164,13 @@ class Thread(models.Model):
             if old_instance.category:
                 old_forum = refresh_model_instance(old_instance.forum)
                 old_forum.update_trackers()
+
+    def update_trackers(self):
+        posts = Post.objects.filter(thread=self)
+        self.post_count = posts.count()
+        self.date_last_post = posts.latest().date_created
+        super().save()
+        self.forum.update_trackers()
 
     def delete(self, using=None):
         super().delete(using)
@@ -199,9 +206,12 @@ class Post(models.Model):
         verbose_name = _("Post")
         verbose_name_plural = _("Posts")
 
+    def __str__(self):
+        return self.content[:64] + ('…' if len(self.content) > 64 else '')
+
     @cached_property
     def is_edited(self):
-        return self.date_last_edited is not None
+        return self.last_edited_author is not None
 
     @cached_property
     def is_thread_head(self):
@@ -222,7 +232,7 @@ class Post(models.Model):
         """
         Returns an integer corresponding to the position of the post in the thread.
         """
-        return self.thread.posts.filter(Q(date_created__lt=self.created) | Q(pk=self.pk)).count()
+        return self.thread.posts.filter(Q(date_created__lt=self.date_created) | Q(pk=self.pk)).distinct().count()
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -241,4 +251,4 @@ class Post(models.Model):
             self.thread.update_trackers()
 
     def get_absolute_url(self):
-        return reverse('forum:post', args=[self.pk])
+        return reverse('forum:post', kwargs={'thread_slug': self.thread.slug, 'pk': self.pk})
