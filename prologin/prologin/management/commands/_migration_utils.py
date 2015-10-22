@@ -1,14 +1,17 @@
+import subprocess
+import datetime
+
+from bs4 import BeautifulSoup
 from collections import namedtuple
 from django.core.files.base import ContentFile
 from django.utils import timezone
-import subprocess
-from prologin.languages import Language
-import prologin.models
 import requests
-import datetime
 import functools
 import os
 import pytz
+
+from prologin.languages import Language
+import prologin.models
 
 DEFAULT_TIME_ZONE = pytz.timezone('Europe/Paris')
 CURRENT_TIMEZONE = timezone.get_current_timezone()
@@ -133,6 +136,7 @@ def map_from_legacy_language(language_num):
     except KeyError:
         return None
 
+
 map_from_legacy_language.mapping = {}
 for lang in Language:
     for ext in lang.extensions():
@@ -140,6 +144,11 @@ for lang in Language:
 
 
 def html_to_markdown(html):
+    soup = BeautifulSoup(html)
+    # Wrap <code> in <pre> because <code> is usually inline, and fucking Drupal forces it to be block
+    for code in soup.findAll('code'):
+        code.wrap(soup.new_tag('pre'))
+    html = soup.prettify(encoding='utf8')
     with subprocess.Popen(['pandoc', '--from', 'html', '--to', 'markdown'],
-                                  stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL) as pandoc:
-        return pandoc.communicate(html.encode('utf-8'))[0].decode('utf-8')
+                          stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL) as pandoc:
+        return pandoc.communicate(html)[0].decode('utf-8')

@@ -1,3 +1,5 @@
+# HTML parser
+beautifulsoup4
 # For code charset detection
 chardet
 # For async tasks (sending mails, correcting submissions, etc.)
