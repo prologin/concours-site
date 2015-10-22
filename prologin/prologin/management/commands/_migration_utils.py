@@ -1,18 +1,22 @@
-import subprocess
-import datetime
-
 from bs4 import BeautifulSoup
+
 from collections import namedtuple
-from django.core.files.base import ContentFile
-from django.utils import timezone
-import requests
+import datetime
 import functools
 import os
 import pytz
+import re
+import requests
+import subprocess
+
+from django.core.files.base import ContentFile
+from django.utils import timezone
+from django.utils.html import linebreaks
 
 from prologin.languages import Language
 import prologin.models
 
+RE_PANDOC_MARKDOWN_LINEBREAKS = re.compile(r'(\\)$', re.MULTILINE)
 DEFAULT_TIME_ZONE = pytz.timezone('Europe/Paris')
 CURRENT_TIMEZONE = timezone.get_current_timezone()
 
@@ -144,11 +148,20 @@ for lang in Language:
 
 
 def html_to_markdown(html):
-    soup = BeautifulSoup(html)
-    # Wrap <code> in <pre> because <code> is usually inline, and fucking Drupal forces it to be block
+    # Drupal uses nl2br() for display
+    html = linebreaks(html)
+    # If there are <br> in <code>, we need to wrap into <pre>
+    soup = BeautifulSoup(html, 'lxml')
     for code in soup.findAll('code'):
-        code.wrap(soup.new_tag('pre'))
-    html = soup.prettify(encoding='utf8')
-    with subprocess.Popen(['pandoc', '--from', 'html', '--to', 'markdown'],
+        if code.find('br') is not None:
+            code.wrap(soup.new_tag('pre'))
+        # pandoc does shit with <br> inside <pre>, just replace them with linebreaks
+        for br in code.findAll('br'):
+            br.replaceWith('\n')
+    html = soup.prettify(encoding='utf-8')
+    # Convert to pandoc markdown
+    with subprocess.Popen(['/usr/bin/pandoc', '--columns=120', '--from=html', '--to=markdown'],
                           stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL) as pandoc:
-        return pandoc.communicate(html)[0].decode('utf-8')
+        markdown = pandoc.communicate(html)[0].decode('utf-8')
+    # pandoc markdown uses \ as line break, python markdown uses two spaces
+    return RE_PANDOC_MARKDOWN_LINEBREAKS.sub('  ', markdown)

@@ -981,15 +981,31 @@ class Command(LabelCommand):
           ORDER BY n.created
         """
 
+        @functools.lru_cache(4096)
+        def get_author(uid):
+            try:
+                return User.objects.get(pk=uid)
+            except User.DoesNotExist:
+                self.stderr.write("Unknown user: {}".format(uid))
+                return
+
+        @functools.lru_cache(4096)
+        def get_thread(thread_id):
+            try:
+                return forum.models.Post.objects.select_related('thread').get(pk=thread_id).thread
+            except forum.models.Post.DoesNotExist:
+                self.stderr.write("Unknown post: {}".format(thread_id))
+                return
+
         def store_thread(row):
             if row.forum_id not in forum_ids:
                 self.stderr.write("Unknown forum: {}".format(row.forum_id))
                 return
-            try:
-                author = User.objects.get(pk=row.uid)
-            except User.DoesNotExist:
-                self.stderr.write("Unknown user: {}".format(row.uid))
+
+            author = get_author(row.uid)
+            if author is None:
                 return
+
             type = (forum.models.Thread.Type.sticky if row.sticky else forum.models.Thread.Type.normal).value
             thread = forum.models.Thread(type=type, forum_id=row.forum_id, title=row.title)
             thread.save()
@@ -1001,11 +1017,10 @@ class Command(LabelCommand):
                                            date_created=date_created,
                                            date_last_edited=date_created)
             first_post.save()
-            print(first_post.content[:80])
 
         with self.mysql.cursor() as c:
             c.execute(query)
-            with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=16) as pool:
                 with transaction.atomic():
                     for r in pool.map(store_thread, namedcolumns(c)):
                         pass
@@ -1020,15 +1035,12 @@ class Command(LabelCommand):
         """
 
         def store_post(row):
-            try:
-                author = User.objects.get(pk=row.uid)
-            except User.DoesNotExist:
-                self.stderr.write("Unknown user: {}".format(row.uid))
+            author = get_author(row.uid)
+            if author is None:
                 return
-            try:
-                thread = forum.models.Post.objects.select_related('thread').get(pk=row.thread_id).thread
-            except forum.models.Post.DoesNotExist:
-                self.stderr.write("Unknown post: {}".format(row.thread_id))
+
+            thread = get_thread(row.thread_id)
+            if thread is None:
                 return
 
             post = forum.models.Post(pk=row.id + FIRST_POST_OFFSET,
@@ -1040,7 +1052,7 @@ class Command(LabelCommand):
 
         with self.mysql.cursor() as c:
             c.execute(query)
-            with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=16) as pool:
                 with transaction.atomic():
                     for r in pool.map(store_post, namedcolumns(c)):
                         pass
