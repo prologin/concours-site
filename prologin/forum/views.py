@@ -69,9 +69,9 @@ class ForumView(PermissionRequiredMixin, ListView):
         # If we don't include 'thread' in select_related, Django is stupid enough to trigger a new query for thread.pk
         # even though it is available as thread_id.
         thread_to_posts = {}
-        for post in forum.models.Post.visible.filter(pk__in=first_post_ids).select_related('author', 'thread'):
+        for post in forum.models.Post.objects.filter(pk__in=first_post_ids).select_related('author', 'thread'):
             thread_to_posts[post.thread.pk] = [post]
-        for post in forum.models.Post.visible.filter(pk__in=last_post_ids).select_related('author', 'thread'):
+        for post in forum.models.Post.objects.filter(pk__in=last_post_ids).select_related('author', 'thread'):
             thread_to_posts[post.thread.pk].append(post)
 
         # Hydrate the threads
@@ -95,7 +95,7 @@ class ForumView(PermissionRequiredMixin, ListView):
         # Check if slug is valid, redirect if not
         forum = self.get_forum
         if forum.slug != kwargs['slug']:
-            return redirect('forum:forum', args=[forum.slug, forum.pk])
+            return redirect('forum:forum', slug=forum.slug, pk=forum.pk)
         return super().get(request, *args, **kwargs)
 
 
@@ -165,10 +165,11 @@ class ThreadView(PermissionRequiredMixin, FormMixin, ListView):
         thread = self.get_thread
         # Check if slugs are valid, redirect if not
         if thread.forum.slug != kwargs['forum_slug'] or thread.slug != kwargs['slug']:
-            return redirect('forum:thread', kwargs={'forum_slug': thread.forum.slug,
-                                                    'forum_pk': thread.forum.pk,
-                                                    'slug': thread.slug,
-                                                    'pk': thread.pk})
+            return redirect('forum:thread',
+                            forum_slug=thread.forum.slug,
+                            forum_pk=thread.forum.pk,
+                            slug=thread.slug,
+                            pk=thread.pk)
         return super().get(request, *args, **kwargs)
 
     def form_valid(self, form):

@@ -19,7 +19,6 @@ DRUPAL_SITE_BASE_URL = "http://prologin.org/"  # For downloading content (mainly
 
 """
 TODO:
-    - forum (categories, messages)
     - news comments
 """
 
@@ -950,6 +949,101 @@ class Command(LabelCommand):
                     else:
                         self.stderr.write("Unable to downlad image for {}".format(sponsor_obj))
                     sponsor_obj.save()
+
+    def migrate_forums(self):
+        import forum.models
+
+        self.stdout.write("Migrating forums: top-level forums")
+
+        query = """SELECT tid, name, description FROM term_data WHERE vid = 1"""
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            with transaction.atomic():
+                for order, row in enumerate(namedcolumns(c)):
+                    forum.models.Forum(pk=row.tid, name=row.name, description=row.description, order=order).save()
+
+        forum_ids = set(forum.models.Forum.objects.values_list('pk', flat=True))
+
+        self.stdout.write("Migrating forums: threads")
+
+        # In Drupal, first posts are part of 'node', other posts (replies) are 'comments'; in Django we just have a
+        # Thread container and first post is just a normal Post within this Thread.
+        FIRST_POST_OFFSET = 22000  # roughly round-to-thousand(max(comments.cid))
+
+        # We just drop unpublished (status == 0) nodes
+        query = """
+          SELECT n.nid AS id, n.sticky, n.uid, nr.title, nr.body, n.created, tn.tid AS forum_id
+          FROM node n
+          INNER JOIN node_revisions nr ON nr.vid = n.vid
+          INNER JOIN term_node tn ON tn.vid = n.vid
+          WHERE n.type = 'forum' AND n.status = 1 AND nr.title != '' AND nr.body != ''
+          GROUP BY n.nid
+          ORDER BY n.created
+        """
+
+        def store_thread(row):
+            if row.forum_id not in forum_ids:
+                self.stderr.write("Unknown forum: {}".format(row.forum_id))
+                return
+            try:
+                author = User.objects.get(pk=row.uid)
+            except User.DoesNotExist:
+                self.stderr.write("Unknown user: {}".format(row.uid))
+                return
+            type = (forum.models.Thread.Type.sticky if row.sticky else forum.models.Thread.Type.normal).value
+            thread = forum.models.Thread(type=type, forum_id=row.forum_id, title=row.title)
+            thread.save()
+            date_created = localize(datetime.datetime.fromtimestamp(row.created))
+            first_post = forum.models.Post(pk=row.id,
+                                           thread=thread,
+                                           author=author,
+                                           content=html_to_markdown(row.body),
+                                           date_created=date_created,
+                                           date_last_edited=date_created)
+            first_post.save()
+            print(first_post.content[:80])
+
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            with concurrent.futures.ThreadPoolExecutor() as pool:
+                with transaction.atomic():
+                    for r in pool.map(store_thread, namedcolumns(c)):
+                        pass
+
+        self.stdout.write("Migrating forums: posts")
+
+        query = """
+            SELECT cid AS id, nid AS thread_id, uid, comment, timestamp
+            FROM comments
+            WHERE status = 0
+            ORDER BY uid, thread_id
+        """
+
+        def store_post(row):
+            try:
+                author = User.objects.get(pk=row.uid)
+            except User.DoesNotExist:
+                self.stderr.write("Unknown user: {}".format(row.uid))
+                return
+            try:
+                thread = forum.models.Post.objects.select_related('thread').get(pk=row.thread_id).thread
+            except forum.models.Post.DoesNotExist:
+                self.stderr.write("Unknown post: {}".format(row.thread_id))
+                return
+
+            post = forum.models.Post(pk=row.id + FIRST_POST_OFFSET,
+                                     thread=thread,
+                                     author=author,
+                                     content=html_to_markdown(row.comment),
+                                     date_created=localize(datetime.datetime.fromtimestamp(row.timestamp)))
+            post.save()
+
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            with concurrent.futures.ThreadPoolExecutor() as pool:
+                with transaction.atomic():
+                    for r in pool.map(store_post, namedcolumns(c)):
+                        pass
 
     def handle_label(self, label, **options):
         args = []

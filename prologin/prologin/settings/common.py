@@ -261,10 +261,10 @@ RECAPTCHA_USE_SSL = True
 # Content Security Policy
 
 CSP_DEFAULT_SRC = ("'self'",)
-CSP_FONT_SRC = ("'self'", "fonts.gstatic.com",)
+CSP_FONT_SRC = ("'self'", "fonts.gstatic.com", "cdn.mathjax.org",)
 CSP_FRAME_SRC = ("'self'", "*.google.com", "player.vimeo.com",)
 CSP_IMG_SRC = ("*",)
-CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "*.googleapis.com", "*.gstatic.com", "*.google.com",)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "*.googleapis.com", "*.gstatic.com", "*.google.com", "cdn.mathjax.org",)
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "*.googleapis.com",)
 
 # Zinnia (news)

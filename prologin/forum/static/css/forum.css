@@ -14,6 +14,26 @@
 	border-radius: 0 3px 3px 0;
 }
 
+.post-content .footnote {
+	font-size: 0.9em;
+}
+
+.post-content .footnote hr {
+	margin: 20px 0 10px;
+}
+
+.post-content .footnote ol {
+	margin: 0;
+}
+
+.post-content .footnote ol li p {
+	margin: 0;
+}
+
+.post-content .footnote ol li:target, .post-content sup[id^="fnref"]:target {
+	background: #f7ecb5;
+}
+
 .post-content blockquote {
 	font-size: inherit; /* wtf bootstrap */
 	border-left: 5px solid #ccc;

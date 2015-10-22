@@ -1,6 +1,7 @@
 from collections import namedtuple
 from django.core.files.base import ContentFile
 from django.utils import timezone
+import subprocess
 from prologin.languages import Language
 import prologin.models
 import requests
@@ -136,3 +137,9 @@ map_from_legacy_language.mapping = {}
 for lang in Language:
     for ext in lang.extensions():
         map_from_legacy_language.mapping[ext] = lang
+
+
+def html_to_markdown(html):
+    with subprocess.Popen(['pandoc', '--from', 'html', '--to', 'markdown'],
+                                  stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL) as pandoc:
+        return pandoc.communicate(html.encode('utf-8'))[0].decode('utf-8')

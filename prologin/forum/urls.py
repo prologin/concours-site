@@ -8,7 +8,7 @@ post_patterns = [
 
 thread_patterns = [
     url(r'^new-thread', views.CreateThreadView.as_view(), name='create-thread'),
-    url(r'^(?:(?P<slug>[\w-]+)-)(?P<pk>[0-9]+)/', include(post_patterns)),
+    url(r'^(?:(?P<slug>[\w-]+)-)?(?P<pk>[0-9]+)/', include(post_patterns)),
 ]
 
 urlpatterns = [
@@ -19,7 +19,7 @@ urlpatterns = [
     url(r'^post/(?P<thread_slug>[\w-]+)/(?P<pk>[0-9]+)/edit$', views.EditPostView.as_view(), name='edit-post'),
     url(r'^post/(?P<thread_slug>[\w-]+)/(?P<pk>[0-9]+)/edit/visibility$', views.EditPostVisibilityView.as_view(), name='edit-post-visibility'),
 
-    url(r'^(?:(?P<slug>[\w-]+)-)(?P<pk>[0-9]+)/$', views.ForumView.as_view(), name='forum'),
+    url(r'^(?:(?P<slug>[\w-]+)-)?(?P<pk>[0-9]+)/$', views.ForumView.as_view(), name='forum'),
 
-    url(r'^(?:(?P<forum_slug>[\w-]+)-)(?P<forum_pk>[0-9]+)/', include(thread_patterns)),
+    url(r'^(?:(?P<forum_slug>[\w-]+)-)?(?P<forum_pk>[0-9]+)/', include(thread_patterns)),
 ]

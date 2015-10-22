@@ -37,8 +37,6 @@ jsonfield
 lxml
 # Markdown support
 markdown>=2.4
-# Advanced markdown support
-mistune==0.7.1
 # Image manipulation support, previously known as PIL
 pillow>=2.4
 # Postgres database connector
