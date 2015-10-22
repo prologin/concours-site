@@ -147,6 +147,10 @@
   color: inherit;
 }
 
+.home-jumbo .tl-block .desc .dates-link {
+  margin-bottom: 0;
+}
+
 .home-jumbo .tl-block h4 {
   font-size: 1.4em;
   margin-bottom: 0;
