@@ -51,35 +51,38 @@ class ForumView(PermissionRequiredMixin, ListView):
         # OH I WISH I HAD AN ACTUAL ORM.
 
         # Standard queryset with sub-queries (not *that* bad, is it?) for fist and last post ID
-        thread_qs = (super().get_queryset()
-                            .filter(forum=self.get_forum)
-                            .select_related('forum')
-                            .extra(select={
-                                'first_post_id': "SELECT p.id FROM forum_post p WHERE p.thread_id = forum_thread.id ORDER BY date_created ASC LIMIT 1",
-                                'last_post_id': "SELECT p.id FROM forum_post p WHERE p.thread_id = forum_thread.id ORDER BY date_created DESC LIMIT 1",
-                            }))
-        zipped_post_ids = thread_qs.values_list('first_post_id', 'last_post_id')
+        return (super().get_queryset()
+                       .filter(forum=self.get_forum)
+                       .select_related('forum')
+                       .extra(select={
+                           'first_post_id': "SELECT p.id FROM forum_post p WHERE p.thread_id = forum_thread.id ORDER BY date_created ASC LIMIT 1",
+                           'last_post_id': "SELECT p.id FROM forum_post p WHERE p.thread_id = forum_thread.id ORDER BY date_created DESC LIMIT 1",
+                       }))
+
+    def paginate_queryset(self, queryset, page_size):
+        paginator, page, page.object_list, page.has_other_pages = super().paginate_queryset(queryset, page_size)
         first_post_ids = set()
         last_post_ids = set()
-        for first, last in zipped_post_ids:
-            first_post_ids.add(first)
-            last_post_ids.add(last)
+        for thread in page.object_list:
+            assert thread.first_post_id is not None
+            assert thread.last_post_id is not None
+            first_post_ids.add(thread.first_post_id)
+            last_post_ids.add(thread.last_post_id)
 
         # Map threads to their first and last post
         # If we don't include 'thread' in select_related, Django is stupid enough to trigger a new query for thread.pk
         # even though it is available as thread_id.
         thread_to_posts = {}
         for post in forum.models.Post.objects.filter(pk__in=first_post_ids).select_related('author', 'thread'):
-            thread_to_posts[post.thread.pk] = [post]
+            thread_to_posts[post.thread.pk] = [post, None]
         for post in forum.models.Post.objects.filter(pk__in=last_post_ids).select_related('author', 'thread'):
-            thread_to_posts[post.thread.pk].append(post)
+            thread_to_posts[post.thread.pk][1] = post
 
         # Hydrate the threads
-        items = []
-        for item in thread_qs:
-            item._first_post, item._last_post = thread_to_posts[item.pk]
-            items.append(item)
-        return items
+        for thread in page.object_list:
+            thread._first_post, thread._last_post = thread_to_posts[thread.pk]
+
+        return paginator, page, page.object_list, page.has_other_pages
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
