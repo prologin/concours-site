@@ -81,8 +81,8 @@
                       data-container="body" data-toggle="popover"
                       data-placement="bottom" data-html="true"
                       data-content="
-                      {% for demi in request.current_events.semifinal %}
-                      {{ demi.center.name }} - {{ demi.date_begin|date:"d b Y"|default:no_such_date }}<br />
+                      {% for demi in request.current_events.semifinal|dictsort:'date_begin' %}
+                      <strong>{{ demi.center.name }}</strong> – {{ demi.date_begin|date:"d b Y"|default:no_such_date }}<br />
                       {% endfor %}
                       ">
                       {% trans "See all dates" %}
