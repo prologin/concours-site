@@ -14,6 +14,13 @@
 	border-radius: 0 3px 3px 0;
 }
 
+.post-content .pyg-hltable .linenos {
+	background: #272822;
+	color: #f8f8f2;
+	border-radius: 3px 0 0 3px;
+	border-right: 1px solid #555;
+}
+
 .post-content .footnote {
 	font-size: 0.9em;
 }
@@ -71,7 +78,6 @@
 
 .forum-meta {
 	font-size: 0.9em;
-	margin-bottom: 10px;
 }
 
 .forum-ellipsis {
