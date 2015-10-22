@@ -7,7 +7,7 @@ TX = tx --debug
 # NOT SUITABLE FOR USE IN PRODUCTION.
 
 runserver:
-	$(MANAGE) runserver 0.0.0.0:8000
+	$(MANAGE) runserver localhost:8000
 
 smtpserver:
 	python -m smtpd -n -c DebuggingServer localhost:1025
