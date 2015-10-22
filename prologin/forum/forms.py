@@ -1,3 +1,6 @@
+import collections
+import itertools
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -33,6 +36,21 @@ class UpdatePostForm(forms.ModelForm):
             'last_edited_reason': forms.TextInput(attrs={
                 'placeholder': _("This explanation will be shown above the message.")})
         }
+
+    @property
+    def is_thread_head(self):
+        return self.instance and self.instance.is_thread_head
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        if self.is_thread_head:
+            # Add thread title
+            # Django forms are shit, so we have to rebuild the damn OrderedDict from scratch
+            self.fields = collections.OrderedDict(field for field in itertools.chain(
+                [('thread_title', forms.CharField(label=_("Thread title")))],
+                self.fields.items()
+            ))
+            self.initial['thread_title'] = self.instance.thread.title
 
     def clean_last_edited_reason(self):
         return self.cleaned_data['last_edited_reason'].strip()

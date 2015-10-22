@@ -212,6 +212,9 @@ class EditPostView(PermissionRequiredMixin, UpdateView):
         post = form.save(commit=False)
         post.last_edited_author = self.request.user
         post.save()
+        if post.is_thread_head:
+            post.thread.title = form.cleaned_data['thread_title']
+            post.thread.save()
         return super(ModelFormMixin, self).form_valid(form)
 
     def get_context_data(self, **kwargs):

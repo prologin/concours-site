@@ -11,10 +11,8 @@ from django.contrib.admin.views.main import EMPTY_CHANGELIST_VALUE
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.utils.html import conditional_escape
-
-from .markdown.markdown import Markdown
+from django.utils.translation import ugettext_lazy as _
 
 
 def absolute_site_url(request, absolute_path):
