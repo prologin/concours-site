@@ -143,6 +143,10 @@
   font-size: inherit;
 }
 
+.home-jumbo .tl-block .desc a {
+  color: inherit;
+}
+
 .home-jumbo .tl-block h4 {
   font-size: 1.4em;
   margin-bottom: 0;

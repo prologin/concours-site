@@ -69,24 +69,31 @@
             <div class="row">
               <div class="col-xs-5 col-sm-12">
                 <h4>{% trans "Semifinals" %}</h4>
-                {% with firstsemi=request.current_events.semifinal|first lastsemi=request.current_events.semifinal|last %}
-                    <p class="date">{{ firstsemi.date_begin|date:"d b Y"|default:no_such_date }}
-                    → {{ lastsemi.date_begin|date:"d b Y"|default:no_such_date }}</p>
-                {% endwith %}
+                <p class="date">
+                {% if request.current_events.semifinal %}
+                  {% with firstsemi=request.current_events.semifinal|first lastsemi=request.current_events.semifinal|last %}
+                    {{ firstsemi.date_begin|date:"d b Y"|default:no_such_date }}
+                    → {{ lastsemi.date_begin|date:"d b Y"|default:no_such_date }}
+                  {% endwith %}
+                {% else %}
+                  {{ no_such_date }}
+                {% endif %}
+                </p>
               </div>
               <div class="col-xs-7 col-sm-12">
                 <div class="desc">
-                  <p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}
-                  <button type="button" class="btn btn-default btn-xs"
+                  <p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
+                  <p class="text-center"><strong><a style="cursor: pointer"
                       data-container="body" data-toggle="popover"
                       data-placement="bottom" data-html="true"
                       data-content="
                       {% for demi in request.current_events.semifinal|dictsort:'date_begin' %}
-                      <strong>{{ demi.center.name }}</strong> – {{ demi.date_begin|date:"d b Y"|default:no_such_date }}<br />
+                      <strong><a href='{% url 'centers:center_map' %}'>{{ demi.center.name }}</a></strong> –
+                      {{ demi.date_begin|date:"d b Y"|default:no_such_date }}<br />
                       {% endfor %}
                       ">
-                      {% trans "See all dates" %}
-                  </button>
+                      {% trans "See all the dates" %}
+                    </a></strong>
                   </p>
                   <p class="hide-no-active"><a href="{% url 'training:index' %}" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
                 </div>
