@@ -11,8 +11,8 @@ from django.contrib.admin.views.main import EMPTY_CHANGELIST_VALUE
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
 from django.utils.html import conditional_escape
+from django.utils.translation import ugettext_lazy as _
 
 
 def absolute_site_url(request, absolute_path):
@@ -49,6 +49,14 @@ def upload_path(*base_path):
         return os.path.join(*(parts + [name]))
 
     return func
+
+
+def refresh_model_instance(instance):
+    """
+    Select and return instance from database.
+    Usage: instance = refresh(instance)
+    """
+    return instance.__class__.objects.get(pk=instance.pk)
 
 
 class LoginRequiredMixin:

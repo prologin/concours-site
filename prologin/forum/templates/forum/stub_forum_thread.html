@@ -1,0 +1,26 @@
+{% load i18n humanize %}
+<li class="{% if thread.is_sticky %}thread-sticky {% endif %}{% if thread.is_closed %}thread-closed {% endif %}{% if thread.is_moved %}thread-moved {% endif %}">
+	<div class="row row-vmiddle">{% spaceless %}
+		<div class="col-sm-7 col-xs-8 thread-item-main">
+			<div class="thread-item-icons" title="{% if thread.is_sticky %}{% trans "This thread is sticky, it will always show up at the top of the forum." %}{% endif %} {% if thread.is_closed %}{% trans "This thread is closed, you cannot post new messages in it." %}{% endif %}">
+				{% if thread.is_sticky %}<i class="fa fa-lg fa-thumb-tack"></i>{% endif %}
+				{% if thread.is_closed %}<i class="fa fa-lg fa-lock"></i>{% endif %}
+			</div>
+			<a href="{{ thread.get_absolute_url }}">
+				<h3>{{ thread.title }}</h3>
+				<span class="text-muted forum-meta">
+					{% blocktrans with username=thread.author.username date_full=thread.date_created|date:"c" date=thread.date_created|date:"DATETIME_FORMAT" %}By <span class="thread-item-author">{{ username }}</span> ⋅ <span title="{{ date_full }}">{{ date }}</span>{% endblocktrans %}
+				</span>
+			</a>
+		</div>
+		<div class="col-sm-2 hidden-xs forum-meta text-center">
+			{% blocktrans count thread.post_count as count %}{{ count }} message{% plural %}{{ count }}
+				messages{% endblocktrans %}<br>
+		</div>
+		<div class="col-sm-3 col-xs-4 forum-meta text-center"><a href="{{ thread.last_post.get_permalink }}">
+			{% blocktrans with username=thread.last_post.author.username %}Last message by
+				<span class="thread-item-author">{{ username }}</span>{% endblocktrans %}<br>
+			{{ thread.last_post.date_created|naturaltime|capfirst }}
+		</a></div>
+	{% endspaceless %}</div>
+</li>

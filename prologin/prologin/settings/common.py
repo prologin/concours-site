@@ -70,6 +70,7 @@ INSTALLED_APPS = (
     'djmail',
     'macros',
     'mptt',
+    'rules.apps.AutodiscoverRulesConfig',
     'tagging',
 
     # Prologin apps
@@ -77,6 +78,7 @@ INSTALLED_APPS = (
     'centers',
     'contest',
     'documents',
+    'forum',
     'homepage',
     'qcm',
     'news',
@@ -188,6 +190,7 @@ MEDIA_URL = '/media/'
 # Authentication
 
 AUTHENTICATION_BACKENDS = (
+    'rules.permissions.ObjectPermissionBackend',
     'prologin.backends.ModelBackendWithLegacy',
 )
 AUTH_USER_MODEL = 'users.ProloginUser'
@@ -197,6 +200,11 @@ LOGOUT_URL = reverse_lazy('users:logout')
 LOGIN_REDIRECT_URL = reverse_lazy('home')
 USER_ACTIVATION_EXPIRATION = datetime.timedelta(days=7)
 
+# Forum
+
+FORUM_THREADS_PER_PAGE = 25
+FORUM_POSTS_PER_PAGE = 20
+FORUM_MENTIONS_PER_MESSAGE = 3  # @mention limit to prevent database DoS
 
 # Prologin specific
 
@@ -253,10 +261,10 @@ RECAPTCHA_USE_SSL = True
 # Content Security Policy
 
 CSP_DEFAULT_SRC = ("'self'",)
-CSP_FONT_SRC = ("'self'", "fonts.gstatic.com",)
+CSP_FONT_SRC = ("'self'", "fonts.gstatic.com", "cdn.mathjax.org",)
 CSP_FRAME_SRC = ("'self'", "*.google.com", "player.vimeo.com",)
-CSP_IMG_SRC = ("'self'", "data:", "'unsafe-inline'", "*.googleapis.com", "*.gstatic.com",)
-CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "*.googleapis.com", "*.gstatic.com", "*.google.com",)
+CSP_IMG_SRC = ("*",)
+CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "*.googleapis.com", "*.gstatic.com", "*.google.com", "cdn.mathjax.org",)
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "*.googleapis.com",)
 
 # Zinnia (news)

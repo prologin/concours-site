@@ -1,0 +1,43 @@
+{% extends "forum/base.html" %}
+{% load i18n markup humanize django_bootstrap_breadcrumbs %}
+
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb_for "forum:index" %}{% trans "Forums" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Forums" %}{% endblock %}
+
+{% block content %}
+
+	<h1>{% trans "Forums" %}</h1>
+
+	{% if forums %}
+		<ul class="forum-listing">
+		{% for forum in forums %}
+			<li>
+				<div class="row row-vmiddle">{% spaceless %}
+					<div class="col-xs-7">
+						<a href="{{ forum.get_absolute_url }}">
+						<h3>{{ forum.name }}</h3>
+						<span class="text-muted forum-meta">{{ forum.description|markdown }}</span>
+						</a>
+					</div>
+					<div class="col-sm-2 hidden-xs forum-meta text-center">
+						{% blocktrans count forum.thread_count as count %}{{ count }} thread{% plural %}{{ count }} threads{% endblocktrans %}<br>
+						{% blocktrans count forum.post_count as count %}{{ count }} message{% plural %}{{ count }} messages{% endblocktrans %}<br>
+					</div>
+					<div class="col-sm-3 col-xs-5 forum-meta text-center">{% if forum.last_post %}<a href="{{ forum.last_post.get_permalink }}">
+						{% blocktrans with username=forum.last_post.author.username %}Last message by <span class="thread-item-author">{{ username }}</span>{% endblocktrans %}<br>
+						{{ forum.last_post.date_created|naturaltime|capfirst }}
+					</a>{% endif %}</div>
+				{% endspaceless %}</div>
+			</li>
+		{% endfor %}
+		</ul>
+	{% else %}
+		<p class="empty-list-item"><i class="fa fa-frown-o"></i> {% trans "There is no forum." %}</p>
+	{% endif %}
+
+{% endblock %}

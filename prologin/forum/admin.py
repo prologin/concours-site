@@ -1,50 +1,58 @@
 from django.contrib import admin
-from forum.models import Category, Post
-from users.models import UserProfile
-from prologin.utils import get_slug
+from django.utils.translation import ugettext_lazy as _
 
-class CategoryAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['name', 'display', 'description']}),
-    ]
-    list_display = ('name', 'display', 'description')
+import forum.models
 
-    def save_model(self, request, obj, form, change):
-        obj.slug = get_slug(obj.name)
-        obj.save()
 
-    def save_formset(self, request, form, formset, change):
-        instances = formset.save(commit=False)
-        for instance in instances:
-            instance.slug = get_slug(instance.name)
-        formset.save_m2m()
+class ForumAdmin(admin.ModelAdmin):
+    list_display = ('name', 'description',)
+    search_fields = ('name', 'description',)
 
-admin.site.register(Category, CategoryAdmin)
+
+class ThreadAdmin(admin.ModelAdmin):
+    list_display = ('title', 'first_post_author', 'forum', 'is_visible', 'is_open', 'is_sticky',)
+    list_filter = ('forum', 'status', 'type', 'is_visible',)
+    search_fields = ('title', 'forum__name', 'first_post__author__username',)
+    readonly_fields = ('date_last_edited', 'last_edited_author', 'date_last_post',)
+    actions = ('action_close_threads', 'action_open_threads', 'action_stick_threads', 'action_unstick_threads',)
+
+    def action_close_threads(self, request, queryset):
+        queryset.update(status=forum.models.Thread.Status.closed.value)
+    action_close_threads.short_description = _("Close selected threads")
+
+    def action_open_threads(self, request, queryset):
+        queryset.update(status=forum.models.Thread.Status.normal.value)
+    action_open_threads.short_description = _("Open (un-close) selected threads")
+
+    def action_stick_threads(self, request, queryset):
+        queryset.update(type=forum.models.Thread.Type.sticky.value)
+    action_stick_threads.short_description = _("Make selected threads sticky")
+
+    def action_unstick_threads(self, request, queryset):
+        queryset.update(type=forum.models.Thread.Type.normal.value)
+    action_unstick_threads.short_description = _("Make selected threads non-sticky")
+
+    def is_open(self, obj):
+        return not obj.is_closed
+    is_open.boolean = True
+    is_open.short_description = _("Is open")
+
+    def is_sticky(self, obj):
+        return obj.is_sticky
+    is_sticky.boolean = True
+
+    def first_post_author(self, thread):
+        return thread.first_post.author
+    first_post_author.short_description = _("Author")
+
 
 class PostAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['title', 'category', 'content', 'published']}),
-    ]
-    list_display = ('title', 'category', 'created_by', 'created_on', 'edited_by', 'edited_on', 'published')
+    list_display = ('__str__', 'author', 'thread', 'is_visible',)
+    list_filter = ('thread__forum', 'is_visible',)
+    search_fields = ('content', 'thread__title', 'thread__forum__name', 'author__username',)
+    raw_id_fields = ('author', 'last_edited_author',)
 
-    def save_model(self, request, obj, form, change):
-        user = UserProfile.objects.get(user__id=request.user.id)
-        try:
-            obj.created_by.id
-        except UserProfile.DoesNotExist:
-            obj.created_by = user
-        obj.edited_by = user
-        obj.slug = get_slug(obj.title)
-        obj.save()
 
-    def save_formset(self, request, form, formset, change):
-        user = UserProfile.objects.get(user__id=request.user.id)
-        instances = formset.save(commit=False)
-        for instance in instances:
-            instance.slug = get_slug(instance.title)
-            instance.edited_by = user
-            instance.save()
-        formset.save_m2m()
-
-admin.site.register(Post, PostAdmin)
-
+admin.site.register(forum.models.Forum, ForumAdmin)
+admin.site.register(forum.models.Thread, ThreadAdmin)
+admin.site.register(forum.models.Post, PostAdmin)

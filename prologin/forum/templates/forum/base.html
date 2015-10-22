@@ -1,0 +1,10 @@
+{% extends "prologin/base.html" %}
+{% load static i18n utils %}
+{% load django_bootstrap_breadcrumbs %}
+
+{# FIXME: find a way of not repeating base.super_title ie. "— Prologin"; {{ block.super }} does not work as expected #}
+{% block super_title %}{% block title %}{% endblock %} – Forums — Prologin{% endblock %}
+
+{% block extra_head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/forum.css' %}"/>
+{% endblock %}

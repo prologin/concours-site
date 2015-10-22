@@ -1,3 +1,5 @@
+# HTML parser
+beautifulsoup4
 # For code charset detection
 chardet
 # For async tasks (sending mails, correcting submissions, etc.)
@@ -49,5 +51,7 @@ mysqlclient
 requests
 # Celery storage & broker for async tasks
 redis
+# Generic rules/permissions
+rules
 # Transifex client for translation pull/push
 transifex-client==0.11b3

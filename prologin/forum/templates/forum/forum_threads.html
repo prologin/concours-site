@@ -1,0 +1,48 @@
+{% extends "forum/base.html" %}
+{% load i18n markup django_bootstrap_breadcrumbs %}
+
+
+{% block breadcrumbs %}
+	{{ block.super }}
+	{% breadcrumb_for "forum:index" %}{% trans "Forums" %}{% endbreadcrumb_for %}
+	{% breadcrumb_for "forum:forum" forum.slug forum.pk %}{{ forum.name }}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{{ forum.name }}{% endblock %}
+
+{% block content %}
+
+	{% if perms.forum.can_create_threads %}
+	<div class="pull-right">
+		{# TODO: per-forum permission checking #}
+		<a href="{% url 'forum:create-thread' forum.slug forum.pk %}" class="btn btn-primary"><i class="fa fa-asterisk"></i> {% trans "Create a new thread" %}</a>
+	</div>
+	{% endif %}
+	<h1>{{ forum.name }}</h1>
+	<div class="text-muted forum-description">{{ forum.description|markdown }}</div>
+
+	{% if sticky_threads %}
+		<ul class="forum-listing forum-sticky-threads">
+			{% for thread in sticky_threads %}
+				{% include "forum/stub_forum_thread.html" %}
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	{% include "stub_pagination.html" %}
+
+	{% if normal_threads %}
+		<ul class="forum-listing">
+			{% for thread in normal_threads %}
+				{% include "forum/stub_forum_thread.html" %}
+			{% endfor %}
+		</ul>
+	{% else %}
+		<p class="empty-list-item">
+			<i class="fa fa-frown-o"></i> {% trans "This forum is empty." %}
+		</p>
+	{% endif %}
+
+	{% include "stub_pagination.html" %}
+
+{% endblock %}
