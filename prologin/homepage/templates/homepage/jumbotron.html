@@ -92,7 +92,7 @@
                       {{ demi.date_begin|date:"d b Y"|default:no_such_date }}<br />
                       {% endfor %}
                       ">
-                      {% trans "See all the dates" %}
+                      ↓ {% trans "See all the dates" %}
                     </a></strong>
                   </p>
                   <p class="hide-no-active"><a href="{% url 'training:index' %}" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
