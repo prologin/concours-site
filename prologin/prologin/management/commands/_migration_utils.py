@@ -150,18 +150,27 @@ for lang in Language:
 def html_to_markdown(html):
     # Drupal uses nl2br() for display
     html = linebreaks(html)
-    # If there are <br> in <code>, we need to wrap into <pre>
+
+    # If there are <br> in <code>, we need to wrap them into <pre>
     soup = BeautifulSoup(html, 'lxml')
     for code in soup.findAll('code'):
         if code.find('br') is not None:
             code.wrap(soup.new_tag('pre'))
-        # pandoc does shit with <br> inside <pre>, just replace them with linebreaks
+
+        # Pandoc does shit with <br> inside <pre>, just replace them with linebreaks
         for br in code.findAll('br'):
             br.replaceWith('\n')
+
+    # Drupal uses <cite>, pandoc wants <blockquote>
+    for cite in soup.findAll('cite'):
+        cite.name = 'blockquote'
+
     html = soup.prettify(encoding='utf-8')
-    # Convert to pandoc markdown
+
+    # Convert to pandoc-markdown
     with subprocess.Popen(['/usr/bin/pandoc', '--columns=120', '--from=html', '--to=markdown'],
                           stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL) as pandoc:
         markdown = pandoc.communicate(html)[0].decode('utf-8')
-    # pandoc markdown uses \ as line break, python markdown uses two spaces
+
+    # pandoc-markdown uses \ as line break, python-markdown uses two spaces
     return RE_PANDOC_MARKDOWN_LINEBREAKS.sub('  ', markdown)
