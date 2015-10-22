@@ -1005,7 +1005,7 @@ class Command(LabelCommand):
 
         with self.mysql.cursor() as c:
             c.execute(query)
-            with concurrent.futures.ThreadPoolExecutor() as pool:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
                 with transaction.atomic():
                     for r in pool.map(store_thread, namedcolumns(c)):
                         pass
@@ -1040,7 +1040,7 @@ class Command(LabelCommand):
 
         with self.mysql.cursor() as c:
             c.execute(query)
-            with concurrent.futures.ThreadPoolExecutor() as pool:
+            with concurrent.futures.ThreadPoolExecutor(max_workers=4) as pool:
                 with transaction.atomic():
                     for r in pool.map(store_post, namedcolumns(c)):
                         pass
