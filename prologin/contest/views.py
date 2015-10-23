@@ -36,6 +36,7 @@ class QualificationSummary(LoginRequiredMixin, UpdateView):
                 'user': kwargs['instance'].user,
             }
         kwargs['edition'] = self.request.current_edition
+        kwargs['complete'] = self.request.current_contestant.is_complete_for_semifinal
         return kwargs
 
     def form_valid(self, form):

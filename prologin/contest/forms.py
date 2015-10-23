@@ -18,8 +18,12 @@ class ContestantUserForm(forms.ModelForm):
             'address': forms.Textarea(attrs={'rows': 2}),
         }
 
+    epita = forms.BooleanField(required=True, initial=False,
+            label=_("I am not a student at EPITA or EPITECH."))
+
     def __init__(self, *args, **kwargs):
         kwargs.pop('edition')
+        complete = kwargs.pop('complete')
         super().__init__(*args, **kwargs)
         self.fields['last_name'].help_text = _("We need your real name and address for legal reasons, as the Prologin "
                                                "staff engages its responsibility to supervise you during the regional "
@@ -32,6 +36,15 @@ class ContestantUserForm(forms.ModelForm):
                                                            % {'url': url})
         for field in self.fields.values():
             field.required = True
+        if complete:
+            self.fields['epita'].initial = True
+
+    def clean_epita(self):
+        data = self.cleaned_data['epita']
+        if not data:
+            raise forms.ValidationError(_("You cannot participate if you are an "
+                    "EPITA/EPITECH student"))
+        return data
 
 
 class ContestantForm(forms.ModelForm):
@@ -41,6 +54,7 @@ class ContestantForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         edition = kwargs.pop('edition')
+        kwargs.pop('complete')
         super().__init__(*args, **kwargs)
         # Overwrite event_wishes with our custom over-engineered field
         self.fields['event_wishes'] = EventWishChoiceField(
