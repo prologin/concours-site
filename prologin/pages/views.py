@@ -39,3 +39,7 @@ class AboutOrganizationView(generic.TemplateView):
         context['team'] = team
         context['team_pres'] = team.filter(role__id=1).first()
         return context
+
+
+class AboutHistoryView(generic.TemplateView):
+    template_name = 'pages/about-history.html'

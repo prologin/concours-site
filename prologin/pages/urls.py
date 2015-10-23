@@ -7,5 +7,6 @@ urlpatterns = [
     url(r'^about/contest/qualification$', views.AboutQualificationView.as_view(), name='about-qualification'),
     url(r'^about/contest/semifinals', views.AboutSemifinalsView.as_view(), name='about-semifinals'),
     url(r'^about/contest/final', views.AboutFinalView.as_view(), name='about-final'),
+    url(r'^about/contest/history', views.AboutHistoryView.as_view(), name='about-history'),
     url(r'^about/organization', views.AboutOrganizationView.as_view(), name='about-organization'),
 ]

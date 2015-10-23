@@ -1,0 +1,65 @@
+{% extends "prologin/base.html" %}
+{% load i18n static %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "pages:about-organization" %}{% trans "The organization" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "pages:about-contest" %}{% trans "About the contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "pages:about-history" %}{% trans "History" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "History" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "History" %}</h1>
+
+<h2>{% trans "The creation of the contest" %}</h2>
+<p>{% blocktrans %}The Prologin organization was created in 1991 by EPITA and
+École polytechnique students, finding that Computer Science was one of the
+few fields for which there was no national contest in France gathering young
+enthusiasts.{% endblocktrans %}</p>
+<p>{% blocktrans %}The first Prologin edition was done in 1992, taking the
+form of a national individual computer science contest for young people under
+20. The success of this experiment confirmed the interest of a contest like
+this one, which became a model for the next editions : the online selection,
+the regional events and the final. The latter, atypical with its 36-hour
+nonstop contest, is the main specificity of the contest.{% endblocktrans %}</p>
+
+<h2>{% trans "The winners of Prologin" %}</h2>
+
+<p>{% blocktrans %}From its creation, Prologin rewards the contestants that
+show excellence in a scientific field, despite its absence in most curriculums.
+This is the list of these students by year.
+{% endblocktrans %}</p>
+
+{# TODO: This should probably be in a model, I guess? :) #}
+<ul>
+  <li>2015 : Clément Villain</li>
+  <li>2014 : Lucas Pluvinage</li>
+  <li>2013 : Le Thanh Dung Nguyen</li>
+  <li>2012 : Sacha Delanoue</li>
+  <li>2011 : Arnaud Delmotte</li>
+  <li>2010 : Sébastien Doeraene</li>
+  <li>2009 : Michael Mathieu</li>
+  <li>2008 : Antoine Amarilli</li>
+  <li>2007 : Nicolas Boumal</li>
+  <li>2006 : Corentin Chary</li>
+  <li>2005 : Karim Jouini</li>
+  <li>2004 : Emmanuel Durin</li>
+  <li>2003 : Julien Brette</li>
+  <li>2002 : Olivier Serres</li>
+  <li>2001 : Antoine Jacquet</li>
+  <li>2000 : Michaël Rao</li>
+  <li>1999 : Gaël Le Mignot</li>
+  <li>1998 : Pol-Brieux Le Metayer</li>
+  <li>1997 : Sébastien Carlier</li>
+  <li>1996 : Sylvain Martinez</li>
+  <li>1995 : ?</li>
+  <li>1994 : Hadi Diallo</li>
+  <li>1993 : {% trans "No edition" %} </li>
+  <li>1992 : ?</li>
+</ul>
+
+{% endblock %}
