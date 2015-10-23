@@ -14,9 +14,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-23 06:06+0200\n"
-"PO-Revision-Date: 2015-10-23 04:13+0000\n"
-"Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
+"POT-Creation-Date: 2015-10-23 19:08+0200\n"
+"PO-Revision-Date: 2015-10-23 17:09+0000\n"
+"Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -402,25 +402,33 @@ msgstr "Est ouvert"
 msgid "Author"
 msgstr "Auteur"
 
-#: forum/forms.py:19
+#: forum/forms.py:9
 msgid "Compose your message here. You can use the Markdown syntax."
 msgstr "Écrivez votre message ici. Vous pouvez utiliser la syntaxe Markdown."
 
-#: forum/forms.py:33
+#: forum/forms.py:35
 msgid "Optional explanation"
 msgstr "Explication optionnelle"
 
-#: forum/forms.py:37
+#: forum/forms.py:39
 msgid "This explanation will be shown above the message."
 msgstr "Cette explication sera montrée au dessus de votre message."
 
-#: forum/forms.py:50
+#: forum/forms.py:52
 msgid "Thread title"
 msgstr "Titre du sujet"
 
-#: forum/forms.py:62
+#: forum/forms.py:64
 msgid "Post is visible"
 msgstr "Le post est visible"
+
+#: forum/forms.py:70
+msgid "Message content"
+msgstr "Contenu du message"
+
+#: forum/forms.py:76
+msgid "Choose a short, descriptive title."
+msgstr "Choisissez un titre court et explicite."
 
 #: forum/models.py:19
 msgid "Name"
@@ -445,7 +453,7 @@ msgstr "Forum"
 #: forum/models.py:30 forum/templates/forum/create_thread.html:7
 #: forum/templates/forum/edit_post.html:7
 #: forum/templates/forum/forum_threads.html:7
-#: forum/templates/forum/index.html:7 forum/templates/forum/index.html:10
+#: forum/templates/forum/index.html:7 forum/templates/forum/index.html.py:10
 #: forum/templates/forum/index.html:14
 #: forum/templates/forum/thread_posts.html:7
 #: prologin/templates/prologin/main-menu.html:6
@@ -536,7 +544,7 @@ msgid "Create the new thread"
 msgstr "Créer un nouveau sujet"
 
 #: forum/templates/forum/edit_post.html:10
-#: forum/templates/forum/thread_posts.html:59
+#: forum/templates/forum/thread_posts.html:66
 #: users/templates/users/edit.html:9
 #: users/templates/users/edit_password.html:9
 #: users/templates/users/profile.html:23
@@ -614,48 +622,52 @@ msgid ""
 "href=\"%(login)s\">log in</a> to post messages."
 msgstr "Vous devez vous <a href=\"%(register)s\">enregistrer</a> ou vous <a href=\"%(login)s\">connecter</a> pour poster des messages."
 
-#: forum/templates/forum/thread_posts.html:30
-#: forum/templates/forum/thread_posts.html:94
+#: forum/templates/forum/thread_posts.html:32
+#: forum/templates/forum/thread_posts.html:106
 msgid "Reply to the thread"
 msgstr "Répondre au sujet"
 
-#: forum/templates/forum/thread_posts.html:47
+#: forum/templates/forum/thread_posts.html:51
 #: users/templates/users/profile.html:92
 #, python-format
 msgid "%(username)s's profile picture"
 msgstr "Photo de profil de %(username)s"
 
-#: forum/templates/forum/thread_posts.html:65
+#: forum/templates/forum/thread_posts.html:53
+msgid "Staff member"
+msgstr "Membre de l'équipe"
+
+#: forum/templates/forum/thread_posts.html:76
 msgid "Hide"
 msgstr "Cacher"
 
-#: forum/templates/forum/thread_posts.html:65
+#: forum/templates/forum/thread_posts.html:76
 msgid "Unhide"
 msgstr "Ne plus cacher"
 
-#: forum/templates/forum/thread_posts.html:72
+#: forum/templates/forum/thread_posts.html:84
 #, python-format
-msgid "Edited on <span title=\"%(date_iso)s\">%(date)s"
-msgstr "Édité le <span title=\"%(date_iso)s\">%(date)s"
+msgid "Edited on <span title=\"%(date_iso)s\">%(date)s</span>"
+msgstr "Modifié le <span title=\"%(date_iso)s\">%(date)s</span>"
 
-#: forum/templates/forum/thread_posts.html:73
+#: forum/templates/forum/thread_posts.html:85
 #, python-format
 msgid "by %(username)s"
 msgstr "par %(username)s"
 
-#: forum/templates/forum/thread_posts.html:80
+#: forum/templates/forum/thread_posts.html:91
 msgid "Message is deleted."
 msgstr "Message supprimé."
 
-#: forum/templates/forum/thread_posts.html:91
+#: forum/templates/forum/thread_posts.html:103
 msgid "Back to top"
 msgstr "Retour en haut"
 
-#: forum/templates/forum/thread_posts.html:100
+#: forum/templates/forum/thread_posts.html:112
 msgid "Add reply"
 msgstr "Ajouter une réponse"
 
-#: forum/templates/forum/thread_posts.html:107
+#: forum/templates/forum/thread_posts.html:121
 msgid "Sorry, you are not allowed to post new messages in this thread."
 msgstr "Vous n'êtes pas autorisé à poster de nouveaux messages dans ce sujet."
 
@@ -1410,9 +1422,13 @@ msgid ""
 "This is the list of these students by year.\n"
 msgstr "Depuis sa création, Prologin récompense les candidats qui se distinguent par leur excellence dans une discipline scientifique malgré le fait qu'elle soit absente de la plupart des programmes scolaires. Voici donc la liste de ces étudiants année par année.\n"
 
-#: pages/templates/pages/about-history.html:60
-msgid "No edition"
-msgstr "Pas d'édition"
+#: pages/templates/pages/about-history.html:40
+msgid "No edition this year"
+msgstr "Pas d'édition cette année"
+
+#: pages/templates/pages/about-history.html:42
+msgid "No data available"
+msgstr "Données indisponibles"
 
 #: pages/templates/pages/about-organization.html:7
 #: prologin/templates/prologin/main-footer.html:6
@@ -1848,11 +1864,11 @@ msgstr "En attente"
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:115
+#: problems/models/submission.py:116
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:116
+#: problems/models/submission.py:117
 msgid "Submission codes"
 msgstr "Codes soumis"
 
@@ -2330,6 +2346,10 @@ msgstr "Attendu&nbsp;:"
 msgid "Returned by your program:"
 msgstr "Obtenu par votre programme&nbsp;:"
 
+#: problems/templates/problems/stub_submission_result.html:13
+msgid "Standard error output:"
+msgstr "Sortie de l'erreur standard&nbsp;:"
+
 #: problems/templates/problems/submission.html:14
 #: problems/templates/problems/submission.html:21
 #, python-format
@@ -2628,7 +2648,7 @@ msgid "Sign out"
 msgstr "Déconnexion"
 
 #: prologin/templates/prologin/main-menu.html:26
-#: users/templates/users/login.html:7 users/templates/users/login.html:10
+#: users/templates/users/login.html:7 users/templates/users/login.html.py:10
 #: users/templates/users/login.html:26
 msgid "Sign in"
 msgstr "Connexion"
