@@ -346,5 +346,6 @@ class AjaxLanguageTemplate(View):
         except KeyError:
             return HttpResponseBadRequest()
 
+
 class ManualView(TemplateView):
     template_name = 'problems/manual.html'

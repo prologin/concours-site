@@ -4,11 +4,15 @@
     <i class="fa fa-smile-o"></i> <strong>{% trans "Test passed!" %}</strong>
   {% else %}
     <i class="fa fa-frown-o"></i> <strong>{% trans "Test failed." %}</strong>
-    {% if result.expected or result.returned %}
+    {% if result.expected or result.returned or result.debug %}
       {% trans "Expected:" %}
       <pre>{{ result.expected }}</pre>
       {% trans "Returned by your program:" %}
       <pre>{{ result.returned }}</pre>
+      {% if result.debug %}
+      {% trans "Standard error output:" %}
+      <pre>{{ result.debug }}</pre>
+      {% endif %}
     {% endif %}
   {% endif %}
 </li>

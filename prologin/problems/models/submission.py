@@ -11,7 +11,7 @@ from prologin.models import CodingLanguageField
 from problems.models.problem import Challenge, Problem
 
 SubmissionResults = collections.namedtuple('SubmissionResults', 'compilation correction performance')
-SubmissionTest = collections.namedtuple('SubmissionTest', 'name success expected returned')
+SubmissionTest = collections.namedtuple('SubmissionTest', 'name success expected returned debug')
 
 
 class Submission(models.Model):
@@ -101,8 +101,9 @@ class SubmissionCode(models.Model):
                 continue
             result_obj = SubmissionTest(name=test['id'],
                                         success=test['passed'],
-                                        expected=test.get('ref', ''),
-                                        returned=test.get('program', ''))
+                                        expected=test.get('ref', '') or '',
+                                        returned=test.get('program', '') or '',
+                                        debug=test.get('debug', '') or '')
             (test_perf if test['performance'] else test_corr).append(result_obj)
         return SubmissionResults(compilation=compilation, correction=test_corr, performance=test_perf)
 
