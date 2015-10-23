@@ -220,6 +220,7 @@ PLAINTEXT_PASSWORD_LENGTH = 8
 PLAINTEXT_PASSWORD_DISAMBIGUATION = str.maketrans("iIl1oO0/+=", "aAbcCD9234")
 PLAINTEXT_PASSWORD_SALT = "whatever1337leet"
 FINAL_EVENT_DATE_FORMAT = 'l d'
+GOOGLE_ANALYTICS_ID = ''
 
 # Cache durations and keys
 CacheSetting = namedtuple('CacheSetting', 'key duration')
