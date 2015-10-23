@@ -6,6 +6,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from forum.models import Post, Thread
 
+MESSAGE_CONTENT_PLACEHOLDER = _("Compose your message here. You can use the Markdown syntax.")
+
 
 class PostForm(forms.ModelForm):
     class Meta:
@@ -16,7 +18,7 @@ class PostForm(forms.ModelForm):
         }
         widgets = {
             'content': forms.Textarea(attrs={
-                'placeholder': _("Compose your message here. You can use the Markdown syntax."),
+                'placeholder': MESSAGE_CONTENT_PLACEHOLDER,
                 'rows': 4}),
         }
 
@@ -63,8 +65,19 @@ class StaffUpdatePostForm(UpdatePostForm):
 
 
 class ThreadForm(forms.ModelForm):
-    content = forms.CharField(widget=forms.Textarea)
+    content = forms.CharField(min_length=1, required=True,
+                              widget=forms.Textarea(attrs={'placeholder': MESSAGE_CONTENT_PLACEHOLDER}),
+                              label=_("Message content"))
 
     class Meta:
         model = Thread
-        fields = ('title',)
+        fields = ('title', 'content')
+        widgets = {
+            'title': forms.TextInput(attrs={'placeholder': _("Choose a short, descriptive title.")})
+        }
+
+    def clean_title(self):
+        return self.cleaned_data['title'].strip()
+
+    def clean_content(self):
+        return self.cleaned_data['content'].strip()
