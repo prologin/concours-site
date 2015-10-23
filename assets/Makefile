@@ -40,7 +40,11 @@ update-libs:
 	mkdir -p $(LIB_DIR)
 	cd $(LIB_DIR) && python $(TOP)/update-libs.py
 
-all: $(OBJS) update-libs
+update-emojis:
+	cd $(STATIC_DIR) && python $(TOP)/update-emojis.py
+	mogrify -resize 20x $(IMG_DIR)/emojis/*.png
+
+all: $(OBJS) update-libs update-emojis
 
 clean-aux:
 	$(RM) $(AUXOBJS)
@@ -48,4 +52,4 @@ clean-aux:
 clean: clean-aux
 	$(RM) $(OBJS) $(LIB_DIR)/*
 
-.PHONY: all update-libs clean clean-aux
+.PHONY: all update-libs update-emojis clean clean-aux
