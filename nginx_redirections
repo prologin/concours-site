@@ -3,6 +3,7 @@ rewrite ^/association$ /about/organization permanent;
 rewrite ^/contest/centers$ /center permanent;
 rewrite ^/contest/demi$ /about/contest/semifinals permanent;
 rewrite ^/contest/finals$ /about/contest/finals permanent;
+rewrite ^/history$ /about/contest/history permanent;
 rewrite ^/node/2$ /about/contest permanent;
 rewrite ^/node/3$ /about/contest/qualification permanent;
 
