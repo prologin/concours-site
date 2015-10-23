@@ -1,0 +1,138 @@
+{% extends "prologin/base.html" %}
+{% load i18n drupal utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "training:manual" %}{% trans "Manual" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Online judge manual" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Online judge manual" %}</h1>
+
+<p>{% blocktrans %}The online training system is a tool to help you improve
+your programing skills. It is open to everyone, and obviously free. What
+follows is a guide to understand its principles and get the most out of it.
+{% endblocktrans %}</p>
+
+<h2>{% trans "Problems" %}</h2>
+
+<p>{% blocktrans %}
+The problems given during the previous editions of the Prologin contest are
+archived and available on this website. You can train with the problems of the
+qualification and semifinals problems of the previous years. They are ordered
+by year and difficulty: from beginner to advanced.
+{% endblocktrans %}</p>
+
+<h2>{% trans "Evaluation" %}</h2>
+
+<p>{% blocktrans %}
+The exercises are evaluated by our server: your program is compiled then tested
+automatically. It is executed once per test. The possible errors are:
+{% endblocktrans %}</p>
+
+<ul>
+  <li>{% trans "Your program does not compile;" %}
+  <li>{% trans "Your program exceeded the time limit given in the subject;" %}
+  <li>{% trans "Your program exceeded the memory limit given in the subject;" %}
+  <li>{% trans "Your program gave a wrong result for at least one test;" %}
+  <li>{% trans "Your program does not terminate correctly." %}
+</ul>
+
+<p>{% blocktrans %}
+If there is a compilation error, the error output of the compiler is shown.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans %}
+The output produced by your program has to match exactly with the format given
+in the subjects. The correction system compares the output with a reference
+output, character by character.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans %}
+After the tests have been executed, a summary is shown, indicating which tests
+succeeded and which tests failed. The output of your program and the output
+given by the correction system is shown only for the first failed test. The
+exercise will only be considered solved when all the tests succeed.
+{% endblocktrans %}</p>
+
+<p>{% blocktrans %}
+The correction can take up to several minutes, so be patient.
+{% endblocktrans %}</p>
+
+<h2>{% trans "Score" %}</h2>
+
+<p>{% blocktrans %}
+The training system grades your submissions. Every solved exercise gives you
+a number of points that depends of the level of the problem and the number of
+failed attempts you tried. You should test your program yourself before
+submitting it.
+{% endblocktrans %}</p>
+
+<h2>{% trans "Code stubs" %}</h2>
+
+<p>{% blocktrans %}
+For some languages, we provide code stubs that can "parse" correctly the data
+given in the standard input of the program. You only need to write the content
+of a stub function that takes these parsed data in parameter. Note that it is
+absolutely not mandatory to use these stubs, although they can be really
+useful most of the time.
+{% endblocktrans %}</p>
+
+<h2>{% trans "Correction system" %}</h2>
+
+<h3>{% trans "Time and memory limitations" %}</h3>
+
+<p>{% blocktrans %}
+Every problem enforces some limits in terms of memory usage and execution time.
+Some coefficients are applied on some slower or memory greedy languages. No
+particular limitation is applied on the stack size.
+{% endblocktrans %}</p>
+
+{# TODO: The informations here should be retrieved automatically from the VM #}
+
+<h3>{% trans "Hardware architecture" %}</h3>
+
+{% with hardware_cpu="Intel(R) Xeon(R) CPU E3-1241 v3" hardware_clockrate="3.50 Ghz" hardware_architecture="x86_64" hardware_byteorder="Little Endian" hardware_ncpu="1" hardware_mem="3" %}
+
+<p>{% blocktrans %}
+Your programs are executed in a virtual machine with an {{ hardware_cpu }}
+with a clock rate of {{ hardware_clockrate }} and an
+{{ hardware_architecture }} architecture. The byte order is
+{{ hardware_byteorder }}. The virtual machine has {{ hardware_ncpu }} dedicated
+vCPU and {{ hardware_mem }} Gio of dedicated random access memory.
+{% endblocktrans %}</p>
+
+{% endwith %}
+
+<h3>{% trans "Compilers and interpreters" %}</h3>
+
+<p><ul>
+<li>C : GCC version 4.9.1</li>
+<li>C++ : G++ version 4.9.1</li>
+<li>Pascal : Free Pascal version 2.6.4</li>
+<li>Java : OpenJDK Runtime Environment (IcedTea 2.5.3)</li>
+<li>OCaml : The Objective Caml toplevel, version 4.02.0</li>
+<li>Python 2 : CPython version 2.7</li>
+<li>Python 3 : CPython version 3.4</li>
+<li>C# / F# : Mono version 3.10.0</li>
+<li>PHP : PHP version 5.6.2</li>
+<li>ADA : GNAT version 4.9.1</li>
+</ul></p>
+
+<h3>{% trans "Compilation options" %}</h3>
+
+<p><ul>
+<li>C : <code>-Wextra -Wall -O2 -std=c11 -lm</code></li>
+<li>C++ : <code>-Wextra -Wall -O2 -std=c++11 -lm</code></li>
+<li>Haskell : <code>-dynamic -O2</code></li>
+<li>OCaml : <code>-w A</code></li>
+<li>Pascal : <code>-XD -Fainitc</code></li>
+<li>C# : <code>-optimize+</code></li>
+<li>F# : <code>-O</code></li>
+</ul></p>
+
+{% endblock %}

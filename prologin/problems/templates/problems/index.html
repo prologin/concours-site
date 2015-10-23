@@ -61,4 +61,9 @@ submission and instantly tell you whether you got it right or wrong. You can sub
 need to solve the problem.{% endblocktrans %}</p>
     </div>
   </div>
+
+  {% url 'training:manual' as manual_url %}
+  <p class="text-center">{% blocktrans %}If you need any help with the automatic correction
+  system, you can read the <a href="{{ manual_url }}">online judge manual</a>.
+  {% endblocktrans %}</p>
 {% endblock %}
