@@ -2,13 +2,14 @@ TOP := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 STATIC_DIR := ../prologin/prologin/static
 IMG_DIR := $(STATIC_DIR)/img
 LIB_DIR := $(STATIC_DIR)/lib
+EMOJI_SIZE := 20
 
 SVGRASTERTRIM := inkscape --export-area-drawing
 SVGRASTER := inkscape --export-area-page
 CONVERT := convert
 PNGOPTIMIZE := optipng -quiet -clobber -preserve
 
-OBJS := $(addprefix $(IMG_DIR)/,logo_cube.png small_cube.png silhouette.png)
+OBJS := $(addprefix $(IMG_DIR)/,logo_cube.png small_cube.png silhouette.png prologin_emoji.png)
 AUXOBJS := $(addprefix $(IMG_DIR)/,small_cube.alone.png small_cube.alone.big.png)
 
 AUXOBJS := $(AUXOBJS) $(OBJS:.png=.big.png) $(OBJS:.png=.png.bak)
@@ -23,6 +24,9 @@ $(IMG_DIR)/logo_cube.big.png: cube_perfect.svg
 
 $(IMG_DIR)/small_cube.alone.big.png: cube_perfect_smallonly.svg
 	$(SVGRASTERTRIM) -h 80 --export-png $@ $<
+
+$(IMG_DIR)/prologin_emoji.png: cube_perfect_smallonly.svg
+	$(SVGRASTERTRIM) -h $(EMOJI_SIZE) --export-png $@ $<
 
 $(IMG_DIR)/small_cube.big.png: $(IMG_DIR)/small_cube.alone.png
 	$(CONVERT) $< -bordercolor '#35479a' -border 16x0 $@
@@ -42,7 +46,7 @@ update-libs:
 
 update-emojis:
 	cd $(STATIC_DIR) && python $(TOP)/update-emojis.py
-	mogrify -resize 20x $(IMG_DIR)/emojis/*.png
+	mogrify -resize $(EMOJI_SIZE)x $(IMG_DIR)/emojis/*.png
 
 all: $(OBJS) update-libs update-emojis
 

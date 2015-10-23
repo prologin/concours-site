@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+from update_utils import *
 import io
 import os
 import requests
@@ -7,18 +8,8 @@ import shutil
 import subprocess
 import zipfile
 
+
 DEV_SUFFIXES = {'dev', 'alpha', 'beta'}
-
-
-def strip_components(path, n):
-    path = os.path.normpath(path)
-    return os.sep.join(path.split(os.sep)[n:])
-
-
-def extract_from_zip(zipball, member, path):
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    with zipball.open(member) as source, open(path, 'wb') as target:
-        shutil.copyfileobj(source, target)
 
 
 def pygments(path='css/pygments-{theme}.css', theme='monokai', prefix='.pyg-hl'):
