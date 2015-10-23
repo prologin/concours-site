@@ -22,6 +22,10 @@ three stages of successive selection presented in the following sections.
 Prologin is a nonprofit organization, it is free to enter the contest.
 {% endblocktrans %}</p>
 
+  {% url 'pages:about-history' as history_url %}
+  <p>{% blocktrans %}To learn more about the history of the contest, you can
+  visit the <a href="{{ history_url }}">history page</a>.{% endblocktrans %}
+
   {% url 'home' as home_url %}
   <p>{% blocktrans %}For an accurate time-line of this year events, please see the <a href="{{ home_url }}">home page</a>.{% endblocktrans %}</p>
 

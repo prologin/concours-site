@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-23 02:51+0200\n"
-"PO-Revision-Date: 2015-10-23 01:10+0000\n"
+"POT-Creation-Date: 2015-10-23 03:23+0200\n"
+"PO-Revision-Date: 2015-10-23 01:24+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1095,52 +1095,59 @@ msgstr "Prologin est un concours d'informatique ouvert à tous les étudiants ag
 #: pages/templates/pages/about-contest.html:26
 #, python-format
 msgid ""
+"To learn more about the history of the contest, you can\n"
+"  visit the <a href=\"%(history_url)s\">history page</a>."
+msgstr "Pour en apprendre plus sur l'histoire du concours, vous pouvez visiter la <a href=\"%(history_url)s\">page d'historique</a>."
+
+#: pages/templates/pages/about-contest.html:30
+#, python-format
+msgid ""
 "For an accurate time-line of this year events, please see the <a "
 "href=\"%(home_url)s\">home page</a>."
 msgstr "Pour un planning détaillé des événements de cette année, consultez la <a href=\"%(home_url)s\">page d'accueil</a>."
 
-#: pages/templates/pages/about-contest.html:32
+#: pages/templates/pages/about-contest.html:36
 msgid "1<sup>st</sup> step – Qualification"
 msgstr "1<sup>e</sup> étape – Sélection"
 
-#: pages/templates/pages/about-contest.html:33
+#: pages/templates/pages/about-contest.html:37
 msgid ""
 "The screening questionnaire allows to qualify for regional competitions.\n"
 "It consists of a selection of algorithmic problems of increasing difficulty.\n"
 "It is possible to submit the questionnaire by postal mail or directly on this website.\n"
 msgstr "Le questionnaire de sélection vous permet de vous qualifier pour les épreuves régionales.\nIl s'agit de résoudre une sélection de problèmes d'algorithmique de difficulté croissante. \nLe questionnaire doit être soumis directement sur ce site.\n"
 
-#: pages/templates/pages/about-contest.html:37
+#: pages/templates/pages/about-contest.html:41
 msgid ""
 "Registration is entirely free, you only need an Internet access to submit "
 "your answers."
 msgstr "Les inscriptions sont totalement gratuites, vous avez uniquement besoin d'un accès à Internet pour envoyer vos réponses."
 
-#: pages/templates/pages/about-contest.html:39
+#: pages/templates/pages/about-contest.html:43
 msgid "Who can qualify?"
 msgstr "Qui peut participer&nbsp;?"
 
-#: pages/templates/pages/about-contest.html:40
+#: pages/templates/pages/about-contest.html:44
 msgid ""
 "Any student under 21, living in the European Union, who can understand and "
 "write French."
 msgstr "Tous les étudiant(e)s francophones de moins de 21 ans, habitant dans l'Union Européenne."
 
-#: pages/templates/pages/about-contest.html:41
+#: pages/templates/pages/about-contest.html:45
 msgid "Students from EPITA/EPITECH are not allowed to participate."
 msgstr "Les étudiant(e)s de EPITA/EPITECH ne peuvent pas participer."
 
-#: pages/templates/pages/about-contest.html:42
-#: pages/templates/pages/about-contest.html:67
-#: pages/templates/pages/about-contest.html:88
+#: pages/templates/pages/about-contest.html:46
+#: pages/templates/pages/about-contest.html:71
+#: pages/templates/pages/about-contest.html:92
 msgid "Learn more"
 msgstr "En savoir plus"
 
-#: pages/templates/pages/about-contest.html:51
+#: pages/templates/pages/about-contest.html:55
 msgid "2<sup>nd</sup> step – Semifinals"
 msgstr "2<sup>e</sup> étape – Les demi-finales"
 
-#: pages/templates/pages/about-contest.html:52
+#: pages/templates/pages/about-contest.html:56
 msgid ""
 "The semifinals allow the 100 best contestants to qualify for the final.\n"
 "The event lasts one day and takes place on a Saturday in January or February,\n"
@@ -1151,11 +1158,11 @@ msgid ""
 "and an interview with one of Prologin's staff members.\n"
 msgstr "Les demi-finales permettent aux 100 meilleurs participants de se qualifier pour la finale.\nL'événement dure une journée et se déroule un samedi en janvier oufFévrier,\nen fonction des villes. Les participants sont répartis dans les différents\ncentres d'examens en France.\nLa sélection se base sur trois épreuves : un examen écrit sur un problème\nd'algorithmique original, des exercices à résoudre sur ordinateur\net un entretien avec un membre de l'association Prologin.\n"
 
-#: pages/templates/pages/about-contest.html:62
+#: pages/templates/pages/about-contest.html:66
 msgid "Where can I sit for the exam?"
 msgstr "Où puis-je passer l'épreuve ?"
 
-#: pages/templates/pages/about-contest.html:64
+#: pages/templates/pages/about-contest.html:68
 #, python-format
 msgid ""
 "\n"
@@ -1163,11 +1170,11 @@ msgid ""
 "using the <a href=\"%(url_centers)s\">map of exam centers</a>."
 msgstr "\nNous organisons l'événement dans plusieurs grandes villes de France métropolitaine. Vous pouvez trouver l'endroit le plus proche en utilisant <a href=\"%(url_centers)s\">la carte des centres</a>."
 
-#: pages/templates/pages/about-contest.html:76
+#: pages/templates/pages/about-contest.html:80
 msgid "3<sup>rd</sup> step – The Final"
 msgstr "3<sup>e</sup> étape – La finale"
 
-#: pages/templates/pages/about-contest.html:77
+#: pages/templates/pages/about-contest.html:81
 msgid ""
 "The final takes place over three days in Paris, usually at the end of April.\n"
 "Candidates have to program an artificial intelligence of their own for\n"
@@ -1177,11 +1184,11 @@ msgid ""
 "and relaxed mood!\n"
 msgstr "La finale se déroule sur 3 jours à Paris, habituellement fin avril. Les candidats doivent coder leur propre intelligence artificielle pour un jeu créé pour l'occasion, en seulement 36h. Les programmes des candidats sont ensuite confrontés les uns aux autres dans un tournoi automatisé. C'est aussi une opportunité unique de rencontrer des passionnés d'informatique dans une ambiance sympathique et détendue !\n"
 
-#: pages/templates/pages/about-contest.html:85
+#: pages/templates/pages/about-contest.html:89
 msgid "How much does it cost?"
 msgstr "Combien ça coûte&nbsp;?"
 
-#: pages/templates/pages/about-contest.html:86
+#: pages/templates/pages/about-contest.html:90
 msgid ""
 "All candidates are provided with free meals and a place to rest and sleep for the\n"
 "duration of the final. You only have to handle the cost of transportation."
@@ -2376,51 +2383,47 @@ msgstr "Prologin"
 msgid "Contact us"
 msgstr "Contactez-nous"
 
-#: prologin/templates/prologin/main-footer.html:8
-msgid "How can I help?"
-msgstr "Comment aider ?"
-
-#: prologin/templates/prologin/main-footer.html:11
+#: prologin/templates/prologin/main-footer.html:10
 msgid "More"
 msgstr "En plus"
 
-#: prologin/templates/prologin/main-footer.html:13
+#: prologin/templates/prologin/main-footer.html:12
 msgid "Press kit"
 msgstr "Kit de presse"
 
-#: prologin/templates/prologin/main-footer.html:19
+#: prologin/templates/prologin/main-footer.html:18
 msgid "Terms"
 msgstr "Conditions"
 
-#: prologin/templates/prologin/main-footer.html:21
+#: prologin/templates/prologin/main-footer.html:20
 msgid "Contest rules"
 msgstr "Règlement"
 
-#: prologin/templates/prologin/main-footer.html:24
+#: prologin/templates/prologin/main-footer.html:23
 msgid "Stay tuned!"
 msgstr "Suivez nous !"
 
-#: prologin/templates/prologin/main-footer.html:25
+#: prologin/templates/prologin/main-footer.html:24
 msgid "Prologin news Atom stream"
 msgstr "Flux Atom des actualités Prologin"
 
-#: prologin/templates/prologin/main-footer.html:32
+#: prologin/templates/prologin/main-footer.html:31
 msgid "Prologin on Facebook"
 msgstr "Prologin sur Facebook"
 
-#: prologin/templates/prologin/main-footer.html:38
+#: prologin/templates/prologin/main-footer.html:37
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: prologin/templates/prologin/main-footer.html:46
+#: prologin/templates/prologin/main-footer.html:45
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: prologin/templates/prologin/main-footer.html:59
+#: prologin/templates/prologin/main-footer.html:58
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prologin/templates/prologin/main-footer.html:62
+#: prologin/templates/prologin/main-footer.html:61
 #, python-format
 msgid ""
 "Save your\n"
