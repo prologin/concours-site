@@ -85,4 +85,5 @@ rewrite ^/node/13155$ /news/legacy/13155 permanent;
 rewrite ^/node/13265$ /news/legacy/13265 permanent;
 
 # Forum
+rewrite ^/forum/([0-9]+)$ /forum/$1 permanent;
 rewrite ^/node/([0-9]+)$ /forum/post/slug/$1 permanent;
