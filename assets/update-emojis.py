@@ -7,7 +7,7 @@ import tempfile
 
 if __name__ == '__main__':
     with tempfile.TemporaryDirectory(prefix='gemoji-') as dest_dir:
-        subprocess.check_call(['git', 'clone', '--depth=1', 'git@github.com:github/gemoji.git', dest_dir])
+        subprocess.check_call(['git', 'clone', 'https://github.com/github/gemoji.git', dest_dir])
         with open(os.path.join(dest_dir, 'db/emoji.json')) as f:
             emoji_db = json.load(f)
         emoji_db = (emoji for emoji in emoji_db if emoji.get('emoji'))
