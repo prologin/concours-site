@@ -1,4 +1,6 @@
 from django.views import generic
+import os
+import yaml
 from team.models import TeamMember
 import datetime
 
@@ -43,3 +45,12 @@ class AboutOrganizationView(generic.TemplateView):
 
 class AboutHistoryView(generic.TemplateView):
     template_name = 'pages/about-history.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            with open(os.path.abspath(os.path.join(__file__, '../../prologin/settings/prologin-winners.yaml'))) as f:
+                context['winners'] = [{'year': year, 'name': name} for year, name in yaml.load(f).items()]
+        except OSError:
+            pass
+        return context

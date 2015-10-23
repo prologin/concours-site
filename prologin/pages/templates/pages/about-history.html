@@ -33,32 +33,15 @@ show excellence in a scientific field, despite its absence in most curriculums.
 This is the list of these students by year.
 {% endblocktrans %}</p>
 
-{# TODO: This should probably be in a model, I guess? :) #}
-<ul>
-  <li>2015 : Clément Villain</li>
-  <li>2014 : Lucas Pluvinage</li>
-  <li>2013 : Le Thanh Dung Nguyen</li>
-  <li>2012 : Sacha Delanoue</li>
-  <li>2011 : Arnaud Delmotte</li>
-  <li>2010 : Sébastien Doeraene</li>
-  <li>2009 : Michael Mathieu</li>
-  <li>2008 : Antoine Amarilli</li>
-  <li>2007 : Nicolas Boumal</li>
-  <li>2006 : Corentin Chary</li>
-  <li>2005 : Karim Jouini</li>
-  <li>2004 : Emmanuel Durin</li>
-  <li>2003 : Julien Brette</li>
-  <li>2002 : Olivier Serres</li>
-  <li>2001 : Antoine Jacquet</li>
-  <li>2000 : Michaël Rao</li>
-  <li>1999 : Gaël Le Mignot</li>
-  <li>1998 : Pol-Brieux Le Metayer</li>
-  <li>1997 : Sébastien Carlier</li>
-  <li>1996 : Sylvain Martinez</li>
-  <li>1995 : ?</li>
-  <li>1994 : Hadi Diallo</li>
-  <li>1993 : {% trans "No edition" %} </li>
-  <li>1992 : ?</li>
-</ul>
+<dl class="dl-horizontal">
+{% for w in winners|dictsortreversed:'year' %}
+  <dt>{{ w.year }}</dt>
+  <dd class="prologin-winner">
+    {% if w.name == '!' %}<em>{% trans "No edition this year" %}</em>
+    {% elif w.name %}<i class="fa fa-trophy"></i> {{ w.name }}
+    {% else %}<em>{% trans "No data available" %}</em>{% endif %}
+  </dd>
+{% endfor %}
+</dl>
 
 {% endblock %}
