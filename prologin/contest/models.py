@@ -125,7 +125,7 @@ class Contestant(models.Model):
 
     @property
     def _is_complete(self):
-        return all((self.shirt_size, self.preferred_language, self.user.first_name, self.user.last_name,
+        return all((self.shirt_size is not None, self.preferred_language, self.user.first_name, self.user.last_name,
                     self.user.address, self.user.postal_code, self.user.city, self.user.country))
 
     @property
