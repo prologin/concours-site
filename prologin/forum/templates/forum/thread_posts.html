@@ -81,10 +81,8 @@
                  class="message-permalink">{{ post.date_created|date:"DATETIME_FORMAT" }}</a>
               {% if post.is_edited %}
                 <span class="separator">⋅</span> <span class="text-muted"><i class="fa fa-pencil"></i>
-                {% blocktrans with date_iso=post.date_last_edited|date:"c" date=post.date_last_edited|date:"DATETIME_FORMAT" %}
-                  Edited on <span title="{{ date_iso }}">{{ date }}{% endblocktrans %}</span>
-                {% if post.last_edited_author != post.author %}{% blocktrans with username=post.last_edited_author %}by
-                  {{ username }}{% endblocktrans %}{% endif %}
+                {% blocktrans with date_iso=post.date_last_edited|date:"c" date=post.date_last_edited|date:"DATETIME_FORMAT" %}Edited on <span title="{{ date_iso }}">{{ date }}</span>{% endblocktrans %}
+                {% if post.last_edited_author != post.author %}{% blocktrans with username=post.last_edited_author %}by {{ username }}{% endblocktrans %}{% endif %}
                 {% if post.last_edited_reason %}({{ post.last_edited_reason }}){% endif %}</span>
               {% endif %}
             </div>
