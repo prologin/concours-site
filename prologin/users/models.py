@@ -68,8 +68,6 @@ class ProloginUser(AbstractUser, AddressableModel):
     school_stage = models.CharField(max_length=128, blank=True, verbose_name=_("Educational stage"))
     phone = models.CharField(max_length=16, blank=True, verbose_name=_("Phone"))
     birthday = models.DateField(blank=True, null=True, verbose_name=_("Birth day"))
-    newsletter = models.BooleanField(default=False, blank=True, db_index=True,
-                                     verbose_name=_("Subscribe to the newsletter"))
     allow_mailing = models.BooleanField(default=True, blank=True, db_index=True,
                                         verbose_name=_("Allow Prologin to send me emails"),
                                         help_text=_("We only mail you to provide useful information "

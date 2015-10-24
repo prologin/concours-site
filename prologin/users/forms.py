@@ -14,7 +14,7 @@ class UserProfileForm(forms.ModelForm):
         model = get_user_model()
         fields = ('first_name', 'last_name', 'gender', 'birthday',
                   'address', 'postal_code', 'city', 'country',
-                  'phone', 'email', 'allow_mailing', 'newsletter',
+                  'phone', 'email', 'allow_mailing',
                   'preferred_language', 'school_stage', 'timezone',
                   'preferred_locale', 'avatar', 'picture',)
         widgets = {
@@ -37,26 +37,16 @@ class UserProfileForm(forms.ModelForm):
             # If not part of any team, makes no sense to add a staff picture
             self.fields.pop('picture', None)
 
-    def clean(self):
-        if not self.cleaned_data['allow_mailing']:
-            # This is also done client side in JS
-            self.cleaned_data['newsletter'] = False
-        return self.cleaned_data
-
 
 class RegisterForm(forms.ModelForm):
     captcha = ReCaptchaField(label="",
                              help_text='<small>{}</small>'.format(
                                  _("Please check the box above and complete the additional tasks if any. "
                                    "This is required to fight spamming bots on the website.")))
-    newsletter = forms.BooleanField(required=False, label=_("Subscribe to the newsletter"),
-                                    help_text='<small>{}</small>'.format(
-                                        _("We do not send more than a few mails each year! We use that to "
-                                          "notice you when new editions begin and when results are available.")))
 
     class Meta:
         model = get_user_model()
-        fields = ('username', 'email', 'password', 'newsletter', 'captcha')
+        fields = ('username', 'email', 'password', 'allow_mailing', 'captcha')
         widgets = {
             'password': forms.PasswordInput(),
         }

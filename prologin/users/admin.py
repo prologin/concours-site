@@ -9,7 +9,7 @@ class ProloginUserAdmin(UserAdmin):
         (_("Profil"), {'fields': ('gender', 'address', 'postal_code', 'city', 'country', 'phone', 'birthday',
                                   'school_stage',)}),
         (_("Public identity"), {'fields': ('avatar', 'picture', 'signature')}),
-        (_("Settings"), {'fields': ('newsletter', 'allow_mailing', 'timezone', 'preferred_locale',
+        (_("Settings"), {'fields': ('allow_mailing', 'timezone', 'preferred_locale',
                                     'preferred_language',)}),
     )
 

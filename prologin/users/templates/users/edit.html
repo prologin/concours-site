@@ -28,20 +28,3 @@
   </div>
 </form>
 {% endblock %}
-
-{% block extra_script %}
-  <script type="text/javascript">
-  $(function() {
-    var $am = $('#id_allow_mailing');
-    var validateNewsletter = function() {
-      var allow_mailing = $am.prop('checked');
-      var $nl = $('#id_newsletter');
-      $nl.prop('disabled', !allow_mailing);
-      if (!allow_mailing)
-        $nl.prop('checked', '');
-    };
-    $am.on('change', validateNewsletter);
-    validateNewsletter();
-  });
-  </script>
-{% endblock %}

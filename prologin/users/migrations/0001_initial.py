@@ -41,7 +41,6 @@ class Migration(migrations.Migration):
                 ('school_stage', models.CharField(blank=True, max_length=128, verbose_name='Educational stage')),
                 ('phone', models.CharField(blank=True, max_length=16, verbose_name='Phone')),
                 ('birthday', models.DateField(null=True, blank=True, verbose_name='Birth day')),
-                ('newsletter', models.BooleanField(db_index=True, verbose_name='Subscribe to the newsletter', default=False)),
                 ('allow_mailing', models.BooleanField(db_index=True, verbose_name='Allow Prologin to send me emails', default=True, help_text='We only mail you to provide useful information during the various stages of the contest. We hate spam as much as you do!')),
                 ('signature', models.TextField(blank=True, verbose_name='Signature')),
                 ('preferred_language', prologin.models.CodingLanguageField(choices=[('ada', 'Ada'), ('brainfuck', 'Brainfuck'), ('c', 'C'), ('csharp', 'C#'), ('cpp', 'C++'), ('fsharp', 'F#'), ('haskell', 'Haskell'), ('java', 'Java'), ('js', 'Javascript'), ('lua', 'Lua'), ('ocaml', 'OCaml'), ('pascal', 'Pascal'), ('perl', 'Perl'), ('php', 'PHP'), ('pseudocode', 'Pseudocode'), ('python2', 'Python 2'), ('python3', 'Python 3'), ('scheme', 'Scheme'), ('vb', 'VB')], null=True, blank=True, max_length=64, db_index=True, verbose_name='Preferred coding language')),
