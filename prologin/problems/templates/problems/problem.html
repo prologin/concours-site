@@ -21,9 +21,11 @@
       </h1>
 
       <div class="problem-meta-info text-muted">
-        <p>{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %} ⋅
-          {% blocktrans count meta_tackled_by as count %}Tackled by {{ count }} member{% plural %}Tackled by {{ count }} members{% endblocktrans %} ⋅
-          {% blocktrans count meta_solved_by as count %}Solved by {{ count }} member{% plural %}Solved by {{ count }} members{% endblocktrans %}
+        <p>{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %}
+        {% if request.user.is_staff %}
+          ⋅ {% blocktrans count meta_tackled_by as count %}Tackled by {{ count }} member{% plural %}Tackled by {{ count }} members{% endblocktrans %}
+          ⋅ {% blocktrans count meta_solved_by as count %}Solved by {{ count }} member{% plural %}Solved by {{ count }} members{% endblocktrans %}
+        {% endif %}
         {% if user_submission.succeeded %}⋅ <span class="text-success"><i class="fa fa-check"></i> {% trans "You solved this problem." %}</span>
         {% elif user_submission %}⋅ <span class="text-warning"><i class="fa fa-times"></i> {% trans "You tackled this problem without success." %}</span>
         {% endif %}
