@@ -17,7 +17,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('contestant', models.ForeignKey(related_name='qcm_answers', to='contest.Contestant')),
-                ('textual_answer', models.TextField(blank=True, null=True, verbose_name=_("Textual answer"))),
+                ('textual_answer', models.TextField(blank=True, null=True, verbose_name='Textual answer')),
             ],
         ),
         migrations.CreateModel(
