@@ -61,6 +61,10 @@
               <div class="pull-right forum-actions">
                 {% has_perm 'forum.edit_post' request.user post as user_can_edit_post %}
                 {% has_perm 'forum.edit_post_visibility' request.user post as user_can_edit_post_visibility %}
+                {% if user_can_post %}
+                  <a href="{% url 'forum:cite-post' thread.slug post.pk %}" class="btn btn-default btn-xs btn-cite">
+                    <i class="fa fa-quote-left"></i> {% trans "Cite" %}</a>
+                {% endif %}
                 {% if user_can_edit_post %}
                   <a href="{% url 'forum:edit-post' thread.slug post.pk %}" class="btn btn-default btn-xs"><i
                     class="fa fa-pencil"></i> {% trans "Edit" %}</a>
@@ -129,15 +133,29 @@
           src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <script type="text/javascript">
     /* When clicking permalinks, just scroll to message, don't do the full redirect */
-    $('.message-permalink').click(function (e) {
-      e.preventDefault();
-      document.location.hash = $(this).parents('.forum-post').attr('id');
-    });
-    $('a[href="#reply-thread"]').click(function () {
-      try {
-        $('#id_content').focus();
-      } catch (e) {
-      }
+    $(function() {
+      var $post_textarea = $('#id_content');
+      $('.message-permalink').click(function (e) {
+        e.preventDefault();
+        document.location.hash = $(this).parents('.forum-post').attr('id');
+      });
+      $('a[href="#reply-thread"]').click(function () {
+        try {
+          $post_textarea.focus();
+        } catch (e) {
+        }
+      });
+      $('.btn-cite').click(function(e) {
+        e.preventDefault();
+        var cite_url = $(this).attr('href');
+        $.getJSON(cite_url)
+          .done(function(data) {
+            $post_textarea.val($post_textarea.val() + '\n' + data.message).focus();
+          })
+          .fail(function(err) {
+            console.error(err);
+          });
+      });
     });
   </script>
 {% endblock %}

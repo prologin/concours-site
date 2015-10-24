@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.db import transaction
-from django.http.response import HttpResponseForbidden
+from django.http.response import HttpResponseForbidden, JsonResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.functional import cached_property
 from django.views.generic import ListView, RedirectView, CreateView, UpdateView
@@ -11,6 +11,14 @@ from rules.contrib.views import PermissionRequiredMixin
 
 import forum.forms
 import forum.models
+
+
+def cite_post_content(post):
+    # Python module 'textwrap' behaves strangely, dropping previous indents or randomly dropping whitespaces
+    # even if you disable that. If you can make it work, feel free to replace the lines below.
+    content = post.content
+    content = '\n'.join('> {}'.format(line) for line in content.split('\n'))
+    return "**{}**\n{}\n\n".format(post.author.username, content)
 
 
 class IndexView(ListView):
@@ -162,6 +170,12 @@ class ThreadView(PermissionRequiredMixin, FormMixin, ListView):
         context['thread'] = thread
         context['forum'] = thread.forum
         context['form'] = kwargs.get('form', self.get_form())
+        cite_post_id = self.request.GET.get('cite')
+        if cite_post_id:
+            post = get_object_or_404(self.model, pk=cite_post_id)
+            if self.request.user.has_perm('forum.view_post', post):
+                raise Http404()
+            context['form'].initial['content'] = cite_post_content(post)
         return context
 
     def get(self, request, *args, **kwargs):
@@ -250,3 +264,35 @@ class EditPostVisibilityView(PermissionRequiredMixin, UpdateView):
     model = forum.models.Post
     fields = ('is_visible',)
     permission_required = 'forum.edit_post_visibility'
+
+
+class CitePostView(PermissionRequiredMixin, SingleObjectMixin, RedirectView):
+    permanent = False
+    model = forum.models.Post
+    permission_required = 'forum.create_post'
+
+    def get_permission_object(self):
+        return self.get_object().thread
+
+    def get_redirect_url(self, *args, **kwargs):
+        post = self.get_object()
+        thread = post.thread
+        kwargs = {'forum_slug': thread.forum.slug,
+                  'forum_pk': thread.forum.pk,
+                  'slug': thread.slug,
+                  'pk': thread.pk}
+        url = reverse('forum:thread', kwargs=kwargs)
+        return '{}?cite={}#id_content'.format(url, post.pk)
+
+    def get_object(self, queryset=None):
+        post = super().get_object(queryset)
+        if not self.request.user.has_perm('forum.view_post', post):
+            raise Http404()
+        return post
+
+    def get(self, request, *args, **kwargs):
+        # Ajax request
+        if 'application/json' in request.META.get('HTTP_ACCEPT', ''):
+            return JsonResponse({'message': cite_post_content(self.get_object())})
+        # Standard request
+        return super().get(request, *args, **kwargs)

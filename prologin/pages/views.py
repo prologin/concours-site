@@ -1,8 +1,10 @@
 from django.views import generic
+
+import datetime
 import os
 import yaml
+
 from team.models import TeamMember
-import datetime
 
 
 class AboutContestView(generic.TemplateView):
