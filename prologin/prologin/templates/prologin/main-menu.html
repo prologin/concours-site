@@ -6,7 +6,10 @@
   <li class="{% active '^/forum/' %}"><a href="{% url 'forum:index' %}">{% trans "Forums" %}</a></li>
     {% comment TODO %}
   <li><a href="{% active '^/archives/' %}">{% trans "Archives" %}</a></li>
+    Then remove this hardcoded link once we have the posters, photos and
+    ranking of previous years:
     {% endcomment %}
+  <li><a href="https://www.flickr.com/photos/prologin/">{% trans "Photos" %}</a></li>
   <li class="sep"><a>&nbsp;</a></li>
   {% if user.is_authenticated %}
   <li class="dropdown">
