@@ -7,6 +7,7 @@ rewrite ^/history$ /about/contest/history permanent;
 rewrite ^/node/2$ /about/contest permanent;
 rewrite ^/node/3$ /about/contest/qualification permanent;
 
+
 # Training
 rewrite ^/training$ /train permanent;
 rewrite ^/training/help$ /train/manual permanent;
@@ -23,6 +24,22 @@ rewrite ^/training/challenge/demi([0-9]+)/(\w+)$ /train/$1/semifinal/$2 permanen
 
 # Users
 rewrite ^/user/([0-9]+)$ /user/$1/profile permanent;
+
+
+# Archives (TODO)
+# ^/archives$
+# ^/archives/posters$
+# ^/archives/posters/([0-9]+)$
+# ^/archives/videos$
+# ^/archives/videos/([0-9]+)$
+#
+# ^/archives/([0-9]+)/finale$
+# ^/archives/([0-9]+)/demi-finales$
+# ^/archives/([0-9]+)/qcm$
+# ^/contest/qcm/([0-9]+)$ #
+#
+# ^/gallery/$
+
 
 # News
 # Hardcoded to differenciate between news and forum
@@ -89,6 +106,7 @@ rewrite ^/node/10072$ /news/legacy/10072 permanent;
 rewrite ^/node/13050$ /news/legacy/13050 permanent;
 rewrite ^/node/13155$ /news/legacy/13155 permanent;
 rewrite ^/node/13265$ /news/legacy/13265 permanent;
+
 
 # Forum
 rewrite ^/node/([0-9]+)$ /forum/post/slug/$1 permanent;
