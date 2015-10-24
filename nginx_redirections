@@ -14,7 +14,7 @@ rewrite ^/training/help$ /train/manual permanent;
 rewrite ^/training/challenge/qcm([0-9]+)$ /train/$1/qualification permanent;
 rewrite ^/training/challenge/demi([0-9]+)$ /train/$1/semifinal permanent;
 
-rewrite ^/training/challenge/demi([0-9]+)/classement$ /train/$1/semifinal/scoreboard permanent;
+rewrite ^/training/challenge/qcm([0-9]+)/classement$ /train/$1/qualification/scoreboard permanent;
 rewrite ^/training/challenge/demi([0-9]+)/classement$ /train/$1/semifinal/scoreboard permanent;
 
 rewrite ^/training/challenge/qcm([0-9]+)/(\w+)$ /train/$1/qualification/$2 permanent;
