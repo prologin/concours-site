@@ -79,6 +79,9 @@
               <div>{% blocktrans with score=user_submission.score base=user_submission.score_base malus=user_submission.malus %}You already solved this problem. You won <strong>{{ score }}</strong> points for it, which is {{ base }} base points minus {{ malus }} malus points.{% endblocktrans %}</div></div>
           {% endif %}
 
+          {% if form.errors %}<p class="text-danger" style="padding: 0 15px;">
+            {% for error in form.non_field_errors %}{{ error|escape }}{% endfor %}
+          </p>{% endif %}
           <div class="panel panel-default">
             <form method="POST" id="editor-form" class="form-inline" enctype="multipart/form-data">
             {% csrf_token %}
@@ -107,7 +110,7 @@
                 <div class="col-sm-6 text-right">
                   <small>{% trans "Select the programming language:" %}</small><br>
                   {% if form.language.errors %}<span class="text-danger">
-                    {% for error in form.error.errors %}{{ error|escape }} {% endfor %}
+                    {% for error in form.language.errors %}{{ error|escape }} {% endfor %}
                   </span>{% endif %}
                   <button id="btn-insert-stub" class="btn btn-default" data-url="{% url 'training:ajax-language-template' challenge.year challenge.event_type.name problem.name %}" title="{% trans "Insert parsing code stub at the end of your code" %}"><i class="fa fa-file-code-o"></i> {% trans "Code stub" %}</button>
                   <select name="language" style="width: auto;" class="form-control">{% for lng in languages %}

@@ -104,9 +104,18 @@ class CodeSubmissionForm(forms.ModelForm):
         model = problems.models.SubmissionCode
         fields = ('language', 'code', 'summary', 'sourcefile')
 
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['code'].required = False
+
     def clean(self):
+        if (self.cleaned_data['sourcefile'] and self.cleaned_data['code']):
+            raise forms.ValidationError(
+                    _("You can provide either a source file or a source code, but not both."))
         if self.cleaned_data['sourcefile']:
-            # FIXME: DoS hazard, uploaded sourcefile might be huge
             self.cleaned_data['code'] = self.cleaned_data['sourcefile'].read()
             self.cleaned_data['sourcefile'] = None
+        elif not self.cleaned_data['code']:
+            raise forms.ValidationError(
+                    _("You need to provide either a source file or a source code."))
         return self.cleaned_data
