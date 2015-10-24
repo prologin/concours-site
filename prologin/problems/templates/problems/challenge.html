@@ -12,7 +12,7 @@
 
 {% block content %}
 
-  <h1>{% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}</h1>
+<h1>{% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}<small> — <a href="{% url 'training:challenge-scoreboard' challenge.year challenge.event_type.name %}">{% trans "Scoreboard" %}</a></small></h1>
 
   <article class="challenge-statement">
     {{ challenge.subject|drupaltpl }}

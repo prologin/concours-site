@@ -6,6 +6,10 @@ urlpatterns = [
         problems.views.Challenge.as_view(),
         name='challenge'),
 
+    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/scoreboard$',
+        problems.views.ChallengeScoreboard.as_view(),
+        name='challenge-scoreboard'),
+
     url(r'^manual$',
         problems.views.ManualView.as_view(),
         name='manual'),

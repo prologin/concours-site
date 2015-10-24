@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
-from django.db.models import Q
+from django.db.models import Q, F, Sum
 from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, View
 from django.views.generic.detail import BaseDetailView
@@ -349,3 +349,27 @@ class AjaxLanguageTemplate(View):
 
 class ManualView(TemplateView):
     template_name = 'problems/manual.html'
+
+
+class ChallengeScoreboard(ListView):
+    template_name = 'problems/challenge-scoreboard.html'
+    allow_empty = True
+    context_object_name = 'contestant_scores'
+
+    def get(self, request, *args, **kwargs):
+        self.year, self.event_type, self.challenge = get_challenge(
+                self.request, self.kwargs)
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        return (problems.models.Submission.objects
+                               .filter(challenge=self.challenge.name)
+                               .values('user_id', 'user__username')
+                               .annotate(total_score=Sum(
+                                   F('score_base') - F('malus')))
+                               .order_by('-total_score')[:50])
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['challenge'] = self.challenge
+        return context
