@@ -43,6 +43,7 @@ class Migration(migrations.Migration):
                 ('verbose', models.TextField(blank=True, verbose_name='Verbose description')),
                 ('for_sponsor', models.ForeignKey(related_name='qcm_questions', null=True, to='sponsor.Sponsor', blank=True)),
                 ('qcm', models.ForeignKey(related_name='questions', to='qcm.Qcm')),
+                ('is_open_ended', models.BooleanField(default=False)),
             ],
             options={
                 'ordering': ('order',),
