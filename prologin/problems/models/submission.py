@@ -25,7 +25,7 @@ class Submission(models.Model):
         return self.codes.latest()
 
     def score(self):
-        return self.score_base - self.malus
+        return max(0, self.score_base - self.malus)
 
     def challenge_model(self):
         return Challenge.by_low_level_name(self.challenge)

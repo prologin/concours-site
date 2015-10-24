@@ -363,11 +363,10 @@ class ChallengeScoreboard(ListView):
 
     def get_queryset(self):
         return (problems.models.Submission.objects
-                               .filter(challenge=self.challenge.name)
-                               .values('user_id', 'user__username')
-                               .annotate(total_score=Sum(
-                                   F('score_base') - F('malus')))
-                               .order_by('-total_score')[:50])
+                .filter(challenge=self.challenge.name, score_base__gt=0)
+                .values('user_id', 'user__username')
+                .annotate(total_score=Sum(F('score_base') - F('malus')))
+                .order_by('-total_score'))[:50]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
