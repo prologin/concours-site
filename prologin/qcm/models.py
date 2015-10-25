@@ -130,8 +130,13 @@ class Answer(models.Model):
     @property
     def is_correct(self):
         if self.proposition.question.is_open_ended:
-            normal = unicodedata.normalize('NFKD', self.textual_answer).encode('ASCII', 'ignore')
-            return normal.strip().lower() == self.proposition.text
+            # Convert unicode to ASCII bytes
+            contestant_ascii = unicodedata.normalize('NFKD', self.textual_answer).encode('ASCII', 'ignore')
+            answer_ascii = unicodedata.normalize('NFKD', self.proposition.text).encode('ASCII', 'ignore')
+            # Normalize harder
+            contestant = contestant_ascii.strip().lower()
+            answer = answer_ascii.strip().lower()
+            return contestant == answer
         else:
             return self.proposition.is_correct
 
