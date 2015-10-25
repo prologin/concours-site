@@ -26,7 +26,10 @@ rewrite ^/training/challenge/demi([0-9]+)/(\w+)$ /train/$1/semifinal/$2 permanen
 rewrite ^/user/([0-9]+)$ /user/$1/profile permanent;
 
 
-# Archives (TODO)
+# Archives
+rewrite ^/contest/qcm/([0-9]+)$ /contest/$1/qualification/quiz#
+
+# TODO
 # ^/archives$
 # ^/archives/posters$
 # ^/archives/posters/([0-9]+)$
@@ -36,7 +39,6 @@ rewrite ^/user/([0-9]+)$ /user/$1/profile permanent;
 # ^/archives/([0-9]+)/finale$
 # ^/archives/([0-9]+)/demi-finales$
 # ^/archives/([0-9]+)/qcm$
-# ^/contest/qcm/([0-9]+)$ #
 #
 # ^/gallery/$
 
