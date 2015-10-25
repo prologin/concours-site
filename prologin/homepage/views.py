@@ -19,21 +19,19 @@ class HomepageView(TemplateView):
             event__type=contest.models.Event.Type.qualification.value,
             event__edition=self.request.current_edition).first()
         try:
-            # FIXME: this is *training* challenge! not contest!
             current_qcm_challenge = problems.models.Challenge.by_year_and_event_type(
                 self.request.current_edition.year, contest.models.Event.Type.qualification)
         except ObjectDoesNotExist:
             raise ImproperlyConfigured("You must create the problem statement for edition {}"
                                        .format(settings.PROLOGIN_EDITION))
-        # FIXME: this is *training* challenge! not contest!
-        current_contestant_qcm_problem_answers = problems.models.Submission.objects.none()
 
         qcm_completed = None
         if self.request.user.is_authenticated() and current_qcm:
             qcm_completed = current_qcm.is_completed_for(self.request.current_contestant)
-            current_contestant_qcm_problem_answers = problems.models.Submission.objects.filter(
-                user=self.request.user, challenge=current_qcm_challenge.name
-            )
+
+        current_contestant_qcm_problem_answers = problems.models.Submission.objects.filter(
+            user=self.request.user, challenge=current_qcm_challenge.name
+        )
 
         problems_count = len(current_qcm_challenge.problems)
         problems_completed = current_contestant_qcm_problem_answers.count()

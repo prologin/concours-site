@@ -48,7 +48,7 @@
                           </a></li>
                         {% endif %}
                       {% endif %}
-                      <li class="text-{% if problems_completed == problems_count %}success{% else %}danger{% endif %}">
+                      <li class="text-{% if problems_completed == problems_count %}success{% elif problems_completed > 0 %}warning{% else %}danger{% endif %}">
                         <a href="{% url 'training:challenge' request.current_edition.year 'qualification' %}"><i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
                           {% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems completed{% endblocktrans %}</a>
                       </li>
