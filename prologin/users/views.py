@@ -289,7 +289,7 @@ class UnsubscribeView(View):
             raise Http404()
         User = get_user_model()
         u = get_object_or_404(User, pk=user_id)
-        if not token == u.unsubscribe_token:
+        if not compare_digest(token, u.unsubscribe_token):
             raise Http404()
         return u, token
 
