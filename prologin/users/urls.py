@@ -20,4 +20,6 @@ urlpatterns = patterns('',
     # Register and activate views
     url(r'^register/$', views.RegistrationView.as_view(), name='register'),
     url(r'^activate/(?P<slug>[0-9A-Za-z\-_]+)/$', views.ActivationView.as_view(), name='activate'),
+
+    url(r'^unsubscribe/$', views.UnsubscribeView.as_view(), name='unsubscribe'),
 )

@@ -102,6 +102,12 @@ class ProloginUser(AbstractUser, AddressableModel):
             return self.picture
         return self.avatar
 
+    @property
+    def unsubscribe_token(self):
+        user_id = str(self.id).encode()
+        secret = settings.SECRET_KEY.encode()
+        return hashlib.sha256(user_id + secret).hexdigest()
+
     def has_partial_address(self):
         return any((self.address, self.city, self.country, self.postal_code))
 

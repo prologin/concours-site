@@ -5,9 +5,11 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Prefetch
+from django.http import Http404
+from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic.base import RedirectView
+from django.views.generic.base import View, RedirectView
 from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.decorators.cache import never_cache
@@ -276,3 +278,29 @@ class PasswordResetConfirmView(PasswordFormMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         context['validlink'] = self.get_object() is not None
         return context
+
+
+class UnsubscribeView(View):
+    def get_user_token(self, req_params):
+        try:
+            user_id = req_params['uid']
+            token = req_params['token']
+        except KeyError:
+            raise Http404()
+        User = get_user_model()
+        u = get_object_or_404(User, pk=user_id)
+        if not token == u.unsubscribe_token:
+            raise Http404()
+        return u, token
+
+    def get(self, request, *args, **kwargs):
+        user, token = self.get_user_token(request.GET)
+        return render(request, 'users/unsubscribe.html',
+                {'unsubscribe_user': user, 'unsubscribe_token': token})
+
+    def post(self, request, *args, **kwargs):
+        user, _ = self.get_user_token(request.POST)
+        user.allow_mailing = False
+        user.save()
+        return render(request, 'users/unsubscribe_confirm.html',
+                {'unsubscribe_user': user})
