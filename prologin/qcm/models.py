@@ -1,3 +1,5 @@
+import unicodedata
+
 from adminsortable.models import SortableMixin
 from django.core.exceptions import ValidationError
 from django.db import models
@@ -128,7 +130,8 @@ class Answer(models.Model):
     @property
     def is_correct(self):
         if self.proposition.question.is_open_ended:
-            return self.textual_answer == self.proposition.text
+            normal = unicodedata.normalize('NFKD', self.textual_answer).encode('ASCII', 'ignore')
+            return normal.strip().lower() == self.proposition.text
         else:
             return self.proposition.is_correct
 
