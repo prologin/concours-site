@@ -17,6 +17,11 @@
   {% block content %}
 
   <div class="row">
+
+  <div class="col-sm-3">
+    {% include "homepage/sponsors.html" %}
+  </div>
+
   <div class="col-sm-9">
   <h1>{% trans "Latest news" %}</h1>
 
@@ -55,10 +60,6 @@
 
   <ul class="clearfix nav hidden-xs text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
 
-  </div>
-
-  <div class="col-sm-3">
-    {% include "homepage/sponsors.html" %}
   </div>
   </div>
 
