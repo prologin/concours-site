@@ -15,6 +15,7 @@ from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 import django.contrib.auth.forms
+from hmac import compare_digest
 from zinnia.models.author import Author
 
 from prologin.email import send_email
