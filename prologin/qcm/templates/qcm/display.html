@@ -19,15 +19,17 @@
 
   <h1>{% blocktrans with qcm.event.edition.year as year %}Qualification quiz – Prologin {{ year }}{% endblocktrans %}</h1>
 
-  <p class="well">
-    {% blocktrans %}Please answer the following questions. There is only one correct answer for each question.{% endblocktrans %}<br>
-    {% blocktrans %}Correct answers give one point, wrong ones remove one point. Not answering a question neither gives nor removes any point.{% endblocktrans %}
-  </p>
+  {% if not qcm.event.is_finished %}
+    <p class="well">
+      {% blocktrans %}Please answer the following questions. There is only one correct answer for each question.{% endblocktrans %}<br>
+      {% blocktrans %}Correct answers give one point, wrong ones remove one point. Not answering a question neither gives nor removes any point.{% endblocktrans %}
+    </p>
 
-  {% if not request.user.is_authenticated %}
-    {% url 'users:register' as register %}
-    {% url 'users:login' as login %}
-    <p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to fill the quiz.{% endblocktrans %}</p>
+    {% if not request.user.is_authenticated %}
+      {% url 'users:register' as register %}
+      {% url 'users:login' as login %}
+      <p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to fill the quiz.{% endblocktrans %}</p>
+    {% endif %}
   {% endif %}
 
   <form action="" method="POST">
