@@ -1,0 +1,12 @@
+{% extends "prologin/base.html" %}
+{% load static i18n bootstrap %}
+
+{% block title %}{% trans "Unsubscribe" %}{% endblock %}
+
+{% block content %}
+  <h1>{% trans "Unsubscribe" %}</h1>
+  <p><strong>{{ unsubscribe_user.email }}</strong>
+  {% blocktrans %}has been unsubscribed and will receive no further e-mails
+  from Prologin.{% endblocktrans %}</p>
+
+{% endblock %}

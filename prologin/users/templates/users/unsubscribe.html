@@ -1,0 +1,40 @@
+{% extends "prologin/base.html" %}
+{% load static i18n bootstrap %}
+
+{% block title %}{% trans "Unsubscribe" %}{% endblock %}
+
+{% block content %}
+<h1>{% trans "Unsubscribe" %}</h1>
+
+{% if unsubscribe_user.allow_mailing %}
+  <p>{% blocktrans %}If you wish to stop receiving e-mails from Prologin, you
+  can click on the button below.{% endblocktrans %}</p>
+
+  <p>{% blocktrans %}Remember: we only mail you to provide useful information
+  during the various stages of the contest. We hate spam as much as you do!
+  {% endblocktrans %}</p>
+
+  <form action="" method="POST" class="form-horizontal">
+    {% csrf_token %}
+    <input type="hidden" name="uid" value="{{ unsubscribe_user.id }}" />
+    <input type="hidden" name="token" value="{{ unsubscribe_token }}" />
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button class="btn btn-primary" type="submit">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-envelope-o fa-stack-1x"></i>
+                <i class="fa fa-ban fa-stack-2x text-danger"></i>
+            </span>
+            {% trans "Unsubscribe" %}
+            <strong>{{ unsubscribe_user.email }}</strong>
+        </button>
+      </div>
+    </div>
+  </form>
+{% else %}
+    <p><strong>{{ unsubscribe_user.email }}</strong>{% blocktrans %} has
+    already been unsubscribed. You will receive no further e-mails from
+    Prologin.{% endblocktrans %}</p>
+{% endif %}
+
+{% endblock %}
