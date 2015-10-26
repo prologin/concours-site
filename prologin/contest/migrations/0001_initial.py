@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('shirt_size', prologin.models.EnumField(contest.models.ShirtSize, null=True, blank=True, choices=[(0, 'XS'), (1, 'S'), (2, 'M'), (3, 'L'), (4, 'XL'), (5, 'XXL')], db_index=True)),
                 ('preferred_language', prologin.models.CodingLanguageField(null=True, choices=[('ada', 'Ada'), ('brainfuck', 'Brainfuck'), ('c', 'C'), ('csharp', 'C#'), ('cpp', 'C++'), ('fsharp', 'F#'), ('haskell', 'Haskell'), ('java', 'Java'), ('js', 'Javascript'), ('lua', 'Lua'), ('ocaml', 'OCaml'), ('pascal', 'Pascal'), ('perl', 'Perl'), ('php', 'PHP'), ('pseudocode', 'Pseudocode'), ('python2', 'Python 2'), ('python3', 'Python 3'), ('scheme', 'Scheme'), ('vb', 'VB')], verbose_name='Coding language', max_length=64, blank=True, db_index=True)),
-                ('score_qualif_qcm', models.IntegerField(verbose_name='QCM score', null=True, blank=True)),
+                ('score_qualif_qcm', models.IntegerField(verbose_name='Quiz score', null=True, blank=True)),
                 ('score_qualif_algo', models.IntegerField(verbose_name='Algo exercises score', null=True, blank=True)),
                 ('score_qualif_bonus', models.IntegerField(verbose_name='Bonus score', null=True, blank=True)),
                 ('score_semifinal_written', models.IntegerField(verbose_name='Written exam score', null=True, blank=True)),

@@ -110,7 +110,7 @@ class Contestant(models.Model):
                                              help_text=_("The programming language you will most likely use during the "
                                                          "regional events."))
 
-    score_qualif_qcm = models.IntegerField(blank=True, null=True, verbose_name=_("QCM score"))
+    score_qualif_qcm = models.IntegerField(blank=True, null=True, verbose_name=_("Quiz score"))
     score_qualif_algo = models.IntegerField(blank=True, null=True, verbose_name=_("Algo exercises score"))
     score_qualif_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
     score_semifinal_written = models.IntegerField(blank=True, null=True, verbose_name=_("Written exam score"))
