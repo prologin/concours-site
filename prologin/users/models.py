@@ -88,7 +88,9 @@ class ProloginUser(AbstractUser, AddressableModel):
     school_stage = EnumField(EducationStage, null=True, db_index=True,
                              verbose_name=_("Educational stage"))
     phone = models.CharField(max_length=16, blank=True, verbose_name=_("Phone"))
-    birthday = models.DateField(blank=True, null=True, verbose_name=_("Birth day"))
+    birthday = models.DateField(blank=True, null=True,
+                                verbose_name=_("Birth day"),
+                                help_text=_("Format: yyyy-mm-dd"))
     allow_mailing = models.BooleanField(default=True, blank=True, db_index=True,
                                         verbose_name=_("Allow Prologin to send me emails"),
                                         help_text=_("We only mail you to provide useful information "

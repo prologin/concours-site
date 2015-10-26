@@ -13,7 +13,7 @@ import contest.models
 class ContestantUserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'address', 'postal_code', 'city',
+        fields = ('first_name', 'last_name', 'birthday', 'address', 'postal_code', 'city',
                   'country', 'phone', 'school_stage')
         widgets = {
             'address': forms.Textarea(attrs={'rows': 2}),
@@ -36,7 +36,7 @@ class ContestantUserForm(forms.ModelForm):
                                                              'on your <a href="%(url)s">profile page</a>.')
                                                            % {'url': url})
         for field_name in ('first_name', 'last_name', 'address', 'postal_code',
-                           'city', 'country'):
+                           'city', 'country', 'birthday'):
             self.fields[field_name].required = True
         if complete:
             self.fields['epita'].initial = True
@@ -46,6 +46,14 @@ class ContestantUserForm(forms.ModelForm):
         if not data:
             raise forms.ValidationError(_("You cannot participate if you are an "
                     "EPITA/EPITECH student"))
+        return data
+
+    def clean_birthday(self):
+        data = self.cleaned_data['birthday']
+        birth_year = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
+        if data.year < birth_year:
+            raise forms.ValidationError(_("You cannot participate if you are "
+                "born before {}").format(birth_year))
         return data
 
 
