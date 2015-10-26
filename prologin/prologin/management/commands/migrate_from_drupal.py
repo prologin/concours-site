@@ -118,6 +118,20 @@ class Command(LabelCommand):
                     birthday = row.u_birthday
                 elif p_birthday and not row.u_birthday:
                     birthday = p_birthday
+                grade = { 'Bac': bac,
+                      'Bac+1': bacp1,
+                      'Bac+2': bacp1,
+                      'Bac+3': bacp3,
+                      'Bac+4': bacp4,
+                      'Bac+5': bacp5,
+                      'Bac+6 et au-delà': bacp6,
+                      'Autre': other,
+                      'Ancien étudiant': former,
+                      'Collège': middle_school,
+                      'Seconde': high_school,
+                      'Première': high_school,
+                      'Terminale': high_school
+                      }.get(row.grade.strip().lower(), None)
                 gender = parse_gender(row.gender)
                 user_timezone = guess_timezone(row.timezone)
                 date_joined = min(date for date in (row.created, row.access, row.login) if date)
@@ -133,7 +147,7 @@ class Command(LabelCommand):
                     pk=row.uid, username=row.name, email=row.mail, first_name=nstrip(row.fn, 30),
                     legacy_md5_password=row.password, last_name=nstrip(row.ln, 30), phone=nstrip(row.phone, 16),
                     address=nstrip(row.a_addr), postal_code=nstrip(row.a_code, 32), city=nstrip(row.a_city, 64),
-                    country=nstrip(row.country, 64), birthday=birthday, school_stage=row.grade, signature=row.signature,
+                    country=nstrip(row.country, 64), birthday=birthday, school_stage=grade, signature=row.signature,
                     gender=gender, timezone=user_timezone, allow_mailing=bool(row.mailing),
                     preferred_language=language,
                     date_joined=date_localize(date_joined, user_timezone),

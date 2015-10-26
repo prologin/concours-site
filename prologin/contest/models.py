@@ -86,15 +86,17 @@ class ContestantManager(models.Manager):
                 .select_related('edition', 'user'))
 
 
+@ChoiceEnum.labels(str.upper)
+class ShirtSize(ChoiceEnum):
+    xs = 0
+    s = 1
+    m = 2
+    l = 3
+    xl = 4
+    xxl = 5
+
+
 class Contestant(models.Model):
-    @ChoiceEnum.labels(str.upper)
-    class ShirtSize(ChoiceEnum):
-        xs = 0
-        s = 1
-        m = 2
-        l = 3
-        xl = 4
-        xxl = 5
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
     edition = models.ForeignKey(Edition, related_name='contestants')

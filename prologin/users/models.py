@@ -12,7 +12,8 @@ from django.utils import timezone
 from django.utils.translation import LANGUAGE_SESSION_KEY, ugettext_lazy as _
 from timezone_field import TimeZoneField
 
-from prologin.models import AddressableModel, GenderField, CodingLanguageField
+from prologin.models import (AddressableModel, GenderField,
+                             CodingLanguageField, EnumField, ChoiceEnum)
 from prologin.languages import Language
 from prologin.utils import upload_path
 
@@ -60,12 +61,32 @@ class UserActivation(models.Model):
         return timezone.now() < self.expiration_date
 
 
+class EducationStage(ChoiceEnum):
+    middle_school = (0, _("Middle school"))
+    high_school = (1, _("High school"))
+    bac = (2, _("Bac"))
+    bacp1 = (3, _("Bac+1"))
+    bacp2 = (4, _("Bac+2"))
+    bacp3 = (5, _("Bac+3"))
+    bacp4 = (6, _("Bac+4"))
+    bacp5 = (7, _("Bac+5"))
+    bacp6 = (8, _("Bac+6 and after"))
+    other = (9, _("Other"))
+    former = (10, _("Former student"))
+
+    @classmethod
+    def _get_choices(cls):
+        return tuple(m.value for m in cls)
+
+
 class ProloginUser(AbstractUser, AddressableModel):
+
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
 
     gender = GenderField(blank=True, null=True, db_index=True)
-    school_stage = models.CharField(max_length=128, blank=True, verbose_name=_("Educational stage"))
+    school_stage = EnumField(EducationStage, blank=True, db_index=True,
+                             verbose_name=_("Educational stage"))
     phone = models.CharField(max_length=16, blank=True, verbose_name=_("Phone"))
     birthday = models.DateField(blank=True, null=True, verbose_name=_("Birth day"))
     allow_mailing = models.BooleanField(default=True, blank=True, db_index=True,
