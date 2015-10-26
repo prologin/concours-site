@@ -363,16 +363,17 @@ class ChallengeScoreboard(ListView):
 
     def get_queryset(self):
         def wrap_with_ranks(ranking):
-            i = 0
+            current_rank = 1
             previous_score = None
-            for line in ranking:
+            for i, line in enumerate(ranking, 1):
                 line['ex_aequo'] = True
+                line['rank'] = current_rank
                 if (previous_score is None
                         or previous_score != line['total_score']):
-                    i += 1
+                    line['rank'] = current_rank
                     line['ex_aequo'] = False
                     previous_score = line['total_score']
-                line['rank'] = i
+                    current_rank = i
                 yield line
 
         return wrap_with_ranks((problems.models.Submission.objects
