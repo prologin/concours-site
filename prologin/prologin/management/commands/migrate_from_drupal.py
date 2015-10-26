@@ -133,7 +133,9 @@ class Command(LabelCommand):
                           'Seconde': EducationStage.high_school,
                           'Première': EducationStage.high_school,
                           'Terminale': EducationStage.high_school
-                          }.get(row.grade.strip().lower(), None).value[0]
+                          }.get(row.grade.strip().lower(), None)
+                if grade is not None:
+                    grade = grade.value[0]
                 gender = parse_gender(row.gender)
                 user_timezone = guess_timezone(row.timezone)
                 date_joined = min(date for date in (row.created, row.access, row.login) if date)
