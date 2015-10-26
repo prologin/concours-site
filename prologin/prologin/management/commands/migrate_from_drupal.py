@@ -17,7 +17,7 @@ from ._migration_utils import *  # noqa
 from users.models import EducationStage
 
 User = get_user_model()
-DRUPAL_SITE_BASE_URL = "http://prologin.org/"  # For downloading content (mainly files/)
+DRUPAL_SITE_BASE_URL = "http://oldsite.prologin.org/"  # For downloading content (mainly files/)
 
 """
 TODO:
