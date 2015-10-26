@@ -120,19 +120,19 @@ class Command(LabelCommand):
                     birthday = row.u_birthday
                 elif p_birthday and not row.u_birthday:
                     birthday = p_birthday
-                grade = { 'Bac': EducationStage.bac,
-                          'Bac+1': EducationStage.bacp1,
-                          'Bac+2': EducationStage.bacp1,
-                          'Bac+3': EducationStage.bacp3,
-                          'Bac+4': EducationStage.bacp4,
-                          'Bac+5': EducationStage.bacp5,
-                          'Bac+6 et au-delà': EducationStage.bacp6,
-                          'Autre': EducationStage.other,
-                          'Ancien étudiant': EducationStage.former,
-                          'Collège': EducationStage.middle_school,
-                          'Seconde': EducationStage.high_school,
-                          'Première': EducationStage.high_school,
-                          'Terminale': EducationStage.high_school
+                grade = { 'bac': EducationStage.bac,
+                          'bac+1': EducationStage.bacp1,
+                          'bac+2': EducationStage.bacp1,
+                          'bac+3': EducationStage.bacp3,
+                          'bac+4': EducationStage.bacp4,
+                          'bac+5': EducationStage.bacp5,
+                          'bac+6 et au-delà': EducationStage.bacp6,
+                          'autre': EducationStage.other,
+                          'ancien étudiant': EducationStage.former,
+                          'collège': EducationStage.middle_school,
+                          'seconde': EducationStage.high_school,
+                          'première': EducationStage.high_school,
+                          'terminale': EducationStage.high_school
                           }.get(row.grade.strip().lower(), None)
                 if grade is not None:
                     grade = grade.value[0]
