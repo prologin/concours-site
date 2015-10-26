@@ -142,6 +142,10 @@ USE_I18N = True
 
 USE_L10N = True
 
+FORMAT_MODULE_PATH = [
+    'formats',
+]
+
 USE_TZ = True
 
 MIGRATION_MODULES = {

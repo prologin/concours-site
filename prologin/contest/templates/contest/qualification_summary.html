@@ -24,7 +24,7 @@
   to fulfill so you can be selectionned to participate in the next step: <a href="{{ about_regional_url }}">regional events</a>.{% endblocktrans %}</p>
   <p class="well">
     <span class="label label-info">{% trans "Heads up!" %}</span>
-    {% blocktrans with request.current_events.qualification.date_end|date as end_date %}The qualification step ends <strong>{{ end_date }}</strong>. Be sure to have the green light on this page before this date!{% endblocktrans %}
+    {% blocktrans with request.current_events.qualification.date_end|date:'DATETIME_FORMAT' as end_date %}The qualification step ends <strong>{{ end_date }}</strong>. Be sure to have the green light on this page before this date!{% endblocktrans %}
   </p>
 
   <h2>{% trans "Complete the exercices, as best as you can" %}</h2>
