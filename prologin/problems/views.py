@@ -367,20 +367,19 @@ class ChallengeScoreboard(ListView):
             previous_score = None
             for i, line in enumerate(ranking, 1):
                 line['ex_aequo'] = True
-                line['rank'] = current_rank
                 if (previous_score is None
                         or previous_score != line['total_score']):
-                    line['rank'] = current_rank
+                    current_rank = i
                     line['ex_aequo'] = False
                     previous_score = line['total_score']
-                    current_rank = i
+                line['rank'] = current_rank
                 yield line
 
         return wrap_with_ranks((problems.models.Submission.objects
                 .filter(challenge=self.challenge.name, score_base__gt=0)
                 .values('user_id', 'user__username')
                 .annotate(total_score=Sum(F('score_base') - F('malus')))
-                .order_by('-total_score'))[:50])
+                .order_by('-total_score', '?'))[:50])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
