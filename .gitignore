@@ -1,6 +1,5 @@
 data/*.csv
 data/*.json
-data/*.sql
 .idea/
 fabfile.py
 *.swp
