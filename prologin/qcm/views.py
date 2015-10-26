@@ -1,5 +1,7 @@
 from django.conf import settings
+from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import UpdateView
 from django.views.generic.edit import ModelFormMixin
 import random
@@ -45,6 +47,7 @@ class DisplayQCMView(UpdateView):
     def form_valid(self, form):
         if not self.is_editable:
             return super(ModelFormMixin, self).form_valid(form)
+        messages.success(self.request, _("Your new answers have been saved."))
         return super().form_valid(form)
 
     def get_form_kwargs(self):
