@@ -7,6 +7,7 @@
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
 # Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
 # Antoine Pietri <antoine.pietri1@gmail.com>, 2015
+# Dettorer <p.hervot@gmail.com>, 2015
 # Robin Thoni <rob57530@gmail.com>, 2015
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
 # Yves Stadler <mvyonline@gmail.com>, 2015
@@ -14,8 +15,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 03:51+0100\n"
-"PO-Revision-Date: 2015-10-26 02:55+0000\n"
+"POT-Creation-Date: 2015-10-26 22:09+0100\n"
+"PO-Revision-Date: 2015-10-26 21:18+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -131,11 +132,15 @@ msgstr "Vous pouvez modifier ou vérifier vos informations personnelles sur votr
 msgid "You cannot participate if you are an EPITA/EPITECH student"
 msgstr "Vous ne pouvez pas participer si vous êtes un étudiant d'EPITA/EPITECH."
 
-#: contest/forms.py:68
+#: contest/forms.py:55
+msgid "You cannot participate if you are born before {}"
+msgstr "Vous ne pouvez pas participer si vous êtes né avant {}"
+
+#: contest/forms.py:76
 msgid "Semifinal center wishes"
 msgstr "Choix de centres d'examen pour les épreuves régionales"
 
-#: contest/forms.py:69
+#: contest/forms.py:77
 msgid ""
 "This is where you would like to seat the regional events if you are "
 "selected. Choose at least one and up to three wishes, in order of "
@@ -430,7 +435,7 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:19 problems/templates/problems/challenge-scoreboard.html:25
+#: forum/models.py:19 problems/templates/problems/challenge-scoreboard.html:26
 msgid "Name"
 msgstr "Nom"
 
@@ -1916,15 +1921,19 @@ msgstr "%(type)s %(year)s"
 msgid "%(type)s %(year)s"
 msgstr "%(type)s %(year)s"
 
-#: problems/templates/problems/challenge-scoreboard.html:24
+#: problems/templates/problems/challenge-scoreboard.html:25
 msgid "Rank"
 msgstr "Rang"
 
-#: problems/templates/problems/challenge-scoreboard.html:26
+#: problems/templates/problems/challenge-scoreboard.html:27
 msgid "Points"
 msgstr "Points"
 
-#: problems/templates/problems/challenge-scoreboard.html:40
+#: problems/templates/problems/challenge-scoreboard.html:38
+msgid "(ex-aequo)"
+msgstr "(ex-aequo)"
+
+#: problems/templates/problems/challenge-scoreboard.html:46
 msgid "No scores to display"
 msgstr "Aucun score à afficher"
 
@@ -2749,7 +2758,7 @@ msgstr "Participant"
 msgid "Is correct"
 msgstr "Est correct"
 
-#: qcm/forms.py:80
+#: qcm/forms.py:82
 msgid "I don't know"
 msgstr "Je ne sais pas"
 
@@ -2804,6 +2813,10 @@ msgstr "Enregistrer les nouvelles réponses"
 #: qcm/templates/qcm/display.html:63
 msgid "Check your answers"
 msgstr "Vérifiez vos réponses"
+
+#: qcm/views.py:50
+msgid "Your new answers have been saved."
+msgstr "Vos nouvelles réponses ont été enregistrées."
 
 #: sponsor/admin.py:25
 msgid "Active"
@@ -2921,41 +2934,45 @@ msgstr "Ancien étudiant"
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:91 users/templates/users/profile.html:44
+#: users/models.py:92 users/templates/users/profile.html:44
 msgid "Birth day"
 msgstr "Date de naissance"
 
 #: users/models.py:93
+msgid "Format: yyyy-mm-dd"
+msgstr "Format: aaaa-mm-jj"
+
+#: users/models.py:95
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: users/models.py:94
+#: users/models.py:96
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
 msgstr "Nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:97
+#: users/models.py:99
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:99
+#: users/models.py:101
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: users/models.py:100
+#: users/models.py:102
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:101
+#: users/models.py:103
 msgid "Locale"
 msgstr "Langue"
 
-#: users/models.py:103
+#: users/models.py:105
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: users/models.py:104
+#: users/models.py:106
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
