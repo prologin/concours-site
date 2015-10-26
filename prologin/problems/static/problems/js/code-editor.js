@@ -51,7 +51,7 @@
             $select.after($dropdown);
             // trigger a click for the current selected option
             if ($selected_link)
-                $selected_link.click();
+                $selected_link.trigger('click');
         });
     };
 
@@ -64,6 +64,20 @@
 
         // hide basic textarea
         $code_textarea.hide();
+
+        // code stub button
+        $button_insert_stub.hide().click(function(e) {
+            e.preventDefault();
+            var lang = $editor_modes.val();
+            $.getJSON($button_insert_stub.attr('data-url'), {lang: lang})
+                .done(function(template) {
+                    var doc = editor.getSession().getDocument();
+                    doc.insert({row: doc.getLength(), col: 0}, "\n" + template);
+                })
+                .fail(function(err) {
+                    console.error(err);
+                });
+        });
 
         // build Ace code editor
         var editor = ace.edit("code-editor");
@@ -140,20 +154,6 @@
                 localStorage.setItem(FONT_SIZE_STORAGE_KEY, size);
                 editor.setFontSize(parseInt(size));
             }
-        });
-
-        // code stub button
-        $button_insert_stub.hide().click(function(e) {
-            e.preventDefault();
-            var lang = $editor_modes.val();
-            $.getJSON($button_insert_stub.attr('data-url'), {lang: lang})
-                .done(function(template) {
-                    var doc = editor.getSession().getDocument();
-                    doc.insert({row: doc.getLength(), col: 0}, "\n" + template);
-                })
-                .fail(function(err) {
-                    console.error(err);
-                });
         });
 
         // store solution in textarea on submit
