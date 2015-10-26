@@ -27,7 +27,7 @@ rewrite ^/user/([0-9]+)$ /user/$1/profile permanent;
 
 
 # Archives
-rewrite ^/contest/qcm/([0-9]+)$ /contest/$1/qualification/quiz#
+rewrite ^/contest/qcm/([0-9]+)$ /contest/$1/qualification/quiz permanent;
 
 # TODO
 # ^/archives$
