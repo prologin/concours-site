@@ -14,6 +14,8 @@ from django.template.defaultfilters import slugify
 import prologin.models
 from ._migration_utils import *  # noqa
 
+from user.models import EducationStage
+
 User = get_user_model()
 DRUPAL_SITE_BASE_URL = "http://prologin.org/"  # For downloading content (mainly files/)
 
@@ -118,20 +120,20 @@ class Command(LabelCommand):
                     birthday = row.u_birthday
                 elif p_birthday and not row.u_birthday:
                     birthday = p_birthday
-                grade = { 'Bac': bac,
-                      'Bac+1': bacp1,
-                      'Bac+2': bacp1,
-                      'Bac+3': bacp3,
-                      'Bac+4': bacp4,
-                      'Bac+5': bacp5,
-                      'Bac+6 et au-delà': bacp6,
-                      'Autre': other,
-                      'Ancien étudiant': former,
-                      'Collège': middle_school,
-                      'Seconde': high_school,
-                      'Première': high_school,
-                      'Terminale': high_school
-                      }.get(row.grade.strip().lower(), None)
+                grade = { 'Bac': EducationStage.bac,
+                          'Bac+1': EducationStage.bacp1,
+                          'Bac+2': EducationStage.bacp1,
+                          'Bac+3': EducationStage.bacp3,
+                          'Bac+4': EducationStage.bacp4,
+                          'Bac+5': EducationStage.bacp5,
+                          'Bac+6 et au-delà': EducationStage.bacp6,
+                          'Autre': EducationStage.other,
+                          'Ancien étudiant': EducationStage.former,
+                          'Collège': EducationStage.middle_school,
+                          'Seconde': EducationStage.high_school,
+                          'Première': EducationStage.high_school,
+                          'Terminale': EducationStage.high_school
+                          }.get(row.grade.strip().lower(), None).value[0]
                 gender = parse_gender(row.gender)
                 user_timezone = guess_timezone(row.timezone)
                 date_joined = min(date for date in (row.created, row.access, row.login) if date)
