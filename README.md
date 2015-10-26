@@ -167,3 +167,19 @@ Every time you need to work on the website:
   for more tips.
 * Please try to be [PEP8](https://www.python.org/dev/peps/pep-0008/) compliant.
   There are many tools to check and format your code.
+
+## Migrate from drupal
+
+Order of migrations:
+
+    users
+    sponsors
+    examcenters
+    forums
+    events
+    user_pictures
+    teams
+    news
+    contest_results
+    problem_submissions
+    legacy_problem_submissions
