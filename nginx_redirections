@@ -44,6 +44,8 @@ rewrite ^/contest/qcm/([0-9]+)$ /contest/$1/qualification/quiz permanent;
 
 
 # News
+rewrite ^/rss.xml$ /news/feeds permanent;
+
 # Hardcoded to differenciate between news and forum
 rewrite ^/node/6$ /news/legacy/6 permanent;
 rewrite ^/node/5$ /news/legacy/5 permanent;
