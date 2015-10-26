@@ -39,7 +39,7 @@ class Migration(migrations.Migration):
                 ('city', models.CharField(blank=True, max_length=64, verbose_name='City')),
                 ('country', models.CharField(blank=True, max_length=64, verbose_name='Country')),
                 ('gender', prologin.models.GenderField(choices=[(None, 'Prefer not to tell'), (0, 'Male'), (1, 'Female')], null=True, blank=True, verbose_name='Gender', db_index=True)),
-                ('school_stage', prologin.models.EnumField(users.models.EducationStage, db_index=True, verbose_name='Educational stage', choices=[(0, 'Middle school'), (1, 'High school'), (2, 'Bac'), (3, 'Bac+1'), (4, 'Bac+2'), (5, 'Bac+3'), (6, 'Bac+4'), (7, 'Bac+5'), (8, 'Bac+6 and after'), (9, 'Other'), (10, 'Former student')], blank=True)),
+                ('school_stage', prologin.models.EnumField(users.models.EducationStage, null=True, db_index=True, verbose_name='Educational stage', choices=[(0, 'Middle school'), (1, 'High school'), (2, 'Bac'), (3, 'Bac+1'), (4, 'Bac+2'), (5, 'Bac+3'), (6, 'Bac+4'), (7, 'Bac+5'), (8, 'Bac+6 and after'), (9, 'Other'), (10, 'Former student')], blank=True)),
                 ('phone', models.CharField(blank=True, max_length=16, verbose_name='Phone')),
                 ('birthday', models.DateField(null=True, blank=True, verbose_name='Birth day')),
                 ('allow_mailing', models.BooleanField(db_index=True, verbose_name='Allow Prologin to send me emails', default=True, help_text='We only mail you to provide useful information during the various stages of the contest. We hate spam as much as you do!')),
