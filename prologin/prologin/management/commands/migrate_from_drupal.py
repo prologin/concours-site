@@ -759,7 +759,7 @@ class Command(LabelCommand):
                                 )}
                         # T-shirt size
                         if row.size:
-                            contestant.shirt_size = contest.models.Contestant.ShirtSize[row.size.lower().strip()].value
+                            contestant.shirt_size = contest.models.ShirtSize[row.size.lower().strip()].value
                         # Preferred language. This used to be a simple text <input/> so we don't try too hard to
                         # guess the language.
                         if row.langage:
