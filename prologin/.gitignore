@@ -1,6 +1,7 @@
 media/*
 prologin/static/lib/*
 prologin/settings/dev.py
+prologin/settings/prod.py
 documents/*.pdf
 documents/*.aux
 documents/*.log
