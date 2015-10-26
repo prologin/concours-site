@@ -55,6 +55,13 @@ class RegisterForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['email'].required = True
 
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.set_password(self.cleaned_data['password'])
+        if commit:
+            user.save()
+        return user
+
 
 class PasswordResetForm(forms.Form):
     email = forms.EmailField(label=_("Email"), max_length=254, required=True,
