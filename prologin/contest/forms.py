@@ -13,7 +13,8 @@ import contest.models
 class ContestantUserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
-        fields = ('first_name', 'last_name', 'address', 'postal_code', 'city', 'country')
+        fields = ('first_name', 'last_name', 'address', 'postal_code', 'city',
+                  'country', 'phone', 'school_stage')
         widgets = {
             'address': forms.Textarea(attrs={'rows': 2}),
         }
@@ -34,8 +35,9 @@ class ContestantUserForm(forms.ModelForm):
                                                            _('You can modify or review all your personal information '
                                                              'on your <a href="%(url)s">profile page</a>.')
                                                            % {'url': url})
-        for field in self.fields.values():
-            field.required = True
+        for field_name in ('first_name', 'last_name', 'address', 'postal_code',
+                           'city', 'country'):
+            self.fields[field_name].required = True
         if complete:
             self.fields['epita'].initial = True
 
