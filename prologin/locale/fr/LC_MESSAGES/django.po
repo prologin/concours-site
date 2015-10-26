@@ -14,8 +14,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-24 19:26+0200\n"
-"PO-Revision-Date: 2015-10-24 17:28+0000\n"
+"POT-Creation-Date: 2015-10-26 03:51+0100\n"
+"PO-Revision-Date: 2015-10-26 02:55+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -48,7 +48,7 @@ msgstr "Hôtel"
 msgid "Pizzeria"
 msgstr "Pizzéria"
 
-#: centers/models.py:21
+#: centers/models.py:21 users/models.py:74
 msgid "Other"
 msgstr "Autre"
 
@@ -109,33 +109,33 @@ msgstr "%(user)s pour l'édition %(year)s"
 msgid "User"
 msgstr "Utilisateur"
 
-#: contest/forms.py:22
+#: contest/forms.py:23
 msgid "I am not a student at EPITA or EPITECH."
 msgstr "Je ne suis pas étudiant à EPITA ou EPITECH."
 
-#: contest/forms.py:28
+#: contest/forms.py:29
 msgid ""
 "We need your real name and address for legal reasons, as the Prologin staff "
 "engages its responsibility to supervise you during the regional events and "
 "the finale."
 msgstr "Nous avons besoin de votre vrai nom et de votre adresse pour des raisons légales : l'association engage sa responsabilité pour vous encadrer lors des épreuves régionales et de la finale."
 
-#: contest/forms.py:34
+#: contest/forms.py:35
 #, python-format
 msgid ""
 "You can modify or review all your personal information on your <a "
 "href=\"%(url)s\">profile page</a>."
 msgstr "Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a href=\"%(url)s\">page de profil</a>."
 
-#: contest/forms.py:45
+#: contest/forms.py:47
 msgid "You cannot participate if you are an EPITA/EPITECH student"
 msgstr "Vous ne pouvez pas participer si vous êtes un étudiant d'EPITA/EPITECH."
 
-#: contest/forms.py:66
+#: contest/forms.py:68
 msgid "Semifinal center wishes"
 msgstr "Choix de centres d'examen pour les épreuves régionales"
 
-#: contest/forms.py:67
+#: contest/forms.py:69
 msgid ""
 "This is where you would like to seat the regional events if you are "
 "selected. Choose at least one and up to three wishes, in order of "
@@ -154,49 +154,49 @@ msgstr "Demi-finales"
 msgid "Final"
 msgstr "Finale"
 
-#: contest/models.py:105
+#: contest/models.py:107
 msgid "T-shirt size"
 msgstr "Taille du t-shirt"
 
-#: contest/models.py:105
+#: contest/models.py:107
 msgid "Choose your size"
 msgstr "Choisissez votre taille"
 
-#: contest/models.py:106
+#: contest/models.py:108
 msgid "We usually provide unisex Prologin t-shirts to the finalists."
 msgstr "Nous fournissons le plus souvent des t-shirts unisexe aux finalistes."
 
-#: contest/models.py:108
+#: contest/models.py:110
 msgid ""
 "The programming language you will most likely use during the regional "
 "events."
 msgstr "Le langage de programmation que vous utiliserez le plus probablement pour l'épreuve régionale."
 
-#: contest/models.py:111
+#: contest/models.py:113
 msgid "QCM score"
 msgstr "Score du QCM"
 
-#: contest/models.py:112
+#: contest/models.py:114
 msgid "Algo exercises score"
 msgstr "Score des exercices d'algo"
 
-#: contest/models.py:113 contest/models.py:117 contest/models.py:119
+#: contest/models.py:115 contest/models.py:119 contest/models.py:121
 msgid "Bonus score"
 msgstr "Score bonus"
 
-#: contest/models.py:114
+#: contest/models.py:116
 msgid "Written exam score"
 msgstr "Score de l'épreuve écrite"
 
-#: contest/models.py:115
+#: contest/models.py:117
 msgid "Interview score"
 msgstr "Score de l'entretien"
 
-#: contest/models.py:116
+#: contest/models.py:118
 msgid "Machine exam score"
 msgstr "Score de l'épreuve machine"
 
-#: contest/models.py:118 problems/admin.py:171
+#: contest/models.py:120 problems/admin.py:171
 #: problems/templates/problems/manual.html:66
 msgid "Score"
 msgstr "Score"
@@ -544,7 +544,7 @@ msgid "Create the new thread"
 msgstr "Créer un nouveau sujet"
 
 #: forum/templates/forum/edit_post.html:10
-#: forum/templates/forum/thread_posts.html:66
+#: forum/templates/forum/thread_posts.html:70
 #: users/templates/users/edit.html:9
 #: users/templates/users/edit_password.html:9
 #: users/templates/users/profile.html:23
@@ -623,7 +623,7 @@ msgid ""
 msgstr "Vous devez vous <a href=\"%(register)s\">enregistrer</a> ou vous <a href=\"%(login)s\">connecter</a> pour poster des messages."
 
 #: forum/templates/forum/thread_posts.html:32
-#: forum/templates/forum/thread_posts.html:106
+#: forum/templates/forum/thread_posts.html:110
 msgid "Reply to the thread"
 msgstr "Répondre au sujet"
 
@@ -637,37 +637,41 @@ msgstr "Photo de profil de %(username)s"
 msgid "Staff member"
 msgstr "Membre de l'équipe"
 
-#: forum/templates/forum/thread_posts.html:76
+#: forum/templates/forum/thread_posts.html:66
+msgid "Cite"
+msgstr "Cite"
+
+#: forum/templates/forum/thread_posts.html:80
 msgid "Hide"
 msgstr "Cacher"
 
-#: forum/templates/forum/thread_posts.html:76
+#: forum/templates/forum/thread_posts.html:80
 msgid "Unhide"
 msgstr "Ne plus cacher"
 
-#: forum/templates/forum/thread_posts.html:84
+#: forum/templates/forum/thread_posts.html:88
 #, python-format
 msgid "Edited on <span title=\"%(date_iso)s\">%(date)s</span>"
 msgstr "Modifié le <span title=\"%(date_iso)s\">%(date)s</span>"
 
-#: forum/templates/forum/thread_posts.html:85
+#: forum/templates/forum/thread_posts.html:89
 #, python-format
 msgid "by %(username)s"
 msgstr "par %(username)s"
 
-#: forum/templates/forum/thread_posts.html:91
+#: forum/templates/forum/thread_posts.html:95
 msgid "Message is deleted."
 msgstr "Message supprimé."
 
-#: forum/templates/forum/thread_posts.html:103
+#: forum/templates/forum/thread_posts.html:107
 msgid "Back to top"
 msgstr "Retour en haut"
 
-#: forum/templates/forum/thread_posts.html:112
+#: forum/templates/forum/thread_posts.html:116
 msgid "Add reply"
 msgstr "Ajouter une réponse"
 
-#: forum/templates/forum/thread_posts.html:121
+#: forum/templates/forum/thread_posts.html:125
 msgid "Sorry, you are not allowed to post new messages in this thread."
 msgstr "Vous n'êtes pas autorisé à poster de nouveaux messages dans ce sujet."
 
@@ -676,35 +680,35 @@ msgstr "Vous n'êtes pas autorisé à poster de nouveaux messages dans ce sujet.
 msgid "Prologin, the French National Computer Science Contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: homepage/templates/homepage/homepage.html:21
+#: homepage/templates/homepage/homepage.html:26
 msgid "Latest news"
 msgstr "Dernières actualités"
 
-#: homepage/templates/homepage/homepage.html:31
+#: homepage/templates/homepage/homepage.html:36
 #: news/templates/zinnia/_entry_detail_base.html:17
 msgid "Written by"
 msgstr "Rédigé par"
 
-#: homepage/templates/homepage/homepage.html:35
+#: homepage/templates/homepage/homepage.html:40
 #: news/templates/zinnia/_entry_detail_base.html:21
 #, python-format
 msgid "Show all %(author)s's entries"
 msgstr "Tous les articles de %(author)s"
 
-#: homepage/templates/homepage/homepage.html:37
+#: homepage/templates/homepage/homepage.html:42
 msgid "on"
 msgstr "le"
 
-#: homepage/templates/homepage/homepage.html:39
+#: homepage/templates/homepage/homepage.html:44
 msgid "Written on"
 msgstr "Rédigé le"
 
-#: homepage/templates/homepage/homepage.html:50
+#: homepage/templates/homepage/homepage.html:55
 #: news/templates/zinnia/_entry_detail_base.html:86
 msgid "Continue reading"
 msgstr "Continuer la lecture"
 
-#: homepage/templates/homepage/homepage.html:56
+#: homepage/templates/homepage/homepage.html:61
 msgid "Browse all news"
 msgstr "Consulter toutes les actualités"
 
@@ -1460,7 +1464,7 @@ msgstr "Informations de contact"
 msgid "Address"
 msgstr "Addresse"
 
-#: pages/templates/pages/about-organization.html:35 users/models.py:69
+#: pages/templates/pages/about-organization.html:35 users/models.py:90
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -1839,6 +1843,14 @@ msgstr "Problèmes que j'ai résolus"
 msgid "Problems I did not solve"
 msgstr "Problèmes que je n'ai pas résolus"
 
+#: problems/forms.py:114
+msgid "You can provide either a source file or a source code, but not both."
+msgstr "Vous devez fournir soit un code source soit un fichier source, mais pas les deux."
+
+#: problems/forms.py:120
+msgid "You need to provide either a source file or a source code."
+msgstr "Vous devez fournir un fichier source ou un code source."
+
 #: problems/models/__init__.py:8
 msgid "Regional events"
 msgstr "Épreuves régionales"
@@ -2173,7 +2185,7 @@ msgid "You tackled this problem without success."
 msgstr "Vous avez abordé ce problème sans succès."
 
 #: problems/templates/problems/problem.html:44
-#: problems/templates/problems/problem.html:172
+#: problems/templates/problems/problem.html:175
 msgid "Runtime constraints"
 msgstr "Contraintes d'exécution"
 
@@ -2196,7 +2208,7 @@ msgid "%(ms)s&nbsp;milliseconds"
 msgstr "%(ms)s&nbsp;millisecondes"
 
 #: problems/templates/problems/problem.html:54
-#: problems/templates/problems/problem.html:173
+#: problems/templates/problems/problem.html:176
 msgid "Input/output samples"
 msgstr "Exemples d'entrée/sortie"
 
@@ -2213,7 +2225,7 @@ msgid "Note"
 msgstr "Commentaire"
 
 #: problems/templates/problems/problem.html:75
-#: problems/templates/problems/problem.html:174
+#: problems/templates/problems/problem.html:177
 msgid "Submit your solution"
 msgstr "Proposez votre solution"
 
@@ -2224,80 +2236,80 @@ msgid ""
 "for it, which is %(base)s base points minus %(malus)s malus points."
 msgstr "Vous avez déjà résolu ce problème. Vous avez gagné <strong>%(score)s</strong> points, soit %(base)s points de base moins %(malus)s points de malus."
 
-#: problems/templates/problems/problem.html:104
+#: problems/templates/problems/problem.html:107
 msgid "You can also upload a file instead:"
 msgstr "Vous pouvez aussi envoyer un fichier&nbsp;:"
 
-#: problems/templates/problems/problem.html:105
+#: problems/templates/problems/problem.html:108
 msgid "Upload a source file"
 msgstr "Envoyer un fichier source"
 
-#: problems/templates/problems/problem.html:108
+#: problems/templates/problems/problem.html:111
 msgid "Select the programming language:"
 msgstr "Sélectionnez le langage de programmation&nbsp;:"
 
-#: problems/templates/problems/problem.html:112
+#: problems/templates/problems/problem.html:115
 msgid "Insert parsing code stub at the end of your code"
 msgstr "Insère un squelette de code à compléter à la fin de votre code"
 
-#: problems/templates/problems/problem.html:112
+#: problems/templates/problems/problem.html:115
 msgid "Code stub"
 msgstr "Code à compléter"
 
-#: problems/templates/problems/problem.html:120
+#: problems/templates/problems/problem.html:123
 msgid "Optional short summary of your changes"
 msgstr "Message facultatif résumant vos modifications"
 
-#: problems/templates/problems/problem.html:122
+#: problems/templates/problems/problem.html:125
 msgid "Submit"
 msgstr "Envoyer"
 
-#: problems/templates/problems/problem.html:130
+#: problems/templates/problems/problem.html:133
 msgid "Submission history"
 msgstr "Historique des soumissions"
 
-#: problems/templates/problems/problem.html:136
+#: problems/templates/problems/problem.html:139
 msgid "Current version (unsaved)"
 msgstr "Version en cours (non soumise)"
 
-#: problems/templates/problems/problem.html:138
+#: problems/templates/problems/problem.html:141
 msgid "Unknown language"
 msgstr "Langage inconnu"
 
-#: problems/templates/problems/problem.html:139
+#: problems/templates/problems/problem.html:142
 msgid "Just now"
 msgstr "À l'instant"
 
-#: problems/templates/problems/problem.html:142
+#: problems/templates/problems/problem.html:145
 msgid "<em>No summary</em>"
 msgstr "<em>Pas de résumé</em>"
 
-#: problems/templates/problems/problem.html:146
+#: problems/templates/problems/problem.html:149
 msgid "Correct solution"
 msgstr "Solution correcte"
 
-#: problems/templates/problems/problem.html:146
+#: problems/templates/problems/problem.html:149
 msgid "Invalid solution"
 msgstr "Solution incorrecte"
 
-#: problems/templates/problems/problem.html:146
+#: problems/templates/problems/problem.html:149
 msgid "Pending check"
 msgstr "Vérification en attente"
 
-#: problems/templates/problems/problem.html:149
+#: problems/templates/problems/problem.html:152
 msgid ""
 "Base points won by solving this problem. Malus points are not taken into "
 "account."
 msgstr "Points de base gagnés en résolvant ce problème. Les points de malus ne sont pas pris en compte."
 
-#: problems/templates/problems/problem.html:163
+#: problems/templates/problems/problem.html:166
 #, python-format
 msgid ""
 "You have to <a href=\"%(register)s\">register</a> or <a "
 "href=\"%(login)s\">log in</a> to be able to submit your solution."
 msgstr "Vous devez vous <a href=\"%(register)s\">inscrire</a> ou <a href=\"%(login)s\">vous connecter</a> pour soumettre votre solution."
 
-#: problems/templates/problems/problem.html:171
+#: problems/templates/problems/problem.html:174
 msgid "Statement"
 msgstr "Énoncé"
 
@@ -2657,23 +2669,27 @@ msgstr "Découvrir"
 msgid "Train"
 msgstr "S'entraîner"
 
-#: prologin/templates/prologin/main-menu.html:15
+#: prologin/templates/prologin/main-menu.html:12
+msgid "Photos"
+msgstr "Photos"
+
+#: prologin/templates/prologin/main-menu.html:18
 msgid "My profile"
 msgstr "Mon profil"
 
-#: prologin/templates/prologin/main-menu.html:16
+#: prologin/templates/prologin/main-menu.html:19
 msgid "Profile &amp; settings"
 msgstr "Profil &amp; options"
 
-#: prologin/templates/prologin/main-menu.html:18
+#: prologin/templates/prologin/main-menu.html:21
 msgid "Administration"
 msgstr "Administration"
 
-#: prologin/templates/prologin/main-menu.html:21
+#: prologin/templates/prologin/main-menu.html:24
 msgid "Sign out"
 msgstr "Déconnexion"
 
-#: prologin/templates/prologin/main-menu.html:26
+#: prologin/templates/prologin/main-menu.html:29
 #: users/templates/users/login.html:7 users/templates/users/login.html:10
 #: users/templates/users/login.html:26
 msgid "Sign in"
@@ -2721,7 +2737,7 @@ msgstr "Réponse %(id)s: %(answer)s"
 msgid "Answer %(id)s"
 msgstr "Réponse %(id)s"
 
-#: qcm/admin.py:97 qcm/models.py:99
+#: qcm/admin.py:97 qcm/models.py:101
 msgid "Question"
 msgstr "Question"
 
@@ -2737,19 +2753,19 @@ msgstr "Est correct"
 msgid "I don't know"
 msgstr "Je ne sais pas"
 
-#: qcm/models.py:81
+#: qcm/models.py:83
 msgid "Question body"
 msgstr "Corps de la question"
 
-#: qcm/models.py:82
+#: qcm/models.py:84
 msgid "Verbose description"
 msgstr "Description supplémentaire"
 
-#: qcm/models.py:115
+#: qcm/models.py:117
 msgid "Answer"
 msgstr "Réponse"
 
-#: qcm/models.py:117
+#: qcm/models.py:119
 msgid "Textual answer"
 msgstr "Réponse texte"
 
@@ -2762,30 +2778,30 @@ msgstr "QCM"
 msgid "Qualification quiz – Prologin %(year)s"
 msgstr "QCM de qualification – Prologin %(year)s"
 
-#: qcm/templates/qcm/display.html:23
+#: qcm/templates/qcm/display.html:24
 msgid ""
 "Please answer the following questions. There is only one correct answer for "
 "each question."
 msgstr "Veuillez répondre aux questions suivantes. Il n'y qu'une seule bonne réponse à chaque question."
 
-#: qcm/templates/qcm/display.html:24
+#: qcm/templates/qcm/display.html:25
 msgid ""
 "Correct answers give one point, wrong ones remove one point. Not answering a"
 " question neither gives nor removes any point."
 msgstr "Une réponse correcte donne un point, une fausse retire un point. Ne pas répondre correspond à zéro point."
 
-#: qcm/templates/qcm/display.html:30
+#: qcm/templates/qcm/display.html:31
 #, python-format
 msgid ""
 "You have to <a href=\"%(register)s\">register</a> or <a "
 "href=\"%(login)s\">log in</a> to be able to fill the quiz."
 msgstr "Vous devez <a href=\"%(register)s\">créer un compte</a> ou <a href=\"%(login)s\">vous connecter</a> pour pouvoir compléter le QCM."
 
-#: qcm/templates/qcm/display.html:59
+#: qcm/templates/qcm/display.html:61
 msgid "Save the new answers"
 msgstr "Enregistrer les nouvelles réponses"
 
-#: qcm/templates/qcm/display.html:61
+#: qcm/templates/qcm/display.html:63
 msgid "Check your answers"
 msgstr "Vérifiez vos réponses"
 
@@ -2847,69 +2863,99 @@ msgstr "<em>Elle écrit du code pour le concours.</em>"
 msgid "<em>He is writing code for the contest</em>"
 msgstr "<em>Il écrit du code pour le concours.</em>"
 
-#: users/forms.py:50
+#: users/forms.py:44
 msgid ""
 "Please check the box above and complete the additional tasks if any. This is"
 " required to fight spamming bots on the website."
 msgstr "Veuillez cocher la case ci-dessus et réaliser les éventuelles opérations supplémentaires. Cela permet de se prémunir des robots."
 
-#: users/forms.py:52 users/models.py:72
-msgid "Subscribe to the newsletter"
-msgstr "Recevoir la newsletter"
-
-#: users/forms.py:54
-msgid ""
-"We do not send more than a few mails each year! We use that to notice you "
-"when new editions begin and when results are available."
-msgstr "Nous n'envoyons que quelques mails chaque année&nbsp;! Cela nous permet de vous prévenir quand une nouvelle édition débute et quand les résultats sont disponibles."
-
-#: users/forms.py:70
+#: users/forms.py:60
 msgid "Email"
 msgstr "E-mail"
 
-#: users/forms.py:71
+#: users/forms.py:61
 msgid "Your email address"
 msgstr "Votre adresse e-mail"
 
+#: users/models.py:65
+msgid "Middle school"
+msgstr "Collège"
+
+#: users/models.py:66
+msgid "High school"
+msgstr "Lycée"
+
+#: users/models.py:67
+msgid "Bac"
+msgstr "Bac"
+
 #: users/models.py:68
+msgid "Bac+1"
+msgstr "Bac+1"
+
+#: users/models.py:69
+msgid "Bac+2"
+msgstr "Bac+2"
+
+#: users/models.py:70
+msgid "Bac+3"
+msgstr "Bac+3"
+
+#: users/models.py:71
+msgid "Bac+4"
+msgstr "Bac+4"
+
+#: users/models.py:72
+msgid "Bac+5"
+msgstr "Bac+5"
+
+#: users/models.py:73
+msgid "Bac+6 and after"
+msgstr "Bac+6 et au delà"
+
+#: users/models.py:75
+msgid "Former student"
+msgstr "Ancien étudiant"
+
+#: users/models.py:89
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:70 users/templates/users/profile.html:44
+#: users/models.py:91 users/templates/users/profile.html:44
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:74
+#: users/models.py:93
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: users/models.py:75
+#: users/models.py:94
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
 msgstr "Nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:78
+#: users/models.py:97
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:80
+#: users/models.py:99
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: users/models.py:81
+#: users/models.py:100
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:82
+#: users/models.py:101
 msgid "Locale"
 msgstr "Langue"
 
-#: users/models.py:84
+#: users/models.py:103
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: users/models.py:85
+#: users/models.py:104
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
@@ -3139,22 +3185,56 @@ msgid ""
 "recieve a message to confirm your registration."
 msgstr "Choisissez un nom d'utilisateur. Vous devez utiliser une adresse e-mail valide, vous recevrez un message pour confirmer votre inscription."
 
-#: users/views.py:101
+#: users/templates/users/unsubscribe.html:4
+#: users/templates/users/unsubscribe.html:7
+#: users/templates/users/unsubscribe.html:28
+#: users/templates/users/unsubscribe_confirm.html:4
+#: users/templates/users/unsubscribe_confirm.html:7
+msgid "Unsubscribe"
+msgstr "Désinscription"
+
+#: users/templates/users/unsubscribe.html:10
+msgid ""
+"If you wish to stop receiving e-mails from Prologin, you\n"
+"  can click on the button below."
+msgstr "Si vous souhaitez ne plus recevoir d'e-mails de Prologin, vous pouvez cliquer sur le bouton ci-dessous."
+
+#: users/templates/users/unsubscribe.html:13
+msgid ""
+"Remember: we only mail you to provide useful information\n"
+"  during the various stages of the contest. We hate spam as much as you do!\n"
+"  "
+msgstr "Pour rappel, nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
+
+#: users/templates/users/unsubscribe.html:35
+msgid ""
+" has\n"
+"    already been unsubscribed. You will receive no further e-mails from\n"
+"    Prologin."
+msgstr "a déjà été désinscrit. Vous ne recevrez plus d'e-mails de Prologin."
+
+#: users/templates/users/unsubscribe_confirm.html:9
+msgid ""
+"has been unsubscribed and will receive no further e-mails\n"
+"  from Prologin."
+msgstr "a été désinscrit et ne recevra plus d'e-mails de Prologin."
+
+#: users/views.py:104
 #, python-format
 msgid ""
 "Your account was created. We sent an email to %(mail)s so you can confirm "
 "your registration."
 msgstr "Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s pour que vous puissiez confirmer votre inscription."
 
-#: users/views.py:120
+#: users/views.py:123
 msgid "Your account was activated. Enjoy your visit!"
 msgstr "Votre compte est activé. Bonne visite&nbsp;!"
 
-#: users/views.py:122 users/views.py:272
+#: users/views.py:125 users/views.py:275
 msgid "You have been automatically logged in."
 msgstr "Vous avez été connecté automatiquement."
 
-#: users/views.py:127
+#: users/views.py:130
 #, python-format
 msgid ""
 "The activation link you provided is invalid or obsolete. If you created your"
@@ -3162,15 +3242,15 @@ msgid ""
 "may use the same username and email though."
 msgstr "Le lien d'activation que vous avez fourni est invalide ou obsolète. Si vous avez créé votre compte il y a plus de %(days)s jours, vous devez répéter l'opération. Vous pouvez utiliser les mêmes nom d'utilisateur et e-mail."
 
-#: users/views.py:187
+#: users/views.py:190
 msgid "Changes saved."
 msgstr "Modifications enregistrées."
 
-#: users/views.py:212 users/views.py:270
+#: users/views.py:215 users/views.py:273
 msgid "New password saved."
 msgstr "Mot de passe modifié."
 
-#: users/views.py:240
+#: users/views.py:243
 #, python-format
 msgid ""
 "You should receive an email at %(email)s in a few moments. Please follow the"
