@@ -63,8 +63,9 @@ class QcmForm(forms.ModelForm):
         ordering_seed = kwargs.pop('ordering_seed')
         super().__init__(*args, **kwargs)
         if self.contestant:
-            answers = {e.proposition.question.pk: e.proposition
-                       for e in qcm.models.Answer.objects.prefetch_related('proposition', 'proposition__question')
+            answers = {e.proposition.question.pk: e.textual_answer if e.proposition.question.is_open_ended else e.proposition
+                       for e in
+                       qcm.models.Answer.objects.prefetch_related('proposition', 'proposition__question')
                                                  .filter(contestant=self.contestant, proposition__question__qcm=self.instance)}
         # The form is either text box (open ended question) or a list of
         # choices (otherwise).
