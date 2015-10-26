@@ -14,7 +14,7 @@ from django.template.defaultfilters import slugify
 import prologin.models
 from ._migration_utils import *  # noqa
 
-from user.models import EducationStage
+from users.models import EducationStage
 
 User = get_user_model()
 DRUPAL_SITE_BASE_URL = "http://prologin.org/"  # For downloading content (mainly files/)
