@@ -563,7 +563,7 @@ class Command(LabelCommand):
             begin = 'debut'
             end = 'fin'
 
-        def get_date_or_guess(year, event, date_type):
+        def get_datetime_or_guess(year, event, date_type):
             """Guess date of event where it's not available in database."""
             date = getattr(event, date_type.value)
             if date:
@@ -571,27 +571,27 @@ class Command(LabelCommand):
             self.stderr.write("No date for year {} type {}, using guess".format(year, date_type.name))
             if event.type == 'qcm':
                 if date_type == DateType.begin:
-                    return datetime.date(year - 1, 10, 1)
+                    return datetime.datetime(year - 1, 10, 1)
                 else:
-                    return datetime.date(year, 1, 1)
+                    return datetime.datetime(year, 1, 1)
             elif event.type == 'demifinale':
                 if date_type == DateType.begin:
-                    return datetime.date(year, 2, 1)
+                    return datetime.datetime(year, 2, 1)
                 else:
-                    return datetime.date(year, 2, 1)
+                    return datetime.datetime(year, 2, 1)
             elif event.type == 'finale':
                 if date_type == DateType.begin:
-                    return datetime.date(year, 5, 1)
+                    return datetime.datetime(year, 5, 1)
                 else:
-                    return datetime.date(year, 5, 3)
+                    return datetime.datetime(year, 5, 3)
             raise ValueError("Unknown event type: {}".format(event.type))
 
         # Create the editions
         with transaction.atomic():
             for year, events in itertools.groupby(rows, key=lambda e: e.annee):
                 events = list(events)
-                date_begin = localize(min(get_date_or_guess(year, event, DateType.begin) for event in events))
-                date_end = localize(max(get_date_or_guess(year, event, DateType.end) for event in events))
+                date_begin = localize(min(get_datetime_or_guess(year, event, DateType.begin) for event in events))
+                date_end = localize(max(get_datetime_or_guess(year, event, DateType.end) for event in events))
                 edition = contest.models.Edition(year=year, date_begin=date_begin, date_end=date_end)
                 try:
                     edition.save()
@@ -625,8 +625,8 @@ class Command(LabelCommand):
                     else:
                         self.stderr.write("Unknown event type: {}".format(row.type))
                         continue
-                    date_begin = get_date_or_guess(year, row, DateType.begin)
-                    date_end = get_date_or_guess(year, row, DateType.end)
+                    date_begin = get_datetime_or_guess(year, row, DateType.begin)
+                    date_end = get_datetime_or_guess(year, row, DateType.end)
                     event, created = contest.models.Event.objects.get_or_create(
                         pk=row.id, edition=edition, type=type.value,
                         date_begin=date_begin, date_end=date_end, **kwargs)

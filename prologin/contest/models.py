@@ -46,22 +46,22 @@ class Event(models.Model):
     edition = models.ForeignKey(Edition, related_name='events')
     center = models.ForeignKey(Center, blank=True, null=True, related_name='events')
     type = EnumField(Type, db_index=True)
-    date_begin = models.DateField(blank=True, null=True)
-    date_end = models.DateField(blank=True, null=True)
+    date_begin = models.DateTimeField(blank=True, null=True)
+    date_end = models.DateTimeField(blank=True, null=True)
 
     objects = EventManager()
 
     @property
     def is_finished(self):
-        return self.date_end < timezone.now().date()
+        return self.date_end < timezone.now()
 
     @property
     def is_in_future(self):
-        return timezone.now().date() < self.date_begin
+        return timezone.now() < self.date_begin
 
     @property
     def is_active(self):
-        return self.date_begin <= timezone.now().date() <= self.date_end
+        return self.date_begin <= timezone.now() <= self.date_end
 
     @property
     def challenge(self):

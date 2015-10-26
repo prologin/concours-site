@@ -50,8 +50,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('type', prologin.models.EnumField(contest.models.Event.Type, choices=[(0, 'Qualification'), (1, 'Semifinal'), (2, 'Final')], db_index=True)),
-                ('date_begin', models.DateField(null=True, blank=True)),
-                ('date_end', models.DateField(null=True, blank=True)),
+                ('date_begin', models.DateTimeField(null=True, blank=True)),
+                ('date_end', models.DateTimeField(null=True, blank=True)),
                 ('center', models.ForeignKey(null=True, to='centers.Center', related_name='events', blank=True)),
                 ('edition', models.ForeignKey(related_name='events', to='contest.Edition')),
             ],
