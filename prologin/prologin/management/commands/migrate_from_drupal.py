@@ -625,8 +625,8 @@ class Command(LabelCommand):
                     else:
                         self.stderr.write("Unknown event type: {}".format(row.type))
                         continue
-                    date_begin = get_datetime_or_guess(year, row, DateType.begin)
-                    date_end = get_datetime_or_guess(year, row, DateType.end)
+                    date_begin = localize(get_datetime_or_guess(year, row, DateType.begin))
+                    date_end = localize(get_datetime_or_guess(year, row, DateType.end))
                     event, created = contest.models.Event.objects.get_or_create(
                         pk=row.id, edition=edition, type=type.value,
                         date_begin=date_begin, date_end=date_end, **kwargs)
