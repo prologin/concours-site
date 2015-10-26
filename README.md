@@ -1,11 +1,11 @@
 # Installation
 
-
 ## Requirements
 
 * Python 3
 * Every package from requirements.txt (see recommended procedure below)
 * Redis (for training & contest)
+* optipng (used for assets generation)
 
 ## Cloning
 
@@ -51,14 +51,25 @@ Then, check the following settings in the file you copied:
 1. Uncomment and update `TRAINING_PROBLEM_REPOSITORY_PATH` to the directory where
    you cloned the Prologin [`problem` repository](https://bitbucket.org/prologin/problems/).
 1. Add a local or remote correction VM to `TRAINING_CORRECTORS`.
+1. Uncomment and update `RECAPTCHA_{PUBLIC,PRIVATE}_KEY`. You can leave them
+   empty for most tests.
 
 Now proceed to the sub-section corresponding to your environment for specific
 instructions.
 
+## Asset generation
+
+Some assets of the website do not live inside the repository to reduce its size.
+We have to fetch them or generate them using scripts. To do that, run:
+
+    :::console
+    # Generate the static assets
+    make assets
+
 ### Development setup
 
 * *Django Debug Toolbar* is here to help; you can use it by adding the
-  following line to your settingss:
+  following line to your settings:
 
         :::python
         INSTALLED_APPS += ('debug_toolbar',)
@@ -127,7 +138,7 @@ Every time you need to work on the website:
 
         :::console
         # If you named your settings 'dev.py':
-        export DJANGO_SETTINGS_MODULE=prologin.settings.dev 
+        export DJANGO_SETTINGS_MODULE=prologin.settings.dev
 
 1. Launch the local dev server:
 
