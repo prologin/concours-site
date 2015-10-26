@@ -94,7 +94,7 @@ class QcmForm(forms.ModelForm):
         self.contestant.qcm_answers.filter(proposition__question__qcm=instance).delete()
         answers = []
         for field_key, proposition in self.cleaned_data.items():
-            if proposition is not None:
+            if proposition is not None and proposition.strip() != "":
                 # field key is 'qcm_q_ID' where ID is the primary key
                 question_pk = int(field_key.split('_')[-1])
                 question_obj = qcm.models.Question.objects.get(pk=question_pk)
