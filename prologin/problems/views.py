@@ -362,11 +362,24 @@ class ChallengeScoreboard(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        return (problems.models.Submission.objects
+        def wrap_with_ranks(ranking):
+            i = 0
+            previous_score = None
+            for line in ranking:
+                line['ex_aequo'] = True
+                if (previous_score is None
+                        or previous_score != line['total_score']):
+                    i += 1
+                    line['ex_aequo'] = False
+                    previous_score = line['total_score']
+                line['rank'] = i
+                yield line
+
+        return wrap_with_ranks((problems.models.Submission.objects
                 .filter(challenge=self.challenge.name, score_base__gt=0)
                 .values('user_id', 'user__username')
                 .annotate(total_score=Sum(F('score_base') - F('malus')))
-                .order_by('-total_score'))[:50]
+                .order_by('-total_score'))[:50])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

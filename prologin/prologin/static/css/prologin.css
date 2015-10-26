@@ -572,6 +572,18 @@ footer .legal {
   border-bottom: none;
 }
 
+.challenge-trophy-1 {
+  color: goldenrod;
+}
+
+.challenge-trophy-2 {
+  color: #a8a8a8;
+}
+
+.challenge-trophy-3 {
+  color: #965a38;
+}
+
 .multiple-checkbox ul {
   list-style-type: none;
 }
