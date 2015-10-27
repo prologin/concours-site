@@ -44,7 +44,7 @@ $(IMG_DIR)/favicon.ico: $(patsubst %,$(IMG_DIR)/favicon-%.big.png,$(FAVICON_ICO_
 	$(CONVERT) $^ $@
 
 $(IMG_DIR)/apple-touch-icon.png: $(IMG_DIR)/apple-touch-icon-180.png
-	$(CP) $< $@
+	cp $< $@
 
 # Generics
 
@@ -58,13 +58,13 @@ $(IMG_DIR)/favicon-%.big.png: cube_perfect.svg
 	$(SVGRASTERTRIM) -w $* --export-png $@ $<
 
 $(IMG_DIR)/favicon-apple-%.png: cube_perfect.svg
-	$(SVGRASTERTRIM) -w $(shell python -c 'print(int($* * 0.75))') --export-png $@ $<
+	$(SVGRASTERTRIM) -w $(shell python -c 'print(int($* * 0.7))') --export-png $@ $<
 
 $(IMG_DIR)/apple-touch-icon-%.big.png: $(IMG_DIR)/favicon-apple-%.png
 	$(CONVERT) $< -gravity center -background white -extent $*x$* $@
 
 $(IMG_DIR)/favicon-mstile-%.png: cube_perfect.svg
-	$(SVGRASTERTRIM) -w $(shell python -c 'print(min(map(int, "$*".split("x"))) * 0.75)') --export-png $@ $<
+	$(SVGRASTERTRIM) -w $(shell python -c 'print(min(map(int, "$*".split("x"))) * 0.55)') --export-png $@ $<
 
 $(IMG_DIR)/mstile-%.big.png: $(IMG_DIR)/favicon-mstile-%.png
 	$(CONVERT) $< -gravity center -background transparent -extent $* $@
