@@ -130,7 +130,7 @@ class ActivationView(SingleObjectMixin, RedirectView):
             messages.error(request, _("The activation link you provided is invalid or obsolete. "
                                       "If you created your account earlier than %(days)s days ago, "
                                       "you have to create a new one. You may use the same username "
-                                      "and email though.") % {'days': settings.ACCOUNT_ACTIVATION_DAYS})
+                                      "and email though.") % {'days': settings.USER_ACTIVATION_EXPIRATION.days})
         return super().get(request, *args, **kwargs)
 
 
