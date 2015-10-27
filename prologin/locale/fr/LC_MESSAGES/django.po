@@ -8,6 +8,7 @@
 # Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
 # Antoine Pietri <antoine.pietri1@gmail.com>, 2015
 # Dettorer <p.hervot@gmail.com>, 2015
+# Rémi Audebert <rflah0@gmail.com>, 2015
 # Robin Thoni <rob57530@gmail.com>, 2015
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
 # Yves Stadler <mvyonline@gmail.com>, 2015
@@ -16,8 +17,8 @@ msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-26 22:09+0100\n"
-"PO-Revision-Date: 2015-10-26 21:18+0000\n"
-"Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
+"PO-Revision-Date: 2015-10-27 17:28+0000\n"
+"Last-Translator: Rémi Audebert <rflah0@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -179,7 +180,7 @@ msgstr "Le langage de programmation que vous utiliserez le plus probablement pou
 
 #: contest/models.py:113
 msgid "QCM score"
-msgstr "Score du QCM"
+msgstr "Score du questionnaire"
 
 #: contest/models.py:114
 msgid "Algo exercises score"
@@ -275,14 +276,14 @@ msgstr "Incomplet"
 
 #: contest/templates/contest/qualification_summary.html:41
 msgid "The quiz"
-msgstr "Le QCM"
+msgstr "Le questionnaire"
 
 #: contest/templates/contest/qualification_summary.html:45
 #, python-format
 msgid "There is %(count)s quiz question this year."
 msgid_plural "There are %(count)s quiz questions this year."
 msgstr[0] "Il y a %(count)s question de QCM cette année."
-msgstr[1] "Le QCM comporte %(count)s questions cette année."
+msgstr[1] "Le questionnaire comporte %(count)s questions cette année."
 
 #: contest/templates/contest/qualification_summary.html:46
 #, python-format
@@ -731,7 +732,7 @@ msgstr "Date inconnue"
 #: homepage/templates/homepage/jumbotron.html:31
 #, python-format
 msgid "A quiz and %(problems_count)s problems to solve online."
-msgstr "Un QCM et %(problems_count)s exercices à résoudre en ligne."
+msgstr "Un questionnaire et %(problems_count)s exercices à résoudre en ligne."
 
 #: homepage/templates/homepage/jumbotron.html:33
 #, python-format
@@ -744,11 +745,11 @@ msgstr "Participez !"
 
 #: homepage/templates/homepage/jumbotron.html:43
 msgid "Quiz completed"
-msgstr "QCM soumis"
+msgstr "Questionnaire soumis"
 
 #: homepage/templates/homepage/jumbotron.html:47
 msgid "Complete the quiz"
-msgstr "Compléter le QCM"
+msgstr "Compléter le questionnaire"
 
 #: homepage/templates/homepage/jumbotron.html:53
 #, python-format
@@ -2780,12 +2781,12 @@ msgstr "Réponse texte"
 
 #: qcm/templates/qcm/display.html:9
 msgid "Quiz"
-msgstr "QCM"
+msgstr "Questionnaire"
 
 #: qcm/templates/qcm/display.html:16 qcm/templates/qcm/display.html.py:20
 #, python-format
 msgid "Qualification quiz – Prologin %(year)s"
-msgstr "QCM de qualification – Prologin %(year)s"
+msgstr "Questionnaire de qualification – Prologin %(year)s"
 
 #: qcm/templates/qcm/display.html:24
 msgid ""
@@ -2804,7 +2805,7 @@ msgstr "Une réponse correcte donne un point, une fausse retire un point. Ne pas
 msgid ""
 "You have to <a href=\"%(register)s\">register</a> or <a "
 "href=\"%(login)s\">log in</a> to be able to fill the quiz."
-msgstr "Vous devez <a href=\"%(register)s\">créer un compte</a> ou <a href=\"%(login)s\">vous connecter</a> pour pouvoir compléter le QCM."
+msgstr "Vous devez <a href=\"%(register)s\">créer un compte</a> ou <a href=\"%(login)s\">vous connecter</a> pour pouvoir compléter le questionnaire."
 
 #: qcm/templates/qcm/display.html:61
 msgid "Save the new answers"
