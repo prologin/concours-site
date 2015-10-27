@@ -1,7 +1,6 @@
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
-from django.db import transaction
 from django.db.models import Q, F, Sum
 from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, View
@@ -185,12 +184,12 @@ class Problem(CreateView):
                                                     challenge=context['challenge'].name,
                                                     problem=context['problem'].name)
             submission.save()
+
         self.submission_code.submission = submission
         if self.submission_code.correctable():
             self.submission_code.celery_task_id = celery.uuid()
 
         self.submission_code.save()
-        transaction.commit()  # FIXME: this should not be needed
 
         # FIXME: according to the challenge type (qualif, semifinals) we need to
         # do something different here:
