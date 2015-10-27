@@ -17,7 +17,7 @@
   {# Custom #}
   <link rel="stylesheet" type="text/css" href="{% static 'css/prologin.css' %}"/>
 
-  <meta name="description" content="{% block "meta_descr" %}{% endblock %}">
+  <meta name="description" content="{% block meta_descr %}{% endblock %}">
 
   <meta property="og:title" content="{% trans "Prologin, the French computing contest" %}"/>
   <meta property="og:type" content="product"/>
@@ -25,7 +25,7 @@
   <meta property="og:site_name" content="{% trans "Prologin, the French computing contest" %}"/>
   <meta property="fb:admins" content=""/>
 
-  <link rel="shortcut icon" href="{% static 'img/favicon.png' %}"/>
+{% include "prologin/favicons.html" %}
 
   <link rel="alternate" type="application/atom+xml" title="{% trans "Latest blog articles" %}" href="{% url 'zinnia:entry_latest_feed' %}"/>
 
