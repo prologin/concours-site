@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.signals import user_logged_in
+from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
@@ -142,6 +143,11 @@ class ProloginUser(AbstractUser, AddressableModel):
 
     def get_absolute_url(self):
         return reverse('users:profile', args=[self.pk])
+
+    def get_unsubscribe_url(self):
+        return 'http://{}{}?uid={}&token={}'.format(
+                Site.objects.get_current().domain,
+                reverse('users:unsubscribe'), self.id, self.unsubscribe_token)
 
 
 # Yay, monkey-path that bitch, thank you Django!
