@@ -1,6 +1,6 @@
 {% load utils i18n %}
 {% get_setting_var 'PROLOGIN_CONTACT_MAIL' as contactmail %}
-{% autoescape off %}
+{% spaceless %}{% autoescape off %}
 {% blocktrans with user.username as username %}
 Hi {{ username }}!
 
@@ -25,4 +25,4 @@ Should you have any question, please contact us by sending an email at
 --
 The Prologin staff
 {% endblocktrans %}
-{% endautoescape %}
+{% endautoescape %}{% endspaceless %}
