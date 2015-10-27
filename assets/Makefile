@@ -13,7 +13,7 @@ EMOJI_SIZE := 20
 FAVICON_PNG_SIZES := 16 32 96 194
 FAVICON_ICO_SIZES := 16 32 48
 APPLE_TOUCH_SIZES := 57 60 72 76 114 120 144 152 180
-MSTILE_SIZES := 144x144 150x150 310x150 310x310
+MSTILE_SIZES := 70x70 144x144 150x150 310x150 310x310
 
 OBJS := $(addprefix $(IMG_DIR)/,logo_cube.png small_cube.png silhouette.png prologin_emoji.png apple-touch-icon.png favicon.ico)
 OBJS += $(patsubst %,$(IMG_DIR)/favicon-%.png,$(FAVICON_PNG_SIZES))
