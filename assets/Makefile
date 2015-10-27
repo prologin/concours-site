@@ -44,7 +44,7 @@ $(IMG_DIR)/favicon.ico: $(patsubst %,$(IMG_DIR)/favicon-%.big.png,$(FAVICON_ICO_
 	$(CONVERT) $^ $@
 
 $(IMG_DIR)/apple-touch-icon.png: $(IMG_DIR)/apple-touch-icon-180.png
-	ln -s $< $@
+	$(CP) $< $@
 
 # Generics
 
