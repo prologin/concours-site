@@ -194,8 +194,8 @@ MEDIA_URL = '/media/'
 # Authentication
 
 AUTHENTICATION_BACKENDS = (
-    'rules.permissions.ObjectPermissionBackend',
     'prologin.backends.ModelBackendWithLegacy',
+    'rules.permissions.ObjectPermissionBackend',
 )
 AUTH_USER_MODEL = 'users.ProloginUser'
 
