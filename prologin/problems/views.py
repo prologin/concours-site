@@ -198,6 +198,7 @@ class Problem(CreateView):
         #  - check and unlock (if semifinals)
 
         if self.submission_code.correctable():
+            time.sleep(0.3)  # seems to be enough in most cases
             for retry in range(3):
                 # schedule correction
                 self.submission_code.celery_task_id = celery.uuid()
@@ -212,10 +213,11 @@ class Problem(CreateView):
                 except celery.exceptions.TimeoutError:
                     pass
                 except:
-                    logger.exception("future.get() threw")
+                    delay = 0.3 * (1 + retry)
+                    logger.warning("future.get() threw, trying again in %.2f", delay)
                     future.revoke()
                     future.forget()
-                    time.sleep(0.3 * (1 + retry))
+                    time.sleep(delay)
                     continue
                 break
 
