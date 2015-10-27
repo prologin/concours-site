@@ -113,7 +113,7 @@ def submit_problem_code(self, code_submission_id):
             except ElementTree.ParseError:
                 logger.error("Malformed XML: {}".format(base64.b64encode(result.encode('utf8')).decode('ascii')))
                 raise
-            logger.info("Raw result: %r", result)
+            logger.debug("Raw result: %r", result)
             problem = submission.problem_model()
             difficulty = problem.difficulty
             score = get_score(difficulty, result)
