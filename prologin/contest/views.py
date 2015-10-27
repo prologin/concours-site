@@ -45,7 +45,6 @@ class QualificationSummary(LoginRequiredMixin, UpdateView):
             self.object = objects['contestant']
             self.object.save()
             self.object.event_wishes.clear()
-            print(form.cleaned_data['contestant']['event_wishes'])
             for i, event in enumerate(event for event in form.cleaned_data['contestant']['event_wishes'] if event):
                 contest.models.EventWish(contestant=self.object, event=event, order=i).save()
             user = objects['user']
