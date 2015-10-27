@@ -82,7 +82,7 @@ class SubmissionCode(models.Model):
     def expired_result(self):
         expired_datetime = self.expired_result_datetime()
         if not expired_datetime:
-            return True
+            return False
         # submission is older that Celery task time-to-live
         return expired_datetime < timezone.now()
 

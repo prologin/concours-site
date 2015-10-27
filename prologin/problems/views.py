@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
+from django.db import transaction
 from django.db.models import Q, F, Sum
 from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, View
@@ -187,7 +188,9 @@ class Problem(CreateView):
         self.submission_code.submission = submission
         if self.submission_code.correctable():
             self.submission_code.celery_task_id = celery.uuid()
+
         self.submission_code.save()
+        transaction.commit()  # FIXME: this should not be needed
 
         # FIXME: according to the challenge type (qualif, semifinals) we need to
         # do something different here:
@@ -197,8 +200,7 @@ class Problem(CreateView):
         if self.submission_code.correctable():
             # schedule correction
             future = submit_problem_code.apply_async(args=[self.submission_code.pk],
-                                                     task_id=self.submission_code.celery_task_id,
-                                                     throw=False)
+                                                     task_id=self.submission_code.celery_task_id)
             try:
                 # wait a bit for the result
                 future.get(timeout=settings.TRAINING_RESULT_TIMEOUT)
