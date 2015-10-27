@@ -61,7 +61,7 @@
               <div class="pull-right forum-actions">
                 {% has_perm 'forum.edit_post' request.user post as user_can_edit_post %}
                 {% has_perm 'forum.edit_post_visibility' request.user post as user_can_edit_post_visibility %}
-                {% if user_can_post %}
+                {% if request.user.is_authenticated and user_can_post %}
                   <a href="{% url 'forum:cite-post' thread.slug post.pk %}" class="btn btn-default btn-xs btn-cite">
                     <i class="fa fa-quote-left"></i> {% trans "Cite" %}</a>
                 {% endif %}
