@@ -14,7 +14,7 @@ from problems.models import SubmissionCode
 logger = get_task_logger('prologin.problems')
 
 
-@shared_task(bind=True, max_retries=3)
+@shared_task(bind=True)
 def submit_problem_code(self, code_submission_id):
     """
     Submit the code to the correction system. Update the database accordingly (score, malus).
@@ -22,15 +22,9 @@ def submit_problem_code(self, code_submission_id):
     :param code_submission_id: primary key of a prologin.problems.models.SubmissionCode instance
     :return parse_xml() output
     """
-    logger.info("New submit_problem_code, pk: %s, uid: %s", code_submission_id, self.request.id)
-    try:
-        code_submission = (SubmissionCode.objects
-                           .select_related('submission', 'submission__user')
-                           .get(pk=code_submission_id))
-    except Exception as exc:
-        logger.warning("TASK RETRIED BECAUSE NO SUCH SubmissionCode: %s %s", self.request.id, self.request.args)
-        raise self.retry(exc=exc, countdown=self.request.retries * 1.5)
-
+    code_submission = (SubmissionCode.objects
+                       .select_related('submission', 'submission__user')
+                       .get(pk=code_submission_id))
     submission = code_submission.submission
 
     def get_score(difficulty, result):

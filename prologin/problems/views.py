@@ -215,7 +215,7 @@ class Problem(CreateView):
                     logger.exception("future.get() threw")
                     future.revoke()
                     future.forget()
-                    time.sleep(0.5)
+                    time.sleep(0.3 * (1 + retry))
                     continue
                 break
 
