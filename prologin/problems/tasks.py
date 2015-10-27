@@ -22,6 +22,7 @@ def submit_problem_code(self, code_submission_id):
     :param code_submission_id: primary key of a prologin.problems.models.SubmissionCode instance
     :return parse_xml() output
     """
+    logger.info("New submit_problem_code, pk: %s, uid: %s", code_submission_id, self.request.id)
     try:
         code_submission = (SubmissionCode.objects
                            .select_related('submission', 'submission__user')

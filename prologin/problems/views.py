@@ -8,12 +8,16 @@ from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import ModelFormMixin
 import celery
 import celery.exceptions
+import logging
+import time
 
 from contest.models import Event
 from problems.forms import SearchForm, CodeSubmissionForm
 from prologin.languages import Language
 from problems.tasks import submit_problem_code
 import problems.models
+
+logger = logging.getLogger(__name__)
 
 
 def get_challenge(request, kwargs) -> (int, Event.Type, problems.models.Challenge):
@@ -186,9 +190,6 @@ class Problem(CreateView):
             submission.save()
 
         self.submission_code.submission = submission
-        if self.submission_code.correctable():
-            self.submission_code.celery_task_id = celery.uuid()
-
         self.submission_code.save()
 
         # FIXME: according to the challenge type (qualif, semifinals) we need to
@@ -197,14 +198,27 @@ class Problem(CreateView):
         #  - check and unlock (if semifinals)
 
         if self.submission_code.correctable():
-            # schedule correction
-            future = submit_problem_code.apply_async(args=[self.submission_code.pk],
-                                                     task_id=self.submission_code.celery_task_id)
-            try:
-                # wait a bit for the result
-                future.get(timeout=settings.TRAINING_RESULT_TIMEOUT)
-            except celery.exceptions.TimeoutError:
-                pass
+            for retry in range(3):
+                # schedule correction
+                self.submission_code.celery_task_id = celery.uuid()
+                self.submission_code.save()
+                logger.info("Scheduling code correction (retry %d) for CodeSubmission: %s, task uid: %s",
+                            retry, self.submission_code.pk, self.submission_code.celery_task_id)
+                future = submit_problem_code.apply_async(args=[self.submission_code.pk],
+                                                         task_id=self.submission_code.celery_task_id)
+                try:
+                    # wait a bit for the result
+                    future.get(timeout=settings.TRAINING_RESULT_TIMEOUT)
+                except celery.exceptions.TimeoutError:
+                    pass
+                except:
+                    logger.exception("future.get() threw")
+                    future.revoke()
+                    future.forget()
+                    time.sleep(0.5)
+                    continue
+                break
+
         # we don't use super() because CreateView.form_valid() calls form.save() which overrides
         # the code submission, even if it is modified by the correction task!
         return super(ModelFormMixin, self).form_valid(form)
