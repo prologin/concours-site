@@ -1,5 +1,5 @@
 TOP := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-STATIC_DIR := ../prologin/prologin/static
+STATIC_DIR := $(dir $(TOP))prologin/prologin/static
 IMG_DIR := $(STATIC_DIR)/img
 LIB_DIR := $(STATIC_DIR)/lib
 EMOJI_SIZE := 20
@@ -9,10 +9,13 @@ SVGRASTER := inkscape --export-area-page
 CONVERT := convert
 PNGOPTIMIZE := optipng -quiet -clobber -preserve
 
-OBJS := $(addprefix $(IMG_DIR)/,logo_cube.png small_cube.png silhouette.png prologin_emoji.png)
+OBJS := $(addprefix $(IMG_DIR)/,logo_cube.png small_cube.png silhouette.png favicon.png favicon.ico prologin_emoji.png)
 AUXOBJS := $(addprefix $(IMG_DIR)/,small_cube.alone.png small_cube.alone.big.png)
 
 AUXOBJS := $(AUXOBJS) $(OBJS:.png=.big.png) $(OBJS:.png=.png.bak)
+
+print-%:
+	@echo '$*=$($*)'
 
 # Targets
 
@@ -31,6 +34,12 @@ $(IMG_DIR)/prologin_emoji.png: cube_perfect_smallonly.svg
 $(IMG_DIR)/small_cube.big.png: $(IMG_DIR)/small_cube.alone.png
 	$(CONVERT) $< -bordercolor '#35479a' -border 16x0 $@
 
+$(IMG_DIR)/favicon.png: cube_perfect.svg
+	$(SVGRASTERTRIM) -w 16 --export-png $@ $<
+
+$(IMG_DIR)/favicon.ico: $(IMG_DIR)/favicon.png
+	$(CONVERT) $< $@
+
 # Generics
 
 %.big.png: %.svg
@@ -48,7 +57,9 @@ update-emojis:
 	cd $(STATIC_DIR) && python $(TOP)/update-emojis.py
 	mogrify -resize $(EMOJI_SIZE)x $(IMG_DIR)/emojis/*.png
 
-all: $(OBJS) update-libs update-emojis
+all-assets: $(OBJS)
+
+all: all-assets update-libs update-emojis
 
 clean-aux:
 	$(RM) $(AUXOBJS)
