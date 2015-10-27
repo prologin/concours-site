@@ -174,7 +174,9 @@ EMAIL_BACKEND = "djmail.backends.async.EmailBackend"
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+PROJECT_ROOT_DIR = os.path.dirname(BASE_DIR)
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT_DIR, 'public', 'static')
 STATIC_URL = '/static/'
 
 STATICFILES_FINDERS = (
@@ -186,7 +188,7 @@ STATICFILES_FINDERS = (
 
 # Media files (uploaded)
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT_DIR, 'public', 'media')
 MEDIA_URL = '/media/'
 
 
