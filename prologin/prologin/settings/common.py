@@ -81,6 +81,7 @@ INSTALLED_APPS = (
     'forum',
     'homepage',
     'qcm',
+    'mailing',
     'news',
     'pages',
     'problems',
