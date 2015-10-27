@@ -8,7 +8,7 @@ SVGRASTER := inkscape --export-area-page
 CONVERT := convert
 PNGOPTIMIZE := optipng -quiet -clobber -preserve
 
-JUMBOTRON_BG := "'#35479a'"
+JUMBOTRON_BG := '\#35479a'
 EMOJI_SIZE := 20
 FAVICON_PNG_SIZES := 16 32 96 194
 FAVICON_ICO_SIZES := 16 32 48
