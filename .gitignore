@@ -1,6 +1,10 @@
 data/*.csv
 data/*.json
+# we put these two lines here (not in public/.gitignore) because we don't want to expose internal files to the Internet
+public/static
+public/media
 .idea/
+venv/
 fabfile.py
 *.swp
 *.pyc
