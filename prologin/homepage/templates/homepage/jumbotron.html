@@ -22,7 +22,7 @@
               <div class="col-xs-5 col-sm-12">
                 <h4>{% trans "Qualification" %}</h4>
                 <p class="date">{{ request.current_events.qualification.date_begin|date:"d b Y"|default:no_such_date }}
-                → {{ request.current_events.qualification.date_end|date:"d b Y"|default:no_such_date }}</p>
+                →&nbsp;{{ request.current_events.qualification.date_end|date:"d b Y"|default:no_such_date }}</p>
               </div>
               <div class="col-xs-7 col-sm-12">
                 <div class="desc">
@@ -73,7 +73,7 @@
                 {% if request.current_events.semifinal %}
                   {% with firstsemi=request.current_events.semifinal|first lastsemi=request.current_events.semifinal|last %}
                     {{ firstsemi.date_begin|date:"d b Y"|default:no_such_date }}
-                    → {{ lastsemi.date_begin|date:"d b Y"|default:no_such_date }}
+                    →&nbsp;{{ lastsemi.date_begin|date:"d b Y"|default:no_such_date }}
                   {% endwith %}
                 {% else %}
                   {{ no_such_date }}
@@ -109,7 +109,7 @@
               <div class="col-xs-5 col-sm-12">
                 <h4>{% trans "Finale" %}</h4>
                 <p class="date">{{ request.current_events.final.date_begin|date:"d b Y"|default:no_such_date }}
-                → {{ request.current_events.final.date_end|date:"d b Y"|default:no_such_date }}</p>
+                →&nbsp;{{ request.current_events.final.date_end|date:"d b Y"|default:no_such_date }}</p>
               </div>
               <div class="col-xs-7 col-sm-12">
                 <div class="desc">
