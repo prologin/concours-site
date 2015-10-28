@@ -3,6 +3,8 @@ from django.core.management.base import BaseCommand, CommandError
 from contest.models import Contest, Event, Contestant
 import json
 
+# TODO: This file is probably outdated.
+
 def french_date(date):
     jours = ['lundi', 'mardi', 'mercredi', 'jeudi', 'vendredi', 'samedi', 'dimanche']
     mois = ['janvier', u'février', 'mars', 'avril', 'mai']
