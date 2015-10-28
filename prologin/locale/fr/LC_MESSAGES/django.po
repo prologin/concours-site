@@ -8,6 +8,7 @@
 # Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
 # Antoine Pietri <antoine.pietri1@gmail.com>, 2015
 # Dettorer <p.hervot@gmail.com>, 2015
+# Dettorer <p.hervot@gmail.com>, 2015
 # Rémi Audebert <rflah0@gmail.com>, 2015
 # Robin Thoni <rob57530@gmail.com>, 2015
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
@@ -16,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-26 22:09+0100\n"
-"PO-Revision-Date: 2015-10-27 17:28+0000\n"
-"Last-Translator: Rémi Audebert <rflah0@gmail.com>\n"
+"POT-Creation-Date: 2015-10-28 19:56+0100\n"
+"PO-Revision-Date: 2015-10-28 18:57+0000\n"
+"Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -50,7 +51,7 @@ msgstr "Hôtel"
 msgid "Pizzeria"
 msgstr "Pizzéria"
 
-#: centers/models.py:21 users/models.py:74
+#: centers/models.py:21 users/models.py:75
 msgid "Other"
 msgstr "Autre"
 
@@ -70,7 +71,7 @@ msgstr "Les centres d'examen"
 msgid "Center address"
 msgstr "Adresse du centre"
 
-#: centers/templates/centers/map.html:61
+#: centers/templates/centers/map.html:61 centers/templates/centers/map.html:73
 msgid "Show"
 msgstr "Montrer"
 
@@ -179,8 +180,8 @@ msgid ""
 msgstr "Le langage de programmation que vous utiliserez le plus probablement pour l'épreuve régionale."
 
 #: contest/models.py:113
-msgid "QCM score"
-msgstr "Score du questionnaire"
+msgid "Quiz score"
+msgstr "Score du quiz"
 
 #: contest/models.py:114
 msgid "Algo exercises score"
@@ -459,7 +460,7 @@ msgstr "Forum"
 #: forum/models.py:30 forum/templates/forum/create_thread.html:7
 #: forum/templates/forum/edit_post.html:7
 #: forum/templates/forum/forum_threads.html:7
-#: forum/templates/forum/index.html:7 forum/templates/forum/index.html:10
+#: forum/templates/forum/index.html:7 forum/templates/forum/index.html.py:10
 #: forum/templates/forum/index.html:14
 #: forum/templates/forum/thread_posts.html:7
 #: prologin/templates/prologin/main-menu.html:6
@@ -540,14 +541,28 @@ msgstr "Nouveau sujet"
 msgid "Create a new thread"
 msgstr "Créer un nouveau sujet"
 
-#: forum/templates/forum/create_thread.html:16
+#: forum/templates/forum/create_thread.html:17
 #, python-format
 msgid "in %(name)s"
 msgstr "dans %(name)s"
 
-#: forum/templates/forum/create_thread.html:21
+#: forum/templates/forum/create_thread.html:23
 msgid "Create the new thread"
 msgstr "Créer un nouveau sujet"
+
+#: forum/templates/forum/create_thread.html:24
+#: forum/templates/forum/edit_post.html:29
+#: forum/templates/forum/thread_posts.html:117
+msgctxt "Preview, the action (button)"
+msgid "Preview"
+msgstr "Prévisualiser"
+
+#: forum/templates/forum/create_thread.html:29
+#: forum/templates/forum/edit_post.html:32
+#: forum/templates/forum/thread_posts.html:120
+msgctxt "Preview, the noun (title)"
+msgid "Preview"
+msgstr "Prévisualisation"
 
 #: forum/templates/forum/edit_post.html:10
 #: forum/templates/forum/thread_posts.html:70
@@ -562,12 +577,12 @@ msgstr "Modifier"
 msgid "Edit post"
 msgstr "Éditer le post"
 
-#: forum/templates/forum/edit_post.html:21
+#: forum/templates/forum/edit_post.html:22
 #, python-format
 msgid "in %(title)s"
 msgstr "dans %(title)s"
 
-#: forum/templates/forum/edit_post.html:26
+#: forum/templates/forum/edit_post.html:28
 msgid "Save changes"
 msgstr "Sauvegarder les changements"
 
@@ -677,7 +692,7 @@ msgstr "Retour en haut"
 msgid "Add reply"
 msgstr "Ajouter une réponse"
 
-#: forum/templates/forum/thread_posts.html:125
+#: forum/templates/forum/thread_posts.html:130
 msgid "Sorry, you are not allowed to post new messages in this thread."
 msgstr "Vous n'êtes pas autorisé à poster de nouveaux messages dans ce sujet."
 
@@ -1470,7 +1485,7 @@ msgstr "Informations de contact"
 msgid "Address"
 msgstr "Addresse"
 
-#: pages/templates/pages/about-organization.html:35 users/models.py:90
+#: pages/templates/pages/about-organization.html:35 users/models.py:91
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -2700,7 +2715,7 @@ msgid "Sign out"
 msgstr "Déconnexion"
 
 #: prologin/templates/prologin/main-menu.html:29
-#: users/templates/users/login.html:7 users/templates/users/login.html:10
+#: users/templates/users/login.html:7 users/templates/users/login.html.py:10
 #: users/templates/users/login.html:26
 msgid "Sign in"
 msgstr "Connexion"
@@ -2883,97 +2898,97 @@ msgid ""
 " required to fight spamming bots on the website."
 msgstr "Veuillez cocher la case ci-dessus et réaliser les éventuelles opérations supplémentaires. Cela permet de se prémunir des robots."
 
-#: users/forms.py:60
+#: users/forms.py:67
 msgid "Email"
 msgstr "E-mail"
 
-#: users/forms.py:61
+#: users/forms.py:68
 msgid "Your email address"
 msgstr "Votre adresse e-mail"
 
-#: users/models.py:65
+#: users/models.py:66
 msgid "Middle school"
 msgstr "Collège"
 
-#: users/models.py:66
+#: users/models.py:67
 msgid "High school"
 msgstr "Lycée"
 
-#: users/models.py:67
+#: users/models.py:68
 msgid "Bac"
 msgstr "Bac"
 
-#: users/models.py:68
+#: users/models.py:69
 msgid "Bac+1"
 msgstr "Bac+1"
 
-#: users/models.py:69
+#: users/models.py:70
 msgid "Bac+2"
 msgstr "Bac+2"
 
-#: users/models.py:70
+#: users/models.py:71
 msgid "Bac+3"
 msgstr "Bac+3"
 
-#: users/models.py:71
+#: users/models.py:72
 msgid "Bac+4"
 msgstr "Bac+4"
 
-#: users/models.py:72
+#: users/models.py:73
 msgid "Bac+5"
 msgstr "Bac+5"
 
-#: users/models.py:73
+#: users/models.py:74
 msgid "Bac+6 and after"
 msgstr "Bac+6 et au delà"
 
-#: users/models.py:75
+#: users/models.py:76
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: users/models.py:89
+#: users/models.py:90
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:92 users/templates/users/profile.html:44
+#: users/models.py:93 users/templates/users/profile.html:44
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:93
+#: users/models.py:94
 msgid "Format: yyyy-mm-dd"
 msgstr "Format: aaaa-mm-jj"
 
-#: users/models.py:95
+#: users/models.py:96
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: users/models.py:96
+#: users/models.py:97
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
 msgstr "Nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:99
+#: users/models.py:100
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:101
+#: users/models.py:102
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: users/models.py:102
+#: users/models.py:103
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:103
+#: users/models.py:104
 msgid "Locale"
 msgstr "Langue"
 
-#: users/models.py:105
+#: users/models.py:106
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: users/models.py:106
+#: users/models.py:107
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
