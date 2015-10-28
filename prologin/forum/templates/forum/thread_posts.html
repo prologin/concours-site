@@ -114,7 +114,12 @@
         {% csrf_token %}
         {{ form|bootstrap }}
         <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> {% trans "Add reply" %}</button>
+        <button type="submit" class="btn btn-default" formaction="#preview" name="preview" value="1"><i class="fa fa-file-text"></i> {% trans "Preview" context "Preview, the action (button)" %}</button>
       </form>
+      {% if preview %}
+        <h3 id="preview">{% trans "Preview" context "Preview, the noun (title)" %}</h3>
+        <div class="forum-post post-content tex2jax_process">{{ form.content.value|flavored_markdown }}</div>
+      {% endif %}
     {% else %}
       {% include "forum/stub_login_required.html" %}
     {% endif %}
@@ -129,8 +134,7 @@
 {% endblock %}
 
 {% block extra_script %}
-  <script type="text/javascript"
-          src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
   <script type="text/javascript">
     /* When clicking permalinks, just scroll to message, don't do the full redirect */
     $(function() {

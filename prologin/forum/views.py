@@ -13,6 +13,23 @@ import forum.forms
 import forum.models
 
 
+class PreviewMixin:
+    preview_name = 'preview'
+
+    def has_preview(self, request):
+        return bool(request.POST.get(self.preview_name))
+
+    def post(self, request, *args, **kwargs):
+        if self.has_preview(request):
+            return self.get(request, *args, **kwargs)
+        return super().post(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['preview'] = bool(self.has_preview(self.request))
+        return context
+
+
 def cite_post_content(post):
     # Python module 'textwrap' behaves strangely, dropping previous indents or randomly dropping whitespaces
     # even if you disable that. If you can make it work, feel free to replace the lines below.
@@ -110,7 +127,7 @@ class ForumView(PermissionRequiredMixin, ListView):
         return super().get(request, *args, **kwargs)
 
 
-class CreateThreadView(PermissionRequiredMixin, CreateView):
+class CreateThreadView(PermissionRequiredMixin, PreviewMixin, CreateView):
     # TODO: permission checking
     template_name = 'forum/create_thread.html'
     model = forum.models.Thread
@@ -144,7 +161,7 @@ class CreateThreadView(PermissionRequiredMixin, CreateView):
         return context
 
 
-class ThreadView(PermissionRequiredMixin, FormMixin, ListView):
+class ThreadView(PermissionRequiredMixin, PreviewMixin, FormMixin, ListView):
     # TODO: check perms for view AND post (ie. new post in thread)
     template_name = 'forum/thread_posts.html'
     model = forum.models.Post
@@ -202,13 +219,13 @@ class ThreadView(PermissionRequiredMixin, FormMixin, ListView):
             return HttpResponseForbidden()
 
         form = self.get_form()
-        if form.is_valid():
+        if form.is_valid() and not self.has_preview(request):
             return self.form_valid(form)
         else:
             return self.get(request, *args, **kwargs)
 
 
-class EditPostView(PermissionRequiredMixin, UpdateView):
+class EditPostView(PermissionRequiredMixin, PreviewMixin, UpdateView):
     template_name = 'forum/edit_post.html'
     model = forum.models.Post
     permission_required = 'forum.edit_post'
