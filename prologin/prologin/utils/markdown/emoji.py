@@ -52,7 +52,7 @@ class EmojiPattern(Pattern):
         path = staticfiles_storage.url(rel_path)
         img = etree.Element('img')
         img.set('src', path)
-        img.set('alt', emoji)
+        img.set('alt', '{c}{e}{c}'.format(e=emoji, c=self.ext.getConfig('wrap_char')))
         img.set('class', self.ext.getConfig('span_class'))
         return img
 
