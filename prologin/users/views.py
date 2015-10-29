@@ -231,7 +231,7 @@ class PasswordResetView(FormView):
         for user in active_users:
             # Make sure that no email is sent to a user that actually has
             # a password marked as unusable
-            if not user.has_usable_password():
+            if not user.has_usable_password() and not user.legacy_md5_password:
                 continue
             uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = default_token_generator.make_token(user)
