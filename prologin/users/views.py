@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model, REDIRECT_FIELD_NAME, login
 from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.views import logout
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Prefetch
@@ -9,6 +10,7 @@ from django.http import Http404
 from django.shortcuts import get_object_or_404, render
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.http import require_POST
 from django.views.generic.base import View, RedirectView
 from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.views.generic.edit import CreateView, UpdateView, FormView
@@ -24,6 +26,13 @@ from prologin.utils import absolute_site_url
 import team.models
 import users.forms
 import users.models
+
+
+@csrf_protect
+@require_POST
+@never_cache
+def protected_logout(*args, **kwargs):
+    return logout(*args, **kwargs)
 
 
 def auto_login(request, user):

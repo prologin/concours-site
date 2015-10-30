@@ -160,10 +160,36 @@ footer .legal {
   color: #fefefe;
 }
 
+.navbar-default .dropdown-menu li a, .navbar-default .dropdown-menu li button {
+  padding: 8px 20px;
+}
+
+.dropdown-menu > li > form > button {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+  background: none;
+  outline: none;
+  border: none;
+  width: 100%;
+  text-align: left;
+}
+
 @media (max-width: 767px) {
+  .navbar-default .dropdown-menu li button {
+    padding: 5px 15px 5px 25px;
+  }
+
   .navbar-default .navbar-nav .open .dropdown-menu > li > a,
   .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus,
-  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover {
+  .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover,
+  .navbar-default .dropdown-menu li button,
+  .navbar-default .dropdown-menu li button:focus,
+  .navbar-default .dropdown-menu li button:hover {
     color: #fefefe;
   }
 
@@ -203,11 +229,7 @@ footer .legal {
   margin: 0;
 }
 
-.navbar-default .dropdown-menu li a {
-  padding: 8px 20px;
-}
-
-.navbar-default .dropdown-menu li a:hover {
+.navbar-default .dropdown-menu li a:hover, .navbar-default .dropdown-menu li button:hover {
   background: #7389AE;
   color: #fefefe;
 }

@@ -9,7 +9,7 @@ urlpatterns = patterns('',
 
     # Login and logout
     url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'users/login.html'}, name='login'),
-    url(r'^logout/$', 'django.contrib.auth.views.logout', {'next_page': '/'}, name='logout'),
+    url(r'^logout/$', views.protected_logout, {'next_page': '/'}, name='logout'),
 
     # Password reset
     url(r'^password/reset/ask/$', views.PasswordResetView.as_view(), name='password_reset'),
