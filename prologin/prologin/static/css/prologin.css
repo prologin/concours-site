@@ -376,6 +376,7 @@ footer .legal {
   background-size: cover;
   border: 1px solid #ccc;
   box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+  text-indent: -20em; /* standard text-hiding hack */
 }
 
 /*
