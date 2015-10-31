@@ -50,7 +50,7 @@
                       {% endif %}
                       <li class="text-{% if problems_completed == problems_count %}success{% elif problems_completed > 0 %}warning{% else %}danger{% endif %}">
                         <a href="{% url 'training:challenge' request.current_edition.year 'qualification' %}"><i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
-                          {% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems completed{% endblocktrans %}</a>
+                          {% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems tackled{% endblocktrans %}</a>
                       </li>
                       <li class="text-{% if request.current_contestant.is_complete_for_semifinal %}success{% else %}danger{% endif %}">
                         <a href="{% url 'contest:qualification_summary' request.current_edition.year %}"><i class="fa fa-{% if request.current_contestant.is_complete_for_semifinal %}check-{% endif %}square-o"></i> {% trans "Review the extra details" %}</a>

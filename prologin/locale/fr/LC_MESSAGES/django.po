@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-31 17:46+0100\n"
-"PO-Revision-Date: 2015-10-31 16:47+0000\n"
+"POT-Creation-Date: 2015-10-31 17:50+0100\n"
+"PO-Revision-Date: 2015-10-31 16:51+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -768,8 +768,8 @@ msgstr "Compléter le questionnaire"
 
 #: homepage/templates/homepage/jumbotron.html:53
 #, python-format
-msgid "%(problems_completed)s/%(problems_count)s problems completed"
-msgstr "%(problems_completed)s/%(problems_count)s problèmes résolus"
+msgid "%(problems_completed)s/%(problems_count)s problems tackled"
+msgstr "%(problems_completed)s/%(problems_count)s problèmes abordés"
 
 #: homepage/templates/homepage/jumbotron.html:56
 msgid "Review the extra details"
