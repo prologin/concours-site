@@ -18,7 +18,7 @@ msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-10-31 18:53+0100\n"
-"PO-Revision-Date: 2015-10-31 17:53+0000\n"
+"PO-Revision-Date: 2015-10-31 18:09+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1555,7 +1555,7 @@ msgid ""
 "\n"
 "<p class=\"text-justify\">Finally, for all the survivors who reach the final, it is also the opportunity to spend a super crazy weekend\n"
 "with us!</p>\n"
-msgstr "<p class=\"text-justify\">Le but de Prologin est de permettre à de jeunes passionnés d'informatique de se rencontrer et de se mesurer les uns aux autres. En effet, \nl'apprentissage de l'informatique est sous representé dans les écoles françaises. Par conséquent, ceux qui la pratiquent sont\nsouvent autodidactes et en ont une expérience individuelle. Cependant, n'importe quel projet important demande du travail d'équipe. C'est \npourquoi, quand bien même les candidats participent individuellement, la compétition devrait faciliter l'échange des idées\nentre les candidats. Pour faciliter ces échanges, l'équipe de Prologin choisit comme sujet de concours des jeux. En même temps, tout est mis en œuvre pour que les participants puissent échanger des idées\ndans une atmosphère détendue. Mêler travail et plaisir est donc un des objectifs clefs de Prologin.</p>\n\n<p class=\"text-justify\">Nous voulons permettre aux candidats de profiter de la compétition pour s'améliorer. Nous essayons de couvrir \nle plus possible de facettes de l'informatique : algorithmes d'intelligence artificielle, culture générale, plusieurs langages de programmation...</p>\n\n<p class=\"text-justify\">Pour les organisateurs, le concours est l'opportunité de gérer une équipe et organiser un événement. Nous devons également \napprendre comment communiquer efficacement pour toucher un plus grand public. Gérer les relations \navec les sponsors et résoudre des problèmes aussi bien techniques que logistiques sont également une expérience \nenrichissante pour les membres de l'équipe.</p>\n\n<p class=\"text-justify\">Finalement, pour tous les survivants qui atteignent la finale, c'est aussi l'occasion de passer un super weekend avec nous&nspb;!</p>\n"
+msgstr "<p class=\"text-justify\">Le but de Prologin est de permettre à de jeunes passionnés d'informatique de se rencontrer et de se mesurer les uns aux autres. En effet, \nl'apprentissage de l'informatique est sous representé dans les écoles françaises. Par conséquent, ceux qui la pratiquent sont\nsouvent autodidactes et en ont une expérience individuelle. Cependant, n'importe quel projet important demande du travail d'équipe. C'est \npourquoi, quand bien même les candidats participent individuellement, la compétition devrait faciliter l'échange des idées\nentre les candidats. Pour faciliter ces échanges, l'équipe de Prologin choisit comme sujet de concours des jeux. En même temps, tout est mis en œuvre pour que les participants puissent échanger des idées\ndans une atmosphère détendue. Mêler travail et plaisir est donc un des objectifs clefs de Prologin.</p>\n\n<p class=\"text-justify\">Nous voulons permettre aux candidats de profiter de la compétition pour s'améliorer. Nous essayons de couvrir \nle plus possible de facettes de l'informatique : algorithmes d'intelligence artificielle, culture générale, plusieurs langages de programmation...</p>\n\n<p class=\"text-justify\">Pour les organisateurs, le concours est l'opportunité de gérer une équipe et organiser un événement. Nous devons également \napprendre comment communiquer efficacement pour toucher un plus grand public. Gérer les relations \navec les sponsors et résoudre des problèmes aussi bien techniques que logistiques sont également une expérience \nenrichissante pour les membres de l'équipe.</p>\n\n<p class=\"text-justify\">Finalement, pour tous les survivants qui atteignent la finale, c'est aussi l'occasion de passer un super weekend avec nous&nbsp;!</p>\n"
 
 #: pages/templates/pages/about-organization.html:97
 msgid "Everyone can contribute to Prologin"
@@ -2491,7 +2491,7 @@ msgstr "La compilation a réussi."
 
 #: problems/templates/problems/submission.html:83
 msgid "The compilation failed:"
-msgstr "La compilation a échoué&nspb;:"
+msgstr "La compilation a échoué&nbsp;:"
 
 #: problems/templates/problems/submission.html:93
 #: problems/templates/problems/submission.html:94

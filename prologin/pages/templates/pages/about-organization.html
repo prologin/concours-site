@@ -42,7 +42,7 @@
     </div>
     <div class="col-md-3 col-sm-6">
       <div class="panel panel-default">
-        <div class="panel-heading"><h4 id="legal">{% blocktrans with year=request.current_edition.year %}The {{ year }} team{% endblocktrans %}</h4></div>
+        <div class="panel-heading"><h4 id="team">{% blocktrans with year=request.current_edition.year %}The {{ year }} team{% endblocktrans %}</h4></div>
         <div class="panel-body">
           {% if team_pres %}<div class="organization-team-box">
             <strong>{% trans "President" %}</strong><br>
