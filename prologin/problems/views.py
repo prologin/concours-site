@@ -10,11 +10,13 @@ import celery
 import celery.exceptions
 import logging
 import time
+import requests
 
 from contest.models import Event
 from problems.forms import SearchForm, CodeSubmissionForm
-from prologin.languages import Language
 from problems.tasks import submit_problem_code
+from prologin.languages import Language
+from prologin.utils import cached
 import problems.models
 
 logger = logging.getLogger(__name__)
@@ -366,6 +368,43 @@ class AjaxLanguageTemplate(View):
 
 class ManualView(TemplateView):
     template_name = 'problems/manual.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+
+        def get_versions():
+            logger.info("Retrieving fresh VM compilers versions")
+            return requests.get(settings.PROLOGIN_VM_VERSION_PATH).json()
+
+        cached_versions = {}
+        try:
+            cached_versions = cached(get_versions, 'problems:compilers:versions')
+        except Exception:
+            logger.exception("Retrieving fresh VM compilers versions failed")
+
+        languages = [
+            (Language.ada, "gcc-ada", "gcc-ada"),
+            (Language.brainfuck, "esotope-bfc", "esotope-bfc"),
+            (Language.c, "gcc", "GCC"),
+            (Language.cpp, "gcc", "G++"),
+            (Language.csharp, "mono", "Mono"),
+            (Language.fsharp, "fsharp", "Mono"),
+            (Language.haskell, "ghc", "GHC"),
+            (Language.java, "jdk7-openjdk", "OpenJDK Runtime Environment (IcedTea)"),
+            (Language.js, "nodejs", "NodeJS"),
+            (Language.lua, "luajit", "LuaJit"),
+            (Language.ocaml, "ocaml", "The Objective Caml toplevel"),
+            (Language.pascal, "fpc", "Free Pascal compiler"),
+            (Language.perl, "perl", "Perl"),
+            (Language.php, "php", "PHP"),
+            (Language.python2, "python2", "CPython"),
+            (Language.python3, "python", "CPython"),
+            (Language.scheme, "gambit-c", "Gambit-C"),
+            (Language.vb, "mono-basic", "Mono Basic"),
+        ]
+        context['versions'] = [(lang, description, cached_versions.get(key))
+                               for lang, key, description in languages]
+        return context
 
 
 class ChallengeScoreboard(ListView):

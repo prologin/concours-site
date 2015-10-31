@@ -221,6 +221,7 @@ PROLOGIN_MAX_AGE = 21
 PROLOGIN_MAX_LEVEL_DIFFICULTY = 9
 PROLOGIN_SEMIFINAL_MIN_WISH_COUNT = 1
 PROLOGIN_SEMIFINAL_MAX_WISH_COUNT = 3
+PROLOGIN_VM_VERSION_PATH = 'http://vm.prologin.org/versions'
 LATEX_GENERATION_PROC_TIMEOUT = 60  # in seconds
 PLAINTEXT_PASSWORD_LENGTH = 8
 PLAINTEXT_PASSWORD_DISAMBIGUATION = str.maketrans("iIl1oO0/+=", "aAbcCD9234")
@@ -231,8 +232,7 @@ GOOGLE_ANALYTICS_ID = ''
 # Cache durations and keys
 CacheSetting = namedtuple('CacheSetting', 'key duration')
 PROLOGIN_CACHES = {
-    'challenge_list': CacheSetting('problems.challenge_list', 3600),
-    'challenge_details': CacheSetting('problems.challenge_details.{name}', 3600),
+    'problems:compilers:versions': CacheSetting('problems:compilers:versions', 3600 * 24),
 }
 
 # Prologin correction system

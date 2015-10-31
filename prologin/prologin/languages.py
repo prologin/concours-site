@@ -43,7 +43,7 @@ class Language(ChoiceEnum):
     ada = LanguageDef("Ada", ['.adb'], doc='ada')
     php = LanguageDef("PHP", ['.php'], doc='php')
     js = LanguageDef("Javascript", ['.js'])
-    vb = LanguageDef("VB", ['.vb'])
+    vb = LanguageDef("Visual Basic", ['.vb'])
     perl = LanguageDef("Perl", ['.pl', '.perl'])
     lua = LanguageDef("Lua", ['.lua'])
     csharp = LanguageDef("C#", ['.cs'])

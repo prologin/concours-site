@@ -109,30 +109,23 @@ vCPU and {{ hardware_mem }} Gio of dedicated random access memory.
 {% endwith %}
 
 <h3>{% trans "Compilers and interpreters" %}</h3>
-
-<p><ul>
-<li>C : GCC version 4.9.1</li>
-<li>C++ : G++ version 4.9.1</li>
-<li>Pascal : Free Pascal version 2.6.4</li>
-<li>Java : OpenJDK Runtime Environment (IcedTea 2.5.3)</li>
-<li>OCaml : The Objective Caml toplevel, version 4.02.0</li>
-<li>Python 2 : CPython version 2.7</li>
-<li>Python 3 : CPython version 3.4</li>
-<li>C# / F# : Mono version 3.10.0</li>
-<li>PHP : PHP version 5.6.2</li>
-<li>ADA : GNAT version 4.9.1</li>
-</ul></p>
+<dl class="dl-horizontal">
+{% for lang, description, version in versions %}
+  <dt>{{ lang }}</dt><dd>{{ description }}, {% if version %}version <code>{{ version }}</code>{% else %}<em>{% trans "unknown version" %}</em>{% endif %}</dd>
+{% endfor %}
+</dl>
 
 <h3>{% trans "Compilation options" %}</h3>
 
-<p><ul>
-<li>C : <code>-Wextra -Wall -O2 -std=c11 -lm</code></li>
-<li>C++ : <code>-Wextra -Wall -O2 -std=c++11 -lm</code></li>
-<li>Haskell : <code>-dynamic -O2</code></li>
-<li>OCaml : <code>-w A</code></li>
-<li>Pascal : <code>-XD -Fainitc</code></li>
-<li>C# : <code>-optimize+</code></li>
-<li>F# : <code>-O</code></li>
-</ul></p>
+<dl class="dl-horizontal">
+{# TODO: retrieve from VM when it's available #}
+<dt>C</dt><dd><code>-Wextra -Wall -O2 -std=c11 -lm</code></dd>
+<dt>C++</dt><dd><code>-Wextra -Wall -O2 -std=c++11 -lm</code></dd>
+<dt>C#</dt><dd><code>-optimize+</code></dd>
+<dt>F#</dt><dd><code>-O</code></dd>
+<dt>Haskell</dt><dd><code>-dynamic -O2</code></dd>
+<dt>OCaml</dt><dd><code>-w A</code></dd>
+<dt>Pascal</dt><dd><code>-XD -Fainitc</code></dd>
+</dl>
 
 {% endblock %}
