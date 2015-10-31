@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-28 19:56+0100\n"
-"PO-Revision-Date: 2015-10-28 18:57+0000\n"
+"POT-Creation-Date: 2015-10-31 17:46+0100\n"
+"PO-Revision-Date: 2015-10-31 16:47+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -320,10 +320,10 @@ msgstr[1] "Il y a %(count)s problèmes cette année."
 
 #: contest/templates/contest/qualification_summary.html:74
 #, python-format
-msgid "You completed %(count)s problem."
-msgid_plural "You completed %(count)s problems."
-msgstr[0] "Vous avez répondu à %(count)s problème."
-msgstr[1] "Vous avez répondu à %(count)s problèmes."
+msgid "You tackled %(count)s problem."
+msgid_plural "You tackled %(count)s problems."
+msgstr[0] "Vous avez abordé %(count)s problème."
+msgstr[1] "Vous avez abordé %(count)s problèmes."
 
 #: contest/templates/contest/qualification_summary.html:79
 msgid "Review submissions"
@@ -3252,22 +3252,22 @@ msgid ""
 "  from Prologin."
 msgstr "a été désinscrit et ne recevra plus d'e-mails de Prologin."
 
-#: users/views.py:104
+#: users/views.py:113
 #, python-format
 msgid ""
 "Your account was created. We sent an email to %(mail)s so you can confirm "
 "your registration."
 msgstr "Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s pour que vous puissiez confirmer votre inscription."
 
-#: users/views.py:123
+#: users/views.py:132
 msgid "Your account was activated. Enjoy your visit!"
 msgstr "Votre compte est activé. Bonne visite&nbsp;!"
 
-#: users/views.py:125 users/views.py:275
+#: users/views.py:134 users/views.py:284
 msgid "You have been automatically logged in."
 msgstr "Vous avez été connecté automatiquement."
 
-#: users/views.py:130
+#: users/views.py:139
 #, python-format
 msgid ""
 "The activation link you provided is invalid or obsolete. If you created your"
@@ -3275,15 +3275,15 @@ msgid ""
 "may use the same username and email though."
 msgstr "Le lien d'activation que vous avez fourni est invalide ou obsolète. Si vous avez créé votre compte il y a plus de %(days)s jours, vous devez répéter l'opération. Vous pouvez utiliser les mêmes nom d'utilisateur et e-mail."
 
-#: users/views.py:190
+#: users/views.py:199
 msgid "Changes saved."
 msgstr "Modifications enregistrées."
 
-#: users/views.py:215 users/views.py:273
+#: users/views.py:224 users/views.py:282
 msgid "New password saved."
 msgstr "Mot de passe modifié."
 
-#: users/views.py:243
+#: users/views.py:252
 #, python-format
 msgid ""
 "You should receive an email at %(email)s in a few moments. Please follow the"

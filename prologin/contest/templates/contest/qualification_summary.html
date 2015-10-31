@@ -71,7 +71,7 @@
         <div class="panel-body">
           <p>
             {% blocktrans count problem_count as count %}There is {{ count }} problem this year.{% plural %}There are {{ count }} problems this year.{% endblocktrans %}
-            {% blocktrans count completed_problem_count as count %}You completed {{ count }} problem.{% plural %}You completed {{ count }} problems.{% endblocktrans %}
+            {% blocktrans count completed_problem_count as count %}You tackled {{ count }} problem.{% plural %}You tackled {{ count }} problems.{% endblocktrans %}
           </p>
           <p>
           {% url 'training:challenge' request.current_edition.year 'qualification' as problem_url %}
