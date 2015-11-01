@@ -49,6 +49,9 @@ urlpatterns += [
 
     # Pages
     url('^', include('pages.urls', namespace='pages')),
+
+    # Monitoring
+    url('', include('django_prometheus.urls')),
 ]
 
 if settings.DEBUG:

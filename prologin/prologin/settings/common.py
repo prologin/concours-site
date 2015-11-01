@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     'captcha',
     'django_bootstrap_breadcrumbs',
     'django_comments',
+    'django_prometheus',
     'djmail',
     'macros',
     'mptt',
@@ -95,6 +96,7 @@ INSTALLED_APPS = (
 )
 
 MIDDLEWARE_CLASSES = (
+    'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',
@@ -103,6 +105,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'prologin.middleware.ContestMiddleware',
+    'django_prometheus.middleware.PrometheusAfterMiddleware',
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (

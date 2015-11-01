@@ -21,6 +21,8 @@ django-bootstrap-form>=3.1
 django-csp
 # Debug Toolbar
 django-debug-toolbar
+# Export metrics for prometheus monitoring
+django-prometheus
 # Google Recaptcha/Nocaptcha support
 django-recaptcha
 # Model tagging support
