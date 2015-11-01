@@ -2,8 +2,9 @@ from adminsortable.models import SortableMixin
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
-from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django.utils import timezone
+from django.utils.translation import ugettext_noop, ugettext_lazy as _
+from django_prometheus.models import ExportModelOperationsMixin
 from jsonfield import JSONField
 
 from centers.models import Center
@@ -11,7 +12,7 @@ from prologin.models import EnumField, CodingLanguageField
 from prologin.utils import ChoiceEnum
 
 
-class Edition(models.Model):
+class Edition(ExportModelOperationsMixin('edition'), models.Model):
     year = models.PositiveIntegerField(primary_key=True)
     date_begin = models.DateTimeField()
     date_end = models.DateTimeField()
@@ -33,7 +34,7 @@ class EventManager(models.Manager):
                 .select_related('edition', 'center'))
 
 
-class Event(models.Model):
+class Event(ExportModelOperationsMixin('event'), models.Model):
     @ChoiceEnum.labels(str.capitalize)
     class Type(ChoiceEnum):
         qualification = 0
@@ -96,7 +97,7 @@ class ShirtSize(ChoiceEnum):
     xxl = 5
 
 
-class Contestant(models.Model):
+class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
     edition = models.ForeignKey(Edition, related_name='contestants')
@@ -150,7 +151,7 @@ class Contestant(models.Model):
         return "{edition}: {user}".format(user=self.user, edition=self.edition)
 
 
-class EventWish(SortableMixin):
+class EventWish(ExportModelOperationsMixin('event_wish'), SortableMixin):
     contestant = models.ForeignKey(Contestant)
     event = models.ForeignKey(Event)
     order = models.IntegerField(editable=False, db_index=True)
@@ -166,7 +167,7 @@ class EventWish(SortableMixin):
         )
 
 
-class ContestantCorrection(models.Model):
+class ContestantCorrection(ExportModelOperationsMixin('contestant_correction'), models.Model):
     contestant = models.ForeignKey(Contestant, related_name='corrections')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='correction_comments', null=True, blank=True)
     comment = models.TextField(blank=True)

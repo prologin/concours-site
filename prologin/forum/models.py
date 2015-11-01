@@ -8,6 +8,7 @@ from django.utils.encoding import force_text
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _, ugettext_noop
+from django_prometheus.models import ExportModelOperationsMixin
 
 from prologin.models import EnumField
 from prologin.utils import ChoiceEnum, refresh_model_instance
@@ -15,7 +16,7 @@ from prologin.utils import ChoiceEnum, refresh_model_instance
 from forum import managers
 
 
-class Forum(SortableMixin):
+class Forum(ExportModelOperationsMixin('forum'), SortableMixin):
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     slug = models.SlugField(max_length=300, db_index=True)
     description = models.TextField(verbose_name=_("Description"))
@@ -57,7 +58,7 @@ class Forum(SortableMixin):
         return reverse('forum:forum', kwargs={'slug': self.slug, 'pk': self.pk})
 
 
-class Thread(models.Model):
+class Thread(ExportModelOperationsMixin('thread'), models.Model):
     @ChoiceEnum.labels(str.capitalize)
     class Type(ChoiceEnum):
         normal = 0
@@ -193,7 +194,7 @@ class Thread(models.Model):
                                                'pk': self.pk})
 
 
-class Post(models.Model):
+class Post(ExportModelOperationsMixin('post'), models.Model):
     thread = models.ForeignKey(Thread, related_name='posts')
 
     author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='forum_posts')

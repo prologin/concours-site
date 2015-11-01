@@ -11,6 +11,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
 from django.utils.translation import LANGUAGE_SESSION_KEY, ugettext_lazy as _
+from django_prometheus.models import ExportModelOperationsMixin
 from timezone_field import TimeZoneField
 
 from prologin.models import (AddressableModel, GenderField,
@@ -51,7 +52,7 @@ class UserActivationManager(models.Manager):
         return get_user_model().objets.filter(is_active=False, activation__expiration_date__lt=timezone.now())
 
 
-class UserActivation(models.Model):
+class UserActivation(ExportModelOperationsMixin('user_activation'), models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='activation')
     slug = models.SlugField(max_length=ACTIVATION_TOKEN_LENGTH, db_index=True)
     expiration_date = models.DateTimeField()
@@ -80,7 +81,7 @@ class EducationStage(ChoiceEnum):
         return tuple(m.value for m in cls)
 
 
-class ProloginUser(AbstractUser, AddressableModel):
+class ProloginUser(ExportModelOperationsMixin('user'), AbstractUser, AddressableModel):
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']

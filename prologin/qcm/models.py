@@ -5,6 +5,7 @@ from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Prefetch, Count, Sum, Case, When, Value, IntegerField
 from django.utils.translation import ugettext_lazy as _
+from django_prometheus.models import ExportModelOperationsMixin
 
 import contest.models
 import sponsor.models
@@ -26,7 +27,7 @@ class QcmManager(models.Manager):
                           answer_count=Count('questions__propositions__answers', distinct=True)))
 
 
-class Qcm(models.Model):
+class Qcm(ExportModelOperationsMixin('qcm'), models.Model):
     event = models.ForeignKey(contest.models.Event, related_name='qcms')
 
     objects = QcmManager()
@@ -77,7 +78,7 @@ class QuestionManager(models.Manager):
                                                              output_field=IntegerField()))))
 
 
-class Question(SortableMixin):
+class Question(ExportModelOperationsMixin('question'), SortableMixin):
     qcm = models.ForeignKey(Qcm, related_name='questions')
 
     body = models.TextField(verbose_name=_("Question body"))
@@ -97,7 +98,7 @@ class Question(SortableMixin):
         return self.body
 
 
-class Proposition(models.Model):
+class Proposition(ExportModelOperationsMixin('proposition'), models.Model):
     question = models.ForeignKey(Question, related_name='propositions', verbose_name=_("Question"))
     text = models.CharField(max_length=255)
     is_correct = models.BooleanField(default=False)
@@ -112,7 +113,7 @@ class AnswerManager(models.Manager):
                 .select_related('proposition__question__qcm__event__edition', 'contestant__user'))
 
 
-class Answer(models.Model):
+class Answer(ExportModelOperationsMixin('answer'), models.Model):
     contestant = models.ForeignKey(contest.models.Contestant, related_name='qcm_answers')
     proposition = models.ForeignKey(Proposition, related_name='answers', verbose_name=_("Answer"))
     # Textual answer given by the contestant if the question is open ended.

@@ -1,10 +1,11 @@
 import collections
 import datetime
 
-from django.db import models
 from django.conf import settings
+from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
+from django_prometheus.models import ExportModelOperationsMixin
 
 from prologin.languages import Language
 from prologin.models import CodingLanguageField
@@ -14,7 +15,7 @@ SubmissionResults = collections.namedtuple('SubmissionResults', 'compilation cor
 SubmissionTest = collections.namedtuple('SubmissionTest', 'name success expected returned debug')
 
 
-class Submission(models.Model):
+class Submission(ExportModelOperationsMixin('submission'), models.Model):
     challenge = models.CharField(max_length=64, db_index=True)
     problem = models.CharField(max_length=64, db_index=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='training_submissions')
@@ -45,7 +46,7 @@ class Submission(models.Model):
         unique_together = ('challenge', 'problem', 'user')
 
 
-class SubmissionCode(models.Model):
+class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model):
     submission = models.ForeignKey(Submission, related_name='codes')
     language = CodingLanguageField()
     code = models.TextField()
@@ -119,7 +120,7 @@ class SubmissionCode(models.Model):
         ordering = ('-' + get_latest_by, '-pk')
 
 
-class SubmissionCodeChoice(models.Model):
+class SubmissionCodeChoice(ExportModelOperationsMixin('submission_code_choice'), models.Model):
     submission = models.ForeignKey(Submission, related_name='submission_choices')
     code = models.ForeignKey(SubmissionCode, related_name='submission_code_choices')
 
