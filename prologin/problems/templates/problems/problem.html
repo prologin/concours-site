@@ -112,7 +112,7 @@
                   {% if form.language.errors %}<span class="text-danger">
                     {% for error in form.language.errors %}{{ error|escape }} {% endfor %}
                   </span>{% endif %}
-                  <button id="btn-insert-stub" class="btn btn-default" data-url="{% url 'training:ajax-language-template' challenge.year challenge.event_type.name problem.name %}" title="{% trans "Insert parsing code stub at the end of your code" %}"><i class="fa fa-file-code-o"></i> {% trans "Code stub" %}</button>
+                  <button id="btn-insert-stub" type="button" class="btn btn-default" data-url="{% url 'training:ajax-language-template' challenge.year challenge.event_type.name problem.name %}" title="{% trans "Insert parsing code stub at the end of your code" %}"><i class="fa fa-file-code-o"></i> {% trans "Code stub" %}</button>
                   <select name="language" style="width: auto;" class="form-control">{% for lng in languages %}
                     <option value="{{ lng.name }}" data-mode="{{ lng.ace_lexer }}" data-template="{% if lng in templatable_languages %}true{% else %}false{% endif %}"{% if lng.correctable %} data-correctable{% endif %}{% if prefill_submission and prefill_submission.language_enum == lng or not prefill_submission and request.user.preferred_language_enum == lng %} selected{% endif %}>{{ lng.name_display }}</option>
                   {% endfor %}</select>
