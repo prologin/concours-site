@@ -5,8 +5,7 @@
 {% block breadcrumbs %}
   {{ block.super }}
   {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
-  {% breadcrumb challenge.year "" %}
-  {% breadcrumb challenge.event_type|choiceenum_label "training:challenge" challenge.year challenge.event_type.name %}
+  {% breadcrumb_for "training:challenge" challenge.year challenge.event_type.name %}{{ challenge.event_type|choiceenum_label }} {{ challenge.year }}{% endbreadcrumb_for %}
   {% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
 {% endblock breadcrumbs %}
 
