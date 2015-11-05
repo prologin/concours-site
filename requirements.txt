@@ -49,8 +49,6 @@ psycopg2>=2.5
 pygments>=2.0.2
 # YAML support
 pyyaml
-# MySQL database connector (for Drupal legacy)
-mysqlclient
 # HTTP queries
 requests
 # Celery storage & broker for async tasks
@@ -59,3 +57,6 @@ redis
 rules
 # Transifex client for translation pull/push
 transifex-client==0.11b3
+
+# MySQL database connector (for Drupal legacy) (uncomment if needed)
+# mysqlclient
