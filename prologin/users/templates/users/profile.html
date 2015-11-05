@@ -13,7 +13,7 @@
 {% block content %}
 
   {% trans "<em>not provided</em>" as noinfo %}
-  <h1>{% if shown_user.get_full_name %}
+  <h1>{% if shown_user.get_full_name and see_private %}
     {{ shown_user.get_full_name }} <small>{{ shown_user.username }}</small>
   {% else %}
     {{ shown_user.username }}
