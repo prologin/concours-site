@@ -52,9 +52,11 @@ class EventWishSelect(forms.widgets.Select):
         # END
         if option_value:
             center = option_label.center
+            date = option_label.date_begin.strftime('%d %b %Y')
             addr = "{}, {} {}".format(center.address, center.postal_code, center.city)
-            selected_html = mark_safe(selected_html + format_html(' data-name="{}" data-addr="{}"', center.name, addr))
-            option_label = '{} — {}, {} {}'.format(center.name, center.address, center.postal_code, center.city)
+            name = "{} — {}".format(date, center.name)
+            selected_html = mark_safe(selected_html + format_html(' data-name="{}" data-addr="{}"', name, addr))
+            option_label = '{} — {} — {}, {} {}'.format(date, center.name, center.address, center.postal_code, center.city)
         return format_html('<option value="{}"{}>{}</option>', option_value, selected_html, force_text(option_label))
 
 
