@@ -29,13 +29,13 @@ class HTTPRequestHandler(logging.Handler):
         except Exception:
             request = None
 
-        message = {"request": {"user": repr(request.user),
+        message = {"request": {"user": request.user.username if request.user.is_authenticated() else None,
                                "path": request.get_full_path(),
                                "method": request.method,
                                "meta": {k: repr(v) for k, v in request.META.items() if
                                         k.startswith("HTTP_")}} if request else None,
                    "level": {"name": record.levelname},
-                   "tb": [(s.name, s.filename, s.lineno, s.line) for s in traceback.extract_tb(record.exc_info[2])],
+                   "traceback": [(s.name, s.filename, s.lineno, s.line) for s in traceback.extract_tb(record.exc_info[2])],
                    "exception": {"value": repr(record.exc_info[1]),
                                  "trace": traceback.format_exception(*record.exc_info)}}
 
