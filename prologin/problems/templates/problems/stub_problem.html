@@ -2,8 +2,9 @@
 <a class="list-group-item clearfix" href="{% url 'training:problem' problem.challenge.year problem.challenge.event_type.name problem.name %}">
   <div class="col-sm-2 col-xs-2" style="padding: 0"><div class="progress" style="margin: 0"
      title="{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %}">
-    <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0"
+    <div class="progress-bar" role="progressbar" aria-valuenow="{{ problem.percentage_difficulty }}" aria-valuemin="0"
        aria-valuemax="100" style="width: {{ problem.percentage_difficulty }}%;">
+      <span class="progress-bar-fixed" style="color: #222">{{ problem.difficulty }}</span>
     </div>
   </div></div>
   <div class="col-sm-8 col-xs-10">{{ problem.title }}

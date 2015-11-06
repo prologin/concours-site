@@ -6,6 +6,7 @@ from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, 
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, View
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import ModelFormMixin
+from rules.contrib.views import PermissionRequiredMixin
 import celery
 import celery.exceptions
 import logging
@@ -17,6 +18,8 @@ from problems.forms import SearchForm, CodeSubmissionForm
 from problems.tasks import submit_problem_code
 from prologin.languages import Language
 from prologin.utils import cached
+from prologin.views import ChoiceGetAttrsMixin
+
 import problems.models
 
 logger = logging.getLogger(__name__)
@@ -33,7 +36,7 @@ def get_challenge(request, kwargs) -> (int, Event.Type, problems.models.Challeng
         raise Http404()
     try:
         challenge = problems.models.Challenge.by_year_and_event_type(year, event_type)
-        if not (challenge.displayable or request.user.is_staff):
+        if not request.user.has_perm('problems.view_challenge', challenge):
             raise ObjectDoesNotExist()
     except ObjectDoesNotExist:
         raise Http404()
@@ -47,6 +50,8 @@ def get_problem(request, kwargs) -> (int, Event.Type, problems.models.Challenge,
     year, event_type, challenge = get_challenge(request, kwargs)
     try:
         problem = problems.models.Problem(challenge, kwargs['problem'])
+        if not request.user.has_perm('problems.view_problem', problem):
+            raise ObjectDoesNotExist()
     except ObjectDoesNotExist:
         raise Http404()
     return year, event_type, challenge, problem
@@ -71,14 +76,14 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['challenges'] = [c for c in problems.models.Challenge.all()
-                if c.displayable or self.request.user.is_staff]
+                                 if self.request.user.has_perm('problems.view_challenge', c)]
         context['search_form'] = SearchForm()
         if not self.request.user.is_authenticated():
             del context['search_form'].fields['solved']
         return context
 
 
-class Challenge(TemplateView):
+class Challenge(PermissionRequiredMixin, TemplateView):
     """
     Displays the challenge statement and the list of all problems within a
     challenge along with the user score, if authenticated.
@@ -89,6 +94,11 @@ class Challenge(TemplateView):
         Event.Type.qualification.name: (Event.Type.qualification, 'qcm'),
         Event.Type.semifinal.name: (Event.Type.semifinal, 'demi'),
     }
+    permission_required = 'problems.view_challenge'
+
+    def get_permission_object(self):
+        year, event_type, challenge = get_challenge(self.request, self.kwargs)
+        return challenge
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -120,7 +130,7 @@ class Challenge(TemplateView):
         return context
 
 
-class Problem(CreateView):
+class Problem(PermissionRequiredMixin, CreateView):
     """
     Displays a single problem with its statement, its constraints, its samples
     and if the user is authenticated, the code editor and her previous submissions.
@@ -128,6 +138,16 @@ class Problem(CreateView):
     form_class = CodeSubmissionForm
     model = problems.models.SubmissionCode
     template_name = 'problems/problem.html'
+
+    def get_permission_required(self):
+        if self.request.method == 'GET':
+            return ['problems.view_problem']
+        else:
+            return ['problems.create_problem_code_submission']
+
+    def get_permission_object(self):
+        year, event_type, challenge, problem = get_problem(self.request, self.kwargs)
+        return problem
 
     def get_success_url(self):
         kwargs = self.kwargs.copy()
@@ -162,16 +182,14 @@ class Problem(CreateView):
         # staff users can fork (thus see) everyone's submissions
         prefill_submission = None
         try:
-            permissions = Q()
-            if not self.request.user.is_staff:
-                permissions = Q(submission__user=self.request.user)
             prefill_submission = (problems.models.SubmissionCode.objects
                                   .select_related('submission', 'submission__user')
                                   .filter(pk=int(self.request.GET['fork']),
                                           submission__problem=problem.name,
                                           submission__challenge=challenge.name)
-                                  .filter(permissions)
                                   .first())
+            if not self.request.user.has_perm('problems.view_code_submission', prefill_submission):
+                prefill_submission = None
         except (KeyError, ValueError):  # (no "fork=", non-numeric fork id)
             pass
         context['prefill_submission'] = prefill_submission
@@ -228,7 +246,7 @@ class Problem(CreateView):
         return super(ModelFormMixin, self).form_valid(form)
 
 
-class SubmissionCode(DetailView):
+class SubmissionCode(PermissionRequiredMixin, DetailView):
     """
     Displays a code submission and, if they are still available, the correction & performance results.
 
@@ -249,14 +267,11 @@ class SubmissionCode(DetailView):
     context_object_name = 'submission'
     pk_url_kwarg = 'submission'
     template_name = 'problems/submission.html'
+    permission_required = 'problems.view_code_submission'
 
     def get_queryset(self):
-        permissions = Q()
-        if not self.request.user.is_staff:
-            permissions = Q(submission__user=self.request.user)
         return (super().get_queryset()
-                .select_related('submission', 'submission__user')
-                .filter(permissions))
+                .select_related('submission', 'submission__user'))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -266,7 +281,7 @@ class SubmissionCode(DetailView):
         return context
 
 
-class SearchProblems(ListView):
+class SearchProblems(ChoiceGetAttrsMixin, ListView):
     """
     Searches for problems and display them in a paginated listing.
     """
@@ -274,6 +289,9 @@ class SearchProblems(ListView):
     template_name = 'problems/search_results.html'
     paginate_by = 20
     allow_empty = True
+
+    get_attrs = {'sort': ('title', 'year', 'difficulty'),
+                 'order': ('asc', 'desc')}
 
     def get(self, request, *args, **kwargs):
         self.form = SearchForm(self.request.GET if self.request.GET else None)
@@ -297,7 +315,7 @@ class SearchProblems(ListView):
                                               score_base__gt=0)
                                       .values_list('challenge', 'problem'))
             for challenge in problems.models.Challenge.all():
-                if not challenge.displayable:
+                if not self.request.user.has_perm('problems.view_challenge', challenge):
                     continue
                 if event_type and challenge.event_type.name == event_type:
                     continue
@@ -323,7 +341,19 @@ class SearchProblems(ListView):
             for problem in all_results:
                 problem.submission = submissions.get((problem.challenge.name, problem.name))
 
-        all_results.sort(key=lambda p: p.title.lower())
+        sort_by = self.get_clean_attr('sort')
+        sort_order = self.get_clean_attr('order')
+
+        o_title = lambda p: p.title.lower()
+        o_diff = lambda p: p.difficulty
+        o_year = lambda p: p.challenge.year
+
+        key = lambda p: (o_title(p), o_year(p), o_diff(p))
+        if sort_by == 'year':
+            key = lambda p: (o_year(p), o_title(p), o_diff(p))
+        elif sort_by == 'difficulty':
+            key = lambda p: (o_diff(p), o_title(p), o_year(p))
+        all_results.sort(key=key, reverse=sort_order == 'desc')
         return all_results
 
     def get_context_data(self, **kwargs):

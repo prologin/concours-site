@@ -459,6 +459,12 @@ footer .legal {
   max-width: 220px;
 }
 
+.progress-bar-fixed {
+  position: absolute;
+  left: 5px;
+  text-shadow: 0 0 2px rgba(255, 255, 255, 0.9);
+}
+
 .prologin-winner > i.fa {
   color: goldenrod;
 }

@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n markup drupal utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
+{% load i18n markup drupal rules utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
 
 
 {% block breadcrumbs %}
@@ -70,6 +70,8 @@
         {% endfor %}
       </article>
 
+    {% has_perm 'problems.create_problem_code_submission' user problem as can_submit %}
+    {% if can_submit %}
       <article class="problem-submit" id="submit">
         <h2>{% trans "Submit your solution" %}</h2>
         {% if request.user.is_authenticated %}
@@ -165,6 +167,7 @@
           <p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to submit your solution.{% endblocktrans %}</p>
         {% endif %}
       </article>
+    {% endif %}
     </div>
 
     <div class="col-md-3" role="complementary">
@@ -173,7 +176,7 @@
           <li><a href="#statement">{% trans "Statement" %}</a></li>
           <li><a href="#constraints">{% trans "Runtime constraints" %}</a></li>
           <li><a href="#samples">{% trans "Input/output samples" %}</a></li>
-          <li><a href="#submit">{% trans "Submit your solution" %}</a></li>
+          {% if can_submit %}<li><a href="#submit">{% trans "Submit your solution" %}</a></li>{% endif %}
         </ul>
       </nav>
     </div>

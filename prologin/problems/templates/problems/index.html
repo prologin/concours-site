@@ -28,7 +28,7 @@
                 <a href="{% url 'training:challenge' grouped_challenge.grouper challenge.event_type.name %}">
                 {{ challenge.event_type|choiceenum_label }}
                 <small class="text-muted">({% blocktrans count challenge.problems|length as count %}{{ count }}&nbsp;problem{% plural %}{{ count }}&nbsp;problems{% endblocktrans %}) </small>
-                {% if not challenge.displayable %}
+                {% if not challenge.displayable %} {# hidden to normal users; add a marker for staff #}
                   <span class="fa-stack fa-lg" style="font-size: 0.7em">
                   <i class="fa fa-eye fa-stack-1x"></i>
                   <i title="{% trans "Challenge is hidden to regular users" %}" class="fa fa-ban fa-stack-2x text-danger"></i>
