@@ -35,7 +35,8 @@ class HTTPRequestHandler(logging.Handler):
                                "meta": {k: repr(v) for k, v in request.META.items() if
                                         k.startswith("HTTP_")}} if request else None,
                    "level": {"name": record.levelname},
-                   "traceback": [(s.name, s.filename, s.lineno, s.line) for s in traceback.extract_tb(record.exc_info[2])],
+                   "traceback": [s if isinstance(s, tuple) else (s.filename, s.lineno, s.name, s.line)
+                                 for s in traceback.extract_tb(record.exc_info[2])],
                    "exception": {"value": repr(record.exc_info[1]),
                                  "trace": traceback.format_exception(*record.exc_info)}}
 
