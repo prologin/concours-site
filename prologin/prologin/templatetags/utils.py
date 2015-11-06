@@ -1,11 +1,12 @@
 from collections import defaultdict
-from django import template
-from django.conf import settings
-from django.template import Library, Node, TemplateSyntaxError
-from django.utils.encoding import smart_str
-import re
 import urllib
 import urllib.parse
+import re
+
+from django import template
+from django.conf import settings
+from django.template import Node, TemplateSyntaxError
+from django.utils.encoding import smart_str
 
 register = template.Library()
 
@@ -84,21 +85,24 @@ class CaptureasNode(template.Node):
 def qurl(parser, token):
     """
     Append, remove or replace query string parameters from an url (preserve order)
- 
+
         {% qurl url [param]* [as <var_name>] %}
- 
+
     param:
             name=value: replace all values of name by one value
             name=None: remove all values of name
             name+=value: append a new value for name
             name-=value: remove the value of name with the value
- 
+
     Example::
- 
+
         {% qurl '/search?page=1&color=blue&color=green' order='name' page=None color+='red' color-='green' %}
         Output: /search?color=blue&order=name&color=red
- 
+
         {% qurl request.get_full_path order='name' %}
+
+    Adapted from https://djangosnippets.org/snippets/2990/
+    Original author https://djangosnippets.org/users/pricco/
     """
     bits = token.split_contents()
     if len(bits) < 2:
