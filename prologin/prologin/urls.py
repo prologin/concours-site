@@ -6,6 +6,11 @@ from django.contrib import admin
 
 from homepage.views import HomepageView
 
+
+def crash_test(request):
+    1 / 0
+
+
 urlpatterns = [
     # Homepage
     url(r'^$', HomepageView.as_view(), name='home'),
@@ -47,8 +52,11 @@ urlpatterns += [
     # Authentication and accounts
     url(r'^user/', include('users.urls', namespace='users')),
 
+    # Crash test
+    url(r'^crashtest/', crash_test),
+
     # Pages
-    url('^', include('pages.urls', namespace='pages')),
+    url(r'^', include('pages.urls', namespace='pages')),
 
     # Monitoring
     url('', include('django_prometheus.urls')),
