@@ -1,14 +1,17 @@
-from django.conf.urls import include, url
-from django.views.generic.base import TemplateView
-from django.conf.urls.static import static
 from django.conf import settings
+from django.conf.urls import include, url
+from django.conf.urls.static import static
 from django.contrib import admin
+from django.http import HttpResponse
+from django.views.generic.base import TemplateView
 
 from homepage.views import HomepageView
 
 
 def crash_test(request):
-    1 / 0
+    if request.user.is_authenticated():
+        1 / 0
+    return HttpResponse(status=204)
 
 
 urlpatterns = [
