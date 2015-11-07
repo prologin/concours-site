@@ -279,8 +279,11 @@ class PasswordResetConfirmView(PasswordFormMixin, UpdateView):
         return user
 
     def form_valid(self, form):
+        user = self.get_object()
+        if not user:
+            return super().form_valid(form)
         messages.success(self.request, _("New password saved."))
-        if auto_login(self.request, self.get_object()):
+        if auto_login(self.request, user):
             messages.success(self.request, _("You have been automatically logged in."))
         return super().form_valid(form)
 
