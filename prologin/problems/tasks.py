@@ -14,8 +14,8 @@ from problems.models import SubmissionCode
 
 logger = get_task_logger('prologin.problems')
 
-correction_status = Counter('correction_status', "Problem submission correction status", ['problem', 'status'])
-correction_score = Histogram('correction_score', "Problem submission score by problem", ['problem'])
+correction_status = Counter('prologin_correction_status', "Problem submission correction status", ['problem', 'status'])
+correction_score = Histogram('prologin_correction_score', "Problem submission score by problem", ['problem'])
 
 
 @shared_task(bind=True)
