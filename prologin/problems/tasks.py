@@ -6,12 +6,16 @@ from celery.utils.log import get_task_logger
 from django.conf import settings
 from django.db import transaction
 from django.utils import timezone
+from prometheus_client import Counter, Histogram
 from xml.etree import ElementTree
 
 from problems.corrector import remote_check, parse_xml
 from problems.models import SubmissionCode
 
 logger = get_task_logger('prologin.problems')
+
+correction_status = Counter('correction_status', "Problem submission correction status", ['problem', 'status'])
+correction_score = Histogram('correction_score', "Problem submission score by problem", ['problem'])
 
 
 @shared_task(bind=True)
@@ -26,6 +30,7 @@ def submit_problem_code(self, code_submission_id):
                        .select_related('submission', 'submission__user')
                        .get(pk=code_submission_id))
     submission = code_submission.submission
+    stat_key = '{}/{}'.format(submission.challenge, submission.problem)
 
     def get_score(difficulty, result):
         """
@@ -83,7 +88,8 @@ def submit_problem_code(self, code_submission_id):
 
         code_submission.score = this_score
         code_submission.date_corrected = timezone.now()
-        logger.info("Score is %d", code_submission.score)
+        logger.debug("Score is %d", code_submission.score)
+        correction_score.labels(stat_key).observe(code_submission.score)
         # TODO: implement when data available in VM
         # code_submission.exec_time = get exec_time from `result`
         # code_submission.exec_memory = get exec_memory from `result`
@@ -130,8 +136,10 @@ def submit_problem_code(self, code_submission_id):
             logger.info("[%s] correcting: %s…", corrector_uri, code_submission)
             result = submit(corrector_uri)
             logger.info("[%s] corrected successfully: %s", corrector_uri, code_submission)
+            correction_status.labels(stat_key, 'ok').inc()
             return result
         except Exception:  # noqa
             logger.exception("[%s] corrector failed", corrector_uri)
+            correction_status.labels(stat_key, 'error').inc()
 
     logger.error("All correctors failed to correct %s", code_submission)
