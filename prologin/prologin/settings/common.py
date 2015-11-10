@@ -69,7 +69,6 @@ INSTALLED_APPS = (
     'django_comments',
     'django_prometheus',
     'djmail',
-    'macros',
     'mptt',
     'rules.apps.AutodiscoverRulesConfig',
     'tagging',

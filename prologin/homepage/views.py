@@ -6,6 +6,7 @@ from zinnia.models import Entry
 import contest.models
 import qcm.models
 import problems.models
+import sponsor.models
 
 
 class HomepageView(TemplateView):
@@ -45,4 +46,5 @@ class HomepageView(TemplateView):
         context['problems_completed'] = problems_completed
         context['born_year'] = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
         context['articles'] = articles
+        context['sponsors'] = sponsor.models.Sponsor.active.all()
         return context

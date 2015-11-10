@@ -1,17 +1,16 @@
-{% load i18n macros static %}
-
-{% macro sponsor url icon name %}
-  {# TODO: i18n "name" #}
-  <div class="col-xs-6 col-sm-12">
-    <a href="{{ url }}" title="{{ name }}"><img alt="{{ name }}" src="{% static icon %}" class="sponsor" /></a>
-  </div>
-{% endmacro %}
+{% load i18n %}
 
 <h2>{% trans "Sponsors" %}</h2>
 <div class="row">
-{% usemacro sponsor "http://www.education.gouv.fr/" "img/sponsors/ministere-education.png" "Éducation Nationale" %}
-{% usemacro sponsor "http://delegation.internet.gouv.fr/" "img/sponsors/delegation-internet.png" "Délégation Internet" %}
-{% usemacro sponsor "http://www.epita.fr/" "img/sponsors/epita.jpg" "EPITA" %}
-{% usemacro sponsor "http://www.polytechnique.fr/" "img/sponsors/polytechnique.jpg" "École Polytechnique" %}
-{% usemacro sponsor "http://www.upmc.fr/" "img/sponsors/upmc.png" "UPMC" %}
+  {% for sponsor in sponsors %}
+  <div class="col-xs-6 col-sm-12 text-center">
+    {% if sponsor.site %}<a href="{{ sponsor.site }}" title="{{ sponsor.name }}" rel="nofollow">{% endif %}
+      {% if sponsor.logo %}
+      <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" class="sponsor" />
+      {% else %}
+        <strong>{{ sponsor.name }}</strong>
+      {% endif %}
+    {% if sponsor.site %}</a>{% endif %}
+  </div>
+  {% endfor %}
 </div>

@@ -31,8 +31,6 @@ django-tagging
 django-timezone-field
 # Micro mail framework for plaintext/HTML mails
 djmail>=0.10.0
-# This is a fork for 1.8 compat
-git+https://github.com/worldveil/django-templates-macros.git#egg=django-templates-macros
 # Tool to query Geoip services for exam center geo-localization
 geopy
 # JSONField() for models
