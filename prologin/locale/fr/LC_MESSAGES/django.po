@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-07 00:38+0100\n"
-"PO-Revision-Date: 2015-11-06 23:39+0000\n"
+"POT-Creation-Date: 2015-11-10 19:02+0100\n"
+"PO-Revision-Date: 2015-11-10 18:03+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1897,11 +1897,11 @@ msgstr "En attente"
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:117
+#: problems/models/submission.py:116
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:118
+#: problems/models/submission.py:117
 msgid "Submission codes"
 msgstr "Codes soumis"
 
@@ -2426,14 +2426,18 @@ msgid "Test failed."
 msgstr "Test échoué."
 
 #: problems/templates/problems/stub_submission_result.html:8
+msgid "Detailed output is hidden."
+msgstr "Le détail du résultat est caché."
+
+#: problems/templates/problems/stub_submission_result.html:11
 msgid "Expected:"
 msgstr "Attendu&nbsp;:"
 
-#: problems/templates/problems/stub_submission_result.html:10
+#: problems/templates/problems/stub_submission_result.html:13
 msgid "Returned by your program:"
 msgstr "Obtenu par votre programme&nbsp;:"
 
-#: problems/templates/problems/stub_submission_result.html:13
+#: problems/templates/problems/stub_submission_result.html:16
 msgid "Standard error output:"
 msgstr "Sortie de l'erreur standard&nbsp;:"
 
@@ -2446,7 +2450,7 @@ msgstr "Soumission pour %(problem)s"
 #: problems/templates/problems/submission.html:27
 #, python-format
 msgid "Submitted by <strong>%(username)s</strong>"
-msgstr "Soumis par <strong>%(username)s</strong>"
+msgstr "Soumise par <strong>%(username)s</strong>"
 
 #: problems/templates/problems/submission.html:28
 #, python-format
@@ -3291,7 +3295,7 @@ msgstr "Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s po
 msgid "Your account was activated. Enjoy your visit!"
 msgstr "Votre compte est activé. Bonne visite&nbsp;!"
 
-#: users/views.py:134 users/views.py:284
+#: users/views.py:134 users/views.py:287
 msgid "You have been automatically logged in."
 msgstr "Vous avez été connecté automatiquement."
 
@@ -3307,7 +3311,7 @@ msgstr "Le lien d'activation que vous avez fourni est invalide ou obsolète. Si 
 msgid "Changes saved."
 msgstr "Modifications enregistrées."
 
-#: users/views.py:224 users/views.py:282
+#: users/views.py:224 users/views.py:285
 msgid "New password saved."
 msgstr "Mot de passe modifié."
 
