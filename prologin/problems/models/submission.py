@@ -12,7 +12,7 @@ from prologin.models import CodingLanguageField
 from problems.models.problem import Challenge, Problem
 
 SubmissionResults = collections.namedtuple('SubmissionResults', 'compilation correction performance')
-SubmissionTest = collections.namedtuple('SubmissionTest', 'name success expected returned debug')
+SubmissionTest = collections.namedtuple('SubmissionTest', 'name success expected returned debug hidden')
 
 
 class Submission(ExportModelOperationsMixin('submission'), models.Model):
@@ -98,12 +98,11 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
         test_corr = []
         test_perf = []
         for test in tests:
-            if test.get('hidden'):
-                continue
             result_obj = SubmissionTest(name=test['id'],
                                         success=test['passed'],
                                         expected=test.get('ref', '') or '',
                                         returned=test.get('program', '') or '',
+                                        hidden=test.get('hidden'),
                                         debug=test.get('debug', '') or '')
             (test_perf if test['performance'] else test_corr).append(result_obj)
         return SubmissionResults(compilation=compilation, correction=test_corr, performance=test_perf)
