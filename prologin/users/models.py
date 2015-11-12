@@ -88,7 +88,7 @@ class ProloginUser(ExportModelOperationsMixin('user'), AbstractUser, Addressable
 
     gender = GenderField(blank=True, null=True, db_index=True)
     school_stage = EnumField(EducationStage, null=True, db_index=True,
-                             verbose_name=_("Educational stage"))
+                             blank=True, verbose_name=_("Educational stage"))
     phone = models.CharField(max_length=16, blank=True, verbose_name=_("Phone"))
     birthday = models.DateField(blank=True, null=True,
                                 verbose_name=_("Birth day"),
