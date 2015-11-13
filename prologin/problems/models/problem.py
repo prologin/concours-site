@@ -5,54 +5,7 @@ from django.core.exceptions import ObjectDoesNotExist
 
 from contest.models import Event
 from prologin.languages import Language
-
-ENCODINGS = ('utf-8', 'latin1')
-
-
-def open_try_hard(callback, filename, *args, encodings=ENCODINGS, **kwargs):
-    """
-    Small wrapper around open() that tries to apply `callback` on all
-    encodings from `encodings` (in order) instead of failing directly on
-    UnicodeDecodeError.
-    """
-    for encoding in encodings:
-        try:
-            kwargs['encoding'] = encoding
-            with open(filename, *args, **kwargs) as f:
-                return callback(f)
-        except UnicodeDecodeError:
-            pass
-    else:
-        raise ValueError("Could not find proper encoding (tried {}) for file: {}"
-                         .format(', '.join(ENCODINGS), filename))
-
-
-def lazy_attr(prop_name, getter):
-    def wrapped(self, *args, **kwargs):
-        try:
-            return getattr(self, prop_name)
-        except AttributeError:
-            data = getter(self, *args, **kwargs)
-            setattr(self, prop_name, data)
-            return data
-    return property(wrapped)
-
-
-def read_props(filename):
-    def parse(value):
-        value = value.strip()
-        value_lower = value.lower()
-        if value.isnumeric() or (value.startswith('-') and value[1:].isnumeric()):
-            return int(value)
-        if value_lower in ('true', 'false'):
-            return value_lower == 'true'
-        return value
-
-    def props(f):
-        return {k.strip(): parse(v)
-                for line in f if line.strip()
-                for k, v in [line.split(':', 1)]}
-    return open_try_hard(props, filename)
+from prologin.utils import open_try_hard, lazy_attr, read_props
 
 
 class Challenge:
@@ -129,7 +82,7 @@ class Challenge:
         self._event_type = event_type
         path = self.file_path('challenge.props')
         if not os.path.exists(path):
-            raise ObjectDoesNotExist("No such Challenge: not such file: {}".format(path))
+            raise ObjectDoesNotExist("No such Challenge: no such file: {}".format(path))
 
     def __hash__(self):
         return hash(self._low_level_name)
