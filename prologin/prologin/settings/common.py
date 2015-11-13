@@ -260,6 +260,8 @@ TRAINING_RESULT_POLL_INTERVAL = 3 * 1000
 TRAINING_CHALLENGE_WHITELIST = ()
 TRAINING_PROBLEM_REPOSITORY_PATH = os.path.join(BASE_DIR, 'problems')
 
+# Path to archives repository (sub-folders shall be years)
+ARCHIVES_REPOSITORY_PATH = os.path.join(BASE_DIR, 'archives')
 
 # Recaptcha
 
