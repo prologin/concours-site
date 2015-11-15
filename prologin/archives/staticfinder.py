@@ -12,7 +12,7 @@ class ArchivesStaticFinder(PatternStaticFinder):
         '/*/poster_*.jpg',
         '/*/questionnaire/*.pdf',
         '/*/demi-finales/sujet/*',
-        '/*/finale/conf/*',
+        '/*/finale/confs/*',
         '/*/finale/sujet/*',
         '/*/finale/xdm/*',
     )
