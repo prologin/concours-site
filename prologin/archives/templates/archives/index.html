@@ -29,15 +29,9 @@
           <div class="panel-heading" {% if archive.poster_big %}style="background-image: url({% static archive.poster_big %});"{% endif %}>
             <h2>{% blocktrans with year=archive.year %}Prologin {{ year }}{% endblocktrans %}</h2>
             {% if archive.poster_small or archive.poster_big %}
-              <div class="btn-group poster-button">
-                <button type="button" class="btn btn-default dropdown-toggle btn-xs" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="fa fa-picture-o"></i> {% trans "Poster" %} <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu">
-                  {% if archive.poster_big  %}<li><a href="{% static archive.poster_big %}" target="_blank">{% trans "Download original" %}</a></li>{% endif %}
-                  {% if archive.poster_small %}<li><a href="{% static archive.poster_small %}" target="_blank">{% trans "Download thumbnail" %}</a></li>{% endif %}
-                </ul>
-              </div>
+              <a class="btn btn-default btn-xs poster-button" href="{% if archive.poster_big %}{% static archive.poster_big %}{% else %}{% static archive.poster_small %}{% endif %}" target="_blank">
+                <i class="fa fa-picture-o"></i> {% trans "Download poster" %}
+              </a>
             {% endif %}
           </div>
           <div class="panel-body flex-grow">

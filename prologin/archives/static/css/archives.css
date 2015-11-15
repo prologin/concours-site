@@ -69,15 +69,13 @@
 }
 
 .archive .panel-heading .poster-button {
+  display: inline-block;
   margin-top: 28px;
-}
-
-.archive .panel-heading .poster-button button, .archive .panel-heading .poster-button .dropdown-menu {
   opacity: 0;
   transition: opacity ease 0.2s;
 }
 
-.archive .panel-heading:hover .poster-button button, .archive .panel-heading:hover .poster-button .dropdown-menu {
+.archive .panel-heading:hover .poster-button {
   opacity: 1;
 }
 
