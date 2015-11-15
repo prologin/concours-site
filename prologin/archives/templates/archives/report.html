@@ -1,0 +1,21 @@
+{% extends "prologin/base.html" %}
+{% load i18n utils markup staticfiles django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "archives:index" %}{% trans "Archives" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "archives:report" archive.year event_type.name %}{% blocktrans with year=archive.year event=event_type|choiceenum_label %}Report for {{ event }} {{ year }}{% endblocktrans %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block extra_head %}
+  <link href="{% static 'css/archives.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{% blocktrans with year=archive.year event=event_type|choiceenum_label %}Report for {{ event }} {{ year }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+  <h1>{% blocktrans with year=archive.year event=event_type|choiceenum_label %}Report for {{ event }} {{ year }}{% endblocktrans %}</h1>
+
+  {{ content|archive_markdown:archive.final.scoreboard }}
+
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "prologin/base.html" %}
+{% load i18n utils staticfiles django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "archives:index" %}{% trans "Archives" %}{% endbreadcrumb_for %}
+  {% breadcrumb archive.year '' %}
+  {% breadcrumb_for "archives:finale-scoreboard" archive.year %}{% trans "Final scoreboard" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block extra_head %}
+  <link href="{% static 'css/archives.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{% blocktrans with year=archive.year %}Final scoreboard for Prologin {{ year }} final{% endblocktrans %}{% endblock %}
+
+{% block content %}
+  <h1>{% blocktrans with year=archive.year %}Final scoreboard for Prologin {{ year }} final{% endblocktrans %}</h1>
+  {% with archive.final.scoreboard as scoreboard %}
+    {% include "archives/inline-scoreboard.html" %}
+  {% endwith %}
+{% endblock %}

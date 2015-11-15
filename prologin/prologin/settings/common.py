@@ -75,6 +75,7 @@ INSTALLED_APPS = (
 
     # Prologin apps
     'prologin',
+    'archives',
     'centers',
     'contest',
     'documents',
@@ -186,6 +187,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
     'problems.staticfinder.TrainingStaticFinder',
+    'archives.staticfinder.ArchivesStaticFinder',
 )
 
 
@@ -263,6 +265,7 @@ TRAINING_PROBLEM_REPOSITORY_STATIC_PREFIX = 'problems'
 
 # Path to archives repository (sub-folders shall be years)
 ARCHIVES_REPOSITORY_PATH = os.path.join(BASE_DIR, 'archives')
+ARCHIVES_REPOSITORY_STATIC_PREFIX = 'archives'
 
 # Recaptcha
 

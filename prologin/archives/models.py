@@ -24,7 +24,7 @@ class BaseArchive:
         return self.archive.file_path(self.dir_name, *tail)
 
     def file_url(self, *tail) -> str:
-        return self.archive.file_url(self.dir_name, *tail)
+        return os.path.join(settings.ARCHIVES_REPOSITORY_STATIC_PREFIX, self.archive.file_url(self.dir_name, *tail))
 
     @classmethod
     def file_url_or_none(cls, *tail) -> str:
@@ -36,8 +36,13 @@ class BaseArchive:
 
         return func
 
+    def populated(self):
+        raise NotImplementedError("BaseArchive subclasses has to implement populated()")
+
     def __repr__(self):
-        return "<{} for {}>".format(self.__class__.__name__, self.archive.year)
+        return "<{} for {}{}>".format(self.__class__.__name__,
+                                      self.archive.year,
+                                      '' if self.populated() else ' (empty)')
 
 
 class WithChallengeMixin:
@@ -48,7 +53,10 @@ class WithChallengeMixin:
 
     @property
     def challenge(self) -> problems.models.Challenge:
-        return problems.models.Challenge.by_year_and_event_type(self.archive.year, self.event_type)
+        try:
+            return problems.models.Challenge.by_year_and_event_type(self.archive.year, self.event_type)
+        except ObjectDoesNotExist:
+            return None
 
 
 class WithContentMixin:
@@ -63,7 +71,7 @@ class WithContentMixin:
 
         try:
             return open_try_hard(callback, self.file_path('content.html'))
-        except ValueError:
+        except (ValueError, FileNotFoundError):
             return None
 
     content = lazy_attr('_content_', _get_content)
@@ -84,7 +92,10 @@ class QualificationArchive(WithChallengeMixin, BaseArchive):
 
     @property
     def quiz(self) -> qcm.models.Qcm:
-        return qcm.models.Qcm.objects.get(event__edition__year=self.archive.year, event__type=self.event_type.value)
+        return qcm.models.Qcm.objects.filter(event__edition__year=self.archive.year, event__type=self.event_type.value).first()
+
+    def populated(self):
+        return any((self.pdf_statement, self.pdf_correction, self.quiz, self.challenge))
 
 
 class SemifinalArchive(WithContentMixin, WithChallengeMixin, BaseArchive):
@@ -96,37 +107,46 @@ class SemifinalArchive(WithContentMixin, WithChallengeMixin, BaseArchive):
     dir_name = 'demi-finales'
     event_type = contest.models.Event.Type.semifinal
 
+    def populated(self):
+        return any((self.content, self.challenge))
+
 
 class FinalArchive(WithContentMixin, BaseArchive):
     """
     Final archive. May have:
         - a content
-        - a hall of fame
+        - a scoreboard
     """
     dir_name = 'finale'
 
-    HallPerson = namedtuple('HallPerson', 'name extra')
+    ScoreboardItem = namedtuple('ScoreboardItem', 'name extra')
 
-    def _get_hall_of_fame(self):
+    def _get_scoreboard(self):
         def reader(file):
             return file.readlines()
 
-        try:
+        def generator():
             lines = open_try_hard(reader, self.file_path('HallOfFame'))
-        except FileNotFoundError:
-            return
-        for line in lines:
-            line = line.strip()
-            if not line:
-                continue
-            name, *extra = line.split('(', 1)
-            particle = name.split()[0]
-            if particle.endswith('.'):
-                name = '{} {}'.format(particle.capitalize().strip(), name.split('.', 1)[1].strip())
-            extra = ' '.join(p.strip().strip('()').strip() for p in extra)
-            yield FinalArchive.HallPerson(name=name.strip().title(), extra=extra)
+            for line in lines:
+                line = line.strip()
+                if not line:
+                    continue
+                name, *extra = line.split('(', 1)
+                particle = name.split()[0]
+                if particle.endswith('.'):
+                    name = '{} {}'.format(particle.capitalize().strip(), name.split('.', 1)[1].strip())
+                extra = ' '.join(p.strip().strip('()').strip() for p in extra)
+                yield FinalArchive.ScoreboardItem(name=name.strip().title(), extra=extra)
 
-    hall_of_fame = lazy_attr('_hall_of_fame_', _get_hall_of_fame)
+        try:
+            return list(generator())
+        except FileNotFoundError:
+            return None
+
+    scoreboard = lazy_attr('_scoreboard_', _get_scoreboard)
+
+    def populated(self):
+        return any((self.content, self.scoreboard))
 
 
 def subtype_factory(prop_name, cls):
@@ -144,7 +164,7 @@ def get_poster_factory(size):
     def getter(self):
         path = self.file_path(name)
         if os.path.exists(path):
-            return self.file_url(name)
+            return os.path.join(settings.ARCHIVES_REPOSITORY_STATIC_PREFIX, self.file_url(name))
         return None
 
     return lazy_attr('_poster_{}_'.format(size), getter)
@@ -211,3 +231,6 @@ class Archive:
 
     def __lt__(self, other):
         return self.year.__lt__(other.year)
+
+    def has_qualification(self):
+        return self.qualification

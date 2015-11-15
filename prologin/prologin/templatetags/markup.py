@@ -39,6 +39,14 @@ def flavored_markdown(value):
     return rendered
 
 
+@register.filter
+def archive_markdown(value, scoreboard):
+    from prologin.utils.markdown.scoreboard import ScoreboardExtension
+    converter = markdown_lib.Markdown(extensions=[ScoreboardExtension(scoreboard)], safe_mode=False, output_format='html5')
+    rendered = mark_safe(converter.convert(value))
+    return rendered
+
+
 @register.simple_tag
 def pygmentize(code, language, **options):
     lexer = pygments.lexers.get_lexer_by_name(language)

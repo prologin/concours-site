@@ -1,0 +1,90 @@
+.row-flex, .row-flex > div[class*='col-'] {
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  flex: 1 1 auto;
+}
+
+.row-flex-wrap {
+  -webkit-flex-flow: row wrap;
+  align-content: flex-start;
+  flex: 0;
+}
+
+.row-flex > div[class*='col-'], .container-flex > div[class*='col-'] {
+  margin: -.2px; /* hack adjust for wrapping */
+}
+
+.container-flex > div[class*='col-'] > div, .row-flex > div[class*='col-'] > div, .flex-grow > div {
+  width: 100%;
+}
+
+.flex-col {
+  display: flex;
+  display: -webkit-flex;
+  flex: 1 100%;
+  flex-flow: column nowrap;
+}
+
+.flex-grow {
+  display: flex;
+  -webkit-flex: 2;
+  flex: 2;
+}
+
+.archive h4:first-child {
+  margin-top: 0;
+}
+
+.archive .panel-heading {
+  position: relative;
+  background-size: cover;
+  background-image: url('../img/archive-placeholder.png');
+  background-repeat: no-repeat;
+  background-position-y: 25%;
+  height: 110px;
+  text-align: center;
+  z-index: 0;
+}
+
+.archive .panel-heading:after {
+  position: absolute;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-image: linear-gradient(rgba(0, 0, 0, .85) 0, rgba(0, 0, 0, .35) 60px, rgba(0, 0, 0, .35) 100%);
+  border-radius: 4px 4px 0 0; /* hack fix */
+}
+
+.archive .panel-heading h2 {
+  color: white;
+  font-size: 2em;
+  margin: 0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.archive .panel-heading .poster-button {
+  margin-top: 28px;
+}
+
+.archive .panel-heading .poster-button button, .archive .panel-heading .poster-button .dropdown-menu {
+  opacity: 0;
+  transition: opacity ease 0.2s;
+}
+
+.archive .panel-heading:hover .poster-button button, .archive .panel-heading:hover .poster-button .dropdown-menu {
+  opacity: 1;
+}
+
+.archive li .fa-fw {
+  font-size: 14px;
+}
+
+.archive-empty {
+  padding: 10px 15px; /* same as .nav > li > a */
+}
