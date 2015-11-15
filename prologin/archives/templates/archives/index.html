@@ -75,7 +75,7 @@
                   <li><a href="{% url 'archives:report' archive.year 'final' %}"><i class="fa fa-fw fa-bullhorn"></i> {% trans "Final report" %}</a></li>
                 {% endif %}
                 {% if archive.final.scoreboard %}
-                  <li><a href="{% url 'archives:finale-scoreboard' archive.year %}"><i class="fa fa-fw fa-trophy"></i> {% trans "Score board" %}</a></li>
+                  <li><a href="{% url 'archives:finale-scoreboard' archive.year %}"><i class="fa fa-fw fa-trophy"></i> {% trans "Scoreboard" %}</a></li>
                 {% endif %}
                 </ul>
               {% else %}
