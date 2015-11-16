@@ -42,8 +42,7 @@
         <dd>{{ shown_user.email|default:noinfo }}</dd>
 
         <dt>{% trans "Birth day" %}</dt>
-        <dd>{% if shown_user.birthday %}{{ shown_user.birthday }} ({{ shown_user.birthday|timesince }}
-          ){% else %}{{ noinfo }}{% endif %}</dd>
+        <dd>{% if shown_user.birthday %}{{ shown_user.birthday }} ({{ shown_user.birthday|timesince }}){% else %}{{ noinfo }}{% endif %}</dd>
 
         <dt>{% trans "Postal address" %}</dt>
         <dd>

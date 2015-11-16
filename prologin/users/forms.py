@@ -10,7 +10,6 @@ from .widgets import PreviewFileInput
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
-        # TODO: add preferred_locale with a language dropdown
         model = get_user_model()
         fields = ('first_name', 'last_name', 'gender', 'birthday',
                   'address', 'postal_code', 'city', 'country',
