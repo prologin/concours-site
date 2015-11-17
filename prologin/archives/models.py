@@ -1,4 +1,5 @@
 import os
+import random
 import redis
 import yaml
 from collections import namedtuple
@@ -109,7 +110,9 @@ class WithFlickrMixin:
         cred = settings.ARCHIVES_FLICKR_REDIS_STORE.copy()
         cred.pop('prefix')
         store = redis.StrictRedis(**cred)
-        return store.lrange(self._flickr_redis_key(), 0, -1)
+        photos = store.lrange(self._flickr_redis_key(), 0, -1)
+        random.shuffle(photos)
+        return photos
 
     flickr_thumbs = lazy_attr('_flickr_thumbs_', _get_flickr_thumbs)
 

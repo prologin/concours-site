@@ -4,7 +4,7 @@ from archives.tasks import extract_archive_flickr_photos
 
 
 class Command(BaseCommand):
-    help = "Download Flickr album photos for all archives and randomize them into Redis."
+    help = "Download Flickr album photos for all archives and cache the URLs in Redis."
 
     def handle(self, *args, **options):
         self.stdout.write("Scheduling task...")

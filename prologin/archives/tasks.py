@@ -1,7 +1,6 @@
 from celery import shared_task
 from celery.utils.log import get_task_logger
 from django.conf import settings
-import random
 
 import archives.models
 import redis
@@ -17,7 +16,6 @@ def extract_archive_flickr_photos(self):
 
     for archive in archives.models.Archive.all_archives():
         photos = list(archive.final.get_flickr_photos())
-        random.shuffle(photos)
         key = archive.final._flickr_redis_key()
         store.delete(key)
         for photo in photos:
