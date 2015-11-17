@@ -1,4 +1,6 @@
 import os
+import redis
+import yaml
 from collections import namedtuple
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,6 +9,7 @@ from django.utils.safestring import mark_safe
 import contest.models
 import problems.models
 import qcm.models
+from archives.flickr import Flickr
 from prologin.utils import lazy_attr, open_try_hard
 
 
@@ -77,6 +80,40 @@ class WithContentMixin:
     content = lazy_attr('_content_', _get_content)
 
 
+class WithFlickrMixin:
+    flickr_album_id = None
+    flickr_redis_suffix = None
+
+    def get_flickr_album_id(self):
+        return self.flickr_album_id
+
+    def get_flickr_photos(self):
+        flickr = Flickr(*settings.ARCHIVES_FLICKR_CREDENTIALS)
+        if self.get_flickr_album_id():
+            return list(flickr.photos(self.get_flickr_album_id()))
+        else:
+            return []
+
+    @property
+    def flickr_album_url(self):
+        return settings.ARCHIVES_FLICKR_ALBUM_URL % {'id': self.get_flickr_album_id()}
+
+    def _flickr_redis_key(self):
+        cred = settings.ARCHIVES_FLICKR_REDIS_STORE.copy()
+        prefix = cred.pop('prefix')
+        return '{}.{}.{}'.format(prefix, self.archive.year, self.flickr_redis_suffix)
+
+    def _get_flickr_thumbs(self):
+        if not self.flickr_redis_suffix:
+            raise ValueError('`flickr_redis_suffix` can not be empty')
+        cred = settings.ARCHIVES_FLICKR_REDIS_STORE.copy()
+        cred.pop('prefix')
+        store = redis.StrictRedis(**cred)
+        return store.lrange(self._flickr_redis_key(), 0, -1)
+
+    flickr_thumbs = lazy_attr('_flickr_thumbs_', _get_flickr_thumbs)
+
+
 class QualificationArchive(WithChallengeMixin, BaseArchive):
     """
     Qualification archive. May have:
@@ -111,15 +148,25 @@ class SemifinalArchive(WithContentMixin, WithChallengeMixin, BaseArchive):
         return any((self.content, self.challenge))
 
 
-class FinalArchive(WithContentMixin, BaseArchive):
+class FinalArchive(WithFlickrMixin, WithContentMixin, BaseArchive):
     """
     Final archive. May have:
         - a content
         - a scoreboard
+        - a flickr photo list
     """
     dir_name = 'finale'
+    flickr_redis_suffix = dir_name
 
     ScoreboardItem = namedtuple('ScoreboardItem', 'name extra')
+
+    def get_flickr_album_id(self):
+        def read(file):
+            return yaml.load(file.read()).get('flickr-album-id')
+        try:
+            return open_try_hard(read, self.file_path('event.props'))
+        except (FileNotFoundError, yaml.YAMLError):
+            return None
 
     def _get_scoreboard(self):
         def reader(file):
