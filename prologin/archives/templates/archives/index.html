@@ -29,9 +29,11 @@
           <div class="panel-heading" {% if archive.poster_big %}style="background-image: url({% static archive.poster_big %});"{% endif %}>
             <h2>{% blocktrans with year=archive.year %}Prologin {{ year }}{% endblocktrans %}</h2>
             {% if archive.poster_small or archive.poster_big %}
-              <div class="poster-button-cont"><a class="btn btn-default btn-sm poster-button" href="{% if archive.poster_big %}{% static archive.poster_big %}{% else %}{% static archive.poster_small %}{% endif %}" target="_blank">
+              <div class="poster-button-cont"><a class="btn btn-primary btn-sm poster-button" href="{% if archive.poster_big %}{% static archive.poster_big %}{% else %}{% static archive.poster_small %}{% endif %}" target="_blank">
                 <i class="fa fa-picture-o"></i> {% trans "Download poster" %}
               </a></div>
+            {% else %}
+              <div class="poster-button-cont"><button type="button" disabled="disabled" class="btn btn-default btn-sm poster-button">{% trans "Poster not available" %}</button></div>
             {% endif %}
           </div>
           <div class="panel-body archive-body">
