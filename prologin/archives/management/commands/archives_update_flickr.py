@@ -1,14 +1,26 @@
+import redis
+from django.conf import settings
 from django.core.management import BaseCommand
 
-from archives.tasks import extract_archive_flickr_photos
+import archives.models
+from archives.flickr import Flickr
 
 
 class Command(BaseCommand):
     help = "Download Flickr album photos for all archives and cache the URLs in Redis."
 
     def handle(self, *args, **options):
-        self.stdout.write("Scheduling task...")
-        future = extract_archive_flickr_photos.apply_async()
-        self.stdout.write("Waiting for result...")
-        future.get(timeout=None)
-        self.stdout.write("Done.")
+        flickr = Flickr(*settings.ARCHIVES_FLICKR_CREDENTIALS)
+
+        cred = settings.ARCHIVES_FLICKR_REDIS_STORE.copy()
+        cred.pop('prefix')
+        store = redis.StrictRedis(**cred)
+
+        for archive in sorted(archives.models.Archive.all_archives()):
+            photos = list(archive.final.get_flickr_photos(flickr=flickr))
+            key = archive.final._flickr_redis_key()
+            store.delete(key)
+            for photo in photos:
+                store.lpush(key, photo['url_sq'])
+
+            self.stdout.write("Stored {} photos for {}".format(len(photos), archive))

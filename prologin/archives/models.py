@@ -88,8 +88,9 @@ class WithFlickrMixin:
     def get_flickr_album_id(self):
         return self.flickr_album_id
 
-    def get_flickr_photos(self):
-        flickr = Flickr(*settings.ARCHIVES_FLICKR_CREDENTIALS)
+    def get_flickr_photos(self, flickr=None):
+        if not flickr:
+            flickr = Flickr(*settings.ARCHIVES_FLICKR_CREDENTIALS)
         if self.get_flickr_album_id():
             return list(flickr.photos(self.get_flickr_album_id()))
         else:
