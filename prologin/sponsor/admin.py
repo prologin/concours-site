@@ -4,20 +4,14 @@ from django.utils.translation import ugettext_lazy as _
 import sponsor.models
 
 
-class EditionInline(admin.TabularInline):
-    model = sponsor.models.Sponsor.editions.through
-    extra = 1
-
-
 class SponsorAdmin(admin.ModelAdmin):
     list_display = ('name', 'description', 'site', 'contact_position', 'contact_first_name', 'contact_last_name',
                     'is_active_bool',)
-    list_filter = ('is_active', 'editions',)
+    list_filter = ('is_active',)
     ordering = ('name',)
     search_fields = ('name', 'description', 'comment', 'site',
                      'contact_position', 'contact_email', 'contact_first_name', 'contact_last_name',
                      'contact_phone_desk', 'contact_phone_mobile', 'contact_phone_fax',)
-    inlines = [EditionInline]
 
     def is_active_bool(self, obj):
         return obj.is_active
