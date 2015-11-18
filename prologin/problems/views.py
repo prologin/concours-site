@@ -317,7 +317,7 @@ class SearchProblems(ChoiceGetAttrsMixin, ListView):
             for challenge in problems.models.Challenge.all():
                 if not self.request.user.has_perm('problems.view_challenge', challenge):
                     continue
-                if event_type and challenge.event_type.name == event_type:
+                if event_type and challenge.event_type.name != event_type:
                     continue
                 for problem in challenge.problems:
                     if difficulty_min is not None and problem.difficulty < difficulty_min:
