@@ -30,6 +30,8 @@ class ScoreboardProcessor(BlockProcessor):
         scoreboard = etree.SubElement(parent, 'div', {'class': 'scoreboard'})
         scoreboard.text = get_template('archives/inline-scoreboard.html').render({
             'scoreboard': self.scoreboard[start:end],
+            'scoreboard_start': 1 if start is None else start + 1,
+            'scoreboard_end': end or len(self.scoreboard),
         })
 
 
