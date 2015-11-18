@@ -58,11 +58,11 @@ problems from both the Prologin online qualifications and the on-site semifinals
       <p>{% blocktrans %}Read the problem statement carefully and submit your solution. The system will check your
 submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you
 need to solve the problem.{% endblocktrans %}</p>
+      {% url 'training:manual' as manual_url %}
+      <p>{% blocktrans %}If you need any help with the automatic correction
+      system, you can read the <a href="{{ manual_url }}" style="white-space: nowrap;"><i class="fa fa-book"></i> online judge manual</a>.
+      {% endblocktrans %}</p>
     </div>
   </div>
 
-  {% url 'training:manual' as manual_url %}
-  <p class="text-center">{% blocktrans %}If you need any help with the automatic correction
-  system, you can read the <a href="{{ manual_url }}">online judge manual</a>.
-  {% endblocktrans %}</p>
 {% endblock %}

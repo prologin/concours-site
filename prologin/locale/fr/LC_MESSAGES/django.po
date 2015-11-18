@@ -17,9 +17,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-10 19:02+0100\n"
-"PO-Revision-Date: 2015-11-12 21:22+0000\n"
-"Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
+"POT-Creation-Date: 2015-11-18 20:23+0100\n"
+"PO-Revision-Date: 2015-11-18 19:24+0000\n"
+"Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -649,7 +649,7 @@ msgid "Reply to the thread"
 msgstr "Répondre au sujet"
 
 #: forum/templates/forum/thread_posts.html:51
-#: users/templates/users/profile.html:92
+#: users/templates/users/profile.html:91
 #, python-format
 msgid "%(username)s's profile picture"
 msgstr "Photo de profil de %(username)s"
@@ -804,7 +804,7 @@ msgid ""
 " game, in Paris."
 msgstr "Développement d'une Intelligence Artificielle pour un jeu multi-joueur pendant un week-end, à Paris."
 
-#: homepage/templates/homepage/sponsors.html:10
+#: homepage/templates/homepage/sponsors.html:3
 msgid "Sponsors"
 msgstr "Partenaires"
 
@@ -1483,7 +1483,7 @@ msgstr "Informations de contact"
 
 #: pages/templates/pages/about-organization.html:28 prologin/models.py:60
 msgid "Address"
-msgstr "Addresse"
+msgstr "Adresse"
 
 #: pages/templates/pages/about-organization.html:35 users/models.py:92
 msgid "Phone"
@@ -2018,13 +2018,13 @@ msgid ""
 "need to solve the problem."
 msgstr "Prenez le temps de lire l'énoncé du problème attentivement avant de soumettre votre solution. Le système vérifiera votre solution et vous indiquera immédiatement le résultat. Vous pouvez soumettre autant de solutions que nécessaire à la résolution du problème."
 
-#: problems/templates/problems/index.html:65
+#: problems/templates/problems/index.html:62
 #, python-format
 msgid ""
 "If you need any help with the automatic correction\n"
-"  system, you can read the <a href=\"%(manual_url)s\">online judge manual</a>.\n"
-"  "
-msgstr "Si vous avez besoin d'aide avec le système de correction automatique, vous pouvez lire le <a href=\"%(manual_url)s\">manuel du juge en ligne</a>.\n  "
+"      system, you can read the <a href=\"%(manual_url)s\" style=\"white-space: nowrap;\"><i class=\"fa fa-book\"></i> online judge manual</a>.\n"
+"      "
+msgstr "Si vous avez besoin d'aide avec le système de correction automatique, vous pouvez lire le <a href=\"%(manual_url)s\" style=\"white-space: nowrap;\"><i class=\"fa fa-book\"></i>manuel du juge en ligne</a>.\n  "
 
 #: problems/templates/problems/manual.html:7
 msgid "Manual"
@@ -2568,7 +2568,7 @@ msgstr "Homme"
 msgid "Female"
 msgstr "Femme"
 
-#: prologin/models.py:53 users/forms.py:34
+#: prologin/models.py:53 users/forms.py:33
 msgid "Other or prefer not to tell"
 msgstr "Autre ou préfère ne pas le dire"
 
@@ -2592,11 +2592,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:134
+#: prologin/settings/common.py:133
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:135
+#: prologin/settings/common.py:134
 msgid "French"
 msgstr "Français"
 
@@ -2858,11 +2858,11 @@ msgstr "Enregistrer les nouvelles réponses"
 msgid "Check your answers"
 msgstr "Vérifiez vos réponses"
 
-#: qcm/views.py:50
+#: qcm/views.py:55
 msgid "Your new answers have been saved."
 msgstr "Vos nouvelles réponses ont été enregistrées."
 
-#: sponsor/admin.py:25
+#: sponsor/admin.py:19
 msgid "Active"
 msgstr "Actif"
 
@@ -2912,29 +2912,29 @@ msgstr "Identité publique"
 msgid "Settings"
 msgstr "Préférences"
 
-#: users/forms.py:30
+#: users/forms.py:29
 msgid "How do you prefer to be described?"
 msgstr "Comment préférez-vous être décrit ?"
 
-#: users/forms.py:32
+#: users/forms.py:31
 msgid "<em>She is writing code for the contest</em>"
 msgstr "<em>Elle écrit du code pour le concours.</em>"
 
-#: users/forms.py:33
+#: users/forms.py:32
 msgid "<em>He is writing code for the contest</em>"
 msgstr "<em>Il écrit du code pour le concours.</em>"
 
-#: users/forms.py:44
+#: users/forms.py:43
 msgid ""
 "Please check the box above and complete the additional tasks if any. This is"
 " required to fight spamming bots on the website."
 msgstr "Veuillez cocher la case ci-dessus et réaliser les éventuelles opérations supplémentaires. Cela permet de se prémunir des robots."
 
-#: users/forms.py:67
+#: users/forms.py:66
 msgid "Email"
 msgstr "E-mail"
 
-#: users/forms.py:68
+#: users/forms.py:67
 msgid "Your email address"
 msgstr "Votre adresse e-mail"
 
@@ -2986,41 +2986,37 @@ msgstr "Niveau scolaire"
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:95
-msgid "Format: yyyy-mm-dd"
-msgstr "Format: aaaa-mm-jj"
-
-#: users/models.py:97
+#: users/models.py:96
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: users/models.py:98
+#: users/models.py:97
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
 msgstr "Nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:101
+#: users/models.py:100
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:103
+#: users/models.py:102
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: users/models.py:104
+#: users/models.py:103
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:105
+#: users/models.py:104
 msgid "Locale"
 msgstr "Langue"
 
-#: users/models.py:107
+#: users/models.py:106
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: users/models.py:108
+#: users/models.py:107
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
@@ -3207,32 +3203,32 @@ msgstr "Téléphone"
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: users/templates/users/profile.html:48
+#: users/templates/users/profile.html:47
 msgid "Postal address"
 msgstr "Adresse postale"
 
-#: users/templates/users/profile.html:61
+#: users/templates/users/profile.html:60
 msgid "Member for"
 msgstr "Membre depuis"
 
-#: users/templates/users/profile.html:67
+#: users/templates/users/profile.html:66
 msgid "Staff roles"
 msgstr "Rôles dans l'équipe"
 
-#: users/templates/users/profile.html:69
+#: users/templates/users/profile.html:68
 #, python-format
 msgid "%(year)s ⋅ %(role)s"
 msgstr "%(year)s ⋅ %(role)s"
 
-#: users/templates/users/profile.html:76
+#: users/templates/users/profile.html:75
 msgid "Latest news entries"
 msgstr "Dernières actualités"
 
-#: users/templates/users/profile.html:96
+#: users/templates/users/profile.html:95
 msgid "No profile picture"
 msgstr "Pas de photo de profil"
 
-#: users/templates/users/profile.html:100
+#: users/templates/users/profile.html:99
 #, python-format
 msgid "%(username)s's staff picture"
 msgstr "Photo de profil d'équipe de %(username)s"
