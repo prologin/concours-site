@@ -1,3 +1,4 @@
+import random
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
 from django.views.generic import TemplateView
@@ -46,5 +47,7 @@ class HomepageView(TemplateView):
         context['problems_completed'] = problems_completed
         context['born_year'] = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
         context['articles'] = articles
-        context['sponsors'] = sponsor.models.Sponsor.active.all()
+        sponsors = list(sponsor.models.Sponsor.active.all())
+        random.shuffle(sponsors)
+        context['sponsors'] = sponsors
         return context
