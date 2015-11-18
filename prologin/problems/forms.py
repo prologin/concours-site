@@ -39,7 +39,7 @@ class SearchForm(forms.Form):
         cd = self.cleaned_data
         if (cd.get('difficulty_min') is not None and
                 cd.get('difficulty_max') is not None and
-                cd.get['difficulty_min'] > cd['difficulty_max']):
+                cd['difficulty_min'] > cd['difficulty_max']):
             cd['difficulty_min'], cd['difficulty_max'] = cd['difficulty_max'], cd['difficulty_min']
         return cd
 
