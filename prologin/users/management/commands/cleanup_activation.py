@@ -9,7 +9,8 @@ class Command(BaseCommand):
         expired_users = users.models.UserActivation.objects.expired_users()
         if not expired_users:
             return
-        print("{} expired users:".format(len(expired_users)))
+        self.stdout.write("{} expired users:".format(len(expired_users)))
         for user in expired_users:
-            print("\t{username:<25} {fullname}".format(username=user.username, fullname=user.get_full_name()))
+            self.stdout.write("\t{username:<25} {fullname}".format(username=user.username,
+                                                                   fullname=user.get_full_name()))
         expired_users.delete()

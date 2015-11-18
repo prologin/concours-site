@@ -20,15 +20,13 @@ class Command(BaseCommand):
             submission.save()
         submission_code = SubmissionCode(submission=submission, language=Language[lang].name, code=code)
         submission_code.save()
-        print("Running task (4 second timeout)")
+        self.stdout.write("Running task (4 second timeout)")
         result = submit_problem_code.apply_async(args=[submission_code.pk], throw=True)
-        print(result.get(timeout=4))
+        self.stdout.write(str(result.get(timeout=4)))
 
         submission = submission._meta.model.objects.get(pk=submission.pk)  # refresh
 
-        print()
-        print("Submission:")
-        pprint.pprint(submission.__dict__)
-        print()
-        print("Latest code submission:")
-        pprint.pprint(submission.latest_submission().__dict__)
+        self.stdout.write("Submission:")
+        self.stdout.write(pprint.pformat(submission.__dict__))
+        self.stdout.write("Latest code submission:")
+        self.stdout.write(pprint.pformat(submission.latest_submission().__dict__))

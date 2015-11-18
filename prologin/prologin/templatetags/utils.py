@@ -136,7 +136,6 @@ class QURLNode(Node):
         self.url = url
         self.qs = qs
         self.asvar = asvar
-        print(self.url, self.qs, self.asvar)
 
     def render(self, context):
         urlp = list(urllib.parse.urlparse(self.url.resolve(context)))
@@ -145,7 +144,6 @@ class QURLNode(Node):
             name = smart_str(name)
             value = value.resolve(context)
             value = smart_str(value) if value is not None else None
-            print(name, op, value)
             if op == '+=':
                 query[name].append(value)
             elif op == '-=':
@@ -158,7 +156,6 @@ class QURLNode(Node):
                     query.pop(name, None)
                 else:
                     query[name].append(value)
-            print(query)
 
         urlp[4] = urllib.parse.urlencode(query, True)
         url = urllib.parse.urlunparse(urlp)
