@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib import messages
 from django.core.urlresolvers import reverse
+from django.http import Http404
+from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import UpdateView
 from django.views.generic.edit import ModelFormMixin
@@ -34,8 +36,11 @@ class DisplayQCMView(UpdateView):
         return reverse('qcm:display', args=[self.year])
 
     def get_object(self, queryset=None):
-        return ((self.get_queryset() if queryset is None else queryset)
-                .get(event__edition__year=self.year))
+        try:
+            return ((self.get_queryset() if queryset is None else queryset)
+                    .get(event__edition__year=self.year))
+        except self.model.DoesNotExist:
+            raise Http404()
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
