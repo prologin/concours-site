@@ -95,6 +95,11 @@
                   <option value="14">14px</option>
                   <option value="18">18px</option>
                 </select>
+                <select id="code-editor-keybinding" class="hide">
+                  <option value="keybinding" selected>notepad</option>
+                  <option value="vim">vim</option>
+                  <option value="emacs">emacs</option>
+                </select>
               </div>
               {% if form.code.errors %}<p class="text-danger" style="padding: 0 15px;">
                 {% for error in form.code.errors %}{{ error|escape }} {% endfor %}

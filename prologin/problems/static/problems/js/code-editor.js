@@ -2,6 +2,7 @@
     // some constants for localStorage
     var THEME_STORAGE_KEY = 'prologin.code-editor.theme', THEME_DEFAULT = 'monokai';
     var FONT_SIZE_STORAGE_KEY = 'prologin.code-editor.font-size', FONT_SIZE_DEFAULT = '11';
+    var KEYBINDING_STORAGE_KEY = 'prologin.code-editor.keybinding', KEYBINDING_DEFAULT = 'notepad';
 
     // select-to-bootstrap-dropdown jQuery plugin (for graceful degradation)
     $.fn.bootstrapSelect = function (options) {
@@ -60,6 +61,7 @@
         var $editor_modes = $('#editor-form select[name="language"]');
         var $editor_themes = $('#editor-form select#code-editor-theme');
         var $editor_font_sizes = $('#editor-form select#code-editor-font-size');
+        var $editor_keybinding = $('#editor-form select#code-editor-keybinding');
         var $button_insert_stub = $('#btn-insert-stub');
 
         // hide basic textarea
@@ -110,6 +112,10 @@
         var preferred_font_size = localStorage.getItem(FONT_SIZE_STORAGE_KEY) || FONT_SIZE_DEFAULT;
         $editor_font_sizes.val(preferred_font_size).change();
 
+        // load preferred keybinding
+        var preferred_keybinding = localStorage.getItem(KEYBINDING_STORAGE_KEY) || KEYBINDING_DEFAULT;
+        $editor_keybinding.val(preferred_keybinding).change();
+
         // load prefilled document (and mode) from textarea
         editor.getSession().getDocument().setValue($code_textarea.val());
 
@@ -153,6 +159,19 @@
                 var size = $(item).attr('value');
                 localStorage.setItem(FONT_SIZE_STORAGE_KEY, size);
                 editor.setFontSize(parseInt(size));
+            }
+        });
+
+        // build keybinding dropdown
+        $editor_keybinding.bootstrapSelect({
+            renderSelect: function ($opt, $el) {
+                console.log("setup dropdown");
+                $el.text($opt.text()).prepend(' ').prepend($('<i class="fa fa-keyboard-o"/>'));
+            },
+            callback: function (item) {
+                var name = $(item).attr('value');
+                localStorage.setItem(KEYBINDING_STORAGE_KEY, name);
+                editor.setKeyboardHandler("ace/keyboard/" + name)
             }
         });
 
