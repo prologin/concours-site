@@ -26,10 +26,10 @@
     {% for archive in archives %}
       <div class="col-md-4 col-sm-6 col-xs-12 archive" id="prologin-{{ archive.year }}">
         <div class="panel panel-default archive-item">
-          <div class="panel-heading" {% if archive.poster_big %}style="background-image: url({% static archive.poster_big %});"{% endif %}>
+          <div class="panel-heading" {% if archive.poster_thumb %}style="background-image: url({% static archive.poster_thumb %});"{% endif %}>
             <h2>{% blocktrans with year=archive.year %}Prologin {{ year }}{% endblocktrans %}</h2>
-            {% if archive.poster_small or archive.poster_big %}
-              <div class="poster-button-cont"><a class="btn btn-primary btn-sm poster-button" href="{% if archive.poster_big %}{% static archive.poster_big %}{% else %}{% static archive.poster_small %}{% endif %}" target="_blank">
+            {% if archive.poster_thumb or archive.poster_full %}
+              <div class="poster-button-cont"><a class="btn btn-primary btn-sm poster-button" href="{% if archive.poster_full %}{% static archive.poster_full %}{% else %}{% static archive.poster_thumb %}{% endif %}" target="_blank">
                 <i class="fa fa-picture-o"></i> {% trans "Download poster" %}
               </a></div>
             {% else %}

@@ -1,6 +1,7 @@
+import logging
 import os
 import random
-import redis
+import redis, redis.exceptions
 import yaml
 from collections import namedtuple
 from django.conf import settings
@@ -12,6 +13,8 @@ import problems.models
 import qcm.models
 from archives.flickr import Flickr
 from prologin.utils import lazy_attr, open_try_hard
+
+logger = logging.getLogger('prologin.archives')
 
 
 class BaseArchive:
@@ -110,10 +113,14 @@ class WithFlickrMixin:
             raise ValueError('`flickr_redis_suffix` can not be empty')
         cred = settings.ARCHIVES_FLICKR_REDIS_STORE.copy()
         cred.pop('prefix')
-        store = redis.StrictRedis(**cred)
-        photos = store.lrange(self._flickr_redis_key(), 0, -1)
-        random.shuffle(photos)
-        return photos
+        try:
+            store = redis.StrictRedis(**cred)
+            photos = store.lrange(self._flickr_redis_key(), 0, -1)
+            random.shuffle(photos)
+            return photos
+        except redis.exceptions.RedisError:
+            logger.exception("Could not connect to Redis %s to serve archive thumbnails", cred)
+            return []
 
     flickr_thumbs = lazy_attr('_flickr_thumbs_', _get_flickr_thumbs)
 
@@ -210,7 +217,7 @@ def subtype_factory(prop_name, cls):
 
 
 def get_poster_factory(size):
-    name = 'poster_{}.jpg'.format(size)
+    name = 'poster.{}.jpg'.format(size)
 
     def getter(self):
         path = self.file_path(name)
@@ -229,8 +236,8 @@ class Archive:
     Use Archive.by_year(year) to retrieve a specific year archive.
 
     Each Archive instance may have:
-        - a big poster URL
-        - a small poster URL
+        - a full-size poster URL (.poster_full)
+        - a thumbnail-size poster URL (.poster_thumb)
 
     Each Archive instance has the following attributes to access the respective event-archive instance:
         - qualification
@@ -268,8 +275,8 @@ class Archive:
     semifinal = subtype_factory('_semifinal_', SemifinalArchive)
     final = subtype_factory('_final_', FinalArchive)
 
-    poster_big = get_poster_factory('big')
-    poster_small = get_poster_factory('small')
+    poster_full = get_poster_factory('full')
+    poster_thumb = get_poster_factory('thumb')
 
     def __repr__(self):
         return "<Archive for {}>".format(self.year)

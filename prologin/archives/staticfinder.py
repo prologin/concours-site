@@ -9,7 +9,7 @@ class ArchivesStaticFinder(PatternStaticFinder):
     root = settings.ARCHIVES_REPOSITORY_PATH
     prefix = settings.ARCHIVES_REPOSITORY_STATIC_PREFIX
     patterns = (
-        '/*/poster_*.jpg',
+        '/*/poster.*.jpg',
         '/*/questionnaire/*.pdf',
         '/*/demi-finales/sujet/*',
         '/*/finale/confs/*',
