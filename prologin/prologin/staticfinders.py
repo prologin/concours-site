@@ -31,7 +31,7 @@ class PatternStaticFinder(BaseFinder):
         storage.prefix = self.prefix
 
         for pattern in self.patterns:
-            for f in glob.glob(os.path.join(self.root, pattern)):
+            for f in glob.glob(os.path.join(self.root, pattern.lstrip(os.path.sep))):
                 if matches_patterns(f, ignore_patterns):
                     continue
                 yield os.path.relpath(f, self.root), storage
