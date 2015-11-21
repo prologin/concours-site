@@ -1,0 +1,98 @@
+{% extends "prologin/base.html" %}
+{% load i18n utils staticfiles django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "archives:index" %}{% trans "Archives" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block extra_head %}
+  <link href="{% static 'css/archives.css' %}" type="text/css" rel="stylesheet">
+{% endblock %}
+
+{% block title %}{% trans "Archives" %}{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "Archives" %}</h1>
+  <p>{% blocktrans %}Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?
+    You can find all the documents and photo albums from past Prologin editions in these pages.{% endblocktrans %}</p>
+
+  <ul class="pager align-left">{% spaceless %}
+    {% for archive in archives %}<li><a href="#prologin-{{ archive.year }}">{{ archive.year }}</a></li>{% endfor %}
+  {% endspaceless %}</ul>
+
+  <div class="row archive-container">
+    {% for archive in archives %}
+      <div class="col-md-4 col-sm-6 col-xs-12 archive" id="prologin-{{ archive.year }}">
+        <div class="panel panel-default archive-item">
+          <div class="panel-heading" {% if archive.poster_thumb %}style="background-image: url({% static archive.poster_thumb %});"{% endif %}>
+            <h2>{% blocktrans with year=archive.year %}Prologin {{ year }}{% endblocktrans %}</h2>
+            {% if archive.poster_thumb or archive.poster_full %}
+              <div class="poster-button-cont"><a class="btn btn-primary btn-sm poster-button" href="{% if archive.poster_full %}{% static archive.poster_full %}{% else %}{% static archive.poster_thumb %}{% endif %}" target="_blank">
+                <i class="fa fa-picture-o"></i> {% trans "Download poster" %}
+              </a></div>
+            {% else %}
+              <div class="poster-button-cont"><button type="button" disabled="disabled" class="btn btn-default btn-sm poster-button">{% trans "Poster not available" %}</button></div>
+            {% endif %}
+          </div>
+          <div class="panel-body archive-body">
+            <h4>{% trans "Qualification" %}</h4>
+            {% if archive.qualification.populated %}
+              <ul class="nav">
+              {% if archive.qualification.quiz %}
+                <li><a href="{% url 'qcm:display' archive.year %}"><i class="fa fa-fw fa-th-list"></i> {% blocktrans count archive.qualification.quiz.question_count as count %}{{ count }}-question quiz{% plural %}{{ count }}-question quiz{% endblocktrans %}</a></li>
+              {% endif %}
+              {% if archive.qualification.challenge %}
+                <li><a href="{% url 'training:challenge' archive.qualification.challenge.year archive.qualification.challenge.event_type.name %}"><i class="fa fa-fw fa-pencil"></i> {% blocktrans count archive.qualification.challenge.problems|length as count %}{{ count }} problem{% plural %}{{ count }} problems{% endblocktrans %}</a></li>
+              {% endif %}
+              {% if archive.qualification.pdf_statement %}
+                <li><a href="{% static archive.qualification.pdf_statement %}"><i class="fa fa-fw fa-file-o"></i> {% trans "Test statement (PDF)" %}</a></li>
+              {% endif %}
+              {% if archive.qualification.pdf_correction %}
+                <li><a href="{% static archive.qualification.pdf_correction %}"><i class="fa fa-fw fa-file-text-o"></i> {% trans "Test correction (PDF)" %}</a></li>
+              {% endif %}
+              </ul>
+            {% else %}
+              <p class="archive-empty"><em>{% trans "Sorry, no resource available." %}</em></p>
+            {% endif %}
+              <h4>{% trans "Regional events" %}</h4>
+            {% if archive.semifinal.populated %}
+              <ul class="nav">
+              {% if archive.semifinal.content %}
+                <li><a href="{% url 'archives:report' archive.year 'semifinal' %}"><i class="fa fa-fw fa-bullhorn"></i> {% trans "Regional events report" %}</a></li>
+              {% endif %}
+              {% if archive.semifinal.challenge %}
+                <li><a href="{% url 'training:challenge' archive.semifinal.challenge.year archive.semifinal.challenge.event_type.name %}"><i class="fa fa-fw fa-pencil"></i> {% blocktrans count archive.semifinal.challenge.problems|length as count %}{{ count }} problem{% plural %}{{ count }} problems{% endblocktrans %}</a></li>
+              {% endif %}
+              </ul>
+            {% else %}
+              <p class="archive-empty"><em>{% trans "Sorry, no resource available." %}</em></p>
+            {% endif %}
+              <h4>{% trans "Final" %}</h4>
+            {% if archive.final.populated %}
+              <ul class="nav">
+              {% if archive.final.content %}
+                <li><a href="{% url 'archives:report' archive.year 'final' %}"><i class="fa fa-fw fa-bullhorn"></i> {% trans "Final report" %}</a></li>
+              {% endif %}
+              {% if archive.final.scoreboard %}
+                <li><a href="{% url 'archives:finale-scoreboard' archive.year %}"><i class="fa fa-fw fa-trophy"></i> {% trans "Scoreboard" %}</a></li>
+              {% endif %}
+              </ul>
+            {% else %}
+              <p class="archive-empty"><em>{% trans "Sorry, no resource available." %}</em></p>
+            {% endif %}
+          </div>
+          {% with archive.final.flickr_thumbs|slice:':5' as thumbs %}{% if thumbs %}
+          <div class="panel-footer archive-footer">
+            {% spaceless %}<ul class="photos">{% for photo in thumbs %}
+              <li><a href="{{ archive.final.flickr_album_url }}" title="{% trans "Browse photo album on Flickr" %}"><img src="{{ photo }}" alt="{% trans "Sample photo" %}"/></a></li>
+            {% endfor %}</ul>{% endspaceless %}
+          </div>
+          {% endif %}{% endwith %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+
+{% endblock %}

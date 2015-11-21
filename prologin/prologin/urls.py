@@ -41,6 +41,9 @@ urlpatterns += [
     # Documents
     url(r'^docs/', include('documents.urls', namespace='documents')),
 
+    # Archives
+    url(r'^archives/', include('archives.urls', namespace='archives')),
+
     # Contest
     # url(r'^contest/(?P<year>[0-9]{4})/semifinal/problems/', include('problems.urls', namespace='training-semifinal-problems')),
     url(r'^contest/(?P<year>[0-9]{4})/qualification/problems/', include('problems.urls', namespace='qcm-problems')),

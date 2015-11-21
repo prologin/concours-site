@@ -1,0 +1,112 @@
+.archive-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: stretch;
+}
+
+.archive {
+  display: flex;
+  flex-grow: 1;
+}
+
+.archive-item {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.archive-body {
+  flex: 1;
+}
+
+.archive h4:first-child {
+  margin-top: 0;
+}
+
+.archive .panel-heading {
+  position: relative;
+  height: 110px;
+  padding: 0;
+  text-align: center;
+  background: url('../img/archive-placeholder.png') no-repeat 0 18%;
+  background-size: cover;
+  z-index: 0;
+}
+
+.archive .panel-heading h2 {
+  color: white;
+  font-size: 2em;
+  margin: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 4px 4px 0 0;
+  line-height: 110px; /* same as parent height */
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.9);
+  background: rgba(0, 0, 0, 0.5);
+  transition: opacity ease 0.2s;
+}
+
+.archive .panel-heading .poster-button-cont {
+  position: absolute;
+  top: 45px;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  text-align: center;
+}
+
+.archive .panel-heading .poster-button {
+  opacity: 0;
+  transition: opacity ease 0.2s;
+}
+
+.archive .panel-heading:hover h2 {
+  opacity: 0;
+}
+
+.archive .panel-heading:hover .poster-button {
+  opacity: 1;
+}
+
+.archive .panel-footer {
+  padding: 10px;
+}
+
+.archive li .fa-fw {
+  font-size: 14px;
+}
+
+.archive-empty {
+  padding: 10px 15px; /* same as .nav > li > a */
+}
+
+.archive .photos {
+  list-style: none;
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+.archive .photos li {
+  display: inline-block;
+  width: 20%;
+  margin: 0;
+  padding: 2px;
+}
+
+.archive .photos li a {
+  width: 100%;
+  display: block;
+  border-radius: 4px;
+  padding: 2px;
+  border: 1px solid #ccc;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.archive .photos li a img {
+  max-width: 100%;
+}

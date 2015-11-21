@@ -27,6 +27,135 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
+#: archives/templates/archives/finale-scoreboard.html:6
+#: archives/templates/archives/index.html:6
+#: archives/templates/archives/index.html:13
+#: archives/templates/archives/index.html:17
+#: archives/templates/archives/report.html:6
+#: news/templates/zinnia/entry_archive_day.html:4
+#: news/templates/zinnia/entry_archive_day.html:6
+#: news/templates/zinnia/entry_archive_day.html:11
+#: news/templates/zinnia/entry_archive_day.html:28
+#: news/templates/zinnia/entry_archive_month.html:4
+#: news/templates/zinnia/entry_archive_month.html:6
+#: news/templates/zinnia/entry_archive_month.html:11
+#: news/templates/zinnia/entry_archive_month.html:39
+#: news/templates/zinnia/entry_archive_today.html:23
+#: news/templates/zinnia/entry_archive_week.html:44
+#: news/templates/zinnia/entry_archive_year.html:4
+#: news/templates/zinnia/entry_archive_year.html:6
+#: news/templates/zinnia/entry_archive_year.html:11
+#: prologin/templates/prologin/main-menu.html:6
+msgid "Archives"
+msgstr "Archives"
+
+#: archives/templates/archives/finale-scoreboard.html:8
+msgid "Final scoreboard"
+msgstr "Classement de la finale"
+
+#: archives/templates/archives/finale-scoreboard.html:15
+#: archives/templates/archives/finale-scoreboard.html:18
+#, python-format
+msgid "Final scoreboard for Prologin %(year)s final"
+msgstr "Classement de la finale de Prologin %(year)s"
+
+#: archives/templates/archives/index.html:18
+msgid ""
+"Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?\n"
+"    You can find all the documents and photo albums from past Prologin editions in these pages."
+msgstr "Vous recherchez l'affiche du dernier Prologin&nbsp;? L'énoncé de la finale de 1996&nbsp;? Le QCM de 2003&nbsp;? Vous trouverez sur ces pages l'ensemble des documents et albums photo des précédentes éditions de Prologin."
+
+#: archives/templates/archives/index.html:30
+#: contest/templates/contest/index.html:11
+#: contest/templates/contest/index.html:15
+#, python-format
+msgid "Prologin %(year)s"
+msgstr "Prologin %(year)s"
+
+#: archives/templates/archives/index.html:33
+msgid "Download poster"
+msgstr "Télécharger l'affiche"
+
+#: archives/templates/archives/index.html:36
+msgid "Poster not available"
+msgstr "Affiche indisponible"
+
+#: archives/templates/archives/index.html:40
+#: contest/templates/contest/index.html:8
+#: contest/templates/contest/qualification_summary.html:8
+#: homepage/templates/homepage/jumbotron.html:23
+#: qcm/templates/qcm/display.html:8
+msgid "Qualification"
+msgstr "Qualification"
+
+#: archives/templates/archives/index.html:44
+#, python-format
+msgid "%(count)s-question quiz"
+msgid_plural "%(count)s-question quiz"
+msgstr[0] "QCM à %(count)s question"
+msgstr[1] "QCM à %(count)s questions"
+
+#: archives/templates/archives/index.html:47
+#: archives/templates/archives/index.html:66
+#, python-format
+msgid "%(count)s problem"
+msgid_plural "%(count)s problems"
+msgstr[0] "%(count)s problème"
+msgstr[1] "%(count)s problèmes"
+
+#: archives/templates/archives/index.html:50
+msgid "Test statement (PDF)"
+msgstr "Énoncé (PDF)"
+
+#: archives/templates/archives/index.html:53
+msgid "Test correction (PDF)"
+msgstr "Correction (PDF)"
+
+#: archives/templates/archives/index.html:57
+#: archives/templates/archives/index.html:70
+#: archives/templates/archives/index.html:83
+msgid "Sorry, no resource available."
+msgstr "Désolé, aucune ressource disponible."
+
+#: archives/templates/archives/index.html:59 problems/models/__init__.py:8
+msgid "Regional events"
+msgstr "Épreuves régionales"
+
+#: archives/templates/archives/index.html:63
+msgid "Regional events report"
+msgstr "Rapport des épreuves régionales"
+
+#: archives/templates/archives/index.html:72 contest/models.py:45
+msgid "Final"
+msgstr "Finale"
+
+#: archives/templates/archives/index.html:76
+msgid "Final report"
+msgstr "Rapport de la finale"
+
+#: archives/templates/archives/index.html:79
+#: problems/templates/problems/challenge-scoreboard.html:8
+#: problems/templates/problems/challenge-scoreboard.html:11
+#: problems/templates/problems/challenge-scoreboard.html:16
+#: problems/templates/problems/challenge.html:14
+msgid "Scoreboard"
+msgstr "Classement"
+
+#: archives/templates/archives/index.html:89
+msgid "Browse photo album on Flickr"
+msgstr "Consulter l'album photo sur Flickr"
+
+#: archives/templates/archives/index.html:89
+msgid "Sample photo"
+msgstr "Photo d'illustration"
+
+#: archives/templates/archives/report.html:7
+#: archives/templates/archives/report.html:14
+#: archives/templates/archives/report.html:17
+#, python-format
+msgid "Report for %(event)s %(year)s"
+msgstr "Rapport pour %(event)s %(year)s"
+
 #: centers/admin.py:33
 msgid "Geocode selected centers"
 msgstr "Géolocaliser les centres sélectionnés"
@@ -157,10 +286,6 @@ msgstr "Sélections"
 msgid "Semifinal"
 msgstr "Demi-finales"
 
-#: contest/models.py:45
-msgid "Final"
-msgstr "Finale"
-
 #: contest/models.py:108
 msgid "T-shirt size"
 msgstr "Taille du t-shirt"
@@ -213,19 +338,6 @@ msgstr "Score"
 #: pages/templates/pages/about-final.html:79 qcm/templates/qcm/display.html:6
 msgid "Contest"
 msgstr "Concours"
-
-#: contest/templates/contest/index.html:8
-#: contest/templates/contest/qualification_summary.html:8
-#: homepage/templates/homepage/jumbotron.html:23
-#: qcm/templates/qcm/display.html:8
-msgid "Qualification"
-msgstr "Qualification"
-
-#: contest/templates/contest/index.html:11
-#: contest/templates/contest/index.html:15
-#, python-format
-msgid "Prologin %(year)s"
-msgstr "Prologin %(year)s"
 
 #: contest/templates/contest/qualification_summary.html:9
 msgid "Application summary"
@@ -463,7 +575,7 @@ msgstr "Forum"
 #: forum/templates/forum/index.html:7 forum/templates/forum/index.html.py:10
 #: forum/templates/forum/index.html:14
 #: forum/templates/forum/thread_posts.html:7
-#: prologin/templates/prologin/main-menu.html:6
+#: prologin/templates/prologin/main-menu.html:7
 msgid "Forums"
 msgstr "Forums"
 
@@ -865,23 +977,6 @@ msgstr "Derniers articles"
 #: news/templates/zinnia/entry_archive.html:16
 msgid "Yearly archives"
 msgstr "Archives annuelles"
-
-#: news/templates/zinnia/entry_archive_day.html:4
-#: news/templates/zinnia/entry_archive_day.html:6
-#: news/templates/zinnia/entry_archive_day.html:11
-#: news/templates/zinnia/entry_archive_day.html:28
-#: news/templates/zinnia/entry_archive_month.html:4
-#: news/templates/zinnia/entry_archive_month.html:6
-#: news/templates/zinnia/entry_archive_month.html:11
-#: news/templates/zinnia/entry_archive_month.html:39
-#: news/templates/zinnia/entry_archive_today.html:23
-#: news/templates/zinnia/entry_archive_week.html:44
-#: news/templates/zinnia/entry_archive_year.html:4
-#: news/templates/zinnia/entry_archive_year.html:6
-#: news/templates/zinnia/entry_archive_year.html:11
-#: prologin/templates/prologin/main-menu.html:8
-msgid "Archives"
-msgstr "Archives"
 
 #: news/templates/zinnia/entry_archive_day.html:18
 #: news/templates/zinnia/entry_archive_today.html:18
@@ -1872,10 +1967,6 @@ msgstr "Vous devez fournir soit un code source soit un fichier source, mais pas 
 msgid "You need to provide either a source file or a source code."
 msgstr "Vous devez fournir un fichier source ou un code source."
 
-#: problems/models/__init__.py:8
-msgid "Regional events"
-msgstr "Épreuves régionales"
-
 #: problems/models/submission.py:44
 #: problems/templates/problems/submission.html:10
 msgid "Submission"
@@ -1914,13 +2005,6 @@ msgstr "Codes soumis"
 #: problems/templates/problems/submission.html:7
 msgid "Training"
 msgstr "Entraînement"
-
-#: problems/templates/problems/challenge-scoreboard.html:8
-#: problems/templates/problems/challenge-scoreboard.html:11
-#: problems/templates/problems/challenge-scoreboard.html:16
-#: problems/templates/problems/challenge.html:14
-msgid "Scoreboard"
-msgstr "Classement"
 
 #: problems/templates/problems/challenge-scoreboard.html:11
 #: problems/templates/problems/problem.html:13
@@ -2722,27 +2806,23 @@ msgstr "Découvrir"
 msgid "Train"
 msgstr "S'entraîner"
 
-#: prologin/templates/prologin/main-menu.html:12
-msgid "Photos"
-msgstr "Photos"
-
-#: prologin/templates/prologin/main-menu.html:18
+#: prologin/templates/prologin/main-menu.html:13
 msgid "My profile"
 msgstr "Mon profil"
 
-#: prologin/templates/prologin/main-menu.html:19
+#: prologin/templates/prologin/main-menu.html:14
 msgid "Profile &amp; settings"
 msgstr "Profil &amp; options"
 
-#: prologin/templates/prologin/main-menu.html:21
+#: prologin/templates/prologin/main-menu.html:16
 msgid "Administration"
 msgstr "Administration"
 
-#: prologin/templates/prologin/main-menu.html:24
+#: prologin/templates/prologin/main-menu.html:19
 msgid "Sign out"
 msgstr "Déconnexion"
 
-#: prologin/templates/prologin/main-menu.html:29
+#: prologin/templates/prologin/main-menu.html:24
 #: users/templates/users/login.html:7 users/templates/users/login.html.py:10
 #: users/templates/users/login.html:26
 msgid "Sign in"

@@ -484,6 +484,10 @@ footer .legal {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 
+.pager li a {
+  margin: 1px;
+}
+
 .bgcont {
   padding: 1.5em;
   padding-top: 2em;

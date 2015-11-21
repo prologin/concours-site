@@ -1,4 +1,8 @@
+import logging
 import os
+import random
+import redis, redis.exceptions
+import yaml
 from collections import namedtuple
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,7 +11,10 @@ from django.utils.safestring import mark_safe
 import contest.models
 import problems.models
 import qcm.models
+from archives.flickr import Flickr
 from prologin.utils import lazy_attr, open_try_hard
+
+logger = logging.getLogger('prologin.archives')
 
 
 class BaseArchive:
@@ -24,7 +31,7 @@ class BaseArchive:
         return self.archive.file_path(self.dir_name, *tail)
 
     def file_url(self, *tail) -> str:
-        return self.archive.file_url(self.dir_name, *tail)
+        return os.path.join(settings.ARCHIVES_REPOSITORY_STATIC_PREFIX, self.archive.file_url(self.dir_name, *tail))
 
     @classmethod
     def file_url_or_none(cls, *tail) -> str:
@@ -36,8 +43,13 @@ class BaseArchive:
 
         return func
 
+    def populated(self):
+        raise NotImplementedError("BaseArchive subclasses has to implement populated()")
+
     def __repr__(self):
-        return "<{} for {}>".format(self.__class__.__name__, self.archive.year)
+        return "<{} for {}{}>".format(self.__class__.__name__,
+                                      self.archive.year,
+                                      '' if self.populated() else ' (empty)')
 
 
 class WithChallengeMixin:
@@ -48,7 +60,10 @@ class WithChallengeMixin:
 
     @property
     def challenge(self) -> problems.models.Challenge:
-        return problems.models.Challenge.by_year_and_event_type(self.archive.year, self.event_type)
+        try:
+            return problems.models.Challenge.by_year_and_event_type(self.archive.year, self.event_type)
+        except ObjectDoesNotExist:
+            return None
 
 
 class WithContentMixin:
@@ -63,10 +78,51 @@ class WithContentMixin:
 
         try:
             return open_try_hard(callback, self.file_path('content.html'))
-        except ValueError:
+        except (ValueError, FileNotFoundError):
             return None
 
     content = lazy_attr('_content_', _get_content)
+
+
+class WithFlickrMixin:
+    flickr_album_id = None
+    flickr_redis_suffix = None
+
+    def get_flickr_album_id(self):
+        return self.flickr_album_id
+
+    def get_flickr_photos(self, flickr=None):
+        if not flickr:
+            flickr = Flickr(*settings.ARCHIVES_FLICKR_CREDENTIALS)
+        if self.get_flickr_album_id():
+            return list(flickr.photos(self.get_flickr_album_id()))
+        else:
+            return []
+
+    @property
+    def flickr_album_url(self):
+        return settings.ARCHIVES_FLICKR_ALBUM_URL % {'id': self.get_flickr_album_id()}
+
+    def _flickr_redis_key(self):
+        cred = settings.ARCHIVES_FLICKR_REDIS_STORE.copy()
+        prefix = cred.pop('prefix')
+        return '{}.{}.{}'.format(prefix, self.archive.year, self.flickr_redis_suffix)
+
+    def _get_flickr_thumbs(self):
+        if not self.flickr_redis_suffix:
+            raise ValueError('`flickr_redis_suffix` can not be empty')
+        cred = settings.ARCHIVES_FLICKR_REDIS_STORE.copy()
+        cred.pop('prefix')
+        try:
+            store = redis.StrictRedis(**cred)
+            photos = store.lrange(self._flickr_redis_key(), 0, -1)
+            random.shuffle(photos)
+            return photos
+        except redis.exceptions.RedisError:
+            logger.exception("Could not connect to Redis %s to serve archive thumbnails", cred)
+            return []
+
+    flickr_thumbs = lazy_attr('_flickr_thumbs_', _get_flickr_thumbs)
 
 
 class QualificationArchive(WithChallengeMixin, BaseArchive):
@@ -84,7 +140,10 @@ class QualificationArchive(WithChallengeMixin, BaseArchive):
 
     @property
     def quiz(self) -> qcm.models.Qcm:
-        return qcm.models.Qcm.objects.get(event__edition__year=self.archive.year, event__type=self.event_type.value)
+        return qcm.models.Qcm.objects.filter(event__edition__year=self.archive.year, event__type=self.event_type.value).first()
+
+    def populated(self):
+        return any((self.pdf_statement, self.pdf_correction, self.quiz, self.challenge))
 
 
 class SemifinalArchive(WithContentMixin, WithChallengeMixin, BaseArchive):
@@ -96,37 +155,56 @@ class SemifinalArchive(WithContentMixin, WithChallengeMixin, BaseArchive):
     dir_name = 'demi-finales'
     event_type = contest.models.Event.Type.semifinal
 
+    def populated(self):
+        return any((self.content, self.challenge))
 
-class FinalArchive(WithContentMixin, BaseArchive):
+
+class FinalArchive(WithFlickrMixin, WithContentMixin, BaseArchive):
     """
     Final archive. May have:
         - a content
-        - a hall of fame
+        - a scoreboard
+        - a flickr photo list
     """
     dir_name = 'finale'
+    flickr_redis_suffix = dir_name
 
-    HallPerson = namedtuple('HallPerson', 'name extra')
+    ScoreboardItem = namedtuple('ScoreboardItem', 'name extra')
 
-    def _get_hall_of_fame(self):
+    def get_flickr_album_id(self):
+        def read(file):
+            return yaml.load(file.read()).get('flickr-album-id')
+        try:
+            return open_try_hard(read, self.file_path('event.props'))
+        except (FileNotFoundError, yaml.YAMLError):
+            return None
+
+    def _get_scoreboard(self):
         def reader(file):
             return file.readlines()
 
-        try:
+        def generator():
             lines = open_try_hard(reader, self.file_path('HallOfFame'))
-        except FileNotFoundError:
-            return
-        for line in lines:
-            line = line.strip()
-            if not line:
-                continue
-            name, *extra = line.split('(', 1)
-            particle = name.split()[0]
-            if particle.endswith('.'):
-                name = '{} {}'.format(particle.capitalize().strip(), name.split('.', 1)[1].strip())
-            extra = ' '.join(p.strip().strip('()').strip() for p in extra)
-            yield FinalArchive.HallPerson(name=name.strip().title(), extra=extra)
+            for line in lines:
+                line = line.strip()
+                if not line:
+                    continue
+                name, *extra = line.split('(', 1)
+                particle = name.split()[0]
+                if particle.endswith('.'):
+                    name = '{} {}'.format(particle.capitalize().strip(), name.split('.', 1)[1].strip())
+                extra = ' '.join(p.strip().strip('()').strip() for p in extra)
+                yield FinalArchive.ScoreboardItem(name=name.strip().title(), extra=extra)
 
-    hall_of_fame = lazy_attr('_hall_of_fame_', _get_hall_of_fame)
+        try:
+            return list(generator())
+        except FileNotFoundError:
+            return None
+
+    scoreboard = lazy_attr('_scoreboard_', _get_scoreboard)
+
+    def populated(self):
+        return any((self.content, self.scoreboard))
 
 
 def subtype_factory(prop_name, cls):
@@ -139,12 +217,12 @@ def subtype_factory(prop_name, cls):
 
 
 def get_poster_factory(size):
-    name = 'poster_{}.jpg'.format(size)
+    name = 'poster.{}.jpg'.format(size)
 
     def getter(self):
         path = self.file_path(name)
         if os.path.exists(path):
-            return self.file_url(name)
+            return os.path.join(settings.ARCHIVES_REPOSITORY_STATIC_PREFIX, self.file_url(name))
         return None
 
     return lazy_attr('_poster_{}_'.format(size), getter)
@@ -158,8 +236,8 @@ class Archive:
     Use Archive.by_year(year) to retrieve a specific year archive.
 
     Each Archive instance may have:
-        - a big poster URL
-        - a small poster URL
+        - a full-size poster URL (.poster_full)
+        - a thumbnail-size poster URL (.poster_thumb)
 
     Each Archive instance has the following attributes to access the respective event-archive instance:
         - qualification
@@ -197,8 +275,8 @@ class Archive:
     semifinal = subtype_factory('_semifinal_', SemifinalArchive)
     final = subtype_factory('_final_', FinalArchive)
 
-    poster_big = get_poster_factory('big')
-    poster_small = get_poster_factory('small')
+    poster_full = get_poster_factory('full')
+    poster_thumb = get_poster_factory('thumb')
 
     def __repr__(self):
         return "<Archive for {}>".format(self.year)
@@ -211,3 +289,6 @@ class Archive:
 
     def __lt__(self, other):
         return self.year.__lt__(other.year)
+
+    def has_qualification(self):
+        return self.qualification

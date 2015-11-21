@@ -1,5 +1,6 @@
 TOP := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-STATIC_DIR := $(dir $(TOP))prologin/prologin/static
+PROLOGIN_DIR := $(dir $(TOP))prologin
+STATIC_DIR := $(PROLOGIN_DIR)/prologin/static
 IMG_DIR := $(STATIC_DIR)/img
 LIB_DIR := $(STATIC_DIR)/lib
 
@@ -14,11 +15,15 @@ FAVICON_PNG_SIZES := 16 32 36 48 72 96 144 192 194
 FAVICON_ICO_SIZES := 16 32 48
 APPLE_TOUCH_SIZES := 57 60 72 76 114 120 144 152 180
 MSTILE_SIZES := 70x70 144x144 150x150 310x150 310x310
+ARCHIVE_PLACEHOLDER_SIZE = 716
+
+ARCHIVE_PLACEHOLDER := $(PROLOGIN_DIR)/archives/static/img/archive-placeholder.png
 
 OBJS := $(addprefix $(IMG_DIR)/,logo_cube.png small_cube.png silhouette.png prologin_emoji.png apple-touch-icon.png favicon.ico)
 OBJS += $(patsubst %,$(IMG_DIR)/favicon-%.png,$(FAVICON_PNG_SIZES))
 OBJS += $(patsubst %,$(IMG_DIR)/apple-touch-icon-%.png,$(APPLE_TOUCH_SIZES))
 OBJS += $(patsubst %,$(IMG_DIR)/mstile-%.png,$(MSTILE_SIZES))
+OBJS += $(ARCHIVE_PLACEHOLDER)
 
 #AUXOBJS := $(addprefix $(IMG_DIR)/,small_cube.alone.png small_cube.alone.big.png)
 #AUXOBJS := $(AUXOBJS) $(OBJS:.png=.big.png) $(OBJS:.png=.png.bak)
@@ -45,6 +50,9 @@ $(IMG_DIR)/favicon.ico: $(patsubst %,$(IMG_DIR)/favicon-%.big.png,$(FAVICON_ICO_
 
 $(IMG_DIR)/apple-touch-icon.png: $(IMG_DIR)/apple-touch-icon-180.png
 	cp $< $@
+
+$(ARCHIVE_PLACEHOLDER): $(IMG_DIR)/favicon-apple-500.png
+	$(CONVERT) $< -gravity center -background $(JUMBOTRON_BG) -extent $(ARCHIVE_PLACEHOLDER_SIZE)x$(ARCHIVE_PLACEHOLDER_SIZE) $@
 
 # Generics
 
