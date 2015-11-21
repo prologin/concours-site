@@ -188,7 +188,7 @@ class Problem(PermissionRequiredMixin, CreateView):
                                           submission__problem=problem.name,
                                           submission__challenge=challenge.name)
                                   .first())
-            if not self.request.user.has_perm('problems.view_code_submission', prefill_submission):
+            if prefill_submission is not None and not self.request.user.has_perm('problems.view_code_submission', prefill_submission):
                 prefill_submission = None
         except (KeyError, ValueError):  # (no "fork=", non-numeric fork id)
             pass
