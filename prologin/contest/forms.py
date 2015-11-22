@@ -70,7 +70,8 @@ class ContestantForm(forms.ModelForm):
         self.fields['event_wishes'] = EventWishChoiceField(
             queryset=(contest.models.Event.objects
                       .select_related('center')
-                      .filter(edition=edition, type=contest.models.Event.Type.semifinal.value)),
+                      .filter(edition=edition, type=contest.models.Event.Type.semifinal.value)
+                      .order_by('date_begin')),
             min_choices=settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT,
             max_choices=settings.PROLOGIN_SEMIFINAL_MAX_WISH_COUNT,
             label=_("Semifinal center wishes"),

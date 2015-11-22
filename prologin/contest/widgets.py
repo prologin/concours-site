@@ -1,4 +1,5 @@
 from django import forms
+from django.utils import formats
 from django.utils.encoding import force_text
 from django.utils.html import format_html_join, format_html
 from django.utils.safestring import mark_safe
@@ -52,7 +53,7 @@ class EventWishSelect(forms.widgets.Select):
         # END
         if option_value:
             center = option_label.center
-            date = option_label.date_begin.strftime('%d %b %Y')
+            date = formats.date_format(option_label.date_begin, "SHORT_DATE_FORMAT")
             addr = "{}, {} {}".format(center.address, center.postal_code, center.city)
             name = "{} — {}".format(date, center.name)
             selected_html = mark_safe(selected_html + format_html(' data-name="{}" data-addr="{}"', name, addr))
