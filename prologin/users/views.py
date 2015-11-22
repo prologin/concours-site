@@ -163,7 +163,7 @@ class EditUserView(UpdateUserAsAdminView):
         return super().form_valid(form)
 
 
-class PasswordFormMixin(UpdateView):
+class PasswordFormMixin:
     """
     SetPasswordForm prototype is (user, *args, **kwargs) and does not use 'instance' kwarg.
     “Because fuck logic, that's why.”
@@ -175,6 +175,8 @@ class PasswordFormMixin(UpdateView):
         return kwargs
 
     def get_form(self, form_class=None):
+        if form_class is None:
+            form_class = self.get_form_class()
         return form_class(self.get_object(), **self.get_form_kwargs())
 
 
