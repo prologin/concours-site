@@ -831,6 +831,8 @@ class Command(LabelCommand):
         import qcm.models
         import sponsor.models
 
+        QUESTION_ID_OFFSET = 100
+
         query = """
         SELECT DISTINCT qcm.annee, question.id, question.question, question.commentaires, question.reponse,
           question.proposition_1, question.proposition_2, question.proposition_3, question.proposition_4,
@@ -858,7 +860,7 @@ class Command(LabelCommand):
                     qcm_obj = qcm.models.Qcm(event=event)
                     qcm_obj.save()
                     for order, question in enumerate(questions):
-                        q_obj = qcm.models.Question(pk=question.id,
+                        q_obj = qcm.models.Question(pk=question.id + QUESTION_ID_OFFSET,
                                                     qcm=qcm_obj,
                                                     body=question.question,
                                                     verbose=question.commentaires,
@@ -901,7 +903,8 @@ class Command(LabelCommand):
             c.execute(query)
             with transaction.atomic():
                 for question_id, answers in itertools.groupby(namedcolumns(c), key=lambda e: e.question_id):
-                    propositions = qcm.models.Proposition.objects.filter(question__pk=question_id).order_by('pk')
+                    qid = question_id + QUESTION_ID_OFFSET
+                    propositions = qcm.models.Proposition.objects.filter(question__pk=qid).order_by('pk')
                     for answer in answers:
                         try:
                             contestant = get_contestant(answer.year, answer.user_id)
