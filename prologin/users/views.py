@@ -1,14 +1,12 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import get_user_model, REDIRECT_FIELD_NAME, login
-from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth.views import logout
+from django.contrib.auth import get_user_model, login
+from django.contrib.auth.views import logout, login as django_login_view
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Prefetch
 from django.http import Http404
-from django.shortcuts import get_object_or_404, render
-from django.utils.decorators import method_decorator
+from django.shortcuts import get_object_or_404, render, redirect
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 from django.views.generic.base import View, RedirectView
@@ -35,6 +33,13 @@ def protected_logout(*args, **kwargs):
     return logout(*args, **kwargs)
 
 
+def custom_login(request, *args, **kwargs):
+    kwargs['template_name'] = 'users/login.html'
+    if request.user.is_authenticated():
+        return redirect('users:profile', pk=request.user.pk)
+    return login(request, *args, **kwargs)
+
+
 def auto_login(request, user):
     # Auto-login bullshit because we don't want to write our own backend
     from django.contrib.auth import load_backend, login
@@ -49,56 +54,14 @@ def auto_login(request, user):
     return False
 
 
-class LoginView(FormView):
-    template_name = 'users/login.html'
-    form_class = AuthenticationForm
-    redirect_field_name = REDIRECT_FIELD_NAME
-
-    @method_decorator(csrf_protect)
-    @method_decorator(never_cache)
-    def dispatch(self, *args, **kwargs):
-        return super(LoginView, self).dispatch(*args, **kwargs)
-
-    def get(self, request, *args, **kwargs):
-        """
-        Same as django.views.generic.edit.ProcessFormView.get(), but adds test cookie stuff
-        """
-        self.set_test_cookie()
-        return super(LoginView, self).get(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['password_reset_form'] = users.forms.PasswordResetForm()
-        return context
-
-    def form_valid(self, form):
-        """
-        The user has provided valid credentials (this was checked in AuthenticationForm.is_valid()). So now we
-        can check the test cookie stuff and log him in.
-        """
-        self.check_and_delete_test_cookie()
-        login(self.request, form.get_user())
-        return super(LoginView, self).form_valid(form)
-
-    def form_invalid(self, form):
-        """
-        The user has provided invalid credentials (this was checked in AuthenticationForm.is_valid()). So now we
-        set the test cookie again and re-render the form with errors.
-        """
-        self.set_test_cookie()
-        return super(LoginView, self).form_invalid(form)
-
-    def set_test_cookie(self):
-        self.request.session.set_test_cookie()
-
-    def check_and_delete_test_cookie(self):
-        if self.request.session.test_cookie_worked():
-            self.request.session.delete_test_cookie()
-            return True
-        return False
+class AnonymousRequiredMixin:
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated():
+            return redirect('users:profile', pk=request.user.pk)
+        return super().dispatch(request, *args, **kwargs)
 
 
-class RegistrationView(CreateView):
+class RegistrationView(AnonymousRequiredMixin, CreateView):
     model = get_user_model()
     form_class = users.forms.RegisterForm
     template_name = 'users/register.html'
@@ -115,7 +78,7 @@ class RegistrationView(CreateView):
         return response
 
 
-class ActivationView(SingleObjectMixin, RedirectView):
+class ActivationView(AnonymousRequiredMixin, SingleObjectMixin, RedirectView):
     model = users.models.UserActivation
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
@@ -211,7 +174,7 @@ class PasswordFormMixin(UpdateView):
         kwargs.pop('instance', None)
         return kwargs
 
-    def get_form(self, form_class):
+    def get_form(self, form_class=None):
         return form_class(self.get_object(), **self.get_form_kwargs())
 
 
@@ -225,7 +188,7 @@ class EditPasswordView(PasswordFormMixin, UpdateUserAsAdminView):
         return super().form_valid(form)
 
 
-class PasswordResetView(FormView):
+class PasswordResetView(AnonymousRequiredMixin, FormView):
     template_name = 'users/password_reset.html'
     form_class = users.forms.PasswordResetForm
     success_url = reverse_lazy('users:login')
@@ -255,7 +218,7 @@ class PasswordResetView(FormView):
         return super().form_valid(form)
 
 
-class PasswordResetConfirmView(PasswordFormMixin, UpdateView):
+class PasswordResetConfirmView(AnonymousRequiredMixin, PasswordFormMixin, UpdateView):
     model = get_user_model()
     template_name = 'registration/password_reset_confirm.html'
     form_class = django.contrib.auth.forms.SetPasswordForm

@@ -3,12 +3,12 @@ from users import views
 
 urlpatterns = patterns('',
     # User profile, view and edit
-    url(r'^(?P<pk>\d+)/profile/$', views.ProfileView.as_view(), name='profile'),
-    url(r'^(?P<pk>\d+)/edit/$', views.EditUserView.as_view(), name='edit'),
-    url(r'^(?P<pk>\d+)/edit/password/$', views.EditPasswordView.as_view(), name='edit_password'),
+    url(r'^(?P<pk>[0-9]+)/profile/$', views.ProfileView.as_view(), name='profile'),
+    url(r'^(?P<pk>[0-9]+)/edit/$', views.EditUserView.as_view(), name='edit'),
+    url(r'^(?P<pk>[0-9]+)/edit/password/$', views.EditPasswordView.as_view(), name='edit_password'),
 
     # Login and logout
-    url(r'^login/$', 'django.contrib.auth.views.login', {'template_name': 'users/login.html'}, name='login'),
+    url(r'^login/$', views.custom_login, name='login'),
     url(r'^logout/$', views.protected_logout, {'next_page': '/'}, name='logout'),
 
     # Password reset
