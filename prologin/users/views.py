@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import get_user_model, login
+from django.contrib.auth import get_user_model
 from django.contrib.auth.views import logout, login as django_login_view
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
@@ -37,7 +37,7 @@ def custom_login(request, *args, **kwargs):
     kwargs['template_name'] = 'users/login.html'
     if request.user.is_authenticated():
         return redirect('users:profile', pk=request.user.pk)
-    return login(request, *args, **kwargs)
+    return django_login_view(request, *args, **kwargs)
 
 
 def auto_login(request, user):
