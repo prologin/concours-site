@@ -25,10 +25,9 @@ OBJS += $(patsubst %,$(IMG_DIR)/apple-touch-icon-%.png,$(APPLE_TOUCH_SIZES))
 OBJS += $(patsubst %,$(IMG_DIR)/mstile-%.png,$(MSTILE_SIZES))
 OBJS += $(ARCHIVE_PLACEHOLDER)
 
-#AUXOBJS := $(addprefix $(IMG_DIR)/,small_cube.alone.png small_cube.alone.big.png)
-#AUXOBJS := $(AUXOBJS) $(OBJS:.png=.big.png) $(OBJS:.png=.png.bak)
-
 # Targets
+
+all: all-assets update-libs update-emojis
 
 $(IMG_DIR)/silhouette.big.png: silhouette.svg
 	$(SVGRASTER) -h 112 --export-png $@ $<
@@ -81,6 +80,7 @@ print-%:
 	@echo '$*=$($*)'
 
 # Main rules
+
 update-libs:
 	mkdir -p $(LIB_DIR)
 	cd $(LIB_DIR) && python $(TOP)/update-libs.py
@@ -90,11 +90,6 @@ update-emojis:
 	mogrify -resize $(EMOJI_SIZE)x $(IMG_DIR)/emojis/*.png
 
 all-assets: $(OBJS)
-
-all: all-assets update-libs update-emojis
-
-#clean-aux:
-#	$(RM) $(AUXOBJS)
 
 clean:
 	$(RM) $(OBJS) $(LIB_DIR)/*

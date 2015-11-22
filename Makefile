@@ -3,6 +3,10 @@ MANAGE = cd $(DIR) && ./manage.py
 CELERY = cd $(DIR) && celery
 TX = tx --debug
 
+# Main rules
+
+all: assets
+
 # Development servers and workers
 # NOT SUITABLE FOR USE IN PRODUCTION.
 
@@ -32,9 +36,5 @@ tx-pull:
 
 assets:
 	$(MAKE) all clean-aux -C assets
-
-# Main rules
-
-all: static-img
 
 .PHONY: all runserver smtpserver celeryworker assets tx-push tx-pull
