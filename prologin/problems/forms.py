@@ -6,6 +6,7 @@ from contest.models import Event
 import contest.models
 import problems.models
 import prologin.languages
+from prologin.utils import read_try_hard
 
 
 class SearchForm(forms.Form):
@@ -109,13 +110,14 @@ class CodeSubmissionForm(forms.ModelForm):
         self.fields['code'].required = False
 
     def clean(self):
-        if (self.cleaned_data['sourcefile'] and self.cleaned_data['code']):
-            raise forms.ValidationError(
-                    _("You can provide either a source file or a source code, but not both."))
+        if self.cleaned_data['sourcefile'] and self.cleaned_data['code']:
+            raise forms.ValidationError(_("You can provide either a source file or a source code, but not both."))
         if self.cleaned_data['sourcefile']:
-            self.cleaned_data['code'] = self.cleaned_data['sourcefile'].read()
+            try:
+                self.cleaned_data['code'] = read_try_hard(self.cleaned_data['sourcefile'])
+            except ValueError:
+                raise forms.ValidationError(_("Please use the UTF-8 encoding when uploading a source file."))
             self.cleaned_data['sourcefile'] = None
         elif not self.cleaned_data['code']:
-            raise forms.ValidationError(
-                    _("You need to provide either a source file or a source code."))
+            raise forms.ValidationError(_("You need to provide either a source file or a source code."))
         return self.cleaned_data

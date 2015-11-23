@@ -167,6 +167,17 @@ def admin_url_for(obj, method='change', label=lambda e: str(e)):
 ENCODINGS = ('utf-8-sig', 'utf-8', 'latin1')
 
 
+def read_try_hard(fileobj, encodings=ENCODINGS):
+    for encoding in encodings:
+        try:
+            return fileobj.read().decode(encoding)
+        except UnicodeDecodeError:
+            pass
+    else:
+        raise ValueError("Could not find proper encoding (tried {}) for file: {}"
+                         .format(', '.join(ENCODINGS), fileobj))
+
+
 def open_try_hard(callback, filename, *args, encodings=ENCODINGS, **kwargs):
     """
     Small wrapper around open() that tries to apply `callback` on all
