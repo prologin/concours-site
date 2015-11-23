@@ -6,7 +6,7 @@ from contest.models import Event
 import contest.models
 import problems.models
 import prologin.languages
-from prologin.utils import read_try_hard
+from prologin.utils import read_try_hard, sizeof_fmt
 
 
 class SearchForm(forms.Form):
@@ -114,7 +114,15 @@ class CodeSubmissionForm(forms.ModelForm):
             raise forms.ValidationError(_("You can provide either a source file or a source code, but not both."))
         if self.cleaned_data['sourcefile']:
             try:
-                self.cleaned_data['code'] = read_try_hard(self.cleaned_data['sourcefile'])
+                size = self.cleaned_data['sourcefile'].size
+            except AttributeError:
+                raise forms.ValidationError(_("Your client did not provide the content length of your source file."))
+            if size > settings.TRAINING_UPLOAD_MAX_LENGTH:
+                raise forms.ValidationError(_("The source file you uploaded is too large. "
+                                              "Please keep it below %(size)s.") %
+                                            {'size': sizeof_fmt(settings.TRAINING_UPLOAD_MAX_LENGTH)})
+            try:
+                self.cleaned_data['code'] = read_try_hard(self.cleaned_data['sourcefile'], size)
             except ValueError:
                 raise forms.ValidationError(_("Please use the UTF-8 encoding when uploading a source file."))
             self.cleaned_data['sourcefile'] = None

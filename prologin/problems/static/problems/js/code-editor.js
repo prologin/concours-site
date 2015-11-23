@@ -2,7 +2,7 @@
     // some constants for localStorage
     var THEME_STORAGE_KEY = 'prologin.code-editor.theme', THEME_DEFAULT = 'monokai';
     var FONT_SIZE_STORAGE_KEY = 'prologin.code-editor.font-size', FONT_SIZE_DEFAULT = '11';
-    var KEYBINDING_STORAGE_KEY = 'prologin.code-editor.keybinding', KEYBINDING_DEFAULT = 'notepad';
+    var KEYBINDING_STORAGE_KEY = 'prologin.code-editor.keybinding', KEYBINDING_DEFAULT = 'keybinding';
 
     // select-to-bootstrap-dropdown jQuery plugin (for graceful degradation)
     $.fn.bootstrapSelect = function (options) {
@@ -105,7 +105,6 @@
 
         // load preferred theme
         var preferred_theme = localStorage.getItem(THEME_STORAGE_KEY) || THEME_DEFAULT;
-        console.log('loading theme to', preferred_theme);
         $editor_themes.val(preferred_theme).change();
 
         // load preferred font size
@@ -165,7 +164,6 @@
         // build keybinding dropdown
         $editor_keybinding.bootstrapSelect({
             renderSelect: function ($opt, $el) {
-                console.log("setup dropdown");
                 $el.text($opt.text()).prepend(' ').prepend($('<i class="fa fa-keyboard-o"/>'));
             },
             callback: function (item) {

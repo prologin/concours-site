@@ -246,6 +246,8 @@ PROLOGIN_CACHES = {
 TRAINING_CORRECTORS = (
 )
 
+# Max size of uploaded source files in bytes
+TRAINING_UPLOAD_MAX_LENGTH = 1 << 21  # 2MiB
 # How long to wait, in seconds, for a remote corrector
 TRAINING_CORRECTOR_REQUEST_TIMEOUT = 5
 # How long to wait, in seconds, before displaying the submission result page.

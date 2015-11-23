@@ -10,6 +10,7 @@ from django.conf import settings
 from django.contrib.admin.views.main import EMPTY_CHANGELIST_VALUE
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
+from django.core.files import File
 from django.core.urlresolvers import reverse
 from django.utils.html import conditional_escape
 from django.utils.translation import ugettext_lazy as _
@@ -28,6 +29,14 @@ def get_slug(name):
     name = ''.join(x for x in name if x in string.ascii_letters + string.digits + ' _-')
     name = re.sub(r'[^a-z0-9\-]', '_', name)
     return name
+
+
+def sizeof_fmt(num: int, suffix='B'):
+    for unit in ('', 'Ki', 'Mi', 'Gi', 'Ti', 'Pi', 'Ei', 'Zi'):
+        if abs(num) < 1024.0:
+            return "%3.1f%s%s" % (num, unit, suffix)
+        num /= 1024.0
+    return "%.1f%s%s" % (num, 'Yi', suffix)
 
 
 def upload_path(*base_path):
@@ -167,15 +176,15 @@ def admin_url_for(obj, method='change', label=lambda e: str(e)):
 ENCODINGS = ('utf-8-sig', 'utf-8', 'latin1')
 
 
-def read_try_hard(fileobj, encodings=ENCODINGS):
+def read_try_hard(fileobj: File, *args, encodings=ENCODINGS):
+    data = fileobj.read(*args)
     for encoding in encodings:
         try:
-            return fileobj.read().decode(encoding)
+            return data.decode(encoding)
         except UnicodeDecodeError:
             pass
-    else:
-        raise ValueError("Could not find proper encoding (tried {}) for file: {}"
-                         .format(', '.join(ENCODINGS), fileobj))
+    raise ValueError("Could not find proper encoding (tried {}) for file: {}"
+                     .format(', '.join(ENCODINGS), fileobj))
 
 
 def open_try_hard(callback, filename, *args, encodings=ENCODINGS, **kwargs):
