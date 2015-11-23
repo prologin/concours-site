@@ -1,4 +1,7 @@
 {% load i18n %}
 {% url 'users:register' as register %}
 {% url 'users:login' as login %}
-<div class="alert alert-warning"><i class="fa fa-user"></i> <div>{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to post messages.{% endblocktrans %}</div></div>
+<div class="alert alert-warning">
+  <i class="fa fa-user"></i>
+  <div>{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to post messages.{% endblocktrans %}</div>
+</div>
