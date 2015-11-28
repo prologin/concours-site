@@ -1,0 +1,91 @@
+{% load static i18n utils %}
+{% load django_bootstrap_breadcrumbs %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{% trans "Undergoing maintenance" %} – Prologin</title>
+
+  {# Google font, Boostrap, FontAwesome #}
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,700italic,300,300italic"/>
+  <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'lib/css/font-awesome.min.css' %}"/>
+
+  {# Custom #}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/prologin.css' %}"/>
+
+  <meta property="og:title" content="{% trans "Prologin, the French computing contest" %}"/>
+  <meta property="og:type" content="product"/>
+  <meta property="og:image" content="{% static 'img/logo_cube.png' %}"/>
+  <meta property="og:site_name" content="{% trans "Prologin, the French computing contest" %}"/>
+  <meta property="fb:admins" content=""/>
+
+{% include "prologin/favicons.html" %}
+
+</head>
+<body class="tex2jax_ignore">
+
+  {# Header #}
+  {% block super_header %}
+  <div class="navbar-header">
+    <div class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-brand">
+          <a href="{% url 'home' %}">
+            <img src="{% static 'img/logo_cube.png' %}" width="50" height="53" alt="Prologin">
+            Prologin
+            <small>{% get_setting 'PROLOGIN_EDITION' %}</small>
+          </a>
+        </div>
+    </div>
+    </div>
+  </div>
+  {% endblock super_header %}
+
+  {% block super_content %}
+  {# Content #}
+  <div class="container">
+    {% block breadcrumbs %}
+      {% clear_breadcrumbs %}
+      {% breadcrumb_for "home" %}{% trans "Prologin" %}{% endbreadcrumb_for %}
+      {% breadcrumb_for "" %}{% trans "Undergoing maintenance" %}{% endbreadcrumb_for %}
+    {% endblock %}
+
+    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+
+    {% block content %}
+
+      <h1>{% trans "Prologin is undergoing a short maintenance" %}</h1>
+
+      <div class="row" style="margin: 3em 0;">
+        <div class="col-xs-2 text-center">
+          <div><i class="fa fa-wrench fa-4x"></i></div>
+        </div>
+        <div class="col-xs-10">
+          <p>{% trans "We are doing internal maintenance operations for which we have to temporally shut down access to the website." %}</p>
+          <p>{% trans "We are sorry for the inconvenience. The operation should last only a few minutes. Please come visit us in a moment!" %}</p>
+        </div>
+      </div>
+
+    {% endblock %}
+  </div>
+  {% endblock super_content %}
+
+  {# Scripts #}
+  <script src="{% static 'lib/js/jquery.min.js' %}"></script>
+  <script src="{% static 'lib/js/bootstrap.min.js' %}"></script>
+  {% block extra_script %}{% endblock %}
+  {% get_setting_var 'GOOGLE_ANALYTICS_ID' as google_analytics_id %}
+  {% if google_analytics_id %}<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', '{{ google_analytics_id }}', 'auto');
+  ga('send', 'pageview');
+  </script>{% endif %}
+</body>
+</html>

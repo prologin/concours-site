@@ -1,6 +1,7 @@
 TOP := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 PROLOGIN_DIR := $(dir $(TOP))prologin
 STATIC_DIR := $(PROLOGIN_DIR)/prologin/static
+PUBLIC_DIR := $(dir $(TOP))public
 IMG_DIR := $(STATIC_DIR)/img
 LIB_DIR := $(STATIC_DIR)/lib
 
@@ -16,14 +17,18 @@ FAVICON_ICO_SIZES := 16 32 48
 APPLE_TOUCH_SIZES := 57 60 72 76 114 120 144 152 180
 MSTILE_SIZES := 70x70 144x144 150x150 310x150 310x310
 ARCHIVE_PLACEHOLDER_SIZE = 716
+ERROR_503_LANGS := en fr
 
 ARCHIVE_PLACEHOLDER := $(PROLOGIN_DIR)/archives/static/img/archive-placeholder.png
+
+ERROR_503_TPLS := $(addsuffix .html,$(addprefix $(PUBLIC_DIR)/503.,$(ERROR_503_LANGS)))
 
 OBJS := $(addprefix $(IMG_DIR)/,logo_cube.png small_cube.png silhouette.png prologin_emoji.png apple-touch-icon.png favicon.ico)
 OBJS += $(patsubst %,$(IMG_DIR)/favicon-%.png,$(FAVICON_PNG_SIZES))
 OBJS += $(patsubst %,$(IMG_DIR)/apple-touch-icon-%.png,$(APPLE_TOUCH_SIZES))
 OBJS += $(patsubst %,$(IMG_DIR)/mstile-%.png,$(MSTILE_SIZES))
 OBJS += $(ARCHIVE_PLACEHOLDER)
+OBJS += $(ERROR_503_TPLS)
 
 # Targets
 
@@ -75,6 +80,9 @@ $(IMG_DIR)/favicon-mstile-%.png: cube_perfect.svg
 
 $(IMG_DIR)/mstile-%.big.png: $(IMG_DIR)/favicon-mstile-%.png
 	$(CONVERT) $< -gravity center -background transparent -extent $* $@
+
+$(PUBLIC_DIR)/503.%.html:
+	cd $(PROLOGIN_DIR) && python manage.py statictemplate 503.html $* -f $@
 
 print-%:
 	@echo '$*=$($*)'

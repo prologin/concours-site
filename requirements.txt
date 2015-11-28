@@ -25,6 +25,8 @@ django-debug-toolbar
 django-prometheus
 # Google Recaptcha/Nocaptcha support
 django-recaptcha
+# Generate static templates (for 5xx error pages served by nginx, mainly)
+django-statictemplate
 # Model tagging support
 django-tagging
 # Model TimezoneField

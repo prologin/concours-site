@@ -71,6 +71,7 @@ INSTALLED_APPS = (
     'djmail',
     'mptt',
     'rules.apps.AutodiscoverRulesConfig',
+    'statictemplate',
     'tagging',
 
     # Prologin apps
