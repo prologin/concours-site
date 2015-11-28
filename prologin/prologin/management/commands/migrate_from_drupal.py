@@ -826,6 +826,87 @@ class Command(LabelCommand):
                     correction.save()
                     self.stdout.write("Contestant {} was {}".format(contestant, "created" if created else "updated"))
 
+    def migrate_contest_after_0002(self):
+        import contest.models
+        query = """
+        SELECT
+          r.type,
+          r.user_id,
+          r.ruled_out,
+          r.assignation,
+          ev.annee AS year
+        FROM (
+               SELECT
+                 'qualif'                                                      AS type,
+                 r.user_id,
+                 r.qcm_id                                                      AS event_id,
+                 IF(r.resultat_demi_finale_id >= 0, rdf.demi_finale_id, NULL)  AS assignation,
+                 r.resultat_demi_finale_id = -2                                AS ruled_out
+               FROM resultat_qcms r
+               LEFT JOIN resultat_demi_finales rdf ON rdf.id = r.resultat_demi_finale_id
+               UNION
+               SELECT
+                'semi'                    AS type,
+                 user_id,
+                 demi_finale_id           AS event_id,
+                 NULL                     AS assignation,
+                 resultat_finale_id = -2  AS ruled_out
+               FROM resultat_demi_finales
+        ) r
+        INNER JOIN concours ev ON ev.id = r.event_id
+        ORDER BY ev.annee, r.type, r.user_id
+        """
+
+        @functools.lru_cache(2000)
+        def get_user(user_id):
+            return User.objects.get(pk=user_id)
+
+        @functools.lru_cache(128)
+        def get_edition(year):
+            return contest.models.Edition.objects.get(year=year)
+
+        @functools.lru_cache(2000)
+        def get_event(type, year, pk):
+            return contest.models.Event.objects.get(
+                type=type.value,
+                edition=get_edition(year),
+                pk=pk,
+            )
+
+        with self.mysql.cursor() as c:
+            c.execute(query)
+            with transaction.atomic():
+                for row in namedcolumns(c):
+                    type = contest.models.Event.Type.semifinal if row.type == 'qualif' else contest.models.Event.Type.final
+                    try:
+                        contestant = contest.models.Contestant.objects.select_related('user').get(
+                            edition=get_edition(row.year), user=get_user(row.user_id))
+                    except User.DoesNotExist:
+                        continue
+                    if row.type == 'qualif':
+                        if row.assignation is None:
+                            # sanity check
+                            if contestant.assignation_semifinal_event is not None:
+                                self.stderr.write("No semifinal assignation, yet assigned in Drupal: {}".format(contestant))
+                                continue
+                        else:
+                            assignation = get_event(contest.models.Event.Type.semifinal, row.year, row.assignation)
+                            if assignation != contestant.assignation_semifinal_event:
+                                self.stderr.write("Semifinal assignation is not the same as Drupal: {}".format(contestant))
+                                continue
+                    attr = 'assignation_{}'.format(type.name)
+                    if row.ruled_out and getattr(contestant, attr) != contest.models.Assignation.ruled_out.value:
+                        self.stdout.write("{} is actually ruled out from {} {}".format(contestant.user.username, type, row.year))
+                        if row.type == 'qualif' and contestant.assignation_semifinal_event is not None:
+                            self.stderr.write("Ruled out, yet assignation_semifinal_event is not None: {}".format(contestant))
+                            continue
+                        setattr(contestant, attr, contest.models.Assignation.ruled_out.value)
+                        contestant.save()
+                    elif not row.ruled_out and getattr(contestant, attr) != contest.models.Assignation.assigned.value:
+                        self.stdout.write("{} is actually assigned on {} {}".format(contestant.user.username, type, row.year))
+                        setattr(contestant, attr, contest.models.Assignation.assigned.value)
+                        contestant.save()
+
     def migrate_quizz(self):
         import contest.models
         import qcm.models

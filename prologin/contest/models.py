@@ -97,12 +97,17 @@ class ShirtSize(ChoiceEnum):
     xxl = 5
 
 
+@ChoiceEnum.labels(str.capitalize)
+class Assignation(ChoiceEnum):
+    not_assigned = 0
+    ruled_out = 1
+    assigned = 2
+
+
 class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
 
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
     edition = models.ForeignKey(Edition, related_name='contestants')
-    event_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants', blank=True)
-    assigned_event = models.ForeignKey(Event, related_name='assigned_contestants', blank=True, null=True)
 
     shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True,
                            verbose_name=_("T-shirt size"), empty_label=_("Choose your size"),
@@ -110,6 +115,11 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     preferred_language = CodingLanguageField(null=True, blank=True, db_index=True,
                                              help_text=_("The programming language you will most likely use during the "
                                                          "regional events."))
+
+    assignation_semifinal = EnumField(Assignation, default=Assignation.not_assigned.value)
+    assignation_semifinal_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants', blank=True)
+    assignation_semifinal_event = models.ForeignKey(Event, related_name='assigned_contestants', blank=True, null=True)
+    assignation_final = EnumField(Assignation, default=Assignation.not_assigned.value)
 
     score_qualif_qcm = models.IntegerField(blank=True, null=True, verbose_name=_("Quiz score"))
     score_qualif_algo = models.IntegerField(blank=True, null=True, verbose_name=_("Algo exercises score"))
@@ -133,7 +143,8 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
 
     @property
     def is_complete_for_semifinal(self):
-        if self.event_wishes.filter(type=Event.Type.semifinal.value).distinct().count() < settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT:
+        if (self.assignation_semifinal_wishes.filter(type=Event.Type.semifinal.value).distinct().count()
+                < settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT):
             return False
         return self._is_complete
 

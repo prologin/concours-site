@@ -64,14 +64,14 @@ class ContestantUserForm(forms.ModelForm):
 class ContestantForm(forms.ModelForm):
     class Meta:
         model = contest.models.Contestant
-        fields = ('shirt_size', 'preferred_language', 'event_wishes')
+        fields = ('shirt_size', 'preferred_language', 'assignation_semifinal_wishes')
 
     def __init__(self, *args, **kwargs):
         edition = kwargs.pop('edition')
         kwargs.pop('complete')
         super().__init__(*args, **kwargs)
-        # Overwrite event_wishes with our custom over-engineered field
-        self.fields['event_wishes'] = EventWishChoiceField(
+        # Overwrite assignation_semifinal_wishes with our custom over-engineered field
+        self.fields['assignation_semifinal_wishes'] = EventWishChoiceField(
             queryset=(contest.models.Event.objects
                       .select_related('center')
                       .filter(edition=edition, type=contest.models.Event.Type.semifinal.value)
@@ -85,9 +85,9 @@ class ContestantForm(forms.ModelForm):
                         "your first choice."))
         if self.instance:
             # FIXME: figure why we have to do the ordering manually
-            self.initial['event_wishes'] = list(self.instance.event_wishes
-                                                .order_by('eventwish__order')
-                                                .values_list('pk', flat=True))
+            self.initial['assignation_semifinal_wishes'] = list(self.instance.assignation_semifinal_wishes
+                                                                .order_by('eventwish__order')
+                                                                .values_list('pk', flat=True))
         self._edition = edition
 
 
