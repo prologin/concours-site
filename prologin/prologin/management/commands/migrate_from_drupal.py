@@ -820,7 +820,7 @@ class Command(LabelCommand):
                         correction.author = User.objects.filter(username__icontains=row.correcteur).first()
                     correction.comment = row.commentaires or ''
                     correction.date_added = localize(row.date)
-                    correction.event_type = (contest.models.Event.Type.qualification if row.type == 'qcm'
+                    correction.event_type = (contest.models.Event.Type.qualification if row.type == 'qualif'
                                              else contest.models.Event.Type.semifinal).value
                     correction.changes = changes
                     correction.save()
