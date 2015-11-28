@@ -771,7 +771,7 @@ class Command(LabelCommand):
                         # The event where contestant was actually assigned.
                         if row.assignation:
                             try:
-                                contestant.assigned_event = contest.models.Event.objects.get(
+                                contestant.assignation_semifinal_event = contest.models.Event.objects.get(
                                     type=contest.models.Event.Type.semifinal.value,
                                     edition__year=row.year,
                                     pk=row.assignation,

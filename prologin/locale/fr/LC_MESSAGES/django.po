@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-28 17:19+0100\n"
-"PO-Revision-Date: 2015-11-28 16:41+0000\n"
+"POT-Creation-Date: 2015-11-28 18:52+0100\n"
+"PO-Revision-Date: 2015-11-28 17:53+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -212,7 +212,7 @@ msgstr "Plein format"
 msgid "Generate convocations"
 msgstr "Générer les convocations"
 
-#: contest/admin.py:68 contest/admin.py:108 qcm/admin.py:58 qcm/admin.py:91
+#: contest/admin.py:68 contest/admin.py:109 qcm/admin.py:58 qcm/admin.py:91
 msgid "Edition"
 msgstr "Édition"
 
@@ -220,24 +220,20 @@ msgstr "Édition"
 msgid "Qualification scores"
 msgstr "Scores des qualifications"
 
-#: contest/admin.py:88
+#: contest/admin.py:89
 msgid "Regionale scores"
 msgstr "Scores de la régionale"
 
-#: contest/admin.py:90
+#: contest/admin.py:92
 msgid "Finale scores"
 msgstr "Score de la finale"
 
-#: contest/admin.py:92
-msgid "Assignation"
-msgstr "Assigné à"
-
-#: contest/admin.py:98
+#: contest/admin.py:99
 #, python-format
 msgid "%(user)s in edition %(year)s"
 msgstr "%(user)s pour l'édition %(year)s"
 
-#: contest/admin.py:102
+#: contest/admin.py:103
 msgid "User"
 msgstr "Utilisateur"
 
@@ -245,40 +241,40 @@ msgstr "Utilisateur"
 msgid "I am not a student at EPITA or EPITECH."
 msgstr "Je ne suis pas étudiant à EPITA ou EPITECH."
 
-#: contest/forms.py:24
+#: contest/forms.py:31
 #, python-format
 msgid ""
 "Students from EPITA and EPITCH are <a href=\"%(url)s\">not allowed</a> to "
 "join the contest."
 msgstr "Les étudiant(e)s de EPITA et EPITECH <a href=\"%(url)s\">ne peuvent pas participer</a> au concours."
 
-#: contest/forms.py:31
+#: contest/forms.py:33
 msgid ""
 "We need your real name and address for legal reasons, as the Prologin staff "
 "engages its responsibility to supervise you during the regional events and "
 "the finale."
 msgstr "Nous avons besoin de votre vrai nom et de votre adresse pour des raisons légales : l'association engage sa responsabilité pour vous encadrer lors des épreuves régionales et de la finale."
 
-#: contest/forms.py:37
+#: contest/forms.py:39
 #, python-format
 msgid ""
 "You can modify or review all your personal information on your <a "
 "href=\"%(url)s\">profile page</a>."
 msgstr "Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a href=\"%(url)s\">page de profil</a>."
 
-#: contest/forms.py:49
+#: contest/forms.py:51
 msgid "You cannot participate if you are an EPITA/EPITECH student"
 msgstr "Vous ne pouvez pas participer si vous êtes un étudiant d'EPITA/EPITECH."
 
-#: contest/forms.py:57
+#: contest/forms.py:59
 msgid "You cannot participate if you are born before {}"
 msgstr "Vous ne pouvez pas participer si vous êtes né avant {}"
 
-#: contest/forms.py:79
+#: contest/forms.py:81
 msgid "Semifinal center wishes"
 msgstr "Choix de centres d'examen pour les épreuves régionales"
 
-#: contest/forms.py:80
+#: contest/forms.py:82
 msgid ""
 "This is where you would like to seat the regional events if you are "
 "selected. Choose at least one and up to three wishes, in order of "
@@ -293,49 +289,61 @@ msgstr "Sélections"
 msgid "Semifinal"
 msgstr "Demi-finales"
 
-#: contest/models.py:113
+#: contest/models.py:105
+msgid "Not assigned"
+msgstr "Non assigné"
+
+#: contest/models.py:106
+msgid "Ruled out"
+msgstr "Éliminé"
+
+#: contest/models.py:107
+msgid "Assigned"
+msgstr "Assigné"
+
+#: contest/models.py:116
 msgid "T-shirt size"
 msgstr "Taille du t-shirt"
 
-#: contest/models.py:113
+#: contest/models.py:116
 msgid "Choose your size"
 msgstr "Choisissez votre taille"
 
-#: contest/models.py:114
+#: contest/models.py:117
 msgid "We usually provide unisex Prologin t-shirts to the finalists."
 msgstr "Nous fournissons le plus souvent des t-shirts unisexe aux finalistes."
 
-#: contest/models.py:116
+#: contest/models.py:119
 msgid ""
 "The programming language you will most likely use during the regional "
 "events."
 msgstr "Le langage de programmation que vous utiliserez le plus probablement pour l'épreuve régionale."
 
-#: contest/models.py:124
+#: contest/models.py:127
 msgid "Quiz score"
 msgstr "Score du quiz"
 
-#: contest/models.py:125
+#: contest/models.py:128
 msgid "Algo exercises score"
 msgstr "Score des exercices d'algo"
 
-#: contest/models.py:126 contest/models.py:130 contest/models.py:132
+#: contest/models.py:129 contest/models.py:133 contest/models.py:135
 msgid "Bonus score"
 msgstr "Score bonus"
 
-#: contest/models.py:127
+#: contest/models.py:130
 msgid "Written exam score"
 msgstr "Score de l'épreuve écrite"
 
-#: contest/models.py:128
+#: contest/models.py:131
 msgid "Interview score"
 msgstr "Score de l'entretien"
 
-#: contest/models.py:129
+#: contest/models.py:132
 msgid "Machine exam score"
 msgstr "Score de l'épreuve machine"
 
-#: contest/models.py:131 problems/admin.py:171
+#: contest/models.py:134 problems/admin.py:171
 #: problems/templates/problems/manual.html:66
 msgid "Score"
 msgstr "Score"

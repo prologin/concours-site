@@ -26,11 +26,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='contestant',
             name='assignation_semifinal',
-            field=prologin.models.EnumField(contest.models.Assignation, default=0, choices=[(0, 'Not_assigned'), (1, 'Ruled_out'), (2, 'Assigned')]),
+            field=prologin.models.EnumField(contest.models.Assignation, default=0, choices=[(0, 'Not assigned'), (1, 'Ruled out'), (2, 'Assigned')]),
         ),
         migrations.AddField(
             model_name='contestant',
             name='assignation_final',
-            field=prologin.models.EnumField(contest.models.Assignation, default=0, choices=[(0, 'Not_assigned'), (1, 'Ruled_out'), (2, 'Assigned')]),
+            field=prologin.models.EnumField(contest.models.Assignation, default=0, choices=[(0, 'Not assigned'), (1, 'Ruled out'), (2, 'Assigned')]),
         ),
     ]

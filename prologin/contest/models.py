@@ -97,11 +97,14 @@ class ShirtSize(ChoiceEnum):
     xxl = 5
 
 
-@ChoiceEnum.labels(str.capitalize)
+@ChoiceEnum.labels(lambda lbl: lbl.replace('_', ' ').capitalize())
 class Assignation(ChoiceEnum):
     not_assigned = 0
     ruled_out = 1
     assigned = 2
+    ugettext_noop("Not assigned")
+    ugettext_noop("Ruled out")
+    ugettext_noop("Assigned")
 
 
 class Contestant(ExportModelOperationsMixin('contestant'), models.Model):

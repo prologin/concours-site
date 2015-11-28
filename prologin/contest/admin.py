@@ -20,9 +20,9 @@ class EventWishesFormSet(forms.BaseInlineFormSet):
 class ContestantForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        qs = self.fields['assigned_event'].queryset
-        self.fields['assigned_event'].queryset = qs.filter(type=contest.models.Event.Type.semifinal.value,
-                                                           edition=self.instance.edition)
+        qs = self.fields['assignation_semifinal_event'].queryset
+        self.fields['assignation_semifinal_event'].queryset = qs.filter(type=contest.models.Event.Type.semifinal.value,
+                                                                        edition=self.instance.edition)
 
 
 class EventInline(admin.StackedInline):
@@ -84,12 +84,13 @@ class ContestantAdmin(NonSortableParentAdmin):
     fieldsets = (
         (None, {'fields': ('user', 'edition',)}),
         (_("Qualification scores"), {'classes': ('collapse',), 'fields':
-            ('score_qualif_qcm', 'score_qualif_algo', 'score_qualif_bonus',)}),
+            ('assignation_semifinal', 'assignation_semifinal_event',
+             'score_qualif_qcm', 'score_qualif_algo', 'score_qualif_bonus',)}),
         (_("Regionale scores"), {'classes': ('collapse',), 'fields':
-            ('score_semifinal_written', 'score_semifinal_interview', 'score_semifinal_machine', 'score_semifinal_bonus',)}),
+            ('assignation_final', 'score_semifinal_written', 'score_semifinal_interview', 'score_semifinal_machine',
+             'score_semifinal_bonus',)}),
         (_("Finale scores"), {'classes': ('collapse',), 'fields':
             ('score_final', 'score_final_bonus',)}),
-        (_("Assignation"), {'fields': ('assigned_event',)}),
     )
     inlines = [EventWishesInline, CorrectionInline]
     form = ContestantForm
