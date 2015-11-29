@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n markup drupal utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
+{% load i18n markup drupal utils bootstrap staticfiles humanize django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -37,7 +37,7 @@
                 {% if line.ex_aequo %}<small>{% trans "(ex-aequo)" %}</small>{% endif %}</td>
               <td><a href="{% url 'users:profile' line.user_id %}">
                   {{ line.user__username }}</a></td>
-              <td>{{ line.total_score }}</td>
+              <td>{{ line.total_score|intcomma }}</td>
             </tr>
           {% empty %}
             <tr>
