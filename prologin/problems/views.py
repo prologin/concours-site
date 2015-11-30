@@ -441,6 +441,7 @@ class ChallengeScoreboard(ListView):
     template_name = 'problems/challenge-scoreboard.html'
     allow_empty = True
     context_object_name = 'contestant_scores'
+    row_count = 50
 
     def get(self, request, *args, **kwargs):
         self.year, self.event_type, self.challenge = get_challenge(
@@ -466,9 +467,10 @@ class ChallengeScoreboard(ListView):
                         user__is_staff=0)
                 .values('user_id', 'user__username')
                 .annotate(total_score=Sum(F('score_base') - F('malus')))
-                .order_by('-total_score'))[:50])
+                .order_by('-total_score'))[:self.row_count])
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['challenge'] = self.challenge
+        context['row_count'] = self.row_count
         return context

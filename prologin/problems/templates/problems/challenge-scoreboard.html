@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n markup drupal utils bootstrap staticfiles humanize django_bootstrap_breadcrumbs %}
+{% load i18n utils humanize django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -11,45 +11,38 @@
 {% block title %}{% trans "Scoreboard" %} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
-  <div class="row">
-    <div class="col-md-9" role="main">
-      <h1>{% trans "Scoreboard" %} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}{{ type }} {{ year }}{% endblocktrans %}</h1>
-      </h1>
+  <h1>{% trans "Scoreboard" %} –
+    {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}{{ type }} {{ year }}{% endblocktrans %}</h1>
 
-      <article id="challenge-scoreboard">
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th width="2em"></th>
-              <th>{% trans "Rank" %}</th>
-              <th>{% trans "Name" %}</th>
-              <th>{% trans "Points" %}</th>
-            </tr>
-          </thead>
-          <tbody>
-          {% for line in contestant_scores %}
-            <tr>
-              <td class="text-center">{% if line.rank <= 3 %}
-                <span class="challenge-trophy-{{ line.rank }}">
-                <i class="fa fa-trophy"></i></span>
-                {% endif %}</td>
-              <td><strong>{{ line.rank }}</strong>
-                {% if line.ex_aequo %}<small>{% trans "(ex-aequo)" %}</small>{% endif %}</td>
-              <td><a href="{% url 'users:profile' line.user_id %}">
-                  {{ line.user__username }}</a></td>
-              <td>{{ line.total_score|intcomma }}</td>
-            </tr>
-          {% empty %}
-            <tr>
-              <td colspan="3" class="text-muted">
-                <i class="fa fa-frown-o"></i> {% trans "No scores to display" %}
-              </td>
-            </tr>
-          {% endfor %}
-        </table>
-      </article>
+  <div class="alert alert-info"><i class="fa fa-info-circle"></i><div>{% blocktrans %}Please note that only the first {{ row_count }} results are displayed below, regardless of the actual number of contestants.{% endblocktrans %}</div></div>
 
-    </div>
-  </div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th width="2em"></th>
+      <th>{% trans "Rank" %}</th>
+      <th>{% trans "Name" %}</th>
+      <th>{% trans "Points" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for line in contestant_scores %}
+      <tr>
+        <td class="text-center">{% if line.rank <= 3 %}
+          <span class="challenge-trophy-{{ line.rank }}"><i class="fa fa-trophy"></i></span>
+        {% endif %}</td>
+        <td style="width: 1%; white-space: nowrap;"><strong>{{ line.rank }}</strong>
+          {% if line.ex_aequo %}<small>{% trans "(ex-aequo)" %}</small>{% endif %}</td>
+        <td><a href="{% url 'users:profile' line.user_id %}">{{ line.user__username }}</a></td>
+        <td>{{ line.total_score|intcomma }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3" class="text-muted">
+          <i class="fa fa-frown-o"></i> {% trans "No scores to display" %}
+        </td>
+      </tr>
+    {% endfor %}
+  </table>
 
 {% endblock %}
