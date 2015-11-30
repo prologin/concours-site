@@ -12,10 +12,10 @@
 {% block title %}{% blocktrans %}Staff {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
-<ul class="pager">
-  {% for team in timeline %}
+<ul class="pager align-left">
+  {% spaceless %}{% for team in timeline %}
   <li{% if team.year == year %} class="active"{% endif %}><a href="{% url 'team:year' team.year %}">{{ team.year }}</a></li>
-  {% endfor %}
+  {% endfor %}{% endspaceless %}
 </ul>
 
 <header class="page-header">
