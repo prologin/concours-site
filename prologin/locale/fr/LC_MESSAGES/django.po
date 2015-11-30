@@ -1985,17 +1985,17 @@ msgstr "Vous devez fournir soit un code source soit un fichier source, mais pas 
 
 #: problems/forms.py:119
 msgid "Your client did not provide the content length of your source file."
-msgstr ""
+msgstr "Votre client web n'a pas fourni la taille de votre fichier source."
 
 #: problems/forms.py:121
 #, python-format
 msgid ""
 "The source file you uploaded is too large. Please keep it below %(size)s."
-msgstr ""
+msgstr "Le fichier source que vous avez envoyé est trop lourd. Veuillez rester en-dessous de %(size)s."
 
 #: problems/forms.py:127
 msgid "Please use the UTF-8 encoding when uploading a source file."
-msgstr ""
+msgstr "Merci d'utiliser UTF-8 comme encodage de votre fichier source."
 
 #: problems/forms.py:130
 msgid "You need to provide either a source file or a source code."
@@ -2050,24 +2050,31 @@ msgctxt "Problem title, eg. 2015 Qualification"
 msgid "%(type)s %(year)s"
 msgstr "%(type)s %(year)s"
 
-#: problems/templates/problems/challenge-scoreboard.html:16
+#: problems/templates/problems/challenge-scoreboard.html:15
 #, python-format
 msgid "%(type)s %(year)s"
 msgstr "%(type)s %(year)s"
 
-#: problems/templates/problems/challenge-scoreboard.html:24
+#: problems/templates/problems/challenge-scoreboard.html:17
+#, python-format
+msgid ""
+"Please note that only the first %(row_count)s results are displayed below, "
+"regardless of the actual number of contestants."
+msgstr "Notez que seuls les %(row_count)s premiers résultats sont affichés ci-après, quelque soit le nombre effectif de participants."
+
+#: problems/templates/problems/challenge-scoreboard.html:23
 msgid "Rank"
 msgstr "Rang"
 
-#: problems/templates/problems/challenge-scoreboard.html:26
+#: problems/templates/problems/challenge-scoreboard.html:25
 msgid "Points"
 msgstr "Points"
 
-#: problems/templates/problems/challenge-scoreboard.html:37
+#: problems/templates/problems/challenge-scoreboard.html:35
 msgid "(ex-aequo)"
 msgstr "(ex-aequo)"
 
-#: problems/templates/problems/challenge-scoreboard.html:45
+#: problems/templates/problems/challenge-scoreboard.html:42
 msgid "No scores to display"
 msgstr "Aucun score à afficher"
 
