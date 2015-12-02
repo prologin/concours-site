@@ -72,7 +72,7 @@ class CodeExpiredFilter(BooleanFilter):
 
 
 class SubmissionCodeAdmin(admin.ModelAdmin):
-    readonly_fields = ('submission',)
+    readonly_fields = ('submission', 'celery_task_id',)
     list_display = ('_title', 'challenge', 'problem', 'username', 'language', 'correctable', 'score', 'status')
     list_filter = (CodeSucceededFilter, CodeCorrectedFilter, CodeExpiredFilter, 'language', 'submission__challenge')
     search_fields = ('submission__user__username', 'submission__user__first_name', 'submission__user__last_name',
