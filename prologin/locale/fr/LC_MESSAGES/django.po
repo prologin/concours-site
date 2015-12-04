@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-28 18:52+0100\n"
-"PO-Revision-Date: 2015-11-28 17:53+0000\n"
+"POT-Creation-Date: 2015-12-04 18:36+0100\n"
+"PO-Revision-Date: 2015-12-04 17:38+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -136,7 +136,7 @@ msgstr "Rapport de la finale"
 #: archives/templates/archives/index.html:79
 #: problems/templates/problems/challenge-scoreboard.html:8
 #: problems/templates/problems/challenge-scoreboard.html:11
-#: problems/templates/problems/challenge-scoreboard.html:16
+#: problems/templates/problems/challenge-scoreboard.html:14
 #: problems/templates/problems/challenge.html:14
 msgid "Scoreboard"
 msgstr "Classement"
@@ -564,7 +564,7 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:20 problems/templates/problems/challenge-scoreboard.html:25
+#: forum/models.py:20 problems/templates/problems/challenge-scoreboard.html:24
 msgid "Name"
 msgstr "Nom"
 
@@ -2001,32 +2001,32 @@ msgstr "Merci d'utiliser UTF-8 comme encodage de votre fichier source."
 msgid "You need to provide either a source file or a source code."
 msgstr "Vous devez fournir un fichier source ou un code source."
 
-#: problems/models/submission.py:44
+#: problems/models/submission.py:47
 #: problems/templates/problems/submission.html:10
 msgid "Submission"
 msgstr "Soumission"
 
-#: problems/models/submission.py:45
+#: problems/models/submission.py:48
 msgid "Submissions"
 msgstr "Soumissions"
 
-#: problems/models/submission.py:74
+#: problems/models/submission.py:77
 msgid "Expired"
 msgstr "Expiré"
 
-#: problems/models/submission.py:75
+#: problems/models/submission.py:78
 msgid "Pending"
 msgstr "En attente"
 
-#: problems/models/submission.py:76
+#: problems/models/submission.py:79
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:116
+#: problems/models/submission.py:119
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:117
+#: problems/models/submission.py:120
 msgid "Submission codes"
 msgstr "Codes soumis"
 
@@ -2612,70 +2612,85 @@ msgid "Unavailable status"
 msgstr "Statut indisponible"
 
 #: problems/templates/problems/submission.html:55
-msgid "Points won:"
-msgstr "Points gagnés&nbsp;:"
+msgid "Points won"
+msgstr "Points gagnés"
 
-#: problems/templates/problems/submission.html:57
+#: problems/templates/problems/submission.html:58
+msgid "Malus"
+msgstr "Malus"
+
+#: problems/templates/problems/submission.html:58
+msgid ""
+"Every time you submit a solution that fails (ie. does not compile or does "
+"not pass all the tests), malus points are increased by a value proportional "
+"to the problem level and the number of attempts."
+msgstr "À chaque soumission échouée (qui ne compile pas ou qui ne passe pas tous les tests), les points de malus sont incrémentés d'une valeur proportionnelle au niveau de l'exercice et au nombre d'essais."
+
+#: problems/templates/problems/submission.html:63
 #, python-format
 msgid "Execution time: %(ms)s&nbsp;ms"
 msgstr "Temps d'éxecution&nbsp;: %(ms)s&nbsp;ms"
 
-#: problems/templates/problems/submission.html:58
+#: problems/templates/problems/submission.html:64
 #, python-format
 msgid "Memory used: %(kb)s&nbsp;kB"
 msgstr "Mémoire utilisée&nbsp;: %(kb)s&nbsp;kO"
 
-#: problems/templates/problems/submission.html:61
+#: problems/templates/problems/submission.html:67
 msgid "Edit and submit again"
 msgstr "Modifier et re-soumettre"
 
-#: problems/templates/problems/submission.html:70
-#: problems/templates/problems/submission.html:71
+#: problems/templates/problems/submission.html:76
+#: problems/templates/problems/submission.html:77
 msgid "Solution code"
 msgstr "Code de la solution"
 
-#: problems/templates/problems/submission.html:80
+#: problems/templates/problems/submission.html:86
 msgid "The compilation went fine."
 msgstr "La compilation a réussi."
 
-#: problems/templates/problems/submission.html:82
+#: problems/templates/problems/submission.html:88
 msgid "The compilation failed:"
 msgstr "La compilation a échoué&nbsp;:"
 
-#: problems/templates/problems/submission.html:92
-#: problems/templates/problems/submission.html:93
+#: problems/templates/problems/submission.html:98
+#: problems/templates/problems/submission.html:99
 msgid "Correction tests"
 msgstr "Tests de correction"
 
-#: problems/templates/problems/submission.html:104
-#: problems/templates/problems/submission.html:105
+#: problems/templates/problems/submission.html:110
+#: problems/templates/problems/submission.html:111
 msgid "Performance tests"
 msgstr "Tests de performance"
 
 #: problems/templates/problems/submission.html:115
+msgid "There are no such tests for this problem."
+msgstr "Il n'y a aucun test de ce type pour cet exercice."
+
+#: problems/templates/problems/submission.html:123
 #, python-format
 msgid "These compilation and test results will be gone %(rem)s."
 msgstr "Les résultats de la compilation et des tests ne seront plus disponibles %(rem)s."
 
-#: problems/templates/problems/submission.html:117
+#: problems/templates/problems/submission.html:125
 msgid ""
 "The submission can not be corrected as it was written in a language that can"
 " not be compiled nor executed."
 msgstr "La soumission ne peut pas être corrigée car elle a été écrite dans un langage qui ne peut pas être compilé ou exécuté."
 
-#: problems/templates/problems/submission.html:119
+#: problems/templates/problems/submission.html:127
 msgid ""
 "Submission results are not available anymore. This is because the code was submitted a long time ago.\n"
 "You can still try to submit your code again using the “Edit and submit again” button."
 msgstr "Les résultats de la soumission ne sont plus disponibles parce que le code a été soumis il y a trop longtemps.\nVous pouvez toujours essayer de soumettre votre solution en utilisant le boutton «&nbsp;Modifier et re-soumettre&nbsp;»."
 
-#: problems/templates/problems/submission.html:122
+#: problems/templates/problems/submission.html:130
 msgid ""
 "This submission is pending correction. This can take from a few seconds to "
 "some minutes."
 msgstr "La soumission est en cours de correction. Cela peut prendre de quelques secondes à plusieurs minutes."
 
-#: problems/templates/problems/submission.html:123
+#: problems/templates/problems/submission.html:131
 msgid ""
 "Your browser does not support Javascript. You will have to manually reload "
 "this page once in a while to check if results have arrived."

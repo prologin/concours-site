@@ -52,7 +52,13 @@
           <i class="fa fa-question"></i> {% trans "Unavailable status" %}
           {% endif %}</p>
         {% if submission.done %}
-          <p>{% trans "Points won:" %} <span class="label label-{% if submission.succeeded %}success{% else %}danger{% endif %}">{{ submission.score }}</span></p>
+          <p>{% trans "Points won" %} <span class="label label-{% if submission.succeeded %}success{% else %}danger{% endif %}">{{ submission.score }}</span></p>
+          {% if submission.submission.has_malus %}
+          <p>
+            {% trans "Malus" %} <i class="fa fa-question-circle" data-toggle="tooltip" data-placement="left" title="{% trans "Every time you submit a solution that fails (ie. does not compile or does not pass all the tests), malus points are increased by a value proportional to the problem level and the number of attempts." %}"></i>
+            <span class="label label-danger">{{ submission.submission.malus }}</span>
+          </p>
+          {% endif %}
           {% if submission.exec_time != None or submission.exec_memory != None %}<p><small>
             {% blocktrans with ms=submission.exec_time|default:'?' %}Execution time: {{ ms }}&nbsp;ms{% endblocktrans %}<br>
             {% blocktrans with kb=submission.exec_memory|default:'?' %}Memory used: {{ kb }}&nbsp;kB{% endblocktrans %}
@@ -105,6 +111,8 @@
         <ul class="list-group collapse in" id="performance-tests" aria-labelledby="{% trans "Performance tests" %}">
           {% for result in results.performance %}
             {% include 'problems/stub_submission_result.html' %}
+          {% empty %}
+            <li class="list-group-item"><em>{% trans "There are no such tests for this problem." %}</em></li>
           {% endfor %}
         </ul>
       </div>
@@ -120,12 +128,17 @@
 You can still try to submit your code again using the “Edit and submit again” button.{% endblocktrans %}</p>
   {% else %}
     <p class="alert alert-info">{% trans "This submission is pending correction. This can take from a few seconds to some minutes." %}</p>
-    <noscript><p class="alert alert-warning">{% trans "Your browser does not support Javascript. You will have to manually reload this page once in a while to check if results have arrived." %}</p></noscript>
+    <noscript><div class="alert alert-warning"><i class="fa fa-exclamation-triangle"></i> <div>{% trans "Your browser does not support Javascript. You will have to manually reload this page once in a while to check if results have arrived." %}</div></div></noscript>
   {% endif %}
 {% endblock %}
 
 
 {% block extra_script %}
+  <script type="text/javascript" charset="utf-8">
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
   <script type="text/javascript" src="{% static 'js/collapse-indicator.js' %}"></script>
   {% if not submission.done and not submission.expired_result %}
   {# if the submission is not corrected yet but we may get the result later #}

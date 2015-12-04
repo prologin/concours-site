@@ -37,6 +37,9 @@ class Submission(ExportModelOperationsMixin('submission'), models.Model):
     def succeeded(self):
         return self.score_base > 0
 
+    def has_malus(self):
+        return self.malus > 0
+
     def __str__(self):
         return "{}/{} by {}".format(self.challenge, self.problem, self.user)
 
