@@ -39,10 +39,10 @@ def is_post_visible(user, post):
 
 # Permissions
 rules.add_perm('forum.view_forum', rules.is_staff | can_view_forum)
-rules.add_perm('forum.create_thread', rules.is_staff | can_view_forum)
+rules.add_perm('forum.create_thread', rules.is_staff | (rules.is_authenticated & can_view_forum))
 rules.add_perm('forum.view_thread', rules.is_staff | can_view_thread)
-rules.add_perm('forum.edit_thread', rules.is_staff | (can_view_thread & is_thread_resource_author))
+rules.add_perm('forum.edit_thread', rules.is_staff | (rules.is_authenticated & can_view_thread & is_thread_resource_author))
 rules.add_perm('forum.view_post', rules.is_staff | can_view_post)
-rules.add_perm('forum.create_post', rules.is_staff | (can_view_thread & is_thread_open))
-rules.add_perm('forum.edit_post', rules.is_staff | (is_post_visible & can_view_post & is_resource_author))
+rules.add_perm('forum.create_post', rules.is_staff | (rules.is_authenticated & can_view_thread & is_thread_open))
+rules.add_perm('forum.edit_post', rules.is_staff | (rules.is_authenticated & is_post_visible & can_view_post & is_resource_author))
 rules.add_perm('forum.edit_post_visibility', rules.is_staff)
