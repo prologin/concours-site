@@ -26,7 +26,17 @@ def remote_check(url, challenge, problem, source, filename):
     request.add_header('User-Agent', 'prologin-vm-interface/{}'.format(USER_AGENT_VERSION))
 
     with urllib.request.urlopen(request, data, timeout=settings.TRAINING_CORRECTOR_REQUEST_TIMEOUT) as response:
-        return response.read().decode('utf-8').strip()
+        payload = response.read()
+        try:
+            return payload.decode('utf-8').strip()
+        except UnicodeDecodeError:
+            # log the raw response for debug purposes
+            import hashlib
+            chksum = hashlib.md5(source.encode('utf-8', 'ignore')).hexdigest()
+            fname = '/tmp/celeryworker.{}.{}.{}.reponse.log'.format(challenge, problem, chksum)
+            with open(fname, 'wb') as log_file:
+                log_file.write(payload)
+            raise
 
 
 def parse_xml(s):
