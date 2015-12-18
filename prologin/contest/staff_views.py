@@ -131,8 +131,12 @@ class QualificationIndexView(CanCorrectPermissionMixin, EditionMixin, DatatableV
     datatable_class = contest.datatables.ContestantQualificationTable
 
     def get_queryset(self):
-        return (super().get_queryset()
-                .select_related('user', 'assignation_semifinal_event', 'assignation_semifinal_event__center'))
+        if self.request.GET.get('incomplete') is not None:
+            # the whole queryset, with some related
+            return (super().get_queryset()
+                    .select_related('user', 'assignation_semifinal_event', 'assignation_semifinal_event__center'))
+        # only the complete contestants
+        return self.model.complete_for_semifinal.filter(edition=self.edition)
 
 
 class SemifinalIndexView(CanCorrectPermissionMixin, EditionMixin, EventMixin, DatatableView):

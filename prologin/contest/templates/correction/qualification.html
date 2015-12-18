@@ -19,6 +19,7 @@
 
   <h1>{% trans "Qualification" %} <small>{% blocktrans with year=edition.year %}Prologin {{ year }}{% endblocktrans %}</small></h1>
 
+  <p>{% trans "Show:" %} <a href="#" id="s-all">{% trans "everything" %}</a> ⋅ <a href="#" id="s-complete">{% trans "complete only" %}</a></p>
   {{ datatable }}
 
 {% endblock %}
@@ -27,6 +28,15 @@
   <script type="text/javascript" charset="utf8" src="{% static 'lib/js/datatables.min.js' %}"></script>
   <script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
   <script type="text/javascript" charset="utf8">
-    datatableview.auto_initialize = true;
+    var dt = datatableview.initialize($('.datatable')).api();
+    var url = dt.ajax.url();
+    $('#s-all').click(function(e) {
+      e.preventDefault();
+      dt.ajax.url(url + '?incomplete=yes').load();
+    });
+    $('#s-complete').click(function(e) {
+      e.preventDefault();
+      dt.ajax.url(url).load();
+    });
   </script>
 {% endblock %}

@@ -4,6 +4,7 @@ from decimal import Decimal
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
+from django.db.models import Count, Q
 from django.utils import timezone
 from django.utils.formats import date_format
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
@@ -97,6 +98,24 @@ class ContestantManager(models.Manager):
                 .select_related('edition', 'user'))
 
 
+class ContestantCompleteSemifinalManager(models.Manager):
+    def get_queryset(self):
+        return (super().get_queryset()
+                .select_related('user', 'assignation_semifinal_event', 'assignation_semifinal_event__center')
+                .filter(assignation_semifinal_wishes__type=Event.Type.semifinal.value)
+                .annotate(wish_count=Count('assignation_semifinal_wishes', distinct=True))
+                .filter(wish_count__gte=settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT)
+                .exclude(
+                    Q(preferred_language__isnull=True) |
+                    Q(user__first_name__exact='') |
+                    Q(user__last_name__exact='') |
+                    Q(user__address__exact='') |
+                    Q(user__postal_code__exact='') |
+                    Q(user__city__exact='') |
+                    Q(user__country__exact='')
+                ))
+
+
 @ChoiceEnum.labels(str.upper)
 class ShirtSize(ChoiceEnum):
     xs = 0
@@ -149,6 +168,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     score_final_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
 
     objects = ContestantManager()
+    complete_for_semifinal = ContestantCompleteSemifinalManager()
 
     class Meta:
         unique_together = ('user', 'edition')
@@ -163,13 +183,23 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
 
     @property
     def _is_complete(self):
+        # update ContestantManager.complete_for_{,semi}final accordingly
         return all((self.shirt_size is not None, self.preferred_language, self.user.first_name, self.user.last_name,
                     self.user.address, self.user.postal_code, self.user.city, self.user.country))
 
     @property
+    def _wish_count(self):
+        try:
+            return self.wish_count
+        except AttributeError:
+            self.wish_count = (self.assignation_semifinal_wishes
+                               .filter(type=Event.Type.semifinal.value).distinct().count())
+            return self.wish_count
+
+    @property
     def is_complete_for_semifinal(self):
-        if (self.assignation_semifinal_wishes.filter(type=Event.Type.semifinal.value).distinct().count()
-                < settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT):
+        # update ContestantManager.complete_for_semifinal accordingly
+        if self._wish_count < settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT:
             return False
         return self._is_complete
 
