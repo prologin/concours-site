@@ -815,14 +815,16 @@ class Command(LabelCommand):
                                 self.stderr.write("Contestant {}: event whish #{} ID {} does not exist "
                                                   "or is not a semifinal".format(contestant, n, pk))
 
-                    correction = contest.models.ContestantCorrection(contestant=contestant)
+                    correction = contest.models.ContestantCorrection(
+                        contestant=contestant,
+                        changes=changes,
+                        date_created=localize(row.date),
+                        comment=row.commentaires or '',
+                        event_type=(contest.models.Event.Type.qualification if row.type == 'qualif'
+                                    else contest.models.Event.Type.semifinal).value,
+                    )
                     if row.correcteur is not None:
                         correction.author = User.objects.filter(username__icontains=row.correcteur).first()
-                    correction.comment = row.commentaires or ''
-                    correction.date_added = localize(row.date)
-                    correction.event_type = (contest.models.Event.Type.qualification if row.type == 'qualif'
-                                             else contest.models.Event.Type.semifinal).value
-                    correction.changes = changes
                     correction.save()
                     self.stdout.write("Contestant {} was {}".format(contestant, "created" if created else "updated"))
 

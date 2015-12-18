@@ -12,9 +12,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         flickr = Flickr(*settings.ARCHIVES_FLICKR_CREDENTIALS)
 
-        cred = settings.ARCHIVES_FLICKR_REDIS_STORE.copy()
-        cred.pop('prefix')
-        store = redis.StrictRedis(**cred)
+        store = redis.StrictRedis(**settings.PROLOGIN_UTILITY_REDIS_STORE)
 
         for archive in sorted(archives.models.Archive.all_archives()):
             photos = list(archive.final.get_flickr_photos(flickr=flickr))

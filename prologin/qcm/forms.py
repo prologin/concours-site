@@ -60,7 +60,7 @@ class QcmForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.contestant = kwargs.pop('contestant', None)
         self.readonly = kwargs.pop('readonly', False)
-        ordering_seed = kwargs.pop('ordering_seed')
+        ordering_seed = kwargs.pop('ordering_seed', 0)
         super().__init__(*args, **kwargs)
         if self.contestant:
             answers = {e.proposition.question.pk: e.textual_answer if e.proposition.question.is_open_ended else e.proposition

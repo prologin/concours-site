@@ -1,0 +1,44 @@
+{% extends "prologin/base.html" %}
+{% load i18n utils markup django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "" %}{% trans "Contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "contest:correction-index" %}{% trans "Correction" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Correction" %}{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "Correction index" %}</h1>
+
+  <ul class="pager align-left">{% spaceless %}{% for year in years %}
+    <li><a href="#year-{{ year }}">{{ year }}</a></li>
+  {% endfor %}{% endspaceless %}</ul>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr><th>{% trans "Event" %}</th><th>{% trans "Center" %}</th><th></th></tr>
+    </thead>
+    <tbody>
+    {% regroup events by edition.year as grouped_events %}
+    {% for group in grouped_events %}
+      {% with group.grouper as year %}
+      <tr id="year-{{ year }}">
+        <th colspan="2">{{ year }}</th>
+        <th><a href="{% url 'contest:correction-year' year %}" class="btn btn-xs btn-primary"><i class="fa fa-list-alt"></i> {% trans "Browse" %}</a></th>
+      </tr>
+      {% endwith %}
+      {% for event in group.list|dictsort:'date_begin' %}
+      <tr>
+        <td>{{ event.get_type_display }}</td>
+        <td>{{ event.center.name }} <span class="text-muted">{{ event.date_begin|date:"SHORT_DATE_FORMAT" }}</span></td>
+        <td>{% if event.absolute_url %}<a href="{{ event.absolute_url }}" class="btn btn-default btn-xs"><i class="fa fa-list-alt"></i> {% trans "Browse" %}</a>{% endif %}</td>
+      </tr>
+      {% endfor %}
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

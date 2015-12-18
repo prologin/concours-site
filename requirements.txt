@@ -19,6 +19,9 @@ django-bootstrap-breadcrumbs>=0.7.0
 django-bootstrap-form>=3.1
 # Content Security Policy, helps prevent XSS & stuff
 django-csp
+# Datatable (nice jQuery plugin for table handling) adapter
+# TODO: use PyPi version when it's available for 0.9
+git+https://github.com/Zopieux/django-datatable-view.git@master
 # Debug Toolbar
 django-debug-toolbar
 # Export metrics for prometheus monitoring

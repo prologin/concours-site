@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     'adminsortable',
     'bootstrapform',
     'captcha',
+    'datatableview',
     'django_bootstrap_breadcrumbs',
     'django_comments',
     'django_prometheus',
@@ -218,7 +219,6 @@ FORUM_POSTS_PER_PAGE = 20
 FORUM_MENTIONS_PER_MESSAGE = 3  # @mention limit to prevent database DoS
 
 # Prologin specific
-
 SITE_HOST = 'www.prologin.org'
 PROLOGIN_CONTACT_MAIL = 'info@prologin.org'
 DEFAULT_FROM_EMAIL = 'Prologin <{}>'.format(PROLOGIN_CONTACT_MAIL)
@@ -233,6 +233,7 @@ PLAINTEXT_PASSWORD_DISAMBIGUATION = str.maketrans("iIl1oO0/+=", "aAbcCD9234")
 PLAINTEXT_PASSWORD_SALT = "whatever1337leet"
 FINAL_EVENT_DATE_FORMAT = 'l d'
 GOOGLE_ANALYTICS_ID = ''
+PROLOGIN_UTILITY_REDIS_STORE = dict(host='localhost', port=6379, db=0, socket_connect_timeout=1, socket_timeout=3)
 
 # Cache durations and keys
 CacheSetting = namedtuple('CacheSetting', 'key duration')
@@ -269,9 +270,17 @@ TRAINING_PROBLEM_REPOSITORY_STATIC_PREFIX = 'problems'
 # Path to archives repository (sub-folders shall be years)
 ARCHIVES_REPOSITORY_PATH = os.path.join(BASE_DIR, 'archives')
 ARCHIVES_REPOSITORY_STATIC_PREFIX = 'archives'
-ARCHIVES_FLICKR_REDIS_STORE = dict(host='localhost', port=6379, db=1, prefix='prologin.archives.photos')
+ARCHIVES_FLICKR_REDIS_KEY = 'prologin.archives.photos.{year}.{suffix}'
 ARCHIVES_FLICKR_CREDENTIALS = ('username', 'api-key', 'secret')
-ARCHIVES_FLICKR_ALBUM_URL = 'https://www.flickr.com/photos/prologin/albums/%(id)s'
+ARCHIVES_FLICKR_ALBUM_URL = 'https://www.flickr.com/photos/prologin/albums/{id}'
+
+
+# Staff correction stuff
+
+CORRECTION_LIVE_UPDATE_REDIS_KEY = 'prologin.correction.liveupdate.{key}'
+CORRECTION_LIVE_UPDATE_POLL_INTERVAL = 5  # seconds
+CORRECTION_LIVE_UPDATE_TIMEOUT = CORRECTION_LIVE_UPDATE_POLL_INTERVAL * 2  # offline if misses two pings
+
 
 # Recaptcha
 

@@ -1,0 +1,55 @@
+{% extends "correction/contestant-base.html" %}
+{% load i18n static bootstrap utils markup django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for 'contest:correction-qualification' edition.year %}{% trans "Qualification" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction-contestant-qualification' edition.year contestant.pk %}{{ contestant.user.username }}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block extra_head %}
+  {{ block.super }}
+  <link rel="stylesheet" type="text/css" href="{% static 'qcm/qcm.css' %}"/>
+{% endblock %}
+
+{% block correction_navigation %}
+  {% if quiz_form %}<li><a href="#quiz">{% trans "Quiz results" %}</a></li>{% endif %}
+{% endblock %}
+
+{% block correction_content %}
+  {% if quiz_form %}
+    <h2 id="quiz">{% trans "Quiz answers" %}</h2>
+    <ol class="mainlist qcm">
+      {% for field in quiz_form %}
+        {% with question=field.field.question %}
+          <li class="question">
+            <div class="body">
+              <div class="main">{{ question.body|markdown }}</div>
+              {% if question.verbose %}
+                <div class="verbose">{{ question.verbose|markdown }}</div>
+              {% endif %}
+            </div>
+            <ul class="propositions">
+              {% for proposition in field %}
+                <li class="
+                  {% if correction %}{% if proposition.instance.is_correct %}correct{% endif %}{% if proposition.is_checked and not proposition.instance.is_correct %}incorrect{% endif %}{% endif %}">
+                  {{ proposition }}
+                </li>
+              {% endfor %}
+            </ul>
+          </li>
+        {% endwith %}
+      {% endfor %}
+    </ol>
+  {% endif %}
+{% endblock %}
+
+{% block extra_script %}
+  {{ block.super }}
+  <script type="text/javascript">
+    $(function () {
+      // Quiz active labels
+      $('.propositions').inputToLabels({checkedClass: 'checked'});
+    });
+  </script>
+{% endblock %}

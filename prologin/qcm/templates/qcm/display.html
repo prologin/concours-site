@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n markup staticfiles django_bootstrap_breadcrumbs %}
+{% load i18n static markup staticfiles django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -67,24 +67,10 @@
 {% endblock %}
 
 {% block extra_script %}
+  <script src="{% static 'js/utils.js' %}"></script>
   <script type="text/javascript">
     $(function () {
-      $('.propositions').each(function () {
-        var that = $(this);
-        var labels = that.find('label');
-        labels.each(function () {
-          var label = $(this);
-          var input = $(label.find('input'));
-          input.change(function (e) {
-            if ($(this).prop('checked')) {
-              labels.removeClass('checked');
-              label.addClass('checked');
-            }
-          });
-          if (input.prop('checked'))
-            label.addClass('checked');
-        });
-      });
+      $('.propositions').inputToLabels();
     });
   </script>
 {% endblock %}

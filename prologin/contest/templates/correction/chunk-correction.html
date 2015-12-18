@@ -1,0 +1,54 @@
+{% load i18n l10n %}
+<div data-id="{{ corr.pk }}" data-date="{{ corr.date_created_utc }}" class="panel panel-default correction">
+  <div class="panel-heading">
+    <div class="row">
+      <div class="col-xs-2">
+        {% if corr.author %}
+          <a href="{% url 'users:profile' corr.author.pk %}" class="team-member-avatar small"
+             style="{% if corr.author.picture_or_avatar %}background-image: url('{{ corr.author.picture_or_avatar.url }}'){% endif %}"></a>
+        {% else %}
+          <span class="team-member-avatar small"></span>
+        {% endif %}
+      </div>
+      <div class="col-xs-10">
+        {% if corr.author %}
+          {{ corr.author.username }}
+          <small class="text-muted">{{ corr.author.get_full_name }}</small>
+        {% else %}
+          <em>{% trans "Unknown corrector" %}</em>
+        {% endif %}
+        <br>
+        <small>{{ corr.date_created|date:"SHORT_DATETIME_FORMAT" }}</small>
+      </div>
+    </div>
+  </div>
+  <div class="panel-body">
+  {% if corr.comment %}
+    <div class="change-comment">
+        {{ corr.comment|linebreaksbr }}
+    </div>
+  {% else %}
+    <em>{% trans "No comment." %}</em>
+  {% endif %}
+  </div>
+{% with corr.get_changes as changes %}{% if changes %}
+  <div class="panel-footer">
+    {% for change in changes %}
+      <div class="row change-list no-gutter">
+        <div class="col-xs-8 field">{{ change.field.verbose_name }}</div>
+        <div class="col-xs-4 text-right value">
+      {% if change.value == None %}
+        <i class="fa fa-trash" title="{% trans "Set to none" context "As in nullified" %}"></i>
+      {% else %}
+        {% if change.type == 'score' %}
+        <code>{% localize off %}{{ change.value }}{% endlocalize %}</code>
+        {% else %}
+        <small>{{ change.value }}</small>
+        {% endif %}
+      {% endif %}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}{% endwith %}
+</div>

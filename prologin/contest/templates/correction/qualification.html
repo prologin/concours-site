@@ -1,0 +1,32 @@
+{% extends "prologin/base.html" %}
+{% load i18n static utils markup django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for '' %}{% trans "Contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction-index' %}{% trans "Correction" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction-year' edition.year %}{{ edition.year }}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction-qualification' edition.year %}{% trans "Qualification" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Qualification" %} {{ edition.year }}{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/css/datatables.min.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "Qualification" %} <small>{% blocktrans with year=edition.year %}Prologin {{ year }}{% endblocktrans %}</small></h1>
+
+  {{ datatable }}
+
+{% endblock %}
+
+{% block extra_script %}
+  <script type="text/javascript" charset="utf8" src="{% static 'lib/js/datatables.min.js' %}"></script>
+  <script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
+  <script type="text/javascript" charset="utf8">
+    datatableview.auto_initialize = true;
+  </script>
+{% endblock %}

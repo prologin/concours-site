@@ -1,0 +1,33 @@
+{% extends "prologin/base.html" %}
+{% load i18n utils markup staticfiles django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for '' %}{% trans "Contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction-index' %}{% trans "Correction" %}{% endbreadcrumb_for %}
+  {% breadcrumb edition.year 'contest:correction-year' edition.year %}
+{% endblock breadcrumbs %}
+
+{% block title %}{{ edition.year }} — {% trans "Correction" %}{% endblock %}
+
+{% block content %}
+
+  <h1>{% blocktrans with year=edition.year %}Events for Prologin {{ year }}{% endblocktrans %}</h1>
+
+  <table class="table table-striped table-hover">
+    <thead>
+      <tr><th>{% trans "Event type" %}</th><th>{% trans "Center" %}</th><th>{% trans "Contestants" %}</th><th></th></tr>
+    </thead>
+    <tbody>
+    {% for event in events %}
+      <tr>
+        <td>{{ event.get_type_display }}</td>
+        <td>{{ event.center.name }} <span class="text-muted">{{ event.date_begin|date:"SHORT_DATE_FORMAT" }}</span></td>
+        <td>{{ event.contestant_count }}</td>
+        <td><a href="{{ event.absolute_url }}" class="btn btn-default btn-xs"><i class="fa fa-wrench"></i> {% trans "Correct" %}</a></td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}

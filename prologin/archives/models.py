@@ -101,25 +101,22 @@ class WithFlickrMixin:
 
     @property
     def flickr_album_url(self):
-        return settings.ARCHIVES_FLICKR_ALBUM_URL % {'id': self.get_flickr_album_id()}
+        return settings.ARCHIVES_FLICKR_ALBUM_URL.format(id=self.get_flickr_album_id())
 
     def _flickr_redis_key(self):
-        cred = settings.ARCHIVES_FLICKR_REDIS_STORE.copy()
-        prefix = cred.pop('prefix')
-        return '{}.{}.{}'.format(prefix, self.archive.year, self.flickr_redis_suffix)
+        return settings.ARCHIVES_FLICKR_REDIS_KEY.format(year=self.archive.year, suffix=self.flickr_redis_suffix)
 
     def _get_flickr_thumbs(self):
         if not self.flickr_redis_suffix:
             raise ValueError('`flickr_redis_suffix` can not be empty')
-        cred = settings.ARCHIVES_FLICKR_REDIS_STORE.copy()
-        cred.pop('prefix')
         try:
-            store = redis.StrictRedis(**cred)
+            store = redis.StrictRedis(**settings.PROLOGIN_UTILITY_REDIS_STORE)
             photos = store.lrange(self._flickr_redis_key(), 0, -1)
             random.shuffle(photos)
             return photos
         except redis.exceptions.RedisError:
-            logger.exception("Could not connect to Redis %s to serve archive thumbnails", cred)
+            logger.exception("Could not connect to Redis %s to serve archive thumbnails",
+                             settings.PROLOGIN_UTILITY_REDIS_STORE)
             return []
 
     flickr_thumbs = lazy_attr('_flickr_thumbs_', _get_flickr_thumbs)

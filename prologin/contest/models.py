@@ -1,8 +1,11 @@
+import collections
 from adminsortable.models import SortableMixin
+from decimal import Decimal
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.utils import timezone
+from django.utils.formats import date_format
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
 from jsonfield import JSONField
@@ -40,7 +43,7 @@ class Event(ExportModelOperationsMixin('event'), models.Model):
         qualification = 0
         semifinal = 1
         final = 2
-        ugettext_noop("Qualifications")
+        ugettext_noop("Qualification")
         ugettext_noop("Semifinal")
         ugettext_noop("Final")
 
@@ -51,6 +54,9 @@ class Event(ExportModelOperationsMixin('event'), models.Model):
     date_end = models.DateTimeField(blank=True, null=True)
 
     objects = EventManager()
+
+    class Meta:
+        ordering = ('date_begin',)
 
     @property
     def is_finished(self):
@@ -71,6 +77,10 @@ class Event(ExportModelOperationsMixin('event'), models.Model):
             return Challenge.by_year_and_event_type(self.edition.year, Event.Type(self.type))
         except ObjectDoesNotExist:
             return None
+
+    @property
+    def short_description(self):
+        return "{} – {}".format(self.center.name, date_format(self.date_begin, "SHORT_DATE_FORMAT"))
 
     def __str__(self):
         return "{edition}: {type} starting {starting}{at}".format(
@@ -108,7 +118,6 @@ class Assignation(ChoiceEnum):
 
 
 class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
-
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
     edition = models.ForeignKey(Edition, related_name='contestants')
 
@@ -119,10 +128,15 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
                                              help_text=_("The programming language you will most likely use during the "
                                                          "regional events."))
 
-    assignation_semifinal = EnumField(Assignation, default=Assignation.not_assigned.value)
-    assignation_semifinal_wishes = models.ManyToManyField(Event, through='EventWish', related_name='applicants', blank=True)
-    assignation_semifinal_event = models.ForeignKey(Event, related_name='assigned_contestants', blank=True, null=True)
-    assignation_final = EnumField(Assignation, default=Assignation.not_assigned.value)
+    assignation_semifinal = EnumField(Assignation, default=Assignation.not_assigned.value,
+                                      verbose_name=_("Semifinal assignation status"))
+    assignation_semifinal_wishes = models.ManyToManyField(Event, through='EventWish',
+                                                          related_name='applicants', blank=True,
+                                                          verbose_name=_("Semifinal assignation whishes"))
+    assignation_semifinal_event = models.ForeignKey(Event, related_name='assigned_contestants', blank=True, null=True,
+                                                    verbose_name=_("Semifinal assigned event"))
+    assignation_final = EnumField(Assignation, default=Assignation.not_assigned.value,
+                                  verbose_name=_("Final assignation status"))
 
     score_qualif_qcm = models.IntegerField(blank=True, null=True, verbose_name=_("Quiz score"))
     score_qualif_algo = models.IntegerField(blank=True, null=True, verbose_name=_("Algo exercises score"))
@@ -138,6 +152,14 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
 
     class Meta:
         unique_together = ('user', 'edition')
+
+    def get_score_fields_for_type(self, type: Event.Type) -> dict:
+        mapping = {Event.Type.qualification: 'qualif'}
+        return collections.OrderedDict([
+            (field, getattr(self, field.name))
+            for field in self._meta.get_fields()
+            if field.name.startswith('score_{}_'.format(mapping.get(type, type.name)))
+        ])
 
     @property
     def _is_complete(self):
@@ -155,11 +177,39 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     def is_complete_for_finale(self):
         return self._is_complete
 
+    def score_for(self, event_type: Event.Type):
+        return sum(score or 0 for score in self.get_score_fields_for_type(event_type).values())
+
+    @property
+    def score_for_qualification(self):
+        return self.score_for(Event.Type.qualification)
+
+    @property
+    def score_for_semifinal(self):
+        return self.score_for(Event.Type.semifinal)
+
     @property
     def total_score(self):
         return sum(getattr(self, name) or 0
                    for name in self._meta.get_all_field_names()
                    if name.startswith('score_'))
+
+    def compute_changes(self, new, event_type):
+        changes = {
+            field.name: getattr(new, field.name)
+            for field, value in new.get_score_fields_for_type(event_type).items()
+            if getattr(self, field.name) != value
+        }
+        if event_type == Event.Type.qualification:
+            if self.assignation_semifinal != new.assignation_semifinal:
+                changes['assignation_semifinal'] = new.assignation_semifinal
+            if self.assignation_semifinal_event != new.assignation_semifinal_event:
+                changes['assignation_semifinal_event'] = (new.assignation_semifinal_event.pk
+                                                          if new.assignation_semifinal_event else None)
+        elif event_type == Event.Type.semifinal:
+            if self.assignation_final != new.assignation_final:
+                changes['assignation_final'] = new.assignation_final
+        return changes
 
     def __str__(self):
         return "{edition}: {user}".format(user=self.user, edition=self.edition)
@@ -183,8 +233,65 @@ class EventWish(ExportModelOperationsMixin('event_wish'), SortableMixin):
 
 class ContestantCorrection(ExportModelOperationsMixin('contestant_correction'), models.Model):
     contestant = models.ForeignKey(Contestant, related_name='corrections')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='correction_comments', null=True, blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestant_correction', null=True, blank=True)
     comment = models.TextField(blank=True)
     event_type = EnumField(Event.Type, db_index=True)
     changes = JSONField(blank=True)
-    date_added = models.DateTimeField(default=timezone.now)
+    date_created = models.DateTimeField(default=timezone.now, db_index=True)
+
+    class Meta:
+        get_latest_by = 'date_created'
+        ordering = ('-' + get_latest_by,)
+
+    @property
+    def date_created_utc(self):
+        return int(timezone.make_naive(self.date_created, timezone.utc).timestamp())
+
+    def get_changes(self, precision='0.01'):
+        precision = Decimal(precision)
+        event_type = Event.Type(self.event_type)
+
+        def get_event_description(value):
+            return Event.objects.select_related('center').get(pk=value).short_description
+
+        def build():
+            for field in self.contestant.get_score_fields_for_type(event_type):
+                try:
+                    value = self.changes[field.name]
+                except KeyError:
+                    continue
+                yield {
+                    'field': field,
+                    'type': 'score',
+                    'value': None if value is None else Decimal(value).quantize(precision),
+                }
+
+            for enum in ('assignation_semifinal', 'assignation_final'):
+                try:
+                    value = self.changes[enum]
+                except KeyError:
+                    continue
+
+                yield {
+                    'field': Contestant._meta.get_field(enum),
+                    'type': 'enum',
+                    'value': Assignation.label_for(Assignation(value)),
+                }
+
+            for nullable, getter in (('assignation_semifinal_event', get_event_description),):
+                try:
+                    value = self.changes[nullable]
+                except KeyError:
+                    continue
+                if value is not None:
+                    try:
+                        value = getter(value)
+                    except Exception:
+                        continue
+                yield {
+                    'field': Contestant._meta.get_field(nullable),
+                    'type': 'nullable',
+                    'value': value,
+                }
+
+        return list(build())

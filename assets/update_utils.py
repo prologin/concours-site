@@ -24,6 +24,7 @@ def get_members_strip_prefix(zipball):
 
 
 def extract_from_zip(zipball, member, path):
+    print(os.path.abspath(path))
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with zipball.open(member) as source, open(path, 'wb') as target:
         shutil.copyfileobj(source, target)

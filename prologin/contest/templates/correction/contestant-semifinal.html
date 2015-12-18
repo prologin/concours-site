@@ -1,0 +1,18 @@
+{% extends "correction/contestant-base.html" %}
+{% load i18n static bootstrap utils markup django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for 'contest:correction-semifinal' edition.year event.pk %}{% trans "Semifinal" %} {{ event.short_description }}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction-contestant-semifinal' edition.year contestant.pk %}{{ contestant.user.username }}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block correction_title %}{{ contestant.user }} <small>{{ event_type|choiceenum_label }} {{ event.short_description }}</small>{% endblock %}
+
+{% block correction_navigation %}
+  {# not needed #}
+{% endblock %}
+
+{% block correction_content %}
+  {# not needed #}
+{% endblock %}

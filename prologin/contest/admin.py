@@ -40,6 +40,7 @@ class EventWishesInline(SortableStackedInline):
 
 class CorrectionInline(admin.StackedInline):
     model = contest.models.ContestantCorrection
+    readonly_fields = ('author', 'changes',)
     extra = 1
 
 

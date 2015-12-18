@@ -1,0 +1,209 @@
+{% extends "prologin/base.html" %}
+{% load i18n static bootstrap utils markup django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for '' %}{% trans "Contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction-index' %}{% trans "Correction" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction-year' edition.year %}{{ edition.year }}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'lib/css/pygments-monokai.css' %}" media="screen"/>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/contest.css' %}"/>
+{% endblock %}
+
+{% block title %}{{ contestant.user }} – {{ event_type|choiceenum_label }} – {% blocktrans with year=edition.year %}Prologin {{ year }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+  <div class="row">
+
+    <div class="col-md-8" role="main"> {# left side (main content) #}
+
+      <h1 id="top">{% block correction_title %}{{ contestant.user }} <small>{{ event_type|choiceenum_label }} {{ edition.year }}</small>{% endblock %}</h1>
+
+      <form action="" method="POST" id="form">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {% trans "Save changes" %}</button>
+      </form>
+
+    {% block correction_content %}{% endblock %}
+
+    <h2 id="submissions">{% trans "Problem submissions" %}</h2>
+    {% for problem, code in submissions %}
+      <h3>{{ problem.title }}
+        <small>{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %} ⋅
+          <a href="{% url 'training:problem' edition.year event_type.name problem.name %}">{% trans "Open fullpage" %} <i class="fa fa-angle-double-right"></i></a>
+        </small>
+      </h3>
+    {% if code == None %}
+      <p><em>{% trans "No submission for this problem." %}</em></p>
+    {% else %}
+      <p>
+        {{ code.date_submitted|date:"DATETIME_FORMAT" }} ⋅
+        {{ code.get_language_display }} ⋅
+        {% trans "Code score:" %} {% if code.score == None %}<em>{% trans "n/a" %}</em>{% else %}<code>{{ code.score }}</code>{% endif %} ⋅
+        {% trans "Final score:" %} <code>{{ code.submission.score }}</code>
+        {% if code.submission.succeeded %}<span class="label label-success">{% trans "tests passed" %}</span>
+        {% else %}<span class="label label-warning">{% trans "unsuccessful" %}</span>{% endif %}
+      </p>
+      {% pygmentize code.code code.language_enum.pygments_lexer %}
+    {% endif %}
+    {% endfor %}
+
+    </div>
+
+    <div class="col-md-4" id="correct-nav-col" role="complementary"> {# right side (history) #}
+
+    <div class="sidebar-affix" id="correct-nav">
+
+      <ul class="nav">
+        <li><a href="#top">{% trans "Correction form" %}</a></li>
+        {% block correction_navigation %}{% endblock %}
+        <li><a href="#submissions">{% trans "Problem submissions" %}</a></li>
+      </ul>
+
+      <h4><i class="fa fa-users"></i> {% trans "Currently correcting" %}</h4>
+      <p id="online-is-down" class="text-muted text-danger small">{% trans "The presence service is down!" %}</p>
+      <section id="online-users"></section>
+
+      <h4><i class="fa fa-history"></i> {% trans "Correction history" %}</h4>
+      <section class="correct-history">
+      {% for corr in corrections %}
+        {% include "correction/chunk-correction.html" %}
+      {% empty %}
+        <div class="panel panel-default list-empty"><div class="panel-body"><em>{% trans "Not corrected yet." %}</em></div></div>
+      {% endfor %}
+      </section>
+
+    </div></div> {# right side #}
+
+  </div> {# row #}
+
+{% endblock %}
+
+
+{% block extra_script %}
+  <script src="{% static 'js/utils.js' %}"></script>
+  <script type="text/javascript">
+    $(function () {
+      // Affix navigation
+      var $nav = $('#correct-nav');
+      var nav_col = '#correct-nav-col', $nav_col = $(nav_col);
+      $nav.standardAffix({parent: nav_col});
+      $(window).resize(function () {
+        // resize hack because of affix
+        $nav.css('width', $nav_col.width());
+      }).trigger('resize');
+
+      // Quiz active labels
+      $('.propositions').inputToLabels({checkedClass: 'checked'});
+
+      // Polling for live update
+      var $correction_history = $('.correct-history');
+      var $online_users = $('#online-users');
+      var $online_is_down = $("#online-is-down").hide();
+      var $form_inputs = $('#form :input:not(:hidden):not(button):not([name="comment"])');
+      var from_ts = null;
+      var failures = 0;
+
+      var NULL_VALUE_STR = '(none)';
+      {% trans "In the meantime, value changed to %s" as js_message %}
+      var MESSAGE = "{{ js_message|escapejs }}";
+
+      $form_inputs
+      .each(function () {
+        var $input = $(this);
+        // Add a hidden placeholder to display the "modified" warning on each modifiable input
+        $input.before(
+          $('<div class="text-warning input-change-warning"/>')
+            .attr('id', 'chw-' + $input.attr('name'))
+            .hide()
+            .append($('<i class="fa fa-warning"></i> <span/>'))
+        );
+      })
+      .change(function () {
+        // Listen for changes; display the warning if needed
+        var $input = $(this), current_value = $input.attr('data-current-value');
+        var diff = false;
+        var value = $input.val();
+        if (value === null) value = NULL_VALUE_STR;
+        if (current_value !== undefined) {
+          diff = value !== current_value;
+        }
+        $input.toggleClass("changed", diff);
+        var $chw = $('#chw-' + $input.attr('name')).toggle(diff);
+        if (diff) {
+          if ($input.is('select')) {
+            if (current_value === NULL_VALUE_STR) current_value = null;
+            current_value = $input.find('option[value="' + (current_value || '') + '"]').text();
+          }
+          $chw.find('span').text(MESSAGE.replace('%s', current_value));
+        }
+      });
+
+      function poll_update() {
+        // Periodic ajax call to check for updates
+        // Next delay is given by the server, fallback to 2000 if invalid answer
+        var latest = from_ts || $correction_history.find('.correction').first().attr('data-date');
+        $.get('{% url "contest:correction-live-update" year=edition.year cid=contestant.pk type=event_type.name %}',
+          {from: latest})
+          .done(function (data) {
+            failures = 0;
+            from_ts = data.from;
+            var delay = data.delay || 2000;
+            if (data.corrections.length) {
+              // Remove "empty list" if it was there
+              $correction_history.find('.list-empty').remove();
+              // Prepend new corrections
+              $.each(data.corrections, function (i, html) {
+                $correction_history.prepend(html);
+              });
+            }
+            // Notify data changes (if any)
+            $.each(data.changes, function (name, value) {
+              var $input = $('[name="' + name + '"]');
+              if (value === null) value = NULL_VALUE_STR;
+              $input.attr('data-current-value', value).trigger('change');
+            });
+            // Update online users
+            $online_is_down.toggle(!data.online_alive);
+            $online_users.toggle(data.online_alive);
+            if (data.online_alive) {
+              var new_pk = [];
+              $.each(data.online, function (i, user) {
+                new_pk.push(user[0]);
+              });
+              $online_users.children().each(function (i, el) {
+                var $el = $(el), ind = new_pk.indexOf(parseInt($el.attr('data-pk')));
+                if (ind < 0)
+                  $el.fadeOut('slow', function () {
+                    $el.remove();
+                  });
+                else
+                  new_pk.splice(ind, 1);
+              });
+              $.each(data.online, function (i, user) {
+                if (new_pk.indexOf(user[0]) < 0)
+                  return;
+                var $el = $(user[1]);
+                $el.hide();
+                $online_users.append($el);
+                $el.fadeIn('slow');
+              });
+            }
+            setTimeout(poll_update, delay);
+          })
+          .error(function (e) {
+            var delay = 1000 * Math.pow(2, ++failures);
+            console.warn("Polling failed, waiting", delay);
+            setTimeout(poll_update, delay);
+          });
+      }
+      poll_update();
+
+    });
+  </script>
+{% endblock %}

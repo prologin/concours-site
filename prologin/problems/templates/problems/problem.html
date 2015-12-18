@@ -9,7 +9,6 @@
   {% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
 {% endblock breadcrumbs %}
 
-{% block body_tag %}data-spy="scroll" data-target="#problem-nav"{% endblock %}
 {% block title %}{{ problem.title }} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
@@ -175,7 +174,7 @@
     {% endif %}
     </div>
 
-    <div class="col-md-3" role="complementary">
+    <div class="col-md-3" role="complementary" id="problem-nav-col">
       <nav class="hidden-print hidden-xs hidden-sm sidebar-affix" id="problem-nav">
         <ul class="nav nav-pills nav-stacked">
           <li><a href="#statement">{% trans "Statement" %}</a></li>
@@ -191,25 +190,14 @@
 
 {% block extra_script %}
 {% if request.user.is_authenticated %}
+  <script type="text/javascript" charset="utf-8" src="{% static 'js/utils.js' %}"></script>
   <script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ace.js' %}"></script>
   <script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ext-themelist.js' %}"></script>
   <script type="text/javascript" charset="utf-8" src="{% static 'problems/js/code-editor.js' %}"></script>
 {% endif %}
   <script type="text/javascript">
   $(function() {
-    // Affix navigation
-    var $nav = $('#problem-nav');
-    $nav.affix({
-      offset: {
-        top: function () {
-          var c = $nav.offset().top - 20;
-          return this.top = c;
-        },
-        bottom: function() {
-          return this.bottom = $('footer').outerHeight(true);
-        }
-      }
-    });
+    $('#problem-nav').standardAffix({parent: '#problem-nav-col'});
   });
   </script>
 {% endblock %}

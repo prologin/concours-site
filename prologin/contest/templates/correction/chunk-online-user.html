@@ -1,0 +1,3 @@
+<a href="{% url 'users:profile' user.pk %}" data-pk="{{ user.pk }}" class="team-member-avatar small"
+   title="{{ user.username }} ({{ user.get_full_name }})"
+   style="{% if user.picture_or_avatar %}background-image: url('{{ user.picture_or_avatar.url }}'){% endif %}"></a>

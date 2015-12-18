@@ -28,10 +28,10 @@ class Submission(ExportModelOperationsMixin('submission'), models.Model):
     def score(self):
         return max(0, self.score_base - self.malus)
 
-    def challenge_model(self):
+    def challenge_model(self) -> Challenge:
         return Challenge.by_low_level_name(self.challenge)
 
-    def problem_model(self):
+    def problem_model(self) -> Problem:
         return Problem(self.challenge_model(), self.problem)
 
     def succeeded(self):

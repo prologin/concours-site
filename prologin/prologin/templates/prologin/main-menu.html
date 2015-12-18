@@ -1,10 +1,21 @@
-{% load i18n navigation %}
+{% load i18n rules navigation %}
 <ul class="nav navbar-nav pull-right">
   <li class="{% active '^/contest/' %}"><a href="{% url 'contest:qualification_summary' request.current_edition.year %}">{% trans "Participate" %}</a></li>
   <li class="{% active '^/about/' %}"><a href="{% url 'pages:about-contest' %}">{% trans "Discover" %}</a></li>
   <li class="{% active '^/train/' %}"><a href="{% url 'training:index' %}">{% trans "Train" %}</a></li>
   <li class="{% active '^/archives/' %}"><a href="{% url 'archives:index' %}">{% trans "Archives" %}</a></li>
   <li class="{% active '^/forum/' %}"><a href="{% url 'forum:index' %}">{% trans "Forums" %}</a></li>
+{% if request.user.is_staff %}
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-star"></i> {% trans "Admin" %} <span class="caret"></span></a>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <li><a href="{% url 'admin:index' %}">{% trans "Django administration" %}</a></li>
+      <li class="divider"></li>
+      {% has_perm 'correction.can_correct' request.user None as can_correct %}
+      {% if can_correct %}<li><a href="{% url 'contest:correction-index' %}">{% trans "Correction" %}</a></li>{% endif %}
+    </ul>
+  </li>
+{% endif %}
   <li class="sep"><a>&nbsp;</a></li>
   {% if user.is_authenticated %}
   <li class="dropdown">
@@ -12,9 +23,6 @@
     <ul class="dropdown-menu dropdown-menu-right" role="menu">
       <li><a href="{% url 'users:profile' user.id %}"><i class="fa fa-user"></i> {% trans "My profile" %}</a></li>
       <li><a href="{% url 'users:edit' user.id %}"><i class="fa fa-cog"></i> {% trans "Profile &amp; settings" %}</a></li>
-      {% if user.is_staff %}
-      <li><a href="{% url 'admin:index' %}"><i class="fa fa-star"></i> {% trans "Administration" %}</a></li>
-      {% endif %}
       <li class="divider"></li>
       <li><form method="post" action="{% url 'users:logout' %}">{% csrf_token %}<button type="submit"><i class="fa fa-power-off"></i> {% trans "Sign out" %}</button></form></li>
     </ul>

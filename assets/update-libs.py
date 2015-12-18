@@ -146,12 +146,30 @@ def google_font(font_name, font_variants={'regular'}, font_formats={'woff', 'wof
         print("\n".join("Extracted {}".format(os.path.join(font_dir, name)) for name in zipball.namelist()))
 
 
+def datatables():
+    style = 'bs'       # bootstrap
+    plugins = [
+        'dt-1.10.10',  # datatables
+        'r-2.0.0',     # responsive
+        'se-1.1.0',    # multi-select
+    ]
+
+    zipball = io.BytesIO(requests.get('https://datatables.net/download/builder?{}/{}'.format(style, ','.join(plugins))).content)
+    dirs = ('js', 'css')
+    with zipfile.ZipFile(zipball) as zipball:
+        for dir in dirs:
+            name = 'datatables.min.{}'.format(dir)
+            member = '/{}'.format(name)
+            extract_from_zip(zipball, member, os.path.join(dir, name))
+
+
 def main():
     pygments()
     jquery()
     bootstrap()
     font_awesome()
     select2()
+    datatables()
     # Offline Google Fonts do not render correctly depending on the browser. Just let the browser fallback when offline.
     # google_font('roboto',
     #             font_variants={'regular', '300', '300italic'},
