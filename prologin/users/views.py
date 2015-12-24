@@ -35,6 +35,7 @@ def protected_logout(*args, **kwargs):
 
 def custom_login(request, *args, **kwargs):
     kwargs['template_name'] = 'users/login.html'
+    kwargs['authentication_form'] = users.forms.ProloginAuthenticationForm
     if request.user.is_authenticated():
         return redirect('users:profile', pk=request.user.pk)
     return django_login_view(request, *args, **kwargs)

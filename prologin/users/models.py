@@ -4,7 +4,7 @@ import os
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.auth.signals import user_logged_in
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
@@ -63,6 +63,14 @@ class UserActivation(ExportModelOperationsMixin('user_activation'), models.Model
         return timezone.now() < self.expiration_date
 
 
+class ProloginUserManager(UserManager):
+    def get_by_natural_key(self, username):
+        try:
+            return self.get(**{'{}__iexact'.format(self.model.USERNAME_FIELD): username})
+        except self.model.DoesNotExist:
+            return self.get(email__iexact=username)
+
+
 class EducationStage(ChoiceEnum):
     middle_school = (0, _("Middle school"))
     high_school = (1, _("High school"))
@@ -108,6 +116,8 @@ class ProloginUser(ExportModelOperationsMixin('user'), AbstractUser, Addressable
 
     # MD5 password from <2015 Drupal website
     legacy_md5_password = models.CharField(max_length=32, blank=True)
+
+    objects = ProloginUserManager()
 
     @property
     def preferred_language_enum(self):

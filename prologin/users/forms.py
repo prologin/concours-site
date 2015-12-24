@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from captcha.fields import ReCaptchaField
@@ -65,3 +66,12 @@ class RegisterForm(forms.ModelForm):
 class PasswordResetForm(forms.Form):
     email = forms.EmailField(label=_("Email"), max_length=254, required=True,
                              widget=forms.EmailInput(attrs={'placeholder': _("Your email address")}))
+
+
+class ProloginAuthenticationForm(AuthenticationForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['username'].label = _("Username or email")
+        self.fields['username'].help_text = _("This field is case insensitive. It means capitals and small letters are "
+                                              "considered to be equal.")
+        self.error_messages['invalid_login'] = _("Please enter a correct username (or email) and password.")
