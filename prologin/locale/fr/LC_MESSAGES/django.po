@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-24 16:37+0100\n"
-"PO-Revision-Date: 2015-12-24 15:43+0000\n"
+"POT-Creation-Date: 2015-12-24 16:57+0100\n"
+"PO-Revision-Date: 2015-12-24 15:58+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3012,47 +3012,51 @@ msgstr "Dernières actualités"
 msgid "Contact us"
 msgstr "Contactez-nous"
 
-#: prologin/templates/prologin/main-footer.html:10
+#: prologin/templates/prologin/main-footer.html:8
+msgid "Report a bug on the website"
+msgstr "Signaler un problème sur le site"
+
+#: prologin/templates/prologin/main-footer.html:11
 msgid "More"
 msgstr "En plus"
 
-#: prologin/templates/prologin/main-footer.html:12
+#: prologin/templates/prologin/main-footer.html:13
 msgid "Press kit"
 msgstr "Kit de presse"
 
-#: prologin/templates/prologin/main-footer.html:18
+#: prologin/templates/prologin/main-footer.html:19
 msgid "Terms"
 msgstr "Conditions"
 
-#: prologin/templates/prologin/main-footer.html:20
+#: prologin/templates/prologin/main-footer.html:21
 msgid "Contest rules"
 msgstr "Règlement"
 
-#: prologin/templates/prologin/main-footer.html:23
+#: prologin/templates/prologin/main-footer.html:24
 msgid "Stay tuned!"
 msgstr "Suivez nous !"
 
-#: prologin/templates/prologin/main-footer.html:24
+#: prologin/templates/prologin/main-footer.html:25
 msgid "Prologin news Atom stream"
 msgstr "Flux Atom des actualités Prologin"
 
-#: prologin/templates/prologin/main-footer.html:31
+#: prologin/templates/prologin/main-footer.html:32
 msgid "Prologin on Facebook"
 msgstr "Prologin sur Facebook"
 
-#: prologin/templates/prologin/main-footer.html:37
+#: prologin/templates/prologin/main-footer.html:38
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: prologin/templates/prologin/main-footer.html:45
+#: prologin/templates/prologin/main-footer.html:46
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: prologin/templates/prologin/main-footer.html:58
+#: prologin/templates/prologin/main-footer.html:59
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prologin/templates/prologin/main-footer.html:61
+#: prologin/templates/prologin/main-footer.html:62
 #, python-format
 msgid ""
 "Save your\n"
