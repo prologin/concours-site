@@ -1,10 +1,11 @@
-{% load i18n %}
+{% load i18n utils %}
 <div class="row">
   <div class="col-xs-6 col-md-4">
     <h3>{% trans "Prologin" %}</h3>
     <ul class="nav">
       <li><a href="{% url 'pages:about-organization' %}"><i class="fa fa-cube fa-centered"></i> {% trans "The organization" %}</a></li>
       <li><a href="{% url 'pages:about-organization' %}#contact"><i class="fa fa-envelope fa-centered"></i> {% trans "Contact us" %}</a></li>
+      <li><a href="{% get_setting 'PROLOGIN_BUG_TRACKER_URL' %}"><i class="fa fa-bug"></i> {% trans "Report a bug on the website" %}</a></li>
     </ul>
         {% comment TODO %}
     <h3>{% trans "More" %}</h3>
