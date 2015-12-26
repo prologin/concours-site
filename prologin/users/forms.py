@@ -8,10 +8,12 @@ from captcha.fields import ReCaptchaField
 from prologin.models import Gender
 from .widgets import PreviewFileInput
 
+User = get_user_model()
+
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ('first_name', 'last_name', 'gender', 'birthday',
                   'address', 'postal_code', 'city', 'country',
                   'phone', 'email', 'allow_mailing',
@@ -45,7 +47,7 @@ class RegisterForm(forms.ModelForm):
                                    "This is required to fight spamming bots on the website.")))
 
     class Meta:
-        model = get_user_model()
+        model = User
         fields = ('username', 'email', 'password', 'allow_mailing', 'captcha')
         widgets = {
             'password': forms.PasswordInput(),
@@ -55,8 +57,21 @@ class RegisterForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['email'].required = True
 
+    def clean_username(self):
+        if User.objects.filter(username__iexact=self.cleaned_data['username']):
+            raise forms.ValidationError(_("This username is already in use. "
+                                          "Please supply a different username."))
+        return self.cleaned_data['username'].strip().lower()
+
+    def clean_email(self):
+        if User.objects.filter(email__iexact=self.cleaned_data['email']):
+            raise forms.ValidationError(_("This email address is already in use. "
+                                          "Please supply a different email address."))
+        return self.cleaned_data['email'].strip().lower()
+
     def save(self, commit=True):
         user = super().save(commit=False)
+        user.is_active = False
         user.set_password(self.cleaned_data['password'])
         if commit:
             user.save()

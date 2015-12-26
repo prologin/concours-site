@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-24 16:57+0100\n"
-"PO-Revision-Date: 2015-12-24 15:58+0000\n"
+"POT-Creation-Date: 2015-12-26 21:26+0100\n"
+"PO-Revision-Date: 2015-12-26 20:27+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -189,7 +189,7 @@ msgstr "Hôtel"
 msgid "Pizzeria"
 msgstr "Pizzéria"
 
-#: centers/models.py:21 users/models.py:84
+#: centers/models.py:21 users/models.py:89
 msgid "Other"
 msgstr "Autre"
 
@@ -1783,7 +1783,7 @@ msgstr "Informations de contact"
 msgid "Address"
 msgstr "Adresse"
 
-#: pages/templates/pages/about-organization.html:35 users/models.py:100
+#: pages/templates/pages/about-organization.html:35 users/models.py:105
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -2896,7 +2896,7 @@ msgstr "Homme"
 msgid "Female"
 msgstr "Femme"
 
-#: prologin/models.py:53 users/forms.py:34
+#: prologin/models.py:53 users/forms.py:36
 msgid "Other or prefer not to tell"
 msgstr "Autre ou préfère ne pas le dire"
 
@@ -3265,125 +3265,135 @@ msgstr "Identité publique"
 msgid "Settings"
 msgstr "Préférences"
 
-#: users/forms.py:30
+#: users/forms.py:32
 msgid "How do you prefer to be described?"
 msgstr "Comment préférez-vous être décrit ?"
 
-#: users/forms.py:32
+#: users/forms.py:34
 msgid "<em>She is writing code for the contest</em>"
 msgstr "<em>Elle écrit du code pour le concours.</em>"
 
-#: users/forms.py:33
+#: users/forms.py:35
 msgid "<em>He is writing code for the contest</em>"
 msgstr "<em>Il écrit du code pour le concours.</em>"
 
-#: users/forms.py:44
+#: users/forms.py:46
 msgid ""
 "Please check the box above and complete the additional tasks if any. This is"
 " required to fight spamming bots on the website."
 msgstr "Veuillez cocher la case ci-dessus et réaliser les éventuelles opérations supplémentaires. Cela permet de se prémunir des robots."
 
-#: users/forms.py:67
+#: users/forms.py:62
+msgid "This username is already in use. Please supply a different username."
+msgstr "Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre."
+
+#: users/forms.py:68
+msgid ""
+"This email address is already in use. Please supply a different email "
+"address."
+msgstr "Cette adresse e-mail est déjà utilisée. Merci d'en choisir une autre."
+
+#: users/forms.py:82
 msgid "Email"
 msgstr "E-mail"
 
-#: users/forms.py:68
+#: users/forms.py:83
 msgid "Your email address"
 msgstr "Votre adresse e-mail"
 
-#: users/forms.py:74
+#: users/forms.py:89
 msgid "Username or email"
 msgstr "Nom d'utilisateur ou e-mail"
 
-#: users/forms.py:75
+#: users/forms.py:90
 msgid ""
 "This field is case insensitive. It means capitals and small letters are "
 "considered to be equal."
 msgstr "Ce champ est insensible à la casse. Cela signifie qu'il n'y a pas de différence entre majuscules et minuscules."
 
-#: users/forms.py:77
+#: users/forms.py:92
 msgid "Please enter a correct username (or email) and password."
 msgstr "Saisissez un nom d'utilisateur (ou adresse e-mail) et un mot de passe corrects."
 
-#: users/models.py:75
+#: users/models.py:80
 msgid "Middle school"
 msgstr "Collège"
 
-#: users/models.py:76
+#: users/models.py:81
 msgid "High school"
 msgstr "Lycée"
 
-#: users/models.py:77
+#: users/models.py:82
 msgid "Bac"
 msgstr "Bac"
 
-#: users/models.py:78
+#: users/models.py:83
 msgid "Bac+1"
 msgstr "Bac+1"
 
-#: users/models.py:79
+#: users/models.py:84
 msgid "Bac+2"
 msgstr "Bac+2"
 
-#: users/models.py:80
+#: users/models.py:85
 msgid "Bac+3"
 msgstr "Bac+3"
 
-#: users/models.py:81
+#: users/models.py:86
 msgid "Bac+4"
 msgstr "Bac+4"
 
-#: users/models.py:82
+#: users/models.py:87
 msgid "Bac+5"
 msgstr "Bac+5"
 
-#: users/models.py:83
+#: users/models.py:88
 msgid "Bac+6 and after"
 msgstr "Bac+6 et au delà"
 
-#: users/models.py:85
+#: users/models.py:90
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: users/models.py:99
+#: users/models.py:104
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:102 users/templates/users/profile.html:44
+#: users/models.py:107 users/templates/users/profile.html:44
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:104
+#: users/models.py:109
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: users/models.py:105
+#: users/models.py:110
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
 msgstr "Nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:108
+#: users/models.py:113
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:110
+#: users/models.py:115
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: users/models.py:111
+#: users/models.py:116
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:112
+#: users/models.py:117
 msgid "Locale"
 msgstr "Langue"
 
-#: users/models.py:114
+#: users/models.py:119
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: users/models.py:115
+#: users/models.py:120
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 

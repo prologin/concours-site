@@ -1,5 +1,6 @@
 import base64
 import hashlib
+import logging
 import os
 
 from django.conf import settings
@@ -20,6 +21,7 @@ from prologin.languages import Language
 from prologin.utils import upload_path
 
 ACTIVATION_TOKEN_LENGTH = 32
+logger = logging.getLogger('users.models')
 
 
 class InvalidActivationError(Exception):
@@ -67,6 +69,9 @@ class ProloginUserManager(UserManager):
     def get_by_natural_key(self, username):
         try:
             return self.get(**{'{}__iexact'.format(self.model.USERNAME_FIELD): username})
+        except self.model.MultipleObjectsReturned:
+            logger.warning("MultipleObjectsReturned for username/email: %s", username)
+            return super().get_by_natural_key(username)
         except self.model.DoesNotExist:
             return self.get(email__iexact=username)
 

@@ -99,7 +99,7 @@ class ActivationView(AnonymousRequiredMixin, SingleObjectMixin, RedirectView):
             else:
                 # If could not log the user in automatically, redirect to login
                 self.url = 'users:login'
-        except users.models.InvalidActivationError as e:
+        except users.models.InvalidActivationError:
             messages.error(request, _("The activation link you provided is invalid or obsolete. "
                                       "If you created your account earlier than %(days)s days ago, "
                                       "you have to create a new one. You may use the same username "
