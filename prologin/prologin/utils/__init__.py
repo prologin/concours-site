@@ -231,3 +231,12 @@ def read_props(filename):
                 for line in f if line.strip()
                 for k, v in [line.split(':', 1)]}
     return open_try_hard(props, filename)
+
+
+def translate_format(format_str):
+    rep = {"%Y": _("year")[0] * 4,
+           "%m": _("month")[0] * 2,
+           "%d": _("day")[0] * 2}
+    # single-pass replacement
+    rep = {re.escape(k): v for k, v in rep.items()}
+    return re.sub("|".join(rep.keys()), lambda m: rep[re.escape(m.group(0))], format_str)

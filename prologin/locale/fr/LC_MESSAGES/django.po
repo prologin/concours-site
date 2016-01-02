@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Alexandre <artifere@gmail.com>, 2015
-# Alexandre Macabies <web+transifex@zopieux.com>, 2015
+# Alexandre Macabies <web+transifex@zopieux.com>, 2015-2016
 # Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
 # Antoine Pietri <antoine.pietri1@gmail.com>, 2015
 # Dettorer <p.hervot@gmail.com>, 2015
@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-12-26 21:26+0100\n"
-"PO-Revision-Date: 2015-12-26 20:27+0000\n"
+"POT-Creation-Date: 2016-01-02 16:57+0100\n"
+"PO-Revision-Date: 2016-01-02 15:58+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -263,44 +263,49 @@ msgstr "Épreuve régionale assignée"
 msgid "Score"
 msgstr "Score"
 
-#: contest/forms.py:23
+#: contest/forms.py:25
 msgid "I am not a student at EPITA or EPITECH."
 msgstr "Je ne suis pas étudiant à EPITA ou EPITECH."
 
-#: contest/forms.py:31
+#: contest/forms.py:33
 #, python-format
 msgid ""
 "Students from EPITA and EPITCH are <a href=\"%(url)s\">not allowed</a> to "
 "join the contest."
 msgstr "Les étudiant(e)s de EPITA et EPITECH <a href=\"%(url)s\">ne peuvent pas participer</a> au concours."
 
-#: contest/forms.py:33
+#: contest/forms.py:35
 msgid ""
 "We need your real name and address for legal reasons, as the Prologin staff "
 "engages its responsibility to supervise you during the regional events and "
 "the finale."
 msgstr "Nous avons besoin de votre vrai nom et de votre adresse pour des raisons légales : l'association engage sa responsabilité pour vous encadrer lors des épreuves régionales et de la finale."
 
-#: contest/forms.py:39
+#: contest/forms.py:38
+#, python-format
+msgid "Format: %(format)s"
+msgstr "Format&nbsp;: %(format)s"
+
+#: contest/forms.py:42
 #, python-format
 msgid ""
 "You can modify or review all your personal information on your <a "
 "href=\"%(url)s\">profile page</a>."
 msgstr "Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a href=\"%(url)s\">page de profil</a>."
 
-#: contest/forms.py:51
+#: contest/forms.py:54
 msgid "You cannot participate if you are an EPITA/EPITECH student"
 msgstr "Vous ne pouvez pas participer si vous êtes un étudiant d'EPITA/EPITECH."
 
-#: contest/forms.py:59
+#: contest/forms.py:62
 msgid "You cannot participate if you are born before {}"
 msgstr "Vous ne pouvez pas participer si vous êtes né avant {}"
 
-#: contest/forms.py:80
+#: contest/forms.py:83
 msgid "Semifinal center wishes"
 msgstr "Choix de centres d'examen pour les épreuves régionales"
 
-#: contest/forms.py:81
+#: contest/forms.py:84
 msgid ""
 "This is where you would like to seat the regional events if you are "
 "selected. Choose at least one and up to three wishes, in order of "
@@ -3116,6 +3121,18 @@ msgstr "Suivant"
 #: prologin/templates/stub_pagination.html:15
 msgid "Last"
 msgstr "Dernier"
+
+#: prologin/utils/__init__.py:237
+msgid "year"
+msgstr "année"
+
+#: prologin/utils/__init__.py:238
+msgid "month"
+msgstr "mois"
+
+#: prologin/utils/__init__.py:239
+msgid "day"
+msgstr "jour"
 
 #: qcm/admin.py:41
 msgid "Questions"
