@@ -12,7 +12,7 @@ class ForumAdmin(admin.ModelAdmin):
 class ThreadAdmin(admin.ModelAdmin):
     list_display = ('title', 'first_post_author', 'forum', 'is_visible', 'is_open', 'is_sticky',)
     list_filter = ('forum', 'status', 'type', 'is_visible',)
-    search_fields = ('title', 'forum__name', 'first_post__author__username',)
+    search_fields = ('title', 'forum__name',)
     readonly_fields = ('date_last_edited', 'last_edited_author', 'date_last_post',)
     actions = ('action_close_threads', 'action_open_threads', 'action_stick_threads', 'action_unstick_threads',)
 
