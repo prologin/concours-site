@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-02 16:57+0100\n"
-"PO-Revision-Date: 2016-01-02 15:58+0000\n"
+"POT-Creation-Date: 2016-01-02 17:06+0100\n"
+"PO-Revision-Date: 2016-01-02 16:11+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1905,8 +1905,8 @@ msgid ""
 msgstr "Certaines années, le questionnaire est également publié dans différents magazines informatiques ciblés. Par exemple pour l'édition 2004, ce sont 120000 exemplaires du QCM qui ont été distribués en version papier."
 
 #: pages/templates/pages/about-qualification.html:32
-msgid "Why are students from EPITA and EPITCH not allowed to compete?"
-msgstr "Pourquoi les étudiant(e)s de EPITA et EPITCH n'ont pas le droit de concourir&nbsp;?"
+msgid "Why are students from EPITA and EPITECH not allowed to compete?"
+msgstr "Pourquoi les étudiant(e)s de EPITA et EPITECH n'ont pas le droit de concourir&nbsp;?"
 
 #: pages/templates/pages/about-qualification.html:33
 msgid ""
@@ -1927,7 +1927,7 @@ msgid ""
 "but also to implement theirs solution on a machine, in the programming language they prefer. This is also an\n"
 "opportunity for candidates to meet other enthusiasts, and for the organizers to relate their experience, to help\n"
 "them progress."
-msgstr "Les épreuves de demi-finale sont destinées à tester les capacités des candidats d'une part à résoudre des problèmes de manière algorithmique, et d'autre part à mettre en oeuvre cette démarche sur une machine, dans le langage de leur choix. Ce doit aussi être l'occasion pour les candidats de rencontrer d'autres passionnés, et pour les organisateurs de leur faire part de leur expérience, pour les aider à progresser."
+msgstr "Les épreuves de demi-finale sont destinées à tester les capacités des candidats d'une part à résoudre des problèmes de manière algorithmique, et d'autre part à mettre en œuvre cette démarche sur une machine, dans le langage de leur choix. Ce doit aussi être l'occasion pour les candidats de rencontrer d'autres passionnés, et pour les organisateurs de leur faire part de leur expérience, pour les aider à progresser."
 
 #: pages/templates/pages/about-semifinals.html:25
 msgid ""
@@ -1979,7 +1979,7 @@ msgid ""
 "    that the contestant is able to code a program on a computer (choose an\n"
 "    algorithm, implement it in a programming language, test it and debug it).\n"
 "    "
-msgstr " L'épreuve pratique, d'une durée de quatre heures, consiste en une série d'exercices de programmation de difficulté croissante. Une machine est mise à disposition de chaque candidat, et un programme de test lui fournit les sujets, et vérifie le fonctionnement des programmes qu'il soumet. Cette épreuve a pour but de vérifier que le candidat est capable de mettre en oeuvre ce qu'il sait pour réaliser un programme sur un ordinateur (choix de l'algorithme, implémentation dans le langage choisi, tests et déboguage)."
+msgstr " L'épreuve pratique, d'une durée de quatre heures, consiste en une série d'exercices de programmation de difficulté croissante. Une machine est mise à disposition de chaque candidat, et un programme de test lui fournit les sujets, et vérifie le fonctionnement des programmes qu'il soumet. Cette épreuve a pour but de vérifier que le candidat est capable de mettre en œuvre ce qu'il sait pour réaliser un programme sur un ordinateur (choix de l'algorithme, implémentation dans le langage choisi, tests et déboguage)."
 
 #: pages/templates/pages/about-semifinals.html:54
 msgid ""
@@ -1993,7 +1993,7 @@ msgstr "Le déroulement typique d'une journée de demi-finale"
 
 #: pages/templates/pages/about-semifinals.html:90
 msgid "Welcoming contestants, free breakfast"
-msgstr "Accueil des candidats, petit-déjeuner offert"
+msgstr "Accueil des candidats, petit déjeuner offert"
 
 #: pages/templates/pages/about-semifinals.html:91
 msgid "<tspan x=\"170\">Written exam</tspan> <tspan x=\"170\" dy=\"20\">(3 hours)</tspan>"
@@ -2019,7 +2019,7 @@ msgid ""
 "    while having a free breakfast provided by Prologin. The written exam takes\n"
 "    place between 9 AM and 12 AM, during which they also have an interview with a\n"
 "    Prologin organizer."
-msgstr "Les candidats sont accueillis vers 8h30 le matin, et font connaissance en prenant le petit-déjeuner, offert par Prologin. L'épreuve d'algorithmique se déroule de 9h à 12h, et en parallèle les candidats passent chacun à leur tour un entretien avec un organisateur."
+msgstr "Les candidats sont accueillis vers 8h30 le matin, et font connaissance en prenant le petit déjeuner, offert par Prologin. L'épreuve d'algorithmique se déroule de 9h à 12h, et en parallèle les candidats passent chacun à leur tour un entretien avec un organisateur."
 
 #: pages/templates/pages/about-semifinals.html:105
 msgid ""
@@ -2259,7 +2259,7 @@ msgstr "%(type)s %(year)s"
 msgid ""
 "Please note that only the first %(row_count)s results are displayed below, "
 "regardless of the actual number of contestants."
-msgstr "Notez que seuls les %(row_count)s premiers résultats sont affichés ci-après, quelque soit le nombre effectif de participants."
+msgstr "Notez que seuls les %(row_count)s premiers résultats sont affichés ci-après, quel que soit le nombre effectif de participants."
 
 #: problems/templates/problems/challenge-scoreboard.html:23
 msgid "Rank"
