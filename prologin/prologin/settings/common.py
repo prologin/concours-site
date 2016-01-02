@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/1.7/ref/settings/
 """
 
 from django.core.urlresolvers import reverse_lazy
+from django.utils.functional import lazy
 from django.utils.translation import ugettext_lazy as _
 from collections import namedtuple
 import datetime
@@ -219,7 +220,8 @@ FORUM_POSTS_PER_PAGE = 20
 FORUM_MENTIONS_PER_MESSAGE = 3  # @mention limit to prevent database DoS
 
 # Prologin specific
-SITE_HOST = 'www.prologin.org'
+SITE_HOST = 'prologin.org'
+SITE_BASE_URL = 'https://{}'.format(SITE_HOST)
 PROLOGIN_CONTACT_MAIL = 'info@prologin.org'
 DEFAULT_FROM_EMAIL = 'Prologin <{}>'.format(PROLOGIN_CONTACT_MAIL)
 PROLOGIN_MAX_AGE = 21
@@ -235,6 +237,8 @@ PLAINTEXT_PASSWORD_SALT = "whatever1337leet"
 FINAL_EVENT_DATE_FORMAT = 'l d'
 GOOGLE_ANALYTICS_ID = ''
 PROLOGIN_UTILITY_REDIS_STORE = dict(host='localhost', port=6379, db=0, socket_connect_timeout=1, socket_timeout=3)
+PROLOGIN_WEBHOOK_BASE_URL = 'http://webhook.prologin.org'
+PROLOGIN_WEBHOOK_SECRET = 'changeme'
 
 # Cache durations and keys
 CacheSetting = namedtuple('CacheSetting', 'key duration')

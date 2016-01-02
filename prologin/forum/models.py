@@ -3,6 +3,8 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 from django.utils import timezone
 from django.utils.encoding import force_text
 from django.utils.functional import cached_property
@@ -270,3 +272,19 @@ class Post(ExportModelOperationsMixin('post'), models.Model):
 
     def get_permalink(self):
         return reverse('forum:post', kwargs={'thread_slug': self.thread.slug, 'pk': self.pk})
+
+
+@receiver(post_save, sender=Post)
+def thread_save_handler(sender, **kwargs):
+    post = kwargs.get('instance')
+    if not post or not kwargs.get('created') or not post.is_thread_head:
+        return
+    # args need to be serializable
+    data = {
+        'username': post.author.username,
+        'forum': post.thread.forum.name,
+        'title': post.thread.title,
+        'url': '{}{}'.format(settings.SITE_BASE_URL, post.get_permalink()),
+    }
+    from forum.tasks import notify_new_thread
+    notify_new_thread.apply_async(args=[data])
