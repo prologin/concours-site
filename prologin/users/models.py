@@ -160,9 +160,8 @@ class ProloginUser(ExportModelOperationsMixin('user'), AbstractUser, Addressable
         return reverse('users:profile', args=[self.pk])
 
     def get_unsubscribe_url(self):
-        return 'http://{}{}?uid={}&token={}'.format(
-                Site.objects.get_current().domain,
-                reverse('users:unsubscribe'), self.id, self.unsubscribe_token)
+        return '{}{}?uid={}&token={}'.format(settings.SITE_BASE_URL, reverse('users:unsubscribe'), self.id,
+                                             self.unsubscribe_token)
 
 
 # Yay, monkey-path that bitch, thank you Django!
