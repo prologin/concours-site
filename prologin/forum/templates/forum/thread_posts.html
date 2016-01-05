@@ -23,6 +23,37 @@
 {% block content %}
 
   <h1>{{ thread.title }}</h1>
+  {% has_perm 'forum.edit_thread_lock' request.user thread as user_can_lock_thread %}
+  {% if user_can_lock_thread %}
+    <form style="display: inline-block" action="{% url 'forum:edit-thread-lock' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
+      {% csrf_token %}
+      {{ edit_thread_lock_form.status }}
+      <button type="submit" class="btn btn-warning">
+        <i class="fa fa-{% if thread.is_closed %}un{% endif %}lock"></i>
+        {% if thread.is_closed %}{% trans "Open the thread" %}
+        {% else %}{% trans "Close the thread" %}{% endif %}
+      </button>
+    </form>
+  {% endif %}
+  {% has_perm 'forum.move_thread' request.user thread as user_can_move_thread %}
+  {% if user_can_move_thread %}
+    <form style="display: inline-block" action="{% url 'forum:move-thread' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-warning">
+        <i class="fa fa-random"></i>
+        {% trans "Move the thread to" %}
+      </button>
+      {{ move_thread_form.forum|bootstrap_inline }}
+    </form>
+  {% endif %}
+  {% has_perm 'forum.delete_thread' request.user thread as user_can_delete_thread %}
+  {% if user_can_delete_thread %}
+    <a href="{% url 'forum:delete-thread' thread.forum.slug thread.forum.pk thread.slug thread.pk %}"
+       class="btn btn-danger">
+      <i class="fa fa-trash"></i>
+      {% trans "Delete thread" %}
+    </a>
+  {% endif %}
 
   {% has_perm 'forum.create_post' request.user thread as user_can_post %}
   <div class="row">
@@ -61,6 +92,7 @@
               <div class="pull-right forum-actions">
                 {% has_perm 'forum.edit_post' request.user post as user_can_edit_post %}
                 {% has_perm 'forum.edit_post_visibility' request.user post as user_can_edit_post_visibility %}
+                {% has_perm 'forum.delete_post' request.user post as user_can_delete_post %}
                 {% if request.user.is_authenticated and user_can_post %}
                   <a href="{% url 'forum:cite-post' thread.slug post.pk %}" class="btn btn-default btn-xs btn-cite">
                     <i class="fa fa-quote-left"></i> {% trans "Cite" %}</a>
@@ -79,6 +111,10 @@
                       class="fa fa-eye{% if post.is_visible %}-slash{% else %}{% endif %}"></i>
                       {% if post.is_visible %}{% trans "Hide" %}{% else %}{% trans "Unhide" %}{% endif %}</button>
                   </form>
+                {% endif %}
+                {% if user_can_delete_post %}
+                  <a href="{% url 'forum:delete-post' thread.slug post.pk %}" class="btn btn-danger btn-xs"><i
+                    class="fa fa-trash"></i> {% trans "Delete" %}</a>
                 {% endif %}
               </div>
               <a href="{{ post.get_permalink }}" title="{{ post.date_created|date:"c" }}"

@@ -172,11 +172,8 @@ class Thread(ExportModelOperationsMixin('thread'), models.Model):
 
         # If any change has been made to the parent forum, trigger the update of the counters
         if old_instance and old_instance.forum != self.forum:
+            old_instance.forum.update_trackers()
             self.update_trackers()
-            # The previous parent forum counters should also be updated
-            if old_instance.category:
-                old_forum = refresh_model_instance(old_instance.forum)
-                old_forum.update_trackers()
 
     def update_trackers(self):
         posts = Post.objects.filter(thread=self)
@@ -287,4 +284,7 @@ def thread_save_handler(sender, **kwargs):
         'url': '{}{}'.format(settings.SITE_BASE_URL, post.get_permalink()),
     }
     from forum.tasks import notify_new_thread
-    notify_new_thread.apply_async(args=[data])
+    try:
+        notify_new_thread.apply_async(args=[data])
+    except Exception:
+        pass

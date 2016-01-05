@@ -1,0 +1,25 @@
+{% extends "forum/base.html" %}
+{% load i18n rules django_bootstrap_breadcrumbs %}
+
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "forum:index" %}{% trans "Forums" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "forum:forum" thread.forum.slug thread.forum.pk %}{{ thread.forum.name }}{% endbreadcrumb_for %}
+  {% breadcrumb_for "forum:thread" thread.forum.slug thread.forum.pk thread.slug thread.pk %}{{ thread.title }}{% endbreadcrumb_for %}
+  {% breadcrumb_for "" %}{% trans "Delete thread" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{{ thread.title }}{% endblock %}
+
+{% block content %}
+  <h1>{% trans "Delete the thread" %}</h1>
+
+  <form method="post">
+    {% csrf_token %}
+    <p>{% blocktrans with title=thread.title %}Are you sure you want to delete <strong>{{ title }}</strong>?{% endblocktrans %}</p>
+    <button type="submit" class="btn btn-danger"><i class="fa fa-trash"></i> {% trans "Yes, delete" %}</button>
+    <a href="{{ thread.get_absolute_url }}" class="btn btn-default">{% trans "No, back to the thread" %}</a>
+  </form>
+
+{% endblock %}

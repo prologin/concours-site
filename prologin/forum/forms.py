@@ -81,3 +81,16 @@ class ThreadForm(forms.ModelForm):
 
     def clean_content(self):
         return self.cleaned_data['content'].strip()
+
+
+class MoveThreadForm(forms.ModelForm):
+    class Meta:
+        model = Thread
+        fields = ('forum',)
+
+
+class EditThreadLockForm(forms.ModelForm):
+    class Meta:
+        model = Thread
+        fields = ('status',)
+        widgets = {'status': forms.widgets.HiddenInput}

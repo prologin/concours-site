@@ -1,10 +1,12 @@
 from django.conf import settings
+from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.http.response import HttpResponseForbidden, JsonResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.functional import cached_property
-from django.views.generic import ListView, RedirectView, CreateView, UpdateView
-from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
+from django.views.generic import ListView, RedirectView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import ModelFormMixin, FormMixin
 from rules.contrib.views import PermissionRequiredMixin
@@ -187,6 +189,11 @@ class ThreadView(PermissionRequiredMixin, PreviewMixin, FormMixin, ListView):
         context['thread'] = thread
         context['forum'] = thread.forum
         context['form'] = kwargs.get('form', self.get_form())
+        if self.request.user.has_perm('forum.edit_thread_lock'):
+            status = (forum.models.Thread.Status.normal if thread.is_closed else forum.models.Thread.Status.closed).value
+            context['edit_thread_lock_form'] = forum.forms.EditThreadLockForm(instance=thread, initial={'status': status})
+        if self.request.user.has_perm('forum.move_thread'):
+            context['move_thread_form'] = forum.forms.MoveThreadForm(instance=thread)
         cite_post_id = self.request.GET.get('cite')
         if cite_post_id:
             post = get_object_or_404(self.model, pk=cite_post_id)
@@ -283,6 +290,19 @@ class EditPostVisibilityView(PermissionRequiredMixin, UpdateView):
     permission_required = 'forum.edit_post_visibility'
 
 
+class DeletePostView(PermissionRequiredMixin, DeleteView):
+    model = forum.models.Post
+    permission_required = 'forum.delete_post'
+    context_object_name = 'post'
+
+    def get_success_url(self):
+        return self.object.thread.get_absolute_url()
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, _("The post was deleted successfully."))
+        return super().delete(request, *args, **kwargs)
+
+
 class CitePostView(PermissionRequiredMixin, SingleObjectMixin, RedirectView):
     permanent = False
     model = forum.models.Post
@@ -313,3 +333,32 @@ class CitePostView(PermissionRequiredMixin, SingleObjectMixin, RedirectView):
             return JsonResponse({'message': cite_post_content(self.get_object())})
         # Standard request
         return super().get(request, *args, **kwargs)
+
+
+class EditThreadLockView(PermissionRequiredMixin, UpdateView):
+    model = forum.models.Thread
+    form_class = forum.forms.EditThreadLockForm
+    permission_required = 'forum.edit_thread_lock'
+
+
+class MoveThreadView(PermissionRequiredMixin, UpdateView):
+    model = forum.models.Thread
+    form_class = forum.forms.MoveThreadForm
+    permission_required = 'forum.move_thread'
+
+    def form_valid(self, form):
+        messages.success(self.request, _("The thread was moved successfully."))
+        return super().form_valid(form)
+
+
+class DeleteThreadView(PermissionRequiredMixin, DeleteView):
+    model = forum.models.Thread
+    permission_required = 'forum.delete_thread'
+    context_object_name = 'thread'
+
+    def get_success_url(self):
+        return self.object.forum.get_absolute_url()
+
+    def delete(self, request, *args, **kwargs):
+        messages.success(request, _("The thread was deleted successfully."))
+        return super().delete(request, *args, **kwargs)

@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-02 17:06+0100\n"
-"PO-Revision-Date: 2016-01-02 16:11+0000\n"
+"POT-Creation-Date: 2016-01-05 20:55+0100\n"
+"PO-Revision-Date: 2016-01-05 19:58+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -767,97 +767,99 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:20 problems/templates/problems/challenge-scoreboard.html:24
+#: forum/models.py:22 problems/templates/problems/challenge-scoreboard.html:24
 msgid "Name"
 msgstr "Nom"
 
-#: forum/models.py:22
+#: forum/models.py:24
 msgid "Description"
 msgstr "Description"
 
-#: forum/models.py:25
+#: forum/models.py:27
 msgid "Number of threads"
 msgstr "Nombre de sujets"
 
-#: forum/models.py:26 forum/models.py:92
+#: forum/models.py:28 forum/models.py:94
 msgid "Number of posts"
 msgstr "Nombre de posts"
 
-#: forum/models.py:30
+#: forum/models.py:32
 msgid "Forum"
 msgstr "Forum"
 
-#: forum/models.py:31 forum/templates/forum/create_thread.html:7
+#: forum/models.py:33 forum/templates/forum/create_thread.html:7
 #: forum/templates/forum/edit_post.html:7
 #: forum/templates/forum/forum_threads.html:7
 #: forum/templates/forum/index.html:7 forum/templates/forum/index.html.py:10
 #: forum/templates/forum/index.html:14
+#: forum/templates/forum/post_confirm_delete.html:7
+#: forum/templates/forum/thread_confirm_delete.html:7
 #: forum/templates/forum/thread_posts.html:7
 #: prologin/templates/prologin/main-menu.html:7
 msgid "Forums"
 msgstr "Forums"
 
-#: forum/models.py:67 forum/models.py:76
+#: forum/models.py:69 forum/models.py:78
 msgid "Normal"
 msgstr "Normal"
 
-#: forum/models.py:68
+#: forum/models.py:70
 msgid "Sticky"
 msgstr "Épinglé"
 
-#: forum/models.py:69
+#: forum/models.py:71
 msgid "Announce"
 msgstr "Annonce"
 
-#: forum/models.py:77
+#: forum/models.py:79
 msgid "Closed"
 msgstr "Fermé"
 
-#: forum/models.py:78
+#: forum/models.py:80
 msgid "Moved"
 msgstr "Déplacé"
 
-#: forum/models.py:82
+#: forum/models.py:84
 msgid "Title"
 msgstr "Titre"
 
-#: forum/models.py:85
+#: forum/models.py:87
 msgid "Thread type"
 msgstr "Type du sujet"
 
-#: forum/models.py:86
+#: forum/models.py:88
 msgid "Thread status"
 msgstr "Statut du suje"
 
-#: forum/models.py:87
+#: forum/models.py:89
 msgid "Visible"
 msgstr "Visible"
 
-#: forum/models.py:93
+#: forum/models.py:95
 msgid "Last post added on"
 msgstr "Dernier post ajouté le"
 
-#: forum/models.py:102
+#: forum/models.py:104
 msgid "Thread"
 msgstr "Sujet"
 
-#: forum/models.py:103
+#: forum/models.py:105
 msgid "Threads"
 msgstr "Sujet"
 
-#: forum/models.py:201
+#: forum/models.py:200
 msgid "Content"
 msgstr "Contenu"
 
-#: forum/models.py:206
+#: forum/models.py:205
 msgid "Edit reason"
 msgstr "Raison de l'édition"
 
-#: forum/models.py:217
+#: forum/models.py:216
 msgid "Post"
 msgstr "Article"
 
-#: forum/models.py:218
+#: forum/models.py:217
 msgid "Posts"
 msgstr "Articles"
 
@@ -882,20 +884,20 @@ msgstr "Créer un nouveau sujet"
 
 #: forum/templates/forum/create_thread.html:24
 #: forum/templates/forum/edit_post.html:29
-#: forum/templates/forum/thread_posts.html:117
+#: forum/templates/forum/thread_posts.html:153
 msgctxt "Preview, the action (button)"
 msgid "Preview"
 msgstr "Prévisualiser"
 
 #: forum/templates/forum/create_thread.html:29
 #: forum/templates/forum/edit_post.html:32
-#: forum/templates/forum/thread_posts.html:120
+#: forum/templates/forum/thread_posts.html:156
 msgctxt "Preview, the noun (title)"
 msgid "Preview"
 msgstr "Prévisualisation"
 
 #: forum/templates/forum/edit_post.html:10
-#: forum/templates/forum/thread_posts.html:70
+#: forum/templates/forum/thread_posts.html:102
 #: users/templates/users/edit.html:9
 #: users/templates/users/edit_password.html:9
 #: users/templates/users/profile.html:23
@@ -941,6 +943,31 @@ msgstr "Dernier message par <span class=\"thread-item-author\">%(username)s</spa
 msgid "There is no forum."
 msgstr "Il n'y a aucun forum."
 
+#: forum/templates/forum/post_confirm_delete.html:10
+msgid "Delete post"
+msgstr "Supprimer le message"
+
+#: forum/templates/forum/post_confirm_delete.html:16
+msgid "Delete the post"
+msgstr "Supprimer le message"
+
+#: forum/templates/forum/post_confirm_delete.html:20
+#, python-format
+msgid ""
+"Are you sure you want to delete the post in <strong>%(title)s</strong> "
+"written by <strong>%(author)s</strong>?"
+msgstr "Confirmez-vous la suppression du message issu de <strong>%(title)s</strong> rédigé par <strong>%(author)s</strong>&nbsp;?"
+
+#: forum/templates/forum/post_confirm_delete.html:21
+#: forum/templates/forum/thread_confirm_delete.html:21
+msgid "Yes, delete"
+msgstr "Oui, supprimer"
+
+#: forum/templates/forum/post_confirm_delete.html:22
+#: forum/templates/forum/thread_confirm_delete.html:22
+msgid "No, back to the thread"
+msgstr "Non, retour au sujet"
+
 #: forum/templates/forum/stub_forum_thread.html:6
 msgid "This thread is sticky, it will always show up at the top of the forum."
 msgstr "Ce sujet est épinglé, il apparaîtra toujours en haut du forum."
@@ -963,58 +990,100 @@ msgid ""
 "href=\"%(login)s\">log in</a> to post messages."
 msgstr "Vous devez vous <a href=\"%(register)s\">enregistrer</a> ou vous <a href=\"%(login)s\">connecter</a> pour poster des messages."
 
-#: forum/templates/forum/thread_posts.html:32
-#: forum/templates/forum/thread_posts.html:110
+#: forum/templates/forum/thread_confirm_delete.html:10
+#: forum/templates/forum/thread_posts.html:54
+msgid "Delete thread"
+msgstr "Supprimer le sujet"
+
+#: forum/templates/forum/thread_confirm_delete.html:16
+msgid "Delete the thread"
+msgstr "Supprimer le sujet"
+
+#: forum/templates/forum/thread_confirm_delete.html:20
+#, python-format
+msgid "Are you sure you want to delete <strong>%(title)s</strong>?"
+msgstr "Confirmez-vous la suppression de <strong>%(title)s</strong>&nbsp;?"
+
+#: forum/templates/forum/thread_posts.html:33
+msgid "Open the thread"
+msgstr "Ouvrir le sujet"
+
+#: forum/templates/forum/thread_posts.html:34
+msgid "Close the thread"
+msgstr "Fermer le sujet"
+
+#: forum/templates/forum/thread_posts.html:44
+msgid "Move the thread to"
+msgstr "Déplacer le sujet dans"
+
+#: forum/templates/forum/thread_posts.html:63
+#: forum/templates/forum/thread_posts.html:146
 msgid "Reply to the thread"
 msgstr "Répondre au sujet"
 
-#: forum/templates/forum/thread_posts.html:51
+#: forum/templates/forum/thread_posts.html:82
 #: users/templates/users/profile.html:91
 #, python-format
 msgid "%(username)s's profile picture"
 msgstr "Photo de profil de %(username)s"
 
-#: forum/templates/forum/thread_posts.html:53
+#: forum/templates/forum/thread_posts.html:84
 msgid "Staff member"
 msgstr "Membre de l'équipe"
 
-#: forum/templates/forum/thread_posts.html:66
+#: forum/templates/forum/thread_posts.html:98
 msgid "Cite"
 msgstr "Cite"
 
-#: forum/templates/forum/thread_posts.html:80
+#: forum/templates/forum/thread_posts.html:112
 msgid "Hide"
 msgstr "Cacher"
 
-#: forum/templates/forum/thread_posts.html:80
+#: forum/templates/forum/thread_posts.html:112
 msgid "Unhide"
 msgstr "Ne plus cacher"
 
-#: forum/templates/forum/thread_posts.html:88
+#: forum/templates/forum/thread_posts.html:117
+msgid "Delete"
+msgstr "Supprimer"
+
+#: forum/templates/forum/thread_posts.html:124
 #, python-format
 msgid "Edited on <span title=\"%(date_iso)s\">%(date)s</span>"
 msgstr "Modifié le <span title=\"%(date_iso)s\">%(date)s</span>"
 
-#: forum/templates/forum/thread_posts.html:89
+#: forum/templates/forum/thread_posts.html:125
 #, python-format
 msgid "by %(username)s"
 msgstr "par %(username)s"
 
-#: forum/templates/forum/thread_posts.html:95
+#: forum/templates/forum/thread_posts.html:131
 msgid "Message is deleted."
 msgstr "Message supprimé."
 
-#: forum/templates/forum/thread_posts.html:107
+#: forum/templates/forum/thread_posts.html:143
 msgid "Back to top"
 msgstr "Retour en haut"
 
-#: forum/templates/forum/thread_posts.html:116
+#: forum/templates/forum/thread_posts.html:152
 msgid "Add reply"
 msgstr "Ajouter une réponse"
 
-#: forum/templates/forum/thread_posts.html:130
+#: forum/templates/forum/thread_posts.html:163
 msgid "Sorry, you are not allowed to post new messages in this thread."
 msgstr "Vous n'êtes pas autorisé à poster de nouveaux messages dans ce sujet."
+
+#: forum/views.py:302
+msgid "The post was deleted successfully."
+msgstr "Le message a été supprimé avec succès."
+
+#: forum/views.py:350
+msgid "The thread was moved successfully."
+msgstr "Le sujet a été déplacé avec succès."
+
+#: forum/views.py:363
+msgid "The thread was deleted successfully."
+msgstr "Le sujet a été supprimé avec succès."
 
 #: homepage/templates/homepage/homepage.html:4
 #: homepage/templates/homepage/jumbotron.html:5
@@ -2925,11 +2994,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:136
+#: prologin/settings/common.py:137
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:137
+#: prologin/settings/common.py:138
 msgid "French"
 msgstr "Français"
 
