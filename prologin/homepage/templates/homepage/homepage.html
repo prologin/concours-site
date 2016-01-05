@@ -25,6 +25,8 @@
   <div class="col-sm-9">
   <h2>{% trans "Latest news" %}</h2>
 
+  <ul class="clearfix nav hidden-xs text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
+
   {% for article in articles %}
 
   <section class="clearfix news-entry">
@@ -51,8 +53,7 @@
       </p>
     </div>
     <div class="entry-content">
-      {{ article.html_preview|safe }}
-      <p><i class="fa fa-angle-double-right"></i> <a href="{{ article.get_absolute_url }}#cuthere">{% trans "Continue reading" %}</a></p>
+      {{ article.html_content|safe }}
     </div>
   </section>
 
