@@ -108,8 +108,8 @@
   </div>
 
   <h3 id="reply-thread">{% trans "Reply to the thread" %}</h3>
-  {% if user_can_post %}
-    {% if user.is_authenticated %}
+  {% if user.is_authenticated %}
+    {% if user_can_post %}
       <form method="POST">
         {% csrf_token %}
         {{ form|bootstrap }}
@@ -121,14 +121,15 @@
         <div class="forum-post post-content tex2jax_process">{{ form.content.value|flavored_markdown }}</div>
       {% endif %}
     {% else %}
-      {% include "forum/stub_login_required.html" %}
+      {# authenticated but cannot post #}
+      <div class="alert alert-info">
+        <i class="fa fa-lock"></i>
+        <div>{% trans "Sorry, you are not allowed to post new messages in this thread." %}</div>
+      </div>
     {% endif %}
   {% else %}
-    <div class="alert alert-info">
-      <i class="fa fa-lock"></i>
-
-      <div>{% trans "Sorry, you are not allowed to post new messages in this thread." %}</div>
-    </div>
+    {# anonymous #}
+    {% include "forum/stub_login_required.html" %}
   {% endif %}
 
 {% endblock %}
