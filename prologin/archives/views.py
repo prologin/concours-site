@@ -24,7 +24,7 @@ class SingleArchiveMixin:
             event_type = Event.Type[self.kwargs[self.type_field]]
             return archives.models.Archive.by_year(year), event_type
         except (KeyError, ValueError):
-            raise Http404
+            raise Http404()
 
     def get_context_data(self, **kwargs):
         archive, event_type = self.get_archive()
@@ -42,6 +42,8 @@ class Report(SingleArchiveMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         attr = 'semifinal' if context['event_type'] is Event.Type.semifinal else 'final'
         context['content'] = getattr(context['archive'], attr).content
+        if not context['content']:
+            raise Http404()
         return context
 
 
