@@ -19,6 +19,14 @@ smtpserver:
 celeryworker:
 	$(CELERY) -l debug -A prologin worker
 
+ifeq (manage,$(firstword $(MAKECMDGOALS)))
+  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
+  $(eval $(RUN_ARGS):;@:)
+endif
+
+manage:
+	$(MANAGE) $(RUN_ARGS)
+
 # Transifex
 
 tx-push:
