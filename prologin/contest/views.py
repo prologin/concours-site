@@ -3,6 +3,7 @@ from django.db import transaction
 from django.views.generic import UpdateView
 from django.views.generic.edit import ModelFormMixin
 from django.core.urlresolvers import reverse
+from rules.contrib.views import PermissionRequiredMixin
 
 from prologin.utils import LoginRequiredMixin
 import contest.forms
@@ -14,12 +15,16 @@ import problems.models
 # - refactor summary code with jumbotron
 
 
-class QualificationSummary(LoginRequiredMixin, UpdateView):
+class QualificationSummary(PermissionRequiredMixin, UpdateView):
     template_name = 'contest/qualification_summary.html'
     pk_url_kwarg = 'year'
     context_object_name = 'contestant'
     form_class = contest.forms.CombinedContestantUserForm
     model = contest.models.Contestant
+    permission_required = 'contest.submit_qualification'
+
+    def get_permission_object(self):
+        return self.request.current_events['qualification']
 
     def get_object(self, queryset=None):
         # available from prologin.middleware.ContestMiddleware
