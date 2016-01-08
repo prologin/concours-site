@@ -63,9 +63,13 @@
                         </li>
                       </ul>
                     {% else %}
-                      <p><i class="fa fa-check-circle"></i> <strong>{% trans "The qualifications are closed for this edition." %}</strong><br>
-                        {% trans "You can still train online for next year and browse the archives."%}
-                      </p>
+                      <p><i class="fa fa-check-circle"></i> <strong>{% trans "The qualifications are closed for this edition." %}</strong></p>
+                      <p><small>
+                      {% if firstsemi.is_in_future %}
+                        {% trans "If you competed, the jury's decision will soon be announced by email. Start training for regional events!" %}<br>
+                      {% endif %}
+                        {% trans "People who missed the qualifications can still train online for next year and browse the archives." %}
+                      </small></p>
                     {% endif %}
                   {% endif %}
                 </div>

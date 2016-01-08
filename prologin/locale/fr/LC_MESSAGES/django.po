@@ -17,8 +17,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-05 20:55+0100\n"
-"PO-Revision-Date: 2016-01-05 19:58+0000\n"
+"POT-Creation-Date: 2016-01-08 20:50+0100\n"
+"PO-Revision-Date: 2016-01-08 19:51+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -90,7 +90,7 @@ msgstr "Affiche indisponible"
 #: contest/templates/correction/qualification.html:9
 #: contest/templates/correction/qualification.html:12
 #: contest/templates/correction/qualification.html:20
-#: homepage/templates/homepage/jumbotron.html:23
+#: homepage/templates/homepage/jumbotron.html:24
 #: qcm/templates/qcm/display.html:8
 msgid "Qualification"
 msgstr "Qualification"
@@ -1094,33 +1094,29 @@ msgstr "Prologin, le concours national d'informatique"
 msgid "Latest news"
 msgstr "Dernières actualités"
 
-#: homepage/templates/homepage/homepage.html:36
+#: homepage/templates/homepage/homepage.html:28
+#: homepage/templates/homepage/homepage.html:62
+msgid "Browse all news"
+msgstr "Consulter toutes les actualités"
+
+#: homepage/templates/homepage/homepage.html:38
 #: news/templates/zinnia/_entry_detail_base.html:17
 msgid "Written by"
 msgstr "Rédigé par"
 
-#: homepage/templates/homepage/homepage.html:40
+#: homepage/templates/homepage/homepage.html:42
 #: news/templates/zinnia/_entry_detail_base.html:21
 #, python-format
 msgid "Show all %(author)s's entries"
 msgstr "Tous les articles de %(author)s"
 
-#: homepage/templates/homepage/homepage.html:42
+#: homepage/templates/homepage/homepage.html:44
 msgid "on"
 msgstr "le"
 
-#: homepage/templates/homepage/homepage.html:44
+#: homepage/templates/homepage/homepage.html:46
 msgid "Written on"
 msgstr "Rédigé le"
-
-#: homepage/templates/homepage/homepage.html:55
-#: news/templates/zinnia/_entry_detail_base.html:86
-msgid "Continue reading"
-msgstr "Continuer la lecture"
-
-#: homepage/templates/homepage/homepage.html:61
-msgid "Browse all news"
-msgstr "Consulter toutes les actualités"
 
 #: homepage/templates/homepage/jumbotron.html:6
 #, python-format
@@ -1133,61 +1129,82 @@ msgstr "Vous êtes né en %(born_year)s ou après&nbsp;? Participez à Prologin&
 msgid "Unknown date"
 msgstr "Date inconnue"
 
-#: homepage/templates/homepage/jumbotron.html:31
+#: homepage/templates/homepage/jumbotron.html:32
 #, python-format
 msgid "A quiz and %(problems_count)s problems to solve online."
 msgstr "Un questionnaire et %(problems_count)s exercices à résoudre en ligne."
 
-#: homepage/templates/homepage/jumbotron.html:33
+#: homepage/templates/homepage/jumbotron.html:34
 #, python-format
 msgid "%(problems_count)s problems to solve online."
 msgstr "%(problems_count)s problèmes à résoudre en ligne."
 
-#: homepage/templates/homepage/jumbotron.html:37
+#: homepage/templates/homepage/jumbotron.html:38
 msgid "Register now!"
 msgstr "Participez !"
 
-#: homepage/templates/homepage/jumbotron.html:43
+#: homepage/templates/homepage/jumbotron.html:41
+msgid ""
+"Qualifications for the new edition will be announced as soon as possible."
+msgstr "Les qualifications de la prochaine édition seront annoncées dès que possible."
+
+#: homepage/templates/homepage/jumbotron.html:47
 msgid "Quiz completed"
 msgstr "Questionnaire soumis"
 
-#: homepage/templates/homepage/jumbotron.html:47
+#: homepage/templates/homepage/jumbotron.html:51
 msgid "Complete the quiz"
 msgstr "Compléter le questionnaire"
 
-#: homepage/templates/homepage/jumbotron.html:53
+#: homepage/templates/homepage/jumbotron.html:58
 #, python-format
 msgid "%(problems_completed)s/%(problems_count)s problems tackled"
 msgstr "%(problems_completed)s/%(problems_count)s problèmes abordés"
 
-#: homepage/templates/homepage/jumbotron.html:56
+#: homepage/templates/homepage/jumbotron.html:62
 msgid "Review the extra details"
 msgstr "Vérifier les informations supplémentaires"
 
+#: homepage/templates/homepage/jumbotron.html:66
+msgid "The qualifications are closed for this edition."
+msgstr "Les qualifications sont terminées pour cette édition."
+
+#: homepage/templates/homepage/jumbotron.html:69
+msgid ""
+"If you competed, the jury's decision will soon be announced by email. Start "
+"training for regional events!"
+msgstr "Si vous avez concouru, la décision du jury vous sera bientôt communiquée par e-mail. Commencez à vous entraîner pour les épreuves régionales !"
+
 #: homepage/templates/homepage/jumbotron.html:71
+msgid ""
+"People who missed the qualifications can still train online for next year "
+"and browse the archives."
+msgstr "Ceux qui ont manqué les qualifications peuvent toujours s'entraîner en ligne pour l'année prochaine et consulter les archives."
+
+#: homepage/templates/homepage/jumbotron.html:86
 msgid "Semifinals"
 msgstr "Demi-finales"
 
-#: homepage/templates/homepage/jumbotron.html:85
+#: homepage/templates/homepage/jumbotron.html:98
 msgid ""
 "Consists of a written exam and some problems to solve on the computer. Exam "
 "centers are distributed accross France large cities."
 msgstr "Une épreuve écrite et des exercices sur machine. Les centres d'examen sont répartis dans les grandes villes de France."
 
-#: homepage/templates/homepage/jumbotron.html:95
-msgid "See all the dates"
-msgstr "Voir toutes les dates"
-
-#: homepage/templates/homepage/jumbotron.html:98
-#: homepage/templates/homepage/jumbotron.html:117
+#: homepage/templates/homepage/jumbotron.html:99
+#: homepage/templates/homepage/jumbotron.html:132
 msgid "Train now"
 msgstr "S'entraîner"
 
 #: homepage/templates/homepage/jumbotron.html:110
+msgid "See all the dates"
+msgstr "Voir toutes les dates"
+
+#: homepage/templates/homepage/jumbotron.html:125
 msgid "Finale"
 msgstr "Finale"
 
-#: homepage/templates/homepage/jumbotron.html:116
+#: homepage/templates/homepage/jumbotron.html:131
 msgid ""
 "You have one weekend to develop an Artificial Intelligence for a custom-made"
 " game, in Paris."
@@ -1215,6 +1232,10 @@ msgstr "Dernière mise à jour le"
 #, python-format
 msgid "%(percent)s%% of %(object)s still remains to read."
 msgstr "Il reste %(percent)s%% de %(object)s à lire."
+
+#: news/templates/zinnia/_entry_detail_base.html:86
+msgid "Continue reading"
+msgstr "Continuer la lecture"
 
 #: news/templates/zinnia/_entry_detail_base.html:98
 msgid "Tags:"
@@ -3229,7 +3250,7 @@ msgstr "Réponse %(id)s: %(answer)s"
 msgid "Answer %(id)s"
 msgstr "Réponse %(id)s"
 
-#: qcm/admin.py:97 qcm/models.py:102
+#: qcm/admin.py:97 qcm/models.py:108
 msgid "Question"
 msgstr "Question"
 
@@ -3253,11 +3274,11 @@ msgstr "Corps de la question"
 msgid "Verbose description"
 msgstr "Description supplémentaire"
 
-#: qcm/models.py:118
+#: qcm/models.py:124
 msgid "Answer"
 msgstr "Réponse"
 
-#: qcm/models.py:120
+#: qcm/models.py:126
 msgid "Textual answer"
 msgstr "Réponse texte"
 
@@ -3289,15 +3310,19 @@ msgid ""
 "href=\"%(login)s\">log in</a> to be able to fill the quiz."
 msgstr "Vous devez <a href=\"%(register)s\">créer un compte</a> ou <a href=\"%(login)s\">vous connecter</a> pour pouvoir compléter le questionnaire."
 
-#: qcm/templates/qcm/display.html:61
+#: qcm/templates/qcm/display.html:53
+msgid "Correct answer:"
+msgstr "Bonne réponse&nbsp;:"
+
+#: qcm/templates/qcm/display.html:64
 msgid "Save the new answers"
 msgstr "Enregistrer les nouvelles réponses"
 
-#: qcm/templates/qcm/display.html:63
+#: qcm/templates/qcm/display.html:66
 msgid "Check your answers"
 msgstr "Vérifiez vos réponses"
 
-#: qcm/views.py:54
+#: qcm/views.py:63
 msgid "Your new answers have been saved."
 msgstr "Vos nouvelles réponses ont été enregistrées."
 
