@@ -173,6 +173,9 @@ class ContestantCorrectionView(CanCorrectPermissionMixin, EventTypeMixin, Editio
     def get_success_url(self):
         return reverse('contest:{}'.format(self.redirect_url_name), args=self.args, kwargs=self.kwargs)
 
+    def submissioncode_date_range(self):
+        raise NotImplementedError()
+
     def form_valid(self, form):
         with transaction.atomic():
             old_contestant = self.model.objects.get(pk=self.object.pk)
@@ -202,7 +205,8 @@ class ContestantCorrectionView(CanCorrectPermissionMixin, EventTypeMixin, Editio
             qs_codes = (problems.models.SubmissionCode.objects
                         .select_related('submission')
                         .filter(submission__challenge=challenge.name,
-                                submission__user=contestant.user)
+                                submission__user=contestant.user,
+                                date_submitted__range=self.submissioncode_date_range())
                         .order_by('date_submitted'))
             name_to_problem = {problem.name: problem for problem in challenge.problems}
             codes = {problem: None for problem in challenge.problems}
@@ -230,7 +234,11 @@ class ContestantQualificationView(ContestantCorrectionView):
     event_type = contest.models.Event.Type.qualification
     form_class = contest.staff_forms.ContestantQualificationForm
     redirect_url_name = 'correction-contestant-qualification'
-
+    
+    def submissioncode_date_range(self):
+        event = contest.models.Event.objects.get(edition=self.edition, type=self.event_type.value)
+        return (event.date_begin, event.date_end)
+        
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         contestant = context['contestant']
@@ -239,7 +247,8 @@ class ContestantQualificationView(ContestantCorrectionView):
         try:
             quiz = qcm.models.Qcm.objects.get(event__edition=self.edition)
             context['quiz'] = quiz
-            context['correction'] = True  # FIXME: this is a hack from qcm/
+            context['user_can_view_correction'] = True  # for qcm template
+            context['correction_mode'] = True  # for qcm template
             context['quiz_form'] = qcm.forms.QcmForm(instance=quiz, contestant=contestant, readonly=True)
         except qcm.models.Qcm.DoesNotExist:
             pass
