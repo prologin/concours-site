@@ -19,13 +19,13 @@
 
   <h1>{% blocktrans with qcm.event.edition.year as year %}Qualification quiz – Prologin {{ year }}{% endblocktrans %}</h1>
 
-  {% if not qcm.event.is_finished %}
+  {% if qcm_can_receive_answers %}
     <p class="well">
       {% blocktrans %}Please answer the following questions. There is only one correct answer for each question.{% endblocktrans %}<br>
       {% blocktrans %}Correct answers give one point, wrong ones remove one point. Not answering a question neither gives nor removes any point.{% endblocktrans %}
     </p>
 
-    {% if not request.user.is_authenticated %}
+    {% if not user_can_save_answers %}
       {% url 'users:register' as register %}
       {% url 'users:login' as login %}
       <p class="alert alert-warning">{% blocktrans with register as register %}You have to <a href="{{ register }}">register</a> or <a href="{{ login }}">log in</a> to be able to fill the quiz.{% endblocktrans %}</p>
@@ -47,8 +47,11 @@
             </div>
             <ul class="propositions">
               {% for proposition in field %}
-                <li class="{% if correction %}{% if proposition.instance.is_correct %}correct{% endif %}{% if proposition.is_checked and not proposition.instance.is_correct %}incorrect{% endif %}{% endif %}">
+                <li class="{% if user_can_view_correction and correction_mode %}{% if proposition.instance.is_correct %}correct{% endif %}{% if proposition.is_checked and not proposition.instance.is_correct %}incorrect{% endif %}{% endif %}">
                   {{ proposition }}
+                {% if user_can_view_correction and correction_mode and question.is_open_ended %}
+                  <p>{% trans "Correct answer:" %} <code class="text-success">{{ question.correct_answer.text }}</code></p>
+                {% endif %}
                 </li>
               {% endfor %}
             </ul>
@@ -57,9 +60,9 @@
       {% endfor %}
     </ol>
 
-    {% if editable %}
+    {% if user_can_save_answers %}
       <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> {% trans "Save the new answers" %}</button>
-    {% elif qcm.event.is_finished %}
+    {% elif user_can_view_correction %}
       <button type="submit" class="btn btn-primary"><i class="fa fa-eye"></i> {% trans "Check your answers" %}</button>
     {% endif %}
   </form>

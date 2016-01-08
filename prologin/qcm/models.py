@@ -91,6 +91,12 @@ class Question(ExportModelOperationsMixin('question'), SortableMixin):
 
     objects = QuestionManager()
 
+    @property
+    def correct_answer(self):
+        if self.is_open_ended:
+            # shall return one and only one result
+            return self.propositions.get(is_correct=True)
+
     class Meta:
         ordering = ('order',)
 

@@ -94,13 +94,17 @@ class QcmForm(forms.ModelForm):
         self.contestant.qcm_answers.filter(proposition__question__qcm=instance).delete()
         answers = []
         for field_key, proposition in self.cleaned_data.items():
-            if proposition is not None and proposition.strip() != "":
-                # field key is 'qcm_q_ID' where ID is the primary key
-                question_pk = int(field_key.split('_')[-1])
-                question_obj = qcm.models.Question.objects.get(pk=question_pk)
-                # TODO(halfr): handle non openeded questions
-                proposition_obj = question_obj.propositions.all()[0]
-                answers.append(qcm.models.Answer(contestant=self.contestant,
-                    proposition=proposition_obj, textual_answer=proposition))
+            if proposition is None:
+                continue
+            # field key is 'qcm_q_ID' where ID is the primary key
+            question_pk = int(field_key.split('_')[-1])
+            question_obj = qcm.models.Question.objects.get(pk=question_pk)
+            if question_obj.is_open_ended:
+                if proposition.strip():
+                    answers.append(qcm.models.Answer(contestant=self.contestant,
+                                                     proposition=question_obj.correct_answer,
+                                                     textual_answer=proposition))
+            else:
+                answers.append(qcm.models.Answer(contestant=self.contestant, proposition=proposition))
         qcm.models.Answer.objects.bulk_create(answers)
         return instance
