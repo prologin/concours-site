@@ -15,9 +15,10 @@
             <i class="fa fa-chevron-right" style="left: 75%"></i>
           </div>
         </div>
+        {% with firstsemi=request.current_events.semifinal|first lastsemi=request.current_events.semifinal|last %}
         {# block-1 #}
         <div class="col-sm-4">
-          <div class="tl-block active">
+          <div class="tl-block{% if request.current_events.qualification.is_active %} active{% endif %}">
             <div class="row">
               <div class="col-xs-5 col-sm-12">
                 <h4>{% trans "Qualification" %}</h4>
@@ -36,26 +37,36 @@
                   {% if not user.is_authenticated %}
                     <p class="text-center signin"><a href="{% url 'users:register' %}" class="btn btn-default btn-block"><i class="fa fa-rocket"></i> {% trans "Register now!" %}</a></p>
                   {% else %}
-                    <ul class="list-unstyled checklist hide-no-active">
-                      {% if current_qcm %}
-                        {% if qcm_completed %}
-                          <li class="text-success"><a
-                              href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-check-square-o"></i> {% trans "Quiz completed" %}
-                          </a></li>
-                        {% else %}
-                          <li class="text-danger"><a
-                              href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-square-o"></i> {% trans "Complete the quiz" %}
-                          </a></li>
+                    {% if request.current_events.qualification.is_in_future %}
+                      <p><i class="fa fa-clock-o"></i> <strong>{% trans "Qualifications for the new edition will be announced as soon as possible." %}</strong></p>
+                    {% elif request.current_events.qualification.is_active %}
+                      <ul class="list-unstyled checklist">
+                        {% if current_qcm %}
+                          {% if qcm_completed %}
+                            <li class="text-success"><a
+                                href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-check-square-o"></i> {% trans "Quiz completed" %}
+                            </a></li>
+                          {% else %}
+                            <li class="text-danger"><a
+                                href="{% url 'qcm:display' request.current_edition.year %}"><i class="fa fa-square-o"></i> {% trans "Complete the quiz" %}
+                            </a></li>
+                          {% endif %}
                         {% endif %}
-                      {% endif %}
-                      <li class="text-{% if problems_completed == problems_count %}success{% elif problems_completed > 0 %}warning{% else %}danger{% endif %}">
-                        <a href="{% url 'training:challenge' request.current_edition.year 'qualification' %}"><i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
-                          {% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems tackled{% endblocktrans %}</a>
-                      </li>
-                      <li class="text-{% if request.current_contestant.is_complete_for_semifinal %}success{% else %}danger{% endif %}">
-                        <a href="{% url 'contest:qualification_summary' request.current_edition.year %}"><i class="fa fa-{% if request.current_contestant.is_complete_for_semifinal %}check-{% endif %}square-o"></i> {% trans "Review the extra details" %}</a>
-                      </li>
-                    </ul>
+                        <li class="text-{% if problems_completed == problems_count %}success{% elif problems_completed > 0 %}warning{% else %}danger{% endif %}">
+                          <a href="{% url 'training:challenge' request.current_edition.year 'qualification' %}">
+                            <i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
+                            {% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems tackled{% endblocktrans %}</a>
+                        </li>
+                        <li class="text-{% if request.current_contestant.is_complete_for_semifinal %}success{% else %}danger{% endif %}">
+                          <a href="{% url 'contest:qualification_summary' request.current_edition.year %}">
+                            <i class="fa fa-{% if request.current_contestant.is_complete_for_semifinal %}check-{% endif %}square-o"></i> {% trans "Review the extra details" %}</a>
+                        </li>
+                      </ul>
+                    {% else %}
+                      <p><i class="fa fa-check-circle"></i> <strong>{% trans "The qualifications are closed for this edition." %}</strong><br>
+                        {% trans "You can still train online for next year and browse the archives."%}
+                      </p>
+                    {% endif %}
                   {% endif %}
                 </div>
               </div>
@@ -65,16 +76,14 @@
         {# /block-1 #}
         {# block-2 #}
         <div class="col-sm-4">
-          <div class="tl-block">
+          <div class="tl-block{% if request.current_events.qualification.is_finished and not lastsemi.is_finished %} active{% endif %}">
             <div class="row">
               <div class="col-xs-5 col-sm-12">
                 <h4>{% trans "Semifinals" %}</h4>
                 <p class="date">
                 {% if request.current_events.semifinal %}
-                  {% with firstsemi=request.current_events.semifinal|first lastsemi=request.current_events.semifinal|last %}
-                    {{ firstsemi.date_begin|date:"d b Y"|default:no_such_date }}
-                    →&nbsp;{{ lastsemi.date_begin|date:"d b Y"|default:no_such_date }}
-                  {% endwith %}
+                  {{ firstsemi.date_begin|date:"d b Y"|default:no_such_date }}
+                  →&nbsp;{{ lastsemi.date_begin|date:"d b Y"|default:no_such_date }}
                 {% else %}
                   {{ no_such_date }}
                 {% endif %}
@@ -83,6 +92,8 @@
               <div class="col-xs-7 col-sm-12">
                 <div class="desc">
                   <p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
+                  <p class="hide-no-active"><a href="{% url 'training:index' %}" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
+                  {% if request.current_events.semifinal %}
                   <p class="text-center dates-link"><strong><a style="cursor: pointer"
                       data-container="body" data-toggle="popover"
                       data-placement="bottom" data-html="true"
@@ -95,7 +106,7 @@
                       ↓ {% trans "See all the dates" %}
                     </a></strong>
                   </p>
-                  <p class="hide-no-active"><a href="{% url 'training:index' %}" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -104,7 +115,7 @@
         {# /block-2 #}
         {# block-3 #}
         <div class="col-sm-4">
-          <div class="tl-block last">
+          <div class="tl-block last{% if lastsemi.is_finished and not request.current_events.final.is_finished %} active{% endif %}">
             <div class="row">
               <div class="col-xs-5 col-sm-12">
                 <h4>{% trans "Finale" %}</h4>
@@ -114,13 +125,14 @@
               <div class="col-xs-7 col-sm-12">
                 <div class="desc">
                   <p>{% trans "You have one weekend to develop an Artificial Intelligence for a custom-made game, in Paris." %}</p>
-                  <p class="hide-no-active"><a href="#TRAIN" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
+                  <p class="hide-no-active"><a href="{% url 'archives:index' %}" class="btn btn-default btn-block"><i class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
                 </div>
               </div>
             </div>
           </div>
         </div>
         {# /block-3 #}
+        {% endwith %}
       </div>
     </div>
     {# /timeline #}
