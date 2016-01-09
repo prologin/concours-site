@@ -21,7 +21,11 @@
 
     <div class="col-md-8" role="main"> {# left side (main content) #}
 
-      <h1 id="top">{% block correction_title %}{{ contestant.user }} <small>{{ event_type|choiceenum_label }} {{ edition.year }}</small>{% endblock %}</h1>
+      <h1 id="top">{% block correction_title %}
+        <a href="{% url 'users:profile' contestant.user.pk %}">
+        {{ contestant.user }} ({{ contestant.get_full_name }})</a>
+      <small>{{ event_type|choiceenum_label }} {{ edition.year }}</small>
+      {% endblock %}</h1>
 
       <form action="" method="POST" id="form">
         {% csrf_token %}
