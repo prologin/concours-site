@@ -80,7 +80,10 @@ class ContestantQualificationTable(AbstractContestantTable):
             return format_html('{} <small class="text-muted">{}</small>',
                                event.center.name,
                                date_format(event.date_begin, 'SHORT_DATE_FORMAT'))
-        return format_html('{}', contest.models.Assignation(contestant.assignation_semifinal).name.title())
+        return format_html('{} <small class="text-muted">({} correction(s))</small>',
+                           contest.models.Assignation(contestant.assignation_semifinal).name.title(),
+                           contestant.corrections.count())
+
 
 
 class ContestantSemifinalTable(AbstractContestantTable):
