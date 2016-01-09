@@ -69,6 +69,9 @@ class ContestantQualificationTable(AbstractContestantTable):
                                               sources=['assignation_semifinal_event__center__name',
                                                        'assignation_semifinal_event__center__city'],
                                               processor='get_assignation_semifinal_event')
+    assignation_status = datatableview.TextColumn(_("Assignation status"),
+                                                  sources='assignation_semifinal',
+                                                  processor='get_assignation_semifinal_status')
     score = datatableview.IntegerColumn(_("Score"), source='score_for_qualification')
 
     def __init__(self, object_list, url, **kwargs):
@@ -77,14 +80,16 @@ class ContestantQualificationTable(AbstractContestantTable):
 
     def get_assignation_semifinal_event(self, contestant, **kwargs):
         event = contestant.assignation_semifinal_event
-        if event:
-            return format_html('{} <small class="text-muted">{}</small>',
-                               event.center.name,
-                               date_format(event.date_begin, 'SHORT_DATE_FORMAT'))
-        return format_html('{} <small class="text-muted">({} correction(s))</small>',
+        if not event:
+            return ''
+        return format_html('{} <small class="text-muted">{}</small>',
+                           event.center.name,
+                           date_format(event.date_begin, 'SHORT_DATE_FORMAT'))
+
+    def get_assignation_semifinal_status(self, contestant, **kwargs):
+        return format_html('{} <small class="text-muted"> - {} correction(s)</small>',
                            Assignation.label_for(Assignation(contestant.assignation_semifinal)),
                            contestant.corrections.count())
-
 
 
 class ContestantSemifinalTable(AbstractContestantTable):
