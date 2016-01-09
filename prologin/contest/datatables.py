@@ -76,11 +76,11 @@ class ContestantQualificationTable(AbstractContestantTable):
 
     def get_assignation_semifinal_event(self, contestant, **kwargs):
         event = contestant.assignation_semifinal_event
-        if not event:
-            return ""
-        return format_html('{} <small class="text-muted">{}</small>',
-                           event.center.name,
-                           date_format(event.date_begin, 'SHORT_DATE_FORMAT'))
+        if event:
+            return format_html('{} <small class="text-muted">{}</small>',
+                               event.center.name,
+                               date_format(event.date_begin, 'SHORT_DATE_FORMAT'))
+        return format_html('{}', contest.models.Assignation(contestant.assignation_semifinal).name.title())
 
 
 class ContestantSemifinalTable(AbstractContestantTable):
