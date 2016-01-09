@@ -207,10 +207,10 @@ class ContestantCorrectionView(CanCorrectPermissionMixin, EventTypeMixin, Editio
                         .filter(submission__challenge=challenge.name,
                                 submission__user=contestant.user,
                                 date_submitted__range=self.submissioncode_date_range())
-                        .order_by('date_submitted'))
+                        .order_by('-score', '-date_submitted'))
             name_to_problem = {problem.name: problem for problem in challenge.problems}
             codes = {problem: None for problem in challenge.problems}
-            # first pass: put latest succeeded code
+            # first pass: put best-score code
             for code in qs_codes:
                 problem = name_to_problem[code.submission.problem]
                 if codes[problem] is None and code.succeeded():
