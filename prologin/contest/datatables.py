@@ -6,6 +6,7 @@ from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 
 import contest.models
+from contest.models import Assignation
 
 
 class AbstractContestantTable(Datatable):
@@ -81,7 +82,7 @@ class ContestantQualificationTable(AbstractContestantTable):
                                event.center.name,
                                date_format(event.date_begin, 'SHORT_DATE_FORMAT'))
         return format_html('{} <small class="text-muted">({} correction(s))</small>',
-                           contest.models.Assignation(contestant.assignation_semifinal).name.title(),
+                           Assignation.label_for(Assignation(contestant.assignation_semifinal)),
                            contestant.corrections.count())
 
 
