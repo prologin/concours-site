@@ -23,7 +23,7 @@
 
       <h1 id="top">{% block correction_title %}
         <a href="{% url 'users:profile' contestant.user.pk %}">
-        {{ contestant.user }} ({{ contestant.get_full_name }})</a>
+        {{ contestant.user }} ({{ contestant.user.get_full_name }})</a>
       <small>{{ event_type|choiceenum_label }} {{ edition.year }}</small>
       {% endblock %}</h1>
 
