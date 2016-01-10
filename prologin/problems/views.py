@@ -3,6 +3,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db.models import Q, F, Sum
 from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
+from django.utils.text import slugify
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, View
 from django.views.generic.detail import BaseDetailView
 from django.views.generic.edit import ModelFormMixin
@@ -303,7 +304,7 @@ class SearchProblems(ChoiceGetAttrsMixin, ListView):
         all_results = []
         filter = Q()
         if self.form.is_valid():
-            query = self.form.cleaned_data['query']
+            query = slugify(self.form.cleaned_data['query'])
             event_type = self.form.cleaned_data['event_type']
             difficulty_min = self.form.cleaned_data['difficulty_min']
             difficulty_max = self.form.cleaned_data['difficulty_max']
@@ -329,7 +330,9 @@ class SearchProblems(ChoiceGetAttrsMixin, ListView):
                         if ((solved == 'solved' and key not in solved_problems)
                                 or solved == 'unsolved' and key in solved_problems):
                             continue
-                    if not query or query in problem.title.lower():
+                    if not query or query in slugify(problem.title):
+                        if not self.request.user.has_perm('problems.view_problem', problem):
+                            continue
                         filter |= Q(challenge=challenge.name, problem=problem.name)
                         all_results.append(problem)
 
