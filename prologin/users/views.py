@@ -225,7 +225,7 @@ class PasswordResetConfirmView(AnonymousRequiredMixin, PasswordFormMixin, Update
     model = get_user_model()
     template_name = 'registration/password_reset_confirm.html'
     form_class = django.contrib.auth.forms.SetPasswordForm
-    success_url = reverse('home')
+    success_url = reverse_lazy('home')
 
     def get_object(self, queryset=None):
         from django.utils.encoding import force_text
