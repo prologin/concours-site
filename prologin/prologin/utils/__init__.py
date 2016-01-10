@@ -1,6 +1,9 @@
 import enum
+from contextlib import contextmanager
+
 import hashlib
 import os
+import random
 import re
 import string
 import unicodedata
@@ -240,3 +243,12 @@ def translate_format(format_str):
     # single-pass replacement
     rep = {re.escape(k): v for k, v in rep.items()}
     return re.sub("|".join(rep.keys()), lambda m: rep[re.escape(m.group(0))], format_str)
+
+
+@contextmanager
+def save_random_state(seed=None):
+    state = random.getstate()
+    if seed is not None:
+        random.seed(seed)
+    yield
+    random.setstate(state)

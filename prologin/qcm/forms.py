@@ -5,6 +5,7 @@ import random
 
 from prologin.templatetags.markup import markdown
 import qcm.models
+from prologin.utils import save_random_state
 
 
 class RadioChoiceInputWithInstance(forms.widgets.RadioChoiceInput):
@@ -40,15 +41,11 @@ class RandomOrderingModelChoiceField(forms.ModelChoiceField):
         super().__init__(*args, **kwargs)
 
         choices = list(self.queryset)
-        # save state
-        state = random.getstate()
-        # apply our own seed
-        random.seed(self.ordering_seed)
-        random.shuffle(choices)
+        # shuffle with our own seed
+        with save_random_state(seed=self.ordering_seed):
+            random.shuffle(choices)
         if self.empty_label is not None:
             choices.append(('', self.empty_label))
-        # restore state
-        random.setstate(state)
         self.choices = choices
 
 
