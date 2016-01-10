@@ -1,3 +1,4 @@
+import enum
 import os
 from collections import namedtuple
 from django.conf import settings
@@ -35,6 +36,12 @@ class Challenge:
         Event.Type.semifinal: 'demi',
     }
 
+    class Type(enum.Enum):
+        standard = 'all-available'
+        all_per_level = 'all-by-level'
+        one_per_level = 'one-by-level'
+        one_per_level_delayed = 'one-by-level-with-delay'
+
     @classmethod
     def all(cls):
         """
@@ -68,7 +75,7 @@ class Challenge:
         return cls(year, event_type)
 
     @classmethod
-    def by_year_and_event_type(cls, year, event_type):
+    def by_year_and_event_type(cls, year: int, event_type: Event.Type):
         """
         Retrieve a challenge by its year and event type (Event.Type).
         """
@@ -121,23 +128,26 @@ class Challenge:
                     problems.append(Problem(self, problem_dir))
                 except ObjectDoesNotExist:
                     pass
-        return problems
+        return sorted(problems)
     problems = lazy_attr('_problems_', _get_problems)
 
+    def problems_of_difficulty(self, difficulty):
+        return sorted(problem for problem in self.problems if problem.difficulty == difficulty)
+
     @property
-    def year(self):
+    def year(self) -> int:
         return self._year
 
     @property
-    def event_type(self):
+    def event_type(self) -> Event.Type:
         return self._event_type
 
     @property
-    def name(self):
+    def name(self) -> str:
         return self._low_level_name
 
     @property
-    def title(self):
+    def title(self) -> str:
         # We could return the title from props, but we can compute it directly
         return '{} {}'.format(Event.Type.label_for(self._event_type), self._year)
 
@@ -146,8 +156,19 @@ class Challenge:
         return self.properties.get('display_website', False)
 
     @property
-    def type(self):
-        return self.properties.get('type')
+    def type(self) -> Type:
+        return Challenge.Type(self.properties.get('type'))
+
+    @property
+    def auto_unlock_delay(self) -> int:
+        """
+        The amount of seconds to wait before auto-unlocking new problem(s).
+        """
+        return self.properties.get('unlock_delay', settings.PROLOGIN_PROBLEM_DEFAULT_AUTO_UNLOCK_DELAY)
+
+    @property
+    def problem_difficulty_list(self) -> [int]:
+        return sorted(set(problem.difficulty for problem in self.problems))
 
 
 class Problem:
@@ -180,6 +201,9 @@ class Problem:
 
     def __eq__(self, other):
         return other._name == self._name
+
+    def __lt__(self, other):
+        return (self.difficulty, self.title) < (other.difficulty, other.title)
 
     def __str__(self):
         return self.name

@@ -239,6 +239,8 @@ GOOGLE_ANALYTICS_ID = ''
 PROLOGIN_UTILITY_REDIS_STORE = dict(host='localhost', port=6379, db=0, socket_connect_timeout=1, socket_timeout=3)
 PROLOGIN_WEBHOOK_BASE_URL = 'http://webhook.prologin.org'
 PROLOGIN_WEBHOOK_SECRET = 'changeme'
+PROLOGIN_PROBLEM_DEFAULT_AUTO_UNLOCK_DELAY = 15 * 60  # in seconds; 15 minutes
+PROLOGIN_SEMIFINAL_MODE = False
 
 # Cache durations and keys
 CacheSetting = namedtuple('CacheSetting', 'key duration')

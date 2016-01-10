@@ -5,7 +5,6 @@ from django.views.generic.edit import ModelFormMixin
 from django.core.urlresolvers import reverse
 from rules.contrib.views import PermissionRequiredMixin
 
-from prologin.utils import LoginRequiredMixin
 import contest.forms
 import contest.models
 import problems.models

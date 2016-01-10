@@ -1,0 +1,82 @@
+{% load static i18n utils %}
+{% load django_bootstrap_breadcrumbs %}
+{% get_current_language as LANGUAGE_CODE %}
+<!doctype html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>{% block super_title %}{% block title %}{% endblock %} – Prologin{% endblock %}</title>
+
+  {# Google font, Boostrap, FontAwesome #}
+  <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'lib/css/font-awesome.min.css' %}"/>
+
+  {# Custom #}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/prologin.css' %}"/>
+
+  <meta name="description" content="{% block meta_descr %}{% endblock %}">
+
+{% include "prologin/favicons.html" %}
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body class="tex2jax_ignore {% block body_class %}{% endblock %}" {% block body_tag %}{% endblock %}>
+
+  {# Header #}
+  {% block super_header %}
+  <div class="navbar-header">
+    <div class="navbar navbar-default">
+    <div class="container">
+        <div class="navbar-brand">
+          <a href="{% url 'home' %}">
+            <img src="{% static 'img/logo_cube.png' %}" width="50" height="53" alt="Prologin">
+            Prologin
+            <small>{% get_setting 'PROLOGIN_EDITION' %}</small>
+          </a>
+        </div>
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <div class="navbar-collapse collapse pull-right">
+          {% include "prologin/main-menu.html" %}
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock super_header %}
+
+  {% block super_content %}
+  {# Content #}
+  <div class="container">
+    {% block breadcrumbs %}
+      {% clear_breadcrumbs %}
+      {% breadcrumb_for "home" %}{% trans "Prologin" %}{% endbreadcrumb_for %}
+    {% endblock %}
+
+    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+
+    {% include "prologin/messages.html" %}
+
+    {% block content %}
+
+    {% endblock %}
+  </div>
+  {% endblock super_content %}
+
+  {# Footer #}
+  <footer>
+    <div class="container">
+      {% include "prologin/main-footer.html" %}
+    </div>
+  </footer>
+
+  {# Scripts #}
+  <script src="{% static 'lib/js/jquery.min.js' %}"></script>
+  <script src="{% static 'lib/js/bootstrap.min.js' %}"></script>
+  {% block extra_script %}{% endblock %}
+</body>
+</html>

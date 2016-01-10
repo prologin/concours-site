@@ -1,4 +1,6 @@
 import collections
+import itertools
+import random
 from adminsortable.models import SortableMixin
 from decimal import Decimal
 from django.conf import settings
@@ -13,7 +15,7 @@ from jsonfield import JSONField
 
 from centers.models import Center
 from prologin.models import EnumField, CodingLanguageField
-from prologin.utils import ChoiceEnum
+from prologin.utils import ChoiceEnum, save_random_state
 
 
 class Edition(ExportModelOperationsMixin('edition'), models.Model):
@@ -255,6 +257,96 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         return sum(getattr(self, name) or 0
                    for name in self._meta.get_all_field_names()
                    if name.startswith('score_'))
+
+    def available_semifinal_problems(self):
+        from problems.models import Challenge, Submission, SubmissionCode, ExplicitSubmissionUnlock
+        challenge = Challenge.by_year_and_event_type(self.edition.year, Event.Type.semifinal)
+        if challenge.type is Challenge.Type.standard:
+            return list(challenge.problems)
+
+        solved_problem_submissions = Submission.objects.filter(user=self.user, challenge=challenge.name, score_base__gt=0)
+        solved_problem_names = set(solved_problem_submissions.values_list('problem', flat=True))
+        solved_problems = set(problem for problem in challenge.problems if problem.name in solved_problem_names)
+
+        difficulty_to_solved = collections.defaultdict(set)
+        for problem in solved_problems:
+            difficulty_to_solved[problem.difficulty].add(problem)
+        difficulty_to_solved = dict(difficulty_to_solved)
+
+        explicitly_unlocked = ExplicitSubmissionUnlock.objects.filter(challenge=challenge.name, user=self.user)
+        explicitly_unlocked_names = set(explicitly_unlocked.values_list('problem', flat=True))
+        unlocked_problems = solved_problems | set(problem for problem in challenge.problems
+                                                  if problem.name in explicitly_unlocked_names)
+
+        # pre-compute earliest dates for mode one_per_level_delayed
+        if challenge.type is Challenge.Type.one_per_level_delayed:
+            difficulty_to_start_date = {}
+            # dates from contestant submission codes
+            problem_to_date = dict((SubmissionCode.objects
+                                    .filter(submission__in=solved_problem_submissions)
+                                    .select_related('submission')
+                                    .values_list('submission__problem', 'date_submitted')))
+
+            # merge with dates from staff manual unlock (whatever is the earliest)
+            for problem, staff_date in explicitly_unlocked.values_list('problem', 'date_created'):
+                try:
+                    if staff_date < problem_to_date[problem]:
+                        problem_to_date[problem] = staff_date
+                except KeyError:
+                    problem_to_date[problem] = staff_date
+
+            for difficulty in challenge.problem_difficulty_list:
+                problem_names = set(problem.name for problem in challenge.problems_of_difficulty(difficulty))
+                try:
+                    difficulty_to_start_date[difficulty] = max(problem_to_date[name] for name in problem_names if name in problem_to_date)
+                except ValueError:
+                    # empty sequence
+                    pass
+
+        dl = challenge.problem_difficulty_list
+        # first difficulty is always here
+        with save_random_state(seed=self.user.pk):
+            unlocked_problems.add(random.choice(challenge.problems_of_difficulty(dl[0])))
+
+        for previous_difficulty, difficulty in itertools.zip_longest(dl, dl[1:]):
+            difficulty_problems = challenge.problems_of_difficulty(difficulty)
+
+            if challenge.type is Challenge.Type.all_per_level:
+                if previous_difficulty in difficulty_to_solved:
+                    unlocked_problems.update(difficulty_problems)
+
+            elif challenge.type is Challenge.Type.one_per_level:
+                if previous_difficulty in difficulty_to_solved:
+                    with save_random_state(seed=self.user.pk):
+                        unlocked_problems.add(random.choice(difficulty_problems))
+
+            elif challenge.type is Challenge.Type.one_per_level_delayed:
+                # number of solved problems of previous_difficulty
+                quantity = len(difficulty_to_solved.get(previous_difficulty, []))
+                # unlock (number of solved previous_difficulty) problems of difficulty
+                quantity = min(quantity, len(difficulty_problems))
+                if quantity:
+                    with save_random_state(seed=self.user.pk):
+                        unlocked_problems.update(random.sample(difficulty_problems, quantity))
+                # unlock a new previous-difficulty problem if still no success at this difficulty
+                if not difficulty_to_solved.get(difficulty, []):
+                    # previous-difficulty problems that are not already unlocked
+                    previous_difficulty_problems = [problem for problem in challenge.problems_of_difficulty(previous_difficulty)
+                                                    if problem not in unlocked_problems]
+                    if not previous_difficulty_problems:
+                        continue
+                    try:
+                        start_date = difficulty_to_start_date[previous_difficulty]
+                        if (timezone.now() - start_date).seconds > challenge.auto_unlock_delay:
+                            # waited long enough, unlock a new previous-difficulty problem
+                            with save_random_state(seed=self.user.pk):
+                                added = random.choice(previous_difficulty_problems)
+                                added.automatically_unlocked = True
+                                unlocked_problems.add(added)
+                    except KeyError:
+                        pass
+
+        return unlocked_problems
 
     def compute_changes(self, new, event_type):
         changes = {

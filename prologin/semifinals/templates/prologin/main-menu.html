@@ -1,0 +1,28 @@
+{% load i18n rules navigation %}
+<ul class="nav navbar-nav pull-right">
+  <li class="{% active '^/contest/' %}"><a href="{% url 'semifinal_summary' %}">{% trans "Participate" %}</a></li>
+{% if request.user.is_staff %}
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-star"></i> {% trans "Admin" %} <span class="caret"></span></a>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <li><a href="{% url 'admin:index' %}">{% trans "Django administration" %}</a></li>
+      <li class="divider"></li>
+      {% has_perm 'correction.can_correct' request.user None as can_correct %}
+      {% if can_correct %}<li><a href="{% url 'contest:correction-index' %}">{% trans "Correction" %}</a></li>{% endif %}
+    </ul>
+  </li>
+{% endif %}
+  <li class="sep"><a>&nbsp;</a></li>
+  {% if user.is_authenticated %}
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-user"></i> {{ user.username }} <span class="caret"></span></a>
+    <ul class="dropdown-menu dropdown-menu-right" role="menu">
+      <li><form method="post" action="{% url 'users:logout' %}">{% csrf_token %}<button type="submit"><i class="fa fa-power-off"></i> {% trans "Sign out" %}</button></form></li>
+    </ul>
+  </li>
+  {% else %}
+  <li class="{% active 'users:login' %}">
+    <a href="{% url 'users:login' %}?next={{ request.get_full_path }}">{% trans "Sign in" %}</a>
+  </li>
+  {% endif %}
+</ul>

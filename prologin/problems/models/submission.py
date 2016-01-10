@@ -134,3 +134,14 @@ class SubmissionCodeChoice(ExportModelOperationsMixin('submission_code_choice'),
 
     class Meta:
         unique_together = [('submission', 'code')]
+
+
+class ExplicitSubmissionUnlock(models.Model):
+    challenge = models.CharField(max_length=64, db_index=True)
+    problem = models.CharField(max_length=64, db_index=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='explicit_problem_unlocks')
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='explicit_problem_unlocks_created')
+    date_created = models.DateTimeField(default=timezone.now)
+
+    class Meta:
+        unique_together = [('challenge', 'problem', 'user')]

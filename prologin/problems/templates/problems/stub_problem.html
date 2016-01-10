@@ -1,5 +1,5 @@
 {% load i18n utils %}
-<a class="list-group-item clearfix" href="{% url 'problems:problem' problem.challenge.year problem.challenge.event_type.name problem.name %}">
+<{% if problem.locked %}div{% else %}a{% endif %} class="list-group-item problem clearfix {% if problem.locked %}disabled{% endif %}" {% if not problem.locked %}href="{% url 'problems:problem' problem.challenge.year problem.challenge.event_type.name problem.name %}"{% endif %}>
   <div class="col-sm-2 col-xs-2" style="padding: 0"><div class="progress" style="margin: 0"
      title="{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %}">
     <div class="progress-bar" role="progressbar" aria-valuenow="{{ problem.percentage_difficulty }}" aria-valuemin="0"
@@ -12,8 +12,13 @@
     <small class="text-muted">({% blocktrans with challenge=problem.challenge.event_type|choiceenum_label year=problem.challenge.year %}{{ year }} {{ challenge }}{% endblocktrans %})</small>
   {% endif %}
   </div>
-  {% if request.user.is_authenticated %}
+  {% if request.user.is_authenticated and not problem.locked %}
     <div class="col-sm-2 col-xs-12 text-right" style="padding: 0">
+    {% if problem.explicitly_unlocked %}
+      <span class="badge alert-warning" title="{% trans "This problem was manually made available by the staff" %}"><i class="fa fa-unlock-alt"></i></span>
+    {% elif problem.automatically_unlocked %}
+      <span class="badge alert-warning" title="{% trans "This problem was automatically made available because you did not complete any next-level problem" %}"><i class="fa fa-clock-o"></i></span>
+    {% endif %}
     {% if problem.submission %}
       {% if problem.submission.succeeded %}
         <span class="badge alert-success">{% blocktrans with score=problem.submission.score %}{{ score }} pts{% endblocktrans %}</span>
@@ -25,4 +30,4 @@
     {% endif %}
   </div>
   {% endif %}
-</a>
+</{% if problem.locked %}div{% else %}a{% endif %}>

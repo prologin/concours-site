@@ -14,7 +14,7 @@ import logging
 import time
 import requests
 
-from contest.models import Event
+from contest.models import Event, Contestant
 from problems.forms import SearchForm, CodeSubmissionForm
 from problems.tasks import submit_problem_code
 from prologin.languages import Language
@@ -109,7 +109,19 @@ class Challenge(PermissionRequiredMixin, TemplateView):
         challenge_done = 0
 
         context['challenge'] = challenge
-        context['problems'] = sorted(challenge.problems, key=lambda p: p.difficulty)
+        context['problems'] = challenge.problems
+
+        if challenge.event_type is Event.Type.semifinal and settings.PROLOGIN_SEMIFINAL_MODE:
+            # special case because has_perm('problems.view_problem') is heavy
+            contestant = Contestant.objects.get(user=self.request.user, edition__year=challenge.year)
+            available_problems = contestant.available_semifinal_problems()
+            for problem in context['problems']:
+                if problem not in available_problems:
+                    problem.locked = True
+        else:
+            for problem in context['problems']:
+                if not self.request.user.has_perm('problems.view_problem', problem):
+                    problem.locked = True
 
         if self.request.user.is_authenticated():
             # To display user score on each problem

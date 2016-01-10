@@ -1,14 +1,22 @@
+from django.conf import settings
 import rules
 
 
 @rules.predicate
 def is_challenge_displayable(user, challenge):
-    return challenge.displayable
+    return ((not settings.TRAINING_CHALLENGE_WHITELIST or challenge.name in settings.TRAINING_CHALLENGE_WHITELIST) and
+            challenge.displayable)
 
 
 @rules.predicate
 def can_view_problem(user, problem):
-    return is_challenge_displayable(user, problem.challenge)
+    displayable = is_challenge_displayable(user, problem.challenge)
+    if not displayable:
+        return False
+    if settings.PROLOGIN_SEMIFINAL_MODE:
+        from contest.models import Contestant
+        return problem in Contestant.objects.get(user=user, edition=settings.PROLOGIN_EDITION).available_semifinal_problems()
+    return displayable
 
 
 @rules.predicate
