@@ -1,7 +1,9 @@
 {% load i18n %}
-<li class="list-group-item list-group-item-{% if result.success %}success{% else %}warning{% endif %}">
+<li class="list-group-item list-group-item-{% if result.success %}success{% elif result.skipped %}default{% else %}warning{% endif %}">
   {% if result.success %}
     <i class="fa fa-smile-o"></i> <strong>{% trans "Test passed!" %}</strong>
+  {% elif result.skipped %}
+    <i class="fa fa-meh-o"></i> <strong>{% trans "Test skipped." %}</strong>
   {% else %}
     <i class="fa fa-frown-o"></i> <strong>{% trans "Test failed." %}</strong>
     {% if result.hidden %}
