@@ -3,6 +3,7 @@ from django.conf.urls import patterns, url
 
 urlpatterns = patterns('documents.views',
     url(r'^(?P<year>[0-9]+)/(?P<center>[0-9]+|all)/convocations/$', 'generate_regionales_convocations'),
+    url(r'^(?P<year>[0-9]+)/user/(?P<user>[0-9]+)/convocation/$', 'generate_regionales_user_convocation'),
     url(r'^(?P<year>[0-9]+)/(?P<center>[0-9]+|all)/userlist/$', 'generate_regionales_userlist'),
     url(r'^(?P<year>[0-9]+)/(?P<center>[0-9]+|all)/interviews/$', 'generate_regionales_interviews'),
     url(r'^(?P<year>[0-9]+)/(?P<center>[0-9]+|all)/passwords/$', 'generate_regionales_passwords'),

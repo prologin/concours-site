@@ -5,6 +5,7 @@ import contest.models
 import django.http
 import documents.models
 import itertools
+import users.models
 
 
 def _regionale_wishes_from_year_center(year, center):
@@ -23,6 +24,20 @@ def _regionale_wishes_from_year_center(year, center):
         contestant__assignation_semifinal=contest.models.Assignation.assigned.value,
     )
     return wishes, center_name
+
+
+def _regionale_wishes_from_year_user(year, user):
+    contestant_qs = contest.models.Contestant.objects.all().filter(pk=user)
+    if not contestant_qs:
+        raise django.http.Http404(_("No such user"))
+    contestant_name = contestant_qs[0].user.username
+
+    wishes = contest.models.EventWish.objects.filter(
+        event__edition__year=year,
+        event__type=contest.models.Event.Type.semifinal.value,
+        contestant__pk=user,
+    )
+    return wishes, contestant_name
 
 
 def _finale_wishes_from_year(year):
@@ -59,6 +74,18 @@ def generate_regionales_convocations(request, year, center):
     with documents.models.generate_tex_pdf("documents/convocation-regionale.tex", context) as output:
         return _document_response(request, output, "convocations-regionales-{year}-{center}.pdf".format(
             year=year, center=slugify(center_name),
+        ))
+
+
+def generate_regionales_user_convocation(request, year, user):
+    wishes, user_name = _regionale_wishes_from_year_user(year, user)
+    context = {
+        'year': year,
+        'items': wishes,
+    }
+    with documents.models.generate_tex_pdf("documents/convocation-regionale.tex", context) as output:
+        return _document_response(request, output, "convocations-regionales-{year}-{user}.pdf".format(
+            year=year, user=slugify(user_name),
         ))
 
 
