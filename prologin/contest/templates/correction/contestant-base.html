@@ -39,7 +39,9 @@
     {% for problem, code in submissions %}
       <h3>{{ problem.title }}
         <small>{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %} ⋅
-          <a href="{% url 'training:problem' edition.year event_type.name problem.name %}">{% trans "Open fullpage" %} <i class="fa fa-angle-double-right"></i></a>
+          <a href="{% url 'training:problem' edition.year event_type.name problem.name %}{% if code != None %}?fork={{ code.pk }}#submit{% endif %}">
+            {% if code != None %}{% trans "Open fullpage and submit again" %}{% else %}{% trans "Open fullpage" %}{% endif %} <i class="fa fa-angle-double-right"></i>
+          </a>
         </small>
       </h3>
     {% if code == None %}
