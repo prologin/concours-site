@@ -38,7 +38,7 @@
 \endlastfoot
 
 {% for wish in wishes %}{% with user=wish.contestant.user %}
-{{ user.last_name|escapetex }} & {{ user.first_name|escapetex }} & {{ user.birthdat|date:"Y-m-d"|escapetex }} & & \\\hline
+{{ user.last_name|escapetex }} & {{ user.first_name|escapetex }} & {{ user.birthday|date:"Y-m-d"|escapetex }} & & \\\hline
 {% endwith %}{% endfor %}
 
 \end{longtable}
