@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.template import loader
+from django.template import loader, Context
 import os
 import re
 import subprocess
@@ -77,4 +77,4 @@ class DocumentContext:
 
 def generate_tex_pdf(template_name, context):
     template = loader.get_template(template_name)
-    return DocumentContext(template, loader.Context(context))
+    return DocumentContext(template, Context(context))

@@ -18,16 +18,18 @@ def _regionale_wishes_from_year_center(year, center):
         center_name = center_qs[0].name
 
     wishes = contest.models.EventWish.objects.filter(
-        event__edition__year=year, event__center=center_qs, is_approved=True,
+        event__edition__year=year, event__center=center_qs,
         event__type=contest.models.Event.Type.semifinal.value,
+        contestant__assignation_semifinal=contest.models.Assignation.assigned.value,
     )
     return wishes, center_name
 
 
 def _finale_wishes_from_year(year):
     return contest.models.EventWish.objects.filter(
-        event__edition__year=year, is_approved=True,
+        event__edition__year=year,
         event__type=contest.models.Event.Type.final.value,
+        contestant__assignation_final=contest.models.Assignation.assigned.value,
     )
 
 
