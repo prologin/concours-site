@@ -102,16 +102,18 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
         test_perf = []
         skipped = False
         for test in tests:
+            is_test_corr = not test['performance']
             result_obj = SubmissionTest(name=test['id'],
                                         success=test['passed'],
-                                        skipped=skipped,
+                                        skipped=is_test_corr and skipped,
                                         expected=test.get('ref', '') or '',
                                         returned=test.get('program', '') or '',
                                         hidden=test.get('hidden'),
                                         debug=test.get('debug', '') or '')
-            if not test['passed']:
+            if is_test_corr and not test['passed']:
+                # next correction tests are skipped if this one failed
                 skipped = True
-            (test_perf if test['performance'] else test_corr).append(result_obj)
+            (test_corr if is_test_corr else test_perf).append(result_obj)
         return SubmissionResults(compilation=compilation, correction=test_corr, performance=test_perf)
 
     def __str__(self):
