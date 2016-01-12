@@ -10,9 +10,9 @@
 {% with event=item.event center=item.event.center user=item.contestant.user %}
 
 \def\destinataire{%
-{{ user.get_full_name|escapetex|nonempty }}\\
-{{ user.address|escapetex|nonempty }}\\
-{{ user.postal_code|escapetex|nonempty }} {{ user.city|escapetex|nonempty }}%
+{{ user.get_full_name|title|escapetex|nonempty }}\\
+{{ user.address|title|escapetex|nonempty }}\\
+{{ user.postal_code|title|escapetex|nonempty }} {{ user.city|escapetex|nonempty }}%
 }
 \header
 
