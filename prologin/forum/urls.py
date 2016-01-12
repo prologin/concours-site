@@ -5,6 +5,7 @@ from forum import views
 post_patterns = [
     url(r'^$', views.ThreadView.as_view(), name='thread'),
     url(r'^edit/lock$', views.EditThreadLockView.as_view(), name='edit-thread-lock'),
+    url(r'^edit/pin$', views.EditThreadPinView.as_view(), name='edit-thread-pin'),
     url(r'^edit/move$', views.MoveThreadView.as_view(), name='move-thread'),
     url(r'^delete$', views.DeleteThreadView.as_view(), name='delete-thread'),
 ]

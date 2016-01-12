@@ -94,3 +94,10 @@ class EditThreadLockForm(forms.ModelForm):
         model = Thread
         fields = ('status',)
         widgets = {'status': forms.widgets.HiddenInput}
+
+
+class EditThreadPinForm(forms.ModelForm):
+    class Meta:
+        model = Thread
+        fields = ('type',)
+        widgets = {'type': forms.widgets.HiddenInput}

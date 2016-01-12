@@ -192,6 +192,9 @@ class ThreadView(PermissionRequiredMixin, PreviewMixin, FormMixin, ListView):
         if self.request.user.has_perm('forum.edit_thread_lock'):
             status = (forum.models.Thread.Status.normal if thread.is_closed else forum.models.Thread.Status.closed).value
             context['edit_thread_lock_form'] = forum.forms.EditThreadLockForm(instance=thread, initial={'status': status})
+        if self.request.user.has_perm('forum.edit_thread_pin'):
+            type = (forum.models.Thread.Type.normal if thread.is_sticky else forum.models.Thread.Type.sticky).value
+            context['edit_thread_pin_form'] = forum.forms.EditThreadPinForm(instance=thread, initial={'type': type})
         if self.request.user.has_perm('forum.move_thread'):
             context['move_thread_form'] = forum.forms.MoveThreadForm(instance=thread)
         cite_post_id = self.request.GET.get('cite')
@@ -339,6 +342,12 @@ class EditThreadLockView(PermissionRequiredMixin, UpdateView):
     model = forum.models.Thread
     form_class = forum.forms.EditThreadLockForm
     permission_required = 'forum.edit_thread_lock'
+
+
+class EditThreadPinView(PermissionRequiredMixin, UpdateView):
+    model = forum.models.Thread
+    form_class = forum.forms.EditThreadPinForm
+    permission_required = 'forum.edit_thread_pin'
 
 
 class MoveThreadView(PermissionRequiredMixin, UpdateView):

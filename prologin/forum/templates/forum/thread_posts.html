@@ -35,6 +35,18 @@
       </button>
     </form>
   {% endif %}
+  {% has_perm 'forum.edit_thread_pin' request.user thread as user_can_pin_thread %}
+  {% if user_can_pin_thread %}
+    <form style="display: inline-block" action="{% url 'forum:edit-thread-pin' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
+      {% csrf_token %}
+      {{ edit_thread_pin_form.type }}
+      <button type="submit" class="btn btn-warning">
+        <i class="fa fa-{% if thread.is_sticky %}circle-o{% else %}thumb-tack{% endif %}"></i>
+        {% if thread.is_sticky %}{% trans "Unstick the thread" %}
+        {% else %}{% trans "Stick the thread" %}{% endif %}
+      </button>
+    </form>
+  {% endif %}
   {% has_perm 'forum.move_thread' request.user thread as user_can_move_thread %}
   {% if user_can_move_thread %}
     <form style="display: inline-block" action="{% url 'forum:move-thread' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">

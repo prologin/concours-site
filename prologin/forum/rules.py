@@ -43,6 +43,7 @@ rules.add_perm('forum.create_thread', rules.is_staff | (rules.is_authenticated &
 rules.add_perm('forum.view_thread', rules.is_staff | can_view_thread)
 rules.add_perm('forum.move_thread', rules.is_staff)
 rules.add_perm('forum.edit_thread_lock', rules.is_staff)
+rules.add_perm('forum.edit_thread_pin', rules.is_staff)
 rules.add_perm('forum.edit_thread', rules.is_staff | (rules.is_authenticated & can_view_thread & is_thread_resource_author))
 rules.add_perm('forum.delete_thread', rules.is_staff)
 rules.add_perm('forum.view_post', rules.is_staff | can_view_post)
