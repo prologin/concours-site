@@ -88,6 +88,13 @@ def generate_regionales_user_convocation(request, year, user):
             year=year, user=slugify(user_name),
         ))
 
+def generate_portrayal_agreement(request, year):
+    context = {
+        'year': year,
+    }
+    with documents.models.generate_tex_pdf("documents/droit-image.tex", context) as output:
+        return _document_response(request, output, "droit-image.pdf")
+
 
 def generate_finale_convocations(request, year):
     wishes = _finale_wishes_from_year(year)

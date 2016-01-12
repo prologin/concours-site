@@ -10,4 +10,5 @@ urlpatterns = patterns('documents.views',
     url(r'^(?P<year>[0-9]+)/final/convocations/$', 'generate_finale_convocations'),
     url(r'^(?P<year>[0-9]+)/final/userlist/$', 'generate_finale_userlist'),
     url(r'^(?P<year>[0-9]+)/final/passwords/$', 'generate_finale_passwords'),
+    url(r'^(?P<year>[0-9]+)/portrayal_agreement/$', 'generate_portrayal_agreement'),
 )
