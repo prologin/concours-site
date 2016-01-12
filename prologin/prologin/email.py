@@ -6,9 +6,10 @@ def send_email(template_name, to, context, attachements=[], **kwargs):
 
     >>> send_email('mailing/end_qualifications', 'joseph@marchand.xxx', {'user': u})
     >>> send_email('mailing/qualified', 'joseph@marchand.xxx', {'user': u},
-    ...            ['convocation_marchandj.pdf'])
+    ...            ['convocation_marchandj.pdf', pdf_content, 'application/pdf'])
     """
-    email = TemplateMail(template_name)
-    for attachement in attachements:
-        email.attach_file(attachement)
-    email.send(to, context, **kwargs)
+    template = TemplateMail(template_name)
+    email = template.make_email_object(to, context, **kwargs)
+    for filename, content, mime_type in attachements:
+        email.attach(filename, content, mime_type)
+    email.send()
