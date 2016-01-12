@@ -23,6 +23,29 @@
 {% block content %}
 
   <h1>{{ thread.title }}</h1>
+  {% has_perm 'forum.move_thread' request.user thread as user_can_move_thread %}
+  {% if user_can_move_thread %}
+    <form style="display: inline-block" action="{% url 'forum:move-thread' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-default">
+        <i class="fa fa-random"></i>
+        {% trans "Move the thread to" %}
+      </button>
+      {{ move_thread_form.forum|bootstrap_inline }}
+    </form>
+  {% endif %}
+  {% has_perm 'forum.edit_thread_pin' request.user thread as user_can_pin_thread %}
+  {% if user_can_pin_thread %}
+    <form style="display: inline-block" action="{% url 'forum:edit-thread-pin' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
+      {% csrf_token %}
+      {{ edit_thread_pin_form.type }}
+      <button type="submit" class="btn btn-default">
+        <i class="fa fa-{% if thread.is_sticky %}circle-o{% else %}thumb-tack{% endif %}"></i>
+        {% if thread.is_sticky %}{% trans "Unstick the thread" %}
+        {% else %}{% trans "Stick the thread" %}{% endif %}
+      </button>
+    </form>
+  {% endif %}
   {% has_perm 'forum.edit_thread_lock' request.user thread as user_can_lock_thread %}
   {% if user_can_lock_thread %}
     <form style="display: inline-block" action="{% url 'forum:edit-thread-lock' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
@@ -33,29 +56,6 @@
         {% if thread.is_closed %}{% trans "Open the thread" %}
         {% else %}{% trans "Close the thread" %}{% endif %}
       </button>
-    </form>
-  {% endif %}
-  {% has_perm 'forum.edit_thread_pin' request.user thread as user_can_pin_thread %}
-  {% if user_can_pin_thread %}
-    <form style="display: inline-block" action="{% url 'forum:edit-thread-pin' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
-      {% csrf_token %}
-      {{ edit_thread_pin_form.type }}
-      <button type="submit" class="btn btn-warning">
-        <i class="fa fa-{% if thread.is_sticky %}circle-o{% else %}thumb-tack{% endif %}"></i>
-        {% if thread.is_sticky %}{% trans "Unstick the thread" %}
-        {% else %}{% trans "Stick the thread" %}{% endif %}
-      </button>
-    </form>
-  {% endif %}
-  {% has_perm 'forum.move_thread' request.user thread as user_can_move_thread %}
-  {% if user_can_move_thread %}
-    <form style="display: inline-block" action="{% url 'forum:move-thread' thread.forum.slug thread.forum.pk thread.slug thread.pk %}" method="post" class="form form-inline">
-      {% csrf_token %}
-      <button type="submit" class="btn btn-warning">
-        <i class="fa fa-random"></i>
-        {% trans "Move the thread to" %}
-      </button>
-      {{ move_thread_form.forum|bootstrap_inline }}
     </form>
   {% endif %}
   {% has_perm 'forum.delete_thread' request.user thread as user_can_delete_thread %}
