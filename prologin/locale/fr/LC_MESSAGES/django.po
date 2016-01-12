@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-11 00:04+0100\n"
-"PO-Revision-Date: 2016-01-10 23:05+0000\n"
+"POT-Creation-Date: 2016-01-12 23:26+0100\n"
+"PO-Revision-Date: 2016-01-12 22:29+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -592,7 +592,7 @@ msgid "Save changes"
 msgstr "Sauvegarder les changements"
 
 #: contest/templates/correction/contestant-base.html:38
-#: contest/templates/correction/contestant-base.html:69
+#: contest/templates/correction/contestant-base.html:71
 msgid "Problem submissions"
 msgstr "Soumissions de problèmes"
 
@@ -603,55 +603,59 @@ msgstr "Soumissions de problèmes"
 msgid "Level %(level)s"
 msgstr "Niveau %(level)s"
 
-#: contest/templates/correction/contestant-base.html:42
+#: contest/templates/correction/contestant-base.html:43
+msgid "Open fullpage and submit again"
+msgstr "Version complète (re-soumettre)"
+
+#: contest/templates/correction/contestant-base.html:43
 msgid "Open fullpage"
 msgstr "Version complète"
 
-#: contest/templates/correction/contestant-base.html:46
+#: contest/templates/correction/contestant-base.html:48
 msgid "No submission for this problem."
 msgstr "Pas de soumission pour ce problème."
 
-#: contest/templates/correction/contestant-base.html:51
+#: contest/templates/correction/contestant-base.html:53
 msgid "Code score:"
 msgstr "Score code&nbsp;:"
 
-#: contest/templates/correction/contestant-base.html:51
+#: contest/templates/correction/contestant-base.html:53
 msgid "n/a"
 msgstr "n/a"
 
-#: contest/templates/correction/contestant-base.html:52
+#: contest/templates/correction/contestant-base.html:54
 msgid "Final score:"
 msgstr "Score final&nbsp;:"
 
-#: contest/templates/correction/contestant-base.html:53
+#: contest/templates/correction/contestant-base.html:55
 msgid "tests passed"
 msgstr "tests passés"
 
-#: contest/templates/correction/contestant-base.html:54
+#: contest/templates/correction/contestant-base.html:56
 msgid "unsuccessful"
 msgstr "échoué"
 
-#: contest/templates/correction/contestant-base.html:67
+#: contest/templates/correction/contestant-base.html:69
 msgid "Correction form"
 msgstr "Formulaire"
 
-#: contest/templates/correction/contestant-base.html:72
+#: contest/templates/correction/contestant-base.html:74
 msgid "Currently correcting"
 msgstr "En train de corriger"
 
-#: contest/templates/correction/contestant-base.html:73
+#: contest/templates/correction/contestant-base.html:75
 msgid "The presence service is down!"
 msgstr "Le service de présence est en panne&nbsp;!"
 
-#: contest/templates/correction/contestant-base.html:76
+#: contest/templates/correction/contestant-base.html:78
 msgid "Correction history"
 msgstr "Historique de correction"
 
-#: contest/templates/correction/contestant-base.html:81
+#: contest/templates/correction/contestant-base.html:83
 msgid "Not corrected yet."
 msgstr "Pas encore corrigé."
 
-#: contest/templates/correction/contestant-base.html:117
+#: contest/templates/correction/contestant-base.html:119
 #, python-format
 msgid "In the meantime, value changed to %%s"
 msgstr "Entre-temps, la valeur est devenue %%s"
@@ -712,13 +716,17 @@ msgid_plural "You must provide at least %(count)d choices."
 msgstr[0] "Vous devez fournir au moins %(count)d choix."
 msgstr[1] "Vous devez fournir au moins %(count)d choix."
 
-#: documents/views.py:13
+#: documents/views.py:17
 msgid "all"
 msgstr "tous"
 
-#: documents/views.py:17
+#: documents/views.py:21
 msgid "No such center"
 msgstr "Ce centre est inconnu"
+
+#: documents/views.py:35
+msgid "No such user"
+msgstr "Utilisateur inconnu"
 
 #: forum/admin.py:21
 msgid "Close selected threads"
@@ -889,20 +897,20 @@ msgstr "Créer un nouveau sujet"
 
 #: forum/templates/forum/create_thread.html:24
 #: forum/templates/forum/edit_post.html:29
-#: forum/templates/forum/thread_posts.html:153
+#: forum/templates/forum/thread_posts.html:165
 msgctxt "Preview, the action (button)"
 msgid "Preview"
 msgstr "Prévisualiser"
 
 #: forum/templates/forum/create_thread.html:29
 #: forum/templates/forum/edit_post.html:32
-#: forum/templates/forum/thread_posts.html:156
+#: forum/templates/forum/thread_posts.html:168
 msgctxt "Preview, the noun (title)"
 msgid "Preview"
 msgstr "Prévisualisation"
 
 #: forum/templates/forum/edit_post.html:10
-#: forum/templates/forum/thread_posts.html:102
+#: forum/templates/forum/thread_posts.html:114
 #: users/templates/users/edit.html:9
 #: users/templates/users/edit_password.html:9
 #: users/templates/users/profile.html:23
@@ -996,7 +1004,7 @@ msgid ""
 msgstr "Vous devez vous <a href=\"%(register)s\">enregistrer</a> ou vous <a href=\"%(login)s\">connecter</a> pour poster des messages."
 
 #: forum/templates/forum/thread_confirm_delete.html:10
-#: forum/templates/forum/thread_posts.html:54
+#: forum/templates/forum/thread_posts.html:66
 msgid "Delete thread"
 msgstr "Supprimer le sujet"
 
@@ -1009,84 +1017,92 @@ msgstr "Supprimer le sujet"
 msgid "Are you sure you want to delete <strong>%(title)s</strong>?"
 msgstr "Confirmez-vous la suppression de <strong>%(title)s</strong>&nbsp;?"
 
-#: forum/templates/forum/thread_posts.html:33
-msgid "Open the thread"
-msgstr "Ouvrir le sujet"
-
-#: forum/templates/forum/thread_posts.html:34
-msgid "Close the thread"
-msgstr "Fermer le sujet"
-
-#: forum/templates/forum/thread_posts.html:44
+#: forum/templates/forum/thread_posts.html:32
 msgid "Move the thread to"
 msgstr "Déplacer le sujet dans"
 
-#: forum/templates/forum/thread_posts.html:63
-#: forum/templates/forum/thread_posts.html:146
+#: forum/templates/forum/thread_posts.html:44
+msgid "Unstick the thread"
+msgstr "Ne pas mettre en avant"
+
+#: forum/templates/forum/thread_posts.html:45
+msgid "Stick the thread"
+msgstr "Mettre en avant"
+
+#: forum/templates/forum/thread_posts.html:56
+msgid "Open the thread"
+msgstr "Ouvrir le sujet"
+
+#: forum/templates/forum/thread_posts.html:57
+msgid "Close the thread"
+msgstr "Fermer le sujet"
+
+#: forum/templates/forum/thread_posts.html:75
+#: forum/templates/forum/thread_posts.html:158
 msgid "Reply to the thread"
 msgstr "Répondre au sujet"
 
-#: forum/templates/forum/thread_posts.html:82
+#: forum/templates/forum/thread_posts.html:94
 #: users/templates/users/profile.html:91
 #, python-format
 msgid "%(username)s's profile picture"
 msgstr "Photo de profil de %(username)s"
 
-#: forum/templates/forum/thread_posts.html:84
+#: forum/templates/forum/thread_posts.html:96
 msgid "Staff member"
 msgstr "Membre de l'équipe"
 
-#: forum/templates/forum/thread_posts.html:98
+#: forum/templates/forum/thread_posts.html:110
 msgid "Cite"
 msgstr "Cite"
 
-#: forum/templates/forum/thread_posts.html:112
+#: forum/templates/forum/thread_posts.html:124
 msgid "Hide"
 msgstr "Cacher"
 
-#: forum/templates/forum/thread_posts.html:112
+#: forum/templates/forum/thread_posts.html:124
 msgid "Unhide"
 msgstr "Ne plus cacher"
 
-#: forum/templates/forum/thread_posts.html:117
+#: forum/templates/forum/thread_posts.html:129
 msgid "Delete"
 msgstr "Supprimer"
 
-#: forum/templates/forum/thread_posts.html:124
+#: forum/templates/forum/thread_posts.html:136
 #, python-format
 msgid "Edited on <span title=\"%(date_iso)s\">%(date)s</span>"
 msgstr "Modifié le <span title=\"%(date_iso)s\">%(date)s</span>"
 
-#: forum/templates/forum/thread_posts.html:125
+#: forum/templates/forum/thread_posts.html:137
 #, python-format
 msgid "by %(username)s"
 msgstr "par %(username)s"
 
-#: forum/templates/forum/thread_posts.html:131
+#: forum/templates/forum/thread_posts.html:143
 msgid "Message is deleted."
 msgstr "Message supprimé."
 
-#: forum/templates/forum/thread_posts.html:143
+#: forum/templates/forum/thread_posts.html:155
 msgid "Back to top"
 msgstr "Retour en haut"
 
-#: forum/templates/forum/thread_posts.html:152
+#: forum/templates/forum/thread_posts.html:164
 msgid "Add reply"
 msgstr "Ajouter une réponse"
 
-#: forum/templates/forum/thread_posts.html:163
+#: forum/templates/forum/thread_posts.html:175
 msgid "Sorry, you are not allowed to post new messages in this thread."
 msgstr "Vous n'êtes pas autorisé à poster de nouveaux messages dans ce sujet."
 
-#: forum/views.py:302
+#: forum/views.py:305
 msgid "The post was deleted successfully."
 msgstr "Le message a été supprimé avec succès."
 
-#: forum/views.py:350
+#: forum/views.py:359
 msgid "The thread was moved successfully."
 msgstr "Le sujet a été déplacé avec succès."
 
-#: forum/views.py:363
+#: forum/views.py:372
 msgid "The thread was deleted successfully."
 msgstr "Le sujet a été supprimé avec succès."
 
@@ -2316,11 +2332,11 @@ msgstr "En attente"
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:123
+#: problems/models/submission.py:125
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:124
+#: problems/models/submission.py:126
 msgid "Submission codes"
 msgstr "Codes soumis"
 
