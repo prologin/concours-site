@@ -1,3 +1,4 @@
+{% load i18n latex %}{% autoescape off %}
 \documentclass[a4paper,11pt]{prologin}
 \edition{%
 {{ year }}%
@@ -14,7 +15,16 @@ Adresse~:\dotfill
 Code Postal~: \dotfill  Ville~: \dotfill
 
 autorise l'association Prologin à me photographier et me filmer dans
-le cadre de la finale du Concours National d'Informatique qui se tiendra du 7 au 10 mai~2015.
+le cadre des épreuves régionales du Concours National d'Informatique qui se
+tiendront :
+
+\small
+\begin{itemize}
+{% for date, city in locations %}
+    \item le {{ date|date:"l d F Y"|escapetex }} à : {{ city }} ;
+{% endfor %}
+\end{itemize}
+\normalsize
 
 J'accepte l'utilisation et l'exploitation non commerciale de mon
 image dans le cadre de la promotion du concours, notamment sur le site internet
@@ -37,3 +47,4 @@ ci-dessus, et avoir l'autorité légale de signer cette autorisation en son nom.
 Date et signature du représentant légal~:
 
 \end{document}
+{% endautoescape %}

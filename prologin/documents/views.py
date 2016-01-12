@@ -3,6 +3,7 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.admin.views.decorators import staff_member_required
 from django.conf import settings
+import collections
 import contest.models
 import django.http
 import documents.models
@@ -10,7 +11,7 @@ import itertools
 import users.models
 
 
-def _regionale_contestants_from_year_center(year, center):
+def _semifinals_contestants_from_year_center(year, center):
     center_qs = contest.models.Center.objects.all()
     if center == 'all':
         center_name = str(_("all"))
@@ -28,7 +29,7 @@ def _regionale_contestants_from_year_center(year, center):
     return contestants, center_name
 
 
-def _regionale_contestants_from_year_user(year, user):
+def _semifinals_contestants_from_year_user(year, user):
     contestant_qs = contest.models.Contestant.objects.filter(pk=user)
     if not contestant_qs:
         raise django.http.Http404(_("No such user"))
@@ -64,8 +65,8 @@ def _document_response(request, fobj, filename, content_type='application/pdf'):
     return response
 
 @staff_member_required
-def generate_regionales_convocations(request, year, center):
-    contestants, center_name = _regionale_contestants_from_year_center(year, center)
+def generate_semifinals_convocations(request, year, center):
+    contestants, center_name = _semifinals_contestants_from_year_center(year, center)
     context = {
         'year': year,
         'items': contestants.order_by('edition__year', 'user__last_name', 'user__first_name'),
@@ -78,8 +79,8 @@ def generate_regionales_convocations(request, year, center):
 
 
 @staff_member_required
-def generate_regionales_user_convocation(request, year, user):
-    contestants, user_name = _regionale_contestants_from_year_user(year, user)
+def generate_semifinals_user_convocation(request, year, user):
+    contestants, user_name = _semifinals_contestants_from_year_user(year, user)
     context = {
         'year': year,
         'items': contestants,
@@ -91,20 +92,36 @@ def generate_regionales_user_convocation(request, year, user):
         ))
 
 @staff_member_required
-def generate_portrayal_agreement(request, year):
+def generate_semifinals_portrayal_agreement(request, year):
+    locations = collections.defaultdict(list)
+    for event in request.current_events['semifinal']:
+        locations[event.date_begin.date()].append(event.center.city)
+    locations = [(k, ', '.join(v).title()) for k, v in locations.items()]
+
     context = {
         'year': year,
+        'locations': locations
     }
-    with documents.models.generate_tex_pdf("documents/droit-image.tex", context) as output:
-        return _document_response(request, output, "droit-image.pdf")
+    with documents.models.generate_tex_pdf("documents/droit-image-regionale.tex", context) as output:
+        return _document_response(request, output, "droit-image-regionale.pdf")
 
 
 @staff_member_required
-def generate_finale_convocations(request, year):
+def generate_final_portrayal_agreement(request, year):
+    context = {
+        'year': year,
+        'event': request.current_events['final']
+    }
+    with documents.models.generate_tex_pdf("documents/droit-image-finale.tex", context) as output:
+        return _document_response(request, output, "droit-image-finale.pdf")
+
+
+@staff_member_required
+def generate_final_convocations(request, year):
     contestants = _finale_contestants_from_year(year)
     context = {
         'year': year,
-        'items': contestants.order_by('assignation_final_event__event__center__name', 'user__last_name', 'user__first_name'),
+        'items': contestants.order_by('assignation_final__event__center__name', 'user__last_name', 'user__first_name'),
     }
     with documents.models.generate_tex_pdf("documents/convocation-finale.tex", context) as output:
         return _document_response(request, output, "convocations-finale-{year}.pdf".format(
@@ -113,8 +130,8 @@ def generate_finale_convocations(request, year):
 
 
 @staff_member_required
-def generate_regionales_userlist(request, year, center):
-    contestants, center_name = _regionale_contestants_from_year_center(year, center)
+def generate_semifinals_userlist(request, year, center):
+    contestants, center_name = _semifinals_contestants_from_year_center(year, center)
     contestants = itertools.groupby(
         contestants.order_by('event__center__pk', 'user__last_name', 'user__first_name'),
         lambda w: w.event.center)
@@ -155,8 +172,8 @@ def generate_finale_userlist(request, year):
 
 
 @staff_member_required
-def generate_regionales_interviews(request, year, center):
-    contestants, center_name = _regionale_contestants_from_year_center(year, center)
+def generate_semifinals_interviews(request, year, center):
+    contestants, center_name = _semifinals_contestants_from_year_center(year, center)
     context = {
         'year': year,
         'items': contestants.order_by('event__center__name', 'user__last_name', 'user__first_name'),
@@ -168,8 +185,8 @@ def generate_regionales_interviews(request, year, center):
 
 
 @staff_member_required
-def generate_regionales_passwords(request, year, center):
-    contestants, center_name = _regionale_contestants_from_year_center(year, center)
+def generate_semifinals_passwords(request, year, center):
+    contestants, center_name = _semifinals_contestants_from_year_center(year, center)
     contestants = itertools.groupby(
         contestants.order_by('assignation_semifinal_event__center__pk', 'user__last_name', 'user__first_name'),
         lambda c: c.assignation_semifinal_event.center)
@@ -192,7 +209,7 @@ def generate_regionales_passwords(request, year, center):
 def generate_finale_passwords(request, year):
     contestants = _finale_contestants_from_year(year)
     contestants = itertools.groupby(
-        contestants.order_by('assignation_final_event__center__pk', 'user__last_name', 'user__first_name'),
+        contestants.order_by('assignation_final__center__pk', 'user__last_name', 'user__first_name'),
         lambda c: c.assignation_final_event.center)
 
     items = []
