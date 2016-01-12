@@ -2,6 +2,7 @@ from django.template import defaultfilters
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.admin.views.decorators import staff_member_required
+from django.conf import settings
 import contest.models
 import django.http
 import documents.models
@@ -68,6 +69,7 @@ def generate_regionales_convocations(request, year, center):
     context = {
         'year': year,
         'items': contestants.order_by('edition__year', 'user__last_name', 'user__first_name'),
+        'url': settings.SITE_BASE_URL,
     }
     with documents.models.generate_tex_pdf("documents/convocation-regionale.tex", context) as output:
         return _document_response(request, output, "convocations-regionales-{year}-{center}.pdf".format(
@@ -81,6 +83,7 @@ def generate_regionales_user_convocation(request, year, user):
     context = {
         'year': year,
         'items': contestants,
+        'url': settings.SITE_BASE_URL,
     }
     with documents.models.generate_tex_pdf("documents/convocation-regionale.tex", context) as output:
         return _document_response(request, output, "convocations-regionales-{year}-{user}.pdf".format(
