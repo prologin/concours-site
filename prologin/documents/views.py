@@ -10,7 +10,7 @@ import users.models
 
 
 def _regionale_contestants_from_year_center(year, center):
-    center_qs = contest.models.Center.objects
+    center_qs = contest.models.Center.objects.all()
     if center == 'all':
         center_name = str(_("all"))
     else:
