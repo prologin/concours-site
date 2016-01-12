@@ -1,0 +1,97 @@
+{% load i18n %}
+<div class="col-sm-4">
+  <div class="tl-block {% if qualif.is_finished and not lastsemi.is_finished %}active{% endif %}">
+    <div class="row">
+      <div class="col-xs-5 col-sm-12">
+        <h4>{% trans "Regional events" %}</h4>
+        <p class="date">
+          {% if semifinals %}
+            {{ firstsemi.date_begin|date:"d b Y"|default:no_such_date }}
+            →&nbsp;{{ lastsemi.date_begin|date:"d b Y"|default:no_such_date }}
+          {% else %}
+            {{ no_such_date }}
+          {% endif %}
+        </p>
+      </div>
+      <div class="col-xs-7 col-sm-12">
+        <div class="desc">
+          <p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
+        {% if qualif.is_finished and not lastsemi.is_finished %}
+          {# semifinals are active #}
+          <p>
+            <a href="{% url 'training:index' %}" class="btn btn-default btn-block">
+              <i class="fa fa-tachometer"></i> {% trans "Train now" %}
+            </a>
+          </p>
+        {% endif %}
+        {% if semifinals %}
+          {% if request.user.is_authenticated and edition.qualification_corrected and contestant.is_assigned_for_semifinal %}
+            {% if not edition.semifinal_corrected and not lastsemi.is_finished %}
+              {# qualif corrected, semifinals not done, semifinals not corrected: show semifinal assignation #}
+              {% with event=contestant.assignation_semifinal_event %}
+                <p>{% trans "Your regional event will take place at:" %}</p>
+                <ul class="list-unstyled checklist" style="margin-bottom: .5em">
+                  <li><i class="fa fa-map-marker fa-fw"></i> <a href="{% url 'centers:center_map' %}">{{ event.center.name }}</a></li>
+                  <li><i class="fa fa-calendar-check-o fa-fw"></i> {{ event.date_begin|date:"d b Y" }}</li>
+                </ul>
+                <p>
+                  {# TODO: convocation button #}
+                  <a href="{% url 'training:index' %}" class="btn btn-primary btn-block">
+                    <i class="fa fa-download"></i> {% trans "Download paperwork" %}
+                  </a>
+                </p>
+              {% endwith %}
+            {% elif not edition.semifinal_corrected and lastsemi.is_finished %}
+              {# qualif corrected, semifinals done but not yet corrected: show please wait #}
+              <p>
+                <i class="fa fa-clock-o"></i>
+                <strong>{% trans "The jury's decision will soon be announced by email and on the website." %}</strong>
+              </p>
+              <p>{% trans "You can start ahead by training for the final." %}</p>
+            {% elif edition.semifinal_corrected %}
+              {# qualif corrected and semifinals corrected: show candidate status #}
+              {% if contestant.is_assigned_for_final %}
+                {# :-) #}
+                <p>
+                  <i class="fa fa-check text-success"></i>
+                  <strong>{% trans "Congratulations! You have been selected for the final." %}</strong>
+                </p>
+                {% if not final.is_finished %}
+                  {# ask for paperwork is final is not finished yet #}
+                  <p>{% trans "Please proceed to download your invitation papers and start reviewing previous edition finals." %}</p>
+                {% endif %}
+              {% elif contestant.is_ruled_out_for_final %}
+                {# :-( #}
+                <p>
+                  <i class="fa fa-times text-danger"></i>
+                  <strong>{% trans "Sorry, this year your application was not selected for the final." %}</strong>
+                </p>
+                <p>{% trans "Do not lose hope though! Start training right away so you can perfect your knowledge of algorithms and programming, and try again next year. Best luck!" %}</p>
+              {% else %}
+                {# unassigned, wtf? #}
+                <p>
+                  <i class="fa fa-bug text-danger"></i>
+                  <strong>{% trans "There is a problem with your application. Please contact the staff as soon as possible." %}</strong>
+                </p>
+              {% endif %}
+            {% endif %}
+          {% else %}
+            <p class="text-center dates-link"><strong><a style="cursor: pointer"
+                                                         data-container="body" data-toggle="popover"
+                                                         data-placement="bottom" data-html="true"
+                                                         data-content="
+                        {% for demi in semifinals|dictsort:'date_begin' %}
+                        <strong><a href='{% url 'centers:center_map' %}'>{{ demi.center.name }}</a></strong> –
+                        {{ demi.date_begin|date:"d b Y"|default:no_such_date }}<br />
+                        {% endfor %}
+                        ">
+              ↓ {% trans "See all the dates" %}
+            </a></strong>
+            </p>
+          {% endif %}
+        {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

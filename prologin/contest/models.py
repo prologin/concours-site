@@ -21,6 +21,10 @@ class Edition(ExportModelOperationsMixin('edition'), models.Model):
     date_begin = models.DateTimeField()
     date_end = models.DateTimeField()
 
+    qualification_corrected = models.BooleanField(default=False)
+    semifinal_corrected = models.BooleanField(default=False)
+    final_corrected = models.BooleanField(default=False)
+
     class Meta:
         ordering = ('-year',)
 
@@ -212,6 +216,22 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         return self._is_complete
 
     @property
+    def is_assigned_for_semifinal(self):
+        return self.assignation_semifinal == Assignation.assigned.value
+
+    @property
+    def is_ruled_out_for_semifinal(self):
+        return self.assignation_semifinal == Assignation.ruled_out.value
+
+    @property
+    def is_assigned_for_final(self):
+        return self.assignation_final == Assignation.assigned.value
+
+    @property
+    def is_ruled_out_for_final(self):
+        return self.assignation_final == Assignation.ruled_out.value
+
+    @property
     def is_complete_for_finale(self):
         return self._is_complete
 
@@ -225,6 +245,10 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     @property
     def score_for_semifinal(self):
         return self.score_for(Event.Type.semifinal)
+
+    @property
+    def assignation_final_event(self):
+        return Event.objects.get(edition=self.edition, type=Event.Type.final.value)
 
     @property
     def total_score(self):
