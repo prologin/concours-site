@@ -64,6 +64,8 @@ def _document_response(request, fobj, filename, content_type='application/pdf'):
     response.write(fobj.read())
     return response
 
+
+# TODO: class based view, select_related
 @staff_member_required
 def generate_semifinals_convocations(request, year, center):
     contestants, center_name = _semifinals_contestants_from_year_center(year, center)
@@ -78,6 +80,7 @@ def generate_semifinals_convocations(request, year, center):
         ))
 
 
+# TODO: class based view, select_related
 @staff_member_required
 def generate_semifinals_user_convocation(request, year, user):
     contestants, user_name = _semifinals_contestants_from_year_user(year, user)
@@ -91,6 +94,8 @@ def generate_semifinals_user_convocation(request, year, user):
             year=year, user=slugify(user_name),
         ))
 
+# TODO: class based view, events of year instead of  request.current_events,
+# select_related
 @staff_member_required
 def generate_semifinals_portrayal_agreement(request, year):
     locations = collections.defaultdict(list)
@@ -106,6 +111,8 @@ def generate_semifinals_portrayal_agreement(request, year):
         return _document_response(request, output, "droit-image-regionale.pdf")
 
 
+# TODO: class based view, events of year instead of  request.current_events,
+# select_related
 @staff_member_required
 def generate_final_portrayal_agreement(request, year):
     context = {
@@ -116,6 +123,7 @@ def generate_final_portrayal_agreement(request, year):
         return _document_response(request, output, "droit-image-finale.pdf")
 
 
+# TODO: class based view, select_related
 @staff_member_required
 def generate_final_convocations(request, year):
     contestants = _finale_contestants_from_year(year)
@@ -129,6 +137,7 @@ def generate_final_convocations(request, year):
         ))
 
 
+# TODO: class based view, select_related
 @staff_member_required
 def generate_semifinals_userlist(request, year, center):
     contestants, center_name = _semifinals_contestants_from_year_center(year, center)
@@ -150,6 +159,7 @@ def generate_semifinals_userlist(request, year, center):
         ))
 
 
+# TODO: class based view, select_related
 @staff_member_required
 def generate_finale_userlist(request, year):
     contestants = _finale_contestants_from_year(year)
@@ -171,6 +181,7 @@ def generate_finale_userlist(request, year):
         ))
 
 
+# TODO: class based view, select_related
 @staff_member_required
 def generate_semifinals_interviews(request, year, center):
     contestants, center_name = _semifinals_contestants_from_year_center(year, center)
@@ -184,6 +195,7 @@ def generate_semifinals_interviews(request, year, center):
         ))
 
 
+# TODO: class based view, select_related, use export data from challenge mode
 @staff_member_required
 def generate_semifinals_passwords(request, year, center):
     contestants, center_name = _semifinals_contestants_from_year_center(year, center)
@@ -205,6 +217,7 @@ def generate_semifinals_passwords(request, year, center):
         ))
 
 
+# TODO: class based view, select_related, use export data from challenge mode
 @staff_member_required
 def generate_finale_passwords(request, year):
     contestants = _finale_contestants_from_year(year)
