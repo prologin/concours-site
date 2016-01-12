@@ -1,6 +1,7 @@
 from django.template import defaultfilters
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.admin.views.decorators import staff_member_required
 import contest.models
 import django.http
 import documents.models
@@ -64,7 +65,7 @@ def _document_response(request, fobj, filename, content_type='application/pdf'):
     response.write(fobj.read())
     return response
 
-
+@staff_member_required
 def generate_regionales_convocations(request, year, center):
     wishes, center_name = _regionale_wishes_from_year_center(year, center)
     context = {
@@ -77,6 +78,7 @@ def generate_regionales_convocations(request, year, center):
         ))
 
 
+@staff_member_required
 def generate_regionales_user_convocation(request, year, user):
     wishes, user_name = _regionale_wishes_from_year_user(year, user)
     context = {
@@ -88,6 +90,7 @@ def generate_regionales_user_convocation(request, year, user):
             year=year, user=slugify(user_name),
         ))
 
+@staff_member_required
 def generate_portrayal_agreement(request, year):
     context = {
         'year': year,
@@ -96,6 +99,7 @@ def generate_portrayal_agreement(request, year):
         return _document_response(request, output, "droit-image.pdf")
 
 
+@staff_member_required
 def generate_finale_convocations(request, year):
     wishes = _finale_wishes_from_year(year)
     context = {
@@ -108,6 +112,7 @@ def generate_finale_convocations(request, year):
         ))
 
 
+@staff_member_required
 def generate_regionales_userlist(request, year, center):
     wishes, center_name = _regionale_wishes_from_year_center(year, center)
     wishes = itertools.groupby(
@@ -128,6 +133,7 @@ def generate_regionales_userlist(request, year, center):
         ))
 
 
+@staff_member_required
 def generate_finale_userlist(request, year):
     wishes = _finale_wishes_from_year(year)
     wishes = itertools.groupby(
@@ -148,6 +154,7 @@ def generate_finale_userlist(request, year):
         ))
 
 
+@staff_member_required
 def generate_regionales_interviews(request, year, center):
     wishes, center_name = _regionale_wishes_from_year_center(year, center)
     context = {
@@ -160,6 +167,7 @@ def generate_regionales_interviews(request, year, center):
         ))
 
 
+@staff_member_required
 def generate_regionales_passwords(request, year, center):
     wishes, center_name = _regionale_wishes_from_year_center(year, center)
     wishes = itertools.groupby(
@@ -180,6 +188,7 @@ def generate_regionales_passwords(request, year, center):
         ))
 
 
+@staff_member_required
 def generate_finale_passwords(request, year):
     wishes = _finale_wishes_from_year(year)
     wishes = itertools.groupby(
