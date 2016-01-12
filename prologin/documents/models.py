@@ -52,12 +52,11 @@ class DocumentContext:
         with open(in_file, 'wb') as source_file:
             source_file.write(data)
 
-        cwd = os.path.dirname(self.template.origin.name)  # so LaTeX can find related files eg. sty or images
         proc = subprocess.Popen([
             'pdflatex', '-halt-on-error', '-interaction=errorstopmode',
             '-output-format=pdf', '-no-shell-escape',
             '-output-directory', self.output_dir.name, in_file,
-        ], cwd=cwd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+        ], stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         try:
             outs, errs = proc.communicate(timeout=settings.LATEX_GENERATION_PROC_TIMEOUT)
             if proc.returncode != 0:
