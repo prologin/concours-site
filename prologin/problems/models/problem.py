@@ -77,7 +77,12 @@ class Challenge:
     def __init__(self, year, event_type):
         assert isinstance(year, int)
         assert isinstance(event_type, Event.Type)
-        self._low_level_name = '{}{}'.format(Challenge._type_to_low_level[event_type], year)
+        try:
+            self._low_level_name = '{}{}'.format(
+                    Challenge._type_to_low_level[event_type], year)
+        except KeyError:
+            raise ObjectDoesNotExist("No Challenge for event type: {}".format(
+                event_type))
         self._year = year
         self._event_type = event_type
         path = self.file_path('challenge.props')
