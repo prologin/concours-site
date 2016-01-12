@@ -9,8 +9,8 @@ import itertools
 import users.models
 
 
-def _regionale_wishes_from_year_center(year, center):
-    center_qs = contest.models.Center.objects.all()
+def _regionale_contestants_from_year_center(year, center):
+    center_qs = contest.models.Center.objects
     if center == 'all':
         center_name = str(_("all"))
     else:
@@ -19,33 +19,30 @@ def _regionale_wishes_from_year_center(year, center):
             raise django.http.Http404(_("No such center"))
         center_name = center_qs[0].name
 
-    wishes = contest.models.EventWish.objects.filter(
-        event__edition__year=year, event__center=center_qs,
-        event__type=contest.models.Event.Type.semifinal.value,
-        contestant__assignation_semifinal=contest.models.Assignation.assigned.value,
+    contestants = contest.models.Contestant.objects.filter(
+        edition__year=year,
+        assignation_semifinal=contest.models.Assignation.assigned.value,
+        assignation_semifinal_event__center=center_qs,
     )
-    return wishes, center_name
+    return contestants, center_name
 
 
-def _regionale_wishes_from_year_user(year, user):
-    contestant_qs = contest.models.Contestant.objects.all().filter(pk=user)
+def _regionale_contestants_from_year_user(year, user):
+    contestant_qs = contest.models.Contestant.objects.filter(pk=user)
     if not contestant_qs:
         raise django.http.Http404(_("No such user"))
     contestant_name = contestant_qs[0].user.username
 
-    wishes = contest.models.EventWish.objects.filter(
-        event__edition__year=year,
-        event__type=contest.models.Event.Type.semifinal.value,
-        contestant__pk=user,
+    contestants = contest.models.Contestant.objects.filter(
+        pk=user,
     )
-    return wishes, contestant_name
+    return contestants, contestant_name
 
 
-def _finale_wishes_from_year(year):
-    return contest.models.EventWish.objects.filter(
-        event__edition__year=year,
-        event__type=contest.models.Event.Type.final.value,
-        contestant__assignation_final=contest.models.Assignation.assigned.value,
+def _finale_contestants_from_year(year):
+    return contest.models.Contestant.objects.filter(
+        edition__year=year,
+        assignation_final=contest.models.Assignation.assigned.value,
     )
 
 
@@ -67,10 +64,10 @@ def _document_response(request, fobj, filename, content_type='application/pdf'):
 
 @staff_member_required
 def generate_regionales_convocations(request, year, center):
-    wishes, center_name = _regionale_wishes_from_year_center(year, center)
+    contestants, center_name = _regionale_contestants_from_year_center(year, center)
     context = {
         'year': year,
-        'items': wishes.order_by('event__center__name', 'contestant__user__last_name', 'contestant__user__first_name'),
+        'items': contestants.order_by('edition__year', 'user__last_name', 'user__first_name'),
     }
     with documents.models.generate_tex_pdf("documents/convocation-regionale.tex", context) as output:
         return _document_response(request, output, "convocations-regionales-{year}-{center}.pdf".format(
@@ -80,10 +77,10 @@ def generate_regionales_convocations(request, year, center):
 
 @staff_member_required
 def generate_regionales_user_convocation(request, year, user):
-    wishes, user_name = _regionale_wishes_from_year_user(year, user)
+    contestants, user_name = _regionale_contestants_from_year_user(year, user)
     context = {
         'year': year,
-        'items': wishes,
+        'items': contestants,
     }
     with documents.models.generate_tex_pdf("documents/convocation-regionale.tex", context) as output:
         return _document_response(request, output, "convocations-regionales-{year}-{user}.pdf".format(
@@ -101,10 +98,10 @@ def generate_portrayal_agreement(request, year):
 
 @staff_member_required
 def generate_finale_convocations(request, year):
-    wishes = _finale_wishes_from_year(year)
+    contestants = _finale_contestants_from_year(year)
     context = {
         'year': year,
-        'items': wishes.order_by('event__center__name', 'contestant__user__last_name', 'contestant__user__first_name'),
+        'items': contestants.order_by('assignation_final_event__event__center__name', 'user__last_name', 'user__first_name'),
     }
     with documents.models.generate_tex_pdf("documents/convocation-finale.tex", context) as output:
         return _document_response(request, output, "convocations-finale-{year}.pdf".format(
@@ -114,13 +111,13 @@ def generate_finale_convocations(request, year):
 
 @staff_member_required
 def generate_regionales_userlist(request, year, center):
-    wishes, center_name = _regionale_wishes_from_year_center(year, center)
-    wishes = itertools.groupby(
-        wishes.order_by('event__center__pk', 'contestant__user__last_name', 'contestant__user__first_name'),
+    contestants, center_name = _regionale_contestants_from_year_center(year, center)
+    contestants = itertools.groupby(
+        contestants.order_by('event__center__pk', 'user__last_name', 'user__first_name'),
         lambda w: w.event.center)
 
     items = []
-    for center, grouped in wishes:
+    for center, grouped in contestants:
         items.append((center, list(grouped)))
 
     context = {
@@ -135,13 +132,13 @@ def generate_regionales_userlist(request, year, center):
 
 @staff_member_required
 def generate_finale_userlist(request, year):
-    wishes = _finale_wishes_from_year(year)
-    wishes = itertools.groupby(
-        wishes.order_by('event__center__pk', 'contestant__user__last_name', 'contestant__user__first_name'),
+    contestants = _finale_contestants_from_year(year)
+    contestants = itertools.groupby(
+        contestants.order_by('event__center__pk', 'user__last_name', 'user__first_name'),
         lambda w: w.event.center)
 
     items = []
-    for center, grouped in wishes:
+    for center, grouped in contestants:
         items.append((center, list(grouped)))
 
     context = {
@@ -156,10 +153,10 @@ def generate_finale_userlist(request, year):
 
 @staff_member_required
 def generate_regionales_interviews(request, year, center):
-    wishes, center_name = _regionale_wishes_from_year_center(year, center)
+    contestants, center_name = _regionale_contestants_from_year_center(year, center)
     context = {
         'year': year,
-        'items': wishes.order_by('event__center__name', 'contestant__user__last_name', 'contestant__user__first_name'),
+        'items': contestants.order_by('event__center__name', 'user__last_name', 'user__first_name'),
     }
     with documents.models.generate_tex_pdf("documents/interviews.tex", context) as output:
         return _document_response(request, output, "liste-appel-{year}.pdf".format(
@@ -169,13 +166,13 @@ def generate_regionales_interviews(request, year, center):
 
 @staff_member_required
 def generate_regionales_passwords(request, year, center):
-    wishes, center_name = _regionale_wishes_from_year_center(year, center)
-    wishes = itertools.groupby(
-        wishes.order_by('event__center__pk', 'contestant__user__last_name', 'contestant__user__first_name'),
-        lambda w: w.event.center)
+    contestants, center_name = _regionale_contestants_from_year_center(year, center)
+    contestants = itertools.groupby(
+        contestants.order_by('assignation_semifinal_event__center__pk', 'user__last_name', 'user__first_name'),
+        lambda c: c.assignation_semifinal_event.center)
 
     items = []
-    for center, grouped in wishes:
+    for center, grouped in contestants:
         items.append((center, list(grouped)))
 
     context = {
@@ -190,13 +187,13 @@ def generate_regionales_passwords(request, year, center):
 
 @staff_member_required
 def generate_finale_passwords(request, year):
-    wishes = _finale_wishes_from_year(year)
-    wishes = itertools.groupby(
-        wishes.order_by('event__center__pk', 'contestant__user__last_name', 'contestant__user__first_name'),
-        lambda w: w.event.center)
+    contestants = _finale_contestants_from_year(year)
+    contestants = itertools.groupby(
+        contestants.order_by('assignation_final_event__center__pk', 'user__last_name', 'user__first_name'),
+        lambda c: c.assignation_final_event.center)
 
     items = []
-    for center, grouped in wishes:
+    for center, grouped in contestants:
         items.append((center, list(grouped)))
 
     context = {

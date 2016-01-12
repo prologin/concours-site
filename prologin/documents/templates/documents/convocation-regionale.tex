@@ -7,7 +7,7 @@
 \def\objet{Convocation aux épreuves régionales de Prologin {{ year|escapetex }} }
 
 {% for item in items %}
-{% with event=item.event center=item.event.center user=item.contestant.user %}
+{% with event=item.assignation_semifinal_event center=item.assignation_semifinal_event.center user=item.user %}
 
 \def\destinataire{%
 {{ user.get_full_name|title|escapetex|nonempty }}\\
