@@ -51,7 +51,6 @@ class AbstractContestantTable(Datatable):
                            reverse('contest:{}'.format(self.correction_url_name),
                                    kwargs={'year': contestant.edition.year, 'cid': contestant.pk}),
                            _("Correct"))
-
     def get_extra_actions(self, contestant):
         return []
 
@@ -90,6 +89,15 @@ class ContestantQualificationTable(AbstractContestantTable):
         return format_html('{} <small class="text-muted"> - {} correction(s)</small>',
                            Assignation.label_for(Assignation(contestant.assignation_semifinal)),
                            contestant.corrections.count())
+
+    def convocation_link(self, contestant):
+        return format_html('<a href="{}" class="btn btn-default btn-xs"><i class="fa fa-graduation-cap"></i> {}</a>',
+                           reverse('documents:semifinals-user-convocation',
+                                   kwargs={'year': contestant.edition.year, 'user': contestant.pk}),
+                           _("Convocation"))
+
+    def get_extra_actions(self, contestant):
+        return [self.convocation_link(contestant)]
 
 
 class ContestantSemifinalTable(AbstractContestantTable):
