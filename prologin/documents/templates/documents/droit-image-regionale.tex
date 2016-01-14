@@ -21,7 +21,7 @@ tiendront :
 \small
 \begin{itemize}
 {% for date, city in locations %}
-    \item le {{ date|date:"l d F Y"|escapetex }} à : {{ city }} ;
+    \item le {{ date|date:"l d F Y"|escapetex }} à : {{ city }}{% if not forloop.last %} ;{% else %}.{% endif %}
 {% endfor %}
 \end{itemize}
 \normalsize
