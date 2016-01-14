@@ -7,7 +7,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db import transaction
 from django.db.models import Count
-from django.http import JsonResponse
+from django.http import JsonResponse, Http404
 from django.shortcuts import get_object_or_404
 from django.template.loader import get_template
 from django.utils import timezone
@@ -261,6 +261,11 @@ class ContestantSemifinalView(EventMixin, ContestantCorrectionView):
     event_type = contest.models.Event.Type.semifinal
     form_class = contest.staff_forms.ContestantSemifinalForm
     redirect_url_name = 'correction-contestant-semifinal'
+
+    def submissioncode_date_range(self):
+        if not self.event:
+            raise Http404()
+        return (self.event.date_begin, self.event.date_end)
 
     @cached_property
     def event(self):
