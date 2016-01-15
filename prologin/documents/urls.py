@@ -27,6 +27,6 @@ final_patterns = [
 urlpatterns = [
     url(r'^(?P<year>[0-9]{4})/semifinals/', include(semifinals_patterns)),
     url(r'^(?P<year>[0-9]{4})/final/', include(final_patterns)),
-    url(r'^$', documents.views.IndexView.as_view(), name='index'),
     url(r'^(?P<year>[0-9]{4})/$', documents.views.IndexView.as_view(), name='index'),
+    url(r'^$', documents.views.IndexView.as_view(), name='index'),
 ]

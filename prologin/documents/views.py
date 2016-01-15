@@ -80,8 +80,8 @@ class SemifinalsContestantsView(BaseContestDocumentView):
 class SemifinalsPortrayalAgreementView(BaseContestDocumentView):
     event_type = contest.models.Event.Type.semifinal
     template_name = 'documents/droit-image-regionale.tex'
-    pdf_title = _("Prologin %(year)s: batch portrayal agreements for the regional events")
-    filename = pgettext_lazy("Document filename", "portrayal-agreements-%(year)s-regional")
+    pdf_title = _("Prologin %(year)s: portrayal agreement for the regional events")
+    filename = pgettext_lazy("Document filename", "portrayal-agreement-%(year)s-regional")
 
     def get_context_data(self, **kwargs):
         locations = collections.defaultdict(list)
@@ -172,8 +172,8 @@ class FinalContestantsView(BaseContestDocumentView):
 class FinalPortrayalAgreementView(BaseContestDocumentView):
     template_name = 'documents/droit-image-finale.tex'
     event_type = contest.models.Event.Type.final
-    pdf_title = _("Prologin %(year)s: batch portrayal agreements for the final")
-    filename = pgettext_lazy("Document filename", "portrayal-agreements-%(year)s-final")
+    pdf_title = _("Prologin %(year)s: portrayal agreement for the final")
+    filename = pgettext_lazy("Document filename", "portrayal-agreement-%(year)s-final")
 
     def get_context_data(self, **kwargs):
         return {**super().get_context_data(**kwargs),
