@@ -232,7 +232,7 @@ PROLOGIN_VM_VERSION_PATH = 'http://vm.prologin.org/versions'
 PROLOGIN_BUG_TRACKER_URL = 'https://bitbucket.org/prologin/site-issues/issues?status=new&status=open'
 LATEX_GENERATION_PROC_TIMEOUT = 60  # in seconds
 PLAINTEXT_PASSWORD_LENGTH = 8
-PLAINTEXT_PASSWORD_DISAMBIGUATION = str.maketrans("iIl1oO0/+=", "aAbcCD9234")
+PLAINTEXT_PASSWORD_DISAMBIGUATION = str.maketrans("iIl1oO0/+=-_", "aAbcCD9234z5")
 PLAINTEXT_PASSWORD_SALT = "whatever1337leet"
 FINAL_EVENT_DATE_FORMAT = 'l d'
 GOOGLE_ANALYTICS_ID = ''
