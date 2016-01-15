@@ -2,13 +2,16 @@
 \documentclass[a4paper,11pt]{article}
 \usepackage{prologin-letter}
 \usepackage[french]{babel}
+\usepackage[pdftex,
+            pdfauthor={Prologin},
+            pdftitle={ {{ pdf_title }} }]{hyperref}
 
 \begin{document}
 
 \def\objet{Convocation à la finale Prologin {{ year }} }
 
-{% for item in items %}
-{% with event=item.event center=item.event.center user=item.contestant.user %}
+{% for contestant in contestants %}
+{% with center=event.center user=contestant.user %}
 
 \def\destinataire{%
 {{ user.get_full_name|title|escapetex|nonempty }}\\

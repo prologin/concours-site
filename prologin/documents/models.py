@@ -27,7 +27,7 @@ def latex_escape(value):
         '_': r'\_',
         '{': r'\{',
         '}': r'\}',
-        '°': r'\textdegree',
+        '°': r'\textdegree{}',
         '^': r'\^{}',
         '~': r'\textasciitilde{}',
         '\n': r'\\',
@@ -63,17 +63,16 @@ class DocumentContext:
         try:
             outs, errs = proc.communicate(timeout=settings.LATEX_GENERATION_PROC_TIMEOUT)
             if proc.returncode != 0:
-                raise SubprocessFailedException("pdflatex failed", proc.returncode, outs, errs)
-            # `out_file` should exist by now, as returncode is 0
-            self.output = open(out_file, 'rb')
-            return self.output
+                raise SubprocessFailedException("pdflatex exited with non-zero", proc.returncode, outs, errs)
+            if not os.path.exists(out_file):
+                raise SubprocessFailedException("pdflatex did not create output file (empty contents?)", proc.returncode, outs, errs)
+            return out_file
         except subprocess.SubprocessError:
             proc.kill()
             outs, errs = proc.communicate()
             raise SubprocessFailedException("pdflatex failed", proc.returncode, outs, errs)
 
     def __exit__(self, exc_type, exc_value, traceback):
-        self.output.close()
         self.output_dir.cleanup()
 
 

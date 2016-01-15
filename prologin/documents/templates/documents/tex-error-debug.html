@@ -1,0 +1,25 @@
+{% extends "_error_base.html" %}
+{% load i18n django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for 'documents:index' %}{% trans "Documents" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for '' %}{% trans "TeX generation failed" %}{% endbreadcrumb_for %}
+{% endblock %}
+
+{% block title %}{% trans "TeX generation failed" %}{% endblock %}
+
+{% block explanation %}
+
+  <p>
+    {% blocktrans with message=error.message %}The TeX generation failed with error <code>{{ message }}</code>.{% endblocktrans %}
+    {% blocktrans with code=error.returncode %}The program exited with return code <code>{{ code }}</code>.{% endblocktrans %}
+  </p>
+
+  <h3>{% trans "Standard output" %}</h3>
+  <pre><code>{{ error.stdout }}</code></pre>
+
+  <h3>{% trans "Standard error" %}</h3>
+  <pre><code>{{ error.stderr }}</code></pre>
+
+{% endblock %}

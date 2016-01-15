@@ -1,13 +1,16 @@
 {% load i18n latex %}{% autoescape off %}
 \documentclass[a4paper,11pt]{article}
 \usepackage{prologin-letter}
+\usepackage[pdftex,
+            pdfauthor={Prologin},
+            pdftitle={ {{ pdf_title }} }]{hyperref}
 
 \begin{document}
 
 \def\objet{Convocation aux épreuves régionales de Prologin {{ year|escapetex }} }
 
-{% for item in items %}
-{% with event=item.assignation_semifinal_event center=item.assignation_semifinal_event.center user=item.user %}
+{% for contestant in contestants %}
+{% with event=contestant.assignation_semifinal_event center=contestant.assignation_semifinal_event.center user=contestant.user %}
 
 \def\destinataire{%
 {{ user.get_full_name|title|escapetex|nonempty }}\\

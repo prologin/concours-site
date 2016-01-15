@@ -7,6 +7,10 @@
 \usepackage[tmargin=5mm,bmargin=15mm,lmargin=15mm,rmargin=15mm,head=0mm]{geometry}
 \usepackage{longtable}
 \usepackage{graphicx}
+\usepackage{makecell}
+\usepackage[pdftex,
+            pdfauthor={Prologin},
+            pdftitle={ {{ pdf_title }} }]{hyperref}
 
 \def\identite{11.5cm}
 \def\notes{5.5cm}
@@ -18,21 +22,21 @@
 \begin{document}
 \newcommand{\sectitle}[1]{\vspace{0pt}\large \textbf{#1}}
 
-{% for item in items %}
-{% with c=item.contestant u=item.contestant.user %}
+{% for contestant in contestants %}
+{% with c=contestant e=contestant.assignation_semifinal_event u=contestant.user %}
 
 \thispagestyle{empty}
 \noindent
 \begin{tabular}{p{\identite}|p{\notes}}
     \begin{tabular}{rl}
         \multicolumn{2}{l}{\textbf{%
-            {{ item.event.center.name }}%
+            {{ e.center.name }}%
         }} \\
         & \\
-        Nom     & {{ u.last_name|escapetex }} \\
-        Prénom  & {{ u.first_name|escapetex }} \\
+        Nom     & {{ u.last_name|title|escapetex }} \\
+        Prénom  & {{ u.first_name|title|escapetex }} \\
         Date de naissance & {{ u.birthday|date:"Y-m-d"|escapetex }} \\
-        Adresse & {{ u.address|escapetex }} \\
+        Adresse & \makecell[lt]{ {{ u.address|escapetex }} } \\
                 & {{ u.postal_code|escapetex }} {{ u.city|escapetex }}
     \end{tabular}
     &
@@ -41,9 +45,9 @@
         \begin{tabular}{rrl}
             \multicolumn{3}{l}{\sectitle{Notes QCM}} \\
             %& & \\
-            Culture info  & {{ c.score_qualif_qcm|default:"?"|escapetex }}   & /~10 \\
-            Programmation & {{ c.score_qualif_algo|default:"?"|escapetex }}  & /~20 \\
-            Bonus         & {{ c.score_qualif_bonus|default:"?"|escapetex }} & /~20 \\
+            Culture info  & {{ c.score_qualif_qcm|escapetex }}   & /~10 \\
+            Programmation & {{ c.score_qualif_algo|escapetex }}  & /~20 \\
+            Bonus         & {{ c.score_qualif_bonus|escapetex }} & /~20 \\
             & & \\
             \multicolumn{3}{l}{\sectitle{Note entretien}} \\\cline{2-3}
             Entretien & \multicolumn{1}{|l}{\hspace*{1.5em}} & \multicolumn{1}{l|}{\huge{/~5}} \\\cline{2-3}
@@ -55,8 +59,8 @@
 \begin{tabular}{p{\commentaire}}
     \sectitle{Commentaires QCM}
 
-    Correcteur QCM: {{ c.correction_by.get_full_name|escapetex }} ({{ c.correction_by.username|escapetex }})\\
-    {{ c.correction_comments|escapetex|default:"\emph{aucun commentaire.}" }}
+    Correcteur QCM: {% if c.correction_by %}{{ c.correction_by.get_full_name|escapetex }} ({{ c.correction_by.username|escapetex }}){% else %}\emph{pas de correcteur}{% endif %}\\
+    {{ c.correction_comments|escapetex|default:"\emph{Aucun commentaire}" }}
     \\\\
 \end{tabular}\\
 \noindent
@@ -79,13 +83,13 @@
         (informatique, non informatique)\ldots
     \end{itemize}
     \normalsize
-    \vspace{\entretienlong} &
+    \makecell{\vspace{\entretienlong}} &
     ~\\
     \\\hline
 \end{tabular}\\
 \begin{tabular}{p{\entretien}p{\entretien}}
     \sectitle{Conclusion de l'entretien} & \\
-    \vspace{\concllong} & \\\hline
+    \makecell{\vspace{\concllong}} & \\\hline
 \end{tabular}\\
 \begin{tabular}{p{\entretien}p{\entretien}}
     \sectitle{Épreuve machine} & \\

@@ -1,0 +1,121 @@
+{% extends "prologin/base.html" %}
+{% load i18n django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for 'documents:index' %}{% trans "Documents" %}{% endbreadcrumb_for %}
+{% if year != None %}
+  {% breadcrumb_for 'documents:index' year %}{{ year }}{% endbreadcrumb_for %}
+{% endif %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% if year %}{% blocktrans %}{{ year }} documents{% endblocktrans %}{% else %}{% trans "Document index" %}{% endif %}{% endblock %}
+
+{% block content %}
+  <h1>{% if year %}{% blocktrans %}{{ year }} documents{% endblocktrans %}{% else %}{% trans "Document index" %}{% endif %}</h1>
+
+  <ul class="pager align-left">
+    {% spaceless %}{% for page_year in years %}
+      <li{% if year == page_year %} class="active"{% endif %}>
+        <a href="{% url 'documents:index' page_year %}">{{ page_year }}</a>
+      </li>
+    {% endfor %}{% endspaceless %}
+  </ul>
+
+{% if year != None %}
+
+  <div class="row">
+    <div class="col-md-6">
+      <h3>{% trans "Regional events" %}</h3>
+
+      <table class="table table-stripped table-hover">
+        <tbody>
+          <tr>
+            <td><strong>{% trans "All centers" %}</strong></td>
+            <td>
+              <a href="{% url 'documents:semifinals-convocations' year 'all' %}" class="btn btn-default btn-xs">
+                <i class="fa fa-graduation-cap"></i> {% trans "Convocations" %}
+              </a>
+              <a href="{% url 'documents:semifinals-contestants' year 'all' %}" class="btn btn-default btn-xs">
+                <i class="fa fa-list-alt"></i> {% trans "Contestants" %}
+              </a>
+              <a href="{% url 'documents:semifinals-interviews' year 'all' %}" class="btn btn-default btn-xs">
+                <i class="fa fa-black-tie"></i> {% trans "Interviews" %}
+              </a>
+              <a href="{% url 'documents:semifinals-passwords' year 'all' %}" class="btn btn-default btn-xs">
+                <i class="fa fa-key"></i> {% trans "Passwords" %}
+              </a>
+              <a href="{% url 'documents:semifinals-portrayal-agreement' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-camera"></i> {% trans "Portrayal agreement" %}
+              </a>
+            </td>
+          </tr>
+        {% for event in semifinals %}
+          <tr>
+            <td>{{ event.center.name }} <small class="text-muted">{{ event.date_begin|date:"SHORT_DATE_FORMAT" }}</small></td>
+            <td>
+              <a href="{% url 'documents:semifinals-convocations' year event.center.pk %}" class="btn btn-default btn-xs">
+                <i class="fa fa-graduation-cap"></i> {% trans "Convocations" %}
+              </a>
+              <a href="{% url 'documents:semifinals-contestants' year event.center.pk %}" class="btn btn-default btn-xs">
+                <i class="fa fa-list-alt"></i> {% trans "Contestants" %}
+              </a>
+              <a href="{% url 'documents:semifinals-interviews' year event.center.pk %}" class="btn btn-default btn-xs">
+                <i class="fa fa-black-tie"></i> {% trans "Interviews" %}
+              </a>
+              <a href="{% url 'documents:semifinals-passwords' year event.center.pk %}" class="btn btn-default btn-xs">
+                <i class="fa fa-key"></i> {% trans "Passwords" %}
+              </a>
+            </td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+
+    </div>
+
+    <div class="col-md-6">
+      <h3>{% trans "Final" %}</h3>
+
+    {% if final %}
+
+      <table class="table table-stripped table-hover">
+        <tbody>
+          <tr>
+            <td>
+              <strong>{{ final.center.name }}</strong>
+              <small class="text-muted">{{ final.date_begin|date:"SHORT_DATE_FORMAT" }}</small>
+            </td>
+            <td>
+              <a href="{% url 'documents:final-convocations' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-graduation-cap"></i> {% trans "Convocations" %}
+              </a>
+              <a href="{% url 'documents:final-contestants' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-list-alt"></i> {% trans "Contestants" %}
+              </a>
+              <a href="{% url 'documents:final-passwords' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-key"></i> {% trans "Passwords" %}
+              </a>
+              <a href="{% url 'documents:final-portrayal-agreement' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-camera"></i> {% trans "Portrayal agreement" %}
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+    {% else %} {# no final event #}
+
+      <div class="alert alert-warning">
+        <i class="fa fa-warning"></i><div>{% trans "There is no final event for this edition." %}</div>
+      </div>
+
+    {% endif %}
+    </div>
+
+  </div>
+
+  {% endif %}
+
+{% endblock %}
+

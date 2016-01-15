@@ -466,6 +466,12 @@ footer .legal {
   padding: 1em;
 }
 
+.pager li.active > a {
+  background-color: #337ab7;
+  color: white;
+  border-color: transparent;
+}
+
 .sponsor {
   width: 100%;
   max-width: 220px;

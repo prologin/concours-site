@@ -1,239 +1,201 @@
-from django.template import defaultfilters
-from django.utils.text import slugify
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.admin.views.decorators import staff_member_required
-from django.conf import settings
 import collections
-import contest.models
-import django.http
-import documents.models
 import itertools
-import users.models
+
+from django.conf import settings
+from django.utils.translation import ugettext_lazy as _, pgettext_lazy
+from django.views.generic import TemplateView
+
+import contest.models
+from documents.base_views import BaseContestDocumentView, BaseContestCompilationView
+
+USER_LIST_ORDERING = ('user__last_name', 'user__first_name')
 
 
-def _semifinals_contestants_from_year_center(year, center):
-    center_qs = contest.models.Center.objects.all()
-    if center == 'all':
-        center_name = str(_("all"))
-    else:
-        center_qs = center_qs.filter(pk=center)
-        if not center_qs:
-            raise django.http.Http404(_("No such center"))
-        center_name = center_qs[0].name
+class IndexView(TemplateView):
+    template_name = 'documents/index.html'
 
-    contestants = contest.models.Contestant.objects.filter(
-        edition__year=year,
-        assignation_semifinal=contest.models.Assignation.assigned.value,
-        assignation_semifinal_event__center=center_qs,
-    )
-    return contestants, center_name
-
-
-def _semifinals_contestants_from_year_user(year, user):
-    contestant_qs = contest.models.Contestant.objects.filter(pk=user)
-    if not contestant_qs:
-        raise django.http.Http404(_("No such user"))
-    contestant_name = contestant_qs[0].user.username
-
-    contestants = contest.models.Contestant.objects.filter(
-        pk=user,
-    )
-    return contestants, contestant_name
+    def get_context_data(self, **kwargs):
+        years = contest.models.Edition.objects.values_list('year', flat=True)
+        year = None
+        semifinals = None
+        final = None
+        try:
+            year = int(self.kwargs['year'])
+            semifinals = contest.models.Event.semifinals_for_edition(year)
+            try:
+                final = contest.models.Event.final_for_edition(year)
+            except contest.models.Event.DoesNotExist:
+                final = None
+        except (KeyError, ValueError, TypeError):
+            pass
+        return {**super().get_context_data(**kwargs),
+                'years': years,
+                'year': year,
+                'semifinals': semifinals,
+                'final': final}
 
 
-def _finale_contestants_from_year(year):
-    return contest.models.Contestant.objects.filter(
-        edition__year=year,
-        assignation_final=contest.models.Assignation.assigned.value,
-    )
+class SemifinalsConvocationsView(BaseContestDocumentView):
+    event_type = contest.models.Event.Type.semifinal
+    template_name = 'documents/convocation-regionale.tex'
+    pdf_title = _("Prologin %(year)s: batch invitations to the regional center %(center)s")
+    filename = pgettext_lazy("Document filename", "invitations-%(year)s-regional-%(center)s")
+
+    def get_context_data(self, **kwargs):
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'contestants': self.contestants.order_by('edition__year', *USER_LIST_ORDERING),
+                'url': settings.SITE_BASE_URL}
 
 
-def _document_response(request, fobj, filename, content_type='application/pdf'):
-    """
-    Outputs a HttpResponse containing data from :param fobj with the given :param filename and :param content_type.
-    If request contains the ?dl parameter, the response is an attachment (downlaod popup).
-    :param request: the request to respond for
-    :param fobj: file object to output
-    :param filename:
-    :param content_type:
-    :return: HttpReponse
-    """
-    response = django.http.HttpResponse(content_type=content_type)
-    if request.GET.get('dl') is not None:
-        response['Content-Disposition'] = 'attachment; filename="%s"' % filename
-    response.write(fobj.read())
-    return response
+class SemifinalsContestantConvocationView(BaseContestDocumentView):
+    event_type = contest.models.Event.Type.semifinal
+    template_name = 'documents/convocation-regionale.tex'
+    pdf_title = _("Prologin %(year)s: invitation to the regional event for %(fullname)s")
+    filename = pgettext_lazy("Document filename", "invitation-%(year)s-regional-%(fullname)s")
+
+    def get_context_data(self, **kwargs):
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'contestants': [self.contestant],
+                'url': settings.SITE_BASE_URL}
 
 
-# TODO: class based view, select_related
-@staff_member_required
-def generate_semifinals_convocations(request, year, center):
-    contestants, center_name = _semifinals_contestants_from_year_center(year, center)
-    context = {
-        'year': year,
-        'items': contestants.order_by('edition__year', 'user__last_name', 'user__first_name'),
-        'url': settings.SITE_BASE_URL,
-    }
-    with documents.models.generate_tex_pdf("documents/convocation-regionale.tex", context) as output:
-        return _document_response(request, output, "convocations-regionales-{year}-{center}.pdf".format(
-            year=year, center=slugify(center_name),
-        ))
+class SemifinalsContestantsView(BaseContestDocumentView):
+    event_type = contest.models.Event.Type.semifinal
+    template_name = 'documents/liste-appel.tex'
+    pdf_title = _("Prologin %(year)s: call list for the regional center %(center)s")
+    filename = pgettext_lazy("Document filename", "call-list-%(year)s-regional-%(center)s")
+
+    def get_context_data(self, **kwargs):
+        contestants = itertools.groupby(self.contestants.order_by('assignation_semifinal_event__center__name',
+                                                                  *USER_LIST_ORDERING),
+                                        lambda w: w.assignation_semifinal_event.center)
+        contestants = [(center, list(group)) for center, group in contestants]
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'center_contestants': contestants}
 
 
-# TODO: class based view, select_related
-@staff_member_required
-def generate_semifinals_user_convocation(request, year, user):
-    contestants, user_name = _semifinals_contestants_from_year_user(year, user)
-    context = {
-        'year': year,
-        'items': contestants,
-        'url': settings.SITE_BASE_URL,
-    }
-    with documents.models.generate_tex_pdf("documents/convocation-regionale.tex", context) as output:
-        return _document_response(request, output, "convocations-regionales-{year}-{user}.pdf".format(
-            year=year, user=slugify(user_name),
-        ))
+class SemifinalsPortrayalAgreementView(BaseContestDocumentView):
+    event_type = contest.models.Event.Type.semifinal
+    template_name = 'documents/droit-image-regionale.tex'
+    pdf_title = _("Prologin %(year)s: batch portrayal agreements for the regional events")
+    filename = pgettext_lazy("Document filename", "portrayal-agreements-%(year)s-regional")
 
-# TODO: class based view, events of year instead of  request.current_events,
-# select_related
-@staff_member_required
-def generate_semifinals_portrayal_agreement(request, year):
-    locations = collections.defaultdict(list)
-    for event in request.current_events['semifinal']:
-        locations[event.date_begin.date()].append(event.center.city)
-    locations = [(k, ', '.join(v).title()) for k, v in locations.items()]
-
-    context = {
-        'year': year,
-        'locations': locations
-    }
-    with documents.models.generate_tex_pdf("documents/droit-image-regionale.tex", context) as output:
-        return _document_response(request, output, "droit-image-regionale.pdf")
+    def get_context_data(self, **kwargs):
+        locations = collections.defaultdict(list)
+        for event in self.events:
+            locations[event.date_begin.date()].append(event.center.city)
+        locations = [(date, ', '.join(cities).title()) for date, cities in locations.items()]
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'locations': locations}
 
 
-# TODO: class based view, events of year instead of  request.current_events,
-# select_related
-@staff_member_required
-def generate_final_portrayal_agreement(request, year):
-    context = {
-        'year': year,
-        'event': request.current_events['final']
-    }
-    with documents.models.generate_tex_pdf("documents/droit-image-finale.tex", context) as output:
-        return _document_response(request, output, "droit-image-finale.pdf")
+class SemifinalsPasswordsView(BaseContestDocumentView):
+    event_type = contest.models.Event.Type.semifinal
+    template_name = 'documents/passwords.tex'
+    pdf_title = _("Prologin %(year)s: password sheets for the regional center %(center)s")
+    filename = pgettext_lazy("Document filename", "password-list-%(year)s-regional-%(center)s")
+
+    def get_context_data(self, **kwargs):
+        contestants = itertools.groupby(self.contestants.order_by('assignation_semifinal_event__center__name',
+                                                                  *USER_LIST_ORDERING),
+                                        lambda w: w.assignation_semifinal_event.center)
+        contestants = [(center, list(group)) for center, group in contestants]
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'center_contestants': contestants}
 
 
-# TODO: class based view, select_related
-@staff_member_required
-def generate_final_convocations(request, year):
-    contestants = _finale_contestants_from_year(year)
-    context = {
-        'year': year,
-        'items': contestants.order_by('assignation_final__event__center__name', 'user__last_name', 'user__first_name'),
-    }
-    with documents.models.generate_tex_pdf("documents/convocation-finale.tex", context) as output:
-        return _document_response(request, output, "convocations-finale-{year}.pdf".format(
-            year=year,
-        ))
+class SemifinalsInterviewsView(BaseContestDocumentView):
+    event_type = contest.models.Event.Type.semifinal
+    template_name = 'documents/interviews.tex'
+    pdf_title = _("Prologin %(year)s: interview sheets for the regional center %(center)s")
+    filename = pgettext_lazy("Document filename", "interviews-%(year)s-regional-%(center)s")
+
+    def get_context_data(self, **kwargs):
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'contestants': self.contestants.order_by('assignation_semifinal_event__center__name',
+                                                         *USER_LIST_ORDERING)}
 
 
-# TODO: class based view, select_related
-@staff_member_required
-def generate_semifinals_userlist(request, year, center):
-    contestants, center_name = _semifinals_contestants_from_year_center(year, center)
-    contestants = itertools.groupby(
-        contestants.order_by('event__center__pk', 'user__last_name', 'user__first_name'),
-        lambda w: w.event.center)
-
-    items = []
-    for center, grouped in contestants:
-        items.append((center, list(grouped)))
-
-    context = {
-        'year': year,
-        'items': items,
-    }
-    with documents.models.generate_tex_pdf("documents/liste-appel.tex", context) as output:
-        return _document_response(request, output, "liste-appel-{year}-{center}.pdf".format(
-            year=year, center=slugify(center_name),
-        ))
+class SemifinalsContestantCompilationView(BaseContestCompilationView):
+    compiled_classes = (SemifinalsContestantConvocationView, SemifinalsPortrayalAgreementView)
+    event_type = contest.models.Event.Type.semifinal
+    pdf_title = _("Prologin %(year)s: document compilation for regional events for %(fullname)s")
+    filename = pgettext_lazy("Document filename", "prologin-%(year)s-regional-documents-%(fullname)s")
 
 
-# TODO: class based view, select_related
-@staff_member_required
-def generate_finale_userlist(request, year):
-    contestants = _finale_contestants_from_year(year)
-    contestants = itertools.groupby(
-        contestants.order_by('event__center__pk', 'user__last_name', 'user__first_name'),
-        lambda w: w.event.center)
+class FinalConvocationsView(BaseContestDocumentView):
+    event_type = contest.models.Event.Type.final
+    template_name = 'documents/convocation-finale.tex'
+    pdf_title = _("Prologin %(year)s: batch invitations to the final")
+    filename = pgettext_lazy("Document filename", "invitations-%(year)s-final")
 
-    items = []
-    for center, grouped in contestants:
-        items.append((center, list(grouped)))
-
-    context = {
-        'year': year,
-        'items': items,
-    }
-    with documents.models.generate_tex_pdf("documents/liste-appel.tex", context) as output:
-        return _document_response(request, output, "liste-appel-{year}.pdf".format(
-            year=year,
-        ))
+    def get_context_data(self, **kwargs):
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'event': self.final_event,
+                'contestants': self.contestants.order_by(*USER_LIST_ORDERING)}
 
 
-# TODO: class based view, select_related
-@staff_member_required
-def generate_semifinals_interviews(request, year, center):
-    contestants, center_name = _semifinals_contestants_from_year_center(year, center)
-    context = {
-        'year': year,
-        'items': contestants.order_by('event__center__name', 'user__last_name', 'user__first_name'),
-    }
-    with documents.models.generate_tex_pdf("documents/interviews.tex", context) as output:
-        return _document_response(request, output, "liste-appel-{year}.pdf".format(
-            year=year,
-        ))
+class FinalContestantConvocationView(BaseContestDocumentView):
+    event_type = contest.models.Event.Type.final
+    template_name = 'documents/convocation-finale.tex'
+    pdf_title = _("Prologin %(year)s: invitation to the final for %(fullname)s")
+    filename = pgettext_lazy("Document filename", "invitation-%(year)s-final-%(fullname)s")
+
+    def get_context_data(self, **kwargs):
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'event': self.final_event,
+                'contestants': [self.contestant],
+                'url': settings.SITE_BASE_URL}
 
 
-# TODO: class based view, select_related, use export data from challenge mode
-@staff_member_required
-def generate_semifinals_passwords(request, year, center):
-    contestants, center_name = _semifinals_contestants_from_year_center(year, center)
-    contestants = itertools.groupby(
-        contestants.order_by('assignation_semifinal_event__center__pk', 'user__last_name', 'user__first_name'),
-        lambda c: c.assignation_semifinal_event.center)
+class FinalContestantsView(BaseContestDocumentView):
+    event_type = contest.models.Event.Type.final
+    template_name = 'documents/liste-appel.tex'
+    pdf_title = _("Prologin %(year)s: call list for the final")
+    filename = pgettext_lazy("Document filename", "call-list-%(year)s-final")
 
-    items = []
-    for center, grouped in contestants:
-        items.append((center, list(grouped)))
-
-    context = {
-        'year': year,
-        'items': items,
-    }
-    with documents.models.generate_tex_pdf("documents/passwords.tex", context) as output:
-        return _document_response(request, output, "liste-mots-de-passe-{year}-{center}.pdf".format(
-            year=year, center=slugify(center_name),
-        ))
+    def get_context_data(self, **kwargs):
+        contestants = [(self.final_event.center, self.contestants.order_by(*USER_LIST_ORDERING))]
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'center_contestants': contestants}
 
 
-# TODO: class based view, select_related, use export data from challenge mode
-@staff_member_required
-def generate_finale_passwords(request, year):
-    contestants = _finale_contestants_from_year(year)
-    contestants = itertools.groupby(
-        contestants.order_by('assignation_final__center__pk', 'user__last_name', 'user__first_name'),
-        lambda c: c.assignation_final_event.center)
+class FinalPortrayalAgreementView(BaseContestDocumentView):
+    template_name = 'documents/droit-image-finale.tex'
+    event_type = contest.models.Event.Type.final
+    pdf_title = _("Prologin %(year)s: batch portrayal agreements for the final")
+    filename = pgettext_lazy("Document filename", "portrayal-agreements-%(year)s-final")
 
-    items = []
-    for center, grouped in contestants:
-        items.append((center, list(grouped)))
+    def get_context_data(self, **kwargs):
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'events': self.events}
 
-    context = {
-        'year': year,
-        'items': items,
-    }
-    with documents.models.generate_tex_pdf("documents/passwords.tex", context) as output:
-        return _document_response(request, output, "liste-mots-de-passe-{year}.pdf".format(
-            year=year,
-        ))
+
+class FinalsPasswordsView(BaseContestDocumentView):
+    event_type = contest.models.Event.Type.final
+    template_name = 'documents/passwords.tex'
+    pdf_title = _("Prologin %(year)s: password sheets for the final")
+    filename = pgettext_lazy("Document filename", "password-list-%(year)s-final")
+
+    def get_context_data(self, **kwargs):
+        contestants = [(self.final_event.center, self.contestants.order_by(*USER_LIST_ORDERING))]
+        return {**super().get_context_data(**kwargs),
+                'year': self.year,
+                'center_contestants': contestants}
+
+
+class FinalContestantCompilationView(BaseContestCompilationView):
+    compiled_classes = (FinalContestantConvocationView, FinalPortrayalAgreementView)
+    event_type = contest.models.Event.Type.final
+    pdf_title = _("Prologin %(year)s: document compilation for final for %(fullname)s")
+    filename = pgettext_lazy("Document filename", "prologin-%(year)s-final-documents-%(fullname)s")

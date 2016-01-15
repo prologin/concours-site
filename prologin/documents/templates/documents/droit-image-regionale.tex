@@ -1,5 +1,8 @@
 {% load i18n latex %}{% autoescape off %}
 \documentclass[a4paper,11pt]{prologin}
+\usepackage[pdftex,
+            pdfauthor={Prologin},
+            pdftitle={ {{ pdf_title }} }]{hyperref}
 \edition{%
 {{ year }}%
 }
@@ -10,7 +13,7 @@
 
 Je soussigné(e), \dotfill
 
-Adresse~:\dotfill
+Adresse~: \dotfill
 
 Code Postal~: \dotfill  Ville~: \dotfill
 

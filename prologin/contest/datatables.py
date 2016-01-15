@@ -92,8 +92,8 @@ class ContestantQualificationTable(AbstractContestantTable):
 
     def convocation_link(self, contestant):
         return format_html('<a href="{}" class="btn btn-default btn-xs"><i class="fa fa-graduation-cap"></i> {}</a>',
-                           reverse('documents:semifinals-user-convocation',
-                                   kwargs={'year': contestant.edition.year, 'user': contestant.pk}),
+                           reverse('documents:semifinals-contestant-convocation',
+                                   kwargs={'year': contestant.edition.year, 'contestant': contestant.pk}),
                            _("Convocation"))
 
     def get_extra_actions(self, contestant):
@@ -105,3 +105,12 @@ class ContestantSemifinalTable(AbstractContestantTable):
     correction_url_name = 'correction-contestant-semifinal'
 
     score = datatableview.IntegerColumn(_("Score"), source='score_for_semifinal')
+
+    def convocation_link(self, contestant):
+        return format_html('<a href="{}" class="btn btn-default btn-xs"><i class="fa fa-graduation-cap"></i> {}</a>',
+                           reverse('documents:final-contestant-convocation',
+                                   kwargs={'year': contestant.edition.year, 'contestant': contestant.pk}),
+                           _("Convocation"))
+
+    def get_extra_actions(self, contestant):
+        return [self.convocation_link(contestant)]

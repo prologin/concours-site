@@ -59,6 +59,14 @@ class Event(ExportModelOperationsMixin('event'), models.Model):
     class Meta:
         ordering = ('date_begin',)
 
+    @classmethod
+    def semifinals_for_edition(cls, year: int):
+        return cls.objects.select_related('center').filter(edition__year=year, type=cls.Type.semifinal.value)
+
+    @classmethod
+    def final_for_edition(cls, year: int):
+        return cls.objects.select_related('center').get(edition__year=year, type=cls.Type.final.value)
+
     @property
     def is_finished(self):
         return self.date_end < timezone.now()
