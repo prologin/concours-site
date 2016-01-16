@@ -34,7 +34,7 @@ class EventWishList(forms.ModelMultipleChoiceField):
 
         def render_option(self, selected_choices, option_value, option_label):
             # reimplemented to use a <li> and short_description
-            return format_html('<li>{}</li>', option_label.short_description)
+            return format_html('<li data-event-id="{}">{}</li>', option_label.pk, option_label.short_description)
 
     widget = Widget
 

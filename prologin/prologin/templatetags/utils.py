@@ -7,6 +7,7 @@ from django import template
 from django.conf import settings
 from django.template import Node, TemplateSyntaxError
 from django.utils.encoding import smart_str
+from django.utils.module_loading import import_string
 
 register = template.Library()
 
@@ -19,6 +20,18 @@ def percentage_to_max(num, max):
 @register.filter
 def choiceenum_label(enum_member):
     return enum_member.__class__.label_for(enum_member)
+
+
+@register.simple_tag
+def choiceenum_member(enum_path, type='value'):
+    path, member = enum_path.rsplit('.', 1)
+    member = getattr(import_string(path), member)
+    if type == 'member':
+        return member
+    if type == 'value':
+        return member.value
+    if type == 'name':
+        return member.name
 
 
 @register.filter

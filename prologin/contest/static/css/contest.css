@@ -20,3 +20,18 @@
 .correction {
   margin-bottom: 10px;
 }
+
+.event-wish-list li {
+  cursor: pointer;
+}
+
+.flash {
+  animation: flash .3s ease;
+  animation-iteration-count: 2;
+}
+
+@keyframes flash {
+    0% { background-color: initial; }
+    75% { background-color: #53a653; }
+    100% { background-color: initial; }
+}
