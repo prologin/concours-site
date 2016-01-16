@@ -1,5 +1,7 @@
+import collections
 from django.conf import settings
 from django.http.response import Http404, HttpResponse, HttpResponseServerError
+from django.shortcuts import get_object_or_404
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _
@@ -145,14 +147,10 @@ class BaseSemifinalsDocumentView(BaseDocumentView):
         contestants = (super().contestant_queryset()
                        .filter(assignation_semifinal=contest.models.Assignation.assigned.value)
                        .exclude(assignation_semifinal_event=None))
-        center_pk = self.kwargs.get('center')
-        if center_pk and center_pk != 'all':
-            contestants = contestants.filter(assignation_semifinal_event__center=self.center)
+        event_pk = self.kwargs.get('event')
+        if event_pk and event_pk != 'all':
+            contestants = contestants.filter(assignation_semifinal_event=self.event)
         return contestants
-
-    @cached_property
-    def events(self):
-        return contest.models.Event.semifinals_for_edition(self.year)
 
     def i18nargs(self):
         args = super().i18nargs()
@@ -160,18 +158,30 @@ class BaseSemifinalsDocumentView(BaseDocumentView):
         return args
 
     @cached_property
-    def center(self) -> contest.models.Center.objects:
-        center_pk = self.kwargs.get('center')
-        if center_pk and center_pk != 'all':
-            return contest.models.Center.objects.get(pk=center_pk)
+    def events(self):
+        return contest.models.Event.semifinals_for_edition(self.year)
+
+    @cached_property
+    def event(self) -> contest.models.Event:
+        event_pk = self.kwargs.get('event')
+        if event_pk and event_pk != 'all':
+            return get_object_or_404(contest.models.Event, pk=event_pk)
 
     @cached_property
     def center_name(self) -> str:
-        center_pk = self.kwargs.get('center')
-        if center_pk == 'all':
+        event_pk = self.kwargs.get('event')
+        if event_pk == 'all':
             return _("all-centers")
-        if center_pk:
-            return self.center.name
+        if event_pk:
+            return self.event.center.name
+
+    @cached_property
+    def grouped_event_contestants(self):
+        # FIXME: itertools.groupby won't work on Event instances, go figure why
+        event_contestants = collections.defaultdict(list)
+        for contestant in self.contestants.order_by('assignation_semifinal_event__date_begin', *USER_LIST_ORDERING):
+            event_contestants[contestant.assignation_semifinal_event].append(contestant)
+        return sorted(event_contestants.items(), key=lambda pair: pair[0].date_begin)
 
 
 class BaseFinalDocumentView(BaseDocumentView):
@@ -198,8 +208,12 @@ class BaseFinalDocumentView(BaseDocumentView):
         context['event'] = self.final_event
         return context
 
+    @cached_property
+    def grouped_event_contestants(self):
+        return [(self.final_event, self.contestants)]
 
-class BaseContestCompilationView(BaseDocumentView):
+
+class BaseCompilationView(BaseDocumentView):
     """
     A special BaseDocumentView that takes any number of BaseDocumentView classes and runs pdfjoin on their
     respective output, in declaration order.

@@ -1,33 +1,44 @@
-import itertools
 import collections
+from django.conf import settings
+from django.core.urlresolvers import reverse_lazy
+from django.http.response import HttpResponseRedirect
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.views.generic import TemplateView
+from django.views.generic.base import RedirectView
 
 import contest.models
 from documents.base_views import (BaseSemifinalsDocumentView, BaseFinalDocumentView,
-                                  BaseContestCompilationView, USER_LIST_ORDERING)
+                                  BaseCompilationView, USER_LIST_ORDERING)
+
+
+class IndexRedirect(RedirectView):
+    permanent = False
+    url = reverse_lazy('documents:index', args=[settings.PROLOGIN_EDITION])
 
 
 class IndexView(TemplateView):
     template_name = 'documents/index.html'
 
+    @cached_property
+    def year(self):
+        return int(self.kwargs['year'])
+
+    def get(self, request, *args, **kwargs):
+        self.years = contest.models.Edition.objects.values_list('year', flat=True)
+        if self.year not in self.years:
+            return HttpResponseRedirect(IndexRedirect.url)
+        return super().get(request, *args, **kwargs)
+
     def get_context_data(self, **kwargs):
-        years = contest.models.Edition.objects.values_list('year', flat=True)
-        year = None
-        semifinals = None
-        final = None
+        semifinals = contest.models.Event.semifinals_for_edition(self.year)
         try:
-            year = int(self.kwargs['year'])
-            semifinals = contest.models.Event.semifinals_for_edition(year)
-            try:
-                final = contest.models.Event.final_for_edition(year)
-            except contest.models.Event.DoesNotExist:
-                final = None
-        except (KeyError, ValueError, TypeError):
-            pass
+            final = contest.models.Event.final_for_edition(self.year)
+        except contest.models.Event.DoesNotExist:
+            final = None
         context = super().get_context_data(**kwargs)
-        context.update({'years': years,
-                        'year': year,
+        context.update({'years': self.years,
+                        'year': self.year,
                         'semifinals': semifinals,
                         'final': final})
         return context
@@ -52,11 +63,7 @@ class SemifinalsContestantsView(BaseSemifinalsDocumentView):
 
     def get_extra_context(self):
         context = super().get_extra_context()
-        center_contestants = itertools.groupby(self.contestants.order_by('assignation_semifinal_event__center__name',
-                                                                         *USER_LIST_ORDERING),
-                                               lambda w: w.assignation_semifinal_event.center)
-        center_contestants = [(center, list(group)) for center, group in center_contestants]
-        context['center_contestants'] = center_contestants
+        context['event_contestants'] = self.grouped_event_contestants
         return context
 
 
@@ -83,11 +90,7 @@ class SemifinalsPasswordsView(BaseSemifinalsDocumentView):
 
     def get_extra_context(self):
         context = super().get_extra_context()
-        center_contestants = itertools.groupby(self.contestants.order_by('assignation_semifinal_event__center__name',
-                                                                         *USER_LIST_ORDERING),
-                                               lambda w: w.assignation_semifinal_event.center)
-        center_contestants = [(center, list(group)) for center, group in center_contestants]
-        context['center_contestants'] = center_contestants
+        context['event_contestants'] = self.grouped_event_contestants
         return context
 
 
@@ -97,11 +100,11 @@ class SemifinalsInterviewsView(BaseSemifinalsDocumentView):
     filename = pgettext_lazy("Document filename", "interviews-%(year)s-regional-%(center)s")
 
     def contestant_queryset(self):
-        return super().contestant_queryset().order_by('assignation_semifinal_event__center__name',
+        return super().contestant_queryset().order_by('assignation_semifinal_event__date_begin',
                                                       *USER_LIST_ORDERING)
 
 
-class SemifinalsContestantCompilationView(BaseContestCompilationView):
+class SemifinalsContestantCompilationView(BaseCompilationView):
     compiled_classes = (SemifinalsContestantConvocationView, SemifinalsPortrayalAgreementView)
     pdf_title = _("Prologin %(year)s: document compilation for regional events for %(fullname)s")
     filename = pgettext_lazy("Document filename", "prologin-%(year)s-regional-documents-%(fullname)s")
@@ -129,7 +132,7 @@ class FinalContestantsView(BaseFinalDocumentView):
 
     def get_extra_context(self):
         context = super().get_extra_context()
-        context['center_contestants'] = [(self.final_event.center, self.contestants)]
+        context['event_contestants'] = self.grouped_event_contestants
         return context
 
 
@@ -146,11 +149,11 @@ class FinalPasswordsView(BaseFinalDocumentView):
 
     def get_extra_context(self):
         context = super().get_extra_context()
-        context['center_contestants'] = [(self.final_event.center, self.contestants)]
+        context['event_contestants'] = self.grouped_event_contestants
         return context
 
 
-class FinalContestantCompilationView(BaseContestCompilationView):
+class FinalContestantCompilationView(BaseCompilationView):
     compiled_classes = (FinalContestantConvocationView, FinalPortrayalAgreementView)
     pdf_title = _("Prologin %(year)s: document compilation for final for %(fullname)s")
     filename = pgettext_lazy("Document filename", "prologin-%(year)s-final-documents-%(fullname)s")

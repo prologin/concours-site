@@ -1,7 +1,8 @@
 from django.conf.urls import url, include
+
 import documents.views
 
-semifinals_center_patterns = [
+semifinals_event_patterns = [
     url(r'^convocations$', documents.views.SemifinalsConvocationsView.as_view(), name='semifinals-convocations'),
     url(r'^contestants$', documents.views.SemifinalsContestantsView.as_view(), name='semifinals-contestants'),
     url(r'^interviews$', documents.views.SemifinalsInterviewsView.as_view(), name='semifinals-interviews'),
@@ -12,7 +13,7 @@ semifinals_patterns = [
     url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.SemifinalsContestantConvocationView.as_view(), name='semifinals-contestant-convocation'),
     url(r'^contestant/(?P<contestant>[0-9]+)/compilation', documents.views.SemifinalsContestantCompilationView.as_view(), name='semifinals-contestant-compilation'),
     url(r'^portrayal-agreement$', documents.views.SemifinalsPortrayalAgreementView.as_view(), name='semifinals-portrayal-agreement'),
-    url(r'^(?P<center>[0-9]+|all)/', include(semifinals_center_patterns)),
+    url(r'^(?P<event>[0-9]+|all)/', include(semifinals_event_patterns)),
 ]
 
 final_patterns = [
@@ -28,5 +29,5 @@ urlpatterns = [
     url(r'^(?P<year>[0-9]{4})/semifinals/', include(semifinals_patterns)),
     url(r'^(?P<year>[0-9]{4})/final/', include(final_patterns)),
     url(r'^(?P<year>[0-9]{4})/$', documents.views.IndexView.as_view(), name='index'),
-    url(r'^$', documents.views.IndexView.as_view(), name='index'),
+    url(r'^$', documents.views.IndexRedirect.as_view(), name='index'),
 ]

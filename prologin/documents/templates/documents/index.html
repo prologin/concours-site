@@ -54,16 +54,16 @@
           <tr>
             <td>{{ event.center.name }} <small class="text-muted">{{ event.date_begin|date:"SHORT_DATE_FORMAT" }}</small></td>
             <td>
-              <a href="{% url 'documents:semifinals-convocations' year event.center.pk %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinals-convocations' year event.pk %}" class="btn btn-default btn-xs">
                 <i class="fa fa-graduation-cap"></i> {% trans "Convocations" %}
               </a>
-              <a href="{% url 'documents:semifinals-contestants' year event.center.pk %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinals-contestants' year event.pk %}" class="btn btn-default btn-xs">
                 <i class="fa fa-list-alt"></i> {% trans "Contestants" %}
               </a>
-              <a href="{% url 'documents:semifinals-interviews' year event.center.pk %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinals-interviews' year event.pk %}" class="btn btn-default btn-xs">
                 <i class="fa fa-black-tie"></i> {% trans "Interviews" %}
               </a>
-              <a href="{% url 'documents:semifinals-passwords' year event.center.pk %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinals-passwords' year event.pk %}" class="btn btn-default btn-xs">
                 <i class="fa fa-key"></i> {% trans "Passwords" %}
               </a>
             </td>

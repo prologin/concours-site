@@ -28,7 +28,7 @@
 \begin{tabular}{p{\identite}|p{\notes}}
     \begin{tabular}{rl}
         \multicolumn{2}{l}{\textbf{%
-            {{ e.center.name }}%
+            {{ e.center.name }} -- {{ e.date_begin|date:"SHORT_DATE_FORMAT"|escapetex }}%
         }} \\
         & \\
         Nom     & {{ u.last_name|title|escapetex }} \\
