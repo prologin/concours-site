@@ -139,7 +139,7 @@ class BaseDocumentView(PermissionRequiredMixin, BasePDFDocumentView):
         return args
 
 
-class BaseSemifinalsDocumentView(BaseDocumentView):
+class BaseSemifinalDocumentView(BaseDocumentView):
     """
     BaseDocumentView with semifinal specifics.
     """

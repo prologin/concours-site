@@ -35,7 +35,7 @@
                   <li><i class="fa fa-calendar-check-o fa-fw"></i> {{ event.date_begin|date:"d b Y" }}</li>
                 </ul>
                 <p>
-                  <a href="{% url 'documents:semifinals-contestant-compilation' edition.year contestant.pk %}" class="btn btn-primary btn-block">
+                  <a href="{% url 'documents:semifinal-contestant-compilation' edition.year contestant.pk %}" class="btn btn-primary btn-block">
                     <i class="fa fa-download"></i> {% trans "Download paperwork" %}
                   </a>
                 </p>

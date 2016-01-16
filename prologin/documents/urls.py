@@ -3,16 +3,16 @@ from django.conf.urls import url, include
 import documents.views
 
 semifinals_event_patterns = [
-    url(r'^convocations$', documents.views.SemifinalsConvocationsView.as_view(), name='semifinals-convocations'),
-    url(r'^contestants$', documents.views.SemifinalsContestantsView.as_view(), name='semifinals-contestants'),
-    url(r'^interviews$', documents.views.SemifinalsInterviewsView.as_view(), name='semifinals-interviews'),
-    url(r'^passwords$', documents.views.SemifinalsPasswordsView.as_view(), name='semifinals-passwords'),
+    url(r'^convocations$', documents.views.SemifinalConvocationsView.as_view(), name='semifinal-convocations'),
+    url(r'^contestants$', documents.views.SemifinalContestantsView.as_view(), name='semifinal-contestants'),
+    url(r'^interviews$', documents.views.SemifinalInterviewsView.as_view(), name='semifinal-interviews'),
+    url(r'^passwords$', documents.views.SemifinalPasswordsView.as_view(), name='semifinal-passwords'),
 ]
 
 semifinals_patterns = [
-    url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.SemifinalsContestantConvocationView.as_view(), name='semifinals-contestant-convocation'),
-    url(r'^contestant/(?P<contestant>[0-9]+)/compilation', documents.views.SemifinalsContestantCompilationView.as_view(), name='semifinals-contestant-compilation'),
-    url(r'^portrayal-agreement$', documents.views.SemifinalsPortrayalAgreementView.as_view(), name='semifinals-portrayal-agreement'),
+    url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.SemifinalContestantConvocationView.as_view(), name='semifinal-contestant-convocation'),
+    url(r'^contestant/(?P<contestant>[0-9]+)/compilation', documents.views.SemifinalContestantCompilationView.as_view(), name='semifinal-contestant-compilation'),
+    url(r'^portrayal-agreement$', documents.views.SemifinalPortrayalAgreementView.as_view(), name='semifinal-portrayal-agreement'),
     url(r'^(?P<event>[0-9]+|all)/', include(semifinals_event_patterns)),
 ]
 
@@ -26,7 +26,7 @@ final_patterns = [
 ]
 
 urlpatterns = [
-    url(r'^(?P<year>[0-9]{4})/semifinals/', include(semifinals_patterns)),
+    url(r'^(?P<year>[0-9]{4})/semifinal/', include(semifinals_patterns)),
     url(r'^(?P<year>[0-9]{4})/final/', include(final_patterns)),
     url(r'^(?P<year>[0-9]{4})/$', documents.views.IndexView.as_view(), name='index'),
     url(r'^$', documents.views.IndexRedirect.as_view(), name='index'),

@@ -33,19 +33,19 @@
           <tr>
             <td><strong>{% trans "All centers" %}</strong></td>
             <td>
-              <a href="{% url 'documents:semifinals-convocations' year 'all' %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinal-convocations' year 'all' %}" class="btn btn-default btn-xs">
                 <i class="fa fa-graduation-cap"></i> {% trans "Convocations" %}
               </a>
-              <a href="{% url 'documents:semifinals-contestants' year 'all' %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinal-contestants' year 'all' %}" class="btn btn-default btn-xs">
                 <i class="fa fa-list-alt"></i> {% trans "Contestants" %}
               </a>
-              <a href="{% url 'documents:semifinals-interviews' year 'all' %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinal-interviews' year 'all' %}" class="btn btn-default btn-xs">
                 <i class="fa fa-black-tie"></i> {% trans "Interviews" %}
               </a>
-              <a href="{% url 'documents:semifinals-passwords' year 'all' %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinal-passwords' year 'all' %}" class="btn btn-default btn-xs">
                 <i class="fa fa-key"></i> {% trans "Passwords" %}
               </a>
-              <a href="{% url 'documents:semifinals-portrayal-agreement' year %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinal-portrayal-agreement' year %}" class="btn btn-default btn-xs">
                 <i class="fa fa-camera"></i> {% trans "Portrayal agreement" %}
               </a>
             </td>
@@ -54,16 +54,16 @@
           <tr>
             <td>{{ event.center.name }} <small class="text-muted">{{ event.date_begin|date:"SHORT_DATE_FORMAT" }}</small></td>
             <td>
-              <a href="{% url 'documents:semifinals-convocations' year event.pk %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinal-convocations' year event.pk %}" class="btn btn-default btn-xs">
                 <i class="fa fa-graduation-cap"></i> {% trans "Convocations" %}
               </a>
-              <a href="{% url 'documents:semifinals-contestants' year event.pk %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinal-contestants' year event.pk %}" class="btn btn-default btn-xs">
                 <i class="fa fa-list-alt"></i> {% trans "Contestants" %}
               </a>
-              <a href="{% url 'documents:semifinals-interviews' year event.pk %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinal-interviews' year event.pk %}" class="btn btn-default btn-xs">
                 <i class="fa fa-black-tie"></i> {% trans "Interviews" %}
               </a>
-              <a href="{% url 'documents:semifinals-passwords' year event.pk %}" class="btn btn-default btn-xs">
+              <a href="{% url 'documents:semifinal-passwords' year event.pk %}" class="btn btn-default btn-xs">
                 <i class="fa fa-key"></i> {% trans "Passwords" %}
               </a>
             </td>

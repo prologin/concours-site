@@ -93,7 +93,7 @@ class ContestantQualificationTable(AbstractContestantTable):
     def convocation_link(self, contestant):
         if contestant.assignation_semifinal == contest.models.Assignation.assigned.value:
             return format_html('<a href="{}" class="btn btn-default btn-xs"><i class="fa fa-graduation-cap"></i> {}</a>',
-                               reverse('documents:semifinals-contestant-convocation',
+                               reverse('documents:semifinal-contestant-convocation',
                                        kwargs={'year': contestant.edition.year, 'contestant': contestant.pk}),
                                _("Convocation"))
         else:

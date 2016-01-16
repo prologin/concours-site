@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 from django.views.generic.base import RedirectView
 
 import contest.models
-from documents.base_views import (BaseSemifinalsDocumentView, BaseFinalDocumentView,
+from documents.base_views import (BaseSemifinalDocumentView, BaseFinalDocumentView,
                                   BaseCompilationView, USER_LIST_ORDERING)
 
 
@@ -44,19 +44,20 @@ class IndexView(TemplateView):
         return context
 
 
-class SemifinalsConvocationsView(BaseSemifinalsDocumentView):
+class SemifinalConvocationsView(BaseSemifinalDocumentView):
     template_name = 'documents/convocation-regionale.tex'
     pdf_title = _("Prologin %(year)s: batch invitations to the regional center %(center)s")
     filename = pgettext_lazy("Document filename", "invitations-%(year)s-regional-%(center)s")
 
 
-class SemifinalsContestantConvocationView(BaseSemifinalsDocumentView):
+class SemifinalContestantConvocationView(BaseSemifinalDocumentView):
     template_name = 'documents/convocation-regionale.tex'
     pdf_title = _("Prologin %(year)s: invitation to the regional event for %(fullname)s")
     filename = pgettext_lazy("Document filename", "invitation-%(year)s-regional-%(fullname)s")
 
 
-class SemifinalsContestantsView(BaseSemifinalsDocumentView):
+
+class SemifinalContestantsView(BaseSemifinalDocumentView):
     template_name = 'documents/liste-appel.tex'
     pdf_title = _("Prologin %(year)s: call list for the regional center %(center)s")
     filename = pgettext_lazy("Document filename", "call-list-%(year)s-regional-%(center)s")
@@ -67,7 +68,7 @@ class SemifinalsContestantsView(BaseSemifinalsDocumentView):
         return context
 
 
-class SemifinalsPortrayalAgreementView(BaseSemifinalsDocumentView):
+class SemifinalPortrayalAgreementView(BaseSemifinalDocumentView):
     template_name = 'documents/droit-image-regionale.tex'
     pdf_title = _("Prologin %(year)s: portrayal agreement for the regional events")
     filename = pgettext_lazy("Document filename", "portrayal-agreement-%(year)s-regional")
@@ -83,7 +84,7 @@ class SemifinalsPortrayalAgreementView(BaseSemifinalsDocumentView):
         return context
 
 
-class SemifinalsPasswordsView(BaseSemifinalsDocumentView):
+class SemifinalPasswordsView(BaseSemifinalDocumentView):
     template_name = 'documents/passwords.tex'
     pdf_title = _("Prologin %(year)s: password sheets for the regional center %(center)s")
     filename = pgettext_lazy("Document filename", "password-list-%(year)s-regional-%(center)s")
@@ -94,7 +95,7 @@ class SemifinalsPasswordsView(BaseSemifinalsDocumentView):
         return context
 
 
-class SemifinalsInterviewsView(BaseSemifinalsDocumentView):
+class SemifinalInterviewsView(BaseSemifinalDocumentView):
     template_name = 'documents/interviews.tex'
     pdf_title = _("Prologin %(year)s: interview sheets for the regional center %(center)s")
     filename = pgettext_lazy("Document filename", "interviews-%(year)s-regional-%(center)s")
@@ -104,10 +105,12 @@ class SemifinalsInterviewsView(BaseSemifinalsDocumentView):
                                                       *USER_LIST_ORDERING)
 
 
-class SemifinalsContestantCompilationView(BaseCompilationView):
-    compiled_classes = (SemifinalsContestantConvocationView, SemifinalsPortrayalAgreementView)
+class SemifinalContestantCompilationView(BaseCompilationView):
+    compiled_classes = (SemifinalContestantConvocationView, SemifinalPortrayalAgreementView)
     pdf_title = _("Prologin %(year)s: document compilation for regional events for %(fullname)s")
     filename = pgettext_lazy("Document filename", "prologin-%(year)s-regional-documents-%(fullname)s")
+
+    permission_required = 'documents.generate_semifinal_contestant_document'
 
 
 class FinalConvocationsView(BaseFinalDocumentView):
@@ -157,3 +160,5 @@ class FinalContestantCompilationView(BaseCompilationView):
     compiled_classes = (FinalContestantConvocationView, FinalPortrayalAgreementView)
     pdf_title = _("Prologin %(year)s: document compilation for final for %(fullname)s")
     filename = pgettext_lazy("Document filename", "prologin-%(year)s-final-documents-%(fullname)s")
+
+    permission_required = 'documents.generate_final_contestant_document'
