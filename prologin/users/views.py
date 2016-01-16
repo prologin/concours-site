@@ -157,7 +157,12 @@ class UpdateUserAsAdminView(UpdateView):
 class EditUserView(UpdateUserAsAdminView):
     template_name = 'users/edit.html'
     form_class = users.forms.UserProfileForm
-    initial = {'allow_mailing': True}
+
+    def get_form_kwargs(self):
+        # Make important fields read-only during contest, for non-staff users
+        # FIXME: use rules
+        is_contest = not self.request.user.is_staff and self.request.current_edition.is_active
+        return {**super().get_form_kwargs(), 'is_contest': is_contest}
 
     def form_valid(self, form):
         messages.success(self.request, _("Changes saved."))

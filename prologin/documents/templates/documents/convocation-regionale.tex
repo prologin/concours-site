@@ -1,9 +1,7 @@
 {% load i18n latex %}{% autoescape off %}
 \documentclass[a4paper,11pt]{article}
 \usepackage{prologin-letter}
-\usepackage[pdftex,
-            pdfauthor={Prologin},
-            pdftitle={ {{ pdf_title }} }]{hyperref}
+{% include "documents/stub-preamble.tex" %}
 
 \begin{document}
 
@@ -54,7 +52,7 @@ sur machine (3~h~30) se dérouleront l'après-midi. Vous serez libérés vers
 
 Pour vous préparer à l'épreuve, nous vous invitons à utiliser le site
 d'entraînement de Prologin: \url{%
-  {{ url }}%
+  {{ site_url }}%
 }.
 
 Nous restons à votre disposition pour toutes questions, n'hésitez pas

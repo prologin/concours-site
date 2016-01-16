@@ -252,3 +252,11 @@ def save_random_state(seed=None):
         random.seed(seed)
     yield
     random.setstate(state)
+
+
+class SubprocessFailedException(Exception):
+    def __init__(self, message, returncode, stdout, stderr):
+        self.message = message
+        self.returncode = returncode
+        self.stdout = stdout
+        self.stderr = stderr

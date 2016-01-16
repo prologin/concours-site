@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.http.response import Http404, HttpResponse, HttpResponseServerError
 from django.utils.functional import cached_property
 from django.utils.text import slugify
@@ -7,6 +8,9 @@ from rules.contrib.views import PermissionRequiredMixin
 
 import contest.models
 import documents.models
+import prologin.utils
+
+USER_LIST_ORDERING = ('user__last_name', 'user__first_name')
 
 
 class BasePDFDocumentView(TemplateView):
@@ -28,6 +32,11 @@ class BasePDFDocumentView(TemplateView):
         disposition = 'attachment; ' if self.request.GET.get('dl') is not None else ''
         response['Content-Disposition'] = '{}filename="{}"'.format(disposition, filename)
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update(self.get_extra_context())
+        return context
+
     def render_to_response(self, context, **response_kwargs):
         context['pdf_title'] = self.get_pdf_title()
         try:
@@ -35,7 +44,7 @@ class BasePDFDocumentView(TemplateView):
                 response = HttpResponse(content=open(output, 'rb'), content_type=self.content_type)
                 self.apply_headers(response)
                 return response
-        except documents.models.SubprocessFailedException as error:
+        except prologin.utils.SubprocessFailedException as error:
             if self.can_display_tex_errors():
                 # Custom 500 error with stdout/stderr
                 return self.response_class(self.request,
@@ -63,96 +72,136 @@ class BasePDFDocumentView(TemplateView):
         """
         return self.filename % {k: slugify(v) for k, v in self.i18nargs().items()} + self.extension
 
-    def i18nargs(self):
+    def i18nargs(self) -> dict:
         """
         Override to customize the context catalogue for pdf_title and filename.
         """
         return {}
 
+    def get_extra_context(self) -> dict:
+        """
+        Override to add extra context.
+        """
+        return {}
 
-class BaseContestDocumentView(PermissionRequiredMixin, BasePDFDocumentView):
+
+class BaseDocumentView(PermissionRequiredMixin, BasePDFDocumentView):
     """
-    Mixin that exposes useful data, including:
-        - the edition year
-        - the centers, from the path argument 'center'
-        - the human-friendly center name
-        - the list of contestants for the event
-        - the single contestant if path has the 'contestant' argument
-        - the list of events for an edition
-
-    Also implements permission checking.
+    BasePDFDocumentView with specific methods for contest documents. Also handles permission checking for
+    documents.generate_batch_document.
     """
     permission_required = 'documents.generate_batch_document'
-    event_type = None
 
-    @property
+    @cached_property
     def year(self) -> int:
         return int(self.kwargs['year'])
 
-    @cached_property
-    def centers(self) -> contest.models.Center.objects:
-        center = self.kwargs.get('center')
-        if center:
-            return contest.models.Center.objects.filter(pk=center)
-
-    @cached_property
-    def center_name(self) -> str:
-        if self.kwargs.get('center') == 'all':
-            return _("all-centers")
-        return self.centers.first().name
+    def contestant_queryset(self) -> contest.models.Contestant.objects:
+        return (contest.models.Contestant.objects
+                .select_related('user', 'edition', 'assignation_semifinal_event',
+                                'assignation_semifinal_event__center')
+                .filter(edition__year=self.year)
+                .order_by(*USER_LIST_ORDERING))
 
     @cached_property
     def contestants(self) -> contest.models.Contestant.objects:
-        contestants = (contest.models.Contestant.objects
-                       .select_related('user', 'edition', 'assignation_semifinal_event',
-                                       'assignation_semifinal_event__center')
-                       .filter(edition__year=self.year))
-        if self.event_type is contest.models.Event.Type.semifinal:
-            contestants = (contestants
-                           .filter(assignation_semifinal=contest.models.Assignation.assigned.value)
-                           .exclude(assignation_semifinal_event=None))
-            center = self.kwargs.get('center')
-            if center and center != 'all':
-                contestants = contestants.filter(assignation_semifinal_event__center=center)
-        elif self.event_type is contest.models.Event.Type.final:
-            contestants = contestants.filter(assignation_final=contest.models.Assignation.assigned.value)
-        return contestants
-
-    @cached_property
-    def contestant(self) -> contest.models.Contestant:
+        contestants = self.contestant_queryset()
         contestant_pk = self.kwargs.get('contestant')
         if contestant_pk:
-            try:
-                return (contest.models.Contestant.objects
-                        .select_related('user', 'edition', 'assignation_semifinal_event',
-                                        'assignation_semifinal_event__center')
-                        .get(pk=contestant_pk))
-            except contest.models.Contestant.DoesNotExist:
+            contestants = contestants.filter(pk=contestant_pk)  # returns zero or one result
+            # assert we actually got the wanted contestant
+            if not contestants.exists():
                 raise Http404()
+        return contestants
 
     @cached_property
     def events(self) -> contest.models.Event.objects:
         return (contest.models.Event.objects
                 .select_related('edition', 'center')
-                .filter(edition__year=self.year, type=self.event_type.value))
+                .filter(edition__year=self.year))
 
-    @cached_property
-    def final_event(self) -> contest.models.Event:
-        return contest.models.Event.final_for_edition(self.year)
+    def get_extra_context(self):
+        context = super().get_extra_context()
+        context['year'] = self.year
+        context['events'] = self.events
+        context['contestants'] = self.contestants
+        context['site_url'] = settings.SITE_BASE_URL
+        return context
 
     def i18nargs(self):
         args = {'year': self.year}
-        if self.contestant:
-            args['username'] = self.contestant.user.username
-            args['fullname'] = self.contestant.user.get_full_name()
-        if self.centers:
-            args['center'] = self.center_name
+        contestant_pk = self.kwargs.get('contestant')
+        if contestant_pk:
+            args['username'] = self.contestants[0].user.username
+            args['fullname'] = self.contestants[0].user.get_full_name()
         return args
 
 
-class BaseContestCompilationView(BaseContestDocumentView):
+class BaseSemifinalsDocumentView(BaseDocumentView):
     """
-    A special BaseContestDocumentView that takes any number of BaseContestDocumentView classes and runs pdfjoin on their
+    BaseDocumentView with semifinal specifics.
+    """
+    def contestant_queryset(self):
+        contestants = (super().contestant_queryset()
+                       .filter(assignation_semifinal=contest.models.Assignation.assigned.value)
+                       .exclude(assignation_semifinal_event=None))
+        center_pk = self.kwargs.get('center')
+        if center_pk and center_pk != 'all':
+            contestants = contestants.filter(assignation_semifinal_event__center=self.center)
+        return contestants
+
+    @cached_property
+    def events(self):
+        return contest.models.Event.semifinals_for_edition(self.year)
+
+    def i18nargs(self):
+        args = super().i18nargs()
+        args['center'] = self.center_name
+        return args
+
+    @cached_property
+    def center(self) -> contest.models.Center.objects:
+        center_pk = self.kwargs.get('center')
+        if center_pk and center_pk != 'all':
+            return contest.models.Center.objects.get(pk=center_pk)
+
+    @cached_property
+    def center_name(self) -> str:
+        center_pk = self.kwargs.get('center')
+        if center_pk == 'all':
+            return _("all-centers")
+        if center_pk:
+            return self.center.name
+
+
+class BaseFinalDocumentView(BaseDocumentView):
+    """
+    BaseDocumentView with final specifics.
+    """
+    def contestant_queryset(self):
+        return (super().contestant_queryset()
+                .filter(assignation_final=contest.models.Assignation.assigned.value))
+
+    @cached_property
+    def events(self):
+        return [self.final_event]
+
+    @cached_property
+    def final_event(self):
+        event = contest.models.Event.final_for_edition(self.year)
+        if not event.center:
+            raise Http404("Final center does not exist.")
+        return event
+
+    def get_extra_context(self):
+        context = super().get_extra_context()
+        context['event'] = self.final_event
+        return context
+
+
+class BaseContestCompilationView(BaseDocumentView):
+    """
+    A special BaseDocumentView that takes any number of BaseDocumentView classes and runs pdfjoin on their
     respective output, in declaration order.
 
     The default permission is documents.generate_contestant_document so users may download their own documents.
@@ -161,7 +210,7 @@ class BaseContestCompilationView(BaseContestDocumentView):
     permission_required = 'documents.generate_contestant_document'
 
     def get_permission_object(self):
-        return self.contestant
+        return self.contestants.first()
 
     def render_to_response(self, context, **response_kwargs):
         import contextlib
@@ -169,7 +218,7 @@ class BaseContestCompilationView(BaseContestDocumentView):
 
         def get_documents():
             for cls in self.compiled_classes:
-                assert issubclass(cls, BaseContestDocumentView)
+                assert issubclass(cls, BaseDocumentView)
                 # Hack: instantiate the view manually so we can access the required methods.
                 # May break in future Django versions.
                 view = cls()
@@ -177,8 +226,8 @@ class BaseContestCompilationView(BaseContestDocumentView):
                 view.args = self.args
                 view.kwargs = self.kwargs
                 template_name = view.get_template_names()[0]
-                context = view.get_context_data()
-                yield documents.models.generate_tex_pdf(template_name, context)
+                view_context = view.get_context_data()
+                yield documents.models.generate_tex_pdf(template_name, view_context)
 
         # generate_tex_pdf is a context manager that cleans up the temporary files once exited, thus we need to use a
         # stack of context managers to keep them open while we pdfjoin the output files.
@@ -188,7 +237,7 @@ class BaseContestCompilationView(BaseContestDocumentView):
             for document in get_documents():
                 try:
                     filenames.append(stack.enter_context(document))
-                except documents.models.SubprocessFailedException as err:
+                except prologin.utils.SubprocessFailedException as err:
                     error = err
                     # abort early
                     break
@@ -205,7 +254,8 @@ class BaseContestCompilationView(BaseContestDocumentView):
                 try:
                     stdout, stderr = process.communicate()
                     if process.returncode != 0 or not stdout:
-                        error = documents.models.SubprocessFailedException("pdfjoin failed", process.returncode, stdout, stderr)
+                        error = prologin.utils.SubprocessFailedException("pdfjoin failed",
+                                                                         process.returncode, stdout, stderr)
                     else:
                         response = HttpResponse(content=stdout, content_type=self.content_type)
                         self.apply_headers(response)
@@ -213,7 +263,7 @@ class BaseContestCompilationView(BaseContestDocumentView):
                 except subprocess.CalledProcessError as err:
                     process.kill()
                     stdout, stderr = process.communicate()
-                    error = documents.models.SubprocessFailedException("pdfjoin failed", err.returncode, stdout, stderr)
+                    error = prologin.utils.SubprocessFailedException("pdfjoin failed", err.returncode, stdout, stderr)
 
         # Code reached if something went wrong
         if self.can_display_tex_errors():

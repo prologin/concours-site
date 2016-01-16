@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url, include
 import documents.views
 
 semifinals_center_patterns = [
@@ -9,19 +9,19 @@ semifinals_center_patterns = [
 ]
 
 semifinals_patterns = [
-    url(r'^portrayal-agreements$', documents.views.SemifinalsPortrayalAgreementView.as_view(), name='semifinals-portrayal-agreement'),
     url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.SemifinalsContestantConvocationView.as_view(), name='semifinals-contestant-convocation'),
     url(r'^contestant/(?P<contestant>[0-9]+)/compilation', documents.views.SemifinalsContestantCompilationView.as_view(), name='semifinals-contestant-compilation'),
+    url(r'^portrayal-agreement$', documents.views.SemifinalsPortrayalAgreementView.as_view(), name='semifinals-portrayal-agreement'),
     url(r'^(?P<center>[0-9]+|all)/', include(semifinals_center_patterns)),
 ]
 
 final_patterns = [
-    url(r'^portrayal-agreements$', documents.views.FinalPortrayalAgreementView.as_view(), name='final-portrayal-agreement'),
     url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.FinalContestantConvocationView.as_view(), name='final-contestant-convocation'),
     url(r'^contestant/(?P<contestant>[0-9]+)/compilation', documents.views.FinalContestantCompilationView.as_view(), name='final-contestant-compilation'),
+    url(r'^portrayal-agreement$', documents.views.FinalPortrayalAgreementView.as_view(), name='final-portrayal-agreement'),
     url(r'^convocations$', documents.views.FinalConvocationsView.as_view(), name='final-convocations'),
     url(r'^contestants$', documents.views.FinalContestantsView.as_view(), name='final-contestants'),
-    url(r'^passwords$', documents.views.FinalsPasswordsView.as_view(), name='final-passwords'),
+    url(r'^passwords$', documents.views.FinalPasswordsView.as_view(), name='final-passwords'),
 ]
 
 urlpatterns = [

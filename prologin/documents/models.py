@@ -1,17 +1,12 @@
-from django.conf import settings
-from django.template import loader, Context
+import subprocess
+
 import os
 import re
-import subprocess
 import tempfile
+from django.conf import settings
+from django.template import loader, Context
 
-
-class SubprocessFailedException(Exception):
-    def __init__(self, message, returncode, stdout, stderr):
-        self.message = message
-        self.returncode = returncode
-        self.stdout = stdout
-        self.stderr = stderr
+from prologin.utils import SubprocessFailedException
 
 
 def latex_escape(value):
@@ -27,7 +22,7 @@ def latex_escape(value):
         '_': r'\_',
         '{': r'\{',
         '}': r'\}',
-        '°': r'\textdegree{}',
+        '°': r'o',  # FIXME
         '^': r'\^{}',
         '~': r'\textasciitilde{}',
         '\n': r'\\',

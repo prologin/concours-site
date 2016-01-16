@@ -1,0 +1,14 @@
+\makeatletter
+\@ifundefined{edition}
+{%
+}
+{%
+  \edition{%
+    {{ year }}%
+  }
+}%
+\makeatother
+\usepackage[pdftex]{hyperref}
+\hypersetup{pdftitle={%
+{{ pdf_title }}%
+},pdfauthor={Prologin}}

@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-16 00:12+0100\n"
-"PO-Revision-Date: 2016-01-15 23:15+0000\n"
+"POT-Creation-Date: 2016-01-16 16:26+0100\n"
+"PO-Revision-Date: 2016-01-16 15:27+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -265,14 +265,19 @@ msgstr "Épreuve régionale assignée"
 msgid "Assignation status"
 msgstr "Statut d'assignation"
 
-#: contest/datatables.py:74 contest/datatables.py:107 contest/models.py:175
+#: contest/datatables.py:74 contest/datatables.py:112 contest/models.py:175
 #: problems/admin.py:171 problems/templates/problems/manual.html:66
 msgid "Score"
 msgstr "Score"
 
-#: contest/datatables.py:97 contest/datatables.py:113
+#: contest/datatables.py:98 contest/datatables.py:102
+#: contest/datatables.py:119 contest/datatables.py:123
 msgid "Convocation"
 msgstr "Convocation"
+
+#: contest/datatables.py:102 contest/datatables.py:123
+msgid "Contestant is not assigned"
+msgstr "Le candidat n'est pas assigné"
 
 #: contest/forms.py:25
 msgid "I am not a student at EPITA or EPITECH."
@@ -725,12 +730,13 @@ msgid_plural "You must provide at least %(count)d choices."
 msgstr[0] "Vous devez fournir au moins %(count)d choix."
 msgstr[1] "Vous devez fournir au moins %(count)d choix."
 
-#: documents/base_views.py:101
+#: documents/base_views.py:172
 msgid "all-centers"
 msgstr "tous-centres"
 
 #: documents/templates/documents/index.html:6
 #: documents/templates/documents/tex-error-debug.html:6
+#: prologin/templates/prologin/main-menu.html:19
 msgid "Documents"
 msgstr "Documents"
 
@@ -798,145 +804,145 @@ msgstr "Sortie standard"
 msgid "Standard error"
 msgstr "Erreur standard"
 
-#: documents/views.py:41
+#: documents/views.py:38
 #, python-format
 msgid "Prologin %(year)s: batch invitations to the regional center %(center)s"
 msgstr "Prologin %(year)s : lot de convocations pour le centre régional %(center)s"
 
-#: documents/views.py:42
+#: documents/views.py:39
 #, python-format
 msgctxt "Document filename"
 msgid "invitations-%(year)s-regional-%(center)s"
 msgstr "invitations-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:54
+#: documents/views.py:44
 #, python-format
 msgid "Prologin %(year)s: invitation to the regional event for %(fullname)s"
 msgstr "Prologin %(year)s : convocation à l'épreuve régionale pour %(fullname)s"
 
-#: documents/views.py:55
+#: documents/views.py:45
 #, python-format
 msgctxt "Document filename"
 msgid "invitation-%(year)s-regional-%(fullname)s"
 msgstr "invitations-%(year)s-regionale-%(fullname)s"
 
-#: documents/views.py:67
+#: documents/views.py:50
 #, python-format
 msgid "Prologin %(year)s: call list for the regional center %(center)s"
 msgstr "Prologin %(year)s : liste d'appel pour le centre régional %(center)s"
 
-#: documents/views.py:68
+#: documents/views.py:51
 #, python-format
 msgctxt "Document filename"
 msgid "call-list-%(year)s-regional-%(center)s"
 msgstr "liste-appel-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:83
+#: documents/views.py:65
 #, python-format
 msgid "Prologin %(year)s: portrayal agreement for the regional events"
 msgstr "Prologin %(year)s : droit à l'image pour l'épreuve régionale"
 
-#: documents/views.py:84
+#: documents/views.py:66
 #, python-format
 msgctxt "Document filename"
 msgid "portrayal-agreement-%(year)s-regional"
 msgstr "droit-image-%(year)s-regionale"
 
-#: documents/views.py:99
+#: documents/views.py:81
 #, python-format
 msgid "Prologin %(year)s: password sheets for the regional center %(center)s"
 msgstr "Prologin %(year)s: mots de passe pour le centre régional %(center)s"
 
-#: documents/views.py:100
+#: documents/views.py:82
 #, python-format
 msgctxt "Document filename"
 msgid "password-list-%(year)s-regional-%(center)s"
 msgstr "mots-de-passe-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:115
+#: documents/views.py:96
 #, python-format
 msgid "Prologin %(year)s: interview sheets for the regional center %(center)s"
 msgstr "Prologin %(year)s : feuilles d'interview pour le centre régional %(center)s"
 
-#: documents/views.py:116
+#: documents/views.py:97
 #, python-format
 msgctxt "Document filename"
 msgid "interviews-%(year)s-regional-%(center)s"
 msgstr "interviews-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:128
+#: documents/views.py:106
 #, python-format
 msgid ""
 "Prologin %(year)s: document compilation for regional events for %(fullname)s"
 msgstr "Prologin %(year)s : compilation de documents pour l'épreuve régionale pour %(fullname)s"
 
-#: documents/views.py:129
+#: documents/views.py:107
 #, python-format
 msgctxt "Document filename"
 msgid "prologin-%(year)s-regional-documents-%(fullname)s"
 msgstr "prologin-%(year)s-documents-regionale-%(fullname)s"
 
-#: documents/views.py:135
+#: documents/views.py:112
 #, python-format
 msgid "Prologin %(year)s: batch invitations to the final"
 msgstr "Prologin %(year)s : lots de convocations pour la finale"
 
-#: documents/views.py:136
+#: documents/views.py:113
 #, python-format
 msgctxt "Document filename"
 msgid "invitations-%(year)s-final"
 msgstr "convocations-%(year)s-finale"
 
-#: documents/views.py:148
+#: documents/views.py:118
 #, python-format
 msgid "Prologin %(year)s: invitation to the final for %(fullname)s"
 msgstr "Prologin %(year)s : convocation à la finale pour %(fullname)s"
 
-#: documents/views.py:149
+#: documents/views.py:119
 #, python-format
 msgctxt "Document filename"
 msgid "invitation-%(year)s-final-%(fullname)s"
 msgstr "convocation-%(year)s-finale-%(fullname)s"
 
-#: documents/views.py:162
+#: documents/views.py:124
 #, python-format
 msgid "Prologin %(year)s: call list for the final"
 msgstr "Prologin %(year)s : liste d'appel pour la finale"
 
-#: documents/views.py:163
+#: documents/views.py:125
 #, python-format
 msgctxt "Document filename"
 msgid "call-list-%(year)s-final"
 msgstr "liste-appel-%(year)s-finale"
 
-#: documents/views.py:175
+#: documents/views.py:138
 #, python-format
 msgid "Prologin %(year)s: portrayal agreement for the final"
 msgstr "Prologin %(year)s : droit à l'imagine pour la finale"
 
-#: documents/views.py:176
+#: documents/views.py:139
 #, python-format
 msgctxt "Document filename"
 msgid "portrayal-agreement-%(year)s-final"
 msgstr "droit-image-%(year)s-finale"
 
-#: documents/views.py:187
+#: documents/views.py:144
 #, python-format
 msgid "Prologin %(year)s: password sheets for the final"
 msgstr "Prologin %(year)s : mots de passe pour la finale"
 
-#: documents/views.py:188
+#: documents/views.py:145
 #, python-format
 msgctxt "Document filename"
 msgid "password-list-%(year)s-final"
 msgstr "mots-de-passe-%(year)s-finale"
 
-#: documents/views.py:200
+#: documents/views.py:155
 #, python-format
 msgid "Prologin %(year)s: document compilation for final for %(fullname)s"
 msgstr "Prologin %(year)s: compilation de documents pour la finale pour %(fullname)s"
 
-#: documents/views.py:201
+#: documents/views.py:156
 #, python-format
 msgctxt "Document filename"
 msgid "prologin-%(year)s-final-documents-%(fullname)s"
@@ -3417,19 +3423,19 @@ msgstr "Admin"
 msgid "Django administration"
 msgstr "Administration de Django"
 
-#: prologin/templates/prologin/main-menu.html:26
+#: prologin/templates/prologin/main-menu.html:28
 msgid "My profile"
 msgstr "Mon profil"
 
-#: prologin/templates/prologin/main-menu.html:27
+#: prologin/templates/prologin/main-menu.html:29
 msgid "Profile &amp; settings"
 msgstr "Profil &amp; options"
 
-#: prologin/templates/prologin/main-menu.html:29
+#: prologin/templates/prologin/main-menu.html:31
 msgid "Sign out"
 msgstr "Déconnexion"
 
-#: prologin/templates/prologin/main-menu.html:34
+#: prologin/templates/prologin/main-menu.html:36
 #: users/templates/users/login.html:7 users/templates/users/login.html.py:10
 #: users/templates/users/login.html:26
 msgid "Sign in"

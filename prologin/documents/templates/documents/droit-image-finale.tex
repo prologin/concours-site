@@ -1,11 +1,6 @@
 {% load i18n latex %}{% autoescape off %}
 \documentclass[a4paper,11pt]{prologin}
-\usepackage[pdftex,
-            pdfauthor={Prologin},
-            pdftitle={ {{ pdf_title }} }]{hyperref}
-\edition{%
-{{ year }}%
-}
+{% include "documents/stub-preamble.tex" %}
 
 \title{Formulaire d'autorisation de diffusion d'image}
 

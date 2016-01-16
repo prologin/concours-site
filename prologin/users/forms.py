@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
+from django.db.models import Manager
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from captcha.fields import ReCaptchaField
@@ -12,6 +13,9 @@ User = get_user_model()
 
 
 class UserProfileForm(forms.ModelForm):
+    readonly_during_contest = ('first_name', 'last_name', 'address', 'birthday',
+                               'postal_code', 'city', 'country',)
+
     class Meta:
         model = User
         fields = ('first_name', 'last_name', 'gender', 'birthday',
@@ -27,6 +31,7 @@ class UserProfileForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
+        self.is_contest = kwargs.pop('is_contest', False)
         super().__init__(*args, **kwargs)
         self.fields['gender'].required = False
         self.fields['gender'].label = _("How do you prefer to be described?")
@@ -35,9 +40,21 @@ class UserProfileForm(forms.ModelForm):
             (Gender.male.value, mark_safe(_("<em>He is writing code for the contest</em>"))),
             ("", _("Other or prefer not to tell")),
         ]
+        if self.is_contest:
+            for field in self.readonly_during_contest:
+                self.fields[field].widget.attrs['readonly'] = 'readonly'
+                self.fields[field].help_text = _("You can not change your details during the contest. If there is an "
+                                                 "important change you want to make, please contact the staff.")
+
         if not self.instance.team_memberships.count():
             # If not part of any team, makes no sense to add a staff picture
             self.fields.pop('picture', None)
+
+    def clean(self):
+        if self.is_contest:
+            for field in self.readonly_during_contest:
+                self.cleaned_data.pop(field, None)
+        return super().clean()
 
 
 class RegisterForm(forms.ModelForm):
