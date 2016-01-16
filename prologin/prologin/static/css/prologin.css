@@ -431,6 +431,11 @@ footer .legal {
  * Misc
  */
 
+.btn {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .row.no-gutter {
   margin-left: 0;
   margin-right: 0;
