@@ -54,11 +54,14 @@
       // Assignation from wishes
       var $assignation_event_select = $('select[name="assignation_semifinal_event"]');
       var $assignation_select = $('select[name="assignation_semifinal"]');
+      var assigned = {% choiceenum_member 'contest.models.Assignation.assigned' 'value' %};
       $('.event-wish-list li').click(function(e) {
         e.preventDefault();
         var $this = $(this), event_id = $this.attr('data-event-id');
-        $assignation_select.val({% choiceenum_member 'contest.models.Assignation.assigned' 'value' %}).addClass('flash');
-        $assignation_event_select.val(event_id).addClass('flash');
+        if ($assignation_select.val() != assigned)
+          $assignation_select.val(assigned).addClass('flash');
+        if ($assignation_event_select.val() != event_id)
+          $assignation_event_select.val(event_id).addClass('flash');
         setTimeout(function() {
           $assignation_select.removeClass('flash');
           $assignation_event_select.removeClass('flash');
