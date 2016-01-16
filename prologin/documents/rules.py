@@ -2,7 +2,7 @@ import rules
 
 
 @rules.predicate
-def is_contestant_owner(contestant, user):
+def is_contestant_owner(user, contestant):
     return contestant.user == user
 
 
