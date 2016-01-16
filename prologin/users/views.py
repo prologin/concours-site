@@ -162,7 +162,9 @@ class EditUserView(UpdateUserAsAdminView):
         # Make important fields read-only during contest, for non-staff users
         # FIXME: use rules
         is_contest = not self.request.user.is_staff and self.request.current_edition.is_active
-        return {**super().get_form_kwargs(), 'is_contest': is_contest}
+        kwargs = super().get_form_kwargs()
+        kwargs['is_contest'] = is_contest
+        return kwargs
 
     def form_valid(self, form):
         messages.success(self.request, _("Changes saved."))
