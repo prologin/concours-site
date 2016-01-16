@@ -5,6 +5,7 @@ import re
 import tempfile
 from django.conf import settings
 from django.template import loader, Context
+from django.utils import translation
 
 from prologin.utils import SubprocessFailedException
 
@@ -46,7 +47,9 @@ class DocumentContext:
         in_file = os.path.join(self.output_dir.name, 'input.tex')
         out_file = os.path.join(self.output_dir.name, 'input.pdf')
 
-        data = self.template.render(self.context).encode('utf-8')
+        with translation.override('fr'):
+            data = self.template.render(self.context).encode('utf-8')
+
         with open(in_file, 'wb') as source_file:
             source_file.write(data)
 
