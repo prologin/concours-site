@@ -1,9 +1,8 @@
-{% extends "prologin/base.html" %}
+{% extends "problems/base.html" %}
 {% load i18n utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
   {{ block.super }}
-  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
   {% breadcrumb_for "" %}{% trans "Search results" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 

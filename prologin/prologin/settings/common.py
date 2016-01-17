@@ -189,7 +189,7 @@ STATIC_URL = '/static/'
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'problems.staticfinder.TrainingStaticFinder',
+    'problems.staticfinder.ProblemsStaticFinder',
     'archives.staticfinder.ArchivesStaticFinder',
 )
 
@@ -250,27 +250,27 @@ PROLOGIN_CACHES = {
 # List of strings (tried in order for load-balancing/fallback):
 #  - if local: 'local:///path/to/prefix'
 #  - if remote: 'http://thehost:55080/submit'
-TRAINING_CORRECTORS = (
+PROBLEMS_CORRECTORS = (
 )
 
 # Max size of uploaded source files in bytes
-TRAINING_UPLOAD_MAX_LENGTH = 1 << 21  # 2MiB
+PROBLEMS_UPLOAD_MAX_LENGTH = 1 << 21  # 2MiB
 # How long to wait, in seconds, for a remote corrector
-TRAINING_CORRECTOR_REQUEST_TIMEOUT = 5
+PROBLEMS_CORRECTOR_REQUEST_TIMEOUT = 5
 # How long to wait, in seconds, before displaying the submission result page.
 # Don't use a too small value because the corrector system will most of the time
 # not have the time to compile & run the tests.
 # Don't use a too large value because it makes the page load for too long.
-TRAINING_RESULT_TIMEOUT = 3
+PROBLEMS_RESULT_TIMEOUT = 3
 # Interval, in milliseconds, between checks for results in the submission page
 # (this is done using Javascript).
-TRAINING_RESULT_POLL_INTERVAL = 3 * 1000
+PROBLEMS_RESULT_POLL_INTERVAL = 3 * 1000
 
 # List of challenges (directory name), eg. ('demi2015', 'qcm2014')
 # Empty list allows everything
-TRAINING_CHALLENGE_WHITELIST = ()
-TRAINING_PROBLEM_REPOSITORY_PATH = os.path.join(BASE_DIR, 'problems')
-TRAINING_PROBLEM_REPOSITORY_STATIC_PREFIX = 'problems'
+PROBLEMS_CHALLENGE_WHITELIST = ()
+PROBLEMS_REPOSITORY_PATH = os.path.join(BASE_DIR, 'problems')
+PROBLEMS_REPOSITORY_STATIC_PREFIX = 'problems'
 
 # Path to archives repository (sub-folders shall be years)
 ARCHIVES_REPOSITORY_PATH = os.path.join(BASE_DIR, 'archives')

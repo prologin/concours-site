@@ -153,7 +153,7 @@ class Problem(PermissionRequiredMixin, CreateView):
     def get_success_url(self):
         kwargs = self.kwargs.copy()
         kwargs['submission'] = self.submission_code.pk
-        return reverse('training:submission', kwargs=kwargs)
+        return reverse('problems:submission', kwargs=kwargs)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -230,7 +230,7 @@ class Problem(PermissionRequiredMixin, CreateView):
                                                          task_id=self.submission_code.celery_task_id)
                 try:
                     # wait a bit for the result
-                    future.get(timeout=settings.TRAINING_RESULT_TIMEOUT)
+                    future.get(timeout=settings.PROBLEMS_RESULT_TIMEOUT)
                 except celery.exceptions.TimeoutError:
                     pass
                 except:

@@ -1,5 +1,5 @@
 {% load i18n utils %}
-<a class="list-group-item clearfix" href="{% url 'training:problem' problem.challenge.year problem.challenge.event_type.name problem.name %}">
+<a class="list-group-item clearfix" href="{% url 'problems:problem' problem.challenge.year problem.challenge.event_type.name problem.name %}">
   <div class="col-sm-2 col-xs-2" style="padding: 0"><div class="progress" style="margin: 0"
      title="{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %}">
     <div class="progress-bar" role="progressbar" aria-valuenow="{{ problem.percentage_difficulty }}" aria-valuemin="0"

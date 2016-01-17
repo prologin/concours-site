@@ -1,16 +1,11 @@
-{% extends "prologin/base.html" %}
+{% extends "problems/base.html" %}
 {% load i18n utils bootstrap django_bootstrap_breadcrumbs %}
 
-{% block breadcrumbs %}
-  {{ block.super }}
-  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
-{% endblock breadcrumbs %}
-
-{% block title %}{% trans "Training challenges" %}{% endblock %}
+{% block title %}{% include "problems/stub-module-title.html" %}{% endblock %}
 
 {% block content %}
 
-  <h1>{% trans "Training challenges" %}</h1>
+  <h1>{% include "problems/stub-module-title.html" %}</h1>
 
   <p class="visible-xs"><a href="#problems"><i class="fa fa-angle-double-down"></i> {% trans "Jump to problem index" %}</a></p>
   {% include "problems/stub_search_form.html" %}
@@ -25,7 +20,7 @@
           <ul class="challenge-event-list">
             {% for challenge in grouped_challenge.list|dictsort:'event_type.name' %}
               <li>
-                <a href="{% url 'training:challenge' grouped_challenge.grouper challenge.event_type.name %}">
+                <a href="{% url 'problems:challenge' grouped_challenge.grouper challenge.event_type.name %}">
                 {{ challenge.event_type|choiceenum_label }}
                 <small class="text-muted">({% blocktrans count challenge.problems|length as count %}{{ count }}&nbsp;problem{% plural %}{{ count }}&nbsp;problems{% endblocktrans %}) </small>
                 {% if not challenge.displayable %} {# hidden to normal users; add a marker for staff #}
@@ -58,7 +53,7 @@ problems from both the Prologin online qualifications and the on-site semifinals
       <p>{% blocktrans %}Read the problem statement carefully and submit your solution. The system will check your
 submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you
 need to solve the problem.{% endblocktrans %}</p>
-      {% url 'training:manual' as manual_url %}
+      {% url 'problems:manual' as manual_url %}
       <p>{% blocktrans %}If you need any help with the automatic correction
       system, you can read the <a href="{{ manual_url }}" style="white-space: nowrap;"><i class="fa fa-book"></i> online judge manual</a>.
       {% endblocktrans %}</p>

@@ -1,5 +1,5 @@
 {% load i18n bootstrap %}
-<form class="form-inline well" method="GET" action="{% url 'training:search' %}#problems">
+<form class="form-inline well" method="GET" action="{% url 'problems:search' %}#problems">
   <h4>{% trans "Search problems" %}</h4>
   {{ search_form.query|bootstrap }}
   {{ search_form.event_type|bootstrap }}

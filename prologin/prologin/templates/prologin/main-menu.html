@@ -4,7 +4,7 @@
   <li class="{% active '^/contest/' %}"><a href="{% url 'contest:qualification_summary' request.current_edition.year %}">{% trans "Participate" %}</a></li>
 {% endif %}
   <li class="{% active '^/about/' %}"><a href="{% url 'pages:about-contest' %}">{% trans "Discover" %}</a></li>
-  <li class="{% active '^/train/' %}"><a href="{% url 'training:index' %}">{% trans "Train" %}</a></li>
+  <li class="{% active '^/train/' %}"><a href="{% url 'problems:index' %}">{% trans "Train" %}</a></li>
   <li class="{% active '^/archives/' %}"><a href="{% url 'archives:index' %}">{% trans "Archives" %}</a></li>
   <li class="{% active '^/forum/' %}"><a href="{% url 'forum:index' %}">{% trans "Forums" %}</a></li>
 {% if request.user.is_staff %}

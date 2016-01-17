@@ -1,13 +1,11 @@
-{% extends "prologin/base.html" %}
+{% extends "problems/base.html" %}
 {% load i18n humanize markup drupal utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
 
 
 {% block breadcrumbs %}
   {{ block.super }}
-  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
-  {% breadcrumb_for "training:challenge" challenge.year challenge.event_type.name %}{{ challenge.event_type|choiceenum_label }} {{ challenge.year }}{% endbreadcrumb_for %}
-  {% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
-  {% breadcrumb_for "training:submission" challenge.year challenge.event_type.name problem.name submission.pk %}{% trans "Submission" %}{% endbreadcrumb_for %}
+  {% breadcrumb problem.title "problems:problem" challenge.year challenge.event_type.name problem.name %}
+  {% breadcrumb_for "problems:submission" challenge.year challenge.event_type.name problem.name submission.pk %}{% trans "Submission" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans with problem=problem.title %}Submission for {{ problem }}{% endblocktrans %} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}
@@ -64,7 +62,7 @@
             {% blocktrans with kb=submission.exec_memory|default:'?' %}Memory used: {{ kb }}&nbsp;kB{% endblocktrans %}
           </small></p>{% endif %}
         {% endif %}
-          <a href="{% url 'training:problem' challenge.year challenge.event_type.name problem.name %}?fork={{ submission.pk }}#submit" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Edit and submit again" %}</a>
+          <a href="{% url 'problems:problem' challenge.year challenge.event_type.name problem.name %}?fork={{ submission.pk }}#submit" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Edit and submit again" %}</a>
         </div>
       </div>
     </div>
@@ -144,12 +142,12 @@ You can still try to submit your code again using the “Edit and submit again�
   {# if the submission is not corrected yet but we may get the result later #}
   <script type="text/javascript" charset="utf-8">
     function check_for_result() {
-      $.getJSON('{% url 'training:ajax-submission-corrected' submission.pk %}')
+      $.getJSON('{% url 'problems:ajax-submission-corrected' submission.pk %}')
           .done(function(has_result) {
             if (has_result === true)
               window.location.reload();
             else
-              setTimeout(check_for_result, {% get_setting 'TRAINING_RESULT_POLL_INTERVAL' %});
+              setTimeout(check_for_result, {% get_setting 'PROBLEMS_RESULT_POLL_INTERVAL' %});
           });
     }
     check_for_result();

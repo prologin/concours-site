@@ -1,12 +1,11 @@
-{% extends "prologin/base.html" %}
+{% extends "problems/base.html" %}
 {% load i18n markup drupal rules utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
 
 
 {% block breadcrumbs %}
   {{ block.super }}
-  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
-  {% breadcrumb_for "training:challenge" challenge.year challenge.event_type.name %}{{ challenge.event_type|choiceenum_label }} {{ challenge.year }}{% endbreadcrumb_for %}
-  {% breadcrumb problem.title "training:problem" challenge.year challenge.event_type.name problem.name %}
+  {% breadcrumb_for "problems:challenge" challenge.year challenge.event_type.name %}{{ challenge.event_type|choiceenum_label }} {{ challenge.year }}{% endbreadcrumb_for %}
+  {% breadcrumb problem.title "problems:problem" challenge.year challenge.event_type.name problem.name %}
 {% endblock breadcrumbs %}
 
 {% block title %}{{ problem.title }} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}
@@ -117,7 +116,7 @@
                   {% if form.language.errors %}<span class="text-danger">
                     {% for error in form.language.errors %}{{ error|escape }} {% endfor %}
                   </span>{% endif %}
-                  <button id="btn-insert-stub" type="button" class="btn btn-default" data-url="{% url 'training:ajax-language-template' challenge.year challenge.event_type.name problem.name %}" title="{% trans "Insert parsing code stub at the end of your code" %}"><i class="fa fa-file-code-o"></i> {% trans "Code stub" %}</button>
+                  <button id="btn-insert-stub" type="button" class="btn btn-default" data-url="{% url 'problems:ajax-language-template' challenge.year challenge.event_type.name problem.name %}" title="{% trans "Insert parsing code stub at the end of your code" %}"><i class="fa fa-file-code-o"></i> {% trans "Code stub" %}</button>
                   <select name="language" style="width: auto;" class="form-control">{% for lng in languages %}
                     <option value="{{ lng.name }}" data-mode="{{ lng.ace_lexer }}" data-template="{% if lng in templatable_languages %}true{% else %}false{% endif %}"{% if lng.correctable %} data-correctable{% endif %}{% if prefill_submission and prefill_submission.language_enum == lng or not prefill_submission and request.user.preferred_language_enum == lng %} selected{% endif %}>{{ lng.name_display }}</option>
                   {% endfor %}</select>
@@ -152,7 +151,7 @@
                   <li class="submission-history-item {% if sub.succeeded %}succeeded{% elif sub.done %}failed{% endif %}">
                     <div class="side"
                         title="{% if sub.succeeded %}{% trans "Correct solution" %}{% elif sub.done %}{% trans "Invalid solution" %}{% elif not sub.expired_result %}{% trans "Pending check" %}{% else %}Unavailable status{% endif %}"><i class="fa fa-{% if sub.succeeded %}check-circle-o{% elif sub.done %}times-circle-o{% elif not sub.expired_result %}clock-o{% else %}question{% endif %}"></i></div>
-                    <a href="{% url 'training:submission' challenge.year challenge.event_type.name problem.name sub.pk %}">{{ sub.summary|default:no_summary }}</a><br>
+                    <a href="{% url 'problems:submission' challenge.year challenge.event_type.name problem.name sub.pk %}">{{ sub.summary|default:no_summary }}</a><br>
                     <small class="text-muted">
                       {% if sub.succeeded %}<span class="label label-success pts-won" title="{% trans "Base points won by solving this problem. Malus points are not taken into account." %}" class="label label-success">{{ sub.score }}</span>{% endif %}
                       {{ sub.get_language_display }} ⋅

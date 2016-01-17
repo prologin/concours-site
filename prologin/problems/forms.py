@@ -117,10 +117,10 @@ class CodeSubmissionForm(forms.ModelForm):
                 size = self.cleaned_data['sourcefile'].size
             except AttributeError:
                 raise forms.ValidationError(_("Your client did not provide the content length of your source file."))
-            if size > settings.TRAINING_UPLOAD_MAX_LENGTH:
+            if size > settings.PROBLEMS_UPLOAD_MAX_LENGTH:
                 raise forms.ValidationError(_("The source file you uploaded is too large. "
                                               "Please keep it below %(size)s.") %
-                                            {'size': sizeof_fmt(settings.TRAINING_UPLOAD_MAX_LENGTH)})
+                                            {'size': sizeof_fmt(settings.PROBLEMS_UPLOAD_MAX_LENGTH)})
             try:
                 self.cleaned_data['code'] = read_try_hard(self.cleaned_data['sourcefile'], size)
             except ValueError:

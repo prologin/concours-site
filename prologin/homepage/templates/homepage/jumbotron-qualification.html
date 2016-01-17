@@ -17,7 +17,7 @@
               <strong>{% trans "Qualifications for this year's edition will be announced as soon as possible." %}</strong>
             </p>
             <p class="text-center">
-              <a href="{% url 'training:index' %}" class="btn btn-default btn-block">
+              <a href="{% url 'problems:index' %}" class="btn btn-default btn-block">
                 <i class="fa fa-tachometer"></i> {% trans "Start training!" %}
               </a>
             </p>
@@ -57,7 +57,7 @@
                   {# /qualif have qcm #}
                   {# checklist: solved problem #}
                   <li class="text-{% if problems_completed == problems_count %}success{% elif problems_completed > 0 %}warning{% else %}danger{% endif %}">
-                    <a href="{% url 'training:challenge' edition.year 'qualification' %}">
+                    <a href="{% url 'problems:challenge' edition.year 'qualification' %}">
                       <i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
                       {% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems tackled{% endblocktrans %}
                     </a>

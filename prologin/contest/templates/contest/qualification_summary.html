@@ -74,7 +74,7 @@
             {% blocktrans count completed_problem_count as count %}You tackled {{ count }} problem.{% plural %}You tackled {{ count }} problems.{% endblocktrans %}
           </p>
           <p>
-          {% url 'training:challenge' request.current_edition.year 'qualification' as problem_url %}
+          {% url 'problems:challenge' request.current_edition.year 'qualification' as problem_url %}
           {% if problems_completed %}
             <a href="{{ problem_url }}" class="btn btn-primary"><i class="fa fa-pencil"></i> {% trans "Review submissions" %}</a>
           {% else %}

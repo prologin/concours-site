@@ -44,7 +44,7 @@
                 <li><a href="{% url 'qcm:display' archive.year %}"><i class="fa fa-fw fa-th-list"></i> {% blocktrans count archive.qualification.quiz.question_count as count %}{{ count }}-question quiz{% plural %}{{ count }}-question quiz{% endblocktrans %}</a></li>
               {% endif %}
               {% if archive.qualification.challenge %}
-                <li><a href="{% url 'training:challenge' archive.qualification.challenge.year archive.qualification.challenge.event_type.name %}"><i class="fa fa-fw fa-pencil"></i> {% blocktrans count archive.qualification.challenge.problems|length as count %}{{ count }} problem{% plural %}{{ count }} problems{% endblocktrans %}</a></li>
+                <li><a href="{% url 'problems:challenge' archive.qualification.challenge.year archive.qualification.challenge.event_type.name %}"><i class="fa fa-fw fa-pencil"></i> {% blocktrans count archive.qualification.challenge.problems|length as count %}{{ count }} problem{% plural %}{{ count }} problems{% endblocktrans %}</a></li>
               {% endif %}
               {% if archive.qualification.pdf_statement %}
                 <li><a href="{% static archive.qualification.pdf_statement %}"><i class="fa fa-fw fa-file-o"></i> {% trans "Test statement (PDF)" %}</a></li>
@@ -63,7 +63,7 @@
                 <li><a href="{% url 'archives:report' archive.year 'semifinal' %}"><i class="fa fa-fw fa-bullhorn"></i> {% trans "Regional events report" %}</a></li>
               {% endif %}
               {% if archive.semifinal.challenge %}
-                <li><a href="{% url 'training:challenge' archive.semifinal.challenge.year archive.semifinal.challenge.event_type.name %}"><i class="fa fa-fw fa-pencil"></i> {% blocktrans count archive.semifinal.challenge.problems|length as count %}{{ count }} problem{% plural %}{{ count }} problems{% endblocktrans %}</a></li>
+                <li><a href="{% url 'problems:challenge' archive.semifinal.challenge.year archive.semifinal.challenge.event_type.name %}"><i class="fa fa-fw fa-pencil"></i> {% blocktrans count archive.semifinal.challenge.problems|length as count %}{{ count }} problem{% plural %}{{ count }} problems{% endblocktrans %}</a></li>
               {% endif %}
               </ul>
             {% else %}

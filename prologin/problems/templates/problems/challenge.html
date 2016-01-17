@@ -1,17 +1,16 @@
-{% extends "prologin/base.html" %}
+{% extends "problems/base.html" %}
 {% load i18n drupal utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
   {{ block.super }}
-  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
-  {% breadcrumb_for "training:challenge" challenge.year challenge.event_type.name %}{{ challenge.event_type|choiceenum_label }} {{ challenge.year }}{% endbreadcrumb_for %}
+  {% breadcrumb_for "problems:challenge" challenge.year challenge.event_type.name %}{{ challenge.event_type|choiceenum_label }} {{ challenge.year }}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 
-<h1>{% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}<small> — <a href="{% url 'training:challenge-scoreboard' challenge.year challenge.event_type.name %}">{% trans "Scoreboard" %}</a></small></h1>
+<h1>{% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}<small> — <a href="{% url 'problems:challenge-scoreboard' challenge.year challenge.event_type.name %}">{% trans "Scoreboard" %}</a></small></h1>
 
   <article class="challenge-statement">
     {{ challenge.subject|drupaltpl }}

@@ -1,10 +1,9 @@
-{% extends "prologin/base.html" %}
+{% extends "problems/base.html" %}
 {% load i18n drupal utils bootstrap staticfiles django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
   {{ block.super }}
-  {% breadcrumb_for "training:index" %}{% trans "Training" %}{% endbreadcrumb_for %}
-  {% breadcrumb_for "training:manual" %}{% trans "Manual" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "problems:manual" %}{% trans "Manual" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "Online judge manual" %}{% endblock %}

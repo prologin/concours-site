@@ -19,7 +19,7 @@
         {% if qualif.is_finished and not lastsemi.is_finished %}
           {# semifinals are active #}
           <p>
-            <a href="{% url 'training:index' %}" class="btn btn-default btn-block">
+            <a href="{% url 'problems:index' %}" class="btn btn-default btn-block">
               <i class="fa fa-tachometer"></i> {% trans "Train now" %}
             </a>
           </p>

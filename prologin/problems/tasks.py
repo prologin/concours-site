@@ -129,9 +129,9 @@ def submit_problem_code(self, code_submission_id):
         else:
             raise ValueError("Corrector URI '{}' has an unknown scheme".format(corrector_uri))
 
-    # Try all TRAINING_CORRECTORS, in the order defined in settings
+    # Try all PROBLEMS_CORRECTORS, in the order defined in settings
     # Stop at first working
-    for corrector_uri in settings.TRAINING_CORRECTORS:
+    for corrector_uri in settings.PROBLEMS_CORRECTORS:
         try:
             logger.info("[%s] correcting: %s…", corrector_uri, code_submission)
             result = submit(corrector_uri)

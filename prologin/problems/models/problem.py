@@ -42,7 +42,7 @@ class Challenge:
 
         :return list of Challenge instances
         """
-        for challenge_dir in os.listdir(settings.TRAINING_PROBLEM_REPOSITORY_PATH):
+        for challenge_dir in os.listdir(settings.PROBLEMS_REPOSITORY_PATH):
             if not challenge_dir.startswith('.') and any(challenge_dir.startswith(e)
                                                          for e in cls._type_to_low_level.values()):
                 try:
@@ -102,7 +102,7 @@ class Challenge:
         return '<Challenge: {} {}>'.format(self.event_type.name, self.year)
 
     def file_path(self, *tail):
-        return os.path.abspath(os.path.join(settings.TRAINING_PROBLEM_REPOSITORY_PATH, self._low_level_name, *tail))
+        return os.path.abspath(os.path.join(settings.PROBLEMS_REPOSITORY_PATH, self._low_level_name, *tail))
 
     def _get_properties(self):
         return read_props(self.file_path('challenge.props'))

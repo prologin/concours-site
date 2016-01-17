@@ -25,7 +25,7 @@ def remote_check(url, challenge, problem, source, filename):
                        'application/x-www-form-urlencoded;charset:utf-8')
     request.add_header('User-Agent', 'prologin-vm-interface/{}'.format(USER_AGENT_VERSION))
 
-    with urllib.request.urlopen(request, data, timeout=settings.TRAINING_CORRECTOR_REQUEST_TIMEOUT) as response:
+    with urllib.request.urlopen(request, data, timeout=settings.PROBLEMS_CORRECTOR_REQUEST_TIMEOUT) as response:
         payload = response.read()
         try:
             return payload.decode('utf-8').strip()

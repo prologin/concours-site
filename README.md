@@ -48,9 +48,9 @@ a development environment:
 Then, check the following settings in the file you copied:
 
 1. Uncomment and update `PROLOGIN_EDITION` to the current edition year.
-1. Uncomment and update `TRAINING_PROBLEM_REPOSITORY_PATH` to the directory where
+1. Uncomment and update `PROBLEMS_REPOSITORY_PATH` to the directory where
    you cloned the Prologin [`problem` repository](https://bitbucket.org/prologin/problems/).
-1. Add a local or remote correction VM to `TRAINING_CORRECTORS`.
+1. Add a local or remote correction VM to `PROBLEMS_CORRECTORS`.
 1. Uncomment and update `RECAPTCHA_{PUBLIC,PRIVATE}_KEY`. You can leave them
    empty for most tests.
 

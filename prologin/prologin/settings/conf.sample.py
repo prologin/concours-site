@@ -21,8 +21,8 @@ SITE_HOST = "localhost:8000"
 
 # Mandatory settings:
 # PROLOGIN_EDITION = 2015
-# TRAINING_PROBLEM_REPOSITORY_PATH = '/path/to/problems'
-# TRAINING_CORRECTORS = ()
+# PROBLEMS_REPOSITORY_PATH = '/path/to/problems'
+# PROBLEMS_CORRECTORS = ()
 # RECAPTCHA_PUBLIC_KEY = ''
 # RECAPTCHA_PRIVATE_KEY = ''
 

@@ -45,15 +45,12 @@ urlpatterns += [
     url(r'^archives/', include('archives.urls', namespace='archives')),
 
     # Contest
-    # url(r'^contest/(?P<year>[0-9]{4})/semifinal/problems/', include('problems.urls', namespace='training-semifinal-problems')),
     url(r'^contest/(?P<year>[0-9]{4})/qualification/problems/', include('problems.urls', namespace='qcm-problems')),
     url(r'^contest/(?P<year>[0-9]{4})/qualification/quiz/', include('qcm.urls', namespace='qcm')),
     url(r'^contest/', include('contest.urls', namespace='contest')),
 
     # Training
-    url(r'^train/', include('problems.urls', namespace='training')),
-    # url(r'^train/(?P<year>[0-9]{4})/qualif/problems/', include('problems.urls', namespace='training-qcm-problems')),
-    # url(r'^train/(?P<year>[0-9]{4})/qualif/quiz/', include('problems.urls', namespace='training-qcm')),
+    url(r'^train/', include('problems.urls', namespace='problems')),
 
     # Authentication and accounts
     url(r'^user/', include('users.urls', namespace='users')),
