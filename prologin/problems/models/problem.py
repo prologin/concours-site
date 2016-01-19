@@ -164,7 +164,7 @@ class Challenge:
         """
         The amount of seconds to wait before auto-unlocking new problem(s).
         """
-        return self.properties.get('unlock_delay', settings.PROLOGIN_PROBLEM_DEFAULT_AUTO_UNLOCK_DELAY)
+        return self.properties.get('unlock_delay', settings.PROBLEMS_DEFAULT_AUTO_UNLOCK_DELAY)
 
     @property
     def problem_difficulty_list(self) -> [int]:

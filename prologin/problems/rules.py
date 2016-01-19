@@ -4,7 +4,9 @@ import rules
 
 @rules.predicate
 def is_challenge_displayable(user, challenge):
-    return ((not settings.TRAINING_CHALLENGE_WHITELIST or challenge.name in settings.TRAINING_CHALLENGE_WHITELIST) and
+    if settings.PROLOGIN_SEMIFINAL_MODE and not user.is_authenticated():
+        return False
+    return ((not settings.PROBLEMS_CHALLENGE_WHITELIST or challenge.name in settings.PROBLEMS_CHALLENGE_WHITELIST) and
             challenge.displayable)
 
 

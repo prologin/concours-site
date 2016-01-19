@@ -261,6 +261,10 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     def available_semifinal_problems(self):
         from problems.models import Challenge, Submission, SubmissionCode, ExplicitSubmissionUnlock
         challenge = Challenge.by_year_and_event_type(self.edition.year, Event.Type.semifinal)
+
+        if self.user.is_staff:
+            return list(challenge.problems)
+
         if challenge.type is Challenge.Type.standard:
             return list(challenge.problems)
 
