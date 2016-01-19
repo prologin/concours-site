@@ -616,6 +616,7 @@ footer .legal {
   border-bottom: 1px solid #4155c0;
   text-decoration: none;
   color: #4155c0;
+  line-height: 24px;
 }
 
 .challenge-event-list li a:hover .text-muted {
