@@ -143,7 +143,7 @@ class Challenge:
 
     @property
     def displayable(self):
-        return self.properties.get('display_website', True)
+        return self.properties.get('display_website', False)
 
     @property
     def type(self):
