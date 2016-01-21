@@ -1,0 +1,17 @@
+{% load i18n %}
+<table id="scoreboard" class="table table-striped" style="position: relative;">
+  <thead>
+  <tr>
+    <th class="anim:update" width="2em"></th>
+    <th class="anim:update">{% trans "Rank" %}</th>
+    <th class="anim:constant">{% trans "Nickname" %}</th>
+    <th class="anim:constant">{% trans "Name" %}</th>
+    <th class="anim:update">{% trans "Points" %}</th>
+  </tr>
+  </thead>
+  <tbody style="position: relative;">
+  {% for user in users %}
+    {% include "semifinal/stub-scoreboard-item.html" %}
+  {% endfor %}
+  </tbody>
+</table>

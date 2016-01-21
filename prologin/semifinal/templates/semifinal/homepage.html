@@ -1,0 +1,26 @@
+{% extends "prologin/base.html" %}
+{% load i18n static django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "semifinal_summary" %}{% trans "Regional event" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "" %}{% trans "Welcome" %}{% endbreadcrumb_for %}
+{% endblock %}
+
+{% block title %}{% blocktrans with center=request.current_event.center.name %}Regional event at {{ center }}{% endblocktrans %}{% endblock %}
+
+{% block extra_head %}{% endblock %}
+
+
+{% block content %}
+
+  <h1>{% blocktrans with center=request.current_event.center.name %}Regional event at {{ center }}{% endblocktrans %}</h1>
+
+  {% url 'problems:challenge' request.current_edition.year 'semifinal' as url_problems %}
+  {% url 'scoreboard' as url_scoreboard %}
+  <p>{% blocktrans %}Welcome to Prologin regional event! You can start <a href="{{ url_problems }}">solving problems</a>
+or browse the <a href="{{ url_scoreboard }}">live scoreboard</a>.{% endblocktrans %}</p>
+
+  <p>{% trans "Good luck, and don't forget to have fun." %} <i class="fa fa-smile-o"></i></p>
+
+{% endblock content %}

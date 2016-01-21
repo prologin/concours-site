@@ -1,0 +1,42 @@
+{% extends "prologin/base.html" %}
+{% load i18n static django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "semifinal_summary" %}{% trans "Regional event" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "scoreboard" %}{% trans "Live scoreboard" %}{% endbreadcrumb_for %}
+{% endblock %}
+
+{% block title %}{% trans "Live scoreboard" %}{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "Live scoreboard" %}</h1>
+
+  {% include "semifinal/stub-scoreboard.html" %}
+
+  <div id="lol">
+
+  </div>
+
+{% endblock content %}
+
+{% block extra_script %}
+  <script src="{% static 'js/semifinal/rank-table.js' %}"></script>
+  <script type="application/javascript">
+    $(function () {
+      var $board = $("#scoreboard");
+
+      function poll() {
+        $.get("{% url 'scoreboard-data' %}")
+          .done(function (new_board) {
+            $board.rankingTableUpdate(new_board, function () {
+              setTimeout(poll, 5000);
+            });
+          });
+      }
+
+      poll();
+    });
+  </script>
+{% endblock %}

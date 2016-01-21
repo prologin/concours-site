@@ -1,0 +1,22 @@
+{% load i18n humanize %}{% spaceless %}
+<tr id="sb-{{ user.pk }}">
+  <td class="text-center sb-update">
+  {% if user.rank <= 3 %}
+    <span class="challenge-trophy-{{ user.rank }}"><i class="fa fa-trophy"></i></span>
+  {% endif %}
+  </td>
+  <td style="width: 1%; white-space: nowrap;" class="sb-update">
+    <strong>{{ user.rank }}</strong>
+  {% if user.ex_aequo %}
+    <small> {% trans "(ex-aequo)" %}</small>
+  {% endif %}
+  </td>
+  <td>
+    {{ user.username }}
+  </td>
+  <td>
+    {{ user.get_full_name }}
+  </td>
+  <td class="sb-update">{{ user.score|intcomma }}</td>
+</tr>
+{% endspaceless %}

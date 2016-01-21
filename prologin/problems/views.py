@@ -19,6 +19,7 @@ from problems.forms import SearchForm, CodeSubmissionForm
 from problems.tasks import submit_problem_code
 from prologin.languages import Language
 from prologin.utils import cached
+from prologin.utils.scoring import decorate_with_rank
 from prologin.views import ChoiceGetAttrsMixin
 
 import problems.models
@@ -464,25 +465,21 @@ class ChallengeScoreboard(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        def wrap_with_ranks(ranking):
-            current_rank = 1
-            previous_score = None
-            for i, line in enumerate(ranking, 1):
-                line['ex_aequo'] = True
-                if (previous_score is None
-                        or previous_score != line['total_score']):
-                    current_rank = i
-                    line['ex_aequo'] = False
-                    previous_score = line['total_score']
-                line['rank'] = current_rank
-                yield line
+        def score_getter(item):
+            return item['total_score']
 
-        return wrap_with_ranks((problems.models.Submission.objects
-                .filter(challenge=self.challenge.name, score_base__gt=0,
-                        user__is_staff=0)
-                .values('user_id', 'user__username')
-                .annotate(total_score=Sum(F('score_base') - F('malus')))
-                .order_by('-total_score'))[:self.row_count])
+        def decorator(item, rank, ex_aequo):
+            item['rank'] = rank
+            item['ex_aequo'] = ex_aequo
+
+        items = (problems.models.Submission.objects
+                 .filter(challenge=self.challenge.name, score_base__gt=0,
+                         user__is_staff=0)
+                 .values('user_id', 'user__username')
+                 .annotate(total_score=Sum(F('score_base') - F('malus')))
+                 .order_by('-total_score'))
+
+        return decorate_with_rank(items, score_getter, decorator)[:self.row_count]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

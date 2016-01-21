@@ -4,7 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import TemplateView
 
-import semifinals.views
+import semifinal.views
 
 
 urlpatterns = [
@@ -17,14 +17,17 @@ urlpatterns = [
 
 urlpatterns += [
     # Homepage
-    url(r'^$', semifinals.views.Homepage.as_view(), name='home'),
-    url(r'^$', semifinals.views.SemifinalSummary.as_view(), name='semifinal_summary'),
+    url(r'^$', semifinal.views.Homepage.as_view(), name='home'),
+
+    # Live scoreboard
+    url(r'^scoreboard$', semifinal.views.Scoreboard.as_view(), name='scoreboard'),
+    url(r'^scoreboard/data$', semifinal.views.ScoreboardData.as_view(), name='scoreboard-data'),
 
     # Contest
     url(r'^contest/', include('contest.urls', namespace='contest')),
 
     # Semifinal problems
-    url(r'^semifinal/', include('problems.urls', namespace='training')),
+    url(r'^semifinal/', include('problems.urls', namespace='problems')),
 
     # Authentication and accounts
     url(r'^user/', include('users.urls', namespace='users')),
