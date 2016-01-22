@@ -37,7 +37,7 @@ class Homepage(ParticipateRequiredMixin, TemplateView):
     template_name = 'semifinal/homepage.html'
 
 
-class Scoreboard(ScoreboardUserListMixin, ParticipateRequiredMixin, TemplateView):
+class Scoreboard(ScoreboardUserListMixin, TemplateView):
     template_name = 'semifinal/scoreboard.html'
 
     def get_context_data(self, **kwargs):
@@ -46,7 +46,7 @@ class Scoreboard(ScoreboardUserListMixin, ParticipateRequiredMixin, TemplateView
         return context
 
 
-class ScoreboardData(ScoreboardUserListMixin, ParticipateRequiredMixin, View):
+class ScoreboardData(ScoreboardUserListMixin, View):
     def get(self, context, **kwargs):
         return JsonResponse(self.get_json_data(), safe=False)
 

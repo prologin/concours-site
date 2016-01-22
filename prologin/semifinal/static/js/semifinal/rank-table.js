@@ -62,7 +62,10 @@
           bottom: 0,
           left: $old_td.position().left,
           width: $old_td.width(),
-          padding: $old_td.css('padding')
+          paddingTop: $old_td.css('paddingTop'),
+          paddingRight: $old_td.css('paddingRight'),
+          paddingBottom: $old_td.css('paddingBottom'),
+          paddingLeft: $old_td.css('paddingLeft')
         });
         $fake_row.append($fake_td);
         // clear out mutable data

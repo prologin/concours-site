@@ -9,34 +9,97 @@
 
 {% block title %}{% trans "Live scoreboard" %}{% endblock %}
 
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/semifinal/switchery.min.css' %}" />
+  <link rel="stylesheet" type="text/css" href="{% static 'css/semifinal/scoreboard.css' %}" />
+{% endblock %}
+
 {% block content %}
 
-  <h1>{% trans "Live scoreboard" %}</h1>
+  <div id="scoreboard-wrap">
+    <div class="pull-right">
+      <input type="checkbox" name="sb-auto" class="switchery" id="sb-auto" /> <label for="sb-auto"><small>{% trans "Auto-update" %}</small></label>
+      <button class="btn btn-sm btn-info btn-round" id="sb-update" title="{% trans "Refresh scoreboard" %}"><i class="fa fa-refresh"></i></button>
+      <button type="button" class="btn btn-sm btn-default btn-round hide-fs" id="sb-fs" title="{% trans "Fullscreen" %}"><i class="fa fa-expand"></i></button>
+      <button type="button" class="btn btn-sm btn-default btn-round hide-ss" id="sb-fs-exit" title="{% trans "Exit fullscreen" %}"><i class="fa fa-compress"></i></button>
+    </div>
 
-  {% include "semifinal/stub-scoreboard.html" %}
-
-  <div id="lol">
-
+    <h1>{% trans "Live scoreboard" %}</h1>
+    {% include "semifinal/stub-scoreboard.html" %}
   </div>
 
 {% endblock content %}
 
 {% block extra_script %}
+  <script src="{% static 'js/semifinal/switchery.min.js' %}"></script>
   <script src="{% static 'js/semifinal/rank-table.js' %}"></script>
   <script type="application/javascript">
     $(function () {
-      var $board = $("#scoreboard");
+      var $board = $("#scoreboard"), board_wrap = $('#scoreboard-wrap')[0], $update = $('#sb-update');
+      var auto_update = false, auto_update_timeout;
 
-      function poll() {
+      new Switchery(document.querySelector('.switchery'), {size: 'small'});
+
+      function scheduleUpdate() {
+        if (auto_update)
+          auto_update_timeout = setTimeout(update, 5000);
+      }
+
+      $('#sb-auto').change(function () {
+        auto_update = $(this).prop('checked');
+        $update.prop('disabled', auto_update).finish();
+        if (auto_update) {
+          $update.fadeTo('fast', 0, function () {
+            $update.css('visibility', 'hidden');
+          });
+          scheduleUpdate();
+        } else {
+          $update.css('visibility', 'visible').fadeTo('fast', 1);
+          clearTimeout(auto_update_timeout);
+        }
+      }).trigger('change');
+
+      $('#sb-update').click(function(e) {
+        var $this = $(this);
+        e.preventDefault();
+        $this.blur().prop('disabled', true);
+        setTimeout(function() { $this.prop('disabled', false); }, 5000);
+        update();
+      });
+
+      $('#sb-fs, #sb-fs-exit').click(function (e) {
+        e.preventDefault();
+        if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement) {
+          if (document.exitFullscreen) {
+            document.exitFullscreen();
+          } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+          } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+          } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+          }
+        } else {
+          if (board_wrap.requestFullscreen) {
+            board_wrap.requestFullscreen();
+          } else if (board_wrap.webkitRequestFullscreen) {
+            board_wrap.webkitRequestFullscreen();
+          } else if (board_wrap.mozRequestFullScreen) {
+            board_wrap.mozRequestFullScreen();
+          } else if (board_wrap.msRequestFullscreen) {
+            board_wrap.msRequestFullscreen();
+          }
+        }
+      });
+
+      function update() {
         $.get("{% url 'scoreboard-data' %}")
           .done(function (new_board) {
             $board.rankingTableUpdate(new_board, function () {
-              setTimeout(poll, 5000);
+              scheduleUpdate();
             });
           });
       }
-
-      poll();
     });
   </script>
 {% endblock %}
