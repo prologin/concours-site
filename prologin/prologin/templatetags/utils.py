@@ -6,8 +6,10 @@ import re
 from django import template
 from django.conf import settings
 from django.template import Node, TemplateSyntaxError
+from django.utils import timezone
 from django.utils.encoding import smart_str
 from django.utils.module_loading import import_string
+from django.utils.timesince import timesince
 
 register = template.Library()
 
@@ -32,6 +34,14 @@ def choiceenum_member(enum_path, type='value'):
         return member.value
     if type == 'name':
         return member.name
+
+
+@register.filter
+def naturaltimedelta(delta):
+    # stupid Django timesince() does not takes a delta but two dates, so we have to create a dummy difference
+    now = timezone.now()
+    before = now - delta
+    return timesince(before, now)
 
 
 @register.filter

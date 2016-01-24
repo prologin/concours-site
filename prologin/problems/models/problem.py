@@ -131,6 +131,13 @@ class Challenge:
         return sorted(problems)
     problems = lazy_attr('_problems_', _get_problems)
 
+    def _get_problems_dict(self):
+        return {problem.name: problem for problem in self.problems}
+    problems_dict = lazy_attr('_problems_dict_', _get_problems_dict)
+
+    def problem(self, name):
+        return self.problems_dict[name]
+
     def problems_of_difficulty(self, difficulty):
         return sorted(problem for problem in self.problems if problem.difficulty == difficulty)
 
@@ -168,6 +175,9 @@ class Challenge:
 
     @property
     def problem_difficulty_list(self) -> [int]:
+        """
+        Sorted list of problem difficulties for this challenge.
+        """
         return sorted(set(problem.difficulty for problem in self.problems))
 
 
@@ -197,10 +207,10 @@ class Problem:
         self._name = name
 
     def __hash__(self):
-        return hash(self._name)
+        return hash((self._challenge, self._name))
 
     def __eq__(self, other):
-        return other._name == self._name
+        return isinstance(other, Problem) and self._challenge == other._challenge and self._name == other._name
 
     def __lt__(self, other):
         return (self.difficulty, self.title) < (other.difficulty, other.title)

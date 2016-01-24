@@ -1,8 +1,10 @@
 from django.conf import settings
+from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.db.models import Q, F, Sum
 from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
+from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, View
 from django.views.generic.detail import BaseDetailView
@@ -115,7 +117,7 @@ class Challenge(PermissionRequiredMixin, TemplateView):
         if challenge.event_type is Event.Type.semifinal and settings.PROLOGIN_SEMIFINAL_MODE:
             # special case because has_perm('problems.view_problem') is heavy
             contestant = Contestant.objects.get(user=self.request.user, edition__year=challenge.year)
-            available_problems = contestant.available_semifinal_problems()
+            available_problems = contestant.available_semifinal_problems
             for problem in context['problems']:
                 if problem not in available_problems:
                     problem.locked = True
@@ -168,6 +170,13 @@ class Problem(PermissionRequiredMixin, CreateView):
         kwargs['submission'] = self.submission_code.pk
         return reverse('problems:submission', kwargs=kwargs)
 
+    def get_user_for_submission(self):
+        as_user = self.request.GET.get('as')
+        if as_user and self.request.user.has_perm('problems.view_others_submissions'):
+            return get_object_or_404(get_user_model(), pk=as_user)
+        if self.request.user.is_authenticated():
+            return self.request.user
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         year, event_type, challenge, problem = get_problem(self.request, self.kwargs)
@@ -185,8 +194,9 @@ class Problem(PermissionRequiredMixin, CreateView):
         context['meta_solved_by'] = sum(1 for sub in tackled_by if sub.succeeded())
 
         user_submission = None
-        if self.request.user.is_authenticated():
-            user_submission = (self.request.user.training_submissions
+        user_for_submission = self.get_user_for_submission()
+        if user_for_submission:
+            user_submission = (user_for_submission.training_submissions
                                .prefetch_related('codes', 'submission_choices')
                                .filter(challenge=challenge.name, problem=problem.name)
                                .first())

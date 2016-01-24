@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='ExplicitSubmissionUnlock',
+            name='ExplicitProblemUnlock',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', serialize=False, primary_key=True, auto_created=True)),
                 ('challenge', models.CharField(max_length=64, db_index=True)),
@@ -26,7 +26,7 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.AlterUniqueTogether(
-            name='explicitsubmissionunlock',
+            name='explicitproblemunlock',
             unique_together=set([('challenge', 'problem', 'user')]),
         ),
     ]

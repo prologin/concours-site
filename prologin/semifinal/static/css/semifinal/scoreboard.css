@@ -1,0 +1,67 @@
+
+#scoreboard-wrap:fullscreen .hide-fs {
+  display: none;
+}
+
+#scoreboard-wrap:-webkit-full-screen .hide-fs {
+  display: none;
+}
+
+#scoreboard-wrap:-moz-full-screen .hide-fs {
+  display: none;
+}
+
+.hide-ss {
+  display: none;
+}
+
+#scoreboard-wrap:fullscreen .hide-ss {
+  display: initial;
+}
+
+#scoreboard-wrap:-webkit-full-screen .hide-ss {
+  display: initial;
+}
+
+#scoreboard-wrap:-moz-full-screen .hide-ss {
+  display: initial;
+}
+
+#scoreboard-wrap:fullscreen {
+  background-color: white;
+  padding: 3em;
+}
+
+#scoreboard-wrap:-webkit-full-screen {
+  background-color: white;
+  padding: 3em;
+}
+
+#scoreboard-wrap:-moz-full-screen {
+  background-color: white;
+  padding: 3em;
+}
+
+.btn-round {
+  border-radius: 100%;
+}
+
+.btn-round:focus, .btn-round:active {
+  outline: 0 !important;
+}
+
+.switchery-small {
+  border-radius: 8px;
+  height: 16px;
+  width: 33px;
+}
+
+.switchery-small > small {
+  height: 16px;
+  width: 16px;
+}
+
+label[for="sb-auto"] {
+  font-weight: normal;
+  cursor: pointer;
+}

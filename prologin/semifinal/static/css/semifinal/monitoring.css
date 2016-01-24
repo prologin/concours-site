@@ -1,0 +1,37 @@
+.table > tbody > tr:nth-of-type(4n+1), .table > tbody > tr:nth-of-type(4n+2) {
+  background-color: #f9f9f9;
+}
+
+.problem {
+  border-radius: 3px;
+  padding: 2px 2px 2px 6px;
+  margin: 0 1px;
+  font-size: 0.75em;
+  display: inline-block;
+  color: white;
+}
+
+.problem:hover, .problem:active {
+  text-decoration: none;
+  color: white;
+}
+
+
+.problem:not([class*='label-']) {
+  background-color: #999;
+}
+.problem:not([class*='label-']):hover {
+  background-color: #808080;
+}
+
+.problem .name {
+  font-weight: bold;
+}
+
+.problem .spent {
+  padding: 0 6px;
+}
+
+.problem .icon {
+  padding: 0 6px 0 0;
+}

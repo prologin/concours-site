@@ -7,8 +7,11 @@ from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Count, Q
+from django.db.models.aggregates import Sum
+from django.db.models.functions import Coalesce
 from django.utils import timezone
 from django.utils.formats import date_format
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
 from jsonfield import JSONField
@@ -258,99 +261,112 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
                    for name in self._meta.get_all_field_names()
                    if name.startswith('score_'))
 
+    @cached_property
+    def semifinal_challenge(self):
+        from problems.models import Challenge
+        return Challenge.by_year_and_event_type(self.edition.year, Event.Type.semifinal)
+
+    @cached_property
+    def semifinal_explicitly_unlocked_problems(self):
+        from problems.models import ExplicitProblemUnlock
+        return ExplicitProblemUnlock.objects.filter(challenge=self.semifinal_challenge.name, user=self.user)
+
+    @cached_property
+    def semifinal_lines_of_code(self):
+        from problems.models import SubmissionCode
+        return sum(1
+                   for code in (SubmissionCode.objects
+                                .filter(submission__user=self.user,
+                                        submission__challenge=self.semifinal_challenge.name)
+                                .values_list('code', flat=True))
+                   for line in code.replace('\r', '\n').split('\n') if line.strip())
+
+    @cached_property
+    def semifinal_problems_score(self):
+        from problems.models import Submission
+        return (Submission.objects
+                .filter(user=self.user, challenge=self.semifinal_challenge.name)
+                .aggregate(score=Coalesce(Sum('score_base') - Sum('malus'), 0))).score
+
+    @cached_property
     def available_semifinal_problems(self):
-        from problems.models import Challenge, Submission, SubmissionCode, ExplicitSubmissionUnlock
-        challenge = Challenge.by_year_and_event_type(self.edition.year, Event.Type.semifinal)
+        from problems.models import Challenge, Submission, ExplicitProblemUnlock
+        challenge = self.semifinal_challenge
 
         if self.user.is_staff:
             return list(challenge.problems)
 
-        if challenge.type is Challenge.Type.standard:
+        elif challenge.type == Challenge.Type.standard:
             return list(challenge.problems)
 
-        solved_problem_submissions = Submission.objects.filter(user=self.user, challenge=challenge.name, score_base__gt=0)
-        solved_problem_names = set(solved_problem_submissions.values_list('problem', flat=True))
-        solved_problems = set(problem for problem in challenge.problems if problem.name in solved_problem_names)
-
+        seed = self.user.pk
+        problem_to_solved_date = {}
+        problem_to_unlock_date = {}
         difficulty_to_solved = collections.defaultdict(set)
-        for problem in solved_problems:
+
+        for unlock in ExplicitProblemUnlock.objects.filter(user=self.user, challenge=challenge.name):
+            problem = challenge.problem(unlock.problem)
+            problem_to_unlock_date[problem] = unlock.date_created
+
+        for submission in Submission.objects.filter(user=self.user, challenge=challenge.name, score_base__gt=0):
+            problem = challenge.problem(submission.problem)
+            problem_to_solved_date[problem] = submission.first_code_success().date_submitted
             difficulty_to_solved[problem.difficulty].add(problem)
+
+        # transform into real dict, so we don't get an empty set but an actual KeyError on missing keys
         difficulty_to_solved = dict(difficulty_to_solved)
 
-        explicitly_unlocked = ExplicitSubmissionUnlock.objects.filter(challenge=challenge.name, user=self.user)
-        explicitly_unlocked_names = set(explicitly_unlocked.values_list('problem', flat=True))
-        unlocked_problems = solved_problems | set(problem for problem in challenge.problems
-                                                  if problem.name in explicitly_unlocked_names)
-
-        # pre-compute earliest dates for mode one_per_level_delayed
-        if challenge.type is Challenge.Type.one_per_level_delayed:
-            difficulty_to_start_date = {}
-            # dates from contestant submission codes
-            problem_to_date = dict((SubmissionCode.objects
-                                    .filter(submission__in=solved_problem_submissions)
-                                    .select_related('submission')
-                                    .values_list('submission__problem', 'date_submitted')))
-
-            # merge with dates from staff manual unlock (whatever is the earliest)
-            for problem, staff_date in explicitly_unlocked.values_list('problem', 'date_created'):
-                try:
-                    if staff_date < problem_to_date[problem]:
-                        problem_to_date[problem] = staff_date
-                except KeyError:
-                    problem_to_date[problem] = staff_date
-
-            for difficulty in challenge.problem_difficulty_list:
-                problem_names = set(problem.name for problem in challenge.problems_of_difficulty(difficulty))
-                try:
-                    difficulty_to_start_date[difficulty] = max(problem_to_date[name] for name in problem_names if name in problem_to_date)
-                except ValueError:
-                    # empty sequence
-                    pass
-
         dl = challenge.problem_difficulty_list
-        # first difficulty is always here
-        with save_random_state(seed=self.user.pk):
-            unlocked_problems.add(random.choice(challenge.problems_of_difficulty(dl[0])))
-
         for previous_difficulty, difficulty in itertools.zip_longest(dl, dl[1:]):
-            difficulty_problems = challenge.problems_of_difficulty(difficulty)
+            problems = challenge.problems_of_difficulty(difficulty)
 
-            if challenge.type is Challenge.Type.all_per_level:
-                if previous_difficulty in difficulty_to_solved:
-                    unlocked_problems.update(difficulty_problems)
+            try:
+                earliest_unlock_date = min(problem_to_solved_date[problem]
+                                           for problem in difficulty_to_solved[previous_difficulty])
+            except KeyError:
+                # no solved problems of previous_difficulty
+                earliest_unlock_date = None
 
-            elif challenge.type is Challenge.Type.one_per_level:
-                if previous_difficulty in difficulty_to_solved:
-                    with save_random_state(seed=self.user.pk):
-                        unlocked_problems.add(random.choice(difficulty_problems))
+            if challenge.type == Challenge.Type.all_per_level:
+                if earliest_unlock_date:
+                    for problem in problems:
+                        problem_to_unlock_date[problem] = earliest_unlock_date
 
-            elif challenge.type is Challenge.Type.one_per_level_delayed:
+            elif challenge.type == Challenge.Type.one_per_level:
+                if earliest_unlock_date:
+                    with save_random_state(seed):
+                        problem_to_unlock_date[random.choice(problems)] = earliest_unlock_date
+
+            elif challenge.type == Challenge.Type.one_per_level_delayed:
                 # number of solved problems of previous_difficulty
                 quantity = len(difficulty_to_solved.get(previous_difficulty, []))
                 # unlock (number of solved previous_difficulty) problems of difficulty
-                quantity = min(quantity, len(difficulty_problems))
+                quantity = min(quantity, len(problems))
                 if quantity:
-                    with save_random_state(seed=self.user.pk):
-                        unlocked_problems.update(random.sample(difficulty_problems, quantity))
-                # unlock a new previous-difficulty problem if still no success at this difficulty
-                if not difficulty_to_solved.get(difficulty, []):
+                    with save_random_state(seed):
+                        for problem in random.sample(problems, quantity):
+                            problem_to_unlock_date[problem] = earliest_unlock_date
+                # unlock a single previous-difficulty problem if still no success at this difficulty
+                if earliest_unlock_date and not difficulty_to_solved.get(difficulty):
                     # previous-difficulty problems that are not already unlocked
                     previous_difficulty_problems = [problem for problem in challenge.problems_of_difficulty(previous_difficulty)
-                                                    if problem not in unlocked_problems]
-                    if not previous_difficulty_problems:
-                        continue
-                    try:
-                        start_date = difficulty_to_start_date[previous_difficulty]
-                        if (timezone.now() - start_date).seconds > challenge.auto_unlock_delay:
+                                                    if problem not in problem_to_unlock_date]
+                    if previous_difficulty_problems:
+                        if (timezone.now() - earliest_unlock_date).seconds > challenge.auto_unlock_delay:
                             # waited long enough, unlock a new previous-difficulty problem
-                            with save_random_state(seed=self.user.pk):
-                                added = random.choice(previous_difficulty_problems)
-                                added.automatically_unlocked = True
-                                unlocked_problems.add(added)
-                    except KeyError:
-                        pass
+                            with save_random_state(seed):
+                                problem = random.choice(previous_difficulty_problems)
+                                problem_to_unlock_date[problem] = earliest_unlock_date
 
-        return unlocked_problems
+        # should not happen, but you never know (eg. if explicit unlock is removed after it's solved)
+        # assign a fake unlock date to problems that are solved but not unlocked (wtf)
+        for problem, solved_date in problem_to_solved_date.items():
+            if problem not in problem_to_unlock_date:
+                problem_to_unlock_date[problem] = solved_date
+
+        return {problem: {'unlocked': date_unlocked,
+                          'solved': problem_to_solved_date.get(problem)}
+                for problem, date_unlocked in problem_to_unlock_date.items()}
 
     def compute_changes(self, new, event_type):
         changes = {

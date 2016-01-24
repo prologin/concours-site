@@ -185,5 +185,12 @@ class SubmissionAdmin(admin.ModelAdmin):
                 .extra(select={'c_succeeded': 'score_base > 0'}))
 
 
+class ExplicitProblemUnlockAdmin(admin.ModelAdmin):
+    list_display = ('__str__', 'challenge', 'problem', 'user', 'date_created', 'created_by',)
+    list_filter = ('challenge', 'problem', 'user',)
+    search_fields = ('challenge', 'problem', 'user__username', 'user__first_name', 'user__last_name',)
+
+
 admin.site.register(problems.models.Submission, SubmissionAdmin)
 admin.site.register(problems.models.SubmissionCode, SubmissionCodeAdmin)
+admin.site.register(problems.models.ExplicitProblemUnlock, ExplicitProblemUnlockAdmin)

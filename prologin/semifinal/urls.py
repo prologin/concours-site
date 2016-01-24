@@ -4,6 +4,7 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import TemplateView
 
+import semifinal.staff_views
 import semifinal.views
 
 
@@ -15,6 +16,11 @@ urlpatterns = [
     url(r'^lang/', include('django.conf.urls.i18n')),
 ]
 
+monitoring_patterns = [
+    url(r'^$', semifinal.staff_views.MonitoringIndexView.as_view(), name='index'),
+    url(r'^unlock$', semifinal.staff_views.ExplicitUnlockView.as_view(), name='unlock'),
+]
+
 urlpatterns += [
     # Homepage
     url(r'^$', semifinal.views.Homepage.as_view(), name='home'),
@@ -22,6 +28,9 @@ urlpatterns += [
     # Live scoreboard
     url(r'^scoreboard$', semifinal.views.Scoreboard.as_view(), name='scoreboard'),
     url(r'^scoreboard/data$', semifinal.views.ScoreboardData.as_view(), name='scoreboard-data'),
+
+    # Contest monitoring
+    url(r'^contest/monitor/', include(monitoring_patterns, namespace='monitoring')),
 
     # Contest
     url(r'^contest/', include('contest.urls', namespace='contest')),

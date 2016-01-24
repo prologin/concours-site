@@ -22,17 +22,20 @@ class Submission(ExportModelOperationsMixin('submission'), models.Model):
     score_base = models.IntegerField(default=0)
     malus = models.IntegerField(default=0)
 
-    def latest_submission(self):
-        return self.codes.latest()
-
-    def score(self):
-        return max(0, self.score_base - self.malus)
-
     def challenge_model(self) -> Challenge:
         return Challenge.by_low_level_name(self.challenge)
 
     def problem_model(self) -> Problem:
         return Problem(self.challenge_model(), self.problem)
+
+    def latest_submission(self):
+        return self.codes.latest()
+
+    def first_code_success(self):
+        return self.codes.filter(score__gt=0).earliest()
+
+    def score(self):
+        return max(0, self.score_base - self.malus)
 
     def succeeded(self):
         return self.score_base > 0
@@ -136,7 +139,7 @@ class SubmissionCodeChoice(ExportModelOperationsMixin('submission_code_choice'),
         unique_together = [('submission', 'code')]
 
 
-class ExplicitSubmissionUnlock(models.Model):
+class ExplicitProblemUnlock(models.Model):
     challenge = models.CharField(max_length=64, db_index=True)
     problem = models.CharField(max_length=64, db_index=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='explicit_problem_unlocks')

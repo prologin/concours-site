@@ -1,0 +1,80 @@
+{% extends "prologin/base.html" %}
+{% load i18n static humanize utils django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "semifinal_summary" %}{% trans "Regional event" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "monitoring:index" %}{% trans "Monitoring" %}{% endbreadcrumb_for %}
+{% endblock %}
+
+{% block title %}{% trans "Monitoring board" %}{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/semifinal/monitoring.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "Monitoring board" %}</h1>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{% trans "Contestant" %}</th>
+        <th width="8%">{% trans "Score" %}</th>
+        <th width="8%">{% trans "Level" %}</th>
+        <th width="8%">{% trans "LoC" context "Lines of code" %}</th>
+        <th width="25%">{% trans "Actions" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for contestant in contestants %}
+      <tr>
+        <td>
+          {{ contestant.user.username }}
+          <small class="text-muted">{{ contestant.user.get_full_name }}</small>
+        </td>
+        <td class="text-right">{{ contestant.score|intcomma }}</td>
+        <td>
+          {{ contestant.max_difficulty }}
+        </td>
+        <td>
+          {{ contestant.semifinal_lines_of_code }}
+        </td>
+        <td>
+          <a class="btn btn-xs btn-default" href="{% url 'admin:users_prologinuser_change' contestant.user.pk %}">
+            <i class="fa fa-pencil"></i> {% trans "Edit" %}
+          </a>
+          {# FIXME: find the name of admin user password change URL #}
+          <a class="btn btn-xs btn-default" href="{% url 'admin:users_prologinuser_change' contestant.user.pk %}./password">
+            <i class="fa fa-key"></i> {% trans "Password" %}
+          </a>
+          <a class="btn btn-xs btn-default" href="{% url 'monitoring:unlock' %}?contestant={{ contestant.pk }}">
+            <i class="fa fa-unlock"></i> {% trans "Unlock" %}
+          </a>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="5">
+        {% spaceless %}{% for problem, dates in contestant.semifinal_problems %}
+          <a href="{% url 'problems:problem' request.current_edition.year 'semifinal' problem.name %}?as={{ contestant.user.pk }}#history" class="problem {% if dates.solved %}label-success{% elif dates.concerning %}label-{{ dates.concerning }}{% endif %}">
+            <span class="icon"><i class="fa fa-{% if dates.solved %}check{% else %}clock-o{% endif %}"></i></span>
+            <span class="name">{{ problem.title }}</span>
+            <span class="spent">
+            {% if dates.solved %}
+              {{ dates.delta|naturaltimedelta }}
+            {% else %}
+              {{ dates.unlocked|timesince }}
+            {% endif %}
+            </span>
+          </a>
+        {% empty %}
+          <em>{% trans "No problem tackled yet" %}</em>
+        {% endfor %}{% endspaceless %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock content %}

@@ -10,8 +10,8 @@
     <ul class="dropdown-menu dropdown-menu-right" role="menu">
       <li><a href="{% url 'admin:index' %}">{% trans "Django administration" %}</a></li>
       <li class="divider"></li>
-      {% has_perm 'correction.can_correct' request.user None as can_correct %}
-      {% if can_correct %}<li><a href="{% url 'contest:correction-index' %}">{% trans "Correction" %}</a></li>{% endif %}
+      {% has_perm 'semifinal.monitor' request.user None as can_monitor %}
+      {% if can_monitor %}<li><a href="{% url 'monitoring:index' %}"><i class="fa fa-wrench"></i> {% trans "Regional event monitoring" %}</a></li>{% endif %}
     </ul>
   </li>
 {% endif %}

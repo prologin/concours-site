@@ -1,0 +1,29 @@
+{% extends "prologin/base.html" %}
+{% load i18n static humanize utils bootstrap django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "semifinal_summary" %}{% trans "Regional event" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "monitoring:index" %}{% trans "Monitoring" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "" %}{% trans "Unlocking" %}{% endbreadcrumb_for %}
+{% endblock %}
+
+{% block title %}{% trans "Unlocking" %}{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "Unlocking" %}</h1>
+
+  <form method="POST" class="form form-horizontal">
+    {% csrf_token %}
+    {{ form|bootstrap_horizontal }}
+    <div class="form-group">
+      <div class="col-sm-10 col-sm-offset-2">
+        <button type="submit" class="btn btn-primary">
+          <i class="fa fa-unlock"></i> {% trans "Unlock selected contestants" %}
+        </button>
+      </div>
+    </div>
+  </form>
+
+{% endblock content %}
