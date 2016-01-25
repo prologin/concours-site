@@ -11,6 +11,7 @@ from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils import timezone
+from django.utils.text import slugify
 from django.utils.translation import LANGUAGE_SESSION_KEY, ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
 from timezone_field import TimeZoneField
@@ -134,6 +135,10 @@ class ProloginUser(ExportModelOperationsMixin('user'), AbstractUser, Addressable
             hashlib.sha1("{}{}{}".format(self.first_name, self.last_name, settings.PLAINTEXT_PASSWORD_SALT)
                                  .encode('utf-8')).digest()
         ).decode('ascii').translate(settings.PLAINTEXT_PASSWORD_DISAMBIGUATION)[:settings.PLAINTEXT_PASSWORD_LENGTH]
+
+    @property
+    def normalized_username(self):
+        return slugify("{}{}".format(self.first_name[:1], self.last_name))
 
     @property
     def picture_or_avatar(self):

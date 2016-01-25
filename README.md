@@ -185,9 +185,9 @@ export.
     $ ssh prologin@rosa
     $ cd site/prologin
     # activate venv, export DJANGO_SETTINGS_MODULE, etc.
-    $ python manage.py semifinal_export /tmp/semifinal.EVENTNAME.tgz
+    $ python manage.py semifinal_export /tmp/semifinal.EVENTNAME.json.gz
 
-Then copy the resulting tarball on the machine hosting the semifinal website.
+Then copy the resulting file on the machine hosting the semifinal website.
 
 ### Installing the semifinal website
 
@@ -232,7 +232,7 @@ Follow the generic how-to, with the following differences:
 * import the user data you previously exported:
 
         # activate venv, export DJANGO_SETTINGS_MODULE
-        $ python manage.py semifinal_bootstrap semifinal.EVENTNAME.tgz
+        $ python manage.py semifinal_bootstrap semifinal.EVENTNAME.json.gz
 
 * during the initial setup, you may want to set `DEBUG = True` in the settings. Do not forget to **set it to `False` 
   during the contest**.

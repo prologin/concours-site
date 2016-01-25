@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.core import serializers
 from django.core.management import BaseCommand, CommandError
 from django.db import transaction
+from django.utils.text import slugify
 
 import contest.models
 
@@ -60,6 +61,7 @@ class Command(BaseCommand):
             for contestant in contestants:
                 user = contestant.user
                 user.set_password(user.plaintext_password)
+                user.username = user.normalized_username
                 self.stdout.write("        {}".format(user.username))
                 yield user
 
