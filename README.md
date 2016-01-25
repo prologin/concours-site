@@ -32,7 +32,7 @@ use of the [`pew` tool](https://pypi.python.org/pypi/pew/).
     pew new -p $(which python3) -r requirements.txt prologin-site
     # If Python 3 executable is 'python' (eg. ArchLinux)
     pew new -r requirements.txt prologin-site
-    pew setproject "$PWD"
+    pew setproject
 
 ## Configuration
 
@@ -121,9 +121,24 @@ command instead:
     cd prologin && python manage.py edition create
     # Answer the questions
 
-## Importing data from the old website
+## Importing data from the old Drupal website
 
-TODO.
+You should not do that. It's painful and useless outside of the production website.
+
+Order of migrations:
+
+1. users
+1. sponsors
+1. examcenters
+1. forums
+1. events
+1. user_pictures
+1. teams
+1. news
+1. contest_results
+1. problem_submissions
+1. legacy_problem_submissions
+
 
 ## Developing the website
 
@@ -159,6 +174,70 @@ Every time you need to work on the website:
         make celeryworker
 
 
+## Deploying the semifinal environment
+
+### Exporting user data from production website
+
+You need a root or site manager for this. The file name is arbitrary but you should replace `EVENTNAME` with the name of
+the semifinal event you are exporting, eg. `bordeaux` or `paris-2`. You will be interactively asked for the event to
+export.
+
+    $ ssh prologin@rosa
+    $ cd site/prologin
+    # activate venv, export DJANGO_SETTINGS_MODULE, etc.
+    $ python manage.py semifinal_export /tmp/semifinal.EVENTNAME.tgz
+
+Then copy the resulting tarball on the machine hosting the semifinal website.
+
+### Installing the semifinal website
+
+Follow the generic how-to, with the following differences:
+
+* create the settings (eg. `prologin/settings/semifinal.py`) using the following template:
+
+        :::python
+        from .semifinal_common import *
+        
+        # You can use $ pwgen -y 64
+        SECRET_KEY = 'CHANGEME'
+        
+        # Set the right year here
+        PROLOGIN_EDITION = 2016
+        
+        # Set the right hostname, as seen by contestant's machines
+        SITE_HOST = "localhost:8000"
+        
+        # Set the right local corrector ("VM") URL
+        PROBLEMS_CORRECTORS = ('http://localhost:8080/submit',)
+        
+        # Set the right path to the problems repository
+        PROBLEMS_REPOSITORY_PATH = '/home/prologin/problems'
+        
+        # These should be OK (assuming no TLS)
+        PROBLEMS_CHALLENGE_WHITELIST = ('demi{}'.format(PROLOGIN_EDITION),)
+        SITE_BASE_URL = 'http://{}'.format(SITE_HOST)
+        
+        # Uncomment and modify if needed:
+        
+        # Time before a new problem is automatically unlocked to help pass the
+        # current level
+        # PROBLEMS_DEFAULT_AUTO_UNLOCK_DELAY = 15 * 60
+        
+        # How much time spent on a problem becomes concerning
+        # Format: a tuple of (warning amount, danger amount), amounts in seconds
+        # SEMIFINAL_CONCERNING_TIME_SPENT = (30 * 60, 45 * 60)
+
+* do *not* create the minimal context;
+* don't forget to migrate the database for the next step;
+* import the user data you previously exported:
+
+        # activate venv, export DJANGO_SETTINGS_MODULE
+        $ python manage.py semifinal_bootstrap semifinal.EVENTNAME.tgz
+
+* during the initial setup, you may want to set `DEBUG = True` in the settings. Do not forget to **set it to `False` 
+  during the contest**.
+
+
 ## Tips and tricks
 
 * On old systems using Python 2 as default, replace all `python` invocation by `python3` or equivalent. Better: use a virtualenv with python3 by default.
@@ -178,19 +257,3 @@ Every time you need to work on the website:
   for more tips.
 * Please try to be [PEP8](https://www.python.org/dev/peps/pep-0008/) compliant.
   There are many tools to check and format your code.
-
-## Migrate from drupal
-
-Order of migrations:
-
-    users
-    sponsors
-    examcenters
-    forums
-    events
-    user_pictures
-    teams
-    news
-    contest_results
-    problem_submissions
-    legacy_problem_submissions
