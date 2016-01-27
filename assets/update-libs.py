@@ -52,6 +52,7 @@ def bootstrap():
                 print("Extracted", path)
 
 
+
 def select2():
     print("Updating select2 CSS/JS")
     releases = requests.get('https://api.github.com/repos/select2/select2/releases').json()
@@ -68,7 +69,6 @@ def select2():
                 path = strip_components(path, 1)  # strip dist/
                 extract_from_zip(zipball, member, path)
                 print("Extracted", path)
-
 
 def font_awesome():
     print("Updating Fontawesome CSS")
@@ -155,12 +155,11 @@ def datatables():
     ]
 
     zipball = io.BytesIO(requests.get('https://datatables.net/download/builder?{}/{}'.format(style, ','.join(plugins))).content)
-    dirs = ('js', 'css')
+    ftypes = ('js', 'css')
     with zipfile.ZipFile(zipball) as zipball:
-        for dir in dirs:
-            name = 'datatables.min.{}'.format(dir)
-            member = '/{}'.format(name)
-            extract_from_zip(zipball, member, os.path.join(dir, name))
+        for ftype in ftypes:
+            name = 'datatables.min.{}'.format(ftype)
+            extract_from_zip(zipball, name, os.path.join(ftype,name))
 
 
 def main():
