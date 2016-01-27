@@ -17,6 +17,11 @@
 
   <h1>{% trans "Monitoring board" %}</h1>
 
+  <h3>{% trans "Primary actions" %}</h3>
+  <p>
+    <a href="{% url 'monitoring:unlock' %}?allfirst=true" class="btn btn-default"><i class="fa fa-unlock"></i> {% trans "Unlock first problem for everybody" %}</a>
+  </p>
+
   <table class="table">
     <thead>
       <tr>

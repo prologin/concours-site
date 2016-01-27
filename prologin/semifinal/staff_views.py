@@ -86,9 +86,14 @@ class ExplicitUnlockView(FormView):
 
     def get_form_kwargs(self):
         contestant = self.request.GET.get('contestant')
+        allfirst = self.request.GET.get('allfirst')
         kwargs = super().get_form_kwargs()
         kwargs['challenge'] = self.request.current_challenge
         if contestant:
             contestant = get_object_or_404(contest.models.Contestant, pk=contestant)
             kwargs['initial'] = {'contestants': [contestant]}
+        elif allfirst:
+            contestants = contest.models.Contestant.objects.filter(user__is_staff=False, user__is_superuser=False)
+            problem = self.request.current_challenge.problems[0].name
+            kwargs['initial'] = {'contestants': contestants, 'problem': problem}
         return kwargs
