@@ -80,7 +80,7 @@ class ContestantForm(forms.ModelForm):
                       .filter(edition=edition, type=contest.models.Event.Type.semifinal.value)),
             min_choices=settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT,
             max_choices=settings.PROLOGIN_SEMIFINAL_MAX_WISH_COUNT,
-            label=_("Semifinal center wishes"),
+            label=_("Regional event center wishes"),
             help_text=_("This is where you would like to seat the regional events if you "
                         "are selected. Choose at least one and up to three wishes, in "
                         "order of preference. Most of the time, we are able to satisfy "

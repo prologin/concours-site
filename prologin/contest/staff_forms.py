@@ -98,7 +98,7 @@ class ContestantQualificationForm(ContestantCorrectionForm):
         if assigned != contest.models.Assignation.assigned.value:
             clean_data['assignation_semifinal_event'] = None
         elif not clean_data['assignation_semifinal_event']:
-            raise forms.ValidationError(_("Semifinal assignation event is required if contestant is assigned."))
+            raise forms.ValidationError(_("Regional event assignation event is required if contestant is assigned."))
 
 
 class ContestantSemifinalForm(ContestantCorrectionForm):

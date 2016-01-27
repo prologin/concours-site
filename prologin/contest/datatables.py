@@ -64,7 +64,7 @@ class ContestantQualificationTable(AbstractContestantTable):
     event_type = contest.models.Event.Type.qualification
     correction_url_name = 'correction-contestant-qualification'
 
-    assigned_event = datatableview.TextColumn(_("Assigned semifinal"),
+    assigned_event = datatableview.TextColumn(_("Assigned regional event"),
                                               sources=['assignation_semifinal_event__center__name',
                                                        'assignation_semifinal_event__center__city'],
                                               processor='get_assignation_semifinal_event')

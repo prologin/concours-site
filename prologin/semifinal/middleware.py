@@ -7,7 +7,7 @@ import problems.models
 
 class SemifinalMiddleware(object):
     def _raise(self):
-        raise ImproperlyConfigured("You need to create/configure a single Edition and related semifinal Event "
+        raise ImproperlyConfigured("You need to create/configure a single Edition and related regional event Event "
                                    "for year {}.".format(settings.PROLOGIN_EDITION))
 
     def process_request(self, request):
@@ -32,7 +32,7 @@ class SemifinalMiddleware(object):
             request.current_challenge = (problems.models.Challenge
                                          .by_year_and_event_type(year, contest.models.Event.Type.semifinal))
         except ObjectDoesNotExist:
-            raise ImproperlyConfigured("There is no challenge for semifinal year {}".format(year))
+            raise ImproperlyConfigured("There is no challenge for regional event year {}".format(year))
 
         # Logged-in user related queries
         request.current_contestant = None

@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-16 18:27+0100\n"
-"PO-Revision-Date: 2016-01-16 17:36+0000\n"
+"POT-Creation-Date: 2016-01-27 20:00+0100\n"
+"PO-Revision-Date: 2016-01-27 19:12+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -84,7 +84,7 @@ msgstr "Télécharger l'affiche"
 msgid "Poster not available"
 msgstr "Affiche indisponible"
 
-#: archives/templates/archives/index.html:40 contest/models.py:51
+#: archives/templates/archives/index.html:40 contest/models.py:56
 #: contest/templates/contest/index.html:8
 #: contest/templates/contest/qualification_summary.html:8
 #: contest/templates/correction/contestant-qualification.html:6
@@ -126,7 +126,7 @@ msgid "Sorry, no resource available."
 msgstr "Désolé, aucune ressource disponible."
 
 #: archives/templates/archives/index.html:59
-#: documents/templates/documents/index.html:29
+#: documents/templates/documents/index.html:27
 #: homepage/templates/homepage/jumbotron-semifinals.html:6
 #: problems/models/__init__.py:8
 msgid "Regional events"
@@ -136,8 +136,8 @@ msgstr "Épreuves régionales"
 msgid "Regional events report"
 msgstr "Rapport des épreuves régionales"
 
-#: archives/templates/archives/index.html:72 contest/models.py:53
-#: documents/templates/documents/index.html:78
+#: archives/templates/archives/index.html:72 contest/models.py:58
+#: documents/templates/documents/index.html:79
 #: homepage/templates/homepage/jumbotron-final.html:6
 msgid "Final"
 msgstr "Finale"
@@ -147,10 +147,11 @@ msgid "Final report"
 msgstr "Rapport de la finale"
 
 #: archives/templates/archives/index.html:79
-#: problems/templates/problems/challenge-scoreboard.html:8
-#: problems/templates/problems/challenge-scoreboard.html:11
-#: problems/templates/problems/challenge-scoreboard.html:14
-#: problems/templates/problems/challenge.html:14
+#: problems/templates/problems/challenge-scoreboard.html:7
+#: problems/templates/problems/challenge-scoreboard.html:10
+#: problems/templates/problems/challenge-scoreboard.html:13
+#: problems/templates/problems/challenge.html:13
+#: semifinal/templates/prologin/main-menu.html:6
 msgid "Scoreboard"
 msgstr "Classement"
 
@@ -195,7 +196,7 @@ msgstr "Hôtel"
 msgid "Pizzeria"
 msgstr "Pizzéria"
 
-#: centers/models.py:21 users/models.py:89
+#: centers/models.py:21 users/models.py:90
 msgid "Other"
 msgstr "Autre"
 
@@ -261,15 +262,16 @@ msgid "Correct"
 msgstr "Corriger"
 
 #: contest/datatables.py:67
-msgid "Assigned semifinal"
+msgid "Assigned regional event"
 msgstr "Épreuve régionale assignée"
 
 #: contest/datatables.py:71
 msgid "Assignation status"
 msgstr "Statut d'assignation"
 
-#: contest/datatables.py:74 contest/datatables.py:112 contest/models.py:179
-#: problems/admin.py:171 problems/templates/problems/manual.html:66
+#: contest/datatables.py:74 contest/datatables.py:112 contest/models.py:184
+#: problems/admin.py:171 problems/templates/problems/manual.html:65
+#: semifinal/templates/semifinal/monitoring.html:29
 msgid "Score"
 msgstr "Score"
 
@@ -321,7 +323,7 @@ msgid "You cannot participate if you are born before {}"
 msgstr "Vous ne pouvez pas participer si vous êtes né avant {}"
 
 #: contest/forms.py:83
-msgid "Semifinal center wishes"
+msgid "Regional event center wishes"
 msgstr "Choix de centres d'examen pour les épreuves régionales"
 
 #: contest/forms.py:84
@@ -331,81 +333,86 @@ msgid ""
 "preference. Most of the time, we are able to satisfy your first choice."
 msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'épreuve régionale. Faites au moins un vœu et jusqu'à trois vœux. Vous obtiendrez très probablement votre premier vœu."
 
-#: contest/models.py:52
+#: contest/models.py:57
 #: contest/templates/correction/contestant-semifinal.html:6
 #: contest/templates/correction/semifinal.html:9
 #: contest/templates/correction/semifinal.html:12
 #: contest/templates/correction/semifinal.html:20
-msgid "Semifinal"
-msgstr "Demi-finales"
+#: semifinal/templates/problems/stub-module-name.html:1
+#: semifinal/templates/semifinal/explicit-unlock.html:6
+#: semifinal/templates/semifinal/homepage.html:6
+#: semifinal/templates/semifinal/monitoring.html:6
+#: semifinal/templates/semifinal/scoreboard.html:6
+msgid "Regional event"
+msgstr "Épreuve régionale"
 
-#: contest/models.py:146
+#: contest/models.py:151
 msgid "Not assigned"
 msgstr "Non assigné"
 
-#: contest/models.py:147
+#: contest/models.py:152
 msgid "Ruled out"
 msgstr "Éliminé"
 
-#: contest/models.py:148
+#: contest/models.py:153
 msgid "Assigned"
 msgstr "Assigné"
 
-#: contest/models.py:156
+#: contest/models.py:161
 msgid "T-shirt size"
 msgstr "Taille du t-shirt"
 
-#: contest/models.py:156
+#: contest/models.py:161
 msgid "Choose your size"
 msgstr "Choisissez votre taille"
 
-#: contest/models.py:157
+#: contest/models.py:162
 msgid "We usually provide unisex Prologin t-shirts to the finalists."
 msgstr "Nous fournissons le plus souvent des t-shirts unisexe aux finalistes."
 
-#: contest/models.py:159
+#: contest/models.py:164
 msgid ""
 "The programming language you will most likely use during the regional "
 "events."
 msgstr "Le langage de programmation que vous utiliserez le plus probablement pour l'épreuve régionale."
 
-#: contest/models.py:163
-msgid "Semifinal assignation status"
+#: contest/models.py:168
+msgid "Regional event assignation status"
 msgstr "Assignation d'épreuve régionale"
 
-#: contest/models.py:166
-msgid "Semifinal assignation whishes"
+#: contest/models.py:171
+msgid "Regional event assignation whishes"
 msgstr "Vœux d'assignation épreuve régionale"
 
-#: contest/models.py:168
-msgid "Semifinal assigned event"
+#: contest/models.py:173
+msgid "Regional event assigned event"
 msgstr "Événement assigné pour l'épreuve régionale"
 
-#: contest/models.py:170
+#: contest/models.py:175
 msgid "Final assignation status"
 msgstr "Assignation de finale"
 
-#: contest/models.py:172
+#: contest/models.py:177
 msgid "Quiz score"
 msgstr "Score du quiz"
 
-#: contest/models.py:173
+#: contest/models.py:178
 msgid "Algo exercises score"
 msgstr "Score des exercices d'algo"
 
-#: contest/models.py:174 contest/models.py:178 contest/models.py:180
+#: contest/models.py:179 contest/models.py:183 contest/models.py:185
 msgid "Bonus score"
 msgstr "Score bonus"
 
-#: contest/models.py:175
+#: contest/models.py:180
 msgid "Written exam score"
 msgstr "Score de l'épreuve écrite"
 
-#: contest/models.py:176
+#: contest/models.py:181
 msgid "Interview score"
 msgstr "Score de l'entretien"
 
-#: contest/models.py:177
+#: contest/models.py:182
 msgid "Machine exam score"
 msgstr "Score de l'épreuve machine"
 
@@ -422,8 +429,9 @@ msgid "Unassigned"
 msgstr "Non assigné"
 
 #: contest/staff_forms.py:101
-msgid "Semifinal assignation event is required if contestant is assigned."
-msgstr "L'assignation à une demi-finale est requise si le candidat est assigné."
+msgid ""
+"Regional event assignation event is required if contestant is assigned."
+msgstr "L'assignation à une épreuve régionale est requise si le candidat est assigné."
 
 #: contest/templates/contest/index.html:6
 #: contest/templates/contest/qualification_summary.html:6
@@ -584,9 +592,9 @@ msgid "Event type"
 msgstr "Type d'évènement"
 
 #: contest/templates/correction/by-year.html:19
-#: documents/templates/documents/index.html:40
-#: documents/templates/documents/index.html:61
-#: documents/templates/documents/index.html:94
+#: documents/templates/documents/index.html:38
+#: documents/templates/documents/index.html:62
+#: documents/templates/documents/index.html:95 semifinal/forms.py:13
 msgid "Contestants"
 msgstr "Candidats"
 
@@ -614,7 +622,7 @@ msgid "Problem submissions"
 msgstr "Soumissions de problèmes"
 
 #: contest/templates/correction/contestant-base.html:41
-#: problems/templates/problems/problem.html:22
+#: problems/templates/problems/problem.html:21
 #: problems/templates/problems/stub_problem.html:4
 #, python-format
 msgid "Level %(level)s"
@@ -754,33 +762,37 @@ msgstr "Documents de %(year)s"
 msgid "Document index"
 msgstr "Sommaire des documents"
 
-#: documents/templates/documents/index.html:34
+#: documents/templates/documents/index.html:32
 msgid "All centers"
 msgstr "Tous les centres"
 
-#: documents/templates/documents/index.html:37
-#: documents/templates/documents/index.html:58
-#: documents/templates/documents/index.html:91
+#: documents/templates/documents/index.html:35
+#: documents/templates/documents/index.html:59
+#: documents/templates/documents/index.html:92
 msgid "Convocations"
 msgstr "Convocations"
 
-#: documents/templates/documents/index.html:43
-#: documents/templates/documents/index.html:64
+#: documents/templates/documents/index.html:41
+#: documents/templates/documents/index.html:65
 msgid "Interviews"
 msgstr "Interviews"
 
-#: documents/templates/documents/index.html:46
-#: documents/templates/documents/index.html:67
-#: documents/templates/documents/index.html:97
+#: documents/templates/documents/index.html:44
+#: documents/templates/documents/index.html:68
+#: documents/templates/documents/index.html:98
 msgid "Passwords"
 msgstr "Mots de passe"
 
-#: documents/templates/documents/index.html:49
-#: documents/templates/documents/index.html:100
+#: documents/templates/documents/index.html:47
+#: documents/templates/documents/index.html:101
 msgid "Portrayal agreement"
 msgstr "Droit à l'image"
 
-#: documents/templates/documents/index.html:110
+#: documents/templates/documents/index.html:56
+msgid "Data export"
+msgstr "Export données"
+
+#: documents/templates/documents/index.html:111
 msgid "There is no final event for this edition."
 msgstr "Il n'y pas d'événement finale pour cette édition."
 
@@ -807,145 +819,145 @@ msgstr "Sortie standard"
 msgid "Standard error"
 msgstr "Erreur standard"
 
-#: documents/views.py:49
+#: documents/views.py:54
 #, python-format
 msgid "Prologin %(year)s: batch invitations to the regional center %(center)s"
 msgstr "Prologin %(year)s : lot de convocations pour le centre régional %(center)s"
 
-#: documents/views.py:50
+#: documents/views.py:55
 #, python-format
 msgctxt "Document filename"
 msgid "invitations-%(year)s-regional-%(center)s"
 msgstr "invitations-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:55
+#: documents/views.py:60
 #, python-format
 msgid "Prologin %(year)s: invitation to the regional event for %(fullname)s"
 msgstr "Prologin %(year)s : convocation à l'épreuve régionale pour %(fullname)s"
 
-#: documents/views.py:56
+#: documents/views.py:61
 #, python-format
 msgctxt "Document filename"
 msgid "invitation-%(year)s-regional-%(fullname)s"
 msgstr "invitations-%(year)s-regionale-%(fullname)s"
 
-#: documents/views.py:62
+#: documents/views.py:67
 #, python-format
 msgid "Prologin %(year)s: call list for the regional center %(center)s"
 msgstr "Prologin %(year)s : liste d'appel pour le centre régional %(center)s"
 
-#: documents/views.py:63
+#: documents/views.py:68
 #, python-format
 msgctxt "Document filename"
 msgid "call-list-%(year)s-regional-%(center)s"
 msgstr "liste-appel-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:73
+#: documents/views.py:78
 #, python-format
 msgid "Prologin %(year)s: portrayal agreement for the regional events"
 msgstr "Prologin %(year)s : droit à l'image pour l'épreuve régionale"
 
-#: documents/views.py:74
+#: documents/views.py:79
 #, python-format
 msgctxt "Document filename"
 msgid "portrayal-agreement-%(year)s-regional"
 msgstr "droit-image-%(year)s-regionale"
 
-#: documents/views.py:89
+#: documents/views.py:94
 #, python-format
 msgid "Prologin %(year)s: password sheets for the regional center %(center)s"
 msgstr "Prologin %(year)s: mots de passe pour le centre régional %(center)s"
 
-#: documents/views.py:90
+#: documents/views.py:95
 #, python-format
 msgctxt "Document filename"
 msgid "password-list-%(year)s-regional-%(center)s"
 msgstr "mots-de-passe-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:100
+#: documents/views.py:105
 #, python-format
 msgid "Prologin %(year)s: interview sheets for the regional center %(center)s"
 msgstr "Prologin %(year)s : feuilles d'interview pour le centre régional %(center)s"
 
-#: documents/views.py:101
+#: documents/views.py:106
 #, python-format
 msgctxt "Document filename"
 msgid "interviews-%(year)s-regional-%(center)s"
 msgstr "interviews-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:110
+#: documents/views.py:115
 #, python-format
 msgid ""
 "Prologin %(year)s: document compilation for regional events for %(fullname)s"
 msgstr "Prologin %(year)s : compilation de documents pour l'épreuve régionale pour %(fullname)s"
 
-#: documents/views.py:111
+#: documents/views.py:116
 #, python-format
 msgctxt "Document filename"
 msgid "prologin-%(year)s-regional-documents-%(fullname)s"
 msgstr "prologin-%(year)s-documents-regionale-%(fullname)s"
 
-#: documents/views.py:118
+#: documents/views.py:172
 #, python-format
 msgid "Prologin %(year)s: batch invitations to the final"
 msgstr "Prologin %(year)s : lots de convocations pour la finale"
 
-#: documents/views.py:119
+#: documents/views.py:173
 #, python-format
 msgctxt "Document filename"
 msgid "invitations-%(year)s-final"
 msgstr "convocations-%(year)s-finale"
 
-#: documents/views.py:124
+#: documents/views.py:178
 #, python-format
 msgid "Prologin %(year)s: invitation to the final for %(fullname)s"
 msgstr "Prologin %(year)s : convocation à la finale pour %(fullname)s"
 
-#: documents/views.py:125
+#: documents/views.py:179
 #, python-format
 msgctxt "Document filename"
 msgid "invitation-%(year)s-final-%(fullname)s"
 msgstr "convocation-%(year)s-finale-%(fullname)s"
 
-#: documents/views.py:130
+#: documents/views.py:184
 #, python-format
 msgid "Prologin %(year)s: call list for the final"
 msgstr "Prologin %(year)s : liste d'appel pour la finale"
 
-#: documents/views.py:131
+#: documents/views.py:185
 #, python-format
 msgctxt "Document filename"
 msgid "call-list-%(year)s-final"
 msgstr "liste-appel-%(year)s-finale"
 
-#: documents/views.py:144
+#: documents/views.py:198
 #, python-format
 msgid "Prologin %(year)s: portrayal agreement for the final"
 msgstr "Prologin %(year)s : droit à l'imagine pour la finale"
 
-#: documents/views.py:145
+#: documents/views.py:199
 #, python-format
 msgctxt "Document filename"
 msgid "portrayal-agreement-%(year)s-final"
 msgstr "droit-image-%(year)s-finale"
 
-#: documents/views.py:150
+#: documents/views.py:204
 #, python-format
 msgid "Prologin %(year)s: password sheets for the final"
 msgstr "Prologin %(year)s : mots de passe pour la finale"
 
-#: documents/views.py:151
+#: documents/views.py:205
 #, python-format
 msgctxt "Document filename"
 msgid "password-list-%(year)s-final"
 msgstr "mots-de-passe-%(year)s-finale"
 
-#: documents/views.py:161
+#: documents/views.py:215
 #, python-format
 msgid "Prologin %(year)s: document compilation for final for %(fullname)s"
 msgstr "Prologin %(year)s: compilation de documents pour la finale pour %(fullname)s"
 
-#: documents/views.py:162
+#: documents/views.py:216
 #, python-format
 msgctxt "Document filename"
 msgid "prologin-%(year)s-final-documents-%(fullname)s"
@@ -1003,7 +1015,8 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:22 problems/templates/problems/challenge-scoreboard.html:24
+#: forum/models.py:22 problems/templates/problems/challenge-scoreboard.html:23
+#: semifinal/templates/semifinal/stub-scoreboard.html:8
 msgid "Name"
 msgstr "Nom"
 
@@ -1134,6 +1147,7 @@ msgstr "Prévisualisation"
 
 #: forum/templates/forum/edit_post.html:10
 #: forum/templates/forum/thread_posts.html:114
+#: semifinal/templates/semifinal/monitoring.html:51
 #: users/templates/users/edit.html:9
 #: users/templates/users/edit_password.html:9
 #: users/templates/users/profile.html:23
@@ -1916,19 +1930,19 @@ msgid "Learn more"
 msgstr "En savoir plus"
 
 #: pages/templates/pages/about-contest.html:55
-msgid "2<sup>nd</sup> step – Semifinals"
-msgstr "2<sup>e</sup> étape – Les demi-finales"
+msgid "2<sup>nd</sup> step – Regional events"
+msgstr "2<sup>e</sup> étape – Les épreuves régionales"
 
 #: pages/templates/pages/about-contest.html:56
 msgid ""
-"The semifinals allow the 100 best contestants to qualify for the final.\n"
+"The regional events allow the 100 best contestants to qualify for the final.\n"
 "The event lasts one day and takes place on a Saturday in January or February,\n"
 "depending on the city. Candidates are divided into various sessions in\n"
 "different examination centers all across France.\n"
 "The evaluation is based on three tests: a written exam on an original\n"
 "algorithmic problem, some unrelated problems to solve on the computer\n"
 "and an interview with one of Prologin's staff members.\n"
-msgstr "Les demi-finales permettent aux 100 meilleurs participants de se qualifier pour la finale.\nL'événement dure une journée et se déroule un samedi en janvier ou février,\nen fonction des villes. Les participants sont répartis dans les différents\ncentres d'examens en France.\nLa sélection se base sur trois épreuves : un examen écrit sur un problème\nd'algorithmique original, des exercices à résoudre sur ordinateur\net un entretien avec un membre de l'association Prologin.\n"
+msgstr "Les épreuves régionales permettent aux 100 meilleurs participants de se qualifier pour la finale.\nL'événement dure une journée et se déroule un samedi en janvier ou février,\nen fonction des villes. Les participants sont répartis dans les différents\ncentres d'examens en France.\nLa sélection se base sur trois épreuves : un examen écrit sur un problème\nd'algorithmique original, des exercices à résoudre sur ordinateur\net un entretien avec un membre de l'association Prologin.\n"
 
 #: pages/templates/pages/about-contest.html:66
 msgid "Where can I sit for the exam?"
@@ -2211,7 +2225,7 @@ msgstr "Informations de contact"
 msgid "Address"
 msgstr "Adresse"
 
-#: pages/templates/pages/about-organization.html:35 users/models.py:105
+#: pages/templates/pages/about-organization.html:35 users/models.py:106
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -2290,14 +2304,14 @@ msgstr "Tout le monde peut contribuer à Prologin"
 #: pages/templates/pages/about-organization.html:99
 msgid ""
 "<p class=\"text-justify\">Contributing can be done in various ways: promoting the event, developing the website and\n"
-"the software architecture for the final, helping during the semifinals, contributing in the forums, and so on.\n"
+"the software architecture for the final, helping during the regional events, contributing in the forums, and so on.\n"
 "We also appreciate your feedback and your suggestions.</p>\n"
 "\n"
 "<p class=\"text-justify\">We also need your help with the training section, where users can try themselves on a large set of statements.\n"
 "If you can give us a hand, please do: we are looking for new statments (originals or translations of third parties),\n"
 "courses, and corrections. Of course, please contact us before contributing so we can prevent certain parts\n"
 "being done in duplicate.</p>\n"
-msgstr "<p class=\"text-justify\">Il existe divers moyens de contribuer&nbsp;: promouvoir l'événement, développer le site internet et l'architecture logicielle pour la finale, aider lors des demi-finales, participer dans les forums, etc.\nNous apprécions aussi les retours et suggestions.</p>\n\n<p class=\"text-justify\">Nous avons aussi besoin de votre aide pour la section d'entraînement, dans laquelle les utilisateurs peuvent se mesurer à un grand nombre de problèmes.\nSi vous pouvez nous donner un coup de main, n'hésitez pas&nbsp;: nous sommes à la recherche de nouveaux problèmes (originaux ou traduits depuis d'autres sources), cours et corrections. Bien sûr, veuillez nous contacter avant de contribuer afin que nous puissions éviter que certaines choses soient faites en double.</p>\n"
+msgstr "<p class=\"text-justify\">Il existe divers moyens de contribuer&nbsp;: promouvoir l'événement, développer le site internet et l'architecture logicielle pour la finale, aider lors des épreuves régionales, participer dans les forums, etc.\nNous apprécions aussi les retours et suggestions.</p>\n\n<p class=\"text-justify\">Nous avons aussi besoin de votre aide pour la section d'entraînement, dans laquelle les utilisateurs peuvent se mesurer à un grand nombre de problèmes.\nSi vous pouvez nous donner un coup de main, n'hésitez pas&nbsp;: nous sommes à la recherche de nouveaux problèmes (originaux ou traduits depuis d'autres sources), cours et corrections. Bien sûr, veuillez nous contacter avant de contribuer afin que nous puissions éviter que certaines choses soient faites en double.</p>\n"
 
 #: pages/templates/pages/about-qualification.html:8
 #: pages/templates/pages/about-qualification.html:11
@@ -2341,23 +2355,23 @@ msgstr "Prologin est une association qui fait partie de l'école d'ingénieur EP
 #: pages/templates/pages/about-semifinals.html:8
 #: pages/templates/pages/about-semifinals.html:11
 #: pages/templates/pages/about-semifinals.html:17
-msgid "The semifinals"
-msgstr "Les demi-finales"
+msgid "The regional events"
+msgstr "Les épreuves régionales"
 
 #: pages/templates/pages/about-semifinals.html:21
 msgid ""
-"The semifinal tests are intended to test the capability of candidates to solve algorithmic problems\n"
-"but also to implement theirs solution on a machine, in the programming language they prefer. This is also an\n"
+"The regional event tests are intended to test the capability of candidates to solve algorithmic\n"
+"problems but also to implement theirs solution on a machine, in the programming language they prefer. This is also an\n"
 "opportunity for candidates to meet other enthusiasts, and for the organizers to relate their experience, to help\n"
 "them progress."
-msgstr "Les épreuves de demi-finale sont destinées à tester les capacités des candidats d'une part à résoudre des problèmes de manière algorithmique, et d'autre part à mettre en œuvre cette démarche sur une machine, dans le langage de leur choix. Ce doit aussi être l'occasion pour les candidats de rencontrer d'autres passionnés, et pour les organisateurs de leur faire part de leur expérience, pour les aider à progresser."
+msgstr "Les épreuves régionales sont destinées à tester les capacités des candidats d'une part à résoudre des problèmes de manière algorithmique, et d'autre part à mettre en œuvre cette démarche sur une machine, dans le langage de leur choix. Ce doit aussi être l'occasion pour les candidats de rencontrer d'autres passionnés, et pour les organisateurs de leur faire part de leur expérience, pour les aider à progresser."
 
 #: pages/templates/pages/about-semifinals.html:25
 msgid ""
-"The 200 to 300 selected candidates are divided into different semifinals, which take place in\n"
+"The 200 to 300 selected candidates are divided into different regional events, which take place in\n"
 "multiple sessions from mid-January, in the following French cities: Paris, Lyon, Toulouse, Strasbourg, Nantes,\n"
 "Lille, Toulon, Louvain-la-Neuve and Bordeaux."
-msgstr "Les 200 à 300 candidats sélectionnés sont répartis dans les différentes demi-finales se déroulant en plusieurs sessions à partir de mi-janvier dans les villes françaises suivantes : Paris, Lyon, Toulouse, Strasbourg, Nantes, Lille, Toulon et Bordeaux. Une épreuve est aussi organisée en Belgique à Louvain-la-Neuve."
+msgstr "Les 200 à 300 candidats sélectionnés sont répartis dans les différentes épreuves régionales se déroulant en plusieurs sessions à partir de mi-janvier dans les villes françaises suivantes : Paris, Lyon, Toulouse, Strasbourg, Nantes, Lille, Toulon et Bordeaux. Une épreuve est aussi organisée en Belgique à Louvain-la-Neuve."
 
 #: pages/templates/pages/about-semifinals.html:29
 msgid "The three tests"
@@ -2411,8 +2425,8 @@ msgid ""
 msgstr "Toutes ces épreuves sont individuelles : aucun document autre que ceux fournis par Prologin ne sont autorisés."
 
 #: pages/templates/pages/about-semifinals.html:57
-msgid "The typical course of a semifinal day"
-msgstr "Le déroulement typique d'une journée de demi-finale"
+msgid "The typical course of a regional event day"
+msgstr "Le déroulement typique d'une journée d'épreuve régionale"
 
 #: pages/templates/pages/about-semifinals.html:90
 msgid "Welcoming contestants, free breakfast"
@@ -2487,10 +2501,10 @@ msgstr "Le classement final, à l'issue duquel 110 candidats sont sélectionnés
 
 #: pages/templates/pages/about-semifinals.html:131
 msgid ""
-"The semifinals are spread over several weekends, during\n"
-"    which between one to three semifinals take place in different locations.\n"
+"The regional events are spread over several weekends, during\n"
+"    which between one to three regional events take place in different locations.\n"
 "    "
-msgstr "Les demi-finales sont réparties en plusieurs week-ends, pendant lesquels se déroulent simultanément une à trois demi-finales, dans des lieux différents."
+msgstr "Les épreuves régionales sont réparties en plusieurs week-ends, pendant lesquels se déroulent simultanément une à trois demi-finales, dans des lieux différents."
 
 #: pages/templates/pages/about-semifinals.html:135
 msgid ""
@@ -2502,10 +2516,10 @@ msgstr "Une équipe d'au moins trois membres de Prologin est dédiée à l'organ
 
 #: pages/templates/pages/about-semifinals.html:140
 msgid ""
-"All the exam centers where the semifinals take place\n"
+"All the exam centers where the regional events take place\n"
 "    provide us with the computer equipment and the classrooms needed, and we\n"
 "    are very grateful to them for their help."
-msgstr "Chacun des établissements où se déroulent les demi-finales met à notre disposition les salles de cours et le matériel informatique nécessaires à leur organisation, ce dont nous leur sommes très reconnaissants."
+msgstr "Chacun des établissements où se déroulent les épreuves régionales met à notre disposition les salles de cours et le matériel informatique nécessaires à leur organisation, ce dont nous leur sommes très reconnaissants."
 
 #: problems/admin.py:18
 msgid "Yes"
@@ -2536,7 +2550,7 @@ msgstr "Code %(id)s"
 msgid "Challenge"
 msgstr "Épreuve"
 
-#: problems/admin.py:98
+#: problems/admin.py:98 semifinal/forms.py:9
 msgid "Problem"
 msgstr "Problème"
 
@@ -2623,149 +2637,137 @@ msgstr "Vous devez fournir un fichier source ou un code source."
 msgid "Qualifications"
 msgstr "Sélections"
 
-#: problems/models/submission.py:47
-#: problems/templates/problems/submission.html:10
+#: problems/models/submission.py:50
+#: problems/templates/problems/submission.html:9
 msgid "Submission"
 msgstr "Soumission"
 
-#: problems/models/submission.py:48
+#: problems/models/submission.py:51
 msgid "Submissions"
 msgstr "Soumissions"
 
-#: problems/models/submission.py:77
+#: problems/models/submission.py:80
 msgid "Expired"
 msgstr "Expiré"
 
-#: problems/models/submission.py:78
+#: problems/models/submission.py:81
 msgid "Pending"
 msgstr "En attente"
 
-#: problems/models/submission.py:79
+#: problems/models/submission.py:82
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:125
+#: problems/models/submission.py:128
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:126
+#: problems/models/submission.py:129
 msgid "Submission codes"
 msgstr "Codes soumis"
 
-#: problems/templates/problems/challenge-scoreboard.html:6
-#: problems/templates/problems/challenge.html:6
-#: problems/templates/problems/index.html:6
-#: problems/templates/problems/manual.html:6
-#: problems/templates/problems/problem.html:7
-#: problems/templates/problems/search_results.html:6
-#: problems/templates/problems/submission.html:7
-msgid "Training"
-msgstr "Entraînement"
-
-#: problems/templates/problems/challenge-scoreboard.html:11
-#: problems/templates/problems/problem.html:12
-#: problems/templates/problems/problem.html:18
-#: problems/templates/problems/submission.html:13
-#: problems/templates/problems/submission.html:21
+#: problems/templates/problems/challenge-scoreboard.html:10
+#: problems/templates/problems/problem.html:11
+#: problems/templates/problems/problem.html:17
+#: problems/templates/problems/submission.html:12
+#: problems/templates/problems/submission.html:20
 #, python-format
 msgctxt "Problem title, eg. 2015 Qualification"
 msgid "%(type)s %(year)s"
 msgstr "%(type)s %(year)s"
 
-#: problems/templates/problems/challenge-scoreboard.html:15
+#: problems/templates/problems/challenge-scoreboard.html:14
 #, python-format
 msgid "%(type)s %(year)s"
 msgstr "%(type)s %(year)s"
 
-#: problems/templates/problems/challenge-scoreboard.html:17
+#: problems/templates/problems/challenge-scoreboard.html:16
 #, python-format
 msgid ""
 "Please note that only the first %(row_count)s results are displayed below, "
 "regardless of the actual number of contestants."
 msgstr "Notez que seuls les %(row_count)s premiers résultats sont affichés ci-après, quel que soit le nombre effectif de participants."
 
-#: problems/templates/problems/challenge-scoreboard.html:23
+#: problems/templates/problems/challenge-scoreboard.html:22
+#: semifinal/templates/semifinal/stub-scoreboard.html:6
 msgid "Rank"
 msgstr "Rang"
 
-#: problems/templates/problems/challenge-scoreboard.html:25
+#: problems/templates/problems/challenge-scoreboard.html:24
+#: semifinal/templates/semifinal/stub-scoreboard.html:9
 msgid "Points"
 msgstr "Points"
 
-#: problems/templates/problems/challenge-scoreboard.html:35
+#: problems/templates/problems/challenge-scoreboard.html:34
+#: semifinal/templates/semifinal/stub-scoreboard-item.html:11
 msgid "(ex-aequo)"
 msgstr "(ex-aequo)"
 
-#: problems/templates/problems/challenge-scoreboard.html:42
+#: problems/templates/problems/challenge-scoreboard.html:41
 msgid "No scores to display"
 msgstr "Aucun score à afficher"
 
-#: problems/templates/problems/challenge.html:10
-#: problems/templates/problems/challenge.html:14
+#: problems/templates/problems/challenge.html:9
+#: problems/templates/problems/challenge.html:13
 #, python-format
 msgid "Problems for %(type)s %(year)s"
 msgstr "Problèmes de %(type)s %(year)s"
 
-#: problems/templates/problems/challenge.html:24
+#: problems/templates/problems/challenge.html:23
 #, python-format
 msgid "The problem"
 msgid_plural "The %(count)s problems"
 msgstr[0] "Le problème"
 msgstr[1] "Les %(count)s problèmes"
 
-#: problems/templates/problems/challenge.html:28
+#: problems/templates/problems/challenge.html:27
 msgid "Congrats, you solved all the problems!"
 msgstr "Bravo, vous avez résolu tous les problèmes&nbsp;!"
 
-#: problems/templates/problems/challenge.html:29
-#: problems/templates/problems/stub_problem.html:19
+#: problems/templates/problems/challenge.html:28
+#: problems/templates/problems/stub_problem.html:24
 #, python-format
 msgid "%(score)s pts"
 msgstr "%(score)s pts"
 
-#: problems/templates/problems/index.html:9
-#: problems/templates/problems/index.html:13
-msgid "Training challenges"
-msgstr "Épreuves d'entraînement"
-
-#: problems/templates/problems/index.html:15
+#: problems/templates/problems/index.html:10
 msgid "Jump to problem index"
 msgstr "Aller aux problèmes"
 
-#: problems/templates/problems/index.html:30
+#: problems/templates/problems/index.html:25
 #, python-format
 msgid "%(count)s&nbsp;problem"
 msgid_plural "%(count)s&nbsp;problems"
 msgstr[0] "%(count)s&nbsp;problème"
 msgstr[1] "%(count)s&nbsp;problèmes"
 
-#: problems/templates/problems/index.html:34
+#: problems/templates/problems/index.html:29
 msgid "Challenge is hidden to regular users"
 msgstr "Le challenge est caché pour les utilisateurs normaux"
 
-#: problems/templates/problems/index.html:49
+#: problems/templates/problems/index.html:44
 msgid "What is this?"
 msgstr "Qu'est-ce que c'est&nbsp;?"
 
-#: problems/templates/problems/index.html:51
+#: problems/templates/problems/index.html:46
 msgid ""
 "Want to find out what the Prologin algorithmic exercises are like?\n"
 "In this section, you can browse and tackle all the problems from the previous Prologin events. These are\n"
-"problems from both the Prologin online qualifications and the on-site semifinals."
-msgstr "Vous voulez découvrir à quoi ressemblent les exercices d'algorithmique de Prologin ? Dans cette section, vous pouvez parcourir les précédentes éditions du concours Prologin et vous entraîner sur tous les problèmes correspondants. Ces exercices proviennent des qualifications en ligne et des demi-finales."
+"problems from both the Prologin online qualifications and the on-site regional events."
+msgstr "Vous voulez découvrir à quoi ressemblent les exercices d'algorithmique de Prologin ? Dans cette section, vous pouvez parcourir les précédentes éditions du concours Prologin et vous entraîner sur tous les problèmes correspondants. Ces exercices proviennent des qualifications en ligne et des épreuves régionales."
 
-#: problems/templates/problems/index.html:56
+#: problems/templates/problems/index.html:51
 msgid "How does it work?"
 msgstr "Comment ça marche&nbsp;?"
 
-#: problems/templates/problems/index.html:58
+#: problems/templates/problems/index.html:53
 msgid ""
 "Read the problem statement carefully and submit your solution. The system will check your\n"
 "submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you\n"
 "need to solve the problem."
 msgstr "Prenez le temps de lire l'énoncé du problème attentivement avant de soumettre votre solution. Le système vérifiera votre solution et vous indiquera immédiatement le résultat. Vous pouvez soumettre autant de solutions que nécessaire à la résolution du problème."
 
-#: problems/templates/problems/index.html:62
+#: problems/templates/problems/index.html:57
 #, python-format
 msgid ""
 "If you need any help with the automatic correction\n"
@@ -2773,73 +2775,74 @@ msgid ""
 "      "
 msgstr "Si vous avez besoin d'aide avec le système de correction automatique, vous pouvez lire le <a href=\"%(manual_url)s\" style=\"white-space: nowrap;\"><i class=\"fa fa-book\"></i>manuel du juge en ligne</a>.\n  "
 
-#: problems/templates/problems/manual.html:7
+#: problems/templates/problems/manual.html:6
 msgid "Manual"
 msgstr "Manuel"
 
-#: problems/templates/problems/manual.html:10
-#: problems/templates/problems/manual.html:14
+#: problems/templates/problems/manual.html:9
+#: problems/templates/problems/manual.html:13
 msgid "Online judge manual"
 msgstr "Manuel du juge en ligne"
 
-#: problems/templates/problems/manual.html:16
+#: problems/templates/problems/manual.html:15
 msgid ""
 "The online training system is a tool to help you improve\n"
 "your programing skills. It is open to everyone, and obviously free. What\n"
 "follows is a guide to understand its principles and get the most out of it.\n"
 msgstr "Le système d'entraînement automatique est un outil pour vous aider à améliorer votre niveau en programmation. Il est ouvert à tous, et bien entendu gratuit. Lisez bien ce qui suit pour bien en comprendre le principe, et en profiter un maximum.\n"
 
-#: problems/templates/problems/manual.html:21
+#: problems/templates/problems/manual.html:20
+#: semifinal/templates/prologin/main-menu.html:4
 msgid "Problems"
 msgstr "Problèmes"
 
-#: problems/templates/problems/manual.html:23
+#: problems/templates/problems/manual.html:22
 msgid ""
 "\n"
 "The problems given during the previous editions of the Prologin contest are\n"
 "archived and available on this website. You can train with the problems of the\n"
-"qualification and semifinals problems of the previous years. They are ordered\n"
+"qualification and regional event problems of the previous years. They are ordered\n"
 "by year and difficulty: from beginner to advanced.\n"
-msgstr "\nLes problèmes proposés durant les diverses éditions du concours Prologin sont archivés et disponibles sur ce site. Vous pouvez ainsi vous entraîner sur les problèmes des questionnaires et demi-finales passés. Ils sont classés par année et par difficulté : depuis le niveau débutant, à des difficultés bien plus élevées.\n"
+msgstr "\nLes problèmes proposés durant les diverses éditions du concours Prologin sont archivés et disponibles sur ce site. Vous pouvez ainsi vous entraîner sur les problèmes des questionnaires et épreuves régionales passés. Ils sont classés par année et par difficulté : depuis le niveau débutant, à des difficultés bien plus élevées.\n"
 
-#: problems/templates/problems/manual.html:30
+#: problems/templates/problems/manual.html:29
 msgid "Evaluation"
 msgstr "Évaluation"
 
-#: problems/templates/problems/manual.html:32
+#: problems/templates/problems/manual.html:31
 msgid ""
 "\n"
 "The exercises are evaluated by our server: your program is compiled then tested\n"
 "automatically. It is executed once per test. The possible errors are:\n"
 msgstr "\nL'évaluation d'un exercice, dans le cas où un source est demandé, est faite par notre serveur : le programme est compilé puis testé automatiquement. Il est exécuté une fois par test. Les erreurs possibles sont : \n"
 
-#: problems/templates/problems/manual.html:38
+#: problems/templates/problems/manual.html:37
 msgid "Your program does not compile;"
 msgstr "Votre programme ne compile pas ;"
 
-#: problems/templates/problems/manual.html:39
+#: problems/templates/problems/manual.html:38
 msgid "Your program exceeded the time limit given in the subject;"
 msgstr "Votre programme a dépassé la limite de temps donnée dans le sujet ;"
 
-#: problems/templates/problems/manual.html:40
+#: problems/templates/problems/manual.html:39
 msgid "Your program exceeded the memory limit given in the subject;"
 msgstr "Votre programme a dépassé la limite de mémoire donnée dans le sujet ;"
 
-#: problems/templates/problems/manual.html:41
+#: problems/templates/problems/manual.html:40
 msgid "Your program gave a wrong result for at least one test;"
 msgstr "Votre programme donne un résultat faux pour au moins un des tests ;"
 
-#: problems/templates/problems/manual.html:42
+#: problems/templates/problems/manual.html:41
 msgid "Your program does not terminate correctly."
 msgstr "Votre programme ne se termine pas correctement."
 
-#: problems/templates/problems/manual.html:45
+#: problems/templates/problems/manual.html:44
 msgid ""
 "\n"
 "If there is a compilation error, the error output of the compiler is shown.\n"
 msgstr "\nS'il y a une erreur de compilation, la sortie d'erreur du compilateur est affichée.\n"
 
-#: problems/templates/problems/manual.html:49
+#: problems/templates/problems/manual.html:48
 msgid ""
 "\n"
 "The output produced by your program has to match exactly with the format given\n"
@@ -2847,7 +2850,7 @@ msgid ""
 "output, character by character.\n"
 msgstr "\nLa sortie produite par votre programme doit correspondre exactement avec le formatage précisé dans chacun des énoncés. Le système de correction compare la sortie de votre programme avec une sortie de référence, caractère par caractère.\n"
 
-#: problems/templates/problems/manual.html:55
+#: problems/templates/problems/manual.html:54
 msgid ""
 "\n"
 "After the tests have been executed, a summary is shown, indicating which tests\n"
@@ -2856,13 +2859,13 @@ msgid ""
 "exercise will only be considered solved when all the tests succeed.\n"
 msgstr "\nAprès exécution des tests, un récapitulatif vous est affiché, indiquant les tests réussis et les tests ratés. Pour le premier test raté uniquement, la sortie produite par votre programme est affichée, ainsi que la sortie attendue par le système de correction. L'exercice ne sera validé que lorsque tous les tests seront passés avec succès.\n"
 
-#: problems/templates/problems/manual.html:62
+#: problems/templates/problems/manual.html:61
 msgid ""
 "\n"
 "The correction can take up to several minutes, so be patient.\n"
 msgstr "\nLa correction peut prendre plusieurs minutes, donc soyez patient.\n"
 
-#: problems/templates/problems/manual.html:68
+#: problems/templates/problems/manual.html:67
 msgid ""
 "\n"
 "The training system grades your submissions. Every solved exercise gives you\n"
@@ -2871,11 +2874,11 @@ msgid ""
 "submitting it.\n"
 msgstr "\nLe système d'entraînement note vos soumissions ! En effet, chaque problème résolu rapporte un certain nombre de points, dépendant du nombre de soumissions que vous avez fait avant de le résoudre avec succès. Pensez donc à bien tester votre programme vous-même, avant de le soumettre.\n"
 
-#: problems/templates/problems/manual.html:75
+#: problems/templates/problems/manual.html:74
 msgid "Code stubs"
 msgstr "Codes à compléter"
 
-#: problems/templates/problems/manual.html:77
+#: problems/templates/problems/manual.html:76
 msgid ""
 "\n"
 "For some languages, we provide code stubs that can \"parse\" correctly the data\n"
@@ -2885,15 +2888,15 @@ msgid ""
 "useful most of the time.\n"
 msgstr "\nNous fournissons, pour certains langages, des codes sources se chargeant de \"découper\" correctement les données fournies sur l'entrée standard du programme. Il ne vous reste alors qu'à écrire le corps d'une fonction prenant ces données en paramètre. Notez qu'il n'est absolument pas obligatoire de les utiliser, mais cela peut se révéler utile dans bien des cas.\n"
 
-#: problems/templates/problems/manual.html:85
+#: problems/templates/problems/manual.html:84
 msgid "Correction system"
 msgstr "Système de correction"
 
-#: problems/templates/problems/manual.html:87
+#: problems/templates/problems/manual.html:86
 msgid "Time and memory limitations"
 msgstr "Limitations de mémoire et de temps"
 
-#: problems/templates/problems/manual.html:89
+#: problems/templates/problems/manual.html:88
 msgid ""
 "\n"
 "Every problem enforces some limits in terms of memory usage and execution time.\n"
@@ -2901,11 +2904,11 @@ msgid ""
 "particular limitation is applied on the stack size.\n"
 msgstr "\nChaque sujet impose des limites, autant en terme d'utilisation mémoire que de temps d'exécution. Des coefficients sont néanmoins appliqués sur certains langages plus lents à s'exécuter ou plus gourmand en mémoire. Aucune limitation particulière n'est appliquée sur la taille de la pile.\n"
 
-#: problems/templates/problems/manual.html:97
+#: problems/templates/problems/manual.html:96
 msgid "Hardware architecture"
 msgstr "Architecture matérielle"
 
-#: problems/templates/problems/manual.html:101
+#: problems/templates/problems/manual.html:100
 #, python-format
 msgid ""
 "\n"
@@ -2916,225 +2919,243 @@ msgid ""
 "vCPU and %(hardware_mem)s Gio of dedicated random access memory.\n"
 msgstr "\nVos programmes sont exécutés dans une machine virtuelle architecturée autour d'un processeur %(hardware_cpu)s\ncadencé à %(hardware_clockrate)s et une architecture\n%(hardware_architecture)s. L'architecture est de type %(hardware_byteorder)s. La machine virtuelle a %(hardware_ncpu)s vCPU dédiés et %(hardware_mem)s Gio de mémoire vive dédiés.\n"
 
-#: problems/templates/problems/manual.html:111
+#: problems/templates/problems/manual.html:110
 msgid "Compilers and interpreters"
 msgstr "Compilateurs et interpréteurs"
 
-#: problems/templates/problems/manual.html:114
+#: problems/templates/problems/manual.html:113
 msgid "unknown version"
 msgstr "version inconnue"
 
-#: problems/templates/problems/manual.html:118
+#: problems/templates/problems/manual.html:117
 msgid "Compilation options"
 msgstr "Options de compilation"
 
-#: problems/templates/problems/problem.html:24
+#: problems/templates/problems/problem.html:23
 #, python-format
 msgid "Tackled by %(count)s member"
 msgid_plural "Tackled by %(count)s members"
 msgstr[0] "Abordé par %(count)s membre"
 msgstr[1] "Abordé par %(count)s membres"
 
-#: problems/templates/problems/problem.html:25
+#: problems/templates/problems/problem.html:24
 #, python-format
 msgid "Solved by %(count)s member"
 msgid_plural "Solved by %(count)s members"
 msgstr[0] "Résolu par %(count)s membre"
 msgstr[1] "Résolu par %(count)s membres"
 
-#: problems/templates/problems/problem.html:27
+#: problems/templates/problems/problem.html:26
 msgid "You solved this problem."
 msgstr "Vous avez résolu ce problème."
 
-#: problems/templates/problems/problem.html:28
+#: problems/templates/problems/problem.html:27
 msgid "You tackled this problem without success."
 msgstr "Vous avez abordé ce problème sans succès."
 
-#: problems/templates/problems/problem.html:42
-#: problems/templates/problems/problem.html:181
+#: problems/templates/problems/problem.html:41
+#: problems/templates/problems/problem.html:180
 msgid "Runtime constraints"
 msgstr "Contraintes d'exécution"
 
-#: problems/templates/problems/problem.html:44
+#: problems/templates/problems/problem.html:43
 msgid "Maximum memory usage"
 msgstr "Utilisation mémoire maximum"
 
-#: problems/templates/problems/problem.html:45
+#: problems/templates/problems/problem.html:44
 #, python-format
 msgid "%(kb)s&nbsp;kilobytes"
 msgstr "%(kb)s&nbsp;kilo-octets"
 
-#: problems/templates/problems/problem.html:46
+#: problems/templates/problems/problem.html:45
 msgid "Maximum execution time"
 msgstr "Temps d'exécution maximum"
 
-#: problems/templates/problems/problem.html:47
+#: problems/templates/problems/problem.html:46
 #, python-format
 msgid "%(ms)s&nbsp;milliseconds"
 msgstr "%(ms)s&nbsp;millisecondes"
 
-#: problems/templates/problems/problem.html:52
-#: problems/templates/problems/problem.html:182
+#: problems/templates/problems/problem.html:51
+#: problems/templates/problems/problem.html:181
 msgid "Input/output samples"
 msgstr "Exemples d'entrée/sortie"
 
-#: problems/templates/problems/problem.html:56
+#: problems/templates/problems/problem.html:55
 msgid "Sample input"
 msgstr "Exemple d'entrée"
 
-#: problems/templates/problems/problem.html:60
+#: problems/templates/problems/problem.html:59
 msgid "Sample output"
 msgstr "Exemple de sortie"
 
-#: problems/templates/problems/problem.html:65
+#: problems/templates/problems/problem.html:64
 msgid "Note"
 msgstr "Commentaire"
 
-#: problems/templates/problems/problem.html:75
-#: problems/templates/problems/problem.html:183
+#: problems/templates/problems/problem.html:74
+#: problems/templates/problems/problem.html:182
 msgid "Submit your solution"
 msgstr "Proposez votre solution"
 
-#: problems/templates/problems/problem.html:79
+#: problems/templates/problems/problem.html:78
 #, python-format
 msgid ""
 "You already solved this problem. You won <strong>%(score)s</strong> points "
 "for it, which is %(base)s base points minus %(malus)s malus points."
 msgstr "Vous avez déjà résolu ce problème. Vous avez gagné <strong>%(score)s</strong> points, soit %(base)s points de base moins %(malus)s points de malus."
 
-#: problems/templates/problems/problem.html:112
+#: problems/templates/problems/problem.html:111
 msgid "You can also upload a file instead:"
 msgstr "Vous pouvez aussi envoyer un fichier&nbsp;:"
 
-#: problems/templates/problems/problem.html:113
+#: problems/templates/problems/problem.html:112
 msgid "Upload a source file"
 msgstr "Envoyer un fichier source"
 
-#: problems/templates/problems/problem.html:116
+#: problems/templates/problems/problem.html:115
 msgid "Select the programming language:"
 msgstr "Sélectionnez le langage de programmation&nbsp;:"
 
-#: problems/templates/problems/problem.html:120
+#: problems/templates/problems/problem.html:119
 msgid "Insert parsing code stub at the end of your code"
 msgstr "Insère un squelette de code à compléter à la fin de votre code"
 
-#: problems/templates/problems/problem.html:120
+#: problems/templates/problems/problem.html:119
 msgid "Code stub"
 msgstr "Code à compléter"
 
-#: problems/templates/problems/problem.html:128
+#: problems/templates/problems/problem.html:127
 msgid "Optional short summary of your changes"
 msgstr "Message facultatif résumant vos modifications"
 
-#: problems/templates/problems/problem.html:130
+#: problems/templates/problems/problem.html:129
 msgid "Submit"
 msgstr "Envoyer"
 
-#: problems/templates/problems/problem.html:138
+#: problems/templates/problems/problem.html:137
 msgid "Submission history"
 msgstr "Historique des soumissions"
 
-#: problems/templates/problems/problem.html:144
+#: problems/templates/problems/problem.html:143
 msgid "Current version (unsaved)"
 msgstr "Version en cours (non soumise)"
 
-#: problems/templates/problems/problem.html:146
+#: problems/templates/problems/problem.html:145
 msgid "Unknown language"
 msgstr "Langage inconnu"
 
-#: problems/templates/problems/problem.html:147
+#: problems/templates/problems/problem.html:146
 msgid "Just now"
 msgstr "À l'instant"
 
-#: problems/templates/problems/problem.html:150
+#: problems/templates/problems/problem.html:149
 msgid "<em>No summary</em>"
 msgstr "<em>Pas de résumé</em>"
 
-#: problems/templates/problems/problem.html:154
+#: problems/templates/problems/problem.html:153
 msgid "Correct solution"
 msgstr "Solution correcte"
 
-#: problems/templates/problems/problem.html:154
+#: problems/templates/problems/problem.html:153
 msgid "Invalid solution"
 msgstr "Solution incorrecte"
 
-#: problems/templates/problems/problem.html:154
+#: problems/templates/problems/problem.html:153
 msgid "Pending check"
 msgstr "Vérification en attente"
 
-#: problems/templates/problems/problem.html:157
+#: problems/templates/problems/problem.html:156
 msgid ""
 "Base points won by solving this problem. Malus points are not taken into "
 "account."
 msgstr "Points de base gagnés en résolvant ce problème. Les points de malus ne sont pas pris en compte."
 
-#: problems/templates/problems/problem.html:171
+#: problems/templates/problems/problem.html:170
 #, python-format
 msgid ""
 "You have to <a href=\"%(register)s\">register</a> or <a "
 "href=\"%(login)s\">log in</a> to be able to submit your solution."
 msgstr "Vous devez vous <a href=\"%(register)s\">inscrire</a> ou <a href=\"%(login)s\">vous connecter</a> pour soumettre votre solution."
 
-#: problems/templates/problems/problem.html:180
+#: problems/templates/problems/problem.html:179
 msgid "Statement"
 msgstr "Énoncé"
 
-#: problems/templates/problems/search_results.html:7
+#: problems/templates/problems/search_results.html:6
 msgid "Search results"
 msgstr "Résultats de la recherche"
 
-#: problems/templates/problems/search_results.html:10
-#: problems/templates/problems/search_results.html:14
+#: problems/templates/problems/search_results.html:9
+#: problems/templates/problems/search_results.html:13
 msgid "Search training problems"
 msgstr "Chercher des problèmes d'entraînement"
 
-#: problems/templates/problems/search_results.html:16
+#: problems/templates/problems/search_results.html:15
 msgid "Jump to results"
 msgstr "Aller aux résultats"
 
-#: problems/templates/problems/search_results.html:20
+#: problems/templates/problems/search_results.html:19
 msgid "Sort"
 msgstr "Trier"
 
-#: problems/templates/problems/search_results.html:21
+#: problems/templates/problems/search_results.html:20
 msgid "by title"
 msgstr "par titre"
 
-#: problems/templates/problems/search_results.html:22
+#: problems/templates/problems/search_results.html:21
 msgid "by year"
 msgstr "par année"
 
-#: problems/templates/problems/search_results.html:23
+#: problems/templates/problems/search_results.html:22
 msgid "by difficulty"
 msgstr "par difficulté"
 
-#: problems/templates/problems/search_results.html:24
+#: problems/templates/problems/search_results.html:23
 msgid "ascending"
 msgstr "croissant"
 
-#: problems/templates/problems/search_results.html:25
+#: problems/templates/problems/search_results.html:24
 msgid "descending"
 msgstr "décroissant"
 
-#: problems/templates/problems/search_results.html:30
+#: problems/templates/problems/search_results.html:29
 #, python-format
 msgid "Problems %(from)s-%(to)s of %(count)s"
 msgstr "Problèmes %(from)s-%(to)s sur %(count)s"
 
-#: problems/templates/problems/search_results.html:37
+#: problems/templates/problems/search_results.html:36
 msgid "No problem match your query. Try broader criteria."
 msgstr "Aucun problème ne correspond à votre requête. Essayez des critères moins précis."
+
+#: problems/templates/problems/stub-module-name.html:1
+msgid "Training"
+msgstr "Entraînement"
+
+#: problems/templates/problems/stub-module-title.html:1
+msgid "Training challenges"
+msgstr "Épreuves d'entraînement"
 
 #: problems/templates/problems/stub_problem.html:12
 #, python-format
 msgid "%(year)s %(challenge)s"
 msgstr "%(challenge)s %(year)s"
 
-#: problems/templates/problems/stub_problem.html:21
+#: problems/templates/problems/stub_problem.html:18
+msgid "This problem was manually made available by the staff"
+msgstr "Ce problème a été manuellement rendu disponible par l'équipe"
+
+#: problems/templates/problems/stub_problem.html:20
+msgid ""
+"This problem was automatically made available because you did not complete "
+"any next-level problem"
+msgstr "Ce problème a été automatiquement rendu disponible car vous n'avez pas réussi de problème du niveau supérieur"
+
+#: problems/templates/problems/stub_problem.html:26
 msgid "Failed"
 msgstr "Échoué"
 
-#: problems/templates/problems/stub_problem.html:24
+#: problems/templates/problems/stub_problem.html:29
 msgid "Not submitted"
 msgstr "Non soumis"
 
@@ -3186,131 +3207,131 @@ msgstr "Obtenu par votre programme&nbsp;:"
 msgid "Standard error output:"
 msgstr "Sortie de l'erreur standard&nbsp;:"
 
-#: problems/templates/problems/submission.html:13
-#: problems/templates/problems/submission.html:20
+#: problems/templates/problems/submission.html:12
+#: problems/templates/problems/submission.html:19
 #, python-format
 msgid "Submission for %(problem)s"
 msgstr "Soumission pour %(problem)s"
 
-#: problems/templates/problems/submission.html:27
+#: problems/templates/problems/submission.html:26
 #, python-format
 msgid "Submitted by <strong>%(username)s</strong>"
 msgstr "Soumise par <strong>%(username)s</strong>"
 
-#: problems/templates/problems/submission.html:28
+#: problems/templates/problems/submission.html:27
 #, python-format
 msgid "Programmed in <strong>%(lang)s</strong>"
 msgstr "Programmée en <strong>%(lang)s</strong>"
 
-#: problems/templates/problems/submission.html:29
+#: problems/templates/problems/submission.html:28
 #, python-format
 msgid "Submitted on <strong title=\"%(short_date)s\">%(date)s</strong>"
 msgstr "Soumise le <strong title=\"%(short_date)s\">%(date)s</strong>"
 
-#: problems/templates/problems/submission.html:35
+#: problems/templates/problems/submission.html:34
 msgid "No summary."
 msgstr "Pas de résumé."
 
-#: problems/templates/problems/submission.html:44
+#: problems/templates/problems/submission.html:43
 msgid "Not correctable"
 msgstr "Non corrigeable"
 
-#: problems/templates/problems/submission.html:46
+#: problems/templates/problems/submission.html:45
 msgid "Solution passes tests"
 msgstr "La solution passe les tests"
 
-#: problems/templates/problems/submission.html:48
+#: problems/templates/problems/submission.html:47
 msgid "Solution is invalid"
 msgstr "La solution est invalide"
 
-#: problems/templates/problems/submission.html:50
+#: problems/templates/problems/submission.html:49
 msgid "Not corrected yet"
 msgstr "Pas encore corrigée"
 
-#: problems/templates/problems/submission.html:52
+#: problems/templates/problems/submission.html:51
 msgid "Unavailable status"
 msgstr "Statut indisponible"
 
-#: problems/templates/problems/submission.html:55
+#: problems/templates/problems/submission.html:54
 msgid "Points won"
 msgstr "Points gagnés"
 
-#: problems/templates/problems/submission.html:58
+#: problems/templates/problems/submission.html:57
 msgid "Malus"
 msgstr "Malus"
 
-#: problems/templates/problems/submission.html:58
+#: problems/templates/problems/submission.html:57
 msgid ""
 "Every time you submit a solution that fails (ie. does not compile or does "
 "not pass all the tests), malus points are increased by a value proportional "
 "to the problem level and the number of attempts."
 msgstr "À chaque soumission échouée (qui ne compile pas ou qui ne passe pas tous les tests), les points de malus sont incrémentés d'une valeur proportionnelle au niveau de l'exercice et au nombre d'essais."
 
-#: problems/templates/problems/submission.html:63
+#: problems/templates/problems/submission.html:62
 #, python-format
 msgid "Execution time: %(ms)s&nbsp;ms"
 msgstr "Temps d'éxecution&nbsp;: %(ms)s&nbsp;ms"
 
-#: problems/templates/problems/submission.html:64
+#: problems/templates/problems/submission.html:63
 #, python-format
 msgid "Memory used: %(kb)s&nbsp;kB"
 msgstr "Mémoire utilisée&nbsp;: %(kb)s&nbsp;kO"
 
-#: problems/templates/problems/submission.html:67
+#: problems/templates/problems/submission.html:66
 msgid "Edit and submit again"
 msgstr "Modifier et re-soumettre"
 
+#: problems/templates/problems/submission.html:75
 #: problems/templates/problems/submission.html:76
-#: problems/templates/problems/submission.html:77
 msgid "Solution code"
 msgstr "Code de la solution"
 
-#: problems/templates/problems/submission.html:86
+#: problems/templates/problems/submission.html:85
 msgid "The compilation went fine."
 msgstr "La compilation a réussi."
 
-#: problems/templates/problems/submission.html:88
+#: problems/templates/problems/submission.html:87
 msgid "The compilation failed:"
 msgstr "La compilation a échoué&nbsp;:"
 
+#: problems/templates/problems/submission.html:97
 #: problems/templates/problems/submission.html:98
-#: problems/templates/problems/submission.html:99
 msgid "Correction tests"
 msgstr "Tests de correction"
 
+#: problems/templates/problems/submission.html:109
 #: problems/templates/problems/submission.html:110
-#: problems/templates/problems/submission.html:111
 msgid "Performance tests"
 msgstr "Tests de performance"
 
-#: problems/templates/problems/submission.html:115
+#: problems/templates/problems/submission.html:114
 msgid "There are no such tests for this problem."
 msgstr "Il n'y a aucun test de ce type pour cet exercice."
 
-#: problems/templates/problems/submission.html:123
+#: problems/templates/problems/submission.html:122
 #, python-format
 msgid "These compilation and test results will be gone %(rem)s."
 msgstr "Les résultats de la compilation et des tests ne seront plus disponibles %(rem)s."
 
-#: problems/templates/problems/submission.html:125
+#: problems/templates/problems/submission.html:124
 msgid ""
 "The submission can not be corrected as it was written in a language that can"
 " not be compiled nor executed."
 msgstr "La soumission ne peut pas être corrigée car elle a été écrite dans un langage qui ne peut pas être compilé ou exécuté."
 
-#: problems/templates/problems/submission.html:127
+#: problems/templates/problems/submission.html:126
 msgid ""
 "Submission results are not available anymore. This is because the code was submitted a long time ago.\n"
 "You can still try to submit your code again using the “Edit and submit again” button."
 msgstr "Les résultats de la soumission ne sont plus disponibles parce que le code a été soumis il y a trop longtemps.\nVous pouvez toujours essayer de soumettre votre solution en utilisant le boutton «&nbsp;Modifier et re-soumettre&nbsp;»."
 
-#: problems/templates/problems/submission.html:130
+#: problems/templates/problems/submission.html:129
 msgid ""
 "This submission is pending correction. This can take from a few seconds to "
 "some minutes."
 msgstr "La soumission est en cours de correction. Cela peut prendre de quelques secondes à plusieurs minutes."
 
-#: problems/templates/problems/submission.html:131
+#: problems/templates/problems/submission.html:130
 msgid ""
 "Your browser does not support Javascript. You will have to manually reload "
 "this page once in a while to check if results have arrived."
@@ -3352,11 +3373,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:137
+#: prologin/settings/common.py:138
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:138
+#: prologin/settings/common.py:139
 msgid "French"
 msgstr "Français"
 
@@ -3406,6 +3427,8 @@ msgstr "Prologin, le concours national d'informatique"
 
 #: prologin/templates/503.html:53 prologin/templates/prologin/base.html:66
 #: prologin/templates/prologin/main-footer.html:4
+#: semifinal/templates/prologin/base.html:57
+#: semifinal/templates/prologin/main-footer.html:4
 msgid "Prologin"
 msgstr "Prologin"
 
@@ -3481,14 +3504,17 @@ msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
 #: prologin/templates/prologin/main-footer.html:46
+#: semifinal/templates/prologin/main-footer.html:10
 msgid "Change locale"
 msgstr "Changer la langue"
 
 #: prologin/templates/prologin/main-footer.html:59
+#: semifinal/templates/prologin/main-footer.html:23
 msgid "Apply"
 msgstr "Appliquer"
 
 #: prologin/templates/prologin/main-footer.html:62
+#: semifinal/templates/prologin/main-footer.html:26
 #, python-format
 msgid ""
 "Save your\n"
@@ -3508,10 +3534,12 @@ msgid "Train"
 msgstr "S'entraîner"
 
 #: prologin/templates/prologin/main-menu.html:12
+#: semifinal/templates/prologin/main-menu.html:9
 msgid "Admin"
 msgstr "Admin"
 
 #: prologin/templates/prologin/main-menu.html:14
+#: semifinal/templates/prologin/main-menu.html:11
 msgid "Django administration"
 msgstr "Administration de Django"
 
@@ -3524,10 +3552,12 @@ msgid "Profile &amp; settings"
 msgstr "Profil &amp; options"
 
 #: prologin/templates/prologin/main-menu.html:31
+#: semifinal/templates/prologin/main-menu.html:23
 msgid "Sign out"
 msgstr "Déconnexion"
 
 #: prologin/templates/prologin/main-menu.html:36
+#: semifinal/templates/prologin/main-menu.html:28
 #: users/templates/users/login.html:7 users/templates/users/login.html.py:10
 #: users/templates/users/login.html:26
 msgid "Sign in"
@@ -3591,7 +3621,7 @@ msgstr "Réponse %(id)s"
 msgid "Question"
 msgstr "Question"
 
-#: qcm/admin.py:110
+#: qcm/admin.py:110 semifinal/templates/semifinal/monitoring.html:28
 msgid "Contestant"
 msgstr "Participant"
 
@@ -3662,6 +3692,127 @@ msgstr "Vérifiez vos réponses"
 #: qcm/views.py:63
 msgid "Your new answers have been saved."
 msgstr "Vos nouvelles réponses ont été enregistrées."
+
+#: semifinal/forms.py:14
+msgid "You can select all contestants using Ctrl-A."
+msgstr "Vous pouvez sélectionner tous les candidats avec Ctrl-A."
+
+#: semifinal/staff_views.py:83
+#, python-brace-format
+msgid ""
+"Unlocked <em>{problem}</em> for {created} users; {existing} unlocks were "
+"already set."
+msgstr "Déverrouillage de <em>{problem}</em> pour {created} candidats&nbsp;; {existing} déblocages étaient déjà en place."
+
+#: semifinal/templates/problems/stub-module-title.html:1
+msgid "Regional event challenges"
+msgstr "Épreuves régionales"
+
+#: semifinal/templates/prologin/main-footer.html:5
+#: semifinal/templates/semifinal/homepage.html:10
+#: semifinal/templates/semifinal/homepage.html:17
+#, python-format
+msgid "Regional event at %(center)s"
+msgstr "Épreuve régionale à %(center)s"
+
+#: semifinal/templates/prologin/main-menu.html:14
+msgid "Regional event monitoring"
+msgstr "Surveillance épreuve régionale"
+
+#: semifinal/templates/semifinal/explicit-unlock.html:7
+#: semifinal/templates/semifinal/monitoring.html:7
+msgid "Monitoring"
+msgstr "Surveillance"
+
+#: semifinal/templates/semifinal/explicit-unlock.html:8
+#: semifinal/templates/semifinal/explicit-unlock.html:11
+#: semifinal/templates/semifinal/explicit-unlock.html:15
+msgid "Unlocking"
+msgstr "Déblocage"
+
+#: semifinal/templates/semifinal/explicit-unlock.html:23
+msgid "Unlock selected contestants"
+msgstr "Débloquer les candidats sélectionnés"
+
+#: semifinal/templates/semifinal/homepage.html:7
+msgid "Welcome"
+msgstr "Bienvenue"
+
+#: semifinal/templates/semifinal/homepage.html:21
+#, python-format
+msgid ""
+"Welcome to Prologin regional event! You can start <a href=\"%(url_problems)s\">solving problems</a>\n"
+"or browse the <a href=\"%(url_scoreboard)s\">live scoreboard</a>."
+msgstr "Bienvenue à votre épreuve régionale Prologin&nbsp;! Vous pouvez commencer à <a href=\"%(url_problems)s\">résoudre des problèmes</a>\nou consulter <a href=\"%(url_scoreboard)s\">le classement temps-réel</a>."
+
+#: semifinal/templates/semifinal/homepage.html:24
+msgid "Good luck, and don't forget to have fun."
+msgstr "Bonne chance, et n'oubliez pas de passer un bon moment."
+
+#: semifinal/templates/semifinal/monitoring.html:10
+#: semifinal/templates/semifinal/monitoring.html:18
+msgid "Monitoring board"
+msgstr "Tableau de bord"
+
+#: semifinal/templates/semifinal/monitoring.html:20
+msgid "Primary actions"
+msgstr "Actions principales"
+
+#: semifinal/templates/semifinal/monitoring.html:22
+msgid "Unlock first problem for everybody"
+msgstr "Débloquer le premier problème pour tout le monde"
+
+#: semifinal/templates/semifinal/monitoring.html:30
+msgid "Level"
+msgstr "Niveau"
+
+#: semifinal/templates/semifinal/monitoring.html:31
+msgctxt "Lines of code"
+msgid "LoC"
+msgstr "LdC"
+
+#: semifinal/templates/semifinal/monitoring.html:32
+msgid "Actions"
+msgstr "Actions"
+
+#: semifinal/templates/semifinal/monitoring.html:55
+#: users/templates/users/edit_password.html:10
+msgid "Password"
+msgstr "Mot de passe"
+
+#: semifinal/templates/semifinal/monitoring.html:58
+msgid "Unlock"
+msgstr "Débloquer"
+
+#: semifinal/templates/semifinal/monitoring.html:77
+msgid "No problem tackled yet"
+msgstr "Pas de problème abordé"
+
+#: semifinal/templates/semifinal/scoreboard.html:7
+#: semifinal/templates/semifinal/scoreboard.html:10
+#: semifinal/templates/semifinal/scoreboard.html:27
+msgid "Live scoreboard"
+msgstr "Classement temps-réel"
+
+#: semifinal/templates/semifinal/scoreboard.html:21
+msgid "Auto-update"
+msgstr "M-à-j auto"
+
+#: semifinal/templates/semifinal/scoreboard.html:22
+msgid "Refresh scoreboard"
+msgstr "Actualiser le classement"
+
+#: semifinal/templates/semifinal/scoreboard.html:23
+msgid "Fullscreen"
+msgstr "Plein écran"
+
+#: semifinal/templates/semifinal/scoreboard.html:24
+msgid "Exit fullscreen"
+msgstr "Sortir du plein écran"
+
+#: semifinal/templates/semifinal/stub-scoreboard.html:7
+msgid "Nickname"
+msgstr "Pseudonyme"
 
 #: sponsor/admin.py:19
 msgid "Active"
@@ -3769,85 +3920,85 @@ msgstr "Ce champ est insensible à la casse. Cela signifie qu'il n'y a pas de di
 msgid "Please enter a correct username (or email) and password."
 msgstr "Saisissez un nom d'utilisateur (ou adresse e-mail) et un mot de passe corrects."
 
-#: users/models.py:80
+#: users/models.py:81
 msgid "Middle school"
 msgstr "Collège"
 
-#: users/models.py:81
+#: users/models.py:82
 msgid "High school"
 msgstr "Lycée"
 
-#: users/models.py:82
+#: users/models.py:83
 msgid "Bac"
 msgstr "Bac"
 
-#: users/models.py:83
+#: users/models.py:84
 msgid "Bac+1"
 msgstr "Bac+1"
 
-#: users/models.py:84
+#: users/models.py:85
 msgid "Bac+2"
 msgstr "Bac+2"
 
-#: users/models.py:85
+#: users/models.py:86
 msgid "Bac+3"
 msgstr "Bac+3"
 
-#: users/models.py:86
+#: users/models.py:87
 msgid "Bac+4"
 msgstr "Bac+4"
 
-#: users/models.py:87
+#: users/models.py:88
 msgid "Bac+5"
 msgstr "Bac+5"
 
-#: users/models.py:88
+#: users/models.py:89
 msgid "Bac+6 and after"
 msgstr "Bac+6 et au delà"
 
-#: users/models.py:90
+#: users/models.py:91
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: users/models.py:104
+#: users/models.py:105
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:107 users/templates/users/profile.html:44
+#: users/models.py:108 users/templates/users/profile.html:44
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:109
+#: users/models.py:110
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: users/models.py:110
+#: users/models.py:111
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
 msgstr "Nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:113
+#: users/models.py:114
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:115
+#: users/models.py:116
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: users/models.py:116
+#: users/models.py:117
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:117
+#: users/models.py:118
 msgid "Locale"
 msgstr "Langue"
 
-#: users/models.py:119
+#: users/models.py:120
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: users/models.py:120
+#: users/models.py:121
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
@@ -3899,10 +4050,6 @@ msgstr "Modifier le mot de passe"
 #: users/templates/users/edit_password.html:25
 msgid "Save"
 msgstr "Enregistrer"
-
-#: users/templates/users/edit_password.html:10
-msgid "Password"
-msgstr "Mot de passe"
 
 #: users/templates/users/edit_password.html:13
 #: users/templates/users/edit_password.html:16

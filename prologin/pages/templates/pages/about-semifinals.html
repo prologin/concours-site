@@ -5,24 +5,24 @@
 {% block breadcrumbs %}
   {{ block.super }}
   {% breadcrumb_for "pages:about-contest" %}{% trans "About the contest" %}{% endbreadcrumb_for %}
-  {% breadcrumb_for "pages:about-semifinal" %}{% trans "The semifinals" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "pages:about-semifinal" %}{% trans "The regional events" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
-{% block title %}{% trans "The semifinals" %}{% endblock %}
+{% block title %}{% trans "The regional events" %}{% endblock %}
 
 {% block content %}
 
 </div> {# hack: end content_super container #}
   <div class="bgcont bgcont-title" style=" background-image: url({% static 'pages/img/semifinals.jpg' %}); background-position: 0 0;">
-    <div class="container presentation-body"><h1>{% trans "The semifinals" %}</h1></div>
+    <div class="container presentation-body"><h1>{% trans "The regional events" %}</h1></div>
   </div>
 <div class="container"> {# unhack #}
 
-  <p>{% blocktrans %}The semifinal tests are intended to test the capability of candidates to solve algorithmic problems
-but also to implement theirs solution on a machine, in the programming language they prefer. This is also an
+  <p>{% blocktrans %}The regional event tests are intended to test the capability of candidates to solve algorithmic
+problems but also to implement theirs solution on a machine, in the programming language they prefer. This is also an
 opportunity for candidates to meet other enthusiasts, and for the organizers to relate their experience, to help
 them progress.{% endblocktrans %}</p>
-  <p>{% blocktrans %}The 200 to 300 selected candidates are divided into different semifinals, which take place in
+  <p>{% blocktrans %}The 200 to 300 selected candidates are divided into different regional events, which take place in
 multiple sessions from mid-January, in the following French cities: Paris, Lyon, Toulouse, Strasbourg, Nantes,
 Lille, Toulon, Louvain-la-Neuve and Bordeaux.{% endblocktrans %}</p>
 
@@ -54,7 +54,7 @@ Lille, Toulon, Louvain-la-Neuve and Bordeaux.{% endblocktrans %}</p>
     <p>{% blocktrans %}All these tests are individual. No other documents than
     those given by Prologin are authorized.{% endblocktrans %}</p>
 
-  <h2>{% trans "The typical course of a semifinal day" %}</h2>
+  <h2>{% trans "The typical course of a regional event day" %}</h2>
 
   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
   <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 20 490 340" preserveAspectRatio="xMaxYmax" style="max-width: 500px">
@@ -128,8 +128,8 @@ Lille, Toulon, Louvain-la-Neuve and Bordeaux.{% endblocktrans %}</p>
 
   <h2>{% trans "Logistics" %}</h2>
 
-    <p>{% blocktrans %}The semifinals are spread over several weekends, during
-    which between one to three semifinals take place in different locations.
+    <p>{% blocktrans %}The regional events are spread over several weekends, during
+    which between one to three regional events take place in different locations.
     {% endblocktrans %}</p>
 
     <p>{% blocktrans %}A team of at least three Prologin members is dedicated
@@ -137,7 +137,7 @@ Lille, Toulon, Louvain-la-Neuve and Bordeaux.{% endblocktrans %}</p>
     contestants, monitor the tests, take care of the food and assist the
     contestants during the practical test.{% endblocktrans %}</p>
 
-    <p>{% blocktrans %}All the exam centers where the semifinals take place
+    <p>{% blocktrans %}All the exam centers where the regional events take place
     provide us with the computer equipment and the classrooms needed, and we
     are very grateful to them for their help.{% endblocktrans %}</p>
 

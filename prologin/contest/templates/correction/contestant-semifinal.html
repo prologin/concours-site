@@ -3,7 +3,7 @@
 
 {% block breadcrumbs %}
   {{ block.super }}
-  {% breadcrumb_for 'contest:correction-semifinal' edition.year event.pk %}{% trans "Semifinal" %} {{ event.short_description }}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction-semifinal' edition.year event.pk %}{% trans "Regional event" %} {{ event.short_description }}{% endbreadcrumb_for %}
   {% breadcrumb_for 'contest:correction-contestant-semifinal' edition.year contestant.pk %}{{ contestant.user.username }}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 

@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
             name='Event',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('type', prologin.models.EnumField(contest.models.Event.Type, choices=[(0, 'Qualification'), (1, 'Semifinal'), (2, 'Final')], db_index=True)),
+                ('type', prologin.models.EnumField(contest.models.Event.Type, choices=[(0, 'Qualification'), (1, 'Regional event'), (2, 'Final')], db_index=True)),
                 ('date_begin', models.DateTimeField(null=True, blank=True)),
                 ('date_end', models.DateTimeField(null=True, blank=True)),
                 ('center', models.ForeignKey(null=True, to='centers.Center', related_name='events', blank=True)),
@@ -93,7 +93,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('comment', models.TextField(blank=True)),
-                ('event_type', prologin.models.EnumField(contest.models.Event.Type, choices=[(0, 'Qualification'), (1, 'Semifinal'), (2, 'Final')], db_index=True)),
+                ('event_type', prologin.models.EnumField(contest.models.Event.Type, choices=[(0, 'Qualification'), (1, 'Regional event'), (2, 'Final')], db_index=True)),
                 ('changes', JSONField(blank=True)),
                 ('date_added', models.DateTimeField(default=django.utils.timezone.now)),
                 ('author', models.ForeignKey(related_name='correction_comments', to=settings.AUTH_USER_MODEL, blank=True, null=True)),

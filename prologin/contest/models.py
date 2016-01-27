@@ -16,6 +16,7 @@ from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
 from jsonfield import JSONField
 
+import semifinal
 from centers.models import Center
 from prologin.models import EnumField, CodingLanguageField
 from prologin.utils import ChoiceEnum, save_random_state
@@ -48,13 +49,13 @@ class EventManager(models.Manager):
 
 
 class Event(ExportModelOperationsMixin('event'), models.Model):
-    @ChoiceEnum.labels(str.capitalize)
+    @ChoiceEnum.labels(lambda e: "Regional event" if e == "semifinal" else e.capitalize())
     class Type(ChoiceEnum):
         qualification = 0
         semifinal = 1
         final = 2
         ugettext_noop("Qualification")
-        ugettext_noop("Semifinal")
+        ugettext_noop("Regional event")
         ugettext_noop("Final")
 
     edition = models.ForeignKey(Edition, related_name='events')
@@ -165,12 +166,12 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
                                                          "regional events."))
 
     assignation_semifinal = EnumField(Assignation, default=Assignation.not_assigned.value,
-                                      verbose_name=_("Semifinal assignation status"))
+                                      verbose_name=_("Regional event assignation status"))
     assignation_semifinal_wishes = models.ManyToManyField(Event, through='EventWish',
                                                           related_name='applicants', blank=True,
-                                                          verbose_name=_("Semifinal assignation whishes"))
+                                                          verbose_name=_("Regional event assignation whishes"))
     assignation_semifinal_event = models.ForeignKey(Event, related_name='assigned_contestants', blank=True, null=True,
-                                                    verbose_name=_("Semifinal assigned event"))
+                                                    verbose_name=_("Regional event assigned event"))
     assignation_final = EnumField(Assignation, default=Assignation.not_assigned.value,
                                   verbose_name=_("Final assignation status"))
 
