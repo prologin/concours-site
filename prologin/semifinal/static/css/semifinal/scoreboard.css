@@ -27,6 +27,21 @@
   display: initial;
 }
 
+#scoreboard-wrap:fullscreen h1 {
+  margin-top: 0;
+  line-height: 1;
+}
+
+#scoreboard-wrap:-webkit-full-screen h1 {
+  margin-top: 0;
+  line-height: 1;
+}
+
+#scoreboard-wrap:-moz-full-screen h1 {
+  margin-top: 0;
+  line-height: 1;
+}
+
 #scoreboard-wrap:fullscreen {
   background-color: white;
   padding: 3em;
@@ -35,6 +50,8 @@
 #scoreboard-wrap:-webkit-full-screen {
   background-color: white;
   padding: 3em;
+  position: absolute;
+  top: 0;
 }
 
 #scoreboard-wrap:-moz-full-screen {
