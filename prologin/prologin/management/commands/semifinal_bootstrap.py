@@ -1,5 +1,4 @@
 import argparse
-import gzip
 
 import getpass
 from django.conf import settings
@@ -18,7 +17,7 @@ class Command(BaseCommand):
     args = "<import-file>"
 
     def add_arguments(self, parser):
-        parser.add_argument('import_file', type=argparse.FileType('rb'))
+        parser.add_argument('import_file', type=argparse.FileType('r'))
 
     def abort(self, msg=None):
         raise CommandError(msg)
@@ -43,8 +42,6 @@ class Command(BaseCommand):
                    "before bootstrapping a semifinal.".format(type))
 
     def handle(self, *args, **options):
-        self.print(options['import_file'])
-
         # Safety checks
         if 'semifinal' not in settings.INSTALLED_APPS:
             self.abort("Module 'semifinal' is not in INSTALLED_APPS. Please ensure you are using semifinal settings.")
@@ -55,34 +52,34 @@ class Command(BaseCommand):
 
         deserializer = serializers.get_deserializer('json')
 
-        with gzip.open(options['import_file'], mode='rt') as file:
-            with transaction.atomic():
-                edition = next(deserializer(file.readline()))
-                self.print("    Edition    {}", edition.object)
-                edition.save()
-                center = next(deserializer(file.readline()))
-                self.print("    Center     {}", center.object)
-                center.save()
-                event = next(deserializer(file.readline()))
-                self.print("    Event      {}", event.object)
-                event.save()
-                for user in deserializer(file.readline()):
-                    self.print("    User       {}", user.object.username)
-                    user.save()
-                for contestant in deserializer(file.readline()):
-                    self.print("    Contestant {}", contestant.object.user.username)
-                    contestant.save()
+        file = options['import_file']
+        with transaction.atomic():
+            edition = next(deserializer(file.readline()))
+            self.print("    Edition    {}", edition.object)
+            edition.save()
+            center = next(deserializer(file.readline()))
+            self.print("    Center     {}", center.object)
+            center.save()
+            event = next(deserializer(file.readline()))
+            self.print("    Event      {}", event.object)
+            event.save()
+            for user in deserializer(file.readline()):
+                self.print("    User       {}", user.object.username)
+                user.save()
+            for contestant in deserializer(file.readline()):
+                self.print("    Contestant {}", contestant.object.user.username)
+                contestant.save()
 
-                # Admin user
-                self.print("\nCreating admin user 'admin'.")
-                while True:
-                    self.print("Provide a password for user 'admin': ")
-                    password = getpass.getpass("")
-                    if password:
-                        break
-                admin = User(username='admin', email='admin@prologin.org',
-                             is_active=True, is_superuser=True, is_staff=True)
-                admin.set_password(password)
-                admin.save()
+            # Admin user
+            self.print("\nCreating admin user 'admin'.")
+            while True:
+                self.print("Provide a password for user 'admin': ")
+                password = getpass.getpass("")
+                if password:
+                    break
+            admin = User(username='admin', email='admin@prologin.org',
+                         is_active=True, is_superuser=True, is_staff=True)
+            admin.set_password(password)
+            admin.save()
 
             self.print("Bootstrapping completed.")
