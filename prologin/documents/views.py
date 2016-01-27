@@ -17,12 +17,14 @@ from documents.base_views import (BaseSemifinalDocumentView, BaseFinalDocumentVi
                                   BaseCompilationView, USER_LIST_ORDERING)
 
 
-class IndexRedirect(RedirectView):
+class IndexRedirect(PermissionRequiredMixin, RedirectView):
+    permission_required = 'documents.generate_batch_document'
     permanent = False
     url = reverse_lazy('documents:index', args=[settings.PROLOGIN_EDITION])
 
 
-class IndexView(TemplateView):
+class IndexView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'documents.generate_batch_document'
     template_name = 'documents/index.html'
 
     @cached_property
@@ -59,7 +61,6 @@ class SemifinalContestantConvocationView(BaseSemifinalDocumentView):
     template_name = 'documents/convocation-regionale.tex'
     pdf_title = _("Prologin %(year)s: invitation to the regional event for %(fullname)s")
     filename = pgettext_lazy("Document filename", "invitation-%(year)s-regional-%(fullname)s")
-
 
 
 class SemifinalContestantsView(BaseSemifinalDocumentView):
