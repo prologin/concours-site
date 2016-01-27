@@ -34,7 +34,7 @@ SITE_ID = 1
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.sqlite3',
         'HOST': '',
         'NAME': '',
         'USER': '',
@@ -294,6 +294,7 @@ CORRECTION_LIVE_UPDATE_TIMEOUT = CORRECTION_LIVE_UPDATE_POLL_INTERVAL * 2  # off
 
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = True
+RECAPTCHA_KEY = ''
 
 
 # Content Security Policy
