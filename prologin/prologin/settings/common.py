@@ -40,13 +40,14 @@ DATABASES = {
         'USER': '',
         'PASSWORD': '',
     },
-    'mysql_legacy': {
-        'ENGINE': 'mysql.connector.django',
-        'HOST': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-    },
+    # Uncomment if you need to migrate some data from the old drupal website
+    # 'mysql_legacy': {
+    #     'ENGINE': 'mysql.connector.django',
+    #     'HOST': '',
+    #     'NAME': '',
+    #     'USER': '',
+    #     'PASSWORD': '',
+    # },
 }
 
 
