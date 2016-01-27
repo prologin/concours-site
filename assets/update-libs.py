@@ -159,7 +159,7 @@ def datatables():
     with zipfile.ZipFile(zipball) as zipball:
         for ftype in ftypes:
             name = 'datatables.min.{}'.format(ftype)
-            extract_from_zip(zipball, name, os.path.join(ftype,name))
+            extract_from_zip(zipball, name, os.path.join(ftype, name))
 
 
 def main():

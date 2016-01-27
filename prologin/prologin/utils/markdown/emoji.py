@@ -45,7 +45,9 @@ class EmojiPattern(Pattern):
         # Get the preferred Unicode emoticon, or override
         emoji = m.group('emoticon')
         try:
-            image = EMOJIS[emoji] + '.png'
+            data = EMOJIS[emoji]
+            image = data['unicode'] + '.png'
+            title = data['name']
         except KeyError:
             return emoji
         rel_path = os.path.join('img', 'emojis', image).replace('\\', '/')
@@ -53,6 +55,7 @@ class EmojiPattern(Pattern):
         img = etree.Element('img')
         img.set('src', path)
         img.set('alt', '{c}{e}{c}'.format(e=emoji, c=self.ext.getConfig('wrap_char')))
+        img.set('title', title)
         img.set('class', self.ext.getConfig('span_class'))
         return img
 
