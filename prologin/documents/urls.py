@@ -5,6 +5,7 @@ import documents.views
 semifinals_event_patterns = [
     url(r'^convocations$', documents.views.SemifinalConvocationsView.as_view(), name='semifinal-convocations'),
     url(r'^contestants$', documents.views.SemifinalContestantsView.as_view(), name='semifinal-contestants'),
+    url(r'^data-export$', documents.views.SemifinalDataExportView.as_view(), name='semifinal-data-export'),
     url(r'^interviews$', documents.views.SemifinalInterviewsView.as_view(), name='semifinal-interviews'),
     url(r'^passwords$', documents.views.SemifinalPasswordsView.as_view(), name='semifinal-passwords'),
 ]

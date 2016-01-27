@@ -1,11 +1,16 @@
 import collections
+import io
 from django.conf import settings
+from django.core import serializers
 from django.core.urlresolvers import reverse_lazy
-from django.http.response import HttpResponseRedirect
+from django.http.response import HttpResponseRedirect, HttpResponse
+from django.shortcuts import get_object_or_404
 from django.utils.functional import cached_property
+from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, View
 from django.views.generic.base import RedirectView
+from rules.compat.access_mixins import PermissionRequiredMixin
 
 import contest.models
 from documents.base_views import (BaseSemifinalDocumentView, BaseFinalDocumentView,
@@ -111,6 +116,55 @@ class SemifinalContestantCompilationView(BaseCompilationView):
     filename = pgettext_lazy("Document filename", "prologin-%(year)s-regional-documents-%(fullname)s")
 
     permission_required = 'documents.generate_semifinal_contestant_document'
+
+
+class SemifinalDataExportView(PermissionRequiredMixin, View):
+    permission_required = 'documents.generate_data_export'
+
+    def get(self, request, *args, **kwargs):
+        event = get_object_or_404(contest.models.Event, pk=self.kwargs['event'], edition__year=self.kwargs['year'])
+
+        contestants = (event.assigned_contestants
+                       .select_related('user')
+                       .filter(user__is_active=True, user__is_staff=False, user__is_superuser=False)
+                       .all())
+
+        serializer = serializers.get_serializer('json')()
+        stream = io.StringIO()
+
+        def iter_users():
+            for contestant in contestants:
+                user = contestant.user
+                user.set_password(user.plaintext_password)
+                user.username = user.normalized_username
+                yield user
+
+        def iter_contestants():
+            for contestant in contestants:
+                yield contestant
+
+        serializer.serialize([event.edition], stream=stream)
+        stream.write("\n")
+        serializer.serialize([event.center], stream=stream)
+        stream.write("\n")
+        serializer.serialize([event], stream=stream)
+        stream.write("\n")
+        serializer.serialize(iter_users(),
+                             fields=('username', 'email', 'password', 'first_name', 'last_name', 'phone',
+                                     'preferred_locale'),
+                             stream=stream)
+        stream.write("\n")
+        serializer.serialize(iter_contestants(),
+                             fields=('edition', 'user', 'preferred_language', 'score_qualif_qcm', 'score_qualif_algo',
+                                     'score_qualif_bonus'),
+                             stream=stream)
+        stream.seek(0)
+
+        response = HttpResponse(stream, content_type='application/json')
+        response['Content-Disposition'] = ('attachment; filename="{}.json"'
+                                           .format(slugify("export-semifinal-{}-{}"
+                                                           .format(event.edition.year, event.center.name))))
+        return response
 
 
 class FinalConvocationsView(BaseFinalDocumentView):

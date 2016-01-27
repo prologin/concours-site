@@ -22,8 +22,6 @@
     {% endfor %}{% endspaceless %}
   </ul>
 
-{% if year != None %}
-
   <div class="row">
     <div class="col-md-6">
       <h3>{% trans "Regional events" %}</h3>
@@ -54,6 +52,9 @@
           <tr>
             <td>{{ event.center.name }} <small class="text-muted">{{ event.date_begin|date:"SHORT_DATE_FORMAT" }}</small></td>
             <td>
+              <a href="{% url 'documents:semifinal-data-export' year event.pk %}" class="btn btn-warning btn-xs">
+                <i class="fa fa-upload"></i> {% trans "Data export" %}
+              </a>
               <a href="{% url 'documents:semifinal-convocations' year event.pk %}" class="btn btn-default btn-xs">
                 <i class="fa fa-graduation-cap"></i> {% trans "Convocations" %}
               </a>
@@ -114,8 +115,6 @@
     </div>
 
   </div>
-
-  {% endif %}
 
 {% endblock %}
 

@@ -17,6 +17,7 @@ def can_download_final(user, contestant):
 
 
 rules.add_perm('documents.generate_batch_document', rules.is_staff)
+rules.add_perm('documents.generate_data_export', rules.is_staff)
 rules.add_perm('documents.generate_semifinal_contestant_document', rules.is_staff | can_download_semifinal)
 rules.add_perm('documents.generate_final_contestant_document', rules.is_staff | can_download_final)
 rules.add_perm('documents.view_tex_errors', rules.is_staff)
