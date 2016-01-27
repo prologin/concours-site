@@ -489,7 +489,8 @@ class ChallengeScoreboard(ListView):
                  .annotate(total_score=Sum(F('score_base') - F('malus')))
                  .order_by('-total_score'))
 
-        return decorate_with_rank(items, score_getter, decorator)[:self.row_count]
+        decorate_with_rank(items, score_getter, decorator)
+        return items[:self.row_count]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
