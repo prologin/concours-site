@@ -174,22 +174,14 @@ Every time you need to work on the website:
         make celeryworker
 
 
-## Deploying the semifinal environment
+## Deploying the regional event environment
 
 ### Exporting user data from production website
 
-You need a root or site manager for this. The file name is arbitrary but you should replace `EVENTNAME` with the name of
-the semifinal event you are exporting, eg. `bordeaux` or `paris-2`. You will be interactively asked for the event to
-export.
+Go to <https://prologin.org/docs/> and use the “*Data export*” orange button to obtain a JSON file you have to copy
+to the machine hosting the regional event website.
 
-    $ ssh prologin@rosa
-    $ cd site/prologin
-    # activate venv, export DJANGO_SETTINGS_MODULE, etc.
-    $ python manage.py semifinal_export /tmp/semifinal.EVENTNAME.json.gz
-
-Then copy the resulting file on the machine hosting the semifinal website.
-
-### Installing the semifinal website
+### Installing the regional event website
 
 Follow the generic how-to, with the following differences:
 
@@ -232,7 +224,7 @@ Follow the generic how-to, with the following differences:
 * import the user data you previously exported:
 
         # activate venv, export DJANGO_SETTINGS_MODULE
-        $ python manage.py semifinal_bootstrap semifinal.EVENTNAME.json.gz
+        $ python manage.py semifinal_bootstrap export-semifinal-2016-whatever.json
 
 * during the initial setup, you may want to set `DEBUG = True` in the settings. Do not forget to **set it to `False` 
   during the contest**.
