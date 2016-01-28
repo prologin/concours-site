@@ -61,7 +61,10 @@ class WithChallengeMixin:
     @property
     def challenge(self) -> problems.models.Challenge:
         try:
-            return problems.models.Challenge.by_year_and_event_type(self.archive.year, self.event_type)
+            challenge = problems.models.Challenge.by_year_and_event_type(self.archive.year, self.event_type)
+            if hasattr(self.archive, 'user') and not self.archive.user.has_perm('problems.view_challenge', challenge):
+                return None
+            return challenge
         except ObjectDoesNotExist:
             return None
 
@@ -137,7 +140,10 @@ class QualificationArchive(WithChallengeMixin, BaseArchive):
 
     @property
     def quiz(self) -> qcm.models.Qcm:
-        return qcm.models.Qcm.objects.filter(event__edition__year=self.archive.year, event__type=self.event_type.value).first()
+        qcm_obj = qcm.models.Qcm.objects.filter(event__edition__year=self.archive.year, event__type=self.event_type.value).first()
+        if qcm_obj and hasattr(self.archive, 'user') and not self.archive.user.has_perm('qcm.view_qcm', qcm_obj):
+            return None
+        return qcm_obj
 
     def populated(self):
         return any((self.pdf_statement, self.pdf_correction, self.quiz, self.challenge))

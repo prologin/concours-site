@@ -32,6 +32,12 @@
   background: url('../img/archive-placeholder.png') no-repeat 0 18%;
   background-size: cover;
   z-index: 0;
+  transition: background-position ease-out .8s;
+}
+
+.archive .panel-heading:hover {
+  background-position-y: 80%;
+  transition: background-position ease-out 8s;
 }
 
 .archive .panel-heading h2 {

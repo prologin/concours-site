@@ -15,7 +15,7 @@
 {% block content %}
 
   {% get_current_language as LANGUAGE_CODE %}
-  {% cache 86400 archives-index LANGUAGE_CODE %} {# one day #}
+  {% cache 86400 archives-index LANGUAGE_CODE request.user.pk %} {# one day #}
 
   <h1>{% trans "Archives" %}</h1>
   <p>{% blocktrans %}Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?

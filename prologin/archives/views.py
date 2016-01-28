@@ -11,6 +11,8 @@ class Index(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['archives'] = sorted(archives.models.Archive.all_archives(), reverse=True)
+        for archive in context['archives']:
+            archive.user = self.request.user
         return context
 
 
