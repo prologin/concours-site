@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n utils staticfiles django_bootstrap_breadcrumbs %}
+{% load i18n cache utils staticfiles django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -13,6 +13,9 @@
 {% block title %}{% trans "Archives" %}{% endblock %}
 
 {% block content %}
+
+  {% get_current_language as LANGUAGE_CODE %}
+  {% cache 86400 archives-index LANGUAGE_CODE %} {# one day #}
 
   <h1>{% trans "Archives" %}</h1>
   <p>{% blocktrans %}Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?
@@ -94,5 +97,7 @@
       </div>
     {% endfor %}
   </div>
+
+  {% endcache %}
 
 {% endblock %}
