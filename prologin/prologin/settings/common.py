@@ -259,7 +259,7 @@ PROBLEMS_CORRECTORS = (
 # Max size of uploaded source files in bytes
 PROBLEMS_UPLOAD_MAX_LENGTH = 1 << 21  # 2MiB
 # How long to wait, in seconds, for a remote corrector
-PROBLEMS_CORRECTOR_REQUEST_TIMEOUT = 5
+PROBLEMS_CORRECTOR_REQUEST_TIMEOUT = 10 * 60
 # How long to wait, in seconds, before displaying the submission result page.
 # Don't use a too small value because the corrector system will most of the time
 # not have the time to compile & run the tests.
