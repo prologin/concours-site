@@ -1,6 +1,7 @@
 import collections
 import io
 from django.conf import settings
+from django.contrib import messages
 from django.core import serializers
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
@@ -207,7 +208,7 @@ class SemifinalDataImportView(PermissionRequiredMixin, SessionWizardView):
                 errors.append(_("Contestant not found in local database."))
                 continue
             if not contestant.is_assigned_for_semifinal or contestant.assignation_semifinal_event != result.event:
-                errors.append(_("Contestant not assigned to this semifinal."))
+                errors.append(_("Contestant not assigned to this regional event."))
             if not contestant.user.is_active:
                 warnings.append(_("User is inactive."))
 
@@ -282,6 +283,7 @@ class SemifinalDataImportView(PermissionRequiredMixin, SessionWizardView):
             if created:
                 current_unlock.save()
 
+        messages.success(self.request, _("Successfully imported regional event results."))
         return redirect('contest:correction:semifinal', year=event.edition.year, event=event.pk)
 
 

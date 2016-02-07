@@ -3,7 +3,7 @@ from datatableview import Datatable
 from django.core.urlresolvers import reverse
 from django.utils.formats import date_format
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ngettext_lazy
 
 import contest.models
 from contest.models import Assignation
@@ -86,9 +86,11 @@ class ContestantQualificationTable(AbstractContestantTable):
                            date_format(event.date_begin, 'SHORT_DATE_FORMAT'))
 
     def get_assignation_semifinal_status(self, contestant, **kwargs):
-        return format_html('{} <small class="text-muted"> - {} correction(s)</small>',
+        count = contestant.corrections.filter(event_type=self.event_type.value).count()
+        corrections = ngettext_lazy("%(count)d correction", "%(count)d corrections", count) % {'count': count}
+        return format_html('{} <small class="text-muted"> - {}</small>',
                            Assignation.label_for(Assignation(contestant.assignation_semifinal)),
-                           contestant.corrections.filter(event_type=self.event_type.value).count())
+                           corrections)
 
     def convocation_link(self, contestant):
         if contestant.assignation_semifinal == contest.models.Assignation.assigned.value:
@@ -115,9 +117,11 @@ class ContestantSemifinalTable(AbstractContestantTable):
     score = datatableview.IntegerColumn(_("Score"), source='score_for_semifinal')
 
     def get_assignation_final_status(self, contestant, **kwargs):
-        return format_html('{} <small class="text-muted"> - {} correction(s)</small>',
+        count = contestant.corrections.filter(event_type=self.event_type.value).count()
+        corrections = ngettext_lazy("%(count)d correction", "%(count)d corrections", count) % {'count': count}
+        return format_html('{} <small class="text-muted"> - {}</small>',
                            Assignation.label_for(Assignation(contestant.assignation_final)),
-                           contestant.corrections.filter(event_type=self.event_type.value).count())
+                           corrections)
 
     def convocation_link(self, contestant):
         if contestant.assignation_final == contest.models.Assignation.assigned.value:

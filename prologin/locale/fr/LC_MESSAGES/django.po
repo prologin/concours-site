@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-01-27 20:00+0100\n"
-"PO-Revision-Date: 2016-01-27 19:12+0000\n"
+"POT-Creation-Date: 2016-02-07 18:01+0100\n"
+"PO-Revision-Date: 2016-02-07 17:02+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -31,7 +31,7 @@ msgstr ""
 #: archives/templates/archives/finale-scoreboard.html:6
 #: archives/templates/archives/index.html:6
 #: archives/templates/archives/index.html:13
-#: archives/templates/archives/index.html:17
+#: archives/templates/archives/index.html:20
 #: archives/templates/archives/report.html:6
 #: news/templates/zinnia/entry_archive_day.html:4
 #: news/templates/zinnia/entry_archive_day.html:6
@@ -60,13 +60,13 @@ msgstr "Classement de la finale"
 msgid "Final scoreboard for Prologin %(year)s final"
 msgstr "Classement de la finale de Prologin %(year)s"
 
-#: archives/templates/archives/index.html:18
+#: archives/templates/archives/index.html:21
 msgid ""
 "Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?\n"
 "    You can find all the documents and photo albums from past Prologin editions in these pages."
 msgstr "Vous recherchez l'affiche du dernier Prologin&nbsp;? L'énoncé de la finale de 1996&nbsp;? Le QCM de 2003&nbsp;? Vous trouverez sur ces pages l'ensemble des documents et albums photo des précédentes éditions de Prologin."
 
-#: archives/templates/archives/index.html:30
+#: archives/templates/archives/index.html:33
 #: contest/templates/contest/index.html:11
 #: contest/templates/contest/index.html:15
 #: contest/templates/correction/contestant-base.html:16
@@ -76,15 +76,15 @@ msgstr "Vous recherchez l'affiche du dernier Prologin&nbsp;? L'énoncé de la fi
 msgid "Prologin %(year)s"
 msgstr "Prologin %(year)s"
 
-#: archives/templates/archives/index.html:33
+#: archives/templates/archives/index.html:36
 msgid "Download poster"
 msgstr "Télécharger l'affiche"
 
-#: archives/templates/archives/index.html:36
+#: archives/templates/archives/index.html:39
 msgid "Poster not available"
 msgstr "Affiche indisponible"
 
-#: archives/templates/archives/index.html:40 contest/models.py:56
+#: archives/templates/archives/index.html:43 contest/models.py:57
 #: contest/templates/contest/index.html:8
 #: contest/templates/contest/qualification_summary.html:8
 #: contest/templates/correction/contestant-qualification.html:6
@@ -96,57 +96,57 @@ msgstr "Affiche indisponible"
 msgid "Qualification"
 msgstr "Qualification"
 
-#: archives/templates/archives/index.html:44
+#: archives/templates/archives/index.html:47
 #, python-format
 msgid "%(count)s-question quiz"
 msgid_plural "%(count)s-question quiz"
 msgstr[0] "QCM à %(count)s question"
 msgstr[1] "QCM à %(count)s questions"
 
-#: archives/templates/archives/index.html:47
-#: archives/templates/archives/index.html:66
+#: archives/templates/archives/index.html:50
+#: archives/templates/archives/index.html:69
 #, python-format
 msgid "%(count)s problem"
 msgid_plural "%(count)s problems"
 msgstr[0] "%(count)s problème"
 msgstr[1] "%(count)s problèmes"
 
-#: archives/templates/archives/index.html:50
+#: archives/templates/archives/index.html:53
 msgid "Test statement (PDF)"
 msgstr "Énoncé (PDF)"
 
-#: archives/templates/archives/index.html:53
+#: archives/templates/archives/index.html:56
 msgid "Test correction (PDF)"
 msgstr "Correction (PDF)"
 
-#: archives/templates/archives/index.html:57
-#: archives/templates/archives/index.html:70
-#: archives/templates/archives/index.html:83
+#: archives/templates/archives/index.html:60
+#: archives/templates/archives/index.html:73
+#: archives/templates/archives/index.html:86
 msgid "Sorry, no resource available."
 msgstr "Désolé, aucune ressource disponible."
 
-#: archives/templates/archives/index.html:59
-#: documents/templates/documents/index.html:27
+#: archives/templates/archives/index.html:62
+#: documents/templates/documents/index.html:34
 #: homepage/templates/homepage/jumbotron-semifinals.html:6
 #: problems/models/__init__.py:8
 msgid "Regional events"
 msgstr "Épreuves régionales"
 
-#: archives/templates/archives/index.html:63
+#: archives/templates/archives/index.html:66
 msgid "Regional events report"
 msgstr "Rapport des épreuves régionales"
 
-#: archives/templates/archives/index.html:72 contest/models.py:58
-#: documents/templates/documents/index.html:79
+#: archives/templates/archives/index.html:75 contest/models.py:59
+#: documents/templates/documents/index.html:86
 #: homepage/templates/homepage/jumbotron-final.html:6
 msgid "Final"
 msgstr "Finale"
 
-#: archives/templates/archives/index.html:76
+#: archives/templates/archives/index.html:79
 msgid "Final report"
 msgstr "Rapport de la finale"
 
-#: archives/templates/archives/index.html:79
+#: archives/templates/archives/index.html:82
 #: problems/templates/problems/challenge-scoreboard.html:7
 #: problems/templates/problems/challenge-scoreboard.html:10
 #: problems/templates/problems/challenge-scoreboard.html:13
@@ -155,11 +155,11 @@ msgstr "Rapport de la finale"
 msgid "Scoreboard"
 msgstr "Classement"
 
-#: archives/templates/archives/index.html:89
+#: archives/templates/archives/index.html:92
 msgid "Browse photo album on Flickr"
 msgstr "Consulter l'album photo sur Flickr"
 
-#: archives/templates/archives/index.html:89
+#: archives/templates/archives/index.html:92
 msgid "Sample photo"
 msgstr "Photo d'illustration"
 
@@ -228,7 +228,9 @@ msgstr "Plein format"
 msgid "Generate convocations"
 msgstr "Générer les convocations"
 
-#: contest/admin.py:69 contest/admin.py:110 qcm/admin.py:58 qcm/admin.py:91
+#: contest/admin.py:69 contest/admin.py:110
+#: documents/templates/documents/semifinal-import-review.html:43
+#: qcm/admin.py:58 qcm/admin.py:91
 msgid "Edition"
 msgstr "Édition"
 
@@ -265,22 +267,31 @@ msgstr "Corriger"
 msgid "Assigned regional event"
 msgstr "Épreuve régionale assignée"
 
-#: contest/datatables.py:71
+#: contest/datatables.py:71 contest/datatables.py:114
 msgid "Assignation status"
 msgstr "Statut d'assignation"
 
-#: contest/datatables.py:74 contest/datatables.py:112 contest/models.py:184
+#: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:185
+#: documents/templates/documents/semifinal-import-review.html:57
+#: documents/templates/documents/semifinal-import-review.html:76
 #: problems/admin.py:171 problems/templates/problems/manual.html:65
 #: semifinal/templates/semifinal/monitoring.html:29
 msgid "Score"
 msgstr "Score"
 
-#: contest/datatables.py:98 contest/datatables.py:102
-#: contest/datatables.py:119 contest/datatables.py:123
+#: contest/datatables.py:90 contest/datatables.py:121
+#, python-format
+msgid "%(count)d correction"
+msgid_plural "%(count)d corrections"
+msgstr[0] "%(count)d correction"
+msgstr[1] "%(count)d corrections"
+
+#: contest/datatables.py:100 contest/datatables.py:104
+#: contest/datatables.py:131 contest/datatables.py:135
 msgid "Convocation"
 msgstr "Convocation"
 
-#: contest/datatables.py:102 contest/datatables.py:123
+#: contest/datatables.py:104 contest/datatables.py:135
 msgid "Contestant is not assigned"
 msgstr "Le candidat n'est pas assigné"
 
@@ -333,7 +344,7 @@ msgid ""
 "preference. Most of the time, we are able to satisfy your first choice."
 msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'épreuve régionale. Faites au moins un vœu et jusqu'à trois vœux. Vous obtiendrez très probablement votre premier vœu."
 
-#: contest/models.py:57
+#: contest/models.py:58
 #: contest/templates/correction/contestant-semifinal.html:6
 #: contest/templates/correction/semifinal.html:9
 #: contest/templates/correction/semifinal.html:12
@@ -346,73 +357,73 @@ msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'�
 msgid "Regional event"
 msgstr "Épreuve régionale"
 
-#: contest/models.py:151
+#: contest/models.py:152
 msgid "Not assigned"
 msgstr "Non assigné"
 
-#: contest/models.py:152
+#: contest/models.py:153
 msgid "Ruled out"
 msgstr "Éliminé"
 
-#: contest/models.py:153
+#: contest/models.py:154
 msgid "Assigned"
 msgstr "Assigné"
 
-#: contest/models.py:161
+#: contest/models.py:162
 msgid "T-shirt size"
 msgstr "Taille du t-shirt"
 
-#: contest/models.py:161
+#: contest/models.py:162
 msgid "Choose your size"
 msgstr "Choisissez votre taille"
 
-#: contest/models.py:162
+#: contest/models.py:163
 msgid "We usually provide unisex Prologin t-shirts to the finalists."
 msgstr "Nous fournissons le plus souvent des t-shirts unisexe aux finalistes."
 
-#: contest/models.py:164
+#: contest/models.py:165
 msgid ""
 "The programming language you will most likely use during the regional "
 "events."
 msgstr "Le langage de programmation que vous utiliserez le plus probablement pour l'épreuve régionale."
 
-#: contest/models.py:168
+#: contest/models.py:169
 msgid "Regional event assignation status"
 msgstr "Assignation d'épreuve régionale"
 
-#: contest/models.py:171
+#: contest/models.py:172
 msgid "Regional event assignation whishes"
 msgstr "Vœux d'assignation épreuve régionale"
 
-#: contest/models.py:173
+#: contest/models.py:174
 msgid "Regional event assigned event"
 msgstr "Événement assigné pour l'épreuve régionale"
 
-#: contest/models.py:175
+#: contest/models.py:176
 msgid "Final assignation status"
 msgstr "Assignation de finale"
 
-#: contest/models.py:177
+#: contest/models.py:178
 msgid "Quiz score"
 msgstr "Score du quiz"
 
-#: contest/models.py:178
+#: contest/models.py:179
 msgid "Algo exercises score"
 msgstr "Score des exercices d'algo"
 
-#: contest/models.py:179 contest/models.py:183 contest/models.py:185
+#: contest/models.py:180 contest/models.py:184 contest/models.py:186
 msgid "Bonus score"
 msgstr "Score bonus"
 
-#: contest/models.py:180
+#: contest/models.py:181
 msgid "Written exam score"
 msgstr "Score de l'épreuve écrite"
 
-#: contest/models.py:181
+#: contest/models.py:182
 msgid "Interview score"
 msgstr "Score de l'entretien"
 
-#: contest/models.py:182
+#: contest/models.py:183
 msgid "Machine exam score"
 msgstr "Score de l'épreuve machine"
 
@@ -592,9 +603,9 @@ msgid "Event type"
 msgstr "Type d'évènement"
 
 #: contest/templates/correction/by-year.html:19
-#: documents/templates/documents/index.html:38
-#: documents/templates/documents/index.html:62
-#: documents/templates/documents/index.html:95 semifinal/forms.py:13
+#: documents/templates/documents/index.html:45
+#: documents/templates/documents/index.html:69
+#: documents/templates/documents/index.html:102 semifinal/forms.py:13
 msgid "Contestants"
 msgstr "Candidats"
 
@@ -698,6 +709,7 @@ msgid "Correction index"
 msgstr "Sommaire de correction"
 
 #: contest/templates/correction/index.html:22
+#: documents/templates/documents/semifinal-import-review.html:45
 msgid "Event"
 msgstr "Événement"
 
@@ -745,56 +757,168 @@ msgstr[1] "Vous devez fournir au moins %(count)d choix."
 msgid "all-centers"
 msgstr "tous-centres"
 
+#: documents/forms.py:16
+msgid "JSON export file"
+msgstr "Fichier export JSON"
+
+#: documents/forms.py:18
+msgid ""
+"Select the JSON export file obtained from regional event website and "
+"proceed."
+msgstr "Sélectionnez le fichier export JSON obtenu du site d'épreuve régionale et continuez."
+
+#: documents/forms.py:25
+#, python-format
+msgid "Invalid format: could not read or deserialize %(type)s"
+msgstr "Format invalide&nbsp;: impossible de lire ou de dé-serialiser %(type)s"
+
+#: documents/forms.py:34
+msgid "Imported edition is invalid."
+msgstr "L'édition importée est invalide."
+
+#: documents/forms.py:43
+msgid "Imported center is invalid."
+msgstr "Le centre importé est invalide."
+
+#: documents/forms.py:52
+msgid "Imported event is invalid."
+msgstr "L'événement importé est invalide."
+
+#: documents/forms.py:55
+msgid "Imported event edition or center mismatches with known event."
+msgstr "L'édition ou le centre importé ne correspond pas à l'événement connu."
+
+#: documents/forms.py:63
+msgid "Imported users mismatch."
+msgstr "Les utilisateurs importés ne correspondent pas."
+
 #: documents/templates/documents/index.html:6
+#: documents/templates/documents/semifinal-import-base.html:6
 #: documents/templates/documents/tex-error-debug.html:6
 #: prologin/templates/prologin/main-menu.html:19
 msgid "Documents"
 msgstr "Documents"
 
 #: documents/templates/documents/index.html:12
-#: documents/templates/documents/index.html:15
+#: documents/templates/documents/index.html:22
 #, python-format
 msgid "%(year)s documents"
 msgstr "Documents de %(year)s"
 
 #: documents/templates/documents/index.html:12
-#: documents/templates/documents/index.html:15
+#: documents/templates/documents/index.html:22
 msgid "Document index"
 msgstr "Sommaire des documents"
 
-#: documents/templates/documents/index.html:32
+#: documents/templates/documents/index.html:18
+#: documents/templates/documents/semifinal-import-base.html:7
+#: documents/templates/documents/semifinal-import-base.html:10
+#: documents/templates/documents/semifinal-import-base.html:14
+msgid "Data import"
+msgstr "Import de données"
+
+#: documents/templates/documents/index.html:39
 msgid "All centers"
 msgstr "Tous les centres"
 
-#: documents/templates/documents/index.html:35
-#: documents/templates/documents/index.html:59
-#: documents/templates/documents/index.html:92
+#: documents/templates/documents/index.html:42
+#: documents/templates/documents/index.html:66
+#: documents/templates/documents/index.html:99
 msgid "Convocations"
 msgstr "Convocations"
 
-#: documents/templates/documents/index.html:41
-#: documents/templates/documents/index.html:65
+#: documents/templates/documents/index.html:48
+#: documents/templates/documents/index.html:72
 msgid "Interviews"
 msgstr "Interviews"
 
-#: documents/templates/documents/index.html:44
-#: documents/templates/documents/index.html:68
-#: documents/templates/documents/index.html:98
+#: documents/templates/documents/index.html:51
+#: documents/templates/documents/index.html:75
+#: documents/templates/documents/index.html:105
 msgid "Passwords"
 msgstr "Mots de passe"
 
-#: documents/templates/documents/index.html:47
-#: documents/templates/documents/index.html:101
+#: documents/templates/documents/index.html:54
+#: documents/templates/documents/index.html:108
 msgid "Portrayal agreement"
 msgstr "Droit à l'image"
 
-#: documents/templates/documents/index.html:56
+#: documents/templates/documents/index.html:63
 msgid "Data export"
 msgstr "Export données"
 
-#: documents/templates/documents/index.html:111
+#: documents/templates/documents/index.html:118
 msgid "There is no final event for this edition."
 msgstr "Il n'y pas d'événement finale pour cette édition."
+
+#: documents/templates/documents/semifinal-import-base.html:16
+#, python-format
+msgid "Step %(step)s of %(total)s"
+msgstr "Étape %(step)s sur %(total)s"
+
+#: documents/templates/documents/semifinal-import-review.html:52
+msgctxt "Legend"
+msgid "Key"
+msgstr "Légende"
+
+#: documents/templates/documents/semifinal-import-review.html:55
+#: problems/templates/problems/stub_search_form.html:7
+msgid "Difficulty"
+msgstr "Difficulté"
+
+#: documents/templates/documents/semifinal-import-review.html:56
+msgid "Problem name"
+msgstr "Problème"
+
+#: documents/templates/documents/semifinal-import-review.html:58
+msgid "# of codes"
+msgstr "# de codes"
+
+#: documents/templates/documents/semifinal-import-review.html:73
+msgid "ID"
+msgstr "ID"
+
+#: documents/templates/documents/semifinal-import-review.html:74
+#: semifinal/templates/semifinal/stub-scoreboard.html:7
+msgid "Nickname"
+msgstr "Pseudonyme"
+
+#: documents/templates/documents/semifinal-import-review.html:75
+msgid "Full name"
+msgstr "Nom complet"
+
+#: documents/templates/documents/semifinal-import-review.html:77
+#: problems/models/submission.py:51
+msgid "Submissions"
+msgstr "Soumissions"
+
+#: documents/templates/documents/semifinal-import-review.html:97
+#, python-format
+msgid "%(count)s code"
+msgid_plural "%(count)s codes"
+msgstr[0] "%(count)s code"
+msgstr[1] "%(count)s codes"
+
+#: documents/templates/documents/semifinal-import-review.html:98
+msgid "Manually unlocked"
+msgstr "Débloqué manuellement"
+
+#: documents/templates/documents/semifinal-import-review.html:103
+msgid "No contestant found."
+msgstr "Pas de candidat."
+
+#: documents/templates/documents/semifinal-import-review.html:109
+msgid "Contestant will <strong>not</strong> be imported."
+msgstr "Le candidat ne sera <strong>pas</strong> importé."
+
+#: documents/templates/documents/semifinal-import-review.html:111
+msgid "Contestant will be imported."
+msgstr "Le candidat sera importé."
+
+#: documents/templates/documents/semifinal-import-review.html:125
+#: documents/templates/documents/semifinal-import-upload.html:8
+msgid "Proceed"
+msgstr "Continuer"
 
 #: documents/templates/documents/tex-error-debug.html:7
 #: documents/templates/documents/tex-error-debug.html:10
@@ -819,145 +943,173 @@ msgstr "Sortie standard"
 msgid "Standard error"
 msgstr "Erreur standard"
 
-#: documents/views.py:54
+#: documents/views.py:61
 #, python-format
 msgid "Prologin %(year)s: batch invitations to the regional center %(center)s"
 msgstr "Prologin %(year)s : lot de convocations pour le centre régional %(center)s"
 
-#: documents/views.py:55
+#: documents/views.py:62
 #, python-format
 msgctxt "Document filename"
 msgid "invitations-%(year)s-regional-%(center)s"
 msgstr "invitations-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:60
+#: documents/views.py:67
 #, python-format
 msgid "Prologin %(year)s: invitation to the regional event for %(fullname)s"
 msgstr "Prologin %(year)s : convocation à l'épreuve régionale pour %(fullname)s"
 
-#: documents/views.py:61
+#: documents/views.py:68
 #, python-format
 msgctxt "Document filename"
 msgid "invitation-%(year)s-regional-%(fullname)s"
 msgstr "invitations-%(year)s-regionale-%(fullname)s"
 
-#: documents/views.py:67
+#: documents/views.py:73
 #, python-format
 msgid "Prologin %(year)s: call list for the regional center %(center)s"
 msgstr "Prologin %(year)s : liste d'appel pour le centre régional %(center)s"
 
-#: documents/views.py:68
+#: documents/views.py:74
 #, python-format
 msgctxt "Document filename"
 msgid "call-list-%(year)s-regional-%(center)s"
 msgstr "liste-appel-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:78
+#: documents/views.py:84
 #, python-format
 msgid "Prologin %(year)s: portrayal agreement for the regional events"
 msgstr "Prologin %(year)s : droit à l'image pour l'épreuve régionale"
 
-#: documents/views.py:79
+#: documents/views.py:85
 #, python-format
 msgctxt "Document filename"
 msgid "portrayal-agreement-%(year)s-regional"
 msgstr "droit-image-%(year)s-regionale"
 
-#: documents/views.py:94
+#: documents/views.py:100
 #, python-format
 msgid "Prologin %(year)s: password sheets for the regional center %(center)s"
 msgstr "Prologin %(year)s: mots de passe pour le centre régional %(center)s"
 
-#: documents/views.py:95
+#: documents/views.py:101
 #, python-format
 msgctxt "Document filename"
 msgid "password-list-%(year)s-regional-%(center)s"
 msgstr "mots-de-passe-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:105
+#: documents/views.py:111
 #, python-format
 msgid "Prologin %(year)s: interview sheets for the regional center %(center)s"
 msgstr "Prologin %(year)s : feuilles d'interview pour le centre régional %(center)s"
 
-#: documents/views.py:106
+#: documents/views.py:112
 #, python-format
 msgctxt "Document filename"
 msgid "interviews-%(year)s-regional-%(center)s"
 msgstr "interviews-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:115
+#: documents/views.py:121
 #, python-format
 msgid ""
 "Prologin %(year)s: document compilation for regional events for %(fullname)s"
 msgstr "Prologin %(year)s : compilation de documents pour l'épreuve régionale pour %(fullname)s"
 
-#: documents/views.py:116
+#: documents/views.py:122
 #, python-format
 msgctxt "Document filename"
 msgid "prologin-%(year)s-regional-documents-%(fullname)s"
 msgstr "prologin-%(year)s-documents-regionale-%(fullname)s"
 
-#: documents/views.py:172
+#: documents/views.py:180
+msgid "Upload result file"
+msgstr "Envoyer le fichier de résultats"
+
+#: documents/views.py:181
+msgid "Review the imported data"
+msgstr "Vérifier les données importées"
+
+#: documents/views.py:208
+msgid "Contestant not found in local database."
+msgstr "Candidat non trouvé dans la base de données locale."
+
+#: documents/views.py:211
+msgid "Contestant not assigned to this regional event."
+msgstr "Candidat non assigné à cette épreuve régionale."
+
+#: documents/views.py:213
+msgid "User is inactive."
+msgstr "L'utilisateur est inactif."
+
+#: documents/views.py:217
+msgid "Contestant not found in imported data."
+msgstr "Candidat non trouvé dans les données importée."
+
+#: documents/views.py:286
+msgid "Successfully imported regional event results."
+msgstr "Résultats de l'épreuve régionale importés avec succès."
+
+#: documents/views.py:292
 #, python-format
 msgid "Prologin %(year)s: batch invitations to the final"
 msgstr "Prologin %(year)s : lots de convocations pour la finale"
 
-#: documents/views.py:173
+#: documents/views.py:293
 #, python-format
 msgctxt "Document filename"
 msgid "invitations-%(year)s-final"
 msgstr "convocations-%(year)s-finale"
 
-#: documents/views.py:178
+#: documents/views.py:298
 #, python-format
 msgid "Prologin %(year)s: invitation to the final for %(fullname)s"
 msgstr "Prologin %(year)s : convocation à la finale pour %(fullname)s"
 
-#: documents/views.py:179
+#: documents/views.py:299
 #, python-format
 msgctxt "Document filename"
 msgid "invitation-%(year)s-final-%(fullname)s"
 msgstr "convocation-%(year)s-finale-%(fullname)s"
 
-#: documents/views.py:184
+#: documents/views.py:304
 #, python-format
 msgid "Prologin %(year)s: call list for the final"
 msgstr "Prologin %(year)s : liste d'appel pour la finale"
 
-#: documents/views.py:185
+#: documents/views.py:305
 #, python-format
 msgctxt "Document filename"
 msgid "call-list-%(year)s-final"
 msgstr "liste-appel-%(year)s-finale"
 
-#: documents/views.py:198
+#: documents/views.py:318
 #, python-format
 msgid "Prologin %(year)s: portrayal agreement for the final"
 msgstr "Prologin %(year)s : droit à l'imagine pour la finale"
 
-#: documents/views.py:199
+#: documents/views.py:319
 #, python-format
 msgctxt "Document filename"
 msgid "portrayal-agreement-%(year)s-final"
 msgstr "droit-image-%(year)s-finale"
 
-#: documents/views.py:204
+#: documents/views.py:324
 #, python-format
 msgid "Prologin %(year)s: password sheets for the final"
 msgstr "Prologin %(year)s : mots de passe pour la finale"
 
-#: documents/views.py:205
+#: documents/views.py:325
 #, python-format
 msgctxt "Document filename"
 msgid "password-list-%(year)s-final"
 msgstr "mots-de-passe-%(year)s-finale"
 
-#: documents/views.py:215
+#: documents/views.py:335
 #, python-format
 msgid "Prologin %(year)s: document compilation for final for %(fullname)s"
 msgstr "Prologin %(year)s: compilation de documents pour la finale pour %(fullname)s"
 
-#: documents/views.py:216
+#: documents/views.py:336
 #, python-format
 msgctxt "Document filename"
 msgid "prologin-%(year)s-final-documents-%(fullname)s"
@@ -2642,10 +2794,6 @@ msgstr "Sélections"
 msgid "Submission"
 msgstr "Soumission"
 
-#: problems/models/submission.py:51
-msgid "Submissions"
-msgstr "Soumissions"
-
 #: problems/models/submission.py:80
 msgid "Expired"
 msgstr "Expiré"
@@ -3162,10 +3310,6 @@ msgstr "Non soumis"
 #: problems/templates/problems/stub_search_form.html:3
 msgid "Search problems"
 msgstr "Rechercher des problèmes"
-
-#: problems/templates/problems/stub_search_form.html:7
-msgid "Difficulty"
-msgstr "Difficulté"
 
 #: problems/templates/problems/stub_search_form.html:10
 msgid "From"
@@ -3809,10 +3953,6 @@ msgstr "Plein écran"
 #: semifinal/templates/semifinal/scoreboard.html:24
 msgid "Exit fullscreen"
 msgstr "Sortir du plein écran"
-
-#: semifinal/templates/semifinal/stub-scoreboard.html:7
-msgid "Nickname"
-msgstr "Pseudonyme"
 
 #: sponsor/admin.py:19
 msgid "Active"

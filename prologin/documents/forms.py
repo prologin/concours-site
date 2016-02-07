@@ -15,7 +15,7 @@ SemifinalResults = namedtuple('SemifinalResults', 'event contestants submissions
 class ImportSemifinalResultUploadForm(forms.Form):
     file = forms.FileField(label=_("JSON export file"),
                            required=True,
-                           help_text=_("Select the JSON export file obtained from semifinal website and proceed."))
+                           help_text=_("Select the JSON export file obtained from regional event website and proceed."))
 
     def clean_file(self):
         stream = self.cleaned_data['file']
