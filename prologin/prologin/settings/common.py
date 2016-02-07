@@ -269,6 +269,9 @@ PROBLEMS_RESULT_TIMEOUT = 3
 # (this is done using Javascript).
 PROBLEMS_RESULT_POLL_INTERVAL = 3 * 1000
 
+# Storage path for temporary files for semifinal data imports
+DATA_IMPORT_SEMIFINAL_TEMPORARY_DIR = '/tmp/data-import/semifinal'
+
 # List of challenges (directory name), eg. ('demi2015', 'qcm2014')
 # Empty list allows everything
 PROBLEMS_CHALLENGE_WHITELIST = ()

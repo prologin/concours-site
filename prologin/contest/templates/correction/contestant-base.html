@@ -4,8 +4,8 @@
 {% block breadcrumbs %}
   {{ block.super }}
   {% breadcrumb_for '' %}{% trans "Contest" %}{% endbreadcrumb_for %}
-  {% breadcrumb_for 'contest:correction-index' %}{% trans "Correction" %}{% endbreadcrumb_for %}
-  {% breadcrumb_for 'contest:correction-year' edition.year %}{{ edition.year }}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction:index' %}{% trans "Correction" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction:year' edition.year %}{{ edition.year }}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block extra_head %}
@@ -154,7 +154,7 @@
         // Periodic ajax call to check for updates
         // Next delay is given by the server, fallback to 2000 if invalid answer
         var latest = from_ts || $correction_history.find('.correction').first().attr('data-date');
-        $.get('{% url "contest:correction-live-update" year=edition.year cid=contestant.pk type=event_type.name %}',
+        $.get('{% url "contest:correction:live-update" year=edition.year cid=contestant.pk type=event_type.name %}',
           {from: latest})
           .done(function (data) {
             failures = 0;

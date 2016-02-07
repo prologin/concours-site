@@ -1,0 +1,127 @@
+{% extends "documents/semifinal-import-base.html" %}
+{% load i18n bootstrap %}
+
+{% block extra_head %}
+  {{ block.super }}
+  <style>
+  .submission {
+    font-weight: inherit;
+    padding: 2px 4px 2px 2px;
+    display: inline-block;
+  }
+  .submission .fa-unlock {
+    display: none;
+  }
+  .submission .difficulty {
+    color: #333;
+    background: white;
+    border-radius: .2em;
+    padding: 0 .25em;
+    display: inline-block;
+    line-height: 1.2;
+  }
+  .submission.unlocked .fa-unlock {
+    display: inline-block;
+  }
+
+  .table-striped > tbody > tr {
+    background-color: transparent !important;
+  }
+
+  .table-striped > tbody > tr:nth-of-type(4n+1), .table-striped > tbody > tr:nth-of-type(4n+2) {
+    background-color: #f9f9f9 !important;
+  }
+  </style>
+{% endblock %}
+
+{% block before-form %}
+
+  <div class="well">
+    <div class="row">
+      <div class="col-md-6">
+        <dl class="dl-horizontal" style="margin-bottom: 0">
+          <dt>{% trans "Edition" %}</dt>
+          <dd>{{ event.edition.year }}</dd>
+          <dt>{% trans "Event" %}</dt>
+          <dd>{{ event.center.name }} ⋅ {{ event.date_begin|date:"DATE_FORMAT" }}</dd>
+        </dl>
+      </div>
+
+      <div class="col-md-6">
+        <dl class="dl-horizontal" style="margin-bottom: 0">
+          <dt>{% trans "Key" context "Legend" %}</dt>
+          <dd>
+            <span class="label label-primary submission">
+              <span class="difficulty">{% trans "Difficulty" %}</span>
+              {% trans "Problem name" %}
+              ⋅ {% trans "Score" %}
+              ({% trans "# of codes" %})
+            </span>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block form-content %}{% with form=wizard.form %}
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>{% trans "ID" %}</th>
+        <th>{% trans "Nickname" %}</th>
+        <th>{% trans "Full name" %}</th>
+        <th>{% trans "Score" %}</th>
+        <th>{% trans "Submissions" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% for imported, contestant, warnings, errors in contestants %}
+      <tr>
+        <td>{% if imported.pk != None %}{{ imported.pk }}{% else %}<span class="text-danger">{{ contestant.pk }}</span>{% endif %}</td>
+      {% if contestant %}
+        <td>
+          {{ contestant.user.username }}
+          <br><span class="text-muted">{{ contestant.user.normalized_username }}</span>
+        </td>
+        <td>{{ contestant.user.get_full_name }}</td>
+        <td>{{ imported.score }}</td>
+        <td>
+        {% for submission in imported.submissions %}
+          <span class="label label-{% if submission.succeeded %}primary{% else %}warning{% endif %} submission {% if submission.unlock %}unlocked{% endif %}">
+            <span class="difficulty">{{ submission.problem_model.difficulty }}</span>
+            {{ submission.problem_model.title }} ⋅
+            {{ submission.score }}
+            ({% blocktrans count count=submission.code_count %}{{ count }} code{% plural %}{{ count }} codes{% endblocktrans %})
+            <i class="fa fa-unlock" title="{% trans "Manually unlocked" %}"></i>
+          </span>
+        {% endfor %}
+        </td>
+      {% else %}
+        <td colspan="4"><em>{% trans "No contestant found." %}</em></td>
+      {% endif %}
+      </tr>
+      <tr>
+        <td colspan="5">
+        {% if errors %}
+          <p class="text-danger"><i class="fa fa-times"></i> {% trans "Contestant will <strong>not</strong> be imported." %}</p>
+        {% else %}
+          <p class="text-success"><i class="fa fa-check"></i> {% trans "Contestant will be imported." %}</p>
+        {% endif %}
+        {% for warning in warnings %}
+          <span class="text-warning"><i class="fa fa-warning"></i> {{ warning }}</span>
+        {% endfor %}
+          {% for error in errors %}
+          <span class="text-danger"><i class="fa fa-times"></i> {{ error }}</span>
+        {% endfor %}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+  <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> {% trans "Proceed" %}</button>
+
+{% endwith %}{% endblock %}

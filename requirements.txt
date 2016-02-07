@@ -24,6 +24,8 @@ django-csp
 git+https://github.com/Zopieux/django-datatable-view.git@master
 # Debug Toolbar
 django-debug-toolbar
+# Form wizards (they were a Django builtin, but split as of 1.8)
+django-formtools
 # Export metrics for prometheus monitoring
 django-prometheus
 # Google Recaptcha/Nocaptcha support

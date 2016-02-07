@@ -1,0 +1,11 @@
+{% extends "documents/semifinal-import-base.html" %}
+{% load i18n bootstrap %}
+
+{% block form-content %}
+  {{ wizard.form|bootstrap_horizontal }}
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-primary"><i class="fa fa-upload"></i> {% trans "Proceed" %}</button>
+    </div>
+  </div>
+{% endblock %}

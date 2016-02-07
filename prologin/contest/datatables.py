@@ -62,7 +62,7 @@ class AbstractContestantTable(Datatable):
 
 class ContestantQualificationTable(AbstractContestantTable):
     event_type = contest.models.Event.Type.qualification
-    correction_url_name = 'correction-contestant-qualification'
+    correction_url_name = 'correction:contestant-qualification'
 
     assigned_event = datatableview.TextColumn(_("Assigned regional event"),
                                               sources=['assignation_semifinal_event__center__name',
@@ -88,12 +88,12 @@ class ContestantQualificationTable(AbstractContestantTable):
     def get_assignation_semifinal_status(self, contestant, **kwargs):
         return format_html('{} <small class="text-muted"> - {} correction(s)</small>',
                            Assignation.label_for(Assignation(contestant.assignation_semifinal)),
-                           contestant.corrections.count())
+                           contestant.corrections.filter(event_type=self.event_type.value).count())
 
     def convocation_link(self, contestant):
         if contestant.assignation_semifinal == contest.models.Assignation.assigned.value:
             return format_html('<a href="{}" class="btn btn-default btn-xs"><i class="fa fa-graduation-cap"></i> {}</a>',
-                               reverse('documents:semifinal-contestant-convocation',
+                               reverse('documents:semifinal:contestant-convocation',
                                        kwargs={'year': contestant.edition.year, 'contestant': contestant.pk}),
                                _("Convocation"))
         else:
@@ -107,9 +107,17 @@ class ContestantQualificationTable(AbstractContestantTable):
 
 class ContestantSemifinalTable(AbstractContestantTable):
     event_type = contest.models.Event.Type.semifinal
-    correction_url_name = 'correction-contestant-semifinal'
+    correction_url_name = 'correction:contestant-semifinal'
 
+    assignation_status = datatableview.TextColumn(_("Assignation status"),
+                                                  sources='assignation_final',
+                                                  processor='get_assignation_final_status')
     score = datatableview.IntegerColumn(_("Score"), source='score_for_semifinal')
+
+    def get_assignation_final_status(self, contestant, **kwargs):
+        return format_html('{} <small class="text-muted"> - {} correction(s)</small>',
+                           Assignation.label_for(Assignation(contestant.assignation_final)),
+                           contestant.corrections.filter(event_type=self.event_type.value).count())
 
     def convocation_link(self, contestant):
         if contestant.assignation_final == contest.models.Assignation.assigned.value:

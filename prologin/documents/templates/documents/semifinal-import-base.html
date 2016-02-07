@@ -1,0 +1,26 @@
+{% extends "prologin/base.html" %}
+{% load i18n bootstrap staticfiles django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for 'documents:index' %}{% trans "Documents" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'documents:semifinal-data-import' %}{% trans "Data import" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Data import" %}{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "Data import" %}</h1>
+
+  <h3>{{ step_name }} <small>{% blocktrans with step=wizard.steps.step1 total=wizard.steps.count %}Step {{ step }} of {{ total }}{% endblocktrans %}</small></h3>
+
+  {% block before-form %}{% endblock %}
+  <form method="post" enctype=multipart/form-data class="form form-horizontal">
+    {% csrf_token %}
+    {{ wizard.management_form }}
+    {% block form-content %}{% endblock %}
+  </form>
+  {% block after-form %}{% endblock %}
+
+{% endblock %}

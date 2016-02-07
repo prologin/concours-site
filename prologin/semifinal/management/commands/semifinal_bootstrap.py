@@ -45,6 +45,8 @@ class Command(BaseCommand):
         # Safety checks
         if 'semifinal' not in settings.INSTALLED_APPS:
             self.abort("Module 'semifinal' is not in INSTALLED_APPS. Please ensure you are using semifinal settings.")
+        if not settings.PROLOGIN_SEMIFINAL_MODE:
+            self.abort("Your are not in semifinal mode. Please ensure you are using semifinal settings.")
 
         for model in (Edition, Event, Center, Contestant, User):
             if model.objects.exists():

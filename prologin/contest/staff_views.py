@@ -83,10 +83,10 @@ class IndexView(CanCorrectPermissionMixin, TemplateView):
                                       .select_related('edition').order_by('-edition__year', 'type'))
         for event in events:
             if event.type == contest.models.Event.Type.qualification.value:
-                event.absolute_url = reverse('contest:correction-qualification',
+                event.absolute_url = reverse('contest:correction:qualification',
                                              kwargs={'year': event.edition.year})
             elif event.type == contest.models.Event.Type.semifinal.value:
-                event.absolute_url = reverse('contest:correction-semifinal',
+                event.absolute_url = reverse('contest:correction:semifinal',
                                              kwargs={'year': event.edition.year, 'event': event.pk})
             # we don't care about finals
         context['years'] = sorted(set(event.edition.year for event in events), reverse=True)
@@ -112,10 +112,10 @@ class YearIndexView(CanCorrectPermissionMixin, EditionMixin, ListView):
                                   .values_list('pk', 'c'))
         for item in qs:
             if item.type == contest.models.Event.Type.qualification.value:
-                item.absolute_url = reverse('contest:correction-qualification', kwargs={'year': self.edition.year})
+                item.absolute_url = reverse('contest:correction:qualification', kwargs={'year': self.edition.year})
                 item.contestant_count = contestants.count()
             elif item.type == contest.models.Event.Type.semifinal.value:
-                item.absolute_url = reverse('contest:correction-semifinal',
+                item.absolute_url = reverse('contest:correction:semifinal',
                                             kwargs={'year': self.edition.year, 'event': item.pk})
                 item.contestant_count = events_contestants.get(item.pk, 0)
             else:
@@ -233,7 +233,7 @@ class ContestantQualificationView(ContestantCorrectionView):
     template_name = 'correction/contestant-qualification.html'
     event_type = contest.models.Event.Type.qualification
     form_class = contest.staff_forms.ContestantQualificationForm
-    redirect_url_name = 'correction-contestant-qualification'
+    redirect_url_name = 'correction:contestant-qualification'
     
     def submissioncode_date_range(self):
         event = contest.models.Event.objects.get(edition=self.edition, type=self.event_type.value)
@@ -260,7 +260,7 @@ class ContestantSemifinalView(EventMixin, ContestantCorrectionView):
     template_name = 'correction/contestant-semifinal.html'
     event_type = contest.models.Event.Type.semifinal
     form_class = contest.staff_forms.ContestantSemifinalForm
-    redirect_url_name = 'correction-contestant-semifinal'
+    redirect_url_name = 'correction:contestant-semifinal'
 
     def submissioncode_date_range(self):
         if not self.event:

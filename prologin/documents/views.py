@@ -2,17 +2,21 @@ import collections
 import io
 from django.conf import settings
 from django.core import serializers
+from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
 from django.http.response import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.views.generic import TemplateView, View
 from django.views.generic.base import RedirectView
+from formtools.wizard.views import SessionWizardView
 from rules.compat.access_mixins import PermissionRequiredMixin
 
 import contest.models
+import documents.forms
+import problems.models
 from documents.base_views import (BaseSemifinalDocumentView, BaseFinalDocumentView,
                                   BaseCompilationView, USER_LIST_ORDERING)
 
@@ -120,15 +124,14 @@ class SemifinalContestantCompilationView(BaseCompilationView):
 
 
 class SemifinalDataExportView(PermissionRequiredMixin, View):
-    permission_required = 'documents.generate_data_export'
+    permission_required = 'documents.data_export'
 
     def get(self, request, *args, **kwargs):
         event = get_object_or_404(contest.models.Event, pk=self.kwargs['event'], edition__year=self.kwargs['year'])
 
         contestants = (event.assigned_contestants
                        .select_related('user')
-                       .filter(user__is_active=True, user__is_staff=False, user__is_superuser=False)
-                       .all())
+                       .filter(user__is_active=True, user__is_staff=False, user__is_superuser=False))
 
         serializer = serializers.get_serializer('json')()
         stream = io.StringIO()
@@ -166,6 +169,120 @@ class SemifinalDataExportView(PermissionRequiredMixin, View):
                                            .format(slugify("export-semifinal-{}-{}"
                                                            .format(event.edition.year, event.center.name))))
         return response
+
+
+class SemifinalDataImportView(PermissionRequiredMixin, SessionWizardView):
+    permission_required = 'documents.data_import'
+    file_storage = FileSystemStorage(location=settings.DATA_IMPORT_SEMIFINAL_TEMPORARY_DIR)
+    form_list = [('upload', documents.forms.ImportSemifinalResultUploadForm),
+                 ('review', documents.forms.ImportSemifinalResultReviewForm)]
+    step_names = {'upload': _("Upload result file"),
+                  'review': _("Review the imported data")}
+    step_templates = {'upload': 'documents/semifinal-import-upload.html',
+                      'review': 'documents/semifinal-import-review.html'}
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['step_name'] = self.step_names[self.steps.current]
+        if self.steps.current == 'review':
+            context.update(self.get_review_context_data())
+        return context
+
+    def get_review_context_data(self):
+        result = self.get_cleaned_data_for_step('upload')['file']
+
+        our_contestants = (contest.models.Contestant.objects
+                           .filter(assignation_semifinal=contest.models.Assignation.assigned.value,
+                                   assignation_semifinal_event=result.event))
+        missing_contestant_pk = set(contestant.pk for contestant in our_contestants)
+
+        # Build the contestants list with (imported, contestant, warning list, error list)
+        contestants = []
+        for imported, contestant in result.contestants:
+            warnings = []
+            errors = []
+            missing_contestant_pk.discard(imported.pk)
+            contestants.append((imported, contestant, warnings, errors))
+            if contestant is None:
+                errors.append(_("Contestant not found in local database."))
+                continue
+            if not contestant.is_assigned_for_semifinal or contestant.assignation_semifinal_event != result.event:
+                errors.append(_("Contestant not assigned to this semifinal."))
+            if not contestant.user.is_active:
+                warnings.append(_("User is inactive."))
+
+        # Add missing local contestants as errors
+        for contestant in our_contestants.filter(pk__in=missing_contestant_pk):
+            errors = [_("Contestant not found in imported data.")]
+            contestants.append((None, contestant, [], errors))
+
+        # Descendant-sort by number of {errors, warnings}
+        contestants.sort(key=lambda attrs: (-len(attrs[3]), -len(attrs[2])))
+
+        return {'contestants': contestants, 'event': result.event}
+
+    def get_template_names(self):
+        return [self.step_templates[self.steps.current]]
+
+    def done(self, form_list, **kwargs):
+        result = self.get_cleaned_data_for_step('upload')['file']
+        event = result.event
+        challenge = event.challenge
+
+        valid_user_pk = set()
+        submissions = {}
+
+        data = self.get_review_context_data()
+
+        # Extract the list of valid user ids
+        for imported, contestant, warnings, errors in data['contestants']:
+            if errors or not imported or not contestant:
+                continue
+            valid_user_pk.add(contestant.user.pk)
+
+        # Create or update submissions (score_base and malus)
+        for submission in result.submissions:
+            if submission.object.user_id not in valid_user_pk:
+                continue
+            old_pk = submission.object.pk
+            current_submission, created = (problems.models.Submission.objects
+                                           .get_or_create(challenge=challenge.name,
+                                                          problem=submission.object.problem,
+                                                          user=submission.object.user))
+            # Overwrite score_base and malus
+            current_submission.score_base = submission.object.score_base
+            current_submission.malus = submission.object.malus
+            current_submission.save()
+            # Save reference to old pk for related objects (namely codes)
+            submissions[old_pk] = current_submission
+
+        # Create codes, if they do not already exist
+        for submissioncode in result.submissioncodes:
+            if submissioncode.object.submission_id not in submissions:
+                continue
+            old_submission_pk = submissioncode.object.submission_id
+            current_submission = submissions[old_submission_pk]
+            fields = ('code', 'language', 'summary', 'score', 'exec_time', 'exec_memory', 'date_submitted', 'date_corrected')
+            current_code, created = (problems.models.SubmissionCode.objects
+                                     .get_or_create(submission=current_submission,
+                                                    **{field: getattr(submissioncode.object, field) for field in fields},
+                                                    defaults={'celery_task_id': submissioncode.object.celery_task_id}))
+            if created:
+                current_code.save()
+
+        # Create unlocks, if they do not already exist
+        for explicitunlock in result.explicitunlocks:
+            if explicitunlock.object.user_id not in valid_user_pk:
+                continue
+            current_unlock, created = (problems.models.ExplicitProblemUnlock.objects
+                                       .get_or_create(challenge=explicitunlock.object.challenge,
+                                                      problem=explicitunlock.object.problem,
+                                                      user=explicitunlock.object.user,
+                                                      defaults={'date_created': explicitunlock.object.date_created}))
+            if created:
+                current_unlock.save()
+
+        return redirect('contest:correction:semifinal', year=event.edition.year, event=event.pk)
 
 
 class FinalConvocationsView(BaseFinalDocumentView):

@@ -4,9 +4,9 @@
 {% block breadcrumbs %}
   {{ block.super }}
   {% breadcrumb_for '' %}{% trans "Contest" %}{% endbreadcrumb_for %}
-  {% breadcrumb_for 'contest:correction-index' %}{% trans "Correction" %}{% endbreadcrumb_for %}
-  {% breadcrumb_for 'contest:correction-year' edition.year %}{{ edition.year }}{% endbreadcrumb_for %}
-  {% breadcrumb_for 'contest:correction-qualification' edition.year %}{% trans "Qualification" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction:index' %}{% trans "Correction" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction:year' edition.year %}{{ edition.year }}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction:qualification' edition.year %}{% trans "Qualification" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "Qualification" %} {{ edition.year }}{% endblock %}
