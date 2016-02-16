@@ -266,8 +266,8 @@ class SemifinalDataImportView(PermissionRequiredMixin, SessionWizardView):
             fields = ('code', 'language', 'summary', 'score', 'exec_time', 'exec_memory', 'date_submitted', 'date_corrected')
             current_code, created = (problems.models.SubmissionCode.objects
                                      .get_or_create(submission=current_submission,
-                                                    **{field: getattr(submissioncode.object, field) for field in fields},
-                                                    defaults={'celery_task_id': submissioncode.object.celery_task_id}))
+                                                    defaults={'celery_task_id': submissioncode.object.celery_task_id},
+                                                    **{field: getattr(submissioncode.object, field) for field in fields}))
             if created:
                 current_code.save()
 
