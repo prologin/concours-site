@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-07 18:01+0100\n"
-"PO-Revision-Date: 2016-02-07 17:02+0000\n"
+"POT-Creation-Date: 2016-02-16 18:48+0100\n"
+"PO-Revision-Date: 2016-02-16 17:49+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1497,34 +1497,43 @@ msgstr "Le sujet a été supprimé avec succès."
 
 #: homepage/templates/homepage/homepage.html:4
 #: homepage/templates/homepage/jumbotron.html:5
+#: prologin/templates/prologin/base.html:23
 msgid "Prologin, the French National Computer Science Contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: homepage/templates/homepage/homepage.html:26
+#: homepage/templates/homepage/homepage.html:10
+#: prologin/templates/prologin/base.html:24
+msgid ""
+"Prologin is a computer science contest. Our goal is to introduce students to"
+" the world of programming and algorithms by subjecting them to several "
+"conventional problems and exciting challenges."
+msgstr "Prologin est un concours d'informatique. Notre but est de faire découvrir le monde de la programmation et de l'algorithmique aux étudiants et de les confronter à des problèmes classiques et des challenges excitants."
+
+#: homepage/templates/homepage/homepage.html:28
 msgid "Latest news"
 msgstr "Dernières actualités"
 
-#: homepage/templates/homepage/homepage.html:28
-#: homepage/templates/homepage/homepage.html:62
+#: homepage/templates/homepage/homepage.html:30
+#: homepage/templates/homepage/homepage.html:64
 msgid "Browse all news"
 msgstr "Consulter toutes les actualités"
 
-#: homepage/templates/homepage/homepage.html:38
+#: homepage/templates/homepage/homepage.html:40
 #: news/templates/zinnia/_entry_detail_base.html:17
 msgid "Written by"
 msgstr "Rédigé par"
 
-#: homepage/templates/homepage/homepage.html:42
+#: homepage/templates/homepage/homepage.html:44
 #: news/templates/zinnia/_entry_detail_base.html:21
 #, python-format
 msgid "Show all %(author)s's entries"
 msgstr "Tous les articles de %(author)s"
 
-#: homepage/templates/homepage/homepage.html:44
+#: homepage/templates/homepage/homepage.html:46
 msgid "on"
 msgstr "le"
 
-#: homepage/templates/homepage/homepage.html:46
+#: homepage/templates/homepage/homepage.html:48
 msgid "Written on"
 msgstr "Rédigé le"
 
@@ -3564,12 +3573,11 @@ msgid "Undergoing maintenance"
 msgstr "En cours de maintenance"
 
 #: prologin/templates/503.html:20 prologin/templates/503.html.py:23
-#: prologin/templates/prologin/base.html:22
-#: prologin/templates/prologin/base.html:25
 msgid "Prologin, the French computing contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: prologin/templates/503.html:53 prologin/templates/prologin/base.html:66
+#: prologin/templates/503.html:53 prologin/templates/prologin/base.html:22
+#: prologin/templates/prologin/base.html:72
 #: prologin/templates/prologin/main-footer.html:4
 #: semifinal/templates/prologin/base.html:57
 #: semifinal/templates/prologin/main-footer.html:4
@@ -3603,7 +3611,7 @@ msgstr "Erreur %(number)s"
 msgid "You can go back to the <a href=\"%(url)s\">home page</a>."
 msgstr "Vous pouvez retourner à <a href=\"%(url)s\">l'accueil</a>."
 
-#: prologin/templates/prologin/base.html:30
+#: prologin/templates/prologin/base.html:36
 msgid "Latest blog articles"
 msgstr "Dernières actualités"
 

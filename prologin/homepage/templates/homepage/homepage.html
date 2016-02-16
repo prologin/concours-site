@@ -7,6 +7,8 @@
 
 {% block extra_head %}<link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}" />{% endblock %}
 
+{% block meta_descr %}{% trans "Prologin is a computer science contest. Our goal is to introduce students to the world of programming and algorithms by subjecting them to several conventional problems and exciting challenges." %}{% endblock %}
+
 {% block super_content %}
 {% include "homepage/jumbotron.html" %}
 
