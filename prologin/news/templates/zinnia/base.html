@@ -1,6 +1,6 @@
 {% extends "zinnia/skeleton.html" %}
-{% load zinnia i18n news_tags %}
-{% load django_bootstrap_breadcrumbs %}
+{% load i18n %}
+{% load django_bootstrap_breadcrumbs news_tags zinnia %}
 
 {% block meta-keywords %}{% get_tags as entry_tags %}{{ entry_tags|join:", "}}{% endblock meta-keywords %}
 

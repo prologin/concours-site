@@ -1,4 +1,6 @@
-{% load i18n navigation %}
+{% load i18n %}
+{% load navigation %}
+
 {% if is_paginated %}
   <ul class="pagination">
     {% if page_obj.has_previous %}

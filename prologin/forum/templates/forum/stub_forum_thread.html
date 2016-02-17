@@ -1,4 +1,5 @@
-{% load i18n humanize %}
+{% load humanize i18n %}
+
 <li class="{% if thread.is_sticky %}thread-sticky {% endif %}{% if thread.is_closed %}thread-closed {% endif %}{% if thread.is_moved %}thread-moved {% endif %}">
   <div class="row row-vmiddle">{% spaceless %}
     <div class="col-sm-7 col-xs-8 thread-item-main">

@@ -1,4 +1,6 @@
-{% load i18n utils %}
+{% load i18n %}
+{% load utils %}
+
 <{% if problem.locked %}div{% else %}a{% endif %} class="list-group-item problem clearfix {% if problem.locked %}disabled{% endif %}" {% if not problem.locked %}href="{% url 'problems:problem' problem.challenge.year problem.challenge.event_type.name problem.name %}"{% endif %}>
   <div class="col-sm-2 col-xs-2" style="padding: 0"><div class="progress" style="margin: 0"
      title="{% blocktrans with level=problem.difficulty %}Level {{ level }}{% endblocktrans %}">

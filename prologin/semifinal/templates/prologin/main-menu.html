@@ -1,4 +1,6 @@
-{% load i18n rules navigation %}
+{% load i18n %}
+{% load navigation rules %}
+
 <ul class="nav navbar-nav pull-right">
 {% if request.user.is_authenticated %}
   <li class="{% active '^/semifinal/' %}"><a href="{% url 'problems:challenge' request.current_edition.year 'semifinal' %}">{% trans "Problems" %}</a></li>

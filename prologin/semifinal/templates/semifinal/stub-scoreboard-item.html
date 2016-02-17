@@ -1,4 +1,6 @@
-{% load i18n humanize %}{% spaceless %}
+{% load humanize i18n %}
+
+{% spaceless %}
 <tr id="sb-{{ user.pk }}">
   <td class="text-center sb-update">
   {% if user.rank <= 3 %}

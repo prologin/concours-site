@@ -1,4 +1,6 @@
-{% load utils i18n %}
+{% load i18n %}
+{% load utils %}
+
 {% get_setting_var 'PROLOGIN_CONTACT_MAIL' as contactmail %}
 {% spaceless %}{% autoescape off %}
 {% blocktrans with user.username as username %}

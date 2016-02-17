@@ -1,4 +1,6 @@
-{% load i18n rules navigation %}
+{% load i18n %}
+{% load navigation rules %}
+
 <ul class="nav navbar-nav pull-right">
 {% if request.current_events.qualification.is_active %}
   <li class="{% active '^/contest/' %}"><a href="{% url 'contest:qualification_summary' request.current_edition.year %}">{% trans "Participate" %}</a></li>

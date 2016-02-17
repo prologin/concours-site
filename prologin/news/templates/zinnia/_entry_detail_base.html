@@ -1,4 +1,6 @@
-{% load i18n zinnia %}
+{% load i18n %}
+{% load zinnia %}
+
 <div id="entry-{{ object.pk }}" class="hentry{% if object.featured %} featured{% endif %}" itemscope itemtype="http://schema.org/NewsArticle">
   {% block entry-header %}
   <header class="entry-header">
