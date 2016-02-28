@@ -70,6 +70,7 @@ def select2():
                 extract_from_zip(zipball, member, path)
                 print("Extracted", path)
 
+
 def font_awesome():
     print("Updating Fontawesome CSS")
     tags = requests.get('https://api.github.com/repos/FortAwesome/Font-Awesome/tags').json()
@@ -162,6 +163,21 @@ def datatables():
             extract_from_zip(zipball, name, os.path.join(ftype, name))
 
 
+def mathjax():
+    print("Updating MathJax")
+    prefix = 'mathjax'
+    releases = requests.get('https://api.github.com/repos/mathjax/mathjax/releases').json()
+    release = next(rel for rel in releases if not rel['prerelease'])
+    print("Release is", release['tag_name'])
+    tarball_url = release['tarball_url']
+    print("Downlading & extracting", tarball_url)
+    os.makedirs(prefix, exist_ok=True)
+    curl = subprocess.Popen(['curl', '-qL', tarball_url], stdout=subprocess.PIPE)
+    tar = subprocess.Popen(['tar', '-xzvf', '-', '--strip-components=1', '-C', prefix], stdin=curl.stdout)
+    curl.stdout.close()
+    tar.communicate()
+
+
 def main():
     pygments()
     jquery()
@@ -169,6 +185,7 @@ def main():
     font_awesome()
     select2()
     datatables()
+    mathjax()
     # Offline Google Fonts do not render correctly depending on the browser. Just let the browser fallback when offline.
     # google_font('roboto',
     #             font_variants={'regular', '300', '300italic'},

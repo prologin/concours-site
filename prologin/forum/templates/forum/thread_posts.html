@@ -183,7 +183,7 @@
 {% endblock %}
 
 {% block extra_script %}
-  <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  {% include "stub-mathjax.html" %}
   <script type="text/javascript">
     /* When clicking permalinks, just scroll to message, don't do the full redirect */
     $(function() {
