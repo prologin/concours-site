@@ -477,6 +477,30 @@ footer .legal {
   border-color: transparent;
 }
 
+.MathJax:focus, .mjx-chtml:focus, .MathJax_PHTML:focus, .MathJax_SVG:focus, .MathJax_PlainSource:focus {
+  outline: none;
+}
+
+.task-list-item {
+  list-style-type: none;
+}
+
+input[type=checkbox].task-list-item-checkbox {
+  margin: 0 0.35em 0.25em -1.25em;
+  vertical-align: middle;
+}
+
+* > a.headerlink {
+  visibility: hidden;
+  text-decoration: none;
+  padding-left: .5em;
+  font-size: 1em;
+}
+
+*:hover > a.headerlink {
+  visibility: visible;
+}
+
 .sponsor {
   width: 100%;
   max-width: 220px;

@@ -29,9 +29,9 @@
         </p>
       </div>
 
-      <article class="problem-statement" id="statement">
+      <article class="problem-statement tex2jax_process" id="statement">
         {% if problem.subject_markdown %}
-          {{ problem.subject_markdown|markdown }}
+          {{ problem.subject_markdown|flavored_markdown:False }}
         {% else %}
           {{ problem.subject_html|safe }}
         {% endif %}
@@ -62,7 +62,7 @@
             </dd>
             {% if sample.comment %}
               <dt>{% trans "Note" %}</dt>
-              <dd>{{ sample.comment|markdown }}</dd>
+              <dd class="tex2jax_process">{{ sample.comment|flavored_markdown }}</dd>
             {% endif %}
           </dl>
         {% endfor %}
@@ -188,6 +188,7 @@
 {% endblock %}
 
 {% block extra_script %}
+  {% include "stub-mathjax.html" %}
 {% if request.user.is_authenticated %}
   <script type="text/javascript" charset="utf-8" src="{% static 'js/utils.js' %}"></script>
   <script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ace.js' %}"></script>

@@ -48,6 +48,8 @@ lxml
 markdown>=2.4
 # Image manipulation support, previously known as PIL
 pillow>=2.4
+# Github-flavored Markdown TODO: replace with upstream when merged
+git+https://github.com/Zopieux/py-gfm.git
 # Postgres database connector
 psycopg2>=2.5
 # Code highlighting

@@ -1,4 +1,6 @@
+import bleach
 from django import template
+from django.template.defaultfilters import slugify
 from django.utils.text import mark_safe
 
 import markdown as markdown_lib
@@ -8,35 +10,67 @@ import pygments.formatters
 
 register = template.Library()
 
+ALLOWED_TAGS = [
+    'h1', 'h2', 'h3', 'h4', 'h5', 'p', 'span', 'a', 'em', 'strong', 'del', 'br', 'img', 'hr',
+    'ul', 'ol', 'li',
+    'dl', 'dd', 'dt',
+    'div', 'code', 'pre', 'blockquote', 'input',
+    'table', 'thead', 'tfoot', 'tr', 'td', 'th',
+]
+ALLOWED_ATTRS = ['class', 'rel', 'src', 'alt', 'style', 'href', 'id', 'type', 'checked', 'disabled']
+
 
 def _init_flavored_markdown():
     import markdown.extensions.codehilite
     import markdown.extensions.fenced_code
+    import markdown.extensions.tables
     import markdown.extensions.footnotes
+    import markdown.extensions.toc
+    import markdown.extensions.headerid
+    import markdown.extensions.smart_strong
+    import gfm
     from prologin.utils.markdown.emoji import EmojiExtension
     from prologin.utils.markdown.nofollow import NofollowExtension
     ext = [
+        markdown.extensions.fenced_code.FencedCodeExtension(),
+        markdown.extensions.tables.TableExtension(),
         markdown.extensions.footnotes.FootnoteExtension(),
+        markdown.extensions.smart_strong.SmartEmphasisExtension(),
         markdown.extensions.codehilite.CodeHiliteExtension(linenums=True, css_class="pyg-hl"),
-        'markdown.extensions.fenced_code',
+        markdown.extensions.toc.TocExtension(slugify=lambda s, _: slugify('bdy-' + s),
+                                             permalink=True,
+                                             baselevel=1),
+        gfm.AutolinkExtension(),
+        gfm.AutomailExtension(),
+        gfm.SemiSaneListExtension(),
+        gfm.SpacedLinkExtension(),
+        gfm.StrikethroughExtension(),
+        gfm.TaskListExtension(checked=('[x]', '✅', '✓', '✔'), unchecked=('[ ]', '✗', '✘'),
+                              item_attrs={'class': 'task-list-item'},
+                              checkbox_attrs={'class': 'task-list-item-checkbox'}),
         EmojiExtension(),
         NofollowExtension(),
     ]
-    return markdown_lib.Markdown(extensions=ext, safe_mode='escape', output_format='html5')
+    return markdown_lib.Markdown(extensions=ext, output_format='html5')
 
 flavored_markdown_converter = _init_flavored_markdown()
 
 
 @register.filter
-def markdown(value):
-    return mark_safe(markdown_lib.markdown(value))
+def markdown(value, escape=True):
+    rendered = markdown_lib.markdown(value)
+    if escape:
+        rendered = bleach.clean(rendered, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRS)
+    return mark_safe(rendered)
 
 
 @register.filter
-def flavored_markdown(value):
-    rendered = mark_safe(flavored_markdown_converter.convert(value))
+def flavored_markdown(value, escape=True):
+    rendered = flavored_markdown_converter.convert(value)
+    if escape:
+        rendered = bleach.clean(rendered, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRS)
     flavored_markdown_converter.reset()
-    return rendered
+    return mark_safe(rendered)
 
 
 @register.filter
