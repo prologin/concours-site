@@ -1,5 +1,7 @@
 # HTML parser
 beautifulsoup4
+# HTML sanitizer (Markdown escaping)
+bleach
 # For code charset detection
 chardet
 # For async tasks (sending mails, correcting submissions, etc.)
