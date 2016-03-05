@@ -1,11 +1,18 @@
 #!/bin/sh
 
 if [ $(id -u) -eq 0 ]; then
+  if [ "$#" -ne 1 ]; then
+    echo "Please specify the file to import the semifinal data from"
+    exit 1
+  fi
   echo -n "stopping website service..."
   systemctl stop website
   echo -e "\tDone !"
-  cd /home/prologin/
-  su prologin -c "pew in prologin-site sh $0 $1"
+  echo $0
+  REAL_PATH=`realpath $1`
+  echo $REAL_PATH
+  cd `dirname $0`
+  su prologin -c "pew in prologin-site sh `basename $0` $REAL_PATH"
   systemctl start website
   exit 0
 fi
