@@ -179,6 +179,13 @@ def mathjax():
     tar.communicate()
 
 
+def typeahead():
+    print("Updating typeahead")
+    with open('js/typeahead.jquery.min.js', 'wb') as f:
+        req = requests.get('https://github.com/corejavascript/typeahead.js/raw/master/dist/typeahead.jquery.min.js')
+        f.write(req.content)
+
+
 def main():
     pygments()
     jquery()
@@ -187,6 +194,7 @@ def main():
     select2()
     datatables()
     mathjax()
+    typeahead()
     # Offline Google Fonts do not render correctly depending on the browser. Just let the browser fallback when offline.
     # google_font('roboto',
     #             font_variants={'regular', '300', '300italic'},

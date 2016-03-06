@@ -1,6 +1,8 @@
 {% spaceless %}<div class="row">
   <div class="col-xs-3 col-img">
-    {% if user.picture_or_avatar %}<img class="team-member-avatar" src="{{ user.picture_or_avatar.url }}" alt="">{% endif %}
+    {% if user.picture_or_avatar %}
+      <div class="team-member-avatar" style="background-image: url({{ user.picture_or_avatar.url }})"></div>
+    {% endif %}
   </div>
   <div class="col-xs-9 col-info">
     <strong>{{ user.username }}</strong><br>
