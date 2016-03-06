@@ -146,5 +146,10 @@ class ExplicitProblemUnlock(models.Model):
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='explicit_problem_unlocks_created')
     date_created = models.DateTimeField(default=timezone.now)
 
+    def __str__(self):
+        return "{}/{} for {}".format(self.challenge, self.problem, self.user.username)
+
     class Meta:
+        verbose_name = _("Explicit problem unlock")
+        verbose_name_plural = _("Explicit problem unlocks")
         unique_together = [('challenge', 'problem', 'user')]

@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-06 15:10+0100\n"
-"PO-Revision-Date: 2016-03-06 14:10+0000\n"
+"POT-Creation-Date: 2016-03-06 15:41+0100\n"
+"PO-Revision-Date: 2016-03-06 14:42+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -2823,6 +2823,14 @@ msgstr "Code soumis"
 #: problems/models/submission.py:129
 msgid "Submission codes"
 msgstr "Codes soumis"
+
+#: problems/models/submission.py:150
+msgid "Explicit problem unlock"
+msgstr "Déblocage explicite de problème"
+
+#: problems/models/submission.py:151
+msgid "Explicit problem unlocks"
+msgstr "Déblocages explicites de problème"
 
 #: problems/templates/problems/challenge-scoreboard.html:11
 #: problems/templates/problems/problem.html:11

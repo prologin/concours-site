@@ -187,7 +187,7 @@ class SubmissionAdmin(admin.ModelAdmin):
 
 class ExplicitProblemUnlockAdmin(admin.ModelAdmin):
     list_display = ('__str__', 'challenge', 'problem', 'user', 'date_created', 'created_by',)
-    list_filter = ('challenge', 'problem', 'user',)
+    list_filter = ('challenge', 'problem',)
     search_fields = ('challenge', 'problem', 'user__username', 'user__first_name', 'user__last_name',)
 
 
