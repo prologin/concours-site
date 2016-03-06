@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-02-16 18:48+0100\n"
-"PO-Revision-Date: 2016-02-16 17:49+0000\n"
+"POT-Creation-Date: 2016-03-06 15:10+0100\n"
+"PO-Revision-Date: 2016-03-06 14:10+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -28,144 +28,144 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: archives/templates/archives/finale-scoreboard.html:6
-#: archives/templates/archives/index.html:6
-#: archives/templates/archives/index.html:13
-#: archives/templates/archives/index.html:20
-#: archives/templates/archives/report.html:6
-#: news/templates/zinnia/entry_archive_day.html:4
-#: news/templates/zinnia/entry_archive_day.html:6
-#: news/templates/zinnia/entry_archive_day.html:11
-#: news/templates/zinnia/entry_archive_day.html:28
+#: archives/templates/archives/finale-scoreboard.html:7
+#: archives/templates/archives/index.html:7
+#: archives/templates/archives/index.html:14
+#: archives/templates/archives/index.html:21
+#: archives/templates/archives/report.html:7
+#: news/templates/zinnia/entry_archive_day.html:5
+#: news/templates/zinnia/entry_archive_day.html:7
+#: news/templates/zinnia/entry_archive_day.html:12
+#: news/templates/zinnia/entry_archive_day.html:29
 #: news/templates/zinnia/entry_archive_month.html:4
 #: news/templates/zinnia/entry_archive_month.html:6
 #: news/templates/zinnia/entry_archive_month.html:11
 #: news/templates/zinnia/entry_archive_month.html:39
 #: news/templates/zinnia/entry_archive_today.html:23
-#: news/templates/zinnia/entry_archive_week.html:44
+#: news/templates/zinnia/entry_archive_week.html:45
 #: news/templates/zinnia/entry_archive_year.html:4
 #: news/templates/zinnia/entry_archive_year.html:6
 #: news/templates/zinnia/entry_archive_year.html:11
-#: prologin/templates/prologin/main-menu.html:8
+#: prologin/templates/prologin/main-menu.html:10
 msgid "Archives"
 msgstr "Archives"
 
-#: archives/templates/archives/finale-scoreboard.html:8
+#: archives/templates/archives/finale-scoreboard.html:9
 msgid "Final scoreboard"
 msgstr "Classement de la finale"
 
-#: archives/templates/archives/finale-scoreboard.html:15
-#: archives/templates/archives/finale-scoreboard.html:18
+#: archives/templates/archives/finale-scoreboard.html:16
+#: archives/templates/archives/finale-scoreboard.html:19
 #, python-format
 msgid "Final scoreboard for Prologin %(year)s final"
 msgstr "Classement de la finale de Prologin %(year)s"
 
-#: archives/templates/archives/index.html:21
+#: archives/templates/archives/index.html:22
 msgid ""
 "Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?\n"
 "    You can find all the documents and photo albums from past Prologin editions in these pages."
 msgstr "Vous recherchez l'affiche du dernier Prologin&nbsp;? L'énoncé de la finale de 1996&nbsp;? Le QCM de 2003&nbsp;? Vous trouverez sur ces pages l'ensemble des documents et albums photo des précédentes éditions de Prologin."
 
-#: archives/templates/archives/index.html:33
-#: contest/templates/contest/index.html:11
-#: contest/templates/contest/index.html:15
-#: contest/templates/correction/contestant-base.html:16
-#: contest/templates/correction/qualification.html:20
-#: contest/templates/correction/semifinal.html:20
+#: archives/templates/archives/index.html:34
+#: contest/templates/contest/index.html:12
+#: contest/templates/contest/index.html:16
+#: contest/templates/correction/contestant-base.html:17
+#: contest/templates/correction/qualification.html:21
+#: contest/templates/correction/semifinal.html:21
 #, python-format
 msgid "Prologin %(year)s"
 msgstr "Prologin %(year)s"
 
-#: archives/templates/archives/index.html:36
+#: archives/templates/archives/index.html:37
 msgid "Download poster"
 msgstr "Télécharger l'affiche"
 
-#: archives/templates/archives/index.html:39
+#: archives/templates/archives/index.html:40
 msgid "Poster not available"
 msgstr "Affiche indisponible"
 
-#: archives/templates/archives/index.html:43 contest/models.py:57
-#: contest/templates/contest/index.html:8
-#: contest/templates/contest/qualification_summary.html:8
-#: contest/templates/correction/contestant-qualification.html:6
-#: contest/templates/correction/qualification.html:9
-#: contest/templates/correction/qualification.html:12
-#: contest/templates/correction/qualification.html:20
-#: homepage/templates/homepage/jumbotron-qualification.html:6
-#: qcm/templates/qcm/display.html:8
+#: archives/templates/archives/index.html:44 contest/models.py:57
+#: contest/templates/contest/index.html:9
+#: contest/templates/contest/qualification_summary.html:9
+#: contest/templates/correction/contestant-qualification.html:7
+#: contest/templates/correction/qualification.html:10
+#: contest/templates/correction/qualification.html:13
+#: contest/templates/correction/qualification.html:21
+#: homepage/templates/homepage/jumbotron-qualification.html:7
+#: qcm/templates/qcm/display.html:9
 msgid "Qualification"
 msgstr "Qualification"
 
-#: archives/templates/archives/index.html:47
+#: archives/templates/archives/index.html:48
 #, python-format
 msgid "%(count)s-question quiz"
 msgid_plural "%(count)s-question quiz"
 msgstr[0] "QCM à %(count)s question"
 msgstr[1] "QCM à %(count)s questions"
 
-#: archives/templates/archives/index.html:50
-#: archives/templates/archives/index.html:69
+#: archives/templates/archives/index.html:51
+#: archives/templates/archives/index.html:70
 #, python-format
 msgid "%(count)s problem"
 msgid_plural "%(count)s problems"
 msgstr[0] "%(count)s problème"
 msgstr[1] "%(count)s problèmes"
 
-#: archives/templates/archives/index.html:53
+#: archives/templates/archives/index.html:54
 msgid "Test statement (PDF)"
 msgstr "Énoncé (PDF)"
 
-#: archives/templates/archives/index.html:56
+#: archives/templates/archives/index.html:57
 msgid "Test correction (PDF)"
 msgstr "Correction (PDF)"
 
-#: archives/templates/archives/index.html:60
-#: archives/templates/archives/index.html:73
-#: archives/templates/archives/index.html:86
+#: archives/templates/archives/index.html:61
+#: archives/templates/archives/index.html:74
+#: archives/templates/archives/index.html:87
 msgid "Sorry, no resource available."
 msgstr "Désolé, aucune ressource disponible."
 
-#: archives/templates/archives/index.html:62
-#: documents/templates/documents/index.html:34
-#: homepage/templates/homepage/jumbotron-semifinals.html:6
+#: archives/templates/archives/index.html:63
+#: documents/templates/documents/index.html:35
+#: homepage/templates/homepage/jumbotron-semifinals.html:7
 #: problems/models/__init__.py:8
 msgid "Regional events"
 msgstr "Épreuves régionales"
 
-#: archives/templates/archives/index.html:66
+#: archives/templates/archives/index.html:67
 msgid "Regional events report"
 msgstr "Rapport des épreuves régionales"
 
-#: archives/templates/archives/index.html:75 contest/models.py:59
-#: documents/templates/documents/index.html:86
-#: homepage/templates/homepage/jumbotron-final.html:6
+#: archives/templates/archives/index.html:76 contest/models.py:59
+#: documents/templates/documents/index.html:87
+#: homepage/templates/homepage/jumbotron-final.html:7
 msgid "Final"
 msgstr "Finale"
 
-#: archives/templates/archives/index.html:79
+#: archives/templates/archives/index.html:80
 msgid "Final report"
 msgstr "Rapport de la finale"
 
-#: archives/templates/archives/index.html:82
-#: problems/templates/problems/challenge-scoreboard.html:7
-#: problems/templates/problems/challenge-scoreboard.html:10
-#: problems/templates/problems/challenge-scoreboard.html:13
-#: problems/templates/problems/challenge.html:13
-#: semifinal/templates/prologin/main-menu.html:6
+#: archives/templates/archives/index.html:83
+#: problems/templates/problems/challenge-scoreboard.html:8
+#: problems/templates/problems/challenge-scoreboard.html:11
+#: problems/templates/problems/challenge-scoreboard.html:14
+#: problems/templates/problems/challenge.html:14
+#: semifinal/templates/prologin/main-menu.html:8
 msgid "Scoreboard"
 msgstr "Classement"
 
-#: archives/templates/archives/index.html:92
+#: archives/templates/archives/index.html:93
 msgid "Browse photo album on Flickr"
 msgstr "Consulter l'album photo sur Flickr"
 
-#: archives/templates/archives/index.html:92
+#: archives/templates/archives/index.html:93
 msgid "Sample photo"
 msgstr "Photo d'illustration"
 
-#: archives/templates/archives/report.html:7
-#: archives/templates/archives/report.html:14
-#: archives/templates/archives/report.html:17
+#: archives/templates/archives/report.html:8
+#: archives/templates/archives/report.html:15
+#: archives/templates/archives/report.html:18
 #, python-format
 msgid "Report for %(event)s %(year)s"
 msgstr "Rapport pour %(event)s %(year)s"
@@ -179,8 +179,8 @@ msgid "Normalize selected center addresses"
 msgstr "Normaliser les adresses des centres sélectionnés"
 
 #: centers/models.py:17 contest/admin.py:75
-#: contest/templates/correction/by-year.html:19
-#: contest/templates/correction/index.html:22
+#: contest/templates/correction/by-year.html:20
+#: contest/templates/correction/index.html:23
 msgid "Center"
 msgstr "Centre"
 
@@ -208,19 +208,19 @@ msgstr "Responsable"
 msgid "Contact"
 msgstr "Contact"
 
-#: centers/templates/centers/map.html:6 centers/templates/centers/map.html:9
+#: centers/templates/centers/map.html:7 centers/templates/centers/map.html:10
 msgid "The exam centers"
 msgstr "Les centres d'examen"
 
-#: centers/templates/centers/map.html:61
+#: centers/templates/centers/map.html:62
 msgid "Center address"
 msgstr "Adresse du centre"
 
-#: centers/templates/centers/map.html:61 centers/templates/centers/map.html:73
+#: centers/templates/centers/map.html:62 centers/templates/centers/map.html:74
 msgid "Show"
 msgstr "Montrer"
 
-#: centers/templates/centers/map.html:61 centers/templates/centers/map.html:78
+#: centers/templates/centers/map.html:62 centers/templates/centers/map.html:79
 msgid "Full map"
 msgstr "Plein format"
 
@@ -229,7 +229,7 @@ msgid "Generate convocations"
 msgstr "Générer les convocations"
 
 #: contest/admin.py:69 contest/admin.py:110
-#: documents/templates/documents/semifinal-import-review.html:43
+#: documents/templates/documents/semifinal-import-review.html:44
 #: qcm/admin.py:58 qcm/admin.py:91
 msgid "Edition"
 msgstr "Édition"
@@ -259,7 +259,7 @@ msgstr "Utilisateur"
 msgid "Programming language"
 msgstr "Langage de programmation"
 
-#: contest/datatables.py:53 contest/templates/correction/by-year.html:27
+#: contest/datatables.py:53 contest/templates/correction/by-year.html:28
 msgid "Correct"
 msgstr "Corriger"
 
@@ -272,10 +272,10 @@ msgid "Assignation status"
 msgstr "Statut d'assignation"
 
 #: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:185
-#: documents/templates/documents/semifinal-import-review.html:57
-#: documents/templates/documents/semifinal-import-review.html:76
-#: problems/admin.py:171 problems/templates/problems/manual.html:65
-#: semifinal/templates/semifinal/monitoring.html:29
+#: documents/templates/documents/semifinal-import-review.html:58
+#: documents/templates/documents/semifinal-import-review.html:77
+#: problems/admin.py:171 problems/templates/problems/manual.html:66
+#: semifinal/templates/semifinal/monitoring.html:30
 msgid "Score"
 msgstr "Score"
 
@@ -345,15 +345,15 @@ msgid ""
 msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'épreuve régionale. Faites au moins un vœu et jusqu'à trois vœux. Vous obtiendrez très probablement votre premier vœu."
 
 #: contest/models.py:58
-#: contest/templates/correction/contestant-semifinal.html:6
-#: contest/templates/correction/semifinal.html:9
-#: contest/templates/correction/semifinal.html:12
-#: contest/templates/correction/semifinal.html:20
-#: semifinal/templates/problems/stub-module-name.html:1
-#: semifinal/templates/semifinal/explicit-unlock.html:6
-#: semifinal/templates/semifinal/homepage.html:6
-#: semifinal/templates/semifinal/monitoring.html:6
-#: semifinal/templates/semifinal/scoreboard.html:6
+#: contest/templates/correction/contestant-semifinal.html:7
+#: contest/templates/correction/semifinal.html:10
+#: contest/templates/correction/semifinal.html:13
+#: contest/templates/correction/semifinal.html:21
+#: semifinal/templates/problems/stub-module-name.html:3
+#: semifinal/templates/semifinal/explicit-unlock.html:7
+#: semifinal/templates/semifinal/homepage.html:7
+#: semifinal/templates/semifinal/monitoring.html:7
+#: semifinal/templates/semifinal/scoreboard.html:7
 msgid "Regional event"
 msgstr "Épreuve régionale"
 
@@ -444,124 +444,124 @@ msgid ""
 "Regional event assignation event is required if contestant is assigned."
 msgstr "L'assignation à une épreuve régionale est requise si le candidat est assigné."
 
-#: contest/templates/contest/index.html:6
-#: contest/templates/contest/qualification_summary.html:6
-#: contest/templates/correction/by-year.html:6
-#: contest/templates/correction/contestant-base.html:6
-#: contest/templates/correction/index.html:6
-#: contest/templates/correction/qualification.html:6
-#: contest/templates/correction/semifinal.html:6
-#: pages/templates/pages/about-final.html:79 qcm/templates/qcm/display.html:6
+#: contest/templates/contest/index.html:7
+#: contest/templates/contest/qualification_summary.html:7
+#: contest/templates/correction/by-year.html:7
+#: contest/templates/correction/contestant-base.html:7
+#: contest/templates/correction/index.html:7
+#: contest/templates/correction/qualification.html:7
+#: contest/templates/correction/semifinal.html:7
+#: pages/templates/pages/about-final.html:79 qcm/templates/qcm/display.html:7
 msgid "Contest"
 msgstr "Concours"
 
-#: contest/templates/contest/qualification_summary.html:9
+#: contest/templates/contest/qualification_summary.html:10
 msgid "Application summary"
 msgstr "Résumé de la candidature"
 
-#: contest/templates/contest/qualification_summary.html:16
+#: contest/templates/contest/qualification_summary.html:17
 #, python-format
 msgid "Application summary – Prologin %(year)s"
 msgstr "Résumé de la candidature – Prologin %(year)s"
 
-#: contest/templates/contest/qualification_summary.html:20
+#: contest/templates/contest/qualification_summary.html:21
 #, python-format
 msgid "Application summary for Prologin %(year)s"
 msgstr "Résumé de la candidature pour Prologin %(year)s"
 
-#: contest/templates/contest/qualification_summary.html:23
+#: contest/templates/contest/qualification_summary.html:24
 #, python-format
 msgid ""
 "Thanks for joining the Prologin contest this year! This page sums up the requirements you have\n"
 "  to fulfill so you can be selectionned to participate in the next step: <a href=\"%(about_regional_url)s\">regional events</a>."
 msgstr "Merci de participer à Prologin cette année ! Cette page résume les informations que vous devez fournir pour espérer participer à la prochaine étape : les  <a href=\"%(about_regional_url)s\">épreuves régionales</a>."
 
-#: contest/templates/contest/qualification_summary.html:26
+#: contest/templates/contest/qualification_summary.html:27
 msgid "Heads up!"
 msgstr "Attention !"
 
-#: contest/templates/contest/qualification_summary.html:27
+#: contest/templates/contest/qualification_summary.html:28
 #, python-format
 msgid ""
 "The qualification step ends <strong>%(end_date)s</strong>. Be sure to have "
 "the green light on this page before this date!"
 msgstr "L'étape de sélection prend fin le <strong>%(end_date)s</strong>. Passez tous les voyants de cette page au vert avant cette date !"
 
-#: contest/templates/contest/qualification_summary.html:30
+#: contest/templates/contest/qualification_summary.html:31
 msgid "Complete the exercices, as best as you can"
 msgstr "Résolvez les exercices, de votre mieux"
 
-#: contest/templates/contest/qualification_summary.html:37
-#: contest/templates/contest/qualification_summary.html:65
-#: contest/templates/contest/qualification_summary.html:92
+#: contest/templates/contest/qualification_summary.html:38
+#: contest/templates/contest/qualification_summary.html:66
+#: contest/templates/contest/qualification_summary.html:93
 msgid "Completed"
 msgstr "Complet"
 
-#: contest/templates/contest/qualification_summary.html:39
-#: contest/templates/contest/qualification_summary.html:67
-#: contest/templates/contest/qualification_summary.html:94
+#: contest/templates/contest/qualification_summary.html:40
+#: contest/templates/contest/qualification_summary.html:68
+#: contest/templates/contest/qualification_summary.html:95
 msgid "Incomplete"
 msgstr "Incomplet"
 
-#: contest/templates/contest/qualification_summary.html:41
+#: contest/templates/contest/qualification_summary.html:42
 msgid "The quiz"
 msgstr "Le questionnaire"
 
-#: contest/templates/contest/qualification_summary.html:45
+#: contest/templates/contest/qualification_summary.html:46
 #, python-format
 msgid "There is %(count)s quiz question this year."
 msgid_plural "There are %(count)s quiz questions this year."
 msgstr[0] "Il y a %(count)s question de QCM cette année."
 msgstr[1] "Le questionnaire comporte %(count)s questions cette année."
 
-#: contest/templates/contest/qualification_summary.html:46
+#: contest/templates/contest/qualification_summary.html:47
 #, python-format
 msgid "You completed %(count)s question."
 msgid_plural "You completed %(count)s questions."
 msgstr[0] "Vous avez répondu à %(count)s question."
 msgstr[1] "Vous avez répondu à %(count)s questions."
 
-#: contest/templates/contest/qualification_summary.html:51
+#: contest/templates/contest/qualification_summary.html:52
 msgid "Review answers"
 msgstr "Revoir les réponses"
 
-#: contest/templates/contest/qualification_summary.html:53
+#: contest/templates/contest/qualification_summary.html:54
 msgid "Complete answers"
 msgstr "Compléter les réponses"
 
-#: contest/templates/contest/qualification_summary.html:56
+#: contest/templates/contest/qualification_summary.html:57
 msgid ""
 "Although you are not required to answer all questions, it is recommended to "
 "answer as many as you can to improve you chances of being selected."
 msgstr "Même si vous n'êtes pas dans l'obligation de répondre à toutes les questions, il est recommandé de répondre à un maximum d'entre elles pour augmenter vos chances."
 
-#: contest/templates/contest/qualification_summary.html:69
+#: contest/templates/contest/qualification_summary.html:70
 msgid "The problems"
 msgstr "Les problèmes"
 
-#: contest/templates/contest/qualification_summary.html:73
+#: contest/templates/contest/qualification_summary.html:74
 #, python-format
 msgid "There is %(count)s problem this year."
 msgid_plural "There are %(count)s problems this year."
 msgstr[0] "Il y a %(count)s problème cette année."
 msgstr[1] "Il y a %(count)s problèmes cette année."
 
-#: contest/templates/contest/qualification_summary.html:74
+#: contest/templates/contest/qualification_summary.html:75
 #, python-format
 msgid "You tackled %(count)s problem."
 msgid_plural "You tackled %(count)s problems."
 msgstr[0] "Vous avez abordé %(count)s problème."
 msgstr[1] "Vous avez abordé %(count)s problèmes."
 
-#: contest/templates/contest/qualification_summary.html:79
+#: contest/templates/contest/qualification_summary.html:80
 msgid "Review submissions"
 msgstr "Revoir les soumissions"
 
-#: contest/templates/contest/qualification_summary.html:81
+#: contest/templates/contest/qualification_summary.html:82
 msgid "Complete submissions"
 msgstr "Compléter les soumissions"
 
-#: contest/templates/contest/qualification_summary.html:84
+#: contest/templates/contest/qualification_summary.html:85
 msgid ""
 "Your submissions do not have to pass all the tests. Nevertheless, the jury "
 "will favor codes that both compile, answer the statement and have a minimal "
@@ -570,163 +570,163 @@ msgid ""
 "the finale."
 msgstr "Vos soumissions n'ont pas à passer tous les tests. Toutefois, le jury privilégiera les codes qui compilent, répondent à l'énoncé et ont une complexité temporelle, et mémoire, minimale. Vous pouvez même soumettre du pseudo-code, mais gardez à l'esprit que vous devrez écrire du vrai code pour les épreuves régionales et la finale."
 
-#: contest/templates/contest/qualification_summary.html:90
+#: contest/templates/contest/qualification_summary.html:91
 msgid "Fill in the extra details"
 msgstr "Fournissez les informations supplémentaires"
 
-#: contest/templates/contest/qualification_summary.html:102
+#: contest/templates/contest/qualification_summary.html:103
 msgid "Save application"
 msgstr "Enregistrer la participation"
 
-#: contest/templates/contest/qualification_summary.html:114
+#: contest/templates/contest/qualification_summary.html:115
 msgid "Make your choice"
 msgstr "Faites votre choix"
 
-#: contest/templates/correction/by-year.html:7
-#: contest/templates/correction/by-year.html:11
-#: contest/templates/correction/contestant-base.html:7
-#: contest/templates/correction/index.html:7
-#: contest/templates/correction/index.html:10
-#: contest/templates/correction/qualification.html:7
-#: contest/templates/correction/semifinal.html:7
-#: prologin/templates/prologin/main-menu.html:17
+#: contest/templates/correction/by-year.html:8
+#: contest/templates/correction/by-year.html:12
+#: contest/templates/correction/contestant-base.html:8
+#: contest/templates/correction/index.html:8
+#: contest/templates/correction/index.html:11
+#: contest/templates/correction/qualification.html:8
+#: contest/templates/correction/semifinal.html:8
+#: prologin/templates/prologin/main-menu.html:19
 msgid "Correction"
 msgstr "Correction"
 
-#: contest/templates/correction/by-year.html:15
+#: contest/templates/correction/by-year.html:16
 #, python-format
 msgid "Events for Prologin %(year)s"
 msgstr "Événements pour Prologin %(year)s"
 
-#: contest/templates/correction/by-year.html:19 problems/forms.py:22
+#: contest/templates/correction/by-year.html:20 problems/forms.py:22
 msgid "Event type"
 msgstr "Type d'évènement"
 
-#: contest/templates/correction/by-year.html:19
-#: documents/templates/documents/index.html:45
-#: documents/templates/documents/index.html:69
-#: documents/templates/documents/index.html:102 semifinal/forms.py:13
+#: contest/templates/correction/by-year.html:20
+#: documents/templates/documents/index.html:46
+#: documents/templates/documents/index.html:70
+#: documents/templates/documents/index.html:103 semifinal/forms.py:13
 msgid "Contestants"
 msgstr "Candidats"
 
-#: contest/templates/correction/chunk-correction.html:18
+#: contest/templates/correction/chunk-correction.html:19
 msgid "Unknown corrector"
 msgstr "Correcteur inconnu"
 
-#: contest/templates/correction/chunk-correction.html:31
+#: contest/templates/correction/chunk-correction.html:32
 msgid "No comment."
 msgstr "Sans commentaire."
 
-#: contest/templates/correction/chunk-correction.html:41
+#: contest/templates/correction/chunk-correction.html:42
 msgctxt "As in nullified"
 msgid "Set to none"
 msgstr "Mis à zéro"
 
-#: contest/templates/correction/contestant-base.html:33
+#: contest/templates/correction/contestant-base.html:34
 #: forum/templates/forum/edit_post.html:28
 msgid "Save changes"
 msgstr "Sauvegarder les changements"
 
-#: contest/templates/correction/contestant-base.html:38
-#: contest/templates/correction/contestant-base.html:71
+#: contest/templates/correction/contestant-base.html:39
+#: contest/templates/correction/contestant-base.html:72
 msgid "Problem submissions"
 msgstr "Soumissions de problèmes"
 
-#: contest/templates/correction/contestant-base.html:41
+#: contest/templates/correction/contestant-base.html:42
 #: problems/templates/problems/problem.html:21
-#: problems/templates/problems/stub_problem.html:4
+#: problems/templates/problems/stub_problem.html:6
 #, python-format
 msgid "Level %(level)s"
 msgstr "Niveau %(level)s"
 
-#: contest/templates/correction/contestant-base.html:43
+#: contest/templates/correction/contestant-base.html:44
 msgid "Open fullpage and submit again"
 msgstr "Version complète (re-soumettre)"
 
-#: contest/templates/correction/contestant-base.html:43
+#: contest/templates/correction/contestant-base.html:44
 msgid "Open fullpage"
 msgstr "Version complète"
 
-#: contest/templates/correction/contestant-base.html:48
+#: contest/templates/correction/contestant-base.html:49
 msgid "No submission for this problem."
 msgstr "Pas de soumission pour ce problème."
 
-#: contest/templates/correction/contestant-base.html:53
+#: contest/templates/correction/contestant-base.html:54
 msgid "Code score:"
 msgstr "Score code&nbsp;:"
 
-#: contest/templates/correction/contestant-base.html:53
+#: contest/templates/correction/contestant-base.html:54
 msgid "n/a"
 msgstr "n/a"
 
-#: contest/templates/correction/contestant-base.html:54
+#: contest/templates/correction/contestant-base.html:55
 msgid "Final score:"
 msgstr "Score final&nbsp;:"
 
-#: contest/templates/correction/contestant-base.html:55
+#: contest/templates/correction/contestant-base.html:56
 msgid "tests passed"
 msgstr "tests passés"
 
-#: contest/templates/correction/contestant-base.html:56
+#: contest/templates/correction/contestant-base.html:57
 msgid "unsuccessful"
 msgstr "échoué"
 
-#: contest/templates/correction/contestant-base.html:69
+#: contest/templates/correction/contestant-base.html:70
 msgid "Correction form"
 msgstr "Formulaire"
 
-#: contest/templates/correction/contestant-base.html:74
+#: contest/templates/correction/contestant-base.html:75
 msgid "Currently correcting"
 msgstr "En train de corriger"
 
-#: contest/templates/correction/contestant-base.html:75
+#: contest/templates/correction/contestant-base.html:76
 msgid "The presence service is down!"
 msgstr "Le service de présence est en panne&nbsp;!"
 
-#: contest/templates/correction/contestant-base.html:78
+#: contest/templates/correction/contestant-base.html:79
 msgid "Correction history"
 msgstr "Historique de correction"
 
-#: contest/templates/correction/contestant-base.html:83
+#: contest/templates/correction/contestant-base.html:84
 msgid "Not corrected yet."
 msgstr "Pas encore corrigé."
 
-#: contest/templates/correction/contestant-base.html:119
+#: contest/templates/correction/contestant-base.html:120
 #, python-format
 msgid "In the meantime, value changed to %%s"
 msgstr "Entre-temps, la valeur est devenue %%s"
 
-#: contest/templates/correction/contestant-qualification.html:16
+#: contest/templates/correction/contestant-qualification.html:17
 msgid "Quiz results"
 msgstr "Résultats du QCM"
 
-#: contest/templates/correction/contestant-qualification.html:21
+#: contest/templates/correction/contestant-qualification.html:22
 msgid "Quiz answers"
 msgstr "Réponses du QCM"
 
-#: contest/templates/correction/index.html:14
+#: contest/templates/correction/index.html:15
 msgid "Correction index"
 msgstr "Sommaire de correction"
 
-#: contest/templates/correction/index.html:22
-#: documents/templates/documents/semifinal-import-review.html:45
+#: contest/templates/correction/index.html:23
+#: documents/templates/documents/semifinal-import-review.html:46
 msgid "Event"
 msgstr "Événement"
 
-#: contest/templates/correction/index.html:30
-#: contest/templates/correction/index.html:37
+#: contest/templates/correction/index.html:31
+#: contest/templates/correction/index.html:38
 msgid "Browse"
 msgstr "Parcourir"
 
-#: contest/templates/correction/qualification.html:22
+#: contest/templates/correction/qualification.html:23
 msgid "Show:"
 msgstr "Afficher&nbsp;:"
 
-#: contest/templates/correction/qualification.html:22
+#: contest/templates/correction/qualification.html:23
 msgid "everything"
 msgstr "tout"
 
-#: contest/templates/correction/qualification.html:22
+#: contest/templates/correction/qualification.html:23
 msgid "complete only"
 msgstr "complétés uniquement"
 
@@ -792,154 +792,154 @@ msgstr "L'édition ou le centre importé ne correspond pas à l'événement conn
 msgid "Imported users mismatch."
 msgstr "Les utilisateurs importés ne correspondent pas."
 
-#: documents/templates/documents/index.html:6
-#: documents/templates/documents/semifinal-import-base.html:6
-#: documents/templates/documents/tex-error-debug.html:6
-#: prologin/templates/prologin/main-menu.html:19
+#: documents/templates/documents/index.html:7
+#: documents/templates/documents/semifinal-import-base.html:7
+#: documents/templates/documents/tex-error-debug.html:7
+#: prologin/templates/prologin/main-menu.html:21
 msgid "Documents"
 msgstr "Documents"
 
-#: documents/templates/documents/index.html:12
-#: documents/templates/documents/index.html:22
+#: documents/templates/documents/index.html:13
+#: documents/templates/documents/index.html:23
 #, python-format
 msgid "%(year)s documents"
 msgstr "Documents de %(year)s"
 
-#: documents/templates/documents/index.html:12
-#: documents/templates/documents/index.html:22
+#: documents/templates/documents/index.html:13
+#: documents/templates/documents/index.html:23
 msgid "Document index"
 msgstr "Sommaire des documents"
 
-#: documents/templates/documents/index.html:18
-#: documents/templates/documents/semifinal-import-base.html:7
-#: documents/templates/documents/semifinal-import-base.html:10
-#: documents/templates/documents/semifinal-import-base.html:14
+#: documents/templates/documents/index.html:19
+#: documents/templates/documents/semifinal-import-base.html:8
+#: documents/templates/documents/semifinal-import-base.html:11
+#: documents/templates/documents/semifinal-import-base.html:15
 msgid "Data import"
 msgstr "Import de données"
 
-#: documents/templates/documents/index.html:39
+#: documents/templates/documents/index.html:40
 msgid "All centers"
 msgstr "Tous les centres"
 
-#: documents/templates/documents/index.html:42
-#: documents/templates/documents/index.html:66
-#: documents/templates/documents/index.html:99
+#: documents/templates/documents/index.html:43
+#: documents/templates/documents/index.html:67
+#: documents/templates/documents/index.html:100
 msgid "Convocations"
 msgstr "Convocations"
 
-#: documents/templates/documents/index.html:48
-#: documents/templates/documents/index.html:72
+#: documents/templates/documents/index.html:49
+#: documents/templates/documents/index.html:73
 msgid "Interviews"
 msgstr "Interviews"
 
-#: documents/templates/documents/index.html:51
-#: documents/templates/documents/index.html:75
-#: documents/templates/documents/index.html:105
+#: documents/templates/documents/index.html:52
+#: documents/templates/documents/index.html:76
+#: documents/templates/documents/index.html:106
 msgid "Passwords"
 msgstr "Mots de passe"
 
-#: documents/templates/documents/index.html:54
-#: documents/templates/documents/index.html:108
+#: documents/templates/documents/index.html:55
+#: documents/templates/documents/index.html:109
 msgid "Portrayal agreement"
 msgstr "Droit à l'image"
 
-#: documents/templates/documents/index.html:63
+#: documents/templates/documents/index.html:64
 msgid "Data export"
 msgstr "Export données"
 
-#: documents/templates/documents/index.html:118
+#: documents/templates/documents/index.html:119
 msgid "There is no final event for this edition."
 msgstr "Il n'y pas d'événement finale pour cette édition."
 
-#: documents/templates/documents/semifinal-import-base.html:16
+#: documents/templates/documents/semifinal-import-base.html:17
 #, python-format
 msgid "Step %(step)s of %(total)s"
 msgstr "Étape %(step)s sur %(total)s"
 
-#: documents/templates/documents/semifinal-import-review.html:52
+#: documents/templates/documents/semifinal-import-review.html:53
 msgctxt "Legend"
 msgid "Key"
 msgstr "Légende"
 
-#: documents/templates/documents/semifinal-import-review.html:55
-#: problems/templates/problems/stub_search_form.html:7
+#: documents/templates/documents/semifinal-import-review.html:56
+#: problems/templates/problems/stub_search_form.html:9
 msgid "Difficulty"
 msgstr "Difficulté"
 
-#: documents/templates/documents/semifinal-import-review.html:56
+#: documents/templates/documents/semifinal-import-review.html:57
 msgid "Problem name"
 msgstr "Problème"
 
-#: documents/templates/documents/semifinal-import-review.html:58
+#: documents/templates/documents/semifinal-import-review.html:59
 msgid "# of codes"
 msgstr "# de codes"
 
-#: documents/templates/documents/semifinal-import-review.html:73
+#: documents/templates/documents/semifinal-import-review.html:74
 msgid "ID"
 msgstr "ID"
 
-#: documents/templates/documents/semifinal-import-review.html:74
-#: semifinal/templates/semifinal/stub-scoreboard.html:7
+#: documents/templates/documents/semifinal-import-review.html:75
+#: semifinal/templates/semifinal/stub-scoreboard.html:8
 msgid "Nickname"
 msgstr "Pseudonyme"
 
-#: documents/templates/documents/semifinal-import-review.html:75
+#: documents/templates/documents/semifinal-import-review.html:76
 msgid "Full name"
 msgstr "Nom complet"
 
-#: documents/templates/documents/semifinal-import-review.html:77
+#: documents/templates/documents/semifinal-import-review.html:78
 #: problems/models/submission.py:51
 msgid "Submissions"
 msgstr "Soumissions"
 
-#: documents/templates/documents/semifinal-import-review.html:97
+#: documents/templates/documents/semifinal-import-review.html:98
 #, python-format
 msgid "%(count)s code"
 msgid_plural "%(count)s codes"
 msgstr[0] "%(count)s code"
 msgstr[1] "%(count)s codes"
 
-#: documents/templates/documents/semifinal-import-review.html:98
+#: documents/templates/documents/semifinal-import-review.html:99
 msgid "Manually unlocked"
 msgstr "Débloqué manuellement"
 
-#: documents/templates/documents/semifinal-import-review.html:103
+#: documents/templates/documents/semifinal-import-review.html:104
 msgid "No contestant found."
 msgstr "Pas de candidat."
 
-#: documents/templates/documents/semifinal-import-review.html:109
+#: documents/templates/documents/semifinal-import-review.html:110
 msgid "Contestant will <strong>not</strong> be imported."
 msgstr "Le candidat ne sera <strong>pas</strong> importé."
 
-#: documents/templates/documents/semifinal-import-review.html:111
+#: documents/templates/documents/semifinal-import-review.html:112
 msgid "Contestant will be imported."
 msgstr "Le candidat sera importé."
 
-#: documents/templates/documents/semifinal-import-review.html:125
-#: documents/templates/documents/semifinal-import-upload.html:8
+#: documents/templates/documents/semifinal-import-review.html:126
+#: documents/templates/documents/semifinal-import-upload.html:9
 msgid "Proceed"
 msgstr "Continuer"
 
-#: documents/templates/documents/tex-error-debug.html:7
-#: documents/templates/documents/tex-error-debug.html:10
+#: documents/templates/documents/tex-error-debug.html:8
+#: documents/templates/documents/tex-error-debug.html:11
 msgid "TeX generation failed"
 msgstr "Génération TeX avortée"
 
-#: documents/templates/documents/tex-error-debug.html:15
+#: documents/templates/documents/tex-error-debug.html:16
 #, python-format
 msgid "The TeX generation failed with error <code>%(message)s</code>."
 msgstr "La génération TeX a échoué avec l'erreur <code>%(message)s</code>."
 
-#: documents/templates/documents/tex-error-debug.html:16
+#: documents/templates/documents/tex-error-debug.html:17
 #, python-format
 msgid "The program exited with return code <code>%(code)s</code>."
 msgstr "Le programme a quitté avec le code de retour <code>%(code)s</code>."
 
-#: documents/templates/documents/tex-error-debug.html:19
+#: documents/templates/documents/tex-error-debug.html:20
 msgid "Standard output"
 msgstr "Sortie standard"
 
-#: documents/templates/documents/tex-error-debug.html:22
+#: documents/templates/documents/tex-error-debug.html:23
 msgid "Standard error"
 msgstr "Erreur standard"
 
@@ -1167,8 +1167,8 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:22 problems/templates/problems/challenge-scoreboard.html:23
-#: semifinal/templates/semifinal/stub-scoreboard.html:8
+#: forum/models.py:22 problems/templates/problems/challenge-scoreboard.html:24
+#: semifinal/templates/semifinal/stub-scoreboard.html:9
 msgid "Name"
 msgstr "Nom"
 
@@ -1196,7 +1196,7 @@ msgstr "Forum"
 #: forum/templates/forum/post_confirm_delete.html:7
 #: forum/templates/forum/thread_confirm_delete.html:7
 #: forum/templates/forum/thread_posts.html:7
-#: prologin/templates/prologin/main-menu.html:9
+#: prologin/templates/prologin/main-menu.html:11
 msgid "Forums"
 msgstr "Forums"
 
@@ -1299,9 +1299,10 @@ msgstr "Prévisualisation"
 
 #: forum/templates/forum/edit_post.html:10
 #: forum/templates/forum/thread_posts.html:114
-#: semifinal/templates/semifinal/monitoring.html:51
+#: semifinal/templates/semifinal/monitoring.html:52
 #: users/templates/users/edit.html:9
 #: users/templates/users/edit_password.html:9
+#: users/templates/users/history.html:25 users/templates/users/history.html:52
 #: users/templates/users/profile.html:23
 msgid "Edit"
 msgstr "Modifier"
@@ -1328,7 +1329,7 @@ msgstr[0] "%(count)s sujet"
 msgstr[1] "%(count)s sujets"
 
 #: forum/templates/forum/index.html:30
-#: forum/templates/forum/stub_forum_thread.html:19
+#: forum/templates/forum/stub_forum_thread.html:20
 #, python-format
 msgid "%(count)s message"
 msgid_plural "%(count)s messages"
@@ -1336,7 +1337,7 @@ msgstr[0] "%(count)s message"
 msgstr[1] "%(count)s messages"
 
 #: forum/templates/forum/index.html:35
-#: forum/templates/forum/stub_forum_thread.html:24
+#: forum/templates/forum/stub_forum_thread.html:25
 #, python-format
 msgid "Last message by <span class=\"thread-item-author\">%(username)s</span>"
 msgstr "Dernier message par <span class=\"thread-item-author\">%(username)s</span>"
@@ -1370,22 +1371,22 @@ msgstr "Oui, supprimer"
 msgid "No, back to the thread"
 msgstr "Non, retour au sujet"
 
-#: forum/templates/forum/stub_forum_thread.html:6
+#: forum/templates/forum/stub_forum_thread.html:7
 msgid "This thread is sticky, it will always show up at the top of the forum."
 msgstr "Ce sujet est épinglé, il apparaîtra toujours en haut du forum."
 
-#: forum/templates/forum/stub_forum_thread.html:7
+#: forum/templates/forum/stub_forum_thread.html:8
 msgid "This thread is closed, you cannot post new messages in it."
 msgstr "Ce sujet est fermé, vous ne pouvez pas y poster de nouveaux messages."
 
-#: forum/templates/forum/stub_forum_thread.html:14
+#: forum/templates/forum/stub_forum_thread.html:15
 #, python-format
 msgid ""
 "By <span class=\"thread-item-author\">%(username)s</span> ⋅ <span "
 "title=\"%(date_full)s\">%(date)s</span>"
 msgstr "Par <span class=\"thread-item-author\">%(username)s</span> ⋅ <span title=\"%(date_full)s\">%(date)s</span>"
 
-#: forum/templates/forum/stub_login_required.html:6
+#: forum/templates/forum/stub_login_required.html:7
 #, python-format
 msgid ""
 "You have to <a href=\"%(register)s\">register</a> or <a "
@@ -1495,226 +1496,226 @@ msgstr "Le sujet a été déplacé avec succès."
 msgid "The thread was deleted successfully."
 msgstr "Le sujet a été supprimé avec succès."
 
-#: homepage/templates/homepage/homepage.html:4
-#: homepage/templates/homepage/jumbotron.html:5
-#: prologin/templates/prologin/base.html:23
+#: homepage/templates/homepage/homepage.html:5
+#: homepage/templates/homepage/jumbotron.html:6
+#: prologin/templates/prologin/base.html:24
 msgid "Prologin, the French National Computer Science Contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: homepage/templates/homepage/homepage.html:10
-#: prologin/templates/prologin/base.html:24
+#: homepage/templates/homepage/homepage.html:11
+#: prologin/templates/prologin/base.html:25
 msgid ""
 "Prologin is a computer science contest. Our goal is to introduce students to"
 " the world of programming and algorithms by subjecting them to several "
 "conventional problems and exciting challenges."
 msgstr "Prologin est un concours d'informatique. Notre but est de faire découvrir le monde de la programmation et de l'algorithmique aux étudiants et de les confronter à des problèmes classiques et des challenges excitants."
 
-#: homepage/templates/homepage/homepage.html:28
+#: homepage/templates/homepage/homepage.html:29
 msgid "Latest news"
 msgstr "Dernières actualités"
 
-#: homepage/templates/homepage/homepage.html:30
-#: homepage/templates/homepage/homepage.html:64
+#: homepage/templates/homepage/homepage.html:31
+#: homepage/templates/homepage/homepage.html:65
 msgid "Browse all news"
 msgstr "Consulter toutes les actualités"
 
-#: homepage/templates/homepage/homepage.html:40
-#: news/templates/zinnia/_entry_detail_base.html:17
+#: homepage/templates/homepage/homepage.html:41
+#: news/templates/zinnia/_entry_detail_base.html:19
 msgid "Written by"
 msgstr "Rédigé par"
 
-#: homepage/templates/homepage/homepage.html:44
-#: news/templates/zinnia/_entry_detail_base.html:21
+#: homepage/templates/homepage/homepage.html:45
+#: news/templates/zinnia/_entry_detail_base.html:23
 #, python-format
 msgid "Show all %(author)s's entries"
 msgstr "Tous les articles de %(author)s"
 
-#: homepage/templates/homepage/homepage.html:46
+#: homepage/templates/homepage/homepage.html:47
 msgid "on"
 msgstr "le"
 
-#: homepage/templates/homepage/homepage.html:48
+#: homepage/templates/homepage/homepage.html:49
 msgid "Written on"
 msgstr "Rédigé le"
 
-#: homepage/templates/homepage/jumbotron-final.html:12
+#: homepage/templates/homepage/jumbotron-final.html:13
 msgid ""
 "You have one weekend to develop an Artificial Intelligence for a custom-made"
 " game, in Paris."
 msgstr "Développement d'une Intelligence Artificielle pour un jeu multi-joueur pendant un week-end, à Paris."
 
-#: homepage/templates/homepage/jumbotron-final.html:14
-#: homepage/templates/homepage/jumbotron-semifinals.html:23
+#: homepage/templates/homepage/jumbotron-final.html:15
+#: homepage/templates/homepage/jumbotron-semifinals.html:24
 msgid "Train now"
 msgstr "S'entraîner"
 
-#: homepage/templates/homepage/jumbotron-final.html:17
+#: homepage/templates/homepage/jumbotron-final.html:18
 msgid "The final will take place at:"
 msgstr "La finale aura lieu à&nbsp;:"
 
-#: homepage/templates/homepage/jumbotron-final.html:25
-#: homepage/templates/homepage/jumbotron-semifinals.html:39
+#: homepage/templates/homepage/jumbotron-final.html:26
+#: homepage/templates/homepage/jumbotron-semifinals.html:40
 msgid "Download paperwork"
 msgstr "Télécharger les documents"
 
-#: homepage/templates/homepage/jumbotron-final.html:39
+#: homepage/templates/homepage/jumbotron-final.html:40
 msgid "Statement, results & scoreboard"
 msgstr "Sujet, résultats & classement"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:17
+#: homepage/templates/homepage/jumbotron-qualification.html:18
 msgid ""
 "Qualifications for this year's edition will be announced as soon as "
 "possible."
 msgstr "Les qualifications pour cette année seront annoncées dès que possible."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:21
+#: homepage/templates/homepage/jumbotron-qualification.html:22
 msgid "Start training!"
 msgstr "Entraînez-vous&nbsp;!"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:29
+#: homepage/templates/homepage/jumbotron-qualification.html:30
 #, python-format
 msgid "A quiz and %(problems_count)s problems to solve online."
 msgstr "Un questionnaire et %(problems_count)s exercices à résoudre en ligne."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:31
+#: homepage/templates/homepage/jumbotron-qualification.html:32
 #, python-format
 msgid "%(problems_count)s problems to solve online."
 msgstr "%(problems_count)s problèmes à résoudre en ligne."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:45
+#: homepage/templates/homepage/jumbotron-qualification.html:46
 msgid "Quiz completed"
 msgstr "Questionnaire soumis"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:52
+#: homepage/templates/homepage/jumbotron-qualification.html:53
 msgid "Complete the quiz"
 msgstr "Compléter le questionnaire"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:62
+#: homepage/templates/homepage/jumbotron-qualification.html:63
 #, python-format
 msgid "%(problems_completed)s/%(problems_count)s problems tackled"
 msgstr "%(problems_completed)s/%(problems_count)s problèmes abordés"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:70
+#: homepage/templates/homepage/jumbotron-qualification.html:71
 msgid "Review the extra details"
 msgstr "Vérifier les informations supplémentaires"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:79
+#: homepage/templates/homepage/jumbotron-qualification.html:80
 msgid "Register now!"
 msgstr "S'inscrire !"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:93
+#: homepage/templates/homepage/jumbotron-qualification.html:94
 msgid "Congratulations! You have been selected for the regional events."
 msgstr "Félicitations&nbsp;! Le jury a accepté votre participation pour les épreuves régionales."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:97
+#: homepage/templates/homepage/jumbotron-qualification.html:98
 msgid ""
 "Please proceed to download your invitation papers and start training for the"
 " next step!"
 msgstr "Téléchargez dès maintenant les documents de convocation et commencez à vous entraîner pour l'étape suivant&nbsp;!"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:104
+#: homepage/templates/homepage/jumbotron-qualification.html:105
 msgid ""
 "Sorry, this year your application was not selected for the regional events."
 msgstr "Navré, cette année votre participation n'a pas été retenue pour les épreuves régionales."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:106
-#: homepage/templates/homepage/jumbotron-semifinals.html:68
+#: homepage/templates/homepage/jumbotron-qualification.html:107
+#: homepage/templates/homepage/jumbotron-semifinals.html:69
 msgid ""
 "Do not lose hope though! Start training right away so you can perfect your "
 "knowledge of algorithms and programming, and try again next year. Best luck!"
 msgstr "Ne perdez pas espoir&nbsp;! Continuez de vous entraîner pour parfaire votre connaissance de l'algorithmique et de la programmation, et recommencez l'an prochain. Bonne chance&nbsp;!"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:111
-#: homepage/templates/homepage/jumbotron-semifinals.html:73
+#: homepage/templates/homepage/jumbotron-qualification.html:112
+#: homepage/templates/homepage/jumbotron-semifinals.html:74
 msgid ""
 "There is a problem with your application. Please contact the staff as soon "
 "as possible."
 msgstr "Il y a un problème avec votre participation. Merci de contacter l'équipe dès que possible."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:117
+#: homepage/templates/homepage/jumbotron-qualification.html:118
 msgid "You did not apply for the contest this year."
 msgstr "Vous n'avez pas participé au concours cette année."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:119
+#: homepage/templates/homepage/jumbotron-qualification.html:120
 msgid "Come back for the next edition!"
 msgstr "Tentez votre chance l'an prochain&nbsp;!"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:125
-#: homepage/templates/homepage/jumbotron-semifinals.html:47
+#: homepage/templates/homepage/jumbotron-qualification.html:126
+#: homepage/templates/homepage/jumbotron-semifinals.html:48
 msgid ""
 "The jury's decision will soon be announced by email and on the website."
 msgstr "La décision du jury sera bientôt annoncée par e-mail et sur ce site."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:127
+#: homepage/templates/homepage/jumbotron-qualification.html:128
 msgid "You can start ahead by training for the regional events."
 msgstr "Vous pouvez dès à présent commencer à vous entraîner pour les épreuves régionales."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:131
+#: homepage/templates/homepage/jumbotron-qualification.html:132
 msgid "Log in to check if you were selected for the regional events."
 msgstr "Connectez-vous pour savoir si votre participation a été acceptée."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:133
+#: homepage/templates/homepage/jumbotron-qualification.html:134
 msgid "Login"
 msgstr "Connexion"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:142
+#: homepage/templates/homepage/jumbotron-qualification.html:143
 #, python-format
 msgid "Prologin %(year)s is now finished!"
 msgstr "Prologin %(year)s est maintenant terminé&nbsp;!"
 
-#: homepage/templates/homepage/jumbotron-qualification.html:145
+#: homepage/templates/homepage/jumbotron-qualification.html:146
 #, python-format
 msgid ""
 "The final's results will be published on <a href=\"%(url)s\">the "
 "archives</a> as soon as they are available."
 msgstr "Les résultats de la finale seront publiés dans <a href=\"%(url)s\">les archives</a> dès qu'ils deviennent disponibles."
 
-#: homepage/templates/homepage/jumbotron-qualification.html:146
+#: homepage/templates/homepage/jumbotron-qualification.html:147
 msgid ""
 "Stay tuned for next year's edition. We will announce when it starts on this "
 "website and by email."
 msgstr "Restez à l'affût de la prochaine édition. Nous annoncerons le lancement sur ce site et par e-mail."
 
-#: homepage/templates/homepage/jumbotron-semifinals.html:18
+#: homepage/templates/homepage/jumbotron-semifinals.html:19
 msgid ""
 "Consists of a written exam and some problems to solve on the computer. Exam "
 "centers are distributed accross France large cities."
 msgstr "Une épreuve écrite et des exercices sur machine. Les centres d'examen sont répartis dans les grandes villes de France."
 
-#: homepage/templates/homepage/jumbotron-semifinals.html:32
+#: homepage/templates/homepage/jumbotron-semifinals.html:33
 msgid "Your regional event will take place at:"
 msgstr "Votre épreuve régionale se déroulera à&nbsp;:"
 
-#: homepage/templates/homepage/jumbotron-semifinals.html:49
+#: homepage/templates/homepage/jumbotron-semifinals.html:50
 msgid "You can start ahead by training for the final."
 msgstr "Vous pouvez dès à présent commencer à vous entraîner pour la finale."
 
-#: homepage/templates/homepage/jumbotron-semifinals.html:56
+#: homepage/templates/homepage/jumbotron-semifinals.html:57
 msgid "Congratulations! You have been selected for the final."
 msgstr "Félicitations&nbsp;! Le jury a accepté votre participation pour la finale."
 
-#: homepage/templates/homepage/jumbotron-semifinals.html:60
+#: homepage/templates/homepage/jumbotron-semifinals.html:61
 msgid ""
 "Please proceed to download your invitation papers and start reviewing "
 "previous edition finals."
 msgstr "Téléchargez dès maintenant les documents de convocation et commencez à consulter les archives des précédentes finales."
 
-#: homepage/templates/homepage/jumbotron-semifinals.html:66
+#: homepage/templates/homepage/jumbotron-semifinals.html:67
 msgid "Sorry, this year your application was not selected for the final."
 msgstr "Navré, cette année votre participation n'a pas été retenue pour la finale."
 
-#: homepage/templates/homepage/jumbotron-semifinals.html:87
+#: homepage/templates/homepage/jumbotron-semifinals.html:88
 msgid "See all the dates"
 msgstr "Voir toutes les dates"
 
-#: homepage/templates/homepage/jumbotron.html:6
+#: homepage/templates/homepage/jumbotron.html:7
 #, python-format
 msgid ""
 "Born in %(born_year)s or after? Join the Prologin contest! Registration is "
 "free."
 msgstr "Vous êtes né en %(born_year)s ou après&nbsp;? Participez à Prologin&nbsp;! L'inscription est gratuite."
 
-#: homepage/templates/homepage/jumbotron.html:8
+#: homepage/templates/homepage/jumbotron.html:9
 msgid "Unknown date"
 msgstr "Date inconnue"
 
@@ -1722,47 +1723,47 @@ msgstr "Date inconnue"
 msgid "Sponsors"
 msgstr "Partenaires"
 
-#: news/templates/zinnia/_entry_detail_base.html:23
+#: news/templates/zinnia/_entry_detail_base.html:25
 msgctxt "Written by <user> *on* <date>"
 msgid "on"
 msgstr "le"
 
-#: news/templates/zinnia/_entry_detail_base.html:25
+#: news/templates/zinnia/_entry_detail_base.html:27
 msgctxt "*Written on* <date>"
 msgid "Written on"
 msgstr "Rédigé le"
 
-#: news/templates/zinnia/_entry_detail_base.html:35
+#: news/templates/zinnia/_entry_detail_base.html:37
 msgid "Last update on"
 msgstr "Dernière mise à jour le"
 
-#: news/templates/zinnia/_entry_detail_base.html:84
+#: news/templates/zinnia/_entry_detail_base.html:86
 #, python-format
 msgid "%(percent)s%% of %(object)s still remains to read."
 msgstr "Il reste %(percent)s%% de %(object)s à lire."
 
-#: news/templates/zinnia/_entry_detail_base.html:86
+#: news/templates/zinnia/_entry_detail_base.html:88
 msgid "Continue reading"
 msgstr "Continuer la lecture"
 
-#: news/templates/zinnia/_entry_detail_base.html:98
+#: news/templates/zinnia/_entry_detail_base.html:100
 msgid "Tags:"
 msgstr "Tags :"
 
-#: news/templates/zinnia/_entry_detail_base.html:101
+#: news/templates/zinnia/_entry_detail_base.html:103
 #, python-format
 msgid "Show all entries tagged by %(tag)s"
 msgstr "Afficher tous les articles taggés avec %(tag)s"
 
-#: news/templates/zinnia/_entry_detail_base.html:104
+#: news/templates/zinnia/_entry_detail_base.html:106
 msgid "No tags"
 msgstr "Pas de tag"
 
-#: news/templates/zinnia/_entry_detail_base.html:110
+#: news/templates/zinnia/_entry_detail_base.html:112
 msgid "Persistent URL:"
 msgstr "URL permanente :"
 
-#: news/templates/zinnia/_entry_detail_base.html:112
+#: news/templates/zinnia/_entry_detail_base.html:114
 #, python-format
 msgid "Short URL to %(object)s"
 msgstr "URL courte vers %(object)s"
@@ -1775,33 +1776,33 @@ msgstr "Flux RSS des dernières actualités"
 msgid "RSS feed of latest discussions"
 msgstr "Flux RSS des dernières discussions"
 
-#: news/templates/zinnia/entry_archive.html:4
-#: news/templates/zinnia/entry_archive.html:6
+#: news/templates/zinnia/entry_archive.html:5
+#: news/templates/zinnia/entry_archive.html:7
 msgid "Latest entries"
 msgstr "Derniers articles"
 
-#: news/templates/zinnia/entry_archive.html:16
+#: news/templates/zinnia/entry_archive.html:17
 msgid "Yearly archives"
 msgstr "Archives annuelles"
 
-#: news/templates/zinnia/entry_archive_day.html:18
+#: news/templates/zinnia/entry_archive_day.html:19
 #: news/templates/zinnia/entry_archive_today.html:18
 msgid "Previous day"
 msgstr "Jour précédent"
 
-#: news/templates/zinnia/entry_archive_day.html:23
+#: news/templates/zinnia/entry_archive_day.html:24
 msgid "Next day"
 msgstr "Jour suivant"
 
-#: news/templates/zinnia/entry_archive_day.html:35
-#: news/templates/zinnia/entry_archive_week.html:30
-#: news/templates/zinnia/entry_archive_week.html:37
+#: news/templates/zinnia/entry_archive_day.html:36
+#: news/templates/zinnia/entry_archive_week.html:31
+#: news/templates/zinnia/entry_archive_week.html:38
 #, python-format
 msgid "Week %(week_number)s of %(year)s"
 msgstr "Semaine %(week_number)s de %(year)s"
 
 #: news/templates/zinnia/entry_archive_month.html:16
-#: news/templates/zinnia/entry_archive_week.html:17
+#: news/templates/zinnia/entry_archive_week.html:18
 msgid "Daily archives"
 msgstr "Archives journalières"
 
@@ -1819,9 +1820,9 @@ msgstr "Mois suivant"
 msgid "Today archives"
 msgstr "Archives pour aujourd'hui"
 
-#: news/templates/zinnia/entry_archive_week.html:4
-#: news/templates/zinnia/entry_archive_week.html:6
-#: news/templates/zinnia/entry_archive_week.html:11
+#: news/templates/zinnia/entry_archive_week.html:5
+#: news/templates/zinnia/entry_archive_week.html:7
+#: news/templates/zinnia/entry_archive_week.html:12
 #, python-format
 msgid "Archives week %(week_number)s of %(year)s"
 msgstr "Archives de la semaine %(week_number)s de %(year)s"
@@ -1838,173 +1839,173 @@ msgstr "Année précédente"
 msgid "Next year"
 msgstr "Année suivante"
 
-#: news/templates/zinnia/entry_detail_base.html:22
+#: news/templates/zinnia/entry_detail_base.html:24
 msgid "RSS feed of discussions on"
 msgstr "Flux RSS des discussions sur"
 
-#: news/templates/zinnia/entry_detail_base.html:24
+#: news/templates/zinnia/entry_detail_base.html:26
 msgid "RSS feed of comments on"
 msgstr "Flux RSS des commentaires sur"
 
-#: news/templates/zinnia/entry_detail_base.html:26
+#: news/templates/zinnia/entry_detail_base.html:28
 msgid "RSS feed of pingbacks on"
 msgstr "Flux RSS des pingbacks sur"
 
-#: news/templates/zinnia/entry_detail_base.html:28
+#: news/templates/zinnia/entry_detail_base.html:30
 msgid "RSS feed of trackbacks on"
 msgstr "Flux RSS des tracebacks sur"
 
-#: news/templates/zinnia/entry_detail_base.html:52
+#: news/templates/zinnia/entry_detail_base.html:54
 msgid "Next entry"
 msgstr "Article suivant"
 
-#: news/templates/zinnia/entry_detail_base.html:66
+#: news/templates/zinnia/entry_detail_base.html:68
 msgid "Previous entry"
 msgstr "Article précédent"
 
-#: news/templates/zinnia/entry_detail_base.html:80
+#: news/templates/zinnia/entry_detail_base.html:82
 msgid "Related entries"
 msgstr "Articles liés"
 
-#: news/templates/zinnia/entry_detail_base.html:94
+#: news/templates/zinnia/entry_detail_base.html:96
 msgid "Similar entries"
 msgstr "Articles similaires"
 
-#: news/templates/zinnia/entry_detail_base.html:103
+#: news/templates/zinnia/entry_detail_base.html:105
 msgid "Pingbacks"
 msgstr "Pingbacks"
 
-#: news/templates/zinnia/entry_detail_base.html:114
-#: news/templates/zinnia/entry_detail_base.html:158
+#: news/templates/zinnia/entry_detail_base.html:116
+#: news/templates/zinnia/entry_detail_base.html:160
 msgctxt "on date"
 msgid "on"
 msgstr "sur"
 
-#: news/templates/zinnia/entry_detail_base.html:120
+#: news/templates/zinnia/entry_detail_base.html:122
 msgid "Direct link to this pingback"
 msgstr "Lien direct vers ce pingback"
 
-#: news/templates/zinnia/entry_detail_base.html:136
+#: news/templates/zinnia/entry_detail_base.html:138
 msgid "Pingbacks are open."
 msgstr "Les pingbacks sont activés."
 
-#: news/templates/zinnia/entry_detail_base.html:138
+#: news/templates/zinnia/entry_detail_base.html:140
 msgid "Pingbacks are closed."
 msgstr "Les pingbacks sont désactivés."
 
-#: news/templates/zinnia/entry_detail_base.html:147
+#: news/templates/zinnia/entry_detail_base.html:149
 msgid "Trackbacks"
 msgstr "Trackbacks"
 
-#: news/templates/zinnia/entry_detail_base.html:164
+#: news/templates/zinnia/entry_detail_base.html:166
 msgid "Direct link to this trackback"
 msgstr "Lien direct vers ce traceback"
 
-#: news/templates/zinnia/entry_detail_base.html:182
+#: news/templates/zinnia/entry_detail_base.html:184
 msgid "Trackback URL"
 msgstr "URL du traceback"
 
-#: news/templates/zinnia/entry_detail_base.html:206
-#: news/templates/zinnia/entry_detail_base.html:207
+#: news/templates/zinnia/entry_detail_base.html:208
+#: news/templates/zinnia/entry_detail_base.html:209
 msgid "Edit the entry"
 msgstr "Modifier cet article"
 
-#: news/templates/zinnia/entry_list.html:9
+#: news/templates/zinnia/entry_list.html:10
 #, python-format
 msgid "The latest entries categorized under %(object)s"
 msgstr "Les derniers articles catégorisés dans %(object)s"
 
-#: news/templates/zinnia/entry_list.html:14
+#: news/templates/zinnia/entry_list.html:15
 #, python-format
 msgid "The latest entries tagged with %(object)s"
 msgstr "Les derniers articles tagués avec %(object)s"
 
-#: news/templates/zinnia/entry_list.html:18
+#: news/templates/zinnia/entry_list.html:19
 #, python-format
 msgid "The latest entries by %(object)s"
 msgstr "Les derniers articles de %(object)s"
 
-#: news/templates/zinnia/entry_list.html:23
+#: news/templates/zinnia/entry_list.html:24
 #, python-format
 msgid "page %(object)s"
 msgstr "page %(object)s"
 
-#: news/templates/zinnia/entry_list.html:27
+#: news/templates/zinnia/entry_list.html:28
 #, python-format
 msgid "Category %(object)s"
 msgstr "Catégorie %(object)s"
 
-#: news/templates/zinnia/entry_list.html:31
+#: news/templates/zinnia/entry_list.html:32
 #, python-format
 msgid "Tag %(object)s"
 msgstr "Tag %(object)s"
 
-#: news/templates/zinnia/entry_list.html:35
+#: news/templates/zinnia/entry_list.html:36
 #, python-format
 msgid "Author %(object)s"
 msgstr "Auteur %(object)s"
 
-#: news/templates/zinnia/entry_list.html:40
+#: news/templates/zinnia/entry_list.html:41
 #, python-format
 msgid "Page %(object)s"
 msgstr "Page %(object)s"
 
-#: news/templates/zinnia/entry_list.html:45
-#: news/templates/zinnia/entry_list.html:48
-#: news/templates/zinnia/entry_list.html:51
-#: news/templates/zinnia/entry_list.html:66
+#: news/templates/zinnia/entry_list.html:46
+#: news/templates/zinnia/entry_list.html:49
+#: news/templates/zinnia/entry_list.html:52
 #: news/templates/zinnia/entry_list.html:67
-#: news/templates/zinnia/entry_list.html:75
+#: news/templates/zinnia/entry_list.html:68
 #: news/templates/zinnia/entry_list.html:76
+#: news/templates/zinnia/entry_list.html:77
 #, python-format
 msgid "RSS feed of %(object)s"
 msgstr "Flux RSS sur %(object)s"
 
-#: news/templates/zinnia/entry_list.html:61
+#: news/templates/zinnia/entry_list.html:62
 #, python-format
 msgid "Category archives: %(category)s"
 msgstr "Archives de la catégorie : %(category)s"
 
-#: news/templates/zinnia/entry_list.html:73
+#: news/templates/zinnia/entry_list.html:74
 #, python-format
 msgid "Tag archives: %(tag)s"
 msgstr "Archives du tag : %(tag)s"
 
-#: news/templates/zinnia/entry_list.html:99
+#: news/templates/zinnia/entry_list.html:100
 msgid "No entries yet."
 msgstr "Pas encore d'articles."
 
-#: news/templates/zinnia/entry_list.html:118
 #: news/templates/zinnia/entry_list.html:119
+#: news/templates/zinnia/entry_list.html:120
 msgid "Edit the category"
 msgstr "Modifier la catégorie"
 
-#: news/templates/zinnia/entry_list.html:125
 #: news/templates/zinnia/entry_list.html:126
+#: news/templates/zinnia/entry_list.html:127
 msgid "Edit the tag"
 msgstr "Modifier le tag"
 
-#: news/templates/zinnia/entry_list.html:132
 #: news/templates/zinnia/entry_list.html:133
+#: news/templates/zinnia/entry_list.html:134
 msgid "Edit the author"
 msgstr "Modifier l'auteur"
 
-#: news/templates/zinnia/tags/pagination.html:6
+#: news/templates/zinnia/tags/pagination.html:7
 #, python-format
 msgid "Page %(current_page)s of %(total_page)s"
 msgstr "Page %(current_page)s de %(total_page)s"
 
-#: news/templates/zinnia/tags/pagination.html:14
+#: news/templates/zinnia/tags/pagination.html:15
 msgid "More recent entries"
 msgstr "Plus d'articles récents"
 
-#: news/templates/zinnia/tags/pagination.html:24
-#: news/templates/zinnia/tags/pagination.html:37
-#: news/templates/zinnia/tags/pagination.html:51
+#: news/templates/zinnia/tags/pagination.html:25
+#: news/templates/zinnia/tags/pagination.html:38
+#: news/templates/zinnia/tags/pagination.html:52
 msgid "Entries page"
 msgstr "Page"
 
-#: news/templates/zinnia/tags/pagination.html:60
+#: news/templates/zinnia/tags/pagination.html:61
 msgid "Older entries"
 msgstr "Articles antérieurs"
 
@@ -2357,7 +2358,7 @@ msgid "No data available"
 msgstr "Données indisponibles"
 
 #: pages/templates/pages/about-organization.html:7
-#: prologin/templates/prologin/main-footer.html:6
+#: prologin/templates/prologin/main-footer.html:8
 #: team/templates/team/index.html:7
 msgid "The organization"
 msgstr "L'association"
@@ -2823,7 +2824,7 @@ msgstr "Code soumis"
 msgid "Submission codes"
 msgstr "Codes soumis"
 
-#: problems/templates/problems/challenge-scoreboard.html:10
+#: problems/templates/problems/challenge-scoreboard.html:11
 #: problems/templates/problems/problem.html:11
 #: problems/templates/problems/problem.html:17
 #: problems/templates/problems/submission.html:12
@@ -2833,98 +2834,98 @@ msgctxt "Problem title, eg. 2015 Qualification"
 msgid "%(type)s %(year)s"
 msgstr "%(type)s %(year)s"
 
-#: problems/templates/problems/challenge-scoreboard.html:14
+#: problems/templates/problems/challenge-scoreboard.html:15
 #, python-format
 msgid "%(type)s %(year)s"
 msgstr "%(type)s %(year)s"
 
-#: problems/templates/problems/challenge-scoreboard.html:16
+#: problems/templates/problems/challenge-scoreboard.html:17
 #, python-format
 msgid ""
 "Please note that only the first %(row_count)s results are displayed below, "
 "regardless of the actual number of contestants."
 msgstr "Notez que seuls les %(row_count)s premiers résultats sont affichés ci-après, quel que soit le nombre effectif de participants."
 
-#: problems/templates/problems/challenge-scoreboard.html:22
-#: semifinal/templates/semifinal/stub-scoreboard.html:6
+#: problems/templates/problems/challenge-scoreboard.html:23
+#: semifinal/templates/semifinal/stub-scoreboard.html:7
 msgid "Rank"
 msgstr "Rang"
 
-#: problems/templates/problems/challenge-scoreboard.html:24
-#: semifinal/templates/semifinal/stub-scoreboard.html:9
+#: problems/templates/problems/challenge-scoreboard.html:25
+#: semifinal/templates/semifinal/stub-scoreboard.html:10
 msgid "Points"
 msgstr "Points"
 
-#: problems/templates/problems/challenge-scoreboard.html:34
-#: semifinal/templates/semifinal/stub-scoreboard-item.html:11
+#: problems/templates/problems/challenge-scoreboard.html:35
+#: semifinal/templates/semifinal/stub-scoreboard-item.html:13
 msgid "(ex-aequo)"
 msgstr "(ex-aequo)"
 
-#: problems/templates/problems/challenge-scoreboard.html:41
+#: problems/templates/problems/challenge-scoreboard.html:42
 msgid "No scores to display"
 msgstr "Aucun score à afficher"
 
-#: problems/templates/problems/challenge.html:9
-#: problems/templates/problems/challenge.html:13
+#: problems/templates/problems/challenge.html:10
+#: problems/templates/problems/challenge.html:14
 #, python-format
 msgid "Problems for %(type)s %(year)s"
 msgstr "Problèmes de %(type)s %(year)s"
 
-#: problems/templates/problems/challenge.html:23
+#: problems/templates/problems/challenge.html:24
 #, python-format
 msgid "The problem"
 msgid_plural "The %(count)s problems"
 msgstr[0] "Le problème"
 msgstr[1] "Les %(count)s problèmes"
 
-#: problems/templates/problems/challenge.html:27
+#: problems/templates/problems/challenge.html:28
 msgid "Congrats, you solved all the problems!"
 msgstr "Bravo, vous avez résolu tous les problèmes&nbsp;!"
 
-#: problems/templates/problems/challenge.html:28
-#: problems/templates/problems/stub_problem.html:24
+#: problems/templates/problems/challenge.html:29
+#: problems/templates/problems/stub_problem.html:26
 #, python-format
 msgid "%(score)s pts"
 msgstr "%(score)s pts"
 
-#: problems/templates/problems/index.html:10
+#: problems/templates/problems/index.html:11
 msgid "Jump to problem index"
 msgstr "Aller aux problèmes"
 
-#: problems/templates/problems/index.html:25
+#: problems/templates/problems/index.html:26
 #, python-format
 msgid "%(count)s&nbsp;problem"
 msgid_plural "%(count)s&nbsp;problems"
 msgstr[0] "%(count)s&nbsp;problème"
 msgstr[1] "%(count)s&nbsp;problèmes"
 
-#: problems/templates/problems/index.html:29
+#: problems/templates/problems/index.html:30
 msgid "Challenge is hidden to regular users"
 msgstr "Le challenge est caché pour les utilisateurs normaux"
 
-#: problems/templates/problems/index.html:44
+#: problems/templates/problems/index.html:45
 msgid "What is this?"
 msgstr "Qu'est-ce que c'est&nbsp;?"
 
-#: problems/templates/problems/index.html:46
+#: problems/templates/problems/index.html:47
 msgid ""
 "Want to find out what the Prologin algorithmic exercises are like?\n"
 "In this section, you can browse and tackle all the problems from the previous Prologin events. These are\n"
 "problems from both the Prologin online qualifications and the on-site regional events."
 msgstr "Vous voulez découvrir à quoi ressemblent les exercices d'algorithmique de Prologin ? Dans cette section, vous pouvez parcourir les précédentes éditions du concours Prologin et vous entraîner sur tous les problèmes correspondants. Ces exercices proviennent des qualifications en ligne et des épreuves régionales."
 
-#: problems/templates/problems/index.html:51
+#: problems/templates/problems/index.html:52
 msgid "How does it work?"
 msgstr "Comment ça marche&nbsp;?"
 
-#: problems/templates/problems/index.html:53
+#: problems/templates/problems/index.html:54
 msgid ""
 "Read the problem statement carefully and submit your solution. The system will check your\n"
 "submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you\n"
 "need to solve the problem."
 msgstr "Prenez le temps de lire l'énoncé du problème attentivement avant de soumettre votre solution. Le système vérifiera votre solution et vous indiquera immédiatement le résultat. Vous pouvez soumettre autant de solutions que nécessaire à la résolution du problème."
 
-#: problems/templates/problems/index.html:57
+#: problems/templates/problems/index.html:58
 #, python-format
 msgid ""
 "If you need any help with the automatic correction\n"
@@ -2932,28 +2933,28 @@ msgid ""
 "      "
 msgstr "Si vous avez besoin d'aide avec le système de correction automatique, vous pouvez lire le <a href=\"%(manual_url)s\" style=\"white-space: nowrap;\"><i class=\"fa fa-book\"></i>manuel du juge en ligne</a>.\n  "
 
-#: problems/templates/problems/manual.html:6
+#: problems/templates/problems/manual.html:7
 msgid "Manual"
 msgstr "Manuel"
 
-#: problems/templates/problems/manual.html:9
-#: problems/templates/problems/manual.html:13
+#: problems/templates/problems/manual.html:10
+#: problems/templates/problems/manual.html:14
 msgid "Online judge manual"
 msgstr "Manuel du juge en ligne"
 
-#: problems/templates/problems/manual.html:15
+#: problems/templates/problems/manual.html:16
 msgid ""
 "The online training system is a tool to help you improve\n"
 "your programing skills. It is open to everyone, and obviously free. What\n"
 "follows is a guide to understand its principles and get the most out of it.\n"
 msgstr "Le système d'entraînement automatique est un outil pour vous aider à améliorer votre niveau en programmation. Il est ouvert à tous, et bien entendu gratuit. Lisez bien ce qui suit pour bien en comprendre le principe, et en profiter un maximum.\n"
 
-#: problems/templates/problems/manual.html:20
-#: semifinal/templates/prologin/main-menu.html:4
+#: problems/templates/problems/manual.html:21
+#: semifinal/templates/prologin/main-menu.html:6
 msgid "Problems"
 msgstr "Problèmes"
 
-#: problems/templates/problems/manual.html:22
+#: problems/templates/problems/manual.html:23
 msgid ""
 "\n"
 "The problems given during the previous editions of the Prologin contest are\n"
@@ -2962,44 +2963,44 @@ msgid ""
 "by year and difficulty: from beginner to advanced.\n"
 msgstr "\nLes problèmes proposés durant les diverses éditions du concours Prologin sont archivés et disponibles sur ce site. Vous pouvez ainsi vous entraîner sur les problèmes des questionnaires et épreuves régionales passés. Ils sont classés par année et par difficulté : depuis le niveau débutant, à des difficultés bien plus élevées.\n"
 
-#: problems/templates/problems/manual.html:29
+#: problems/templates/problems/manual.html:30
 msgid "Evaluation"
 msgstr "Évaluation"
 
-#: problems/templates/problems/manual.html:31
+#: problems/templates/problems/manual.html:32
 msgid ""
 "\n"
 "The exercises are evaluated by our server: your program is compiled then tested\n"
 "automatically. It is executed once per test. The possible errors are:\n"
 msgstr "\nL'évaluation d'un exercice, dans le cas où un source est demandé, est faite par notre serveur : le programme est compilé puis testé automatiquement. Il est exécuté une fois par test. Les erreurs possibles sont : \n"
 
-#: problems/templates/problems/manual.html:37
+#: problems/templates/problems/manual.html:38
 msgid "Your program does not compile;"
 msgstr "Votre programme ne compile pas ;"
 
-#: problems/templates/problems/manual.html:38
+#: problems/templates/problems/manual.html:39
 msgid "Your program exceeded the time limit given in the subject;"
 msgstr "Votre programme a dépassé la limite de temps donnée dans le sujet ;"
 
-#: problems/templates/problems/manual.html:39
+#: problems/templates/problems/manual.html:40
 msgid "Your program exceeded the memory limit given in the subject;"
 msgstr "Votre programme a dépassé la limite de mémoire donnée dans le sujet ;"
 
-#: problems/templates/problems/manual.html:40
+#: problems/templates/problems/manual.html:41
 msgid "Your program gave a wrong result for at least one test;"
 msgstr "Votre programme donne un résultat faux pour au moins un des tests ;"
 
-#: problems/templates/problems/manual.html:41
+#: problems/templates/problems/manual.html:42
 msgid "Your program does not terminate correctly."
 msgstr "Votre programme ne se termine pas correctement."
 
-#: problems/templates/problems/manual.html:44
+#: problems/templates/problems/manual.html:45
 msgid ""
 "\n"
 "If there is a compilation error, the error output of the compiler is shown.\n"
 msgstr "\nS'il y a une erreur de compilation, la sortie d'erreur du compilateur est affichée.\n"
 
-#: problems/templates/problems/manual.html:48
+#: problems/templates/problems/manual.html:49
 msgid ""
 "\n"
 "The output produced by your program has to match exactly with the format given\n"
@@ -3007,7 +3008,7 @@ msgid ""
 "output, character by character.\n"
 msgstr "\nLa sortie produite par votre programme doit correspondre exactement avec le formatage précisé dans chacun des énoncés. Le système de correction compare la sortie de votre programme avec une sortie de référence, caractère par caractère.\n"
 
-#: problems/templates/problems/manual.html:54
+#: problems/templates/problems/manual.html:55
 msgid ""
 "\n"
 "After the tests have been executed, a summary is shown, indicating which tests\n"
@@ -3016,13 +3017,13 @@ msgid ""
 "exercise will only be considered solved when all the tests succeed.\n"
 msgstr "\nAprès exécution des tests, un récapitulatif vous est affiché, indiquant les tests réussis et les tests ratés. Pour le premier test raté uniquement, la sortie produite par votre programme est affichée, ainsi que la sortie attendue par le système de correction. L'exercice ne sera validé que lorsque tous les tests seront passés avec succès.\n"
 
-#: problems/templates/problems/manual.html:61
+#: problems/templates/problems/manual.html:62
 msgid ""
 "\n"
 "The correction can take up to several minutes, so be patient.\n"
 msgstr "\nLa correction peut prendre plusieurs minutes, donc soyez patient.\n"
 
-#: problems/templates/problems/manual.html:67
+#: problems/templates/problems/manual.html:68
 msgid ""
 "\n"
 "The training system grades your submissions. Every solved exercise gives you\n"
@@ -3031,11 +3032,11 @@ msgid ""
 "submitting it.\n"
 msgstr "\nLe système d'entraînement note vos soumissions ! En effet, chaque problème résolu rapporte un certain nombre de points, dépendant du nombre de soumissions que vous avez fait avant de le résoudre avec succès. Pensez donc à bien tester votre programme vous-même, avant de le soumettre.\n"
 
-#: problems/templates/problems/manual.html:74
+#: problems/templates/problems/manual.html:75
 msgid "Code stubs"
 msgstr "Codes à compléter"
 
-#: problems/templates/problems/manual.html:76
+#: problems/templates/problems/manual.html:77
 msgid ""
 "\n"
 "For some languages, we provide code stubs that can \"parse\" correctly the data\n"
@@ -3045,15 +3046,15 @@ msgid ""
 "useful most of the time.\n"
 msgstr "\nNous fournissons, pour certains langages, des codes sources se chargeant de \"découper\" correctement les données fournies sur l'entrée standard du programme. Il ne vous reste alors qu'à écrire le corps d'une fonction prenant ces données en paramètre. Notez qu'il n'est absolument pas obligatoire de les utiliser, mais cela peut se révéler utile dans bien des cas.\n"
 
-#: problems/templates/problems/manual.html:84
+#: problems/templates/problems/manual.html:85
 msgid "Correction system"
 msgstr "Système de correction"
 
-#: problems/templates/problems/manual.html:86
+#: problems/templates/problems/manual.html:87
 msgid "Time and memory limitations"
 msgstr "Limitations de mémoire et de temps"
 
-#: problems/templates/problems/manual.html:88
+#: problems/templates/problems/manual.html:89
 msgid ""
 "\n"
 "Every problem enforces some limits in terms of memory usage and execution time.\n"
@@ -3061,11 +3062,11 @@ msgid ""
 "particular limitation is applied on the stack size.\n"
 msgstr "\nChaque sujet impose des limites, autant en terme d'utilisation mémoire que de temps d'exécution. Des coefficients sont néanmoins appliqués sur certains langages plus lents à s'exécuter ou plus gourmand en mémoire. Aucune limitation particulière n'est appliquée sur la taille de la pile.\n"
 
-#: problems/templates/problems/manual.html:96
+#: problems/templates/problems/manual.html:97
 msgid "Hardware architecture"
 msgstr "Architecture matérielle"
 
-#: problems/templates/problems/manual.html:100
+#: problems/templates/problems/manual.html:101
 #, python-format
 msgid ""
 "\n"
@@ -3076,15 +3077,15 @@ msgid ""
 "vCPU and %(hardware_mem)s Gio of dedicated random access memory.\n"
 msgstr "\nVos programmes sont exécutés dans une machine virtuelle architecturée autour d'un processeur %(hardware_cpu)s\ncadencé à %(hardware_clockrate)s et une architecture\n%(hardware_architecture)s. L'architecture est de type %(hardware_byteorder)s. La machine virtuelle a %(hardware_ncpu)s vCPU dédiés et %(hardware_mem)s Gio de mémoire vive dédiés.\n"
 
-#: problems/templates/problems/manual.html:110
+#: problems/templates/problems/manual.html:111
 msgid "Compilers and interpreters"
 msgstr "Compilateurs et interpréteurs"
 
-#: problems/templates/problems/manual.html:113
+#: problems/templates/problems/manual.html:114
 msgid "unknown version"
 msgstr "version inconnue"
 
-#: problems/templates/problems/manual.html:117
+#: problems/templates/problems/manual.html:118
 msgid "Compilation options"
 msgstr "Options de compilation"
 
@@ -3239,124 +3240,124 @@ msgstr "Vous devez vous <a href=\"%(register)s\">inscrire</a> ou <a href=\"%(log
 msgid "Statement"
 msgstr "Énoncé"
 
-#: problems/templates/problems/search_results.html:6
+#: problems/templates/problems/search_results.html:7
 msgid "Search results"
 msgstr "Résultats de la recherche"
 
-#: problems/templates/problems/search_results.html:9
-#: problems/templates/problems/search_results.html:13
+#: problems/templates/problems/search_results.html:10
+#: problems/templates/problems/search_results.html:14
 msgid "Search training problems"
 msgstr "Chercher des problèmes d'entraînement"
 
-#: problems/templates/problems/search_results.html:15
+#: problems/templates/problems/search_results.html:16
 msgid "Jump to results"
 msgstr "Aller aux résultats"
 
-#: problems/templates/problems/search_results.html:19
+#: problems/templates/problems/search_results.html:20
 msgid "Sort"
 msgstr "Trier"
 
-#: problems/templates/problems/search_results.html:20
+#: problems/templates/problems/search_results.html:21
 msgid "by title"
 msgstr "par titre"
 
-#: problems/templates/problems/search_results.html:21
+#: problems/templates/problems/search_results.html:22
 msgid "by year"
 msgstr "par année"
 
-#: problems/templates/problems/search_results.html:22
+#: problems/templates/problems/search_results.html:23
 msgid "by difficulty"
 msgstr "par difficulté"
 
-#: problems/templates/problems/search_results.html:23
+#: problems/templates/problems/search_results.html:24
 msgid "ascending"
 msgstr "croissant"
 
-#: problems/templates/problems/search_results.html:24
+#: problems/templates/problems/search_results.html:25
 msgid "descending"
 msgstr "décroissant"
 
-#: problems/templates/problems/search_results.html:29
+#: problems/templates/problems/search_results.html:30
 #, python-format
 msgid "Problems %(from)s-%(to)s of %(count)s"
 msgstr "Problèmes %(from)s-%(to)s sur %(count)s"
 
-#: problems/templates/problems/search_results.html:36
+#: problems/templates/problems/search_results.html:37
 msgid "No problem match your query. Try broader criteria."
 msgstr "Aucun problème ne correspond à votre requête. Essayez des critères moins précis."
 
-#: problems/templates/problems/stub-module-name.html:1
+#: problems/templates/problems/stub-module-name.html:3
 msgid "Training"
 msgstr "Entraînement"
 
-#: problems/templates/problems/stub-module-title.html:1
+#: problems/templates/problems/stub-module-title.html:3
 msgid "Training challenges"
 msgstr "Épreuves d'entraînement"
 
-#: problems/templates/problems/stub_problem.html:12
+#: problems/templates/problems/stub_problem.html:14
 #, python-format
 msgid "%(year)s %(challenge)s"
 msgstr "%(challenge)s %(year)s"
 
-#: problems/templates/problems/stub_problem.html:18
+#: problems/templates/problems/stub_problem.html:20
 msgid "This problem was manually made available by the staff"
 msgstr "Ce problème a été manuellement rendu disponible par l'équipe"
 
-#: problems/templates/problems/stub_problem.html:20
+#: problems/templates/problems/stub_problem.html:22
 msgid ""
 "This problem was automatically made available because you did not complete "
 "any next-level problem"
 msgstr "Ce problème a été automatiquement rendu disponible car vous n'avez pas réussi de problème du niveau supérieur"
 
-#: problems/templates/problems/stub_problem.html:26
+#: problems/templates/problems/stub_problem.html:28
 msgid "Failed"
 msgstr "Échoué"
 
-#: problems/templates/problems/stub_problem.html:29
+#: problems/templates/problems/stub_problem.html:31
 msgid "Not submitted"
 msgstr "Non soumis"
 
-#: problems/templates/problems/stub_search_form.html:3
+#: problems/templates/problems/stub_search_form.html:5
 msgid "Search problems"
 msgstr "Rechercher des problèmes"
 
-#: problems/templates/problems/stub_search_form.html:10
+#: problems/templates/problems/stub_search_form.html:12
 msgid "From"
 msgstr "De"
 
-#: problems/templates/problems/stub_search_form.html:12
+#: problems/templates/problems/stub_search_form.html:14
 msgid "to"
 msgstr "à"
 
-#: problems/templates/problems/stub_search_form.html:20
+#: problems/templates/problems/stub_search_form.html:22
 msgid "Search"
 msgstr "Rechercher"
 
-#: problems/templates/problems/stub_submission_result.html:4
+#: problems/templates/problems/stub_submission_result.html:5
 msgid "Test passed!"
 msgstr "Test passé&nbsp;!"
 
-#: problems/templates/problems/stub_submission_result.html:6
+#: problems/templates/problems/stub_submission_result.html:7
 msgid "Test skipped."
 msgstr "Test ignoré."
 
-#: problems/templates/problems/stub_submission_result.html:8
+#: problems/templates/problems/stub_submission_result.html:9
 msgid "Test failed."
 msgstr "Test échoué."
 
-#: problems/templates/problems/stub_submission_result.html:10
+#: problems/templates/problems/stub_submission_result.html:11
 msgid "Detailed output is hidden."
 msgstr "Le détail du résultat est caché."
 
-#: problems/templates/problems/stub_submission_result.html:13
+#: problems/templates/problems/stub_submission_result.html:14
 msgid "Expected:"
 msgstr "Attendu&nbsp;:"
 
-#: problems/templates/problems/stub_submission_result.html:15
+#: problems/templates/problems/stub_submission_result.html:16
 msgid "Returned by your program:"
 msgstr "Obtenu par votre programme&nbsp;:"
 
-#: problems/templates/problems/stub_submission_result.html:18
+#: problems/templates/problems/stub_submission_result.html:19
 msgid "Standard error output:"
 msgstr "Sortie de l'erreur standard&nbsp;:"
 
@@ -3568,166 +3569,166 @@ msgstr "Une erreur interne au serveur est survenue. Vous n'avez rien fait de mal
 msgid "Please try again later."
 msgstr "Veuillez réessayer plus tard."
 
-#: prologin/templates/503.html:10 prologin/templates/503.html.py:54
+#: prologin/templates/503.html:11 prologin/templates/503.html.py:55
 msgid "Undergoing maintenance"
 msgstr "En cours de maintenance"
 
-#: prologin/templates/503.html:20 prologin/templates/503.html.py:23
+#: prologin/templates/503.html:21 prologin/templates/503.html.py:24
 msgid "Prologin, the French computing contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: prologin/templates/503.html:53 prologin/templates/prologin/base.html:22
-#: prologin/templates/prologin/base.html:72
-#: prologin/templates/prologin/main-footer.html:4
-#: semifinal/templates/prologin/base.html:57
-#: semifinal/templates/prologin/main-footer.html:4
+#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:23
+#: prologin/templates/prologin/base.html:73
+#: prologin/templates/prologin/main-footer.html:6
+#: semifinal/templates/prologin/base.html:58
+#: semifinal/templates/prologin/main-footer.html:6
 msgid "Prologin"
 msgstr "Prologin"
 
-#: prologin/templates/503.html:61
+#: prologin/templates/503.html:62
 msgid "Prologin is undergoing a short maintenance"
 msgstr "Prologin subit actuellement une courte maintenance"
 
-#: prologin/templates/503.html:68
+#: prologin/templates/503.html:69
 msgid ""
 "We are doing internal maintenance operations for which we have to temporally"
 " shut down access to the website."
 msgstr "Nous réalisons des opérations de maintenance internes qui nous obligent à couper temporairement l'accès au site web."
 
-#: prologin/templates/503.html:69
+#: prologin/templates/503.html:70
 msgid ""
 "We are sorry for the inconvenience. The operation should last only a few "
 "minutes. Please come visit us in a moment!"
 msgstr "Nous nous excusons pour la gêne occasionnée. Cette opération ne devrait durer que quelques minutes. Revenez nous voir dans un petit moment !"
 
-#: prologin/templates/_error_base.html:7
-#: prologin/templates/_error_base.html:13
+#: prologin/templates/_error_base.html:8
+#: prologin/templates/_error_base.html:14
 #, python-format
 msgid "Error %(number)s"
 msgstr "Erreur %(number)s"
 
-#: prologin/templates/_error_base.html:18
+#: prologin/templates/_error_base.html:19
 #, python-format
 msgid "You can go back to the <a href=\"%(url)s\">home page</a>."
 msgstr "Vous pouvez retourner à <a href=\"%(url)s\">l'accueil</a>."
 
-#: prologin/templates/prologin/base.html:36
+#: prologin/templates/prologin/base.html:37
 msgid "Latest blog articles"
 msgstr "Dernières actualités"
 
-#: prologin/templates/prologin/main-footer.html:7
+#: prologin/templates/prologin/main-footer.html:9
 msgid "Contact us"
 msgstr "Contactez-nous"
 
-#: prologin/templates/prologin/main-footer.html:8
+#: prologin/templates/prologin/main-footer.html:10
 msgid "Report a bug on the website"
 msgstr "Signaler un problème sur le site"
 
-#: prologin/templates/prologin/main-footer.html:11
+#: prologin/templates/prologin/main-footer.html:13
 msgid "More"
 msgstr "En plus"
 
-#: prologin/templates/prologin/main-footer.html:13
+#: prologin/templates/prologin/main-footer.html:15
 msgid "Press kit"
 msgstr "Kit de presse"
 
-#: prologin/templates/prologin/main-footer.html:19
+#: prologin/templates/prologin/main-footer.html:21
 msgid "Terms"
 msgstr "Conditions"
 
-#: prologin/templates/prologin/main-footer.html:21
+#: prologin/templates/prologin/main-footer.html:23
 msgid "Contest rules"
 msgstr "Règlement"
 
-#: prologin/templates/prologin/main-footer.html:24
+#: prologin/templates/prologin/main-footer.html:26
 msgid "Stay tuned!"
 msgstr "Suivez nous !"
 
-#: prologin/templates/prologin/main-footer.html:25
+#: prologin/templates/prologin/main-footer.html:27
 msgid "Prologin news Atom stream"
 msgstr "Flux Atom des actualités Prologin"
 
-#: prologin/templates/prologin/main-footer.html:32
+#: prologin/templates/prologin/main-footer.html:34
 msgid "Prologin on Facebook"
 msgstr "Prologin sur Facebook"
 
-#: prologin/templates/prologin/main-footer.html:38
+#: prologin/templates/prologin/main-footer.html:40
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: prologin/templates/prologin/main-footer.html:46
-#: semifinal/templates/prologin/main-footer.html:10
+#: prologin/templates/prologin/main-footer.html:48
+#: semifinal/templates/prologin/main-footer.html:12
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: prologin/templates/prologin/main-footer.html:59
-#: semifinal/templates/prologin/main-footer.html:23
+#: prologin/templates/prologin/main-footer.html:61
+#: semifinal/templates/prologin/main-footer.html:25
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prologin/templates/prologin/main-footer.html:62
-#: semifinal/templates/prologin/main-footer.html:26
+#: prologin/templates/prologin/main-footer.html:64
+#: semifinal/templates/prologin/main-footer.html:28
 #, python-format
 msgid ""
 "Save your\n"
 "preferred locale in your <a href=\"%(url)s#id_preferred_locale\">user settings</a>."
 msgstr "Sauvegardez votre langue préférée dans vos <a href=\"%(url)s#id_preferred_locale\">paramètres</a>."
 
-#: prologin/templates/prologin/main-menu.html:4
+#: prologin/templates/prologin/main-menu.html:6
 msgid "Participate"
 msgstr "Participer"
 
-#: prologin/templates/prologin/main-menu.html:6
+#: prologin/templates/prologin/main-menu.html:8
 msgid "Discover"
 msgstr "Découvrir"
 
-#: prologin/templates/prologin/main-menu.html:7
+#: prologin/templates/prologin/main-menu.html:9
 msgid "Train"
 msgstr "S'entraîner"
 
-#: prologin/templates/prologin/main-menu.html:12
-#: semifinal/templates/prologin/main-menu.html:9
+#: prologin/templates/prologin/main-menu.html:14
+#: semifinal/templates/prologin/main-menu.html:11
 msgid "Admin"
 msgstr "Admin"
 
-#: prologin/templates/prologin/main-menu.html:14
-#: semifinal/templates/prologin/main-menu.html:11
+#: prologin/templates/prologin/main-menu.html:16
+#: semifinal/templates/prologin/main-menu.html:13
 msgid "Django administration"
 msgstr "Administration de Django"
 
-#: prologin/templates/prologin/main-menu.html:28
+#: prologin/templates/prologin/main-menu.html:30
 msgid "My profile"
 msgstr "Mon profil"
 
-#: prologin/templates/prologin/main-menu.html:29
+#: prologin/templates/prologin/main-menu.html:31
 msgid "Profile &amp; settings"
 msgstr "Profil &amp; options"
 
-#: prologin/templates/prologin/main-menu.html:31
-#: semifinal/templates/prologin/main-menu.html:23
+#: prologin/templates/prologin/main-menu.html:33
+#: semifinal/templates/prologin/main-menu.html:25
 msgid "Sign out"
 msgstr "Déconnexion"
 
-#: prologin/templates/prologin/main-menu.html:36
-#: semifinal/templates/prologin/main-menu.html:28
+#: prologin/templates/prologin/main-menu.html:38
+#: semifinal/templates/prologin/main-menu.html:30
 #: users/templates/users/login.html:7 users/templates/users/login.html.py:10
 #: users/templates/users/login.html:26
 msgid "Sign in"
 msgstr "Connexion"
 
-#: prologin/templates/stub_pagination.html:5
+#: prologin/templates/stub_pagination.html:7
 msgid "First"
 msgstr "Premier"
 
-#: prologin/templates/stub_pagination.html:6
+#: prologin/templates/stub_pagination.html:8
 msgid "Previous"
 msgstr "Précédent"
 
-#: prologin/templates/stub_pagination.html:14
+#: prologin/templates/stub_pagination.html:16
 msgid "Next"
 msgstr "Suivant"
 
-#: prologin/templates/stub_pagination.html:15
+#: prologin/templates/stub_pagination.html:17
 msgid "Last"
 msgstr "Dernier"
 
@@ -3773,7 +3774,7 @@ msgstr "Réponse %(id)s"
 msgid "Question"
 msgstr "Question"
 
-#: qcm/admin.py:110 semifinal/templates/semifinal/monitoring.html:28
+#: qcm/admin.py:110 semifinal/templates/semifinal/monitoring.html:29
 msgid "Contestant"
 msgstr "Participant"
 
@@ -3801,43 +3802,43 @@ msgstr "Réponse"
 msgid "Textual answer"
 msgstr "Réponse texte"
 
-#: qcm/templates/qcm/display.html:9
+#: qcm/templates/qcm/display.html:10
 msgid "Quiz"
 msgstr "Questionnaire"
 
-#: qcm/templates/qcm/display.html:16 qcm/templates/qcm/display.html.py:20
+#: qcm/templates/qcm/display.html:17 qcm/templates/qcm/display.html.py:21
 #, python-format
 msgid "Qualification quiz – Prologin %(year)s"
 msgstr "Questionnaire de qualification – Prologin %(year)s"
 
-#: qcm/templates/qcm/display.html:24
+#: qcm/templates/qcm/display.html:25
 msgid ""
 "Please answer the following questions. There is only one correct answer for "
 "each question."
 msgstr "Veuillez répondre aux questions suivantes. Il n'y qu'une seule bonne réponse à chaque question."
 
-#: qcm/templates/qcm/display.html:25
+#: qcm/templates/qcm/display.html:26
 msgid ""
 "Correct answers give one point, wrong ones remove one point. Not answering a"
 " question neither gives nor removes any point."
 msgstr "Une réponse correcte donne un point, une fausse retire un point. Ne pas répondre correspond à zéro point."
 
-#: qcm/templates/qcm/display.html:31
+#: qcm/templates/qcm/display.html:32
 #, python-format
 msgid ""
 "You have to <a href=\"%(register)s\">register</a> or <a "
 "href=\"%(login)s\">log in</a> to be able to fill the quiz."
 msgstr "Vous devez <a href=\"%(register)s\">créer un compte</a> ou <a href=\"%(login)s\">vous connecter</a> pour pouvoir compléter le questionnaire."
 
-#: qcm/templates/qcm/display.html:53
+#: qcm/templates/qcm/display.html:54
 msgid "Correct answer:"
 msgstr "Bonne réponse&nbsp;:"
 
-#: qcm/templates/qcm/display.html:64
+#: qcm/templates/qcm/display.html:65
 msgid "Save the new answers"
 msgstr "Enregistrer les nouvelles réponses"
 
-#: qcm/templates/qcm/display.html:66
+#: qcm/templates/qcm/display.html:67
 msgid "Check your answers"
 msgstr "Vérifiez vos réponses"
 
@@ -3856,109 +3857,109 @@ msgid ""
 "already set."
 msgstr "Déverrouillage de <em>{problem}</em> pour {created} candidats&nbsp;; {existing} déblocages étaient déjà en place."
 
-#: semifinal/templates/problems/stub-module-title.html:1
+#: semifinal/templates/problems/stub-module-title.html:3
 msgid "Regional event challenges"
 msgstr "Épreuves régionales"
 
-#: semifinal/templates/prologin/main-footer.html:5
-#: semifinal/templates/semifinal/homepage.html:10
-#: semifinal/templates/semifinal/homepage.html:17
+#: semifinal/templates/prologin/main-footer.html:7
+#: semifinal/templates/semifinal/homepage.html:11
+#: semifinal/templates/semifinal/homepage.html:18
 #, python-format
 msgid "Regional event at %(center)s"
 msgstr "Épreuve régionale à %(center)s"
 
-#: semifinal/templates/prologin/main-menu.html:14
+#: semifinal/templates/prologin/main-menu.html:16
 msgid "Regional event monitoring"
 msgstr "Surveillance épreuve régionale"
 
-#: semifinal/templates/semifinal/explicit-unlock.html:7
-#: semifinal/templates/semifinal/monitoring.html:7
+#: semifinal/templates/semifinal/explicit-unlock.html:8
+#: semifinal/templates/semifinal/monitoring.html:8
 msgid "Monitoring"
 msgstr "Surveillance"
 
-#: semifinal/templates/semifinal/explicit-unlock.html:8
-#: semifinal/templates/semifinal/explicit-unlock.html:11
-#: semifinal/templates/semifinal/explicit-unlock.html:15
+#: semifinal/templates/semifinal/explicit-unlock.html:9
+#: semifinal/templates/semifinal/explicit-unlock.html:12
+#: semifinal/templates/semifinal/explicit-unlock.html:16
 msgid "Unlocking"
 msgstr "Déblocage"
 
-#: semifinal/templates/semifinal/explicit-unlock.html:23
+#: semifinal/templates/semifinal/explicit-unlock.html:24
 msgid "Unlock selected contestants"
 msgstr "Débloquer les candidats sélectionnés"
 
-#: semifinal/templates/semifinal/homepage.html:7
+#: semifinal/templates/semifinal/homepage.html:8
 msgid "Welcome"
 msgstr "Bienvenue"
 
-#: semifinal/templates/semifinal/homepage.html:21
+#: semifinal/templates/semifinal/homepage.html:22
 #, python-format
 msgid ""
 "Welcome to Prologin regional event! You can start <a href=\"%(url_problems)s\">solving problems</a>\n"
 "or browse the <a href=\"%(url_scoreboard)s\">live scoreboard</a>."
 msgstr "Bienvenue à votre épreuve régionale Prologin&nbsp;! Vous pouvez commencer à <a href=\"%(url_problems)s\">résoudre des problèmes</a>\nou consulter <a href=\"%(url_scoreboard)s\">le classement temps-réel</a>."
 
-#: semifinal/templates/semifinal/homepage.html:24
+#: semifinal/templates/semifinal/homepage.html:25
 msgid "Good luck, and don't forget to have fun."
 msgstr "Bonne chance, et n'oubliez pas de passer un bon moment."
 
-#: semifinal/templates/semifinal/monitoring.html:10
-#: semifinal/templates/semifinal/monitoring.html:18
+#: semifinal/templates/semifinal/monitoring.html:11
+#: semifinal/templates/semifinal/monitoring.html:19
 msgid "Monitoring board"
 msgstr "Tableau de bord"
 
-#: semifinal/templates/semifinal/monitoring.html:20
+#: semifinal/templates/semifinal/monitoring.html:21
 msgid "Primary actions"
 msgstr "Actions principales"
 
-#: semifinal/templates/semifinal/monitoring.html:22
+#: semifinal/templates/semifinal/monitoring.html:23
 msgid "Unlock first problem for everybody"
 msgstr "Débloquer le premier problème pour tout le monde"
 
-#: semifinal/templates/semifinal/monitoring.html:30
+#: semifinal/templates/semifinal/monitoring.html:31
 msgid "Level"
 msgstr "Niveau"
 
-#: semifinal/templates/semifinal/monitoring.html:31
+#: semifinal/templates/semifinal/monitoring.html:32
 msgctxt "Lines of code"
 msgid "LoC"
 msgstr "LdC"
 
-#: semifinal/templates/semifinal/monitoring.html:32
+#: semifinal/templates/semifinal/monitoring.html:33
 msgid "Actions"
 msgstr "Actions"
 
-#: semifinal/templates/semifinal/monitoring.html:55
+#: semifinal/templates/semifinal/monitoring.html:56
 #: users/templates/users/edit_password.html:10
 msgid "Password"
 msgstr "Mot de passe"
 
-#: semifinal/templates/semifinal/monitoring.html:58
+#: semifinal/templates/semifinal/monitoring.html:59
 msgid "Unlock"
 msgstr "Débloquer"
 
-#: semifinal/templates/semifinal/monitoring.html:77
+#: semifinal/templates/semifinal/monitoring.html:78
 msgid "No problem tackled yet"
 msgstr "Pas de problème abordé"
 
-#: semifinal/templates/semifinal/scoreboard.html:7
-#: semifinal/templates/semifinal/scoreboard.html:10
-#: semifinal/templates/semifinal/scoreboard.html:27
+#: semifinal/templates/semifinal/scoreboard.html:8
+#: semifinal/templates/semifinal/scoreboard.html:11
+#: semifinal/templates/semifinal/scoreboard.html:28
 msgid "Live scoreboard"
 msgstr "Classement temps-réel"
 
-#: semifinal/templates/semifinal/scoreboard.html:21
+#: semifinal/templates/semifinal/scoreboard.html:22
 msgid "Auto-update"
 msgstr "M-à-j auto"
 
-#: semifinal/templates/semifinal/scoreboard.html:22
+#: semifinal/templates/semifinal/scoreboard.html:23
 msgid "Refresh scoreboard"
 msgstr "Actualiser le classement"
 
-#: semifinal/templates/semifinal/scoreboard.html:23
+#: semifinal/templates/semifinal/scoreboard.html:24
 msgid "Fullscreen"
 msgstr "Plein écran"
 
-#: semifinal/templates/semifinal/scoreboard.html:24
+#: semifinal/templates/semifinal/scoreboard.html:25
 msgid "Exit fullscreen"
 msgstr "Sortir du plein écran"
 
@@ -4153,6 +4154,7 @@ msgstr "Photo de profil officielle"
 #: users/templates/registration/password_reset_confirm.html:7
 #: users/templates/users/edit.html:7
 #: users/templates/users/edit_password.html:7
+#: users/templates/users/history.html:9 users/templates/users/history.html:36
 #: users/templates/users/profile.html:7
 msgid "Members"
 msgstr "Membres"
@@ -4179,7 +4181,7 @@ msgid ""
 "used.  Please request a new password reset."
 msgstr "Le lien de réinitialisation du mot de passe n'est pas valide, peut-être parce qu'il a déjà été utilisé. Merci de faire une nouvelle demande."
 
-#: users/templates/users/as_staff_warning.html:3
+#: users/templates/users/as_staff_warning.html:4
 msgid ""
 "Heads up! You are editing another user's information, as a staff member. "
 "Take extra care."
@@ -4204,6 +4206,17 @@ msgstr "Enregistrer"
 #, python-format
 msgid "Editing %(username)s's password"
 msgstr "Modification du mot de passe de %(username)s"
+
+#: users/templates/users/history.html:13 users/templates/users/history.html:40
+#: users/templates/users/profile.html:11
+#, python-format
+msgid "%(username)s"
+msgstr "%(username)s"
+
+#: users/templates/users/history.html:17 users/templates/users/history.html:44
+#: users/templates/users/profile.html:15
+msgid "<em>not provided</em>"
+msgstr "<em>non renseigné</em>"
 
 #: users/templates/users/login.html:16
 msgid "Sign in with your credentials"
@@ -4236,7 +4249,7 @@ msgstr "Pas de souci. Nous pouvons vous envoyer un e-mail pour réinitialiser vo
 msgid "Reset password"
 msgstr "Réinitialiser mon mot de passe"
 
-#: users/templates/users/mails/activation.body.text.html:4
+#: users/templates/users/mails/activation.body.text.html:6
 #, python-format
 msgid ""
 "\n"
@@ -4257,11 +4270,11 @@ msgid ""
 "The Prologin staff\n"
 msgstr "\nBonjour %(username)s !\n\nMerci de votre inscription à Prologin. Pour finaliser l'inscription, vous devez activer votre compte.\n\nVeuillez ouvrir le lien qui suit dans votre navigateur :\n\n%(url)s\n\nSi vous ne pouvez pas cliquer sur le lien, copiez-collez le dans la barre d'adresse de votre navigateur.\n\nSi vous avez une question, n'hésitez pas à nous contacter à l'adresse %(contactmail)s.\n\n-- \nL'équipe Prologin\n"
 
-#: users/templates/users/mails/activation.subject.html:1
+#: users/templates/users/mails/activation.subject.html:3
 msgid "Activate your Prologin account"
 msgstr "Activez votre compte Prologin"
 
-#: users/templates/users/mails/pswd_reset.body.text.html:4
+#: users/templates/users/mails/pswd_reset.body.text.html:6
 #, python-format
 msgid ""
 "\n"
@@ -4289,7 +4302,7 @@ msgid ""
 "The Prologin staff\n"
 msgstr "\nBonjour %(username)s !\n\nQuelqu'un a demandé de réinitialiser votre mot de passe sur le site de Prologin. Si vous avez effectivement formulé cette requête, veuillez ouvrir le lien qui suit dans votre navigateur :\n\n%(url)s\n\nSi vous ne pouvez pas cliquer sur le lien, copiez-collez le dans la barre d'adresse de votre navigateur.\n\nSi vous n'avez pas pas demandé cette réinitialisation, cela signifie qu'un utilisateur malveillant tente d'accéder à votre compte. Ne cliquez pas sur le lien ci-dessus, ignorez cet e-mail voire supprimez-le.\n\nSi vous continuez à recevoir ce genre de demandes non sollicitées, merci d'entrer en contact avec l'équipe Prologin en nous envoyant un e-mail à l'adresse ci-dessous.\n\nSi vous avez une question, n'hésitez pas à nous contacter à l'adresse %(contactmail)s.\n\n-- \nL'équipe Prologin\n"
 
-#: users/templates/users/mails/pswd_reset.subject.html:1
+#: users/templates/users/mails/pswd_reset.subject.html:3
 msgid "Your Prologin password reset request"
 msgstr "Votre demande de réinitialisation de mot de passe sur Prologin"
 
@@ -4303,15 +4316,6 @@ msgid ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
 msgstr "Mot de passe oublié? Entrez votre adresse email ci-dessous, et nous vous enverrons par email la procédure pour en définir un nouveau."
-
-#: users/templates/users/profile.html:11
-#, python-format
-msgid "%(username)s"
-msgstr "%(username)s"
-
-#: users/templates/users/profile.html:15
-msgid "<em>not provided</em>"
-msgstr "<em>non renseigné</em>"
 
 #: users/templates/users/profile.html:32
 msgid "First name"
@@ -4372,35 +4376,35 @@ msgid ""
 "recieve a message to confirm your registration."
 msgstr "Choisissez un nom d'utilisateur. Vous devez utiliser une adresse e-mail valide, vous recevrez un message pour confirmer votre inscription."
 
-#: users/templates/users/unsubscribe.html:4
-#: users/templates/users/unsubscribe.html:7
-#: users/templates/users/unsubscribe.html:28
-#: users/templates/users/unsubscribe_confirm.html:4
-#: users/templates/users/unsubscribe_confirm.html:7
+#: users/templates/users/unsubscribe.html:5
+#: users/templates/users/unsubscribe.html:8
+#: users/templates/users/unsubscribe.html:29
+#: users/templates/users/unsubscribe_confirm.html:5
+#: users/templates/users/unsubscribe_confirm.html:8
 msgid "Unsubscribe"
 msgstr "Désinscription"
 
-#: users/templates/users/unsubscribe.html:10
+#: users/templates/users/unsubscribe.html:11
 msgid ""
 "If you wish to stop receiving e-mails from Prologin, you\n"
 "  can click on the button below."
 msgstr "Si vous souhaitez ne plus recevoir d'e-mails de Prologin, vous pouvez cliquer sur le bouton ci-dessous."
 
-#: users/templates/users/unsubscribe.html:13
+#: users/templates/users/unsubscribe.html:14
 msgid ""
 "Remember: we only mail you to provide useful information\n"
 "  during the various stages of the contest. We hate spam as much as you do!\n"
 "  "
 msgstr "Pour rappel, nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/templates/users/unsubscribe.html:35
+#: users/templates/users/unsubscribe.html:36
 msgid ""
 " has\n"
 "    already been unsubscribed. You will receive no further e-mails from\n"
 "    Prologin."
 msgstr "a déjà été désinscrit. Vous ne recevrez plus d'e-mails de Prologin."
 
-#: users/templates/users/unsubscribe_confirm.html:9
+#: users/templates/users/unsubscribe_confirm.html:10
 msgid ""
 "has been unsubscribed and will receive no further e-mails\n"
 "  from Prologin."
