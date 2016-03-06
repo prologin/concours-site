@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-03-06 15:41+0100\n"
-"PO-Revision-Date: 2016-03-06 14:42+0000\n"
+"POT-Creation-Date: 2016-03-07 00:11+0100\n"
+"PO-Revision-Date: 2016-03-06 23:13+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -179,7 +179,7 @@ msgid "Normalize selected center addresses"
 msgstr "Normaliser les adresses des centres sélectionnés"
 
 #: centers/models.py:17 contest/admin.py:75
-#: contest/templates/correction/by-year.html:20
+#: contest/templates/correction/by-year.html:22
 #: contest/templates/correction/index.html:23
 msgid "Center"
 msgstr "Centre"
@@ -196,7 +196,7 @@ msgstr "Hôtel"
 msgid "Pizzeria"
 msgstr "Pizzéria"
 
-#: centers/models.py:21 users/models.py:90
+#: centers/models.py:21 users/models.py:94
 msgid "Other"
 msgstr "Autre"
 
@@ -259,7 +259,7 @@ msgstr "Utilisateur"
 msgid "Programming language"
 msgstr "Langage de programmation"
 
-#: contest/datatables.py:53 contest/templates/correction/by-year.html:28
+#: contest/datatables.py:53 contest/templates/correction/by-year.html:39
 msgid "Correct"
 msgstr "Corriger"
 
@@ -598,16 +598,22 @@ msgstr "Correction"
 msgid "Events for Prologin %(year)s"
 msgstr "Événements pour Prologin %(year)s"
 
-#: contest/templates/correction/by-year.html:20 problems/forms.py:22
+#: contest/templates/correction/by-year.html:21 problems/forms.py:22
 msgid "Event type"
 msgstr "Type d'évènement"
 
-#: contest/templates/correction/by-year.html:20
+#: contest/templates/correction/by-year.html:23
 #: documents/templates/documents/index.html:46
 #: documents/templates/documents/index.html:70
 #: documents/templates/documents/index.html:103 semifinal/forms.py:13
 msgid "Contestants"
 msgstr "Candidats"
+
+#: contest/templates/correction/by-year.html:24
+#: documents/templates/documents/semifinal-import-review.html:78
+#: problems/models/submission.py:51
+msgid "Submissions"
+msgstr "Soumissions"
 
 #: contest/templates/correction/chunk-correction.html:19
 msgid "Unknown corrector"
@@ -886,11 +892,6 @@ msgstr "Pseudonyme"
 #: documents/templates/documents/semifinal-import-review.html:76
 msgid "Full name"
 msgstr "Nom complet"
-
-#: documents/templates/documents/semifinal-import-review.html:78
-#: problems/models/submission.py:51
-msgid "Submissions"
-msgstr "Soumissions"
 
 #: documents/templates/documents/semifinal-import-review.html:98
 #, python-format
@@ -1498,12 +1499,12 @@ msgstr "Le sujet a été supprimé avec succès."
 
 #: homepage/templates/homepage/homepage.html:5
 #: homepage/templates/homepage/jumbotron.html:6
-#: prologin/templates/prologin/base.html:24
+#: prologin/templates/prologin/base.html:29
 msgid "Prologin, the French National Computer Science Contest"
 msgstr "Prologin, le concours national d'informatique"
 
 #: homepage/templates/homepage/homepage.html:11
-#: prologin/templates/prologin/base.html:25
+#: prologin/templates/prologin/base.html:30
 msgid ""
 "Prologin is a computer science contest. Our goal is to introduce students to"
 " the world of programming and algorithms by subjecting them to several "
@@ -2387,7 +2388,7 @@ msgstr "Informations de contact"
 msgid "Address"
 msgstr "Adresse"
 
-#: pages/templates/pages/about-organization.html:35 users/models.py:106
+#: pages/templates/pages/about-organization.html:35 users/models.py:110
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -2824,11 +2825,11 @@ msgstr "Code soumis"
 msgid "Submission codes"
 msgstr "Codes soumis"
 
-#: problems/models/submission.py:150
+#: problems/models/submission.py:153
 msgid "Explicit problem unlock"
 msgstr "Déblocage explicite de problème"
 
-#: problems/models/submission.py:151
+#: problems/models/submission.py:154
 msgid "Explicit problem unlocks"
 msgstr "Déblocages explicites de problème"
 
@@ -3511,7 +3512,7 @@ msgstr "Homme"
 msgid "Female"
 msgstr "Femme"
 
-#: prologin/models.py:53 users/forms.py:41
+#: prologin/models.py:53 users/forms.py:42
 msgid "Other or prefer not to tell"
 msgstr "Autre ou préfère ne pas le dire"
 
@@ -3535,11 +3536,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:138
+#: prologin/settings/common.py:140
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:139
+#: prologin/settings/common.py:141
 msgid "French"
 msgstr "Français"
 
@@ -3585,8 +3586,8 @@ msgstr "En cours de maintenance"
 msgid "Prologin, the French computing contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:23
-#: prologin/templates/prologin/base.html:73
+#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:28
+#: prologin/templates/prologin/base.html:79
 #: prologin/templates/prologin/main-footer.html:6
 #: semifinal/templates/prologin/base.html:58
 #: semifinal/templates/prologin/main-footer.html:6
@@ -3620,9 +3621,13 @@ msgstr "Erreur %(number)s"
 msgid "You can go back to the <a href=\"%(url)s\">home page</a>."
 msgstr "Vous pouvez retourner à <a href=\"%(url)s\">l'accueil</a>."
 
-#: prologin/templates/prologin/base.html:37
+#: prologin/templates/prologin/base.html:42
 msgid "Latest blog articles"
 msgstr "Dernières actualités"
+
+#: prologin/templates/prologin/base.html:107
+msgid "No user matching query"
+msgstr "Aucun utilisateur correspondant"
 
 #: prologin/templates/prologin/main-footer.html:9
 msgid "Contact us"
@@ -3704,25 +3709,40 @@ msgstr "Admin"
 msgid "Django administration"
 msgstr "Administration de Django"
 
-#: prologin/templates/prologin/main-menu.html:30
+#: prologin/templates/prologin/main-menu.html:28
+msgid "Impersonate user"
+msgstr "Se faire passer pour…"
+
+#: prologin/templates/prologin/main-menu.html:40
 msgid "My profile"
 msgstr "Mon profil"
 
-#: prologin/templates/prologin/main-menu.html:31
+#: prologin/templates/prologin/main-menu.html:41
 msgid "Profile &amp; settings"
 msgstr "Profil &amp; options"
 
-#: prologin/templates/prologin/main-menu.html:33
+#: prologin/templates/prologin/main-menu.html:43
 #: semifinal/templates/prologin/main-menu.html:25
 msgid "Sign out"
 msgstr "Déconnexion"
 
-#: prologin/templates/prologin/main-menu.html:38
+#: prologin/templates/prologin/main-menu.html:48
 #: semifinal/templates/prologin/main-menu.html:30
 #: users/templates/users/login.html:7 users/templates/users/login.html.py:10
 #: users/templates/users/login.html:26
 msgid "Sign in"
 msgstr "Connexion"
+
+#: prologin/templates/prologin/stub-impersonate-warning.html:8
+msgid "Exit session"
+msgstr "Terminer la session"
+
+#: prologin/templates/prologin/stub-impersonate-warning.html:10
+#, python-format
+msgid ""
+"You are currently browsing on behalf of <strong>%(user)s</strong>. Keep\n"
+"          focused."
+msgstr "Vous naviguez actuellement sous l'identée de <strong>%(user)s</strong>. Restez alerte."
 
 #: prologin/templates/stub_pagination.html:7
 msgid "First"
@@ -4021,141 +4041,145 @@ msgstr "Identité publique"
 msgid "Settings"
 msgstr "Préférences"
 
-#: users/forms.py:37
+#: users/forms.py:38
 msgid "How do you prefer to be described?"
 msgstr "Comment préférez-vous être décrit ?"
 
-#: users/forms.py:39
+#: users/forms.py:40
 msgid "<em>She is writing code for the contest</em>"
 msgstr "<em>Elle écrit du code pour le concours.</em>"
 
-#: users/forms.py:40
+#: users/forms.py:41
 msgid "<em>He is writing code for the contest</em>"
 msgstr "<em>Il écrit du code pour le concours.</em>"
 
-#: users/forms.py:46
+#: users/forms.py:47
 msgid ""
 "You can not change your details during the contest. If there is an important"
 " change you want to make, please contact the staff."
 msgstr "Vous ne pouvez pas modifier vos informations pendant le concours. Si vous devez effectuer un changement, veuillez contacter l'équipe."
 
-#: users/forms.py:63
+#: users/forms.py:64
 msgid ""
 "Please check the box above and complete the additional tasks if any. This is"
 " required to fight spamming bots on the website."
 msgstr "Veuillez cocher la case ci-dessus et réaliser les éventuelles opérations supplémentaires. Cela permet de se prémunir des robots."
 
-#: users/forms.py:79
+#: users/forms.py:80
 msgid "This username is already in use. Please supply a different username."
 msgstr "Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre."
 
-#: users/forms.py:85
+#: users/forms.py:86
 msgid ""
 "This email address is already in use. Please supply a different email "
 "address."
 msgstr "Cette adresse e-mail est déjà utilisée. Merci d'en choisir une autre."
 
-#: users/forms.py:99
+#: users/forms.py:100
 msgid "Email"
 msgstr "E-mail"
 
-#: users/forms.py:100
+#: users/forms.py:101
 msgid "Your email address"
 msgstr "Votre adresse e-mail"
 
-#: users/forms.py:106
+#: users/forms.py:107
 msgid "Username or email"
 msgstr "Nom d'utilisateur ou e-mail"
 
-#: users/forms.py:107
+#: users/forms.py:108
 msgid ""
 "This field is case insensitive. It means capitals and small letters are "
 "considered to be equal."
 msgstr "Ce champ est insensible à la casse. Cela signifie qu'il n'y a pas de différence entre majuscules et minuscules."
 
-#: users/forms.py:109
+#: users/forms.py:110
 msgid "Please enter a correct username (or email) and password."
 msgstr "Saisissez un nom d'utilisateur (ou adresse e-mail) et un mot de passe corrects."
 
-#: users/models.py:81
+#: users/forms.py:132
+msgid "No user matching query."
+msgstr "Aucun utilisateur correspondant."
+
+#: users/models.py:85
 msgid "Middle school"
 msgstr "Collège"
 
-#: users/models.py:82
+#: users/models.py:86
 msgid "High school"
 msgstr "Lycée"
 
-#: users/models.py:83
+#: users/models.py:87
 msgid "Bac"
 msgstr "Bac"
 
-#: users/models.py:84
+#: users/models.py:88
 msgid "Bac+1"
 msgstr "Bac+1"
 
-#: users/models.py:85
+#: users/models.py:89
 msgid "Bac+2"
 msgstr "Bac+2"
 
-#: users/models.py:86
+#: users/models.py:90
 msgid "Bac+3"
 msgstr "Bac+3"
 
-#: users/models.py:87
+#: users/models.py:91
 msgid "Bac+4"
 msgstr "Bac+4"
 
-#: users/models.py:88
+#: users/models.py:92
 msgid "Bac+5"
 msgstr "Bac+5"
 
-#: users/models.py:89
+#: users/models.py:93
 msgid "Bac+6 and after"
 msgstr "Bac+6 et au delà"
 
-#: users/models.py:91
+#: users/models.py:95
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: users/models.py:105
+#: users/models.py:109
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:108 users/templates/users/profile.html:44
+#: users/models.py:112 users/templates/users/profile.html:44
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:110
+#: users/models.py:114
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: users/models.py:111
+#: users/models.py:115
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
 msgstr "Nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:114
+#: users/models.py:118
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:116
+#: users/models.py:120
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: users/models.py:117
+#: users/models.py:121
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:118
+#: users/models.py:122
 msgid "Locale"
 msgstr "Langue"
 
-#: users/models.py:120
+#: users/models.py:124
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: users/models.py:121
+#: users/models.py:125
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
@@ -4418,22 +4442,22 @@ msgid ""
 "  from Prologin."
 msgstr "a été désinscrit et ne recevra plus d'e-mails de Prologin."
 
-#: users/views.py:77
+#: users/views.py:83
 #, python-format
 msgid ""
 "Your account was created. We sent an email to %(mail)s so you can confirm "
 "your registration."
 msgstr "Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s pour que vous puissiez confirmer votre inscription."
 
-#: users/views.py:96
+#: users/views.py:102
 msgid "Your account was activated. Enjoy your visit!"
 msgstr "Votre compte est activé. Bonne visite&nbsp;!"
 
-#: users/views.py:98 users/views.py:260
+#: users/views.py:104 users/views.py:266
 msgid "You have been automatically logged in."
 msgstr "Vous avez été connecté automatiquement."
 
-#: users/views.py:103
+#: users/views.py:109
 #, python-format
 msgid ""
 "The activation link you provided is invalid or obsolete. If you created your"
@@ -4441,17 +4465,25 @@ msgid ""
 "may use the same username and email though."
 msgstr "Le lien d'activation que vous avez fourni est invalide ou obsolète. Si vous avez créé votre compte il y a plus de %(days)s jours, vous devez répéter l'opération. Vous pouvez utiliser les mêmes nom d'utilisateur et e-mail."
 
-#: users/views.py:170
+#: users/views.py:176
 msgid "Changes saved."
 msgstr "Modifications enregistrées."
 
-#: users/views.py:197 users/views.py:258
+#: users/views.py:203 users/views.py:264
 msgid "New password saved."
 msgstr "Mot de passe modifié."
 
-#: users/views.py:225
+#: users/views.py:231
 #, python-format
 msgid ""
 "You should receive an email at %(email)s in a few moments. Please follow the"
 " instructions to complete the password reset."
 msgstr "Vous devriez recevoir un e-mail à %(email)s dans quelques instants. Veuillez suivre les instructions pour finaliser la réinitialisation du mot de passe."
+
+#: users/views.py:319
+msgid "You cannot impersonate an inactive user."
+msgstr "Vous ne pouvez pas vous faire passer pour un utilisateur qui est inactif."
+
+#: users/views.py:323
+msgid "You don't have the permission to impersonate this user."
+msgstr "Vous n'avez pas l'autorisation de vous faire passer pour cet utilisateur."

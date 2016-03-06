@@ -1,0 +1,15 @@
+{% load i18n %}
+{% if request.session.is_hijacked_user %}
+  <div id="hijacked-warning-wrapper">
+    <div id="hijacked-warning" class="hijacked-warning hijacked-warning-boostrap" role="alert" data-spy="affix">
+      <div class="container">
+        <a href="{% url 'release_hijack' %}" type=button"
+           class="btn btn-default btn-xs django-hijack-button-bootstrap pull-right">
+          <i class="fa fa-sign-out"></i> {% trans "Exit session" %}</a>
+        <i class="fa fa-fw fa-user-secret"></i>
+        {% blocktrans with user=request.user %}You are currently browsing on behalf of <strong>{{ user }}</strong>. Keep
+          focused.{% endblocktrans %}
+      </div>
+    </div>
+  </div>
+{% endif %}

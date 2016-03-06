@@ -1,7 +1,8 @@
 {% load i18n staticfiles %}
-{% load django_bootstrap_breadcrumbs utils %}
+{% load django_bootstrap_breadcrumbs rules utils %}
 
 {% get_current_language as LANGUAGE_CODE %}
+{% has_perm 'users.may_impersonate' request.user as may_impersonate %}
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -14,6 +15,10 @@
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,700italic,300,300italic"/>
   <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}"/>
   <link rel="stylesheet" href="{% static 'lib/css/font-awesome.min.css' %}"/>
+{% if request.session.is_hijacked_user %}
+  {# User is being impersonated: include relevant styles #}
+  <link rel="stylesheet" href="{% static 'hijack/hijack-styles.css' %}" />
+{% endif %}
 
   {# Custom #}
   <link rel="stylesheet" type="text/css" href="{% static 'css/prologin.css' %}"/>
@@ -44,7 +49,7 @@
   {% block super_header %}
   <div class="navbar-header">
     <div class="navbar navbar-default">
-    <div class="container">
+      <div class="container">
         <div class="navbar-brand">
           <a href="{% url 'home' %}">
             <img src="{% static 'img/logo_cube.png' %}" width="50" height="53" alt="Prologin">
@@ -58,9 +63,10 @@
           <span class="icon-bar"></span>
         </button>
         <div class="navbar-collapse collapse pull-right">
-          {% include "prologin/main-menu.html" %}
+          {% include "prologin/main-menu.html" with may_impersonate=may_impersonate %}
         </div>
       </div>
+      {% include "prologin/stub-impersonate-warning.html" %}
     </div>
   </div>
   {% endblock super_header %}
@@ -93,6 +99,30 @@
   {# Scripts #}
   <script src="{% static 'lib/js/jquery.min.js' %}"></script>
   <script src="{% static 'lib/js/bootstrap.min.js' %}"></script>
+
+  {% if may_impersonate %}
+  {# User can impersonate others: include JS for typeahead #}
+  <script src="{% static 'lib/js/typeahead.jquery.min.js' %}"></script>
+  <script type="application/javascript">
+    var IMPERSONATE_EMPTY = "{% trans "No user matching query"|escapejs %}",
+      IMPERSONATE_URL = "{% url 'users:impersonate-search' %}";
+  </script>
+  <script src="{% static 'js/impersonate.js' %}"></script>
+  {% endif %}
+
+  {% if request.session.is_hijacked_user %}
+  {# User is being impersonated: handle impersonation warning affix #}
+  <script type="application/javascript">
+    $(function() {
+      var $warning = $('#hijacked-warning'), $warningWrapper = $('#hijacked-warning-wrapper');
+      $warningWrapper.css('min-height', $warning.height()).css('backgroundColor', 'white');
+      $warning.affix({offset: {
+        top: $('.navbar-header > .navbar > .container').outerHeight(true)
+      }});
+    });
+  </script>
+  {% endif %}
+
   {% block extra_script %}{% endblock %}
   {% get_setting_var 'GOOGLE_ANALYTICS_ID' as google_analytics_id %}
   {% if google_analytics_id %}<script type="text/javascript">

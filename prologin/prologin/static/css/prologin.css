@@ -223,6 +223,7 @@ footer .legal {
   border-radius: 0;
   border: none;
   padding: 0;
+  min-width: 100%; /* matches parent */
 }
 
 .navbar-default .dropdown-menu li.divider {
@@ -802,6 +803,111 @@ input[type=checkbox].task-list-item-checkbox {
   position: absolute;
   right: -17px;
   content: " > ";
+}
+
+.form-impersonate {
+  position: relative;
+  padding: 0 20px;
+  margin: 0;
+}
+
+.form-impersonate input, .form-impersonate input:focus {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+  margin: 0;
+  padding-left: 1.6em; /* wtf */
+  height: 36px; /* don't ask, don't tell */
+  width: 100% !important;
+}
+
+.form-impersonate i.fa {
+  position: absolute;
+  top: calc(50% - .5em);
+  z-index: 1; /* because typehead appears after */
+}
+
+/**
+ * django-hijack
+ */
+.hijacked-warning-boostrap {
+  padding: .5em 1em;
+}
+
+.hijacked-warning-boostrap.affix {
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 9;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+.tt-impersonate .tt-empty {
+  padding: 1em;
+  font-style: italic;
+}
+
+.tt-impersonate {
+  background-color: white;
+  width: 220px;
+  box-shadow: 0 6px 12px rgba(0,0,0,.175); /* dropdown */
+  left: -20px !important; /* padding inside of dropdown li>a */
+}
+
+.tt-impersonate .tt-suggestion {
+  padding: 5px .5em 5px 0;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-top: 1px solid rgba(0,0,0,.25);
+  line-height: 1.2;
+  min-height: 3em;
+}
+
+.tt-impersonate .col-img, .tt-impersonate .col-info {
+  padding: 0;
+}
+
+.tt-impersonate .col-img {
+  text-align: center;
+}
+
+.tt-impersonate .col-img .team-member-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 16px;
+}
+
+.twitter-typeahead {
+  width: 100%;
+}
+
+.twitter-typeahead .tt-query,
+.twitter-typeahead .tt-hint {
+  margin-bottom: 0;
+}
+
+.tt-suggestion {
+  display: block;
+  padding: 3px 20px;
+}
+
+.tt-suggestion.tt-cursor {
+  color: #fff;
+  background: #0081c2;
+}
+
+.tt-suggestion.tt-cursor a {
+  color: #fff;
+}
+
+.tt-suggestion.tt-selectable {
+  cursor: pointer;
+}
+
+.tt-suggestion p {
+  margin: 0;
 }
 
 /**

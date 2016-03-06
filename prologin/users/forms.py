@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
-from django.db.models import Manager
+from django.core.exceptions import ValidationError
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from captcha.fields import ReCaptchaField
@@ -107,3 +108,26 @@ class ProloginAuthenticationForm(AuthenticationForm):
         self.fields['username'].help_text = _("This field is case insensitive. It means capitals and small letters are "
                                               "considered to be equal.")
         self.error_messages['invalid_login'] = _("Please enter a correct username (or email) and password.")
+
+
+class ImpersonateForm(forms.Form):
+    user = forms.ModelChoiceField(queryset=User.objects.all(), required=False, empty_label='', widget=forms.HiddenInput())
+    username = forms.CharField(required=False)
+
+    def clean(self):
+        user = self.cleaned_data['user']
+        qs = User.objects.filter(is_active=True, is_superuser=False)
+        if not user:
+            username = self.cleaned_data['username']
+            user = qs.filter(username__exact=username).first()
+        if not user:
+            user = qs.filter(username__iexact=username).first()
+        if not user:
+            user = qs.filter(username__istartswith=username).first()
+        if not user:
+            user = qs.filter(username__icontains=username).first()
+        if not user:
+            user = qs.filter(Q(first_name__icontains=username) | Q(last_name__icontains=username)).first()
+        if not user:
+            raise ValidationError(_("No user matching query."))
+        self.cleaned_data['user'] = user

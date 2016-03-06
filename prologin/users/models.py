@@ -1,7 +1,10 @@
+import json
+
 import base64
 import hashlib
 import logging
 import os
+import requests
 
 from django.conf import settings
 from django.contrib.auth import get_user_model
@@ -14,6 +17,7 @@ from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import LANGUAGE_SESSION_KEY, ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
+from hijack.signals import hijack_started, hijack_ended
 from timezone_field import TimeZoneField
 
 from prologin.models import (AddressableModel, GenderField,
@@ -180,3 +184,44 @@ def assign_preferred_language(sender, user, request, **kwargs):
         request.session[LANGUAGE_SESSION_KEY] = request.user.preferred_locale
 
 user_logged_in.connect(assign_preferred_language)
+
+
+def _get_user_dict(user):
+    return {
+        'id': user.pk,
+        'username': user.username,
+        'is_staff': user.is_staff,
+        'is_superuser': user.is_superuser,
+        'full_name': user.get_full_name(),
+        'url': settings.SITE_BASE_URL + reverse('users:profile', args=[user.pk]),
+    }
+
+
+def notify_hijack_started(sender, **kwargs):
+    s = settings.PROLOGIN_HIJACK_NOTIFY
+    if not s:
+        return
+    try:
+        data = {'event': 'start',
+                'hijacker': _get_user_dict(kwargs['hijacker']),
+                'hijacked': _get_user_dict(kwargs['hijacked'])}
+        requests.request(s['method'], s['url'], data=json.dumps(data), **s.get('kwargs', {}))
+    except Exception:
+        logging.exception("Could not notify of hijack-started")
+
+
+def notify_hijack_ended(sender, **kwargs):
+    s = settings.PROLOGIN_HIJACK_NOTIFY
+    if not s:
+        return
+    try:
+        data = {'event': 'end',
+                'hijacker': _get_user_dict(kwargs['hijacker']),
+                'hijacked': _get_user_dict(kwargs['hijacked'])}
+        requests.request(s['method'], s['url'], data=json.dumps(data), **s.get('kwargs', {}))
+    except Exception:
+        logging.exception("Could not notify of hijack-ended")
+
+
+hijack_started.connect(notify_hijack_started)
+hijack_ended.connect(notify_hijack_ended)

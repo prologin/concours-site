@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from users import views
 
-urlpatterns = patterns('',
+urlpatterns = [
     # User profile, view and edit
     url(r'^(?P<pk>[0-9]+)/profile/$', views.ProfileView.as_view(), name='profile'),
     url(r'^(?P<pk>[0-9]+)/edit/$', views.EditUserView.as_view(), name='edit'),
@@ -10,6 +10,10 @@ urlpatterns = patterns('',
     # Login and logout
     url(r'^login/$', views.custom_login, name='login'),
     url(r'^logout/$', views.protected_logout, {'next_page': '/'}, name='logout'),
+
+    # Impersonate (django-hijack)
+    url(r'^impersonate/search$', views.ImpersonateSearchView.as_view(), name='impersonate-search'),
+    url(r'^impersonate$', views.ImpersonateView.as_view(), name='impersonate'),
 
     # Password reset
     url(r'^password/reset/ask/$', views.PasswordResetView.as_view(), name='password_reset'),
@@ -22,4 +26,4 @@ urlpatterns = patterns('',
     url(r'^activate/(?P<slug>[0-9A-Za-z\-_]+)/$', views.ActivationView.as_view(), name='activate'),
 
     url(r'^unsubscribe/$', views.UnsubscribeView.as_view(), name='unsubscribe'),
-)
+]

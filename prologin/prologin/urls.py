@@ -21,6 +21,9 @@ urlpatterns = [
     # Built-in Django admin
     url(r'^admin/', include(admin.site.urls)),
 
+    # Hijack
+    url(r'^hijack/', include('hijack.urls')),
+
     # Language selector
     url(r'^lang/', include('django.conf.urls.i18n')),
 ]

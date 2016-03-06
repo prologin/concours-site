@@ -67,11 +67,13 @@ INSTALLED_APPS = (
     'adminsortable',
     'bootstrapform',
     'captcha',
+    'compat',
     'datatableview',
     'django_bootstrap_breadcrumbs',
     'django_comments',
     'django_prometheus',
     'djmail',
+    'hijack',
     'mptt',
     'rules.apps.AutodiscoverRulesConfig',
     'statictemplate',
@@ -298,6 +300,16 @@ CORRECTION_LIVE_UPDATE_TIMEOUT = CORRECTION_LIVE_UPDATE_POLL_INTERVAL * 2  # off
 NOCAPTCHA = True
 RECAPTCHA_USE_SSL = True
 RECAPTCHA_KEY = ''
+
+# Hijack (impersonation)
+
+HIJACK_DISPLAY_ADMIN_BUTTON = False
+HIJACK_DECORATOR = 'users.rules.hijack_forbidden'
+HIJACK_AUTHORIZATION_CHECK = 'users.rules.hijack_authorization_check'
+HIJACK_LOGIN_REDIRECT_URL = '/'
+HIJACK_LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL
+PROLOGIN_HIJACK_NOTIFY = False
+# {'method': 'post', 'url': '/django/impersonate', 'kwargs': {'timeout': (1, 1)}}
 
 # Debug toolbar
 

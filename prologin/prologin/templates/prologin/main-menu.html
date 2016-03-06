@@ -16,9 +16,19 @@
       <li><a href="{% url 'admin:index' %}">{% trans "Django administration" %}</a></li>
       <li class="divider"></li>
       {% has_perm 'correction.can_correct' request.user None as can_correct %}
-      {% if can_correct %}<li><a href="{% url 'contest:correction:index' %}"><i class="fa fa-wrench"></i> {% trans "Correction" %}</a></li>{% endif %}
+      {% if can_correct %}<li><a href="{% url 'contest:correction:index' %}"><i class="fa fa-fw fa-wrench"></i> {% trans "Correction" %}</a></li>{% endif %}
       {% has_perm 'documents.generate_batch_document' request.user None as can_correct %}
-      {% if can_correct %}<li><a href="{% url 'documents:index' %}"><i class="fa fa-archive"></i> {% trans "Documents" %}</a></li>{% endif %}
+      {% if can_correct %}<li><a href="{% url 'documents:index' %}"><i class="fa fa-fw fa-archive"></i> {% trans "Documents" %}</a></li>{% endif %}
+      {% if may_impersonate %}
+      <li>
+        <form class="form-inline form-impersonate" method="post" action="{% url 'users:impersonate' %}">
+          {% csrf_token %}
+          <i class="fa fa-fw fa-user-secret"></i>
+          <input type="hidden" id="impersonate-user-id" name="user">
+          <input id="impersonate-username" name="username" type="text" class="form-control" placeholder="{% trans "Impersonate user" %}">
+        </form>
+      </li>
+      {% endif %}
     </ul>
   </li>
 {% endif %}

@@ -4,18 +4,24 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.views import logout, login as django_login_view
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.db.models import Prefetch
+from django.db.models import Prefetch, Q
 from django.http import Http404
+from django.http.response import JsonResponse
 from django.shortcuts import get_object_or_404, render, redirect
+from django.template.base import Template, Context
+from django.template.loader import get_template
+from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
-from django.views.generic.base import View, RedirectView
+from django.views.generic.base import View, RedirectView, TemplateView
 from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 import django.contrib.auth.forms
+from django.views.generic.list import ListView
 from hmac import compare_digest
+from rules.contrib.views import PermissionRequiredMixin
 from zinnia.models.author import Author
 
 from prologin.email import send_email
@@ -290,3 +296,74 @@ class UnsubscribeView(View):
         user.save()
         return render(request, 'users/unsubscribe_confirm.html',
                 {'unsubscribe_user': user})
+
+
+class ImpersonateView(PermissionRequiredMixin, FormView):
+    form_class = users.forms.ImpersonateForm
+    permission_required = 'users.may_impersonate'
+
+    def get(self, request, *args, **kwargs):
+        raise Http404()
+
+    def get_success_url(self):
+        url = self.request.GET.get('next')
+        if url and is_safe_url(url, host=settings.SITE_HOST):
+            return url
+        return '/'
+
+    def form_valid(self, form):
+        from hijack.helpers import is_authorized, login_user
+
+        hijacked = form.cleaned_data['user']
+
+        if not hijacked.is_active:
+            messages.error(self.request, _("You cannot impersonate an inactive user."))
+            return redirect(self.get_success_url())
+
+        if not is_authorized(self.request.user, hijacked):
+            messages.error(self.request, _("You don't have the permission to impersonate this user."))
+            return redirect(self.get_success_url())
+
+        login_user(self.request, hijacked)
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        if form.non_field_errors:
+            error = form.non_field_errors[0]
+        else:
+            error = form.errors.values()[0]
+        messages.error(self.request, error)
+        return redirect(self.get_success_url())
+
+
+class ImpersonateSearchView(PermissionRequiredMixin, ListView):
+    model = get_user_model()
+    paginate_by = 10
+    permission_required = 'users.may_impersonate'
+
+    def get_queryset(self):
+        qs = super().get_queryset().filter(is_active=True, is_superuser=False)
+        q = self.request.GET.get('q', '').strip()
+        if not q:
+            return qs.none()
+        qss = qs.filter(username__startswith=q)
+        if not qss.exists():
+            qss = qs.filter(username__istartswith=q)
+        if not qss.exists():
+            qss = qs.filter(username__contains=q)
+        if not qss.exists():
+            qss = qs.filter(username__icontains=q)
+        if not qss.exists():
+            qss = qs.filter(Q(first_name__icontains=q) | Q(last_name__icontains=q))
+        return qss
+
+    def render_to_response(self, context, **response_kwargs):
+        tpl = get_template('users/stub-impersonate-result.html')
+        results = [
+            {
+                'id': user.pk,
+                'username': user.username,
+                'html': tpl.render(Context({'user': user})),
+            }
+            for user in self.get_queryset()]
+        return JsonResponse(results, safe=False)
