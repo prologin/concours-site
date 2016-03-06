@@ -2629,7 +2629,7 @@ msgstr "Avant ou pendant le repas du midi, également offert par Prologin, les o
 #: pages/templates/pages/about-semifinals.html:109
 msgid ""
 "The day continues with the practical test, which lasts\n"
-"    four hours, and ends at 7:30 PM."
+"    four hours, and ends at 5:30 PM."
 msgstr "La journée se poursuit avec l'épreuve machine, d'une durée de quatre heures, et se termine vers 17h30."
 
 #: pages/templates/pages/about-semifinals.html:113
