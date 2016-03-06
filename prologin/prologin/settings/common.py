@@ -299,6 +299,15 @@ NOCAPTCHA = True
 RECAPTCHA_USE_SSL = True
 RECAPTCHA_KEY = ''
 
+# Debug toolbar
+
+DEBUG_TOOLBAR_CONFIG = {
+    # Already served
+    'JQUERY_URL': '',
+    'DISABLE_PANELS': {'debug_toolbar.panels.redirects.RedirectsPanel',
+                       # StaticFilesPanel takes *way* too much compute power while being useless
+                       'debug_toolbar.panels.staticfiles.StaticFilesPanel'},
+}
 
 # Content Security Policy
 
