@@ -1,8 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import url
 
+import centers.views
 
-urlpatterns = patterns('centers.views',
-    url(r'^$', 'center_map', name='center_map'),
-    url(r'^(?P<city>[a-z-]+)/json$', 'center_list_json'),
-    url(r'^json$', 'center_list_json'),
-)
+urlpatterns = [
+    url(r'^$', centers.views.CenterListView.as_view(), name='map'),
+]

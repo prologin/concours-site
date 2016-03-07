@@ -32,7 +32,7 @@
               {% with event=contestant.assignation_semifinal_event %}
                 <p>{% trans "Your regional event will take place at:" %}</p>
                 <ul class="list-unstyled checklist" style="margin-bottom: .5em">
-                  <li><i class="fa fa-map-marker fa-fw"></i> <a href="{% url 'centers:center_map' %}">{{ event.center.name }}</a></li>
+                  <li><i class="fa fa-map-marker fa-fw"></i> <a href="{% url 'centers:map' %}">{{ event.center.name }}</a></li>
                   <li><i class="fa fa-calendar-check-o fa-fw"></i> {{ event.date_begin|date:"d b Y" }}</li>
                 </ul>
                 <p>
@@ -81,7 +81,7 @@
                                                          data-placement="bottom" data-html="true"
                                                          data-content="
                         {% for demi in semifinals|dictsort:'date_begin' %}
-                        <strong><a href='{% url 'centers:center_map' %}'>{{ demi.center.name }}</a></strong> –
+                        <strong><a href='{% url 'centers:map' %}'>{{ demi.center.name }}</a></strong> –
                         {{ demi.date_begin|date:"d b Y"|default:no_such_date }}<br />
                         {% endfor %}
                         ">

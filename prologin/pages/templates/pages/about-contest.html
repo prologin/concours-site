@@ -64,7 +64,7 @@ and an interview with one of Prologin's staff members.
       </div>
       <div class="col-sm-4">
         <h4>{% trans "Where can I sit for the exam?" %}</h4>
-        {% url 'centers:center_map' as url_centers %}
+        {% url 'centers:map' as url_centers %}
         <p>{% blocktrans %}
 We organize the event in major cities across metropolitan France. You can check the nearest location
 using the <a href="{{ url_centers }}">map of exam centers</a>.{% endblocktrans %}</p>

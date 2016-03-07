@@ -18,7 +18,7 @@
               <p>{% trans "The final will take place at:" %}</p>
               <ul class="list-unstyled checklist" style="margin-bottom: .5em">
                 <li><i class="fa fa-map-marker fa-fw"></i> <a
-                  href="{% url 'centers:center_map' %}">{{ event.center.name }}</a></li>
+                  href="{% url 'centers:map' %}">{{ event.center.name }}</a></li>
                 <li><i class="fa fa-calendar-check-o fa-fw"></i> {{ event.date_begin|date:"d b Y" }}</li>
               </ul>
               <p>

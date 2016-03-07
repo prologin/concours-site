@@ -1,88 +1,165 @@
 {% extends "prologin/base.html" %}
-{% load i18n l10n %}
+{% load i18n l10n staticfiles %}
 {% load django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
   {{ block.super }}
-  {% breadcrumb_for "" %}{% trans "The exam centers" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "centers:map" %}{% trans "The exam centers" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% trans "The exam centers" %}{% endblock %}
 
-{% block extra_script %}
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
-    <script type="text/javascript">
-        var center_markers = [];
-        function initialize() {
-            var bounds = new google.maps.LatLngBounds();
-            var infowindow = new google.maps.InfoWindow();
-            var map = new google.maps.Map(document.getElementById('map-canvas'), {
-                // options
-            });
-            function createMarker(lat, lng, title, description) {
-                var marker = new google.maps.Marker({
-                    position: new google.maps.LatLng(lat, lng),
-                    title: title,
-                    map: map
-                });
-                bounds.extend(marker.position);
-                google.maps.event.addListener(marker, 'click', function() {
-                    infowindow.setContent(description);
-                    infowindow.open(map, marker);
-                });
-                center_markers.push(marker);
-            }
-            var body;
-    {% localize off %}
-    {% for center in centers %}
-        {% if center.has_valid_geolocation %}
-            body = "<strong>{{ center.name|escapejs }}</strong><br>" +
-                   "{{ center.address|title|escapejs }}" +
-                   "<br>{{ center.postal_code|escapejs }} {{ center.city|title|escapejs }}";
-            createMarker({{ center.lat }}, {{ center.lng }}, "{{ center.name|escapejs }}", body);
-        {% endif %}
-    {% endfor %}
-    {% endlocalize %}
-            map.fitBounds(bounds);
-        }
-        google.maps.event.addDomListener(window, 'load', initialize);
-    </script>
+{% block extra_head %}
+  <style type="text/css">
+    #map-canvas-wrap {
+      width: 100%;
+      min-height: 400px;
+    }
+
+    #map-canvas {
+      min-height: 400px;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.3);
+    }
+
+    .affix {
+      position: relative;
+      top: 0;
+      width: 100%;
+    }
+
+    @media (min-width: 993px) {
+      .affix {
+        top: 20px;
+        position: fixed;
+      }
+    }
+  </style>
+  <noscript>
+    <style type="text/css">
+      #map-canvas-wrap {
+        width: 100%;
+        position: relative;
+      }
+
+      #map-canvas-wrap::after {
+        position: absolute;
+        display: block;
+        top: 4em;
+        top: calc(50% - 1em);
+        left: 0;
+        right: 0;
+        bottom: 0;
+        color: #333;
+        text-align: center;
+        content: "{% trans "You need Javascript to display the map." %}";
+      }
+    </style>
+  </noscript>
 {% endblock %}
 
 {% block content %}
 
-    <div class="row">
+  <div class="row">
 
-        <div class="col-sm-6">
-            <div id="map-canvas" style="width: 100%; min-height: 400px; background: #444;"></div>
-        </div>
-        <div class="col-sm-6">
-            <table class="table table-striped" style="white-space: nowrap;">
-                <thead>
-                    <tr><th>{% trans "Center address" %}</th><th>{% trans "Show" %}</th><th>{% trans "Full map" %}</th></tr>
-                </thead>
-                <tbody>
-                {% for center in centers %}
-                    <tr>
-                        <td>
-                            <strong>{{ center.name }}</strong>
-                            <address>{{ center.address|title }}<br>{{ center.postal_code }} {{ center.city|title }}</address>
-                        </td>
-                        <td>
-                            <a href="#center-{{ forloop.counter0 }}"
-                               onclick="javascript:google.maps.event.trigger(center_markers[{{ forloop.counter0 }}], 'click');">
-                                <i class="fa fa-map-marker"></i> {% trans "Show" %}</a>
-                        </td>
-                        {% localize off %}
-                        <td>
-                            <a href="https://tools.wmflabs.org/geohack/geohack.php?params={{ center.coordinates }}">
-                                <i class="fa fa-globe"></i> {% trans "Full map" %}</a></td>
-                        {% endlocalize %}
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
-        </div>
+    <div class="col-md-6" id="map-canvas-col">
+      <div id="map-canvas-wrap" class="affix">
+        <div id="map-canvas"></div>
+      </div>
     </div>
+    <div class="col-md-6">
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>{% trans "Center address" %}</th>
+          <th>{% trans "Show" %}</th>
+          <th>{% trans "Full map" %}</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for center in centers %}
+          <tr>
+            <td>
+              <strong>{{ center.name }}</strong>
+              <address>{{ center.address|title }}<br>{{ center.postal_code }} {{ center.city|title }}</address>
+            </td>
+            <td>
+              <a href="#center-{{ forloop.counter0 }}"
+                 onclick="javascript:google.maps.event.trigger(center_markers[{{ forloop.counter0 }}], 'click');">
+                <i class="fa fa-map-marker"></i> {% trans "Show" %}</a>
+            </td>
+            {% localize off %}
+              <td>
+                <a href="https://tools.wmflabs.org/geohack/geohack.php?params={{ center.coordinates }}">
+                  <i class="fa fa-globe"></i> {% trans "Full map" %}</a></td>
+            {% endlocalize %}
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
 
+{% endblock %}
+
+{% block extra_script %}
+  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js"></script>
+  <script type="text/javascript" src="{% static 'js/utils.js' %}"></script>
+  <script type="text/javascript">
+    $(function () {
+      var $map = $('#map-canvas-wrap'), $mapCol = $('#map-canvas-col');
+
+      function applyWidth() {
+        $map.css('width', $mapCol.width());
+      }
+
+      applyWidth();
+      $map.affix({
+        offset: {
+          top: $mapCol.offset().top - 20,
+          bottom: $('footer').outerHeight(true)
+        }
+      });
+      $(window).resize(applyWidth);
+    });
+
+    var center_markers = [];
+    function initialize() {
+      var bounds = new google.maps.LatLngBounds();
+      var infowindow = new google.maps.InfoWindow();
+      var map = new google.maps.Map(document.getElementById('map-canvas'), {
+        // options
+      });
+
+      function createMarker(lat, lng, title, description) {
+        var marker = new google.maps.Marker({
+          position: new google.maps.LatLng(lat, lng),
+          title: title,
+          map: map
+        });
+        bounds.extend(marker.position);
+        google.maps.event.addListener(marker, 'click', function () {
+          window.location.hash = 'map-canvas-wrap';
+          infowindow.setContent(description);
+          infowindow.open(map, marker);
+        });
+        center_markers.push(marker);
+      }
+
+      var body;
+      {% localize off %}
+        {% for center in centers %}
+          {% if center.has_valid_geolocation %}
+            body = "<strong>{{ center.name|escapejs }}</strong><br>" +
+              "{{ center.address|title|escapejs }}" +
+              "<br>{{ center.postal_code|escapejs }} {{ center.city|title|escapejs }}";
+            createMarker({{ center.lat }}, {{ center.lng }}, "{{ center.name|escapejs }}", body);
+          {% endif %}
+        {% endfor %}
+      {% endlocalize %}
+      map.fitBounds(bounds);
+    }
+    google.maps.event.addDomListener(window, 'load', initialize);
+  </script>
 {% endblock %}
