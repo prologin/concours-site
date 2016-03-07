@@ -1,7 +1,7 @@
 (function ($) {
   /**
    * Standard affix.
-   * @param options: parent: mandatory, the selector string to the affix's parent
+   * @param options: parent: optional, the selector string to the affix's parent for scrollspy
    *                 offset: top offset; default: 20
    *                 footer: selector string to the page footer element; default: 'footer'
    */
@@ -14,10 +14,12 @@
     return this.each(function () {
       var $that = $(this);
 
-      $(document.body).scrollspy({
-        target: settings.parent,
-        offset: settings.offset
-      });
+      if (settings.parent) {
+        $(document.body).scrollspy({
+          target: settings.parent,
+          offset: settings.offset
+        });
+      }
 
       $that.affix({
         offset: {
