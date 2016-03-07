@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, url, include
+from django.conf.urls import url
+
 import qcm.views
 
-
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^$', qcm.views.DisplayQCMView.as_view(), name='display'),
-)
+]
