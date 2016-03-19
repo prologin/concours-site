@@ -7,7 +7,7 @@ chardet
 # For async tasks (sending mails, correcting submissions, etc.)
 celery
 # Django
-django<1.9
+django<1.10
 # For ordered models (QCM questions, semifinal whishes, etc.)
 django-admin-sortable
 # BetterForms: allows merged ModelForms
@@ -29,7 +29,7 @@ django-debug-toolbar
 # Form wizards (they were a Django builtin, but split as of 1.8)
 django-formtools
 # Impersonation framework
-# TODO: use upstream when PR are merged
+# TODO: use upstream when PyPi version released
 git+https://github.com/Zopieux/django-hijack.git@prologin
 # Export metrics for prometheus monitoring
 django-prometheus
@@ -40,21 +40,19 @@ django-statictemplate
 # Model tagging support
 django-tagging
 # Model TimezoneField
-django-timezone-field
+django-timezone-field>=2.0rc1
 # Micro mail framework for plaintext/HTML mails
 djmail>=0.10.0
 # Tool to query Geoip services for exam center geo-localization
 geopy
-# JSONField() for models
-jsonfield
 # XML parsing (eg. corrector communication)
 lxml
 # Markdown support
 markdown>=2.4
 # Image manipulation support, previously known as PIL
 pillow>=2.4
-# Github-flavored Markdown TODO: replace with upstream when merged
-git+https://github.com/Zopieux/py-gfm.git
+# Github-flavored Markdown
+py-gfm
 # Postgres database connector
 psycopg2>=2.5
 # Code highlighting

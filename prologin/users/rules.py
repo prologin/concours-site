@@ -32,7 +32,7 @@ def hijack_authorization_check(hijacker, hijacked):
 
 def hijack_forbidden(*args, **kwargs):
     """
-    Decorator that prevents calling django-hijack dangerious CSRF-exposed view
+    Prevent calling django-hijack CSRF-exposed views
     """
     def view(*args, **kwargs):
         raise SuspiciousOperation("Trying to access monkey-patched function")

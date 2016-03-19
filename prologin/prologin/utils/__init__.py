@@ -10,7 +10,6 @@ import unicodedata
 import uuid
 
 from django.conf import settings
-from django.contrib.admin.views.main import EMPTY_CHANGELIST_VALUE
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.files import File
@@ -171,7 +170,7 @@ def cached(func, cache_setting_name, **kwargs):
 
 def admin_url_for(obj, method='change', label=lambda e: str(e)):
     if obj is None:
-        return EMPTY_CHANGELIST_VALUE
+        return obj.model_admin.get_empty_value_display()
     return '<a href="{}">{}</a>'.format(reverse('admin:{}_{}_{}'.format(obj._meta.app_label, obj._meta.model_name, method),
                                                 args=[obj.pk]), conditional_escape(label(obj)))
 

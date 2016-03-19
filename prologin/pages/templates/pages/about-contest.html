@@ -11,7 +11,7 @@
 
 {% block content %}
   {% url 'pages:about-organization' as assoc_url %}
-  {% get_setting_var 'PROLOGIN_MAX_AGE' as max_age %}
+  {% get_setting 'PROLOGIN_MAX_AGE' as max_age %}
 
   <h1>{% trans "About the Prologin contest" %}</h1>
   <p>{% blocktrans %}Prologin is a computer science contest open to all students under {{ max_age }},

@@ -4,6 +4,7 @@ import random
 from adminsortable.models import SortableMixin
 from decimal import Decimal
 from django.conf import settings
+from django.contrib.postgres.fields.jsonb import JSONField
 from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Count, Q
@@ -14,9 +15,7 @@ from django.utils.formats import date_format
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
-from jsonfield import JSONField
 
-import semifinal
 from centers.models import Center
 from prologin.models import EnumField, CodingLanguageField
 from prologin.utils import ChoiceEnum, save_random_state

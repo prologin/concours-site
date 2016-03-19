@@ -59,23 +59,11 @@ def phone_number(num):
     return '\u00A0'.join(a + b for a, b in zip(num[-1::-2], num[-2::-2]))
 
 
-# FIXME: in Dango 1.9, the following two tags can be refactored to simple_tag only
-
 @register.simple_tag
 def get_setting(name):
     """
     Example usage:
     Contact us at {% get_setting 'CONTACT_EMAIL' %}
-    """
-    return getattr(settings, name, None)
-
-
-@register.assignment_tag
-def get_setting_var(name):
-    """
-    Example usage:
-    {% get_setting_var 'CONTACT_EMAIL' as email %}
-    Contact use at {{ email }}
     """
     return getattr(settings, name, None)
 

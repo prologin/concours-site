@@ -79,7 +79,7 @@
   <script src="{% static 'lib/js/jquery.min.js' %}"></script>
   <script src="{% static 'lib/js/bootstrap.min.js' %}"></script>
   {% block extra_script %}{% endblock %}
-  {% get_setting_var 'GOOGLE_ANALYTICS_ID' as google_analytics_id %}
+  {% get_setting 'GOOGLE_ANALYTICS_ID' as google_analytics_id %}
   {% if google_analytics_id %}<script type="text/javascript">
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
   (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

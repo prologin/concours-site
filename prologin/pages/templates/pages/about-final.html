@@ -19,7 +19,7 @@
 <div class="container"> {# unhack #}
 
   <h2>{% trans "A 36-hour nonstop contest" %}</h2>
-  {% get_setting_var 'FINAL_EVENT_DATE_FORMAT' as date_format %}
+  {% get_setting 'FINAL_EVENT_DATE_FORMAT' as date_format %}
 
     <p>{% blocktrans %}The final takes place for three days in the EPITA
     school, which is closed for the event. The Prologin team is assisted by
