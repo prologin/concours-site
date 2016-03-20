@@ -99,7 +99,7 @@ class SubmissionCodeAdmin(admin.ModelAdmin):
     problem.admin_order_field = 'submission__problem'
 
     def username(self, obj):
-        return admin_url_for(obj.submission.user, label=lambda u: u.username)
+        return admin_url_for(self, obj.submission.user, label=lambda u: u.username)
     username.short_description = _("Username")
     username.allow_tags = True
     username.admin_order_field = 'submission__user__username'
@@ -161,7 +161,7 @@ class SubmissionAdmin(admin.ModelAdmin):
     _title.admin_order_field = 'pk'
 
     def username(self, obj):
-        return admin_url_for(obj.user, label=lambda u: u.username)
+        return admin_url_for(self, obj.user, label=lambda u: u.username)
     username.short_description = _("Username")
     username.allow_tags = True
     username.admin_order_field = 'user__username'

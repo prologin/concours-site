@@ -13,7 +13,7 @@ from django.utils.translation import ugettext_lazy as _, ugettext_noop
 from django_prometheus.models import ExportModelOperationsMixin
 
 from prologin.models import EnumField
-from prologin.utils import ChoiceEnum, refresh_model_instance
+from prologin.utils import ChoiceEnum
 
 from forum import managers
 

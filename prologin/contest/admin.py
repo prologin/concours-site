@@ -65,13 +65,13 @@ class EventAdmin(admin.ModelAdmin):
     export_selected_objects.short_description = _("Generate convocations")
 
     def edition_link(self, obj):
-        return admin_url_for(obj.edition)
+        return admin_url_for(self, obj.edition)
     edition_link.short_description = _("Edition")
     edition_link.admin_order_field = 'edition'
     edition_link.allow_tags = True
 
     def center_link(self, obj):
-        return admin_url_for(obj.center)
+        return admin_url_for(self, obj.center)
     center_link.short_description = _("Center")
     center_link.admin_order_field = 'center'
     center_link.allow_tags = True
@@ -100,13 +100,13 @@ class ContestantAdmin(NonSortableParentAdmin):
         return _("%(user)s in edition %(year)s") % {'user': obj.user, 'year': obj.edition.year}
 
     def user_link(self, obj):
-        return admin_url_for(obj.user)
+        return admin_url_for(self, obj.user)
     user_link.short_description = _("User")
     user_link.admin_order_field = 'edition'
     user_link.allow_tags = True
 
     def edition_link(self, obj):
-        return admin_url_for(obj.edition)
+        return admin_url_for(self, obj.edition)
     edition_link.short_description = _("Edition")
     edition_link.admin_order_field = 'edition'
     edition_link.allow_tags = True

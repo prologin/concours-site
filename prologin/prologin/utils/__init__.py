@@ -1,6 +1,5 @@
-import enum
 from contextlib import contextmanager
-
+import enum
 import hashlib
 import os
 import random
@@ -60,14 +59,6 @@ def upload_path(*base_path):
         return os.path.join(*(parts + [name]))
 
     return func
-
-
-def refresh_model_instance(instance):
-    """
-    Select and return instance from database.
-    Usage: instance = refresh(instance)
-    """
-    return instance.__class__.objects.get(pk=instance.pk)
 
 
 class LoginRequiredMixin:
@@ -168,9 +159,9 @@ def cached(func, cache_setting_name, **kwargs):
     return value
 
 
-def admin_url_for(obj, method='change', label=lambda e: str(e)):
+def admin_url_for(model_admin, obj, method='change', label=lambda e: str(e)):
     if obj is None:
-        return obj.model_admin.get_empty_value_display()
+        return model_admin.get_empty_value_display()
     return '<a href="{}">{}</a>'.format(reverse('admin:{}_{}_{}'.format(obj._meta.app_label, obj._meta.model_name, method),
                                                 args=[obj.pk]), conditional_escape(label(obj)))
 

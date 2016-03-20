@@ -53,7 +53,7 @@ class QuestionAdmin(SortableAdmin):
     inlines = [PropositionsInline]
 
     def qcm_event_edition(self, obj):
-        return admin_url_for(obj.qcm.event.edition)
+        return admin_url_for(self, obj.qcm.event.edition)
     qcm_event_edition.allow_tags = True
     qcm_event_edition.short_description = _("Edition")
 
@@ -85,14 +85,14 @@ class AnswerAdmin(admin.ModelAdmin):
             return _("Answer %(id)s") % {'id': obj.pk}
 
     def proposition_question_qcm_event_edition(self, obj):
-        return admin_url_for(obj.proposition.question.qcm.event.edition)
+        return admin_url_for(self, obj.proposition.question.qcm.event.edition)
     proposition_question_qcm_event_edition.allow_tags = True
     proposition_question_qcm_event_edition.admin_order_field = 'proposition__question__qcm__event__edition'
     proposition_question_qcm_event_edition.short_description = _("Edition")
 
     def proposition_question(self, obj):
         # So we can have HTML questions
-        return admin_url_for(obj.proposition.question, label=lambda u: mark_safe(strip_tags(u.body)))
+        return admin_url_for(self, obj.proposition.question, label=lambda u: mark_safe(strip_tags(u.body)))
     proposition_question.allow_tags = True
     proposition_question.short_description = _("Question")
     proposition_question.admin_order_field = 'proposition__question__body'
@@ -104,7 +104,7 @@ class AnswerAdmin(admin.ModelAdmin):
     proposition_text.admin_order_field = 'proposition__text'
 
     def contestant_user(self, obj):
-        return admin_url_for(obj.contestant.user)
+        return admin_url_for(self, obj.contestant.user)
     contestant_user.allow_tags = True
     contestant_user.admin_order_field = 'contestant__user__username'
     contestant_user.short_description = _("Contestant")
