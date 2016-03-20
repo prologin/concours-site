@@ -1,0 +1,44 @@
+{% load i18n latex %}{% autoescape off %}
+\documentclass[a4paper,11pt]{prologin}
+{% include "documents/stub-preamble.tex" %}
+
+\usepackage{amssymb}
+\newcommand\checkbox{$\Huge\square$~}
+
+\title{Autorisation de participation à Prologin}
+
+\begin{document}
+
+\begin{tcolorbox}
+Si le candidat est \textbf{majeur}, ce document peut être ignoré.
+
+Si le candidat est \textbf{mineur} mais \textbf{émancipé}, merci de fournir un justificatif.
+
+Si le candidat est \textbf{mineur} non émancipé, le représentant légal doit remplir cette autorisation.
+\end{tcolorbox}
+\vspace{2.5\baselineskip}
+
+Je soussigné(e) \hrulefill
+
+Adresse \hrulefill
+
+Code postal \hrulefill{} Ville \hrulefill\hrulefill\hrulefill{} Pays \hrulefill\hrulefill
+
+certifie être le représentant légal de \hrulefill
+
+et l'autorise à participer à la finale du concours national d'informatique Prologin se déroulant
+du {{ event.date_begin|date:"l d F"|escapetex }} au {{ event.date_end|date:"l d F Y"|escapetex }} à :
+
+\begin{center}
+    \textbf{EPITA}\\
+    \textbf{24 rue Pasteur}\\
+    \textbf{94270 Le Kremlin-Bicêtre}
+\end{center}
+
+\checkbox J'autorise\hspace{1em} \checkbox Je n'autorise pas\hspace{1em}
+le candidat susnommé à quitter l'établissement avant la fin de l'événement.
+
+\begin{signatureframe}{Date et signature du représentant légal}\end{signatureframe}
+
+\end{document}
+{% endautoescape %}

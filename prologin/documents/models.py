@@ -4,7 +4,7 @@ import os
 import re
 import tempfile
 from django.conf import settings
-from django.template import loader, Context
+from django.template import loader
 from django.utils import translation
 
 from prologin.utils import SubprocessFailedException
@@ -76,4 +76,4 @@ class DocumentContext:
 
 def generate_tex_pdf(template_name, context):
     template = loader.get_template(template_name)
-    return DocumentContext(template, Context(context))
+    return DocumentContext(template, context)

@@ -1,0 +1,37 @@
+{% load i18n latex %}{% autoescape off %}
+\documentclass[a4paper,11pt]{prologin}
+{% include "documents/stub-preamble.tex" %}
+
+\title{Décharge en cas de perte, vol ou détérioration}
+
+\begin{document}
+
+Prénom et nom du candidat : \hrulefill
+
+Nous vous demandons de ne prendre avec vous \textbf{aucun objet de valeur}.
+L'association Prologin se décharge de toute responsabilité en cas de perte,
+vol ou détérioration.
+
+Nous vous \textbf{déconseillons très fortement} d'emmener, entre autres :
+\begin{itemize}
+\item ordinateur portable ;
+\item appareil photo, vidéo numérique ;
+\item console de jeux ;
+\item argent liquide, carte bleue, chéquier.
+\end{itemize}\vspace{2mm}
+
+\begin{signatureframe}{Date et signature du candidat}\end{signatureframe}
+
+\begin{legalrepframe}[title=À remplir par le représentant légal si le candidat est mineur]
+Je soussigné(e) \hrulefill
+
+déclare être le parent ou le représentant légal du mineur nommé
+ci-dessus, et avoir l'autorité légale de signer cette décharge en son nom.
+
+\begin{signatureframe}{Date et signature du représentant légal}\end{signatureframe}
+
+
+\end{legalrepframe}
+
+\end{document}
+{% endautoescape %}

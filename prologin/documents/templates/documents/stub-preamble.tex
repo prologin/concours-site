@@ -1,3 +1,19 @@
+\usepackage[most]{tcolorbox}
+\tcbsetforeverylayer{enhanced,arc=0pt,outer arc=0pt,colback=white,boxrule=1pt,enlarge top initially by=2mm,enlarge bottom finally by=2mm}
+\newtcolorbox{legalrepframe}[1][]{
+  title=À remplir par le représentant légal si le candidat est mineur,
+  segmentation style={solid,line width=.5pt},
+  #1
+}
+\newtcolorbox{signatureframe}[1][]{
+  colbacktitle=white,
+  title style={minimal},
+  top=2pt, right=2pt, bottom=1.5cm, left=2pt,
+  #1
+}
+
+\setlength\parskip{.5em}
+\setlength\parindent{0pt}
 \makeatletter
 \@ifundefined{edition}
 {%

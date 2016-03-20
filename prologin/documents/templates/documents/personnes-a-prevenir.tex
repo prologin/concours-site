@@ -1,0 +1,47 @@
+{% load i18n latex %}{% autoescape off %}
+\documentclass[a4paper,11pt]{prologin}
+{% include "documents/stub-preamble.tex" %}
+
+\title{Personnes à prévenir en cas d'urgence}
+
+\begin{document}
+
+Prénom et nom du candidat : \hrulefill
+
+Veuillez nous préciser, dans l'ordre, les personnes à contacter en cas d'urgence :
+
+Première personne à contacter en cas d'urgence :
+\begin{itemize}
+    \item Prénom \hrulefill
+    \item Nom \hrulefill
+    \item Adresse \hrulefill
+    \item Tél. \hrulefill
+\end{itemize}\vspace\baselineskip
+
+Deuxième personne à contacter en cas d'urgence :
+\begin{itemize}
+    \item Prénom \hrulefill
+    \item Nom \hrulefill
+    \item Adresse \hrulefill
+    \item Tél. \hrulefill
+\end{itemize}\vspace\baselineskip
+
+Listez vos allergies alimentaires et médicales :
+
+\hrulefill
+
+\hrulefill
+
+\begin{signatureframe}{Date et signature du candidat}\end{signatureframe}
+
+\begin{legalrepframe}
+Je soussigné(e) \hrulefill
+
+déclare être le parent ou le représentant légal du mineur nommé
+ci-dessus, et avoir l'autorité légale de signer ce document en son nom.
+
+\begin{signatureframe}{Date et signature du représentant légal}\end{signatureframe}
+\end{legalrepframe}
+
+\end{document}
+{% endautoescape %}
