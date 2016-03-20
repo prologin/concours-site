@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import admin
-from django.db.models import F, Q
+from django.db.models import Q
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 import celery
@@ -181,7 +181,7 @@ class SubmissionAdmin(admin.ModelAdmin):
         # Prevent O(n) queries and add computed score for ordering
         return (super().get_queryset(request)
                 .select_related('user')
-                .annotate(c_score=F('score_base') - F('malus'))
+                .annotate(c_score=problems.models.Submission.ScoreFunc)
                 .extra(select={'c_succeeded': 'score_base > 0'}))
 
 

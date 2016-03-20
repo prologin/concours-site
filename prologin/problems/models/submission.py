@@ -3,6 +3,8 @@ import datetime
 
 from django.conf import settings
 from django.db import models
+from django.db.models import F
+from django.db.models.functions import Coalesce, Greatest
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
@@ -50,6 +52,13 @@ class Submission(ExportModelOperationsMixin('submission'), models.Model):
         verbose_name = _("Submission")
         verbose_name_plural = _("Submissions")
         unique_together = ('challenge', 'problem', 'user')
+
+    def get_score_func(prefix=None):
+        p = prefix + '__' if prefix is not None else ''
+        return Greatest(Coalesce(F(p + 'score_base') - F(p + 'malus'), 0), 0)
+
+    # Use like this: queryset.annotate(score=ScoreFunc)
+    ScoreFunc = get_score_func()
 
 
 class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model):

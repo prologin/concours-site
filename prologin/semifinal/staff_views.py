@@ -3,7 +3,6 @@ from django.contrib import messages
 from django.core.urlresolvers import reverse_lazy
 from django.db import IntegrityError
 from django.db.models.aggregates import Sum
-from django.db.models.functions import Coalesce
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
 from django.utils.html import format_html
@@ -28,8 +27,10 @@ class MonitoringIndexView(MonitorPermissionMixin, TemplateView):
         context = super().get_context_data(**kwargs)
         contestants = (contest.models.Contestant.objects
                        .select_related('user')
-                       .filter(user__is_staff=False, user__is_superuser=False, edition=self.request.current_edition)
-                       .annotate(score=Coalesce(Sum('user__training_submissions__score_base') - Sum('user__training_submissions__malus'), 0))
+                       .filter(user__is_staff=False, user__is_superuser=False,
+                           edition=self.request.current_edition)
+                       .annotate(score=Sum(problems.models.get_score_func(
+                           'user__training_submissions')))
                        .order_by('user__username'))
         now = timezone.now()
         for contestant in contestants:

@@ -9,7 +9,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Count, Q
 from django.db.models.aggregates import Sum
-from django.db.models.functions import Coalesce
 from django.utils import timezone
 from django.utils.formats import date_format
 from django.utils.functional import cached_property
@@ -286,7 +285,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         from problems.models import Submission
         return (Submission.objects
                 .filter(user=self.user, challenge=self.semifinal_challenge.name)
-                .aggregate(score=Coalesce(Sum('score_base') - Sum('malus'), 0))).score
+                .aggregate(score=Sum(Submission.ScoreFunc)).score)
 
     @cached_property
     def available_semifinal_problems(self):

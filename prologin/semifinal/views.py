@@ -1,11 +1,11 @@
 from django.contrib.auth import get_user_model
-from django.db.models import Sum, F
-from django.db.models.functions import Coalesce
+from django.db.models.aggregates import Sum
 from django.http import JsonResponse
 from django.template.loader import get_template
 from django.views.generic import TemplateView, View
 from rules.contrib.views import PermissionRequiredMixin
 
+from problems.models import get_score_func
 from prologin.utils.scoring import decorate_with_rank
 
 User = get_user_model()
@@ -15,7 +15,7 @@ class ScoreboardUserListMixin:
     def get_user_list(self):
         users = (User.objects
                  .filter(is_active=True, is_staff=False, is_superuser=False)
-                 .annotate(score=Coalesce(Sum('training_submissions__score_base') - Sum('training_submissions__malus'), 0))
+                 .annotate(score=Sum(get_score_func('training_submissions')))
                  .order_by('-score', 'username'))
 
         def score_getter(user):

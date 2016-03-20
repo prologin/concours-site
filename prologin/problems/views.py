@@ -2,7 +2,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
-from django.db.models import Q, F, Sum
+from django.db.models import Q
+from django.db.models.aggregates import Sum
 from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, JsonResponse
 from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
@@ -486,7 +487,7 @@ class ChallengeScoreboard(ListView):
                  .filter(challenge=self.challenge.name, score_base__gt=0,
                          user__is_staff=0)
                  .values('user_id', 'user__username')
-                 .annotate(total_score=Sum(F('score_base') - F('malus')))
+                 .annotate(total_score=Sum(problems.models.Submission.ScoreFunc))
                  .order_by('-total_score'))
 
         decorate_with_rank(items, score_getter, decorator)
