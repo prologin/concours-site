@@ -10,7 +10,8 @@
   {% breadcrumb_for 'contest:correction:semifinal' edition.year event.pk %}{% trans "Regional event" %} {{ event.short_description }}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
-{% block title %}{{ event.short_description }} – {% trans "Regional event" %} {{ edition.year }}{% endblock %}
+{% block title %}{% if event.short_description %}{{ event.short_description }}
+– {% endif %}{% trans "Regional event" %} {{ edition.year }}{% endblock %}
 
 {% block extra_head %}
   <link rel="stylesheet" type="text/css" href="{% static 'lib/css/datatables.min.css' %}">

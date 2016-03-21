@@ -158,7 +158,7 @@ class QualificationIndexView(CanCorrectPermissionMixin, EditionMixin, DatatableV
         return self.model.complete_for_semifinal.filter(edition=self.edition)
 
 
-class SemifinalIndexView(CanCorrectPermissionMixin, EditionMixin, EventMixin, DatatableView):
+class SemifinalEventIndexView(CanCorrectPermissionMixin, EditionMixin, EventMixin, DatatableView):
     template_name = 'correction/semifinal.html'
     model = contest.models.Contestant
     context_object_name = 'contestants'
@@ -166,8 +166,21 @@ class SemifinalIndexView(CanCorrectPermissionMixin, EditionMixin, EventMixin, Da
 
     def get_queryset(self):
         return (super().get_queryset()
-                .select_related('user', 'assignation_semifinal_event', 'assignation_semifinal_event__center')
+                .select_related('user', 'assignation_semifinal_event',
+                                'assignation_semifinal_event__center')
                 .filter(assignation_semifinal_event=self.event))
+
+class SemifinalIndexView(CanCorrectPermissionMixin, EditionMixin, DatatableView):
+    template_name = 'correction/semifinal.html'
+    model = contest.models.Contestant
+    context_object_name = 'contestants'
+    datatable_class = contest.datatables.ContestantSemifinalTable
+
+    def get_queryset(self):
+        return (super().get_queryset()
+                .select_related('user', 'assignation_semifinal_event',
+                                'assignation_semifinal_event__center')
+                .filter(edition=self.edition))
 
 
 class ContestantCorrectionView(CanCorrectPermissionMixin, EventTypeMixin, EditionMixin, UpdateView):
