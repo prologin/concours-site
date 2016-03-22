@@ -1,0 +1,56 @@
+{% load i18n latex add_days %}{% autoescape off %}
+\documentclass[a4paper,11pt]{prologin}
+
+\title{Planning de la finale}
+
+\begin{document}
+
+\textbf{ {{ event.date_begin|date:"l d F Y"|capfirst|escapetex }} }
+
+    \begin{itemize}
+        \item 18 h 00                 Accueil des premiers candidats
+        \item 20 h 00                 Dîner
+        \item 21 h 30                 Activités au choix :
+	    \begin{itemize}
+		\item[~]            Cours d'initiation à GNU/Linux
+		\item[~]            Projection de films
+		\item[~]            Jeux
+	    \end{itemize}
+    \end{itemize}
+
+\vspace{0.3cm}
+\textbf{ {{ event.date_begin|add_days:1|date:"l d F Y"|capfirst|escapetex }} }
+
+    \begin{itemize}
+        \item 08 h 00                 Petit-déjeuner et accueil des derniers candidats
+        \item 09 h 12                 Présentation du sujet
+        \item 09 h 42                 Début de la finale
+        \item 12 h 30                 Déjeuner
+        \item 19 h 30                 Dîner
+    \end{itemize}
+
+\vspace{0.3cm}
+\textbf{ {{ event.date_begin|add_days:2|date:"l d F Y"|capfirst|escapetex }} }
+
+    \begin{itemize}
+        \item 08 h 00                 Petit-déjeuner
+        \item 12 h 30                 Déjeuner
+        \item 19 h 30                 Dîner
+    \end{itemize}
+
+\vspace{0.3cm}
+\textbf{ {{ event.date_begin|add_days:3|date:"l d F Y"|capfirst|escapetex }} }
+
+    \begin{itemize}
+        \item 00 h 42                 Fin de la finale
+        \item 01 h 00                 Surprise
+        \item 08 h 30                 Petit-déjeuner
+        \item 09 h 00                 Réunion du jury
+        \item 09 h 30                 Début des soutenances des candidats du top 10
+        \item 12 h 00                 Remise des prix
+        \item 13 h 00                 Banquet final
+        \item 15 h 00                 Départ des candidats
+    \end{itemize}
+
+\end{document}
+{% endautoescape %}
