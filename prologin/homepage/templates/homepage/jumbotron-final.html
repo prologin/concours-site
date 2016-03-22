@@ -19,7 +19,9 @@
               <ul class="list-unstyled checklist" style="margin-bottom: .5em">
                 <li><i class="fa fa-map-marker fa-fw"></i> <a
                   href="{% url 'centers:map' %}">{{ event.center.name }}</a></li>
-                <li><i class="fa fa-calendar-check-o fa-fw"></i> {{ event.date_begin|date:"d b Y" }}</li>
+                <li><i class="fa fa-calendar-check-o fa-fw"></i>
+                  {{ event.date_begin|date:"l d b" }} → {{ event.date_end|date:"l d b Y" }}
+                </li>
               </ul>
               <p>
                 <a href="{% url 'documents:final:contestant-compilation' edition.year contestant.pk %}" class="btn btn-primary btn-block">
