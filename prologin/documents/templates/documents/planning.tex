@@ -1,11 +1,11 @@
 {% load i18n latex add_days %}{% autoescape off %}
 \documentclass[a4paper,11pt]{prologin}
+{% include "documents/stub-preamble.tex" %}
 
 \title{Planning de la finale}
 
 \begin{document}
 
-\noindent
 \textbf{ {{ event.date_begin|date:"l d F Y"|capfirst|escapetex }} }
 
 \begin{itemize}
@@ -20,7 +20,6 @@
 \end{itemize}
 
 \vspace{0.3cm}
-\noindent
 \textbf{ {{ event.date_begin|add_days:1|date:"l d F Y"|capfirst|escapetex }} }
 
 \begin{itemize}
@@ -32,7 +31,6 @@
 \end{itemize}
 
 \vspace{0.3cm}
-\noindent
 \textbf{ {{ event.date_begin|add_days:2|date:"l d F Y"|capfirst|escapetex }} }
 
 \begin{itemize}
@@ -42,7 +40,6 @@
 \end{itemize}
 
 \vspace{0.3cm}
-\noindent
 \textbf{ {{ event.date_begin|add_days:3|date:"l d F Y"|capfirst|escapetex }} }
 
 \begin{itemize}
