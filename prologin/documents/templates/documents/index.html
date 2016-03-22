@@ -108,6 +108,18 @@
               <a href="{% url 'documents:final:portrayal-agreement' year %}" class="btn btn-default btn-xs">
                 <i class="fa fa-camera"></i> {% trans "Portrayal agreement" %}
               </a>
+              <a href="{% url 'documents:final:participation-authorization' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-child"></i> {% trans "Participation Authorization" %}
+              </a>
+              <a href="{% url 'documents:final:equipment-liability-release' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-diamond"></i> {% trans "Equipment Liability Release" %}
+              </a>
+              <a href="{% url 'documents:final:emergency-call-list' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-phone"></i> {% trans "Emergency Call List" %}
+              </a>
+              <a href="{% url 'documents:final:planning' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-calendar"></i> {% trans "Planning" %}
+              </a>
             </td>
           </tr>
         </tbody>

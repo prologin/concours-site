@@ -313,12 +313,6 @@ class FinalContestantsView(BaseFinalDocumentView):
         return context
 
 
-class FinalPortrayalAgreementView(BaseFinalDocumentView):
-    template_name = 'documents/droit-image-finale.tex'
-    pdf_title = _("Prologin %(year)s: portrayal agreement for the final")
-    filename = pgettext_lazy("Document filename", "portrayal-agreement-%(year)s-final")
-
-
 class FinalPasswordsView(BaseFinalDocumentView):
     template_name = 'documents/passwords.tex'
     pdf_title = _("Prologin %(year)s: password sheets for the final")
@@ -330,25 +324,31 @@ class FinalPasswordsView(BaseFinalDocumentView):
         return context
 
 
-class FinalParticipationAuthorization(BaseFinalDocumentView):
+class FinalPortrayalAgreementView(BaseFinalDocumentView):
+    template_name = 'documents/droit-image-finale.tex'
+    pdf_title = _("Prologin %(year)s: portrayal agreement for the final")
+    filename = pgettext_lazy("Document filename", "portrayal-agreement-%(year)s-final")
+
+
+class FinalParticipationAuthorizationView(BaseFinalDocumentView):
     template_name = 'documents/autorisation-participation.tex'
     pdf_title = _("Prologin %(year)s: participation authorization for the final")
     filename = pgettext_lazy("Document filename", "participation-authorization-%(year)s-final")
 
 
-class FinalEquipmentLiabilityRelease(BaseFinalDocumentView):
+class FinalEquipmentLiabilityReleaseView(BaseFinalDocumentView):
     template_name = 'documents/decharge-materiel.tex'
     pdf_title = _("Prologin %(year)s: equipment liability release for the final")
     filename = pgettext_lazy("Document filename", "equipment-liability-release-%(year)s-final")
 
 
-class FinalEmergencyCallList(BaseFinalDocumentView):
+class FinalEmergencyCallListView(BaseFinalDocumentView):
     template_name = 'documents/personnes-a-prevenir.tex'
     pdf_title = _("Prologin %(year)s: emergency call list for the final")
     filename = pgettext_lazy("Document filename", "emergency-call-list-%(year)s-final")
 
 
-class FinalPlanning(BaseFinalDocumentView):
+class FinalPlanningView(BaseFinalDocumentView):
     # TODO: this document is highly dynamic: store in DB? external file include?
     template_name = 'documents/planning.tex'
     pdf_title = _("Prologin %(year)s: planning for the final")
@@ -356,8 +356,11 @@ class FinalPlanning(BaseFinalDocumentView):
 
 
 class FinalContestantCompilationView(BaseCompilationView):
-    compiled_classes = (FinalContestantConvocationView, FinalPortrayalAgreementView, FinalParticipationAuthorization,
-                        FinalEquipmentLiabilityRelease, FinalEmergencyCallList)  #, FinalPlanning)
+    compiled_classes = (FinalContestantConvocationView,
+                        FinalPortrayalAgreementView,
+                        FinalParticipationAuthorizationView,
+                        FinalEquipmentLiabilityReleaseView,
+                        FinalEmergencyCallListView)  #, FinalPlanningView)
     pdf_title = _("Prologin %(year)s: document compilation for final for %(fullname)s")
     filename = pgettext_lazy("Document filename", "prologin-%(year)s-final-documents-%(fullname)s")
 
