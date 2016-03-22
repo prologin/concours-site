@@ -360,7 +360,8 @@ class FinalContestantCompilationView(BaseCompilationView):
                         FinalPortrayalAgreementView,
                         FinalParticipationAuthorizationView,
                         FinalEquipmentLiabilityReleaseView,
-                        FinalEmergencyCallListView)  #, FinalPlanningView)
+                        FinalEmergencyCallListView,
+                        FinalPlanningView)
     pdf_title = _("Prologin %(year)s: document compilation for final for %(fullname)s")
     filename = pgettext_lazy("Document filename", "prologin-%(year)s-final-documents-%(fullname)s")
 
