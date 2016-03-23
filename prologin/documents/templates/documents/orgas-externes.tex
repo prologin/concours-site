@@ -25,10 +25,10 @@ Disponibilités (cochez les cases) :
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
 
-{{ event.date_begin|date:"l d F"|capfirst|escapetex }} &
-\multicolumn{2}{c|}{ {{ event.date_begin|add_days:1|date:"l d F"|capfirst|escapetex }} } &
-\multicolumn{2}{c|}{ {{ event.date_begin|add_days:2|date:"l d F"|capfirst|escapetex }} } &
-\multicolumn{2}{c|}{ {{ event.date_begin|add_days:3|date:"l d F"|capfirst|escapetex }} }
+{{ event.date_begin|date:"l d"|capfirst|escapetex }} &
+\multicolumn{2}{c|}{ {{ event.date_begin|add_days:1|date:"l d"|capfirst|escapetex }} } &
+\multicolumn{2}{c|}{ {{ event.date_begin|add_days:2|date:"l d"|capfirst|escapetex }} } &
+\multicolumn{2}{c|}{ {{ event.date_begin|add_days:3|date:"l d"|capfirst|escapetex }} }
 \tabularnewline
 \hline
 15 h -- 1 h & 7 h -- 14 h & 14 h -- 24 h & 0 h -- 10 h & 10 h -- 21 h &
@@ -40,6 +40,10 @@ Accueil & Déco & Jeux & Réveil & Bataille & Mousse & Banquet\tabularnewline
 \hline
 \end{tabular}
 \end{center}
+
+Commentaires ou informations supplémentaires :
+
+\vspace{5cm}
 
 Date et signature :
 
