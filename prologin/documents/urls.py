@@ -18,16 +18,17 @@ semifinals_patterns = [
 ]
 
 final_patterns = [
-    url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.FinalContestantConvocationView.as_view(), name='contestant-convocation'),
     url(r'^contestant/(?P<contestant>[0-9]+)/compilation', documents.views.FinalContestantCompilationView.as_view(), name='contestant-compilation'),
-    url(r'^portrayal-agreement$', documents.views.FinalPortrayalAgreementView.as_view(), name='portrayal-agreement'),
-    url(r'^participation-authorization$', documents.views.FinalParticipationAuthorizationView.as_view(), name='participation-authorization'),
-    url(r'^equipment-liability-release$', documents.views.FinalEquipmentLiabilityReleaseView.as_view(), name='equipment-liability-release'),
-    url(r'^emergency-call-list$', documents.views.FinalEmergencyCallListView.as_view(), name='emergency-call-list'),
-    url(r'^planning$', documents.views.FinalPlanningView.as_view(), name='planning'),
-    url(r'^convocations$', documents.views.FinalConvocationsView.as_view(), name='convocations'),
+    url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.FinalContestantConvocationView.as_view(), name='contestant-convocation'),
     url(r'^contestants$', documents.views.FinalContestantsView.as_view(), name='contestants'),
+    url(r'^convocations$', documents.views.FinalConvocationsView.as_view(), name='convocations'),
+    url(r'^emergency-call-list$', documents.views.FinalEmergencyCallListView.as_view(), name='emergency-call-list'),
+    url(r'^equipment-liability-release$', documents.views.FinalEquipmentLiabilityReleaseView.as_view(), name='equipment-liability-release'),
+    url(r'^external-organizers$', documents.views.FinalExternalOrganizersView.as_view(), name='external-organizers'),
+    url(r'^participation-authorization$', documents.views.FinalParticipationAuthorizationView.as_view(), name='participation-authorization'),
     url(r'^passwords$', documents.views.FinalPasswordsView.as_view(), name='passwords'),
+    url(r'^planning$', documents.views.FinalPlanningView.as_view(), name='planning'),
+    url(r'^portrayal-agreement$', documents.views.FinalPortrayalAgreementView.as_view(), name='portrayal-agreement'),
 ]
 
 organization_patterns = [

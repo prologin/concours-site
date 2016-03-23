@@ -1,0 +1,47 @@
+{% load i18n latex add_days %}{% autoescape off %}
+\documentclass[a4paper,11pt]{prologin}
+{% include "documents/stub-preamble.tex" %}
+
+\title{Participation à l'organisation de la finale}
+
+\begin{document}
+
+Je soussigné (prénom, nom) : \hrulefill
+
+Login : \hrulefill
+
+École et promotion : \hrulefill
+
+Adresse e-mail : \hrulefill
+
+Numéro de téléphone : \hrulefill
+
+certifie participer à l'organisation de la finale Prologin {{ year }} de
+manière bénévole.
+
+Disponibilités (cochez les cases) :
+
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+
+{{ event.date_begin|date:"l d F"|capfirst|escapetex }} &
+\multicolumn{2}{c|}{ {{ event.date_begin|add_days:1|date:"l d F"|capfirst|escapetex }} } &
+\multicolumn{2}{c|}{ {{ event.date_begin|add_days:2|date:"l d F"|capfirst|escapetex }} } &
+\multicolumn{2}{c|}{ {{ event.date_begin|add_days:3|date:"l d F"|capfirst|escapetex }} }
+\tabularnewline
+\hline
+15 h -- 1 h & 7 h -- 14 h & 14 h -- 24 h & 0 h -- 10 h & 10 h -- 21 h &
+0 h -- 10 h & 10 h -- 13 h\tabularnewline
+\hline
+Accueil & Déco & Jeux & Réveil & Bataille & Mousse & Banquet\tabularnewline
+\hline
+&&&&&&\tabularnewline
+\hline
+\end{tabular}
+\end{center}
+
+Date et signature :
+
+\end{document}
+{% endautoescape %}

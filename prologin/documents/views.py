@@ -325,6 +325,12 @@ class FinalPasswordsView(BaseFinalDocumentView):
         return context
 
 
+class FinalExternalOrganizersView(BaseFinalDocumentView):
+    template_name = 'documents/orgas-externes.tex'
+    pdf_title = _("Prologin %(year)s: external organizers")
+    filename = pgettext_lazy("Document filename", "external-organizers-%(year)s")
+
+
 class FinalPortrayalAgreementView(BaseFinalDocumentView):
     template_name = 'documents/droit-image-finale.tex'
     pdf_title = _("Prologin %(year)s: portrayal agreement for the final")
