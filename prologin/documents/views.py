@@ -18,8 +18,9 @@ from rules.compat.access_mixins import PermissionRequiredMixin
 import contest.models
 import documents.forms
 import problems.models
-from documents.base_views import (BaseSemifinalDocumentView, BaseFinalDocumentView,
-                                  BaseCompilationView, USER_LIST_ORDERING)
+from documents.base_views import (BaseDocumentView, BaseSemifinalDocumentView,
+                                  BaseFinalDocumentView, BaseCompilationView,
+                                  USER_LIST_ORDERING)
 
 
 class IndexRedirect(PermissionRequiredMixin, RedirectView):
@@ -366,3 +367,9 @@ class FinalContestantCompilationView(BaseCompilationView):
     filename = pgettext_lazy("Document filename", "prologin-%(year)s-final-documents-%(fullname)s")
 
     permission_required = 'documents.generate_final_contestant_document'
+
+
+class EnrollmentFormView(BaseDocumentView):
+    template_name = 'documents/fiche-adhesion.tex'
+    pdf_title = _("Prologin %(year)s: enrollment form")
+    filename = pgettext_lazy("Document filename", "enrollment-form-%(year)s")

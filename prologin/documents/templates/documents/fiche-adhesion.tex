@@ -1,0 +1,38 @@
+{% load i18n latex %}{% autoescape off %}
+\documentclass[a4paper,12pt]{prologin}
+{% include "documents/stub-preamble.tex" %}
+
+\title{Fiche d'information membre}
+
+\begin{document}
+\section*{État civil}
+
+Nom : \dotfill
+
+Prénom : \dotfill
+
+\section*{Contact}
+
+E-mail : \dotfill
+
+Téléphone : \dotfill
+
+Adresse : \dotfill
+
+\dotfill
+
+\section*{Informations supplémentaires}
+Pseudo : \dotfill
+
+Login IONIS : \dotfill
+
+Promotion (école \& année) : \dotfill
+
+\vspace{2cm}
+
+Fait à \dotspace{4cm}, le \dotspace{4cm}.
+
+Signature :
+
+\end{document}
+{% endautoescape %}

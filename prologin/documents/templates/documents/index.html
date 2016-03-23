@@ -112,10 +112,10 @@
                 <i class="fa fa-child"></i> {% trans "Participation Authorization" %}
               </a>
               <a href="{% url 'documents:final:equipment-liability-release' year %}" class="btn btn-default btn-xs">
-                <i class="fa fa-diamond"></i> {% trans "Equipment Liability Release" %}
+                <i class="fa fa-suitcase"></i> {% trans "Equipment Liability Release" %}
               </a>
               <a href="{% url 'documents:final:emergency-call-list' year %}" class="btn btn-default btn-xs">
-                <i class="fa fa-phone"></i> {% trans "Emergency Call List" %}
+                <i class="fa fa-ambulance"></i> {% trans "Emergency Call List" %}
               </a>
               <a href="{% url 'documents:final:planning' year %}" class="btn btn-default btn-xs">
                 <i class="fa fa-calendar"></i> {% trans "Planning" %}
@@ -124,7 +124,6 @@
           </tr>
         </tbody>
       </table>
-
     {% else %} {# no final event #}
 
       <div class="alert alert-warning">
@@ -132,6 +131,23 @@
       </div>
 
     {% endif %}
+      <h3>{% trans "Organization" %}</h3>
+
+      <table class="table table-stripped table-hover">
+        <tbody>
+          <tr>
+            <td>
+              <strong>{% trans "Enrollment" %}</strong>
+            </td>
+            <td>
+              <a href="{% url 'documents:organization:enrollment-form' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-users"></i> {% trans "Enrollment Form" %}
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
 
   </div>

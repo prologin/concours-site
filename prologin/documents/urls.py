@@ -30,9 +30,14 @@ final_patterns = [
     url(r'^passwords$', documents.views.FinalPasswordsView.as_view(), name='passwords'),
 ]
 
+organization_patterns = [
+    url(r'^enrollment-form$', documents.views.EnrollmentFormView.as_view(), name='enrollment-form'),
+]
+
 urlpatterns = [
     url(r'^(?P<year>[0-9]{4})/semifinal/', include(semifinals_patterns, namespace='semifinal')),
     url(r'^(?P<year>[0-9]{4})/final/', include(final_patterns, namespace='final')),
+    url(r'^(?P<year>[0-9]{4})/organization/', include(organization_patterns, namespace='organization')),
     url(r'^(?P<year>[0-9]{4})/$', documents.views.IndexView.as_view(), name='index'),
     url(r'^data-import/semifinal$', documents.views.SemifinalDataImportView.as_view(), name='semifinal-data-import'),
     url(r'^$', documents.views.IndexRedirect.as_view(), name='index'),
