@@ -26,6 +26,8 @@ SITE_HOST = "localhost:8000"
 # RECAPTCHA_PUBLIC_KEY = ''
 # RECAPTCHA_PRIVATE_KEY = ''
 
+# Required by the documents module:
+# DOCUMENTS_REPOSITORY_PATH = '/path/to/documents'
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
