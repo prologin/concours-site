@@ -28,7 +28,7 @@
   <div class="col-sm-9">
   <h2>{% trans "Latest news" %}</h2>
 
-  <ul class="clearfix nav hidden-xs text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
+  <ul class="clearfix nav text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
 
   {% for article in articles %}
 
@@ -62,7 +62,7 @@
 
   {% endfor %}
 
-  <ul class="clearfix nav hidden-xs text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
+  <ul class="clearfix nav text-center"><li><a href="{% url 'zinnia:entry_archive_index' %}"><i class="fa fa-newspaper-o"></i> {% trans "Browse all news" %}</a></li></ul>
 
   </div>
   </div>
