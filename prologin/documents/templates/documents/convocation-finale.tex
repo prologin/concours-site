@@ -12,6 +12,7 @@
 
 \def\destinataire{%
 {{ user.get_full_name|title|escapetex|nonempty }}\\
+{{ user.country|escapetex|nonempty }}\\
 {{ user.address|escapetex|nonempty }}\\
 {{ user.postal_code|escapetex|nonempty }} {{ user.city|escapetex|nonempty }}%
 }
