@@ -39,7 +39,7 @@ pour la finale du concours Prologin {{ year }}, qui se déroulera à:
 
 L'équipe de Prologin vous donne donc rendez-vous le {{ event.date_begin|add_days:1|date:"l d F Y"|escapetex }}
 à 9~h~00. Le concours, d'une durée de 36~heures, prendra fin avec le banquet du
-lundi midi. Vous serez donc libre à partir de 15~h~00. Notez que la
+{{ event.date_end|date:"l"|escapetex }} midi. Vous serez donc libre à partir de 15~h~00. Notez que la
 programmation se fera obligatoirement en C, C++, Java, Python, PHP, C\#,
 Haskell ou OCaml. Nous vous demandons de bien vouloir vous munir d'\textbf{une
 pièce d'identité et de cette convocation, ainsi que de tous les documents
