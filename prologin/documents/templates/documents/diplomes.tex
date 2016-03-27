@@ -4,6 +4,8 @@
 \usepackage[a4paper,top=10mm,bottom=12mm,left=10mm,right=10mm,nohead]{geometry}
 \usepackage[french]{babel}
 \usepackage{graphicx}
+\usepackage{transparent}
+\usepackage{xcolor}
 
 \setlength\unitlength{1mm}
 \pagestyle{empty}
@@ -13,8 +15,18 @@
     \newpage
     \noindent
     \begin{picture}(185,275)(0,0)
+      \put(0,0){
+        \parbox[b][276mm]{186mm}{%
+          \vfill
+          \centering
+          \includegraphics[angle=90,height=220mm]{logo{{ year }}}%
+          \vfill
+        }
+      }
+      \put(0,0){%
+        \transparent{0.7}\textcolor{white}{\rule{\paperwidth}{\paperheight}}
+      }
       \put(0,0){\includegraphics[angle=90,height=276mm,width=186mm]{cadre}}
-      \put(0,0){\includegraphics[angle=90,height=220mm]{logo{{ year }}}}
       \put(95,0){\rotatebox{90}{\makebox[276mm]{\Huge\textbf{
           {{ contestant.user.get_full_name|title|escapetex }}
       }}}}
