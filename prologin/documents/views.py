@@ -18,6 +18,7 @@ from rules.compat.access_mixins import PermissionRequiredMixin
 import contest.models
 import documents.forms
 import problems.models
+import team.models
 from documents.base_views import (BaseDocumentView, BaseSemifinalDocumentView,
                                   BaseFinalDocumentView, BaseCompilationView,
                                   USER_LIST_ORDERING)
@@ -360,6 +361,25 @@ class FinalPlanningView(BaseFinalDocumentView):
     template_name = 'documents/planning.tex'
     pdf_title = _("Prologin %(year)s: planning for the final")
     filename = pgettext_lazy("Document filename", "planning-%(year)s-final")
+
+
+class FinalDiplomasView(BaseFinalDocumentView):
+    template_name = 'documents/diplomes.tex'
+    pdf_title = _("Prologin %(year)s: diplômes")
+    filename = pgettext_lazy("Document filename", "diplomas-%(year)s-final")
+
+    def contestant_queryset(self):
+        return super().contestant_queryset().order_by(*USER_LIST_ORDERING)
+
+    def get_extra_context(self):
+        context = super().get_extra_context()
+        context['pres'] = team.models.TeamMember.objects.get(
+            year=self.year,
+            role__name='Président').user
+        context['vpres'] = team.models.TeamMember.objects.get(
+            year=self.year,
+            role__name='Vice-Président').user
+        return context
 
 
 class FinalContestantCompilationView(BaseCompilationView):

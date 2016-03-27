@@ -1,0 +1,39 @@
+{% load i18n latex add_days %}{% autoescape off %}
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,top=10mm,bottom=12mm,left=10mm,right=10mm,nohead]{geometry}
+\usepackage[french]{babel}
+\usepackage{graphicx}
+
+\setlength\unitlength{1mm}
+\pagestyle{empty}
+
+\begin{document}
+  {% for contestant in contestants %}
+    \newpage
+    \noindent
+    \begin{picture}(185,275)(0,0)
+      \put(0,0){\includegraphics[angle=90,height=276mm,width=186mm]{cadre}}
+      \put(0,0){\includegraphics[angle=90,height=220mm]{logo{{ year }}}}
+      \put(95,0){\rotatebox{90}{\makebox[276mm]{\Huge\textbf{
+          {{ contestant.user.get_full_name|title|escapetex }}
+      }}}}
+      \put(25,0){\rotatebox{90}{\makebox[276mm]{\Huge\textbf{FINALISTE DU CONCOURS}}}}
+      \put(35,0){\rotatebox{90}{\makebox[276mm]{\Huge\textbf{NATIONAL D'INFORMATIQUE}}}}
+      \put(55,0){\rotatebox{90}{\makebox[276mm]{\Huge\textbf{\LARGE Édition {{ year }} }}}}
+      \put(75,0){\rotatebox{90}{\makebox[276mm]{\Huge\textbf{\Large Décerné à}}}}
+      \put(135,27){\rotatebox{90}{\makebox[10cm]{\Huge\textbf{\Large Le président}}}}
+      \put(142,27){\rotatebox{90}{\makebox[10cm]{\Huge\textbf{
+          \Large {{ pres.first_name|title|escapetex }}
+          \textsc{ {{ pres.last_name|title|escapetex }} }
+      }}}}
+      \put(135,152){\rotatebox{90}{\makebox[10cm]{\Huge\textbf{\Large Le vice-président}}}}
+      \put(142,152){\rotatebox{90}{\makebox[10cm]{\Huge\textbf{
+          \Large {{ vpres.first_name|title|escapetex }}
+          \textsc{ {{ vpres.last_name|title|escapetex }} }
+      }}}}
+      \put(165,0){\rotatebox{90}{\makebox[276mm]{\normalsize Le {{ event.date_end|date:"d F Y"|escapetex }} }}}
+    \end{picture}
+  {% endfor %}
+\end{document}
+{% endautoescape %}

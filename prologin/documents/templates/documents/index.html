@@ -121,7 +121,10 @@
                 <i class="fa fa-calendar"></i> {% trans "Planning" %}
               </a>
               <a href="{% url 'documents:final:external-organizers' year %}" class="btn btn-default btn-xs">
-                <i class="fa fa-hand-paper-o"></i> {% trans "External organizers" %}
+                    <i class="fa fa-hand-paper-o"></i> {% trans "External organizers" %}
+              </a>
+              <a href="{% url 'documents:final:diplomas' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-trophy"></i> {% trans "Diplomas" %}
               </a>
             </td>
           </tr>
@@ -156,4 +159,3 @@
   </div>
 
 {% endblock %}
-
