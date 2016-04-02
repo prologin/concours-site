@@ -22,21 +22,17 @@
   \noindent
   \begin{longtable}[c]{|p{8.4cm}|p{8.4cm}|}
     \hline
-    \endhead
-    \endfoot
-    \endlastfoot
-
     {% for contestant in contestants %}
-        {% cycle '\\hline' '' %}
-        \begin{picture}(8.2,5.5)
-            \includegraphics[width=8.2cm]{logo{{ year }}}
-            \put(-8,4){\Huge{\textsf{\textbf{
-            {{ contestant.user.last_name|title|escapetex }} }}}}
-            \put(-8,3){\makebox[82mm][r]{\Huge{\textsf{\textbf{
-            {{ contestant.user.first_name|title|escapetex }} }}}}}
-        \end{picture}
-        {% cycle '&' '\\\\' %}
+      \begin{picture}(8.2,5.5)
+        \includegraphics[width=8.2cm]{logo{{ year }}}
+        \put(-8,4){\Huge{\textsf{\textbf{
+          {{ contestant.user.last_name|title|escapetex }} }}}}
+        \put(-8,3){\makebox[82mm][r]{\Huge{\textsf{\textbf{
+          {{ contestant.user.first_name|title|escapetex }} }}}}}
+      \end{picture}
+      {% cycle '&' '\\\\\\hline' %}
     {% endfor %}
+    {% if not contestants|length|divisibleby:"2" %}\\\hline{% endif %}
   \end{longtable}
 \end{document}
 {% endautoescape %}
