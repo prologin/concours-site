@@ -399,3 +399,12 @@ class EnrollmentFormView(BaseDocumentView):
     template_name = 'documents/fiche-adhesion.tex'
     pdf_title = _("Prologin %(year)s: enrollment form")
     filename = pgettext_lazy("Document filename", "enrollment-form-%(year)s")
+
+
+class FinalBadgesView(BaseFinalDocumentView):
+    template_name = 'documents/badges.tex'
+    pdf_title = _("Prologin %(year)s: badges")
+    filename = pgettext_lazy("Document filename", "badges-%(year)s-final")
+
+    def contestant_queryset(self):
+        return super().contestant_queryset().order_by(*USER_LIST_ORDERING)

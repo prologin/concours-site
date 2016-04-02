@@ -18,6 +18,7 @@ semifinals_patterns = [
 ]
 
 final_patterns = [
+    url(r'^badges$', documents.views.FinalBadgesView.as_view(), name='badges'),
     url(r'^contestant/(?P<contestant>[0-9]+)/compilation', documents.views.FinalContestantCompilationView.as_view(), name='contestant-compilation'),
     url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.FinalContestantConvocationView.as_view(), name='contestant-convocation'),
     url(r'^contestants$', documents.views.FinalContestantsView.as_view(), name='contestants'),
