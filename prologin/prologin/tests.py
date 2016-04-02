@@ -1,26 +1,98 @@
-from time import sleep
-import http.client, urllib.parse
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.test import RequestFactory, TestCase
+from django.test.client import Client
+
+import datetime
+import http.client
+import urllib.parse
+import time
 import re
 
-class Validator():
+import contest.models
+import team.models
+
+
+class ProloginTestCase(TestCase):
+    """Base class for prologin.org test cases.
+
+    Sets up a decent environment with required database entries as well as few
+    test users.
+    """
+
+    def setUp(self):
+        self.validator = Validator()
+        self.client = Client()
+        self.factory = RequestFactory()
+
+        self._make_edition()
+        self._make_users()
+
+    def _make_users(self):
+        self.contestant = self.create_user(
+            'contestant', 'contestant@example.com', 'password')
+        self.organizer = self.create_user('organizer', 'organizer@example.com',
+                                          'password')
+
+        self.president_role = team.models.Role()
+        self.president_role.significance = 0
+        self.president_role.name = 'President'
+        self.president_role.save()
+
+        self.organizer_tm = team.models.TeamMember()
+        self.organizer_tm.user = self.organizer
+        self.organizer_tm.role = self.president_role
+        self.organizer_tm.year = settings.PROLOGIN_EDITION
+        self.organizer_tm.save()
+
+    def _make_edition(self):
+        self.edition = contest.models.Edition()
+        self.edition.year = settings.PROLOGIN_EDITION
+        self.edition.date_begin = datetime.datetime.now()
+        self.edition.date_end = datetime.datetime.now()
+        self.edition.save()
+
+        self.finals = contest.models.Event()
+        self.finals.edition = self.edition
+        self.finals.type = contest.models.Event.Type.final.value
+        self.finals.save()
+
+    def create_user(self, username, email, password, *args, **kwargs):
+        user = get_user_model().objects.create_user(username, email, password,
+                                                    *args, **kwargs)
+        # Keep the original password for convenience.
+        user.original_password = password
+        return user
+
+    def client_login(self, user):
+        return self.client.login(username=user.username,
+                                 password=user.original_password)
+
+
+# TODO: Replace with a local validation library.
+class Validator:
     def __init__(self):
-        self.useragent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/28.0.1500.71 Safari/537.36'
+        self.useragent = (
+            'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 '
+            '(KHTML, like Gecko) Chrome/28.0.1500.71 Safari/537.36')
 
     def SOAPValidity(self, soap):
         # Why not using a lib?
         # 1. including dependencies only for unit testing sounds weird
-        # 2. at this time, there's no good and maintained projects:
-        #    http://stackoverflow.com/questions/206154/whats-the-best-soap-client-library-for-python-and-where-is-the-documentation-f
+        # 2. at this time, there's no good and maintained projects.
         pat = re.compile(r'^.*<m:validity>true</m:validity>.*$', re.M | re.I)
         return pat.search(soap) != None
 
     def wait(self):
         """Pause the script so it doesn't flood the W3C Validation Service.
 
-        "Please be considerate in using this shared, free resource. Consider Installing your own instance of the validator for smooth and fast operation. Excessive use of the W3C Validation Service will be blocked."
+        "Please be considerate in using this shared, free resource. Consider
+        Installing your own instance of the validator for smooth and fast
+        operation. Excessive use of the W3C Validation Service will be
+        blocked."
         -- http://validator.w3.org/docs/api.html
         """
-        sleep(1)
+        time.sleep(1)
 
     def checkHTML(self, html):
         self.wait()
@@ -35,7 +107,8 @@ class Validator():
         })
         headers = {
             'Content-type': 'application/x-www-form-urlencoded',
-            'Accept': 'text/plain,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept': 'text/plain,text/html,application/xhtml+xml,'
+                      'application/xml;q=0.9,*/*;q=0.8',
             'User-Agent': self.useragent,
         }
         conn.request('POST', '/check', params, headers)
@@ -59,10 +132,13 @@ class Validator():
             'output': 'soap12',
         })
         headers = {
-            'Accept': 'text/plain,text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+            'Accept': 'text/plain,text/html,application/xhtml+xml,'
+                      'application/xml;q=0.9,*/*;q=0.8',
             'User-Agent': self.useragent,
         }
-        conn.request('GET', '/css-validator/validator?' + str(params), headers=headers)
+        conn.request('GET',
+                     '/css-validator/validator?' + str(params),
+                     headers=headers)
         response = conn.getresponse()
         if response.status != 200:
             return False
