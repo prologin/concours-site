@@ -15,6 +15,7 @@
     \newpage
     \noindent
     \begin{picture}(185,275)(0,0)
+      \put(0,0){\includegraphics[angle=90,height=276mm,width=186mm]{cadre}}
       \put(0,0){
         \parbox[b][276mm]{186mm}{%
           \vfill
@@ -23,10 +24,9 @@
           \vfill
         }
       }
-      \put(0,0){%
-        \transparent{0.7}\textcolor{white}{\rule{\paperwidth}{\paperheight}}
+      \put(25,25){%
+        \transparent{0.7}\textcolor{white}{\rule{110mm}{220mm}}
       }
-      \put(0,0){\includegraphics[angle=90,height=276mm,width=186mm]{cadre}}
       \put(95,0){\rotatebox{90}{\makebox[276mm]{\Huge\textbf{
           {{ contestant.user.get_full_name|title|escapetex }}
       }}}}
