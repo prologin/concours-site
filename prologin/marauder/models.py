@@ -41,10 +41,10 @@ class UserProfile(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='marauder_profile')
 
     # Location reporting data.
-    location_timestamp = models.DateTimeField()
+    location_timestamp = models.DateTimeField(auto_now=True)
     in_area = models.BooleanField(default=False)
-    lat = models.FloatField()
-    lon = models.FloatField()
+    lat = models.FloatField(default=0.0)
+    lon = models.FloatField(default=0.0)
 
     # Notification pushing data.
     gcm_app_id = models.CharField(max_length=64)
@@ -56,7 +56,7 @@ class UserProfile(models.Model):
         ordering = ('user',)
 
     def __str__(self):
-        return str(user)
+        return str(self.user)
 
 
 class EventSettings(models.Model):
