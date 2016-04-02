@@ -1,11 +1,13 @@
 {% load i18n latex add_days %}{% autoescape off %}
 \documentclass[a4paper,11pt]{prologin}
 {% include "documents/stub-preamble.tex" %}
+\usepackage{amssymb}
 
 \title{Participation à l'organisation de la finale}
 
 \begin{document}
 
+{\setstretch{2.0}
 Je soussigné (prénom, nom) : \hrulefill
 
 Login : \hrulefill
@@ -16,6 +18,10 @@ Adresse e-mail : \hrulefill
 
 Numéro de téléphone : \hrulefill
 
+Nom d'utilisateur sur \texttt{prologin.org} : \hrulefill
+
+}
+
 certifie participer à l'organisation de la finale Prologin {{ year }} de
 manière bénévole.
 
@@ -23,8 +29,8 @@ Disponibilités (cochez les cases) :
 
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|c|}
-\hline
 
+\hline
 {{ event.date_begin|date:"l d"|capfirst|escapetex }} &
 \multicolumn{2}{c|}{ {{ event.date_begin|add_days:1|date:"l d"|capfirst|escapetex }} } &
 \multicolumn{2}{c|}{ {{ event.date_begin|add_days:2|date:"l d"|capfirst|escapetex }} } &
@@ -41,9 +47,15 @@ Accueil & Déco & Jeux & Réveil & Bataille & Mousse & Banquet\tabularnewline
 \end{tabular}
 \end{center}
 
+{\Large$\square$} J'ai un diplôme de secouriste de niveau PSC1 ou plus.
+
+{\Large$\square$} Je peux répondre aux questions de programmation des candidats.
+
+\vspace{0.5cm}
+
 Commentaires ou informations supplémentaires :
 
-\vspace{5cm}
+\vspace{3.5cm}
 
 Date et signature :
 
