@@ -56,9 +56,9 @@ class DocumentContext:
         env = os.environ.copy()
         env['TEXMFHOME'] = os.path.join(settings.DOCUMENTS_REPOSITORY_PATH, 'texmf')
         proc = subprocess.Popen([
-            'pdflatex', '-halt-on-error', '-interaction=nonstopmode',
+            'latexmk', '-pdf', '-halt-on-error', '-interaction=nonstopmode',
             '-output-format=pdf', '-no-shell-escape',
-            '-output-directory', self.output_dir.name, in_file,
+            '-output-directory=' + self.output_dir.name, in_file,
         ], stderr=subprocess.PIPE, stdout=subprocess.PIPE, env=env)
         try:
             outs, errs = proc.communicate(timeout=settings.LATEX_GENERATION_PROC_TIMEOUT)
