@@ -301,6 +301,7 @@ class UnsubscribeView(View):
 class ImpersonateView(PermissionRequiredMixin, FormView):
     form_class = users.forms.ImpersonateForm
     permission_required = 'users.may_impersonate'
+    error_message = _("Unable to complete impersonation: %(msg)s")
 
     def get(self, request, *args, **kwargs):
         raise Http404()
@@ -316,12 +317,14 @@ class ImpersonateView(PermissionRequiredMixin, FormView):
 
         hijacked = form.cleaned_data['user']
 
+        error = None
         if not hijacked.is_active:
-            messages.error(self.request, _("you cannot impersonate an inactive user."))
-            return redirect(self.get_success_url())
+            error = _("you cannot impersonate an inactive user.")
+        elif not is_authorized(self.request.user, hijacked):
+            error = _("you don't have the permission to impersonate this user.")
 
-        if not is_authorized(self.request.user, hijacked):
-            messages.error(self.request, _("you don't have the permission to impersonate this user."))
+        if error:
+            messages.error(self.request, self.error_message % {'msg': error})
             return redirect(self.get_success_url())
 
         login_user(self.request, hijacked)
@@ -331,7 +334,7 @@ class ImpersonateView(PermissionRequiredMixin, FormView):
         # You can land here if JS is not enabled and there is no user or invalid form
         # Field errors can stay hidden because they can only be the result of malicious request crafting
         for error in form.non_field_errors():
-            messages.error(self.request, _("Unable to complete impersonation: %(msg)s") % {'msg': error})
+            messages.error(self.request, self.error_message % {'msg': error})
         # Redirect without impersonating
         return super().form_valid(form)
 
