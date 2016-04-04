@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Prefetch, Q
 from django.http import Http404
-from django.http.response import JsonResponse
+from django.http.response import JsonResponse, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.base import Template, Context
 from django.template.loader import get_template
@@ -328,12 +328,8 @@ class ImpersonateView(PermissionRequiredMixin, FormView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        if form.non_field_errors:
-            error = form.non_field_errors[0]
-        else:
-            error = form.errors.values()[0]
-        messages.error(self.request, error)
-        return redirect(self.get_success_url())
+        # The normal Javascript-enabled flow cannot land here
+        return HttpResponseBadRequest()
 
 
 class ImpersonateSearchView(PermissionRequiredMixin, ListView):
