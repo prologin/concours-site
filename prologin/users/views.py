@@ -317,19 +317,23 @@ class ImpersonateView(PermissionRequiredMixin, FormView):
         hijacked = form.cleaned_data['user']
 
         if not hijacked.is_active:
-            messages.error(self.request, _("You cannot impersonate an inactive user."))
+            messages.error(self.request, _("you cannot impersonate an inactive user."))
             return redirect(self.get_success_url())
 
         if not is_authorized(self.request.user, hijacked):
-            messages.error(self.request, _("You don't have the permission to impersonate this user."))
+            messages.error(self.request, _("you don't have the permission to impersonate this user."))
             return redirect(self.get_success_url())
 
         login_user(self.request, hijacked)
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        # The normal Javascript-enabled flow cannot land here
-        return HttpResponseBadRequest()
+        # You can land here if JS is not enabled and there is no user or invalid form
+        # Field errors can stay hidden because they can only be the result of malicious request crafting
+        for error in form.non_field_errors():
+            messages.error(self.request, _("Unable to complete impersonation: %(msg)s") % {'msg': error})
+        # Redirect without impersonating
+        return super().form_valid(form)
 
 
 class ImpersonateSearchView(PermissionRequiredMixin, ListView):
@@ -338,20 +342,8 @@ class ImpersonateSearchView(PermissionRequiredMixin, ListView):
     permission_required = 'users.may_impersonate'
 
     def get_queryset(self):
-        qs = super().get_queryset().filter(is_active=True, is_superuser=False)
-        q = self.request.GET.get('q', '').strip()
-        if not q:
-            return qs.none()
-        qss = qs.filter(username__startswith=q)
-        if not qss.exists():
-            qss = qs.filter(username__istartswith=q)
-        if not qss.exists():
-            qss = qs.filter(username__contains=q)
-        if not qss.exists():
-            qss = qs.filter(username__icontains=q)
-        if not qss.exists():
-            qss = qs.filter(Q(first_name__icontains=q) | Q(last_name__icontains=q))
-        return qss
+        query = self.request.GET.get('q', '').strip()
+        return users.forms.ImpersonateForm.search_users(query)
 
     def render_to_response(self, context, **response_kwargs):
         tpl = get_template('users/stub-impersonate-result.html')
