@@ -365,7 +365,7 @@ class FinalPlanningView(BaseFinalDocumentView):
 
 class FinalDiplomasView(BaseFinalDocumentView):
     template_name = 'documents/diplomes.tex'
-    pdf_title = _("Prologin %(year)s: diplômes")
+    pdf_title = _("Prologin %(year)s: diplomas")
     filename = pgettext_lazy("Document filename", "diplomas-%(year)s-final")
 
     def contestant_queryset(self):
