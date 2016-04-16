@@ -1,8 +1,6 @@
-import binascii
 import collections
 
 from django.conf import settings
-from django.contrib import auth
 from django.core.exceptions import ImproperlyConfigured
 
 import contest.models
@@ -43,43 +41,3 @@ class ContestMiddleware(object):
                 user=user, edition=request.current_edition)
             if created:
                 request.current_contestant.save()
-
-
-class BasicAuthMiddleware(object):
-    """Middleware that logs in users based on an Authorization: basic header.
-
-    Required for Marauder to function, but it doesn't harm to keep it enabled
-    for the rest of the website.
-    """
-    HEADER_NAME = 'HTTP_AUTHORIZATION'
-
-    def process_request(self, request):
-        if not hasattr(request, 'user'):
-            raise ImproperlyConfigured('BasicAuthMiddleware should be placed '
-                                       'after the AuthenticationMiddleware.')
-
-        authorization = request.META.get(self.HEADER_NAME)
-        if not authorization or ' ' not in authorization:
-            return
-        method, value = authorization.split(' ', 1)
-        if method.lower() != 'basic':
-            return
-        try:
-            value = binascii.a2b_base64(value)
-        except binascii.Error:
-            return
-        value = value.decode('utf-8')
-        if ':' not in value:
-            return
-        username, password = value.split(':', 1)
-
-        if request.user.is_authenticated():
-            if request.user.get_username() == username:
-                return
-            else:
-                auth.logout(request)
-        else:
-            user = auth.authenticate(username=username, password=password)
-            if user:
-                request.user = user
-                auth.login(request, user)
