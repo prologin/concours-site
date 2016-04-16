@@ -20,3 +20,13 @@ class TaskForceAdmin(admin.ModelAdmin):
 
 
 admin.site.register(marauder.models.TaskForce, TaskForceAdmin)
+
+
+class EventSettingsAdmin(admin.ModelAdmin):
+    list_filter = ('event',)
+    list_display = ('event', 'is_current', 'lat', 'lon', 'radius_meters',
+                    'enable_on')
+    search_fields = ('event', 'is_current')
+
+
+admin.site.register(marauder.models.EventSettings, EventSettingsAdmin)

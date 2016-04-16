@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 
 import contest.models
@@ -72,3 +73,14 @@ class EventSettings(models.Model):
     # Provides a way to enable Marauder for a given event before the event
     # officially starts (for testing / preparation purposes).
     enable_on = models.DateTimeField()
+
+    class Meta:
+        verbose_name = _("Event settings")
+        verbose_name_plural = _("Events settings")
+        ordering = ('event',)
+
+    @property
+    def is_current(self):
+        """Returns whether this event is active for Marauder tracking."""
+        now = timezone.now()
+        return (now > self.enable_on and now <= self.event.date_end)
