@@ -1,9 +1,11 @@
-from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.generic import TemplateView
 
 from marauder.models import UserProfile
 
 import json
+import prologin.utils
 import team.models
 
 @csrf_exempt
@@ -38,3 +40,7 @@ def report(request):
 
     profile.save()
     return JsonResponse({})
+
+
+class UI(prologin.utils.LoginRequiredMixin, TemplateView):
+    template_name = 'marauder/index.html'
