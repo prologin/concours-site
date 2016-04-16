@@ -6,6 +6,7 @@ from django.http import HttpResponseForbidden
 
 import json
 
+import marauder.api_views
 import marauder.models
 import marauder.views
 import prologin.tests
@@ -14,7 +15,7 @@ import prologin.tests
 class ReportingTestCase(prologin.tests.ProloginTestCase):
     def make_request(self, data={}):
         return self.factory.post(
-            reverse('marauder:report'),
+            reverse('marauder:api:report'),
             content_type='text/json',
             data=json.dumps(data))
 
@@ -23,19 +24,19 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
         # No user
         request = self.make_request()
         request.user = AnonymousUser()
-        response = marauder.views.report(request)
+        response = marauder.api_views.report(request)
         self.assertEqual(response.status_code, 403)
 
         # Non-team user.
         request = self.make_request()
         request.user = self.contestant
-        response = marauder.views.report(request)
+        response = marauder.api_views.report(request)
         self.assertEqual(response.status_code, 403)
 
         # Team user.
         request = self.make_request()
         request.user = self.organizer
-        response = marauder.views.report(request)
+        response = marauder.api_views.report(request)
         self.assertEqual(response.status_code, 200)
 
     def test_profile_creation(self):
@@ -45,7 +46,7 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
 
         request = self.make_request()
         request.user = self.organizer
-        response = marauder.views.report(request)
+        response = marauder.api_views.report(request)
         self.assertEqual(response.status_code, 200)
 
         self.assertTrue(marauder.models.UserProfile.objects.filter(
@@ -59,7 +60,7 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
                                      'gcm': {'app_id': 'test',
                                              'token': 'TOK'}})
         request.user = self.organizer
-        response = marauder.views.report(request)
+        response = marauder.api_views.report(request)
         self.assertEqual(response.status_code, 200)
 
         profile = marauder.models.UserProfile.objects.get(user=self.organizer)
@@ -77,7 +78,7 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
                                      'gcm': {'app_id': 'test',
                                              'token': 'TOK'}})
         request.user = self.organizer
-        response = marauder.views.report(request)
+        response = marauder.api_views.report(request)
         self.assertEqual(response.status_code, 200)
 
         profile = marauder.models.UserProfile.objects.get(user=self.organizer)
