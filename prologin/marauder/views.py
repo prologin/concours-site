@@ -1,21 +1,34 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import TemplateView
 
-from marauder.models import UserProfile
+from marauder.models import EventSettings, UserProfile
 
 import json
 import prologin.utils
 import team.models
 
+@login_required
+def geofences(request):
+    """API used by the Marauder app to get configured geofences."""
+    if not team.models.TeamMember.objects.filter(user=request.user):
+        return HttpResponseForbidden()
+
+    zones = []
+    for event_settings in EventSettings.objects.all():
+        if event_settings.is_current:
+            zones.append({'lat': event_settings.lat,
+                          'lon': event_settings.lon,
+                          'radius_meters': event_settings.radius_meters})
+    return JsonResponse({'zones': zones})
+
+@login_required
 @csrf_exempt
 def report(request):
-    """API used by the background service of the Marauder app."""
+    """API used by the Marauder app to report location changes."""
     if request.method != 'POST':
         return HttpResponseBadRequest()
-
-    if not request.user.is_authenticated():
-        return HttpResponseForbidden()
     if not team.models.TeamMember.objects.filter(user=request.user):
         return HttpResponseForbidden()
 
