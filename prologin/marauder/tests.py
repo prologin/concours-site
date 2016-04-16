@@ -25,7 +25,7 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
         request = self.make_request()
         request.user = AnonymousUser()
         response = marauder.api_views.report(request)
-        self.assertEqual(response.status_code, 403)
+        self.assertEqual(response.status_code, 302)
 
         # Non-team user.
         request = self.make_request()
