@@ -180,7 +180,7 @@ ProloginUser._meta.get_field('email').db_index = True
 
 
 def assign_preferred_language(sender, user, request, **kwargs):
-    if request.user.is_authenticated():
+    if hasattr(request, 'user') and request.user.is_authenticated():
         request.session[LANGUAGE_SESSION_KEY] = request.user.preferred_locale
 
 user_logged_in.connect(assign_preferred_language)

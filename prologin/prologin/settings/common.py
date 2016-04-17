@@ -87,6 +87,7 @@ INSTALLED_APPS = (
     'homepage',
     'qcm',
     'mailing',
+    'marauder',
     'news',
     'pages',
     'problems',

@@ -58,6 +58,9 @@ urlpatterns += [
     # Authentication and accounts
     url(r'^user/', include('users.urls', namespace='users')),
 
+    # Marauder UI and API.
+    url(r'^marauder/', include('marauder.urls', namespace='marauder')),
+
     # Crash test
     url(r'^crashtest/', crash_test),
 
