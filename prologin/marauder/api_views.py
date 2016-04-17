@@ -10,9 +10,6 @@ from marauder.models import EventSettings, UserProfile
 
 def geofences(request):
     """API used by the Marauder app to get configured geofences."""
-    if not team.models.TeamMember.objects.filter(user=request.user):
-        return HttpResponseForbidden()
-
     zones = []
     for event_settings in EventSettings.objects.all():
         if event_settings.is_current:
