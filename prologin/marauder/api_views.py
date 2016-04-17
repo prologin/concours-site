@@ -8,7 +8,6 @@ import team.models
 from marauder.models import EventSettings, UserProfile
 
 
-@login_required
 def geofences(request):
     """API used by the Marauder app to get configured geofences."""
     if not team.models.TeamMember.objects.filter(user=request.user):
