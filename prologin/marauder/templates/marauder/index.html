@@ -1,12 +1,35 @@
-{% extends "prologin/base.html" %}
-{% load cache i18n staticfiles %}
-{% load django_bootstrap_breadcrumbs utils %}
+{% extends "marauder/base.html" %}
+{% load i18n staticfiles %}
 
-{% block breadcrumbs %}
-  {{ block.super }}
-  {% breadcrumb_for "marauder:ui" %}{% trans "Marauder" %}{% endbreadcrumb_for %}
-{% endblock breadcrumbs %}
+{% block title %}Prologin {{ event.edition.year }} – {{ event.center.name }}{% endblock %}
 
 {% block content %}
-<h1>Hello!</h1>
+
+  <ion-header-bar class="bar bar-header">
+    <img src="{% static 'marauder/logo.svg' %}"/>
+    <h1 class="title">Prologin {{ event.edition.year }} – {{ event.center.name }}</h1>
+    <div class="buttons">
+      <button class="button button-icon ion-more" ng-click="popover.show($event)"></button>
+    </div>
+  </ion-header-bar>
+
+  <ion-content>
+    <ion-refresher on-refresh="doRefresh()"></ion-refresher>
+
+    {% include "marauder/page/taskforces.html" %}
+
+  </ion-content>
+
+  <script id="templates/popover.html" type="text/ng-template">
+    <ion-popover-view>
+      <ion-content>
+        <div class="list">
+          <a class="item" href="#" ng-click="$event.stopPropagation();">
+            TODO
+          </a>
+        </div>
+      </ion-content>
+    </ion-popover-view>
+  </script>
+
 {% endblock %}

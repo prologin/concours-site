@@ -1,0 +1,47 @@
+{% verbatim %}
+<div class="list list-taskforces">
+  <div ng-repeat="taskForce in taskForces">
+    <div class="item item-divider item-button-right">
+      {{ taskForce.name }}
+      <button class="button button-positive" ng-class="{disabled: actionLoading}"
+              ng-click="taskForcePing({{ taskForce.id }})">
+        <ion-spinner icon="lines" ng-if="actionLoading" class="spinner-white"></ion-spinner>
+        <div ng-if="!actionLoading"><i class="material-icons">notifications_none</i> Ping général</div>
+      </button>
+    </div>
+    <div ng-repeat="member in taskForce.members"
+         ng-click="toggleAccordion(member)"
+         class="item-member"
+         ng-class="{active: isAccordionShown(member)}">
+      <div class="item item-avatar item-icon-right">
+        <div ng-attr-style="{{ member.avatar ? 'background-image: url(' + member.avatar + ')' : '' }}"
+             class="icon user-avatar" ng-class="{'user-online': member.online, empty: !member.avatar}"></div>
+        <h2>{{ member.username }}</h2>
+        <p>{{ member.fullName }} ⋅
+          <last-seen timestamp="{{ member.lastSeen }}"/>
+        </p>
+        <i
+          ng-class="{icon: true, 'ion-chevron-down': isAccordionShown(member), 'ion-chevron-right': !isAccordionShown(member)}"></i>
+      </div>
+      <div ng-show="isAccordionShown(member)" class="item item-accordion" ng-click="$event.stopPropagation();">
+        <div class="row">
+          <div class="col">
+            <button class="button button-block button-positive" ng-class="{disabled: actionLoading}"
+                    ng-click="sendPing(member.id);">
+              <ion-spinner icon="lines" ng-if="actionLoading" class="spinner-white"></ion-spinner>
+              <div ng-if="!actionLoading"><i class="material-icons">notifications_none</i> Ping</div>
+            </button>
+          </div>
+          <div class="col">
+            <button class="button button-block button-balanced" ng-class="{disabled: actionLoading || !member.phone}"
+                    ng-click="callNumber(member.phone);">
+              <ion-spinner icon="lines" ng-if="actionLoading" class="spinner-white"></ion-spinner>
+              <div ng-if="!actionLoading"><i class="material-icons">phone</i> Appeler</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endverbatim %}

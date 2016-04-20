@@ -1,0 +1,40 @@
+{% load i18n staticfiles %}
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+
+  <title>{% block super_title %}{% block title %}{% endblock %} – Marauder – Prologin{% endblock %}</title>
+
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <link rel="manifest" href="{% static 'marauder/manifest.json' %}">
+
+  {# TODO: self host: https://github.com/google/material-design-icons/tree/master/iconfont #}
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  {# TODO: self host #}
+  <link href="https://code.ionicframework.com/1.2.4/css/ionic.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'marauder/marauder.css' %}"/>
+  {% block extra_head %}{% endblock %}
+
+  {# TODO: actually needed? may be bundled with ionic (well, angular that is) #}
+  <script src="{% static 'lib/js/jquery.min.js' %}"></script>
+  {# TODO: self host #}
+  <script src="https://code.ionicframework.com/1.2.4/js/ionic.bundle.min.js"></script>
+  {# TODO: self host #}
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+  <script src="{% static 'marauder/ol.js' %}"></script>
+  <script src="{% static 'marauder/angular-moment.min.js' %}"></script>
+  <script src="{% static 'marauder/moment.fr.js' %}"></script>
+  <script src="{% static 'marauder/marauder.js' %}"></script>
+  {% block extra_script %}{% endblock %}
+
+</head>
+<body class="platform-android" ng-controller="MainCtrl">
+
+{% block content %}{% endblock %}
+
+</body>
+</html>
