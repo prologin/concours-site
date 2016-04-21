@@ -86,7 +86,7 @@ class ApiTaskForcesView(prologin.utils.LoginRequiredMixin, MarauderMixin,
                 'fullName': member.get_full_name(),
                 'lastSeen': profile(
                     member,
-                    lambda p: int(p.location_timestamp.timestamp()) if p.location_timestamp else None),
+                    lambda p: int(p.last_report_timestamp.timestamp()) if p.last_report_timestamp else None),
                 'online': profile(member, lambda p: p.in_area),
                 'hasDevice': profile(member, lambda p: bool(p.gcm_token)),
                 'phone': member.phone,

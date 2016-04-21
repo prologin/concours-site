@@ -44,7 +44,8 @@ class UserProfile(models.Model):
                                 related_name='marauder_profile')
 
     # Location reporting data.
-    location_timestamp = models.DateTimeField(auto_now=True)
+    last_report_timestamp = models.DateTimeField(auto_now=True)
+    last_within_timestamp = models.DateTimeField(null=True, default=None)
     in_area = models.BooleanField(default=False)
     lat = models.FloatField(default=0.0)
     lon = models.FloatField(default=0.0)
