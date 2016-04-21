@@ -88,6 +88,7 @@ angular.module('app', ['ionic', 'angularMoment'])
       native.callPhoneNumber(number);
     };
 
+    native.startupCompleted();
     updateTaskForces();
 
   });
