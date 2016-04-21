@@ -4,6 +4,7 @@ import traceback
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpResponseBadRequest
+from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View, ListView
@@ -46,6 +47,7 @@ def report(request):
             return HttpResponseBadRequest()
         if data.get('in_area'):
             profile.in_area = True
+            profile.last_within_timestamp = timezone.now()
             profile.lat = data['lat']
             profile.lon = data['lon']
         else:
