@@ -11,7 +11,7 @@ from django.views.generic import View, ListView
 import marauder.models
 import team.models
 import prologin.utils
-from marauder.gcm import push_message
+from marauder import gcm
 from marauder.models import EventSettings, UserProfile
 from marauder.views import MarauderMixin
 
@@ -101,47 +101,31 @@ class ApiTaskForcesView(prologin.utils.LoginRequiredMixin, MarauderMixin,
 class ApiSendUserPingView(prologin.utils.LoginRequiredMixin, MarauderMixin,
                           View):
     def post(self, request, *args, **kwargs):
-        try:
-            data = json.loads(request.body.decode())
-            recipient = marauder.models.UserProfile.objects.get(
-                user__pk=data['id']).gcm_token
-            gcm.push_message(recipient,
-                             {
-                                 'title': "{} ({})".format(
-                                     request.user.username,
-                                     request.user.get_full_name()),
-                                 'message': data['reason'],
-                             },
-                             timeout=2)
-            return HttpResponse(status=204)
-        except Exception:
-            pass
-        return HttpResponseBadRequest()
+        data = json.loads(request.body.decode())
+        recipient = marauder.models.UserProfile.objects.get(
+            user__pk=data['id'])
+        gcm.unicast_notification(recipient, '{username} ({fullname})',
+                                 '{reason}',
+                                 {'username': request.user.username,
+                                  'fullname': request.user.get_full_name(),
+                                  'reason': data['reason']})
+        return HttpResponse(status=204)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
 class ApiSendTaskforcePingView(prologin.utils.LoginRequiredMixin,
                                MarauderMixin, View):
     def post(self, request, *args, **kwargs):
-        try:
-            data = json.loads(request.body.decode())
-            taskforce = marauder.models.TaskForce.objects.get(pk=data['id'])
-            recipients = (taskforce.members.select_related('marauder_profile')
-                          .exclude(marauder_profile__gcm_token='')
-                          .exclude(marauder_profile__gcm_token__isnull=True)
-                          .values_list('marauder_profile__gcm_token',
-                                       flat=True))
-            print(recipients)
-            message = {
-                'title': "[{}] {} ({})".format(taskforce.name,
-                                               request.user.username,
-                                               request.user.get_full_name()),
-                'message': data['reason'],
-            }
-            for recipient in recipients:
-                # FIXME: may be burst rate-limited
-                gcm.push_message(recipient, message, timeout=2)
-            return HttpResponse(status=204)
-        except Exception:
-            pass
-        return HttpResponseBadRequest()
+        data = json.loads(request.body.decode())
+        taskforce = marauder.models.TaskForce.objects.get(pk=data['id'])
+        recipients = [
+            member.marauder_profile
+            for member in taskforce.members.select_related('marauder_profile')
+        ]
+        gcm.multicast_notification(
+            recipients, '[{taskforce}] {username} ({fullname})', '{reason}',
+            {'taskforce': taskforce.name,
+             'username': request.user.username,
+             'fullname': request.user.get_full_name(),
+             'reason': data['reason']})
+        return HttpResponse(status=204)
