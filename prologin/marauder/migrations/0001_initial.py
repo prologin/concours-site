@@ -51,7 +51,7 @@ class Migration(migrations.Migration):
                 ('lat', models.FloatField(default=0.0)),
                 ('lon', models.FloatField(default=0.0)),
                 ('gcm_app_id', models.CharField(max_length=64)),
-                ('gcm_token', models.CharField(max_length=64)),
+                ('gcm_token', models.CharField(max_length=256)),
                 ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='marauder_profile', to=settings.AUTH_USER_MODEL)),
             ],
             options={

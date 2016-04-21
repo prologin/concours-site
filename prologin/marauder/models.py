@@ -49,7 +49,7 @@ class UserProfile(models.Model):
 
     # Notification pushing data.
     gcm_app_id = models.CharField(max_length=64)
-    gcm_token = models.CharField(max_length=64)
+    gcm_token = models.CharField(max_length=256)
 
     class Meta:
         verbose_name = _("User profile")
