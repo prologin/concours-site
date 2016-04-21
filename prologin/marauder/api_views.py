@@ -11,6 +11,7 @@ from django.views.generic import View, ListView
 import marauder.models
 import team.models
 import prologin.utils
+from marauder.gcm import push_message
 from marauder.models import EventSettings, UserProfile
 from marauder.views import MarauderMixin
 
@@ -104,14 +105,14 @@ class ApiSendUserPingView(prologin.utils.LoginRequiredMixin, MarauderMixin,
             data = json.loads(request.body.decode())
             recipient = marauder.models.UserProfile.objects.get(
                 user__pk=data['id']).gcm_token
-            marauder.models.gcm_send(recipient,
-                                     {
-                                         'title': "{} ({})".format(
-                                             request.user.username,
-                                             request.user.get_full_name()),
-                                         'message': data['reason'],
-                                     },
-                                     timeout=2)
+            gcm.push_message(recipient,
+                             {
+                                 'title': "{} ({})".format(
+                                     request.user.username,
+                                     request.user.get_full_name()),
+                                 'message': data['reason'],
+                             },
+                             timeout=2)
             return HttpResponse(status=204)
         except Exception:
             pass
@@ -139,7 +140,7 @@ class ApiSendTaskforcePingView(prologin.utils.LoginRequiredMixin,
             }
             for recipient in recipients:
                 # FIXME: may be burst rate-limited
-                marauder.models.gcm_send(recipient, message, timeout=2)
+                gcm.push_message(recipient, message, timeout=2)
             return HttpResponse(status=204)
         except Exception:
             pass
