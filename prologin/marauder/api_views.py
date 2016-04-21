@@ -58,13 +58,13 @@ def report(request):
     return JsonResponse({})
 
 
-class ApiTaskForcesView(prologin.utils.LoginRequiredMixin, MarauderMixin, ListView):
+class ApiTaskForcesView(prologin.utils.LoginRequiredMixin, MarauderMixin,
+                        ListView):
     model = marauder.models.TaskForce
     context_object_name = 'taskforces'
 
     def get_queryset(self):
-        return (super().get_queryset()
-                .filter(event=self.event)
+        return (super().get_queryset().filter(event=self.event)
                 .prefetch_related('members', 'members__marauder_profile'))
 
     def get(self, request, *args, **kwargs):
@@ -75,33 +75,43 @@ class ApiTaskForcesView(prologin.utils.LoginRequiredMixin, MarauderMixin, ListVi
                 return None
 
         items = [{
-                     'id': taskforce.id,
-                     'name': taskforce.name,
-                     'members': [{
-                                     'id': member.id,
-                                     'username': member.username,
-                                     'avatar': member.picture.url if member.picture else member.avatar.url if member.avatar else None,
-                                     'fullName': member.get_full_name(),
-                                     'lastSeen': profile(member, lambda p: int(
-                                         p.location_timestamp.timestamp()) if p.location_timestamp else None),
-                                     'online': profile(member, lambda p: p.in_area),
-                                     'hasDevice': profile(member, lambda p: bool(p.gcm_token)),
-                                     'phone': member.phone,
-                                 } for member in taskforce.members.select_related('marauder_profile').all()]
-                 } for taskforce in self.get_queryset()]
+            'id': taskforce.id,
+            'name': taskforce.name,
+            'members': [{
+                'id': member.id,
+                'username': member.username,
+                'avatar': member.picture.url if member.picture else
+                member.avatar.url if member.avatar else None,
+                'fullName': member.get_full_name(),
+                'lastSeen': profile(
+                    member,
+                    lambda p: int(p.location_timestamp.timestamp()) if p.location_timestamp else None),
+                'online': profile(member, lambda p: p.in_area),
+                'hasDevice': profile(member, lambda p: bool(p.gcm_token)),
+                'phone': member.phone,
+            }
+                        for member in taskforce.members.select_related(
+                            'marauder_profile').all()]
+        } for taskforce in self.get_queryset()]
         return JsonResponse(items, safe=False)
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class ApiSendUserPingView(prologin.utils.LoginRequiredMixin, MarauderMixin, View):
+class ApiSendUserPingView(prologin.utils.LoginRequiredMixin, MarauderMixin,
+                          View):
     def post(self, request, *args, **kwargs):
         try:
             data = json.loads(request.body.decode())
-            recipient = marauder.models.UserProfile.objects.get(user__pk=data['id']).gcm_token
-            marauder.models.gcm_send(recipient, {
-                'title': "{} ({})".format(request.user.username, request.user.get_full_name()),
-                'message': data['reason'],
-            }, timeout=2)
+            recipient = marauder.models.UserProfile.objects.get(
+                user__pk=data['id']).gcm_token
+            marauder.models.gcm_send(recipient,
+                                     {
+                                         'title': "{} ({})".format(
+                                             request.user.username,
+                                             request.user.get_full_name()),
+                                         'message': data['reason'],
+                                     },
+                                     timeout=2)
             return HttpResponse(status=204)
         except Exception:
             pass
@@ -109,19 +119,22 @@ class ApiSendUserPingView(prologin.utils.LoginRequiredMixin, MarauderMixin, View
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class ApiSendTaskforcePingView(prologin.utils.LoginRequiredMixin, MarauderMixin, View):
+class ApiSendTaskforcePingView(prologin.utils.LoginRequiredMixin,
+                               MarauderMixin, View):
     def post(self, request, *args, **kwargs):
         try:
             data = json.loads(request.body.decode())
             taskforce = marauder.models.TaskForce.objects.get(pk=data['id'])
-            recipients = (taskforce.members
-                          .select_related('marauder_profile')
+            recipients = (taskforce.members.select_related('marauder_profile')
                           .exclude(marauder_profile__gcm_token='')
                           .exclude(marauder_profile__gcm_token__isnull=True)
-                          .values_list('marauder_profile__gcm_token', flat=True))
+                          .values_list('marauder_profile__gcm_token',
+                                       flat=True))
             print(recipients)
             message = {
-                'title': "[{}] {} ({})".format(taskforce.name, request.user.username, request.user.get_full_name()),
+                'title': "[{}] {} ({})".format(taskforce.name,
+                                               request.user.username,
+                                               request.user.get_full_name()),
                 'message': data['reason'],
             }
             for recipient in recipients:

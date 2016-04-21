@@ -14,5 +14,6 @@ class MarauderMixin(ContextMixin):
         return super().get_context_data(**kwargs)
 
 
-class IndexView(prologin.utils.LoginRequiredMixin, MarauderMixin, TemplateView):
+class IndexView(prologin.utils.LoginRequiredMixin, MarauderMixin,
+                TemplateView):
     template_name = 'marauder/index.html'

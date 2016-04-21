@@ -17,7 +17,8 @@ class TaskForce(models.Model):
     """
     event = models.ForeignKey(contest.models.Event, related_name='task_forces')
     name = models.CharField(max_length=50)
-    members = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='task_forces')
+    members = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                     related_name='task_forces')
     redundancy = models.IntegerField(default=0)
 
     @property
@@ -40,7 +41,8 @@ class UserProfile(models.Model):
     Created automatically when a user starts reporting data to Marauder through
     the reporting API.
     """
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='marauder_profile')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL,
+                                related_name='marauder_profile')
 
     # Location reporting data.
     location_timestamp = models.DateTimeField(auto_now=True)
@@ -55,7 +57,7 @@ class UserProfile(models.Model):
     class Meta:
         verbose_name = _("User profile")
         verbose_name_plural = _("User profiles")
-        ordering = ('user',)
+        ordering = ('user', )
 
     def __str__(self):
         return str(self.user)
@@ -63,7 +65,8 @@ class UserProfile(models.Model):
 
 class EventSettings(models.Model):
     """Container for per-event settings related to Marauder."""
-    event = models.OneToOneField(contest.models.Event, related_name='marauder_settings')
+    event = models.OneToOneField(contest.models.Event,
+                                 related_name='marauder_settings')
 
     # Geofence of the event location. Currently using a circle instead of an
     # arbitrary polygon for simplicity.
@@ -78,7 +81,7 @@ class EventSettings(models.Model):
     class Meta:
         verbose_name = _("Event settings")
         verbose_name_plural = _("Events settings")
-        ordering = ('event',)
+        ordering = ('event', )
 
     @property
     def is_current(self):
@@ -95,6 +98,9 @@ def gcm_send(to: str, data: dict, **kwargs):
         raise ValueError("Recipient can not be empty")
     if not isinstance(data, dict):
         raise TypeError("Data must be a dict")
-    return requests.post('https://gcm-http.googleapis.com/gcm/send',
-                         headers={'Authorization': 'key=' + settings.MARAUDER_GCM_KEY},
-                         json={'to': to, 'data': data}, **kwargs).ok
+    return requests.post(
+        'https://gcm-http.googleapis.com/gcm/send',
+        headers={'Authorization': 'key=' + settings.MARAUDER_GCM_KEY},
+        json={'to': to,
+              'data': data},
+        **kwargs).ok
