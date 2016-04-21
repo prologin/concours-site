@@ -1,15 +1,15 @@
 {% verbatim %}
 <div class="list list-taskforces">
-  <div ng-repeat="taskForce in taskForces">
+  <div ng-repeat="taskforce in taskForces">
     <div class="item item-divider item-button-right">
-      {{ taskForce.name }}
+      {{ taskforce.name }}
       <button class="button button-positive" ng-class="{disabled: actionLoading}"
-              ng-click="taskForcePing({{ taskForce.id }})">
+              ng-click="promptTaskForcePing(taskforce)">
         <ion-spinner icon="lines" ng-if="actionLoading" class="spinner-white"></ion-spinner>
         <div ng-if="!actionLoading"><i class="material-icons">notifications_none</i> Ping général</div>
       </button>
     </div>
-    <div ng-repeat="member in taskForce.members"
+    <div ng-repeat="member in taskforce.members"
          ng-click="toggleAccordion(member)"
          class="item-member"
          ng-class="{active: isAccordionShown(member)}">
@@ -26,8 +26,9 @@
       <div ng-show="isAccordionShown(member)" class="item item-accordion" ng-click="$event.stopPropagation();">
         <div class="row">
           <div class="col">
-            <button class="button button-block button-positive" ng-class="{disabled: actionLoading}"
-                    ng-click="sendPing(member.id);">
+            <button class="button button-block button-positive"
+                    ng-class="{disabled: actionLoading || !member.hasDevice}"
+                    ng-click="promptUserPing(member);">
               <ion-spinner icon="lines" ng-if="actionLoading" class="spinner-white"></ion-spinner>
               <div ng-if="!actionLoading"><i class="material-icons">notifications_none</i> Ping</div>
             </button>
@@ -44,4 +45,28 @@
     </div>
   </div>
 </div>
+
+<script id="templates/ping.html" type="text/ng-template">
+  <ion-modal-view>
+    <ion-header-bar>
+      <h1 class="title">
+        <i class="material-icons">notifications_none</i> Envoyer un ping
+      </h1>
+      <button class="button button-clear" ng-click="pingModal.hide()"><i class="material-icons">close</i></button>
+    </ion-header-bar>
+    <ion-content>
+      <div class="list">
+        <div class="item">
+          <p>Vous envoyez un ping à {{ ping.to }}.</p>
+        </div>
+        <label class="item item-input">
+          <textarea ng-model="ping.reason" placeholder="Raison du ping, commentaire"></textarea>
+        </label>
+      </div>
+      <div class="padding">
+        <button class="button button-block button-positive" ng-click="sendPing()">Envoyer le ping</button>
+      </div>
+    </ion-content>
+  </ion-modal-view>
+</script>
 {% endverbatim %}

@@ -356,3 +356,8 @@ ZINNIA_PROTOCOL = 'https'
 ZINNIA_SAVE_PING_DIRECTORIES = False
 ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER = 0  # disables pingbacks completely
 ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER = 0  # disables trackbacks completely
+
+
+# Marauder
+
+MARAUDER_GCM_KEY = ""

@@ -1,3 +1,4 @@
+import requests
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
@@ -84,3 +85,16 @@ class EventSettings(models.Model):
         """Returns whether this event is active for Marauder tracking."""
         now = timezone.now()
         return (now > self.enable_on and now <= self.event.date_end)
+
+
+def gcm_send(to: str, data: dict, **kwargs):
+    """
+    Sends downstream message to a device through Google Cloud Messaging.
+    """
+    if not to:
+        raise ValueError("Recipient can not be empty")
+    if not isinstance(data, dict):
+        raise TypeError("Data must be a dict")
+    return requests.post('https://gcm-http.googleapis.com/gcm/send',
+                         headers={'Authorization': 'key=' + settings.MARAUDER_GCM_KEY},
+                         json={'to': to, 'data': data}, **kwargs).ok
