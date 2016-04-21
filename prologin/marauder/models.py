@@ -24,6 +24,12 @@ class TaskForce(models.Model):
     def members_count(self):
         return self.members.count()
 
+    @property
+    def marauder_members(self):
+        return [member.marauder_profile
+                for member in self.members.select_related(
+                    'marauder_profile').filter(marauder_profile__isnull=False)]
+
     class Meta:
         verbose_name = _("Task force")
         verbose_name_plural = _("Task forces")

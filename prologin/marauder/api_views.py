@@ -120,14 +120,11 @@ class ApiSendTaskforcePingView(prologin.utils.LoginRequiredMixin,
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body.decode())
         taskforce = marauder.models.TaskForce.objects.get(pk=data['id'])
-        recipients = [
-            member.marauder_profile
-            for member in taskforce.members.select_related('marauder_profile')
-        ]
-        gcm.multicast_notification(
-            recipients, '[{taskforce}] {username} ({fullname})', '{reason}',
-            {'taskforce': taskforce.name,
-             'username': request.user.username,
-             'fullname': request.user.get_full_name(),
-             'reason': data['reason']})
+        gcm.multicast_notification(taskforce.marauder_members,
+                                   '[{taskforce}] {username} ({fullname})',
+                                   '{reason}',
+                                   {'taskforce': taskforce.name,
+                                    'username': request.user.username,
+                                    'fullname': request.user.get_full_name(),
+                                    'reason': data['reason']})
         return HttpResponse(status=204)
