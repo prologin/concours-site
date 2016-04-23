@@ -13,7 +13,7 @@ import marauder.models
 import team.models
 import prologin.utils
 from marauder import gcm
-from marauder.models import EventSettings, UserProfile
+from marauder.models import EventSettings, TaskForce, UserProfile
 from marauder.views import MarauderMixin
 
 
@@ -39,12 +39,14 @@ def report(request):
 
     profile = getattr(request.user, 'marauder_profile', UserProfile())
     profile.user = request.user
+    in_area_transition = False
 
     if request.body:
         try:
             data = json.loads(request.body.decode('utf-8'))
         except ValueError:
             return HttpResponseBadRequest()
+        in_area_transition = bool(data.get('in_area')) != profile.in_area
         if data.get('in_area'):
             profile.in_area = True
             profile.last_within_timestamp = timezone.now()
@@ -58,7 +60,69 @@ def report(request):
             profile.gcm_token = data['gcm']['token']
 
     profile.save()
+
+    if in_area_transition:
+        _check_taskforces_redundancy(request.current_events['final'], profile)
+
     return JsonResponse({})
+
+
+def _check_taskforces_redundancy(event, moved_profile):
+    """
+    Checks whether Task Forces still have the required redundancy, and send
+    notifications when they don't.
+    """
+    for taskforce in TaskForce.objects.filter(
+            event=event,
+            members__marauder_profile=moved_profile).prefetch_related(
+                'members', 'members__marauder_profile'):
+        if taskforce.redundancy == 0:
+            continue
+
+        other_members_on_site = [
+            profile
+            for profile in taskforce.marauder_members
+            if profile.in_area and profile != moved_profile
+        ]
+        if moved_profile.in_area:  # Entering area.
+            if len(other_members_on_site) <= taskforce.redundancy:
+                gcm.multicast_notification(
+                    other_members_on_site + [moved_profile],
+                    '{taskforce} redundancy change',
+                    '{moved_user} just arrived. Now {present} people present '
+                    '(of {needed} required).',
+                    {'taskforce': taskforce.name,
+                     'moved_user': moved_profile.user.username,
+                     'present': len(other_members_on_site) + 1,
+                     'needed': taskforce.redundancy})
+        else:  # Leaving area.
+            if len(other_members_on_site) == taskforce.redundancy:
+                gcm.multicast_notification(
+                    other_members_on_site, '{taskforce} at redundancy limit',
+                    '{moved_user} just left. Now {present} people present '
+                    '(of {needed} required), avoid leaving.',
+                    {'taskforce': taskforce.name,
+                     'moved_user': moved_profile.user.username,
+                     'present': len(other_members_on_site),
+                     'needed': taskforce.redundancy})
+            elif len(other_members_on_site) < taskforce.redundancy:
+                gcm.multicast_notification(
+                    other_members_on_site,
+                    '{taskforce} below redundancy limit',
+                    '{moved_user} just left. Now {present} people present '
+                    '(of {needed} required), avoid leaving.',
+                    {'taskforce': taskforce.name,
+                     'moved_user': moved_profile.user.username,
+                     'present': len(other_members_on_site),
+                     'needed': taskforce.redundancy})
+                gcm.unicast_notification(
+                    moved_profile, '{taskforce} redundancy problem',
+                    'You just left while {taskforce} is at or below '
+                    'redundancy limit ({present} of {needed} required). '
+                    'Try to be back soon or seek coverage.',
+                    {'taskforce': taskforce.name,
+                     'present': len(other_members_on_site),
+                     'needed': taskforce.redundancy})
 
 
 class ApiTaskForcesView(prologin.utils.LoginRequiredMixin, MarauderMixin,
