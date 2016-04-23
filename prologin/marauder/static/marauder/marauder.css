@@ -1,20 +1,45 @@
-.bar-header {
+.bar, .tabs-positive > .tabs {
   background: #35479a;
   color: #fafafa;
 }
 
-.bar-header h1, .bar-header .button {
+.bar {
+  height: 56px;
+}
+
+.tabs-positive > .tabs {
+  border: none;
+}
+
+.bar .title, .platform-android .bar .title {
+  line-height: 56px;
+  height: 56px;
+}
+
+.bar .title, .bar .button {
   color: #fafafa;
 }
 
+.has-header {
+  top: 56px;
+}
+
 .bar-header > img {
-  width: 42px;
+  height: 46px;
 }
 
 .brand {
   background: url('logo.svg') no-repeat 0 50%;
   background-size: auto 70%;
   padding-left: 50px;
+}
+
+.bar .button {
+  min-width: 52px;
+}
+
+.tabs-striped .tabs {
+  border-bottom: none;
 }
 
 #map {
@@ -149,3 +174,30 @@ ion-popover-view ion-content {
   padding-top: 10px;
   padding-bottom: 10px;
 }
+
+.map-marker {
+  background: white;
+  border-radius: 3px;
+  bottom: 42px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.4);
+  color: #333;
+  padding: 4px 6px;
+}
+
+.urgent {
+  color: firebrick;
+}
+
+/*
+.map-marker:before {
+  border-top: 7px solid white;
+  border-right: 7px solid transparent;
+  border-left: 7px solid transparent;
+  bottom: -7px;
+  content: '';
+  display: block;
+  left: calc(50% - 3px);
+  margin-left: -7px;
+  position: absolute;
+}
+*/

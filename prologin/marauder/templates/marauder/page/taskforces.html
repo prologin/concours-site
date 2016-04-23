@@ -1,50 +1,63 @@
 {% verbatim %}
-<div class="list list-taskforces">
-  <div ng-repeat="taskforce in taskForces">
-    <div class="item item-divider item-button-right">
-      {{ taskforce.name }}
-      <button class="button button-positive" ng-class="{disabled: actionLoading}"
-              ng-click="promptTaskForcePing(taskforce)">
-        <ion-spinner icon="lines" ng-if="actionLoading" class="spinner-white"></ion-spinner>
-        <div ng-if="!actionLoading"><i class="material-icons">notifications_none</i> Ping général</div>
-      </button>
-    </div>
-    <div ng-repeat="member in taskforce.members"
-         ng-click="toggleAccordion(member)"
-         class="item-member"
-         ng-class="{active: isAccordionShown(member)}">
-      <div class="item item-avatar item-icon-right">
-        <div ng-attr-style="{{ member.avatar ? 'background-image: url(' + member.avatar + ')' : '' }}"
-             class="icon user-avatar" ng-class="{'user-online': member.online, empty: !member.avatar}"></div>
-        <h2>{{ member.username }}</h2>
-        <p>{{ member.fullName }} ⋅
-          <last-seen timestamp="{{ member.lastSeen }}"/>
-        </p>
-        <i
-          ng-class="{icon: true, 'ion-chevron-down': isAccordionShown(member), 'ion-chevron-right': !isAccordionShown(member)}"></i>
-      </div>
-      <div ng-show="isAccordionShown(member)" class="item item-accordion" ng-click="$event.stopPropagation();">
-        <div class="row">
-          <div class="col">
-            <button class="button button-block button-positive"
-                    ng-class="{disabled: actionLoading || !member.hasDevice}"
-                    ng-click="promptUserPing(member);">
+<script id="templates/taskforces.html" type="text/ng-template">
+  <ion-view view-title="Taskforces">
+    <ion-content>
+      <!-- <ion-refresher on-refresh="doRefresh()"></ion-refresher> -->
+      <div class="list list-taskforces">
+        <div ng-repeat="taskforce in $root.taskForces">
+          <div class="item item-divider item-button-right" ng-click="toggleAccordion('tf', taskforce.id)">
+            {{ taskforce.name }}
+            <small>{{ (taskforce.members | filter: {online: true}).length }} / {{ taskforce.members.length }}
+            <span ng-if="taskforce.redundancy" class="{{ (taskforce.members | filter: {online: true}).length < taskforce.redundancy ? 'urgent' : '' }}">
+              (<strong>{{ taskforce.redundancy }}</strong>)</span></small>
+            <button class="button button-positive" ng-class="{disabled: actionLoading}"
+                    ng-click="promptTaskForcePing(taskforce); $event.stopPropagation()">
               <ion-spinner icon="lines" ng-if="actionLoading" class="spinner-white"></ion-spinner>
-              <div ng-if="!actionLoading"><i class="material-icons">notifications_none</i> Ping</div>
+              <div ng-if="!actionLoading"><i class="material-icons">notifications_none</i> Ping groupé</div>
             </button>
           </div>
-          <div class="col">
-            <button class="button button-block button-balanced" ng-class="{disabled: actionLoading || !member.phone}"
-                    ng-click="callNumber(member.phone);">
-              <ion-spinner icon="lines" ng-if="actionLoading" class="spinner-white"></ion-spinner>
-              <div ng-if="!actionLoading"><i class="material-icons">phone</i> Appeler</div>
-            </button>
+          <div ng-repeat="member in taskforce.members"
+               ng-click="toggleAccordion('m', member.id)"
+               ng-if="isAccordionShown('tf', taskforce.id)"
+               class="item-member"
+               ng-class="{active: isAccordionShown('m', member.id)}">
+            <div class="item item-avatar item-icon-right">
+              <div ng-attr-style="{{ member.avatar ? 'background-image: url(' + member.avatar + ')' : '' }}"
+                   class="icon user-avatar" ng-class="{'user-online': member.online, empty: !member.avatar}"></div>
+              <h2>{{ member.username }} <span class="note">{{ member.fullName }}</span></h2>
+              <p>
+                <last-seen timestamp="{{ member.lastSeen }}"/>
+                <span ng-if="{{ member.dead }}">⋅ <i class="material-icons danger">location_off</i></span>
+              </p>
+              <i class="icon material-icons">{{ isAccordionShown('m', member.id) ? 'keyboard_arrow_down' : 'keyboard_arrow_right' }}</i>
+            </div>
+            <div ng-show="isAccordionShown('m', member.id)" class="item item-accordion"
+                 ng-click="$event.stopPropagation();">
+              <div class="row">
+                <div class="col">
+                  <button class="button button-block button-positive"
+                          ng-class="{disabled: actionLoading || !member.hasDevice}"
+                          ng-click="promptUserPing(member);">
+                    <ion-spinner icon="lines" ng-if="actionLoading" class="spinner-white"></ion-spinner>
+                    <div ng-if="!actionLoading"><i class="material-icons">notifications_none</i> Ping</div>
+                  </button>
+                </div>
+                <div class="col">
+                  <button class="button button-block button-balanced"
+                          ng-class="{disabled: actionLoading || !member.phone}"
+                          ng-click="callNumber(member.phone);">
+                    <ion-spinner icon="lines" ng-if="actionLoading" class="spinner-white"></ion-spinner>
+                    <div ng-if="!actionLoading"><i class="material-icons">phone</i> Appeler</div>
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    </ion-content>
+  </ion-view>
+</script>
 
 <script id="templates/ping.html" type="text/ng-template">
   <ion-modal-view>
@@ -69,4 +82,6 @@
     </ion-content>
   </ion-modal-view>
 </script>
+
+
 {% endverbatim %}

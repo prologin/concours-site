@@ -1,24 +1,14 @@
-{# Topbar #}
-<div class="navbar">
-  <div class="navbar-inner">
-    <div class="center sliding brand">Marauder</div>
-    <div class="right">
-      <a href="#" class="link icon-only open-panel"><i class="icon icon-bars"></i></a>
+{% verbatim %}
+<script id="templates/map.html" type="text/ng-template">
+  <ion-view view-title="Map">
+    <div id="map-overlays">
+      <div ng-repeat="member in members">
+        <div class="map-marker" id="map-marker-{{ member.id }}">
+          {{ member.username }}
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-
-{# Action button #}
-<a href="#" class="floating-button color-pink">
-  <i class="material-icons">gps_fixed</i>
-</a>
-
-<div class="pages navbar-through toolbar-through">
-  <div data-page="map" class="page">
-    <div class="page-content">
-
-      <div id="map"></div>
-
-    </div>
-  </div>
-</div>
+    <div id="map"></div>
+  </ion-view>
+</script>
+{% endverbatim %}

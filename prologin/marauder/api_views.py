@@ -1,13 +1,12 @@
 import json
 
-import traceback
 from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpResponseBadRequest
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
-from django.views.generic import View, ListView
+from django.views.generic import View, ListView, DetailView
 
 import marauder.models
 import team.models
@@ -125,6 +124,22 @@ def _check_taskforces_redundancy(event, moved_profile):
                      'needed': taskforce.redundancy})
 
 
+class ApiEventSettingsView(prologin.utils.LoginRequiredMixin, MarauderMixin,
+                           DetailView):
+    model = marauder.models.EventSettings
+
+    def get_object(self, queryset=None):
+        return (queryset or self.get_queryset()).get(event=self.event)
+
+    def get(self, request, *args, **kwargs):
+        settings = self.get_object()
+        return JsonResponse({
+            'lat': settings.lat,
+            'lon': settings.lon,
+            'radius': settings.radius_meters,
+        })
+
+
 class ApiTaskForcesView(prologin.utils.LoginRequiredMixin, MarauderMixin,
                         ListView):
     model = marauder.models.TaskForce
@@ -144,6 +159,7 @@ class ApiTaskForcesView(prologin.utils.LoginRequiredMixin, MarauderMixin,
         items = [{
             'id': taskforce.id,
             'name': taskforce.name,
+            'redundancy': taskforce.redundancy,
             'members': [{
                 'id': member.id,
                 'username': member.username,
@@ -152,13 +168,17 @@ class ApiTaskForcesView(prologin.utils.LoginRequiredMixin, MarauderMixin,
                 'fullName': member.get_full_name(),
                 'lastSeen': profile(
                     member,
-                    lambda p: int(p.last_report_timestamp.timestamp()) if p.last_report_timestamp else None),
+                    lambda p: int(p.last_within_timestamp.timestamp()) if p.last_within_timestamp else None),
+                'lastReport': profile(
+                    member,
+                    lambda p: (timezone.now() - p.last_report_timestamp).seconds if p.last_report_timestamp else None),
+                'location': profile(member, lambda p: {'lat': p.lat, 'lon': p.lon}),
                 'online': profile(member, lambda p: p.in_area),
                 'hasDevice': profile(member, lambda p: bool(p.gcm_token)),
                 'phone': member.phone,
             }
                         for member in taskforce.members.select_related(
-                            'marauder_profile').all()]
+                            'marauder_profile').order_by('-marauder_profile__in_area', 'username')]
         } for taskforce in self.get_queryset()]
         return JsonResponse(items, safe=False)
 

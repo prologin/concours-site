@@ -21,11 +21,57 @@ var Client = window.Client = {
   }
 };
 
-angular.module('app', ['ionic', 'angularMoment'])
-  .factory('webServices', ['$http', function ($http) {
+angular
+  .module('app', ['ionic', 'angularMoment'])
+  .directive('lastSeen', function () {
+    return {
+      restrict: 'E',
+      replace: true,
+      scope: {
+        timestamp: "@"
+      },
+      template: '<span><em ng-if="!timestamp">Jamais vu</em>' +
+      '<span ng-if="timestamp">Vu <span am-time-ago="timestamp | amFromUnix | amUtc"></span></span></span>',
+    };
+  })
+  .config(function ($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+    $ionicConfigProvider.tabs.position('bottom');
+    $ionicConfigProvider.tabs.style('standard');
+    $stateProvider
+      .state('tabs', {
+        url: "/tab",
+        abstract: true,
+        templateUrl: "templates/tabs.html",
+      })
+      .state('tabs.taskforces', {
+        url: "/taskforces",
+        views: {
+          'taskforces-tab': {
+            templateUrl: "templates/taskforces.html",
+            controller: 'TaskforcesCtrl',
+          },
+        },
+      })
+      .state('tabs.map', {
+        url: "/map",
+        views: {
+          'map-tab': {
+            templateUrl: "templates/map.html",
+            controller: 'MapCtrl',
+          },
+        },
+      });
+    $urlRouterProvider.otherwise("/tab/taskforces");
+  })
+  .factory('api', function ($http) {
     return {
       getTaskForces: function () {
         return $http.get(API_ROOT + '/taskforces/').then(function (response) {
+          return response.data;
+        });
+      },
+      getEventSettings: function() {
+        return $http.get(API_ROOT + '/event/settings/').then(function(response) {
           return response.data;
         });
       },
@@ -38,38 +84,15 @@ angular.module('app', ['ionic', 'angularMoment'])
         return $http.post(API_ROOT + '/ping/taskforce/', {id: tfid, reason: reason}).then(function (response) {
           return response.data;
         });
-      }
-    }
-  }])
-  .directive('lastSeen', function () {
-    return {
-      restrict: 'E',
-      replace: true,
-      scope: {
-        timestamp: "@"
       },
-      template: '<span><em ng-if="!timestamp">Jamais vu</em>' +
-      '<span ng-if="timestamp">Vu <span am-time-ago="timestamp | amFromUnix | amUtc"></span></span></span>'
-    };
+    }
   })
   // TODO: directive for abstracting "loading" buttons
-  .controller('MainCtrl', function (webServices, $rootScope, $scope, $timeout, $ionicPopover, $ionicPopup, $ionicModal) {
+  .controller('TaskforcesCtrl', function (api, $rootScope, $scope, $timeout, $ionicPopover, $ionicPopup, $ionicModal) {
 
     $rootScope.actionLoading = false;
+    $scope.shownAccordion = {};
     $scope.ping = {to: null, reason: ''};
-
-    function updateTaskForces(cb) {
-      webServices.getTaskForces().then(function (response) {
-        $scope.taskForces = response;
-        if (cb) cb.call(this, response);
-      });
-    }
-
-    $ionicPopover.fromTemplateUrl('templates/popover.html', {
-      scope: $scope,
-    }).then(function (popover) {
-      $scope.popover = popover;
-    });
 
     $ionicModal.fromTemplateUrl('templates/ping.html', {
       scope: $scope,
@@ -78,34 +101,26 @@ angular.module('app', ['ionic', 'angularMoment'])
       $scope.pingModal = modal;
     });
 
-    $scope.toggleAccordion = function (member) {
-      if ($scope.isAccordionShown(member)) {
-        $scope.shownAccordion = null;
+    $scope.toggleAccordion = function (group, member) {
+      if ($scope.isAccordionShown(group, member)) {
+        $scope.shownAccordion[group] = null;
       } else {
-        $scope.shownAccordion = member;
+        $scope.shownAccordion[group] = member;
       }
     };
-    $scope.isAccordionShown = function (member) {
-      return $scope.shownAccordion === member;
-    };
-
-    $scope.doRefresh = function () {
-      // the hard way
-      // window.location.reload();
-      updateTaskForces(function () {
-        $scope.$broadcast('scroll.refreshComplete');
-      });
+    $scope.isAccordionShown = function (group, member) {
+      return $scope.shownAccordion[group] === member;
     };
 
     $scope.promptTaskForcePing = function (taskforce) {
       $scope.ping.to = "l'ensemble du groupe " + taskforce.name;
-      $scope.ping.send = [webServices.sendTaskForcePing, taskforce.id];
+      $scope.ping.send = [api.sendTaskForcePing, taskforce.id];
       $scope.pingModal.show();
     };
 
     $scope.promptUserPing = function (member) {
       $scope.ping.to = member.fullName;
-      $scope.ping.send = [webServices.sendUserPing, member.id];
+      $scope.ping.send = [api.sendUserPing, member.id];
       $scope.pingModal.show();
     };
 
@@ -133,46 +148,114 @@ angular.module('app', ['ionic', 'angularMoment'])
       native.callPhoneNumber(number);
     };
 
-    $scope.reloadApp = function () {
-      $scope.popover.hide();
+  })
+  .controller('MapCtrl', function (api, $rootScope, $scope) {
+
+    var lineStyle = new ol.style.Style({
+      stroke: new ol.style.Stroke({
+        color: '#fafafa',
+        width: 1
+      })
+    });
+
+    var epitaSource = new ol.source.Vector({
+      url: '/static/marauder/epita.geo.json',
+      format: new ol.format.GeoJSON()
+    });
+
+    var view = new ol.View({
+      minZoom: 4,
+      maxZoom: 22,
+      zoom: 18,
+    });
+
+    var map = new ol.Map({
+      layers: [
+        new ol.layer.Tile({
+          source: new ol.source.OSM(),
+        }),
+        new ol.layer.Vector({
+          source: epitaSource,
+          style: lineStyle
+        }),
+      ],
+      target: 'map',
+      renderer: 'canvas',
+      view: view
+    });
+
+    map.on('click', function (evt) {
+      var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
+    });
+
+    api.getEventSettings().then(function(settings) {
+      view.setCenter(ol.proj.fromLonLat([settings.lon, settings.lat]));
+    });
+
+    $scope.$watch('$root.taskForces', function () {
+      if (!$rootScope.taskForces)
+        return;
+      var memberMap = {};
+      for (var i = 0; i < $rootScope.taskForces.length; i++) {
+        var tf = $rootScope.taskForces[i];
+        for (var j = 0; j < tf.members.length; j++) {
+          var member = tf.members[j];
+          if (member.online && member.location) {
+            memberMap[member.id] = member;
+          }
+        }
+      }
+      var members = [];
+      for (var id in memberMap) {
+        if (memberMap.hasOwnProperty(id)) {
+          members.push(memberMap[id]);
+        }
+      }
+      $scope.members = members;
+      map.getOverlays().forEach(function(overlay) {
+        map.removeOverlay(overlay);
+      });
+      members.map(function(member) {
+        var el =  document.getElementById('map-marker-' + member.id);
+        if (!el)
+          return;
+        var overlay = new ol.Overlay({
+          element: el,
+          positioning: 'center-center',
+        });
+        overlay.setPosition(ol.proj.transform([member.location.lon, member.location.lat], 'EPSG:4326', 'EPSG:3857'));
+        map.addOverlay(overlay);
+      });
+      map.updateSize();
+    });
+  })
+  .run(function (api, $rootScope, $timeout, $interval, $ionicPopover) {
+    function updateTaskForces() {
+      api.getTaskForces().then(function (response) {
+        $rootScope.taskForces = response;
+      });
+    }
+
+    // hack to use material icons in tabs (kill me please)
+    $timeout(function() {
+      $('.tab-title:contains("Task forces")').before($('<i class="icon material-icons">people</i>'));
+      $('.tab-title:contains("Map")').before($('<i class="icon material-icons">map</i>'));
+    }, 400);
+
+    $ionicPopover.fromTemplateUrl('templates/popover.html', {
+      scope: $rootScope,
+    }).then(function (popover) {
+      $rootScope.popover = popover;
+    });
+
+    $rootScope.reloadApp = function () {
+      $rootScope.popover.hide();
       window.location.reload();
     };
 
+    $interval(updateTaskForces, 6 * 1000);
+    $timeout(updateTaskForces, 1000);
+
     native.startupCompleted();
-    updateTaskForces();
-
-  });
-
-// Map
-/*
- var lineStyle = new ol.style.Style({
- stroke: new ol.style.Stroke({
- color: '#fafafa',
- width: 1
- })
- });
-
- var vectorSource = new ol.source.Vector({
- url: '/static/marauder/epita.geo.json',
- format: new ol.format.GeoJSON()
- });
-
- var view = new ol.View({
- center: ol.proj.fromLonLat([2.3631487758069007, 48.815166921320895]),
- minZoom: 18,
- maxZoom: 22,
- zoom: 18
- });
-
- var map = new ol.Map({
- layers: [
- new ol.layer.Vector({
- source: vectorSource,
- style: lineStyle
- })
- ],
- target: 'map',
- renderer: 'canvas',
- view: view
- });
- */
+  })
+;

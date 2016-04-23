@@ -14,23 +14,22 @@
 
   {# TODO: self host: https://github.com/google/material-design-icons/tree/master/iconfont #}
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  {# TODO: self host #}
-  <link href="https://code.ionicframework.com/1.2.4/css/ionic.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="{% static 'marauder/marauder.css' %}"/>
+  <link href="{% static 'marauder/ionic.min.css' %}" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'marauder/marauder.css' %}?201601"/>
   {% block extra_head %}{% endblock %}
 
-  {# TODO: self host #}
-  <script src="https://code.ionicframework.com/1.2.4/js/ionic.bundle.min.js"></script>
-  {# TODO: self host #}
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+  <script src="{% static 'lib/js/jquery.min.js' %}"></script>
+  <script src="{% static 'marauder/ionic.bundle.min.js' %}"></script>
+  <script src="{% static 'marauder/moment.min.js' %}"></script>
+  {#  <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.15.1/ol-debug.js"></script>#}
   <script src="{% static 'marauder/ol.js' %}"></script>
   <script src="{% static 'marauder/angular-moment.min.js' %}"></script>
   <script src="{% static 'marauder/moment.fr.js' %}"></script>
-  <script src="{% static 'marauder/marauder.js' %}"></script>
+  <script src="{% static 'marauder/marauder.js' %}?201601"></script>
   {% block extra_script %}{% endblock %}
 
 </head>
-<body class="platform-android" ng-controller="MainCtrl">
+<body class="platform-android">
 
 {% block content %}{% endblock %}
 
