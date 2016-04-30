@@ -70,8 +70,8 @@ angular
           return response.data;
         });
       },
-      getEventSettings: function() {
-        return $http.get(API_ROOT + '/event/settings/').then(function(response) {
+      getEventSettings: function () {
+        return $http.get(API_ROOT + '/event/settings/').then(function (response) {
           return response.data;
         });
       },
@@ -80,8 +80,12 @@ angular
           return response.data;
         });
       },
-      sendTaskForcePing: function (tfid, reason) {
-        return $http.post(API_ROOT + '/ping/taskforce/', {id: tfid, reason: reason}).then(function (response) {
+      sendTaskForcePing: function (tfid, reason, onSiteOnly) {
+        return $http.post(API_ROOT + '/ping/taskforce/', {
+          id: tfid,
+          onSiteOnly: onSiteOnly,
+          reason: reason
+        }).then(function (response) {
           return response.data;
         });
       },
@@ -92,7 +96,7 @@ angular
 
     $rootScope.actionLoading = false;
     $scope.shownAccordion = {};
-    $scope.ping = {to: null, reason: ''};
+    $scope.ping = {to: null, reason: '', isGrouped: false, onSiteOnly: true};
 
     $ionicModal.fromTemplateUrl('templates/ping.html', {
       scope: $scope,
@@ -114,12 +118,16 @@ angular
 
     $scope.promptTaskForcePing = function (taskforce) {
       $scope.ping.to = "l'ensemble du groupe " + taskforce.name;
-      $scope.ping.send = [api.sendTaskForcePing, taskforce.id];
+      $scope.ping.isGrouped = true;
+      $scope.ping.send = [api.sendTaskForcePing, taskforce.id, function ($scope) {
+        return [$scope.ping.onSiteOnly];
+      }];
       $scope.pingModal.show();
     };
 
     $scope.promptUserPing = function (member) {
       $scope.ping.to = member.fullName;
+      $scope.ping.isGrouped = false;
       $scope.ping.send = [api.sendUserPing, member.id];
       $scope.pingModal.show();
     };
@@ -131,7 +139,11 @@ angular
       $scope.ping.reason = '';
       $rootScope.actionLoading = true;
       $scope.pingModal.hide();
-      $scope.ping.send[0].call(null, $scope.ping.send[1], reason).then(function () {
+      var args = [$scope.ping.send[1], reason];
+      var rem = $scope.ping.send[2];
+      if (rem !== undefined)
+        args.push.apply(args, rem($scope));
+      $scope.ping.send[0].apply(null, args).then(function () {
         $rootScope.actionLoading = false;
       }, function (err) {
         $ionicPopup.alert({
@@ -188,7 +200,7 @@ angular
       var lonlat = ol.proj.transform(evt.coordinate, 'EPSG:3857', 'EPSG:4326');
     });
 
-    api.getEventSettings().then(function(settings) {
+    api.getEventSettings().then(function (settings) {
       view.setCenter(ol.proj.fromLonLat([settings.lon, settings.lat]));
     });
 
@@ -212,11 +224,11 @@ angular
         }
       }
       $scope.members = members;
-      map.getOverlays().forEach(function(overlay) {
+      map.getOverlays().forEach(function (overlay) {
         map.removeOverlay(overlay);
       });
-      members.map(function(member) {
-        var el =  document.getElementById('map-marker-' + member.id);
+      members.map(function (member) {
+        var el = document.getElementById('map-marker-' + member.id);
         if (!el)
           return;
         var overlay = new ol.Overlay({
@@ -237,7 +249,7 @@ angular
     }
 
     // hack to use material icons in tabs (kill me please)
-    $timeout(function() {
+    $timeout(function () {
       $('.tab-title:contains("Task forces")').before($('<i class="icon material-icons">people</i>'));
       $('.tab-title:contains("Map")').before($('<i class="icon material-icons">map</i>'));
     }, 400);

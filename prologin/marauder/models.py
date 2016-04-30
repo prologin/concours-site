@@ -1,3 +1,5 @@
+from datetime import timedelta
+
 from django.conf import settings
 from django.db import models
 from django.utils import timezone
@@ -64,6 +66,32 @@ class UserProfile(models.Model):
         verbose_name = _("User profile")
         verbose_name_plural = _("User profiles")
         ordering = ('user', )
+
+    @property
+    def last_seen(self):
+        return (int(self.last_within_timestamp.timestamp()) if
+                self.last_within_timestamp else None)
+
+    @property
+    def last_report_seconds(self):
+        return ((timezone.now() - self.last_report_timestamp).seconds if
+                self.last_report_timestamp else None)
+
+    @property
+    def online(self):
+        return (self.in_area and self.last_within_timestamp and
+                self.last_within_timestamp >
+                timezone.now() - timedelta(seconds=60))
+
+    @property
+    def location(self):
+        return ({'lat': self.lat,
+                 'lon': self.lon} if self.online and self.lat != 0 and
+                self.lon != 0 else None)
+
+    @property
+    def has_device(self):
+        return bool(self.gcm_token)
 
     def __str__(self):
         return str(self.user)

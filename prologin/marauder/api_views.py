@@ -1,5 +1,4 @@
 import json
-from datetime import timedelta
 
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
@@ -167,13 +166,15 @@ class ApiSendTaskforcePingView(MarauderMixin, View):
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body.decode())
         taskforce = marauder.models.TaskForce.objects.get(pk=data['id'])
-        gcm.multicast_notification(taskforce.marauder_members,
-                                   '[{taskforce}] {username} ({fullname})',
-                                   '{reason}',
-                                   {'taskforce': taskforce.name,
-                                    'username': request.user.username,
-                                    'fullname': request.user.get_full_name(),
-                                    'reason': data['reason']})
+        members = taskforce.marauder_members
+        if data.get('onSiteOnly', False):
+            members = [member for member in members if member.online]
+        gcm.multicast_notification(
+            members, '[{taskforce}] {username} ({fullname})', '{reason}',
+            {'taskforce': taskforce.name,
+             'username': request.user.username,
+             'fullname': request.user.get_full_name(),
+             'reason': data['reason']})
         return HttpResponse(status=204)
 
 
@@ -188,24 +189,15 @@ class ApiTaskForcesView(MarauderMixin, ListView):
                 .prefetch_related('members', 'members__marauder_profile'))
 
     def get(self, request, *args, **kwargs):
-        now = timezone.now()
-
         def members(taskforce):
             for member in (
                     taskforce.members.select_related('marauder_profile')
                     .order_by('-marauder_profile__in_area', 'username')):
                 try:
                     profile = member.marauder_profile
-                    last_seen = profile.last_within_timestamp if profile.last_within_timestamp else None
-                    last_report = (
-                        timezone.now() - profile.last_report_timestamp
-                    ).seconds if profile.last_report_timestamp else None
-                    online = profile.in_area and last_seen and last_seen > now - timedelta(
-                        seconds=60)
+                    online = profile.online
                 except ObjectDoesNotExist:
                     profile = None
-                    last_seen = None
-                    last_report = None
                     online = False
 
                 yield {
@@ -216,14 +208,12 @@ class ApiTaskForcesView(MarauderMixin, ListView):
                     if member.avatar else None,
                     'fullName': member.get_full_name(),
                     'phone': member.phone,
-                    'hasDevice': bool(profile.gcm_token) if profile else False,
-                    'location': {'lat': profile.lat,
-                                 'lon': profile.lon} if online and profile and
-                    profile.lat != 0 and profile.lon != 0 else None,
+                    'hasDevice': profile is not None and profile.has_device,
+                    'location': profile.location if profile else None,
                     'online': online,
-                    'lastSeen': int(last_seen.timestamp())
-                    if last_seen else None,
-                    'lastReport': last_report,
+                    'lastSeen': profile.last_seen if profile else None,
+                    'lastReport': profile.last_report_seconds
+                    if profile else None,
                 }
 
         def taskforces():

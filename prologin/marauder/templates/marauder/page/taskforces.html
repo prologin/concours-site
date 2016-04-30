@@ -72,6 +72,7 @@
         <div class="item">
           <p>Vous envoyez un ping à {{ ping.to }}.</p>
         </div>
+        <ion-checkbox ng-model="ping.onSiteOnly" ng-if="ping.isGrouped">Envoyer uniquement aux personnes présentes</ion-checkbox>
         <label class="item item-input">
           <textarea ng-model="ping.reason" placeholder="Raison du ping, commentaire"></textarea>
         </label>
