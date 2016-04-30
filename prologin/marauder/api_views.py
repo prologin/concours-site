@@ -1,69 +1,51 @@
 import json
+from datetime import timedelta
 
-from django.contrib.auth.decorators import login_required
 from django.core.exceptions import ObjectDoesNotExist
-from django.http import HttpResponse, HttpResponseForbidden, JsonResponse, HttpResponseBadRequest
+from django.http import HttpResponse, JsonResponse, HttpResponseBadRequest
 from django.utils import timezone
 from django.utils.decorators import method_decorator
 from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import View, ListView, DetailView
+from rules.contrib.views import PermissionRequiredMixin
 
 import marauder.models
-import team.models
-import prologin.utils
 from marauder import gcm
 from marauder.models import EventSettings, TaskForce, UserProfile
 from marauder.views import MarauderMixin
 
 
-def geofences(request):
+class ApiGeofencesView(PermissionRequiredMixin, View):
     """API used by the Marauder app to get configured geofences."""
-    zones = []
-    for event_settings in EventSettings.objects.all():
-        if event_settings.is_current:
-            zones.append({'lat': event_settings.lat,
-                          'lon': event_settings.lon,
-                          'radius_meters': event_settings.radius_meters})
-    return JsonResponse({'zones': zones})
+
+    permission_required = 'marauder.get-geofences'
+
+    def get(self, request, *args, **kwargs):
+        zones = []
+        for event_settings in EventSettings.objects.all():
+            if event_settings.is_current:
+                zones.append({'lat': event_settings.lat,
+                              'lon': event_settings.lon,
+                              'radius_meters': event_settings.radius_meters})
+        return JsonResponse({'zones': zones})
 
 
-@login_required
-@csrf_exempt
-def report(request):
-    """API used by the Marauder app to report location changes."""
-    if request.method != 'POST':
-        return HttpResponseBadRequest()
-    if not team.models.TeamMember.objects.filter(user=request.user):
-        return HttpResponseForbidden()
+class ApiEventSettingsView(MarauderMixin, DetailView):
+    """API used by the Marauder app to the event settings (location & radius)."""
 
-    profile = getattr(request.user, 'marauder_profile', UserProfile())
-    profile.user = request.user
-    in_area_transition = False
+    model = marauder.models.EventSettings
+    permission_required = 'marauder.get-settings'
 
-    if request.body:
-        try:
-            data = json.loads(request.body.decode('utf-8'))
-        except ValueError:
-            return HttpResponseBadRequest()
-        in_area_transition = bool(data.get('in_area')) != profile.in_area
-        if data.get('in_area'):
-            profile.in_area = True
-            profile.last_within_timestamp = timezone.now()
-            profile.lat = data['lat']
-            profile.lon = data['lon']
-        else:
-            profile.in_area = False
-            profile.lat = profile.lon = 0
-        if 'gcm' in data:
-            profile.gcm_app_id = data['gcm']['app_id']
-            profile.gcm_token = data['gcm']['token']
+    def get_object(self, queryset=None):
+        return (queryset or self.get_queryset()).get(event=self.event)
 
-    profile.save()
-
-    if in_area_transition:
-        _check_taskforces_redundancy(request.current_events['final'], profile)
-
-    return JsonResponse({})
+    def get(self, request, *args, **kwargs):
+        settings = self.get_object()
+        return JsonResponse({
+            'lat': settings.lat,
+            'lon': settings.lon,
+            'radius': settings.radius_meters,
+        })
 
 
 def _check_taskforces_redundancy(event, moved_profile):
@@ -124,68 +106,48 @@ def _check_taskforces_redundancy(event, moved_profile):
                      'needed': taskforce.redundancy})
 
 
-class ApiEventSettingsView(prologin.utils.LoginRequiredMixin, MarauderMixin,
-                           DetailView):
-    model = marauder.models.EventSettings
+@method_decorator(csrf_exempt, name='dispatch')
+class ApiReportView(PermissionRequiredMixin, View):
+    """API used by the Marauder app to report location changes."""
 
-    def get_object(self, queryset=None):
-        return (queryset or self.get_queryset()).get(event=self.event)
+    permission_required = 'marauder.report'
 
-    def get(self, request, *args, **kwargs):
-        settings = self.get_object()
-        return JsonResponse({
-            'lat': settings.lat,
-            'lon': settings.lon,
-            'radius': settings.radius_meters,
-        })
+    def post(self, request, *args, **kwargs):
+        profile = getattr(request.user, 'marauder_profile', UserProfile())
+        profile.user = request.user
+        in_area_transition = False
 
-
-class ApiTaskForcesView(prologin.utils.LoginRequiredMixin, MarauderMixin,
-                        ListView):
-    model = marauder.models.TaskForce
-    context_object_name = 'taskforces'
-
-    def get_queryset(self):
-        return (super().get_queryset().filter(event=self.event)
-                .prefetch_related('members', 'members__marauder_profile'))
-
-    def get(self, request, *args, **kwargs):
-        def profile(member, func):
+        if request.body:
             try:
-                return func(member.marauder_profile)
-            except ObjectDoesNotExist:
-                return None
+                data = json.loads(request.body.decode('utf-8'))
+            except ValueError:
+                return HttpResponseBadRequest()
+            in_area_transition = bool(data.get('in_area')) != profile.in_area
+            if data.get('in_area'):
+                profile.in_area = True
+                profile.last_within_timestamp = timezone.now()
+                profile.lat = data['lat']
+                profile.lon = data['lon']
+            else:
+                profile.in_area = False
+                profile.lat = profile.lon = 0
+            if 'gcm' in data:
+                profile.gcm_app_id = data['gcm']['app_id']
+                profile.gcm_token = data['gcm']['token']
 
-        items = [{
-            'id': taskforce.id,
-            'name': taskforce.name,
-            'redundancy': taskforce.redundancy,
-            'members': [{
-                'id': member.id,
-                'username': member.username,
-                'avatar': member.picture.url if member.picture else
-                member.avatar.url if member.avatar else None,
-                'fullName': member.get_full_name(),
-                'lastSeen': profile(
-                    member,
-                    lambda p: int(p.last_within_timestamp.timestamp()) if p.last_within_timestamp else None),
-                'lastReport': profile(
-                    member,
-                    lambda p: (timezone.now() - p.last_report_timestamp).seconds if p.last_report_timestamp else None),
-                'location': profile(member, lambda p: {'lat': p.lat, 'lon': p.lon}),
-                'online': profile(member, lambda p: p.in_area),
-                'hasDevice': profile(member, lambda p: bool(p.gcm_token)),
-                'phone': member.phone,
-            }
-                        for member in taskforce.members.select_related(
-                            'marauder_profile').order_by('-marauder_profile__in_area', 'username')]
-        } for taskforce in self.get_queryset()]
-        return JsonResponse(items, safe=False)
+        profile.save()
+
+        if in_area_transition:
+            _check_taskforces_redundancy(request.current_events['final'],
+                                         profile)
+
+        return JsonResponse({})
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class ApiSendUserPingView(prologin.utils.LoginRequiredMixin, MarauderMixin,
-                          View):
+class ApiSendUserPingView(MarauderMixin, View):
+    """API used by the Marauder frontend to send a ping to a single user."""
+
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body.decode())
         recipient = marauder.models.UserProfile.objects.get(
@@ -199,8 +161,9 @@ class ApiSendUserPingView(prologin.utils.LoginRequiredMixin, MarauderMixin,
 
 
 @method_decorator(csrf_exempt, name='dispatch')
-class ApiSendTaskforcePingView(prologin.utils.LoginRequiredMixin,
-                               MarauderMixin, View):
+class ApiSendTaskforcePingView(MarauderMixin, View):
+    """API used by the Marauder frontend to send a ping to a whole task force."""
+
     def post(self, request, *args, **kwargs):
         data = json.loads(request.body.decode())
         taskforce = marauder.models.TaskForce.objects.get(pk=data['id'])
@@ -212,3 +175,64 @@ class ApiSendTaskforcePingView(prologin.utils.LoginRequiredMixin,
                                     'fullname': request.user.get_full_name(),
                                     'reason': data['reason']})
         return HttpResponse(status=204)
+
+
+class ApiTaskForcesView(MarauderMixin, ListView):
+    """API used by the Marauder frontend to list the task forces & their members."""
+
+    model = marauder.models.TaskForce
+    context_object_name = 'taskforces'
+
+    def get_queryset(self):
+        return (super().get_queryset().filter(event=self.event)
+                .prefetch_related('members', 'members__marauder_profile'))
+
+    def get(self, request, *args, **kwargs):
+        now = timezone.now()
+
+        def members(taskforce):
+            for member in (
+                    taskforce.members.select_related('marauder_profile')
+                    .order_by('-marauder_profile__in_area', 'username')):
+                try:
+                    profile = member.marauder_profile
+                    last_seen = profile.last_within_timestamp if profile.last_within_timestamp else None
+                    last_report = (
+                        timezone.now() - profile.last_report_timestamp
+                    ).seconds if profile.last_report_timestamp else None
+                    online = profile.in_area and last_seen and last_seen > now - timedelta(
+                        seconds=60)
+                except ObjectDoesNotExist:
+                    profile = None
+                    last_seen = None
+                    last_report = None
+                    online = False
+
+                yield {
+                    'id': member.id,
+                    'username': member.username,
+                    'avatar': member.picture.url
+                    if member.picture else member.avatar.url
+                    if member.avatar else None,
+                    'fullName': member.get_full_name(),
+                    'phone': member.phone,
+                    'hasDevice': bool(profile.gcm_token) if profile else False,
+                    'location': {'lat': profile.lat,
+                                 'lon': profile.lon} if online and profile and
+                    profile.lat != 0 and profile.lon != 0 else None,
+                    'online': online,
+                    'lastSeen': int(last_seen.timestamp())
+                    if last_seen else None,
+                    'lastReport': last_report,
+                }
+
+        def taskforces():
+            for taskforce in self.get_queryset():
+                yield {
+                    'id': taskforce.id,
+                    'name': taskforce.name,
+                    'redundancy': taskforce.redundancy,
+                    'members': list(members(taskforce)),
+                }
+
+        return JsonResponse(list(taskforces()), safe=False)

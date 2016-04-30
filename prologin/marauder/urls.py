@@ -6,10 +6,10 @@ from marauder import views, api_views
 api_patterns = [
     # Location
     url(r'^report/$',
-        api_views.report,
+        api_views.ApiReportView.as_view(),
         name='report'),
     url(r'^geofences/$',
-        api_views.geofences,
+        api_views.ApiGeofencesView.as_view(),
         name='geofences'),
 
     # Data
@@ -28,10 +28,7 @@ api_patterns = [
 ]
 
 urlpatterns = [
-    url(r'^api/',
-        include(api_patterns,
-                namespace='api')),
-    url(r'^$',
-        views.IndexView.as_view(),
+    url(r'^api/', include(api_patterns, namespace='api')),
+    url(r'^$', views.IndexView.as_view(),
         name='index'),
 ]

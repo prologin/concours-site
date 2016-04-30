@@ -1,10 +1,11 @@
 from django.utils.functional import cached_property
 from django.views.generic.base import ContextMixin, TemplateView
+from rules.contrib.views import PermissionRequiredMixin
 
-import prologin.utils
 
+class MarauderMixin(PermissionRequiredMixin, ContextMixin):
+    permission_required = 'marauder.view'
 
-class MarauderMixin(ContextMixin):
     @cached_property
     def event(self):
         return self.request.current_events['final']
@@ -14,6 +15,5 @@ class MarauderMixin(ContextMixin):
         return super().get_context_data(**kwargs)
 
 
-class IndexView(prologin.utils.LoginRequiredMixin, MarauderMixin,
-                TemplateView):
+class IndexView(MarauderMixin, TemplateView):
     template_name = 'marauder/index.html'
