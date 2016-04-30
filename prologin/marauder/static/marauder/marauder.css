@@ -188,16 +188,7 @@ ion-popover-view ion-content {
   color: firebrick;
 }
 
-/*
-.map-marker:before {
-  border-top: 7px solid white;
-  border-right: 7px solid transparent;
-  border-left: 7px solid transparent;
-  bottom: -7px;
-  content: '';
-  display: block;
-  left: calc(50% - 3px);
-  margin-left: -7px;
-  position: absolute;
+.item .note {
+  font-size: 0.9em;
+  color: #666;
 }
-*/
