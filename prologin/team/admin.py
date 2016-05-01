@@ -5,7 +5,7 @@ import team.models
 
 
 class RoleFilter(admin.SimpleListFilter):
-    title = _('role')
+    title = _("Role")
     parameter_name = 'role'
 
     def lookups(self, request, model_admin):
