@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-04-04 22:47+0200\n"
-"PO-Revision-Date: 2016-04-04 20:49+0000\n"
+"POT-Creation-Date: 2016-05-01 04:16+0200\n"
+"PO-Revision-Date: 2016-05-01 02:19+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1229,13 +1229,13 @@ msgstr "prologin-%(year)s-documents-finale-%(fullname)s"
 #: documents/views.py:400
 #, python-format
 msgid "Prologin %(year)s: enrollment form"
-msgstr ""
+msgstr "Prologin %(year)s : formulaire de recrutement"
 
 #: documents/views.py:401
 #, python-format
 msgctxt "Document filename"
 msgid "enrollment-form-%(year)s"
-msgstr ""
+msgstr "formulaire-recrutement-%(year)s"
 
 #: documents/views.py:406
 #, python-format
@@ -1855,6 +1855,30 @@ msgstr "Date inconnue"
 #: homepage/templates/homepage/sponsors.html:3
 msgid "Sponsors"
 msgstr "Partenaires"
+
+#: marauder/models.py:36
+msgid "Task force"
+msgstr "Force opérationnelle"
+
+#: marauder/models.py:37
+msgid "Task forces"
+msgstr "Forces opérationnelles"
+
+#: marauder/models.py:66
+msgid "User profile"
+msgstr "Profil utilisateur"
+
+#: marauder/models.py:67
+msgid "User profiles"
+msgstr "Profils utilisateurs"
+
+#: marauder/models.py:116
+msgid "Event settings"
+msgstr "Paramètres d'événement"
+
+#: marauder/models.py:117
+msgid "Events settings"
+msgstr "Paramètres d'événements"
 
 #: news/templates/zinnia/_entry_detail_base.html:25
 msgctxt "Written by <user> *on* <date>"
@@ -2520,7 +2544,7 @@ msgstr "Informations de contact"
 msgid "Address"
 msgstr "Adresse"
 
-#: pages/templates/pages/about-organization.html:35 users/models.py:110
+#: pages/templates/pages/about-organization.html:35 users/models.py:116
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -2532,11 +2556,6 @@ msgstr "E-mail"
 #, python-format
 msgid "The %(year)s team"
 msgstr "L'équipe %(year)s"
-
-#: pages/templates/pages/about-organization.html:48
-#: pages/templates/pages/about-organization.html:50
-msgid "President"
-msgstr "Président"
 
 #: pages/templates/pages/about-organization.html:55
 #, python-format
@@ -3668,11 +3687,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:150
+#: prologin/settings/common.py:151
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:151
+#: prologin/settings/common.py:152
 msgid "French"
 msgstr "Français"
 
@@ -3892,15 +3911,15 @@ msgstr "Suivant"
 msgid "Last"
 msgstr "Dernier"
 
-#: prologin/utils/__init__.py:230
+#: prologin/utils/__init__.py:237
 msgid "year"
 msgstr "année"
 
-#: prologin/utils/__init__.py:231
+#: prologin/utils/__init__.py:238
 msgid "month"
 msgstr "mois"
 
-#: prologin/utils/__init__.py:232
+#: prologin/utils/__init__.py:239
 msgid "day"
 msgstr "jour"
 
@@ -4127,19 +4146,129 @@ msgstr "Sortir du plein écran"
 msgid "Active"
 msgstr "Actif"
 
-#: team/models.py:20
+#: team/admin.py:8 team/admin.py:34 team/models.py:88
 msgid "Role"
 msgstr "Rôle"
 
+#: team/admin.py:28
+msgid "Role significance"
+msgstr "Importance du rôle"
+
 #: team/models.py:21
-msgid "Roles"
-msgstr "Rôles"
+msgctxt "male role"
+msgid "President"
+msgstr "Président"
+
+#: team/models.py:22
+msgctxt "female role"
+msgid "President"
+msgstr "Présidente"
+
+#: team/models.py:24
+msgctxt "male role"
+msgid "Vice President"
+msgstr "Vice-président"
+
+#: team/models.py:25
+msgctxt "female role"
+msgid "Vice President"
+msgstr "Vice-présidente"
+
+#: team/models.py:27
+msgctxt "male role"
+msgid "Treasurer"
+msgstr "Trésorier"
+
+#: team/models.py:28
+msgctxt "female role"
+msgid "Treasurer"
+msgstr "Trésorière"
+
+#: team/models.py:30
+msgctxt "male role"
+msgid "Secretary"
+msgstr "Secrétaire"
+
+#: team/models.py:31
+msgctxt "female role"
+msgid "Secretary"
+msgstr "Secrétaire"
+
+#: team/models.py:33
+msgctxt "male role"
+msgid "Technical Lead"
+msgstr "Responsable technique"
+
+#: team/models.py:34
+msgctxt "female role"
+msgid "Technical Lead"
+msgstr "Responsable technique"
+
+#: team/models.py:36
+msgctxt "male role"
+msgid "Scientific Lead"
+msgstr "Responsable scientifique"
+
+#: team/models.py:37
+msgctxt "female role"
+msgid "Scientific Lead"
+msgstr "Responsable scientifique"
+
+#: team/models.py:39
+msgctxt "male role"
+msgid "Vice Treasurer"
+msgstr "Vice-trésorier"
+
+#: team/models.py:40
+msgctxt "female role"
+msgid "Vice Treasurer"
+msgstr "Vice-trésorière"
+
+#: team/models.py:42
+msgctxt "male role"
+msgid "Member"
+msgstr "Membre"
+
+#: team/models.py:43
+msgctxt "female role"
+msgid "Member"
+msgstr "Membre"
+
+#: team/models.py:45
+msgctxt "male role"
+msgid "Persistent Member"
+msgstr "Membre persistant"
+
+#: team/models.py:46
+msgctxt "female role"
+msgid "Persistent Member"
+msgstr "Membre persistant"
 
 #: team/models.py:48
+msgctxt "male role"
+msgid "Mascot"
+msgstr "Mascotte"
+
+#: team/models.py:49
+msgctxt "female role"
+msgid "Mascot"
+msgstr "Mascotte"
+
+#: team/models.py:51
+msgctxt "male role"
+msgid "External organizer"
+msgstr "Organisateur externe"
+
+#: team/models.py:52
+msgctxt "female role"
+msgid "External organizer"
+msgstr "Organisatrice externe"
+
+#: team/models.py:99
 msgid "Team member"
 msgstr "Membre de l'équipe"
 
-#: team/models.py:49
+#: team/models.py:100
 msgid "Team members"
 msgstr "Membres de l'équipe"
 
@@ -4277,45 +4406,45 @@ msgstr "Bac+6 et au delà"
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: users/models.py:109
+#: users/models.py:115
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:112 users/templates/users/profile.html.py:44
+#: users/models.py:118 users/templates/users/profile.html.py:44
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:114
+#: users/models.py:120
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: users/models.py:115
+#: users/models.py:121
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
 msgstr "Nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:118
+#: users/models.py:124
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:120
+#: users/models.py:126
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: users/models.py:121
+#: users/models.py:127
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:122
+#: users/models.py:128
 msgid "Locale"
 msgstr "Langue"
 
-#: users/models.py:124
+#: users/models.py:132
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: users/models.py:125
+#: users/models.py:135
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
@@ -4589,7 +4718,7 @@ msgstr "Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s po
 msgid "Your account was activated. Enjoy your visit!"
 msgstr "Votre compte est activé. Bonne visite&nbsp;!"
 
-#: users/views.py:104 users/views.py:266
+#: users/views.py:104 users/views.py:264
 msgid "You have been automatically logged in."
 msgstr "Vous avez été connecté automatiquement."
 
@@ -4601,30 +4730,30 @@ msgid ""
 "may use the same username and email though."
 msgstr "Le lien d'activation que vous avez fourni est invalide ou obsolète. Si vous avez créé votre compte il y a plus de %(days)s jours, vous devez répéter l'opération. Vous pouvez utiliser les mêmes nom d'utilisateur et e-mail."
 
-#: users/views.py:176
+#: users/views.py:174
 msgid "Changes saved."
 msgstr "Modifications enregistrées."
 
-#: users/views.py:203 users/views.py:264
+#: users/views.py:201 users/views.py:262
 msgid "New password saved."
 msgstr "Mot de passe modifié."
 
-#: users/views.py:231
+#: users/views.py:229
 #, python-format
 msgid ""
 "You should receive an email at %(email)s in a few moments. Please follow the"
 " instructions to complete the password reset."
 msgstr "Vous devriez recevoir un e-mail à %(email)s dans quelques instants. Veuillez suivre les instructions pour finaliser la réinitialisation du mot de passe."
 
-#: users/views.py:304
+#: users/views.py:302
 #, python-format
 msgid "Unable to complete impersonation: %(msg)s"
 msgstr "Impossible de se faire passer pour quelqu'un d'autre&nbsp;: %(msg)s"
 
-#: users/views.py:322
+#: users/views.py:320
 msgid "you cannot impersonate an inactive user."
 msgstr "vous ne pouvez pas vous faire passer pour un utilisateur inactif."
 
-#: users/views.py:325
+#: users/views.py:322
 msgid "you don't have the permission to impersonate this user."
 msgstr "vous n'avez pas l'autorisation de vous faire passer pour cet utilisateur."
