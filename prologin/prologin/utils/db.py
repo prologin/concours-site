@@ -14,6 +14,6 @@ class CaseMapping(Case):
        .order_by('-order')
     """
     def __init__(self, field, mapping, **kwargs):
-        cases = (When(**{field: key}, then=Value(value))
+        cases = (When(**{field: key, 'then': Value(value)})
                  for key, value in mapping)
         super().__init__(*cases, **kwargs)
