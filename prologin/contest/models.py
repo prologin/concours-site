@@ -159,7 +159,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True,
                            verbose_name=_("T-shirt size"), empty_label=_("Choose your size"),
                            help_text=_("We usually provide unisex Prologin t-shirts to the finalists."))
-    preferred_language = CodingLanguageField(null=True, blank=True, db_index=True,
+    preferred_language = CodingLanguageField(blank=True, db_index=True,
                                              help_text=_("The programming language you will most likely use during the "
                                                          "regional events."))
 

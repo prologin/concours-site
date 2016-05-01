@@ -122,7 +122,7 @@ class ProloginUser(
                                                     "during the various stages of the contest. "
                                                     "We hate spam as much as you do!"))
     signature = models.TextField(blank=True, verbose_name=_("Signature"))
-    preferred_language = CodingLanguageField(blank=True, null=True, db_index=True,
+    preferred_language = CodingLanguageField(blank=True, db_index=True,
                                              verbose_name=_("Preferred coding language"))
     timezone = TimeZoneField(default=settings.TIME_ZONE, verbose_name=_("Time zone"))
     preferred_locale = models.CharField(max_length=8, blank=True, verbose_name=_("Locale"), choices=settings.LANGUAGES)
