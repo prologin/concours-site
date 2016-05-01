@@ -24,6 +24,7 @@ class Migration(migrations.Migration):
                 ('created_by', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, related_name='explicit_problem_unlocks_created', blank=True)),
                 ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='explicit_problem_unlocks')),
             ],
+            options={'verbose_name': 'Explicit problem unlock', 'verbose_name_plural': 'Explicit problem unlocks'},
         ),
         migrations.AlterUniqueTogether(
             name='explicitproblemunlock',

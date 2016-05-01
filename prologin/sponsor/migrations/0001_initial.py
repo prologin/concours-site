@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-from prologin.utils import upload_path
 import prologin.models
+import sponsor.models
 
 
 class Migration(migrations.Migration):
@@ -32,7 +32,7 @@ class Migration(migrations.Migration):
                 ('editions', models.ManyToManyField(blank=True, to='contest.Edition')),
                 ('id', models.AutoField(serialize=False, auto_created=True, primary_key=True, verbose_name='ID')),
                 ('is_active', models.BooleanField(default=True)),
-                ('logo', models.ImageField(blank=True, upload_to=upload_path('sponsor'))),
+                ('logo', models.ImageField(blank=True, upload_to=sponsor.models.Sponsor.upload_logo_to)),
                 ('name', models.CharField(max_length=255, db_index=True)),
                 ('postal_code', models.CharField(blank=True, max_length=32, verbose_name='Postal code')),
                 ('site', models.URLField(blank=True)),

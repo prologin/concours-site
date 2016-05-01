@@ -99,7 +99,13 @@ class EducationStage(ChoiceEnum):
         return tuple(m.value for m in cls)
 
 
-class ProloginUser(ExportModelOperationsMixin('user'), AbstractUser, AddressableModel):
+class ProloginUser(
+        ExportModelOperationsMixin('user'), AbstractUser, AddressableModel):
+    def upload_avatar_to(self, *args, **kwargs):
+        return upload_path('avatar')(*args, **kwargs)
+
+    def upload_picture_to(self, *args, **kwargs):
+        return upload_path('picture')(*args, **kwargs)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -121,8 +127,12 @@ class ProloginUser(ExportModelOperationsMixin('user'), AbstractUser, Addressable
     timezone = TimeZoneField(default=settings.TIME_ZONE, verbose_name=_("Time zone"))
     preferred_locale = models.CharField(max_length=8, blank=True, verbose_name=_("Locale"), choices=settings.LANGUAGES)
 
-    avatar = models.ImageField(upload_to=upload_path('avatar'), blank=True, verbose_name=_("Profile picture"))
-    picture = models.ImageField(upload_to=upload_path('picture'), blank=True, verbose_name=_("Official member picture"))
+    avatar = models.ImageField(upload_to=upload_avatar_to,
+                               blank=True,
+                               verbose_name=_("Profile picture"))
+    picture = models.ImageField(upload_to=upload_picture_to,
+                                blank=True,
+                                verbose_name=_("Official member picture"))
 
     # MD5 password from <2015 Drupal website
     legacy_md5_password = models.CharField(max_length=32, blank=True)

@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='contestantcorrection',
-            options={'ordering': ('-date_created',), 'get_latest_by': '-date_created'},
+            options={'ordering': ('-date_created',), 'get_latest_by': 'date_created'},
         ),
         migrations.AlterModelOptions(
             name='event',

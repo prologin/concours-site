@@ -29,7 +29,6 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ('order',),
                 'verbose_name_plural': 'Forums',
-                'permissions': (('view_forum', 'View forum'),),
                 'verbose_name': 'Forum',
             },
         ),

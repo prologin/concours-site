@@ -43,10 +43,17 @@ def sizeof_fmt(num: int, suffix='B'):
 def upload_path(*base_path):
     """
     Generate upload path for a FileInput.
-    `base_path`: folder path of where to put the files
+    `base_path`: folder path components of where to upload the files,
+    relative to MEDIA_ROOT.
     Typical usage:
-        FileField(upload_to=upload_path('media', 'pictures'))
-    :param base_path: path of the directory (relative to MEDIA_ROOT) where to store the uploads
+
+        def upload_to_pictures(*args, **kwargs):
+            return upload_path('media', 'pictures')(*args, **kwargs)
+
+        FileField(upload_to=upload_to_pictures)
+
+    :param base_path: path components to the directory (relative to MEDIA_ROOT)
+    where to store the uploads
     :rtype callable
     """
     parts = ['upload']
