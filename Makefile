@@ -32,6 +32,7 @@ manage:
 tx-push:
 	$(MANAGE) makemessages -l en
 	$(MANAGE) makemessages -a
+	sed -i '/"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"/d' prologin/locale/en/LC_MESSAGES/django.po
 	$(TX) push -s -t
 
 tx-pull:
