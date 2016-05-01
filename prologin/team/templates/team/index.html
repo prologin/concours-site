@@ -19,7 +19,7 @@
 </ul>
 
 <header class="page-header">
-  <h1>{% blocktrans with count=team_count %}Staff {{ year }} <small>{{ count }} members</small>{% endblocktrans %}</h1>
+  <h1>{% blocktrans with count=team|length %}Staff {{ year }} <small>{{ count }} members</small>{% endblocktrans %}</h1>
 </header>
 
 <div class="row">
@@ -33,7 +33,7 @@
         <h4 class="media-heading">
           <a href="{% url 'users:profile' member.user.pk %}">{{ member.user.get_full_name|default:member.user.username }}</a>
             <small><br>{{ member.user.username }}</small></h4>
-        <p>{{ member.role }}</p>
+        <p>{{ member.role_name }}</p>
       </div>
     </div>
   </div>

@@ -120,9 +120,7 @@ class ProfileView(DetailView):
 
     def get_queryset(self):
         self.author = Author(pk=self.kwargs[self.pk_url_kwarg])
-        return super().get_queryset().prefetch_related(
-            Prefetch('team_memberships',
-                     queryset=team.models.TeamMember.objects.select_related('role__name')))
+        return super().get_queryset().prefetch_related('team_memberships')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

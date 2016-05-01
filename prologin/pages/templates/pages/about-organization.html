@@ -45,9 +45,9 @@
         <div class="panel-heading"><h4 id="team">{% blocktrans with year=request.current_edition.year %}The {{ year }} team{% endblocktrans %}</h4></div>
         <div class="panel-body">
           {% if team_pres %}<div class="organization-team-box">
-            <strong>{% trans "President" %}</strong><br>
+            <strong>{{ team_pres.role_name }}</strong><br>
             <a href="{% url 'users:profile' team_pres.user.pk %}" class="team-member-avatar"
-               style="text-indent: -9999px;{% if team_pres.user.picture_or_avatar %}background-image: url('{{ team_pres.user.picture_or_avatar.url }}'){% endif %}">{% trans "President" %}</a>
+               style="text-indent: -9999px;{% if team_pres.user.picture_or_avatar %}background-image: url('{{ team_pres.user.picture_or_avatar.url }}'){% endif %}">{{ team_pres.role_name }}</a>
             <br>{{ team_pres.user.get_full_name }}<br>
             <small class="text-muted">{{ team_pres.user.username }}</small>
           </div>{% endif %}

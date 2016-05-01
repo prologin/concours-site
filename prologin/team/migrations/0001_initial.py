@@ -16,7 +16,7 @@ class Migration(migrations.Migration):
             name='Role',
             fields=[
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
-                ('significance', models.SmallIntegerField()),
+                ('significance', models.SmallIntegerField(verbose_name='Significance')),
                 ('name', models.CharField(max_length=32)),
             ],
             options={

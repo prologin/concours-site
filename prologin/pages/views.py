@@ -4,7 +4,7 @@ import datetime
 import os
 import yaml
 
-from team.models import TeamMember
+import team.models
 
 
 class AboutContestView(generic.TemplateView):
@@ -39,9 +39,9 @@ class AboutOrganizationView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        team = TeamMember.objects.filter(year=self.request.current_edition.year).select_related('role', 'user')
-        context['team'] = team
-        context['team_pres'] = team.filter(role__id=1).first()
+        members = team.models.TeamMember.objects.filter(year=self.request.current_edition.year).select_related('user')
+        context['team'] = members
+        context['team_pres'] = members.filter(role_code=team.models.Role.president.name).first()
         return context
 
 

@@ -34,14 +34,9 @@ class ProloginTestCase(TestCase):
         self.organizer = self.create_user('organizer', 'organizer@example.com',
                                           'password')
 
-        self.president_role = team.models.Role()
-        self.president_role.significance = 0
-        self.president_role.name = 'President'
-        self.president_role.save()
-
         self.organizer_tm = team.models.TeamMember()
         self.organizer_tm.user = self.organizer
-        self.organizer_tm.role = self.president_role
+        self.organizer_tm.role_code = team.models.Role.president.name
         self.organizer_tm.year = settings.PROLOGIN_EDITION
         self.organizer_tm.save()
 
