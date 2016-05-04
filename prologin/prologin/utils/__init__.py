@@ -47,10 +47,11 @@ def upload_path(*base_path):
     relative to MEDIA_ROOT.
     Typical usage:
 
-        def upload_to_pictures(*args, **kwargs):
-            return upload_path('media', 'pictures')(*args, **kwargs)
+        class Whatever:
+            def upload_to_pictures(self, *args, **kwargs):
+                return upload_path('media', 'pictures')(self, *args, **kwargs)
 
-        FileField(upload_to=upload_to_pictures)
+            image = FileField(upload_to=upload_to_pictures)
 
     :param base_path: path components to the directory (relative to MEDIA_ROOT)
     where to store the uploads
