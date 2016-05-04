@@ -11,7 +11,7 @@ class ActiveSponsorManager(models.Manager):
 
 class Sponsor(AddressableModel, ContactModel, models.Model):
     def upload_logo_to(self, *args, **kwargs):
-        return upload_path('sponsor')(*args, **kwargs)
+        return upload_path('sponsor')(self, *args, **kwargs)
 
     name = models.CharField(max_length=255, db_index=True)
     description = models.TextField(blank=True)

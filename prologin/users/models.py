@@ -102,10 +102,10 @@ class EducationStage(ChoiceEnum):
 class ProloginUser(
         ExportModelOperationsMixin('user'), AbstractUser, AddressableModel):
     def upload_avatar_to(self, *args, **kwargs):
-        return upload_path('avatar')(*args, **kwargs)
+        return upload_path('avatar')(self, *args, **kwargs)
 
     def upload_picture_to(self, *args, **kwargs):
-        return upload_path('picture')(*args, **kwargs)
+        return upload_path('picture')(self, *args, **kwargs)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
