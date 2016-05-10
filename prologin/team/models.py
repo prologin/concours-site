@@ -11,45 +11,60 @@ from prologin.utils.db import CaseMapping
 
 
 class RoleData(
-        namedtuple('Role', 'name_male name_female significance public')):
+        namedtuple('Role', 'name_male name_female title_male title_female significance public')):
     def __lt__(self, other):
         return self.significance.__lt__(other.significance)
 
 
 class Role(ChoiceEnum):
     president = RoleData(
-        pgettext_lazy("male role", "President"), pgettext_lazy(
-            "female role", "President"), 99, True)
+        pgettext_lazy("male role", "President"),
+        pgettext_lazy("female role", "President"),
+        pgettext_lazy("male title", "The President"),
+        pgettext_lazy("female title", "The President"),
+        99, True)
     vice_president = RoleData(
-        pgettext_lazy("male role", "Vice President"), pgettext_lazy(
-            "female role", "Vice President"), 98, True)
+        pgettext_lazy("male role", "Vice President"),
+        pgettext_lazy("female role", "Vice President"),
+        pgettext_lazy("male title", "The Vice President"),
+        pgettext_lazy("female title", "The Vice President"),
+        98, True)
     treasurer = RoleData(
-        pgettext_lazy("male role", "Treasurer"), pgettext_lazy(
-            "female role", "Treasurer"), 97, True)
+        pgettext_lazy("male role", "Treasurer"),
+        pgettext_lazy("female role", "Treasurer"),
+        None, None, 97, True)
     secretary = RoleData(
-        pgettext_lazy("male role", "Secretary"), pgettext_lazy(
-            "female role", "Secretary"), 96, True)
+        pgettext_lazy("male role", "Secretary"),
+        pgettext_lazy("female role", "Secretary"),
+        None, None, 96, True)
     technical_lead = RoleData(
-        pgettext_lazy("male role", "Technical Lead"), pgettext_lazy(
-            "female role", "Technical Lead"), 80, True)
+        pgettext_lazy("male role", "Technical Lead"),
+        pgettext_lazy("female role", "Technical Lead"),
+        None, None, 80, True)
     scientific_lead = RoleData(
-        pgettext_lazy("male role", "Scientific Lead"), pgettext_lazy(
-            "female role", "Scientific Lead"), 79, True)
+        pgettext_lazy("male role", "Scientific Lead"),
+        pgettext_lazy("female role", "Scientific Lead"),
+        None, None, 79, True)
     vice_treasurer = RoleData(
-        pgettext_lazy("male role", "Vice Treasurer"), pgettext_lazy(
-            "female role", "Vice Treasurer"), 70, True)
+        pgettext_lazy("male role", "Vice Treasurer"),
+        pgettext_lazy("female role", "Vice Treasurer"),
+        None, None, 70, True)
     member = RoleData(
-        pgettext_lazy("male role", "Member"), pgettext_lazy(
-            "female role", "Member"), 60, True)
+        pgettext_lazy("male role", "Member"),
+        pgettext_lazy("female role", "Member"),
+        None, None, 60, True)
     persistent_member = RoleData(
-        pgettext_lazy("male role", "Persistent Member"), pgettext_lazy(
-            "female role", "Persistent Member"), 50, True)
+        pgettext_lazy("male role", "Persistent Member"),
+        pgettext_lazy("female role", "Persistent Member"),
+        None, None, 50, True)
     mascot = RoleData(
-        pgettext_lazy("male role", "Mascot"), pgettext_lazy(
-            "female role", "Mascot"), 40, True)
+        pgettext_lazy("male role", "Mascot"),
+        pgettext_lazy("female role", "Mascot"),
+        None, None, 40, True)
     external_organizer = RoleData(
-        pgettext_lazy("male role", "External organizer"), pgettext_lazy(
-            "female role", "External organizer"), 0, False)
+        pgettext_lazy("male role", "External organizer"),
+        pgettext_lazy("female role", "External organizer"),
+        None, None, 0, False)
 
     @classmethod
     def label_for(cls, member):
@@ -106,6 +121,11 @@ class TeamMember(models.Model):
     @property
     def role_name(self):
         attr = 'name_female' if self.user.gender == Gender.female.value else 'name_male'
+        return getattr(self.role.value, attr)
+
+    @property
+    def title_name(self):
+        attr = 'title_female' if self.user.gender == Gender.female.value else 'title_male'
         return getattr(self.role.value, attr)
 
     def __str__(self):
