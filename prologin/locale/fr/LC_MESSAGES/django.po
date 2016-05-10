@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-05-01 04:16+0200\n"
-"PO-Revision-Date: 2016-05-01 02:19+0000\n"
+"POT-Creation-Date: 2016-05-10 18:08+0200\n"
+"PO-Revision-Date: 2016-05-10 16:09+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3911,15 +3911,15 @@ msgstr "Suivant"
 msgid "Last"
 msgstr "Dernier"
 
-#: prologin/utils/__init__.py:237
+#: prologin/utils/__init__.py:238
 msgid "year"
 msgstr "année"
 
-#: prologin/utils/__init__.py:238
+#: prologin/utils/__init__.py:239
 msgid "month"
 msgstr "mois"
 
-#: prologin/utils/__init__.py:239
+#: prologin/utils/__init__.py:240
 msgid "day"
 msgstr "jour"
 
@@ -4146,7 +4146,7 @@ msgstr "Sortir du plein écran"
 msgid "Active"
 msgstr "Actif"
 
-#: team/admin.py:8 team/admin.py:34 team/models.py:88
+#: team/admin.py:8 team/admin.py:34 team/models.py:103
 msgid "Role"
 msgstr "Rôle"
 
@@ -4164,111 +4164,131 @@ msgctxt "female role"
 msgid "President"
 msgstr "Présidente"
 
+#: team/models.py:23
+msgctxt "male title"
+msgid "The President"
+msgstr "Le président"
+
 #: team/models.py:24
+msgctxt "female title"
+msgid "The President"
+msgstr "La présidente"
+
+#: team/models.py:27
 msgctxt "male role"
 msgid "Vice President"
 msgstr "Vice-président"
 
-#: team/models.py:25
+#: team/models.py:28
 msgctxt "female role"
 msgid "Vice President"
 msgstr "Vice-présidente"
 
-#: team/models.py:27
+#: team/models.py:29
+msgctxt "male title"
+msgid "The Vice President"
+msgstr "Le vice-président"
+
+#: team/models.py:30
+msgctxt "female title"
+msgid "The Vice President"
+msgstr "La vice-présidente"
+
+#: team/models.py:33
 msgctxt "male role"
 msgid "Treasurer"
 msgstr "Trésorier"
 
-#: team/models.py:28
+#: team/models.py:34
 msgctxt "female role"
 msgid "Treasurer"
 msgstr "Trésorière"
 
-#: team/models.py:30
-msgctxt "male role"
-msgid "Secretary"
-msgstr "Secrétaire"
-
-#: team/models.py:31
-msgctxt "female role"
-msgid "Secretary"
-msgstr "Secrétaire"
-
-#: team/models.py:33
-msgctxt "male role"
-msgid "Technical Lead"
-msgstr "Responsable technique"
-
-#: team/models.py:34
-msgctxt "female role"
-msgid "Technical Lead"
-msgstr "Responsable technique"
-
-#: team/models.py:36
-msgctxt "male role"
-msgid "Scientific Lead"
-msgstr "Responsable scientifique"
-
 #: team/models.py:37
+msgctxt "male role"
+msgid "Secretary"
+msgstr "Secrétaire"
+
+#: team/models.py:38
+msgctxt "female role"
+msgid "Secretary"
+msgstr "Secrétaire"
+
+#: team/models.py:41
+msgctxt "male role"
+msgid "Technical Lead"
+msgstr "Responsable technique"
+
+#: team/models.py:42
+msgctxt "female role"
+msgid "Technical Lead"
+msgstr "Responsable technique"
+
+#: team/models.py:45
+msgctxt "male role"
+msgid "Scientific Lead"
+msgstr "Responsable scientifique"
+
+#: team/models.py:46
 msgctxt "female role"
 msgid "Scientific Lead"
 msgstr "Responsable scientifique"
 
-#: team/models.py:39
+#: team/models.py:49
 msgctxt "male role"
 msgid "Vice Treasurer"
 msgstr "Vice-trésorier"
 
-#: team/models.py:40
+#: team/models.py:50
 msgctxt "female role"
 msgid "Vice Treasurer"
 msgstr "Vice-trésorière"
 
-#: team/models.py:42
+#: team/models.py:53
 msgctxt "male role"
 msgid "Member"
 msgstr "Membre"
 
-#: team/models.py:43
+#: team/models.py:54
 msgctxt "female role"
 msgid "Member"
 msgstr "Membre"
 
-#: team/models.py:45
+#: team/models.py:57
 msgctxt "male role"
 msgid "Persistent Member"
 msgstr "Membre persistant"
 
-#: team/models.py:46
+#: team/models.py:58
 msgctxt "female role"
 msgid "Persistent Member"
 msgstr "Membre persistant"
 
-#: team/models.py:48
+#: team/models.py:61
 msgctxt "male role"
 msgid "Mascot"
 msgstr "Mascotte"
 
-#: team/models.py:49
+#: team/models.py:62
 msgctxt "female role"
 msgid "Mascot"
 msgstr "Mascotte"
 
-#: team/models.py:51
+#: team/models.py:65
 msgctxt "male role"
 msgid "External organizer"
 msgstr "Organisateur externe"
 
-#: team/models.py:52
+#: team/models.py:66
 msgctxt "female role"
 msgid "External organizer"
 msgstr "Organisatrice externe"
 
-#: team/models.py:99
+#: team/models.py:114
 msgid "Team member"
 msgstr "Membre de l'équipe"
 
-#: team/models.py:100
+#: team/models.py:115
 msgid "Team members"
 msgstr "Membres de l'équipe"
 
