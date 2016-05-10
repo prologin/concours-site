@@ -375,10 +375,10 @@ class FinalDiplomasView(BaseFinalDocumentView):
         context = super().get_extra_context()
         context['pres'] = team.models.TeamMember.objects.get(
             year=self.year,
-            role__name='Président').user
+            role_code=team.models.Role.president.name)
         context['vpres'] = team.models.TeamMember.objects.get(
             year=self.year,
-            role__name='Vice-Président').user
+            role_code=team.models.Role.vice_president.name)
         return context
 
 

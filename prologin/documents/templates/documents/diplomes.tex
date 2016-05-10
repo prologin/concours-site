@@ -34,15 +34,15 @@
       \put(35,0){\rotatebox{90}{\makebox[276mm]{\Huge\textbf{NATIONAL D'INFORMATIQUE}}}}
       \put(55,0){\rotatebox{90}{\makebox[276mm]{\Huge\textbf{\LARGE Édition {{ year }} }}}}
       \put(75,0){\rotatebox{90}{\makebox[276mm]{\Huge\textbf{\Large Décerné à}}}}
-      \put(135,27){\rotatebox{90}{\makebox[10cm]{\Huge\textbf{\Large Le président}}}}
+      \put(135,27){\rotatebox{90}{\makebox[10cm]{\Huge\textbf{\Large {{ pres.title_name }} }}}}
       \put(142,27){\rotatebox{90}{\makebox[10cm]{\Huge\textbf{
-          \Large {{ pres.first_name|title|escapetex }}
-          \textsc{ {{ pres.last_name|title|escapetex }} }
+          \Large {{ pres.user.first_name|title|escapetex }}
+          \textsc{ {{ pres.user.last_name|title|escapetex }} }
       }}}}
-      \put(135,152){\rotatebox{90}{\makebox[10cm]{\Huge\textbf{\Large Le vice-président}}}}
+      \put(135,152){\rotatebox{90}{\makebox[10cm]{\Huge\textbf{\Large {{ vpres.title_name }} }}}}
       \put(142,152){\rotatebox{90}{\makebox[10cm]{\Huge\textbf{
-          \Large {{ vpres.first_name|title|escapetex }}
-          \textsc{ {{ vpres.last_name|title|escapetex }} }
+          \Large {{ vpres.user.first_name|title|escapetex }}
+          \textsc{ {{ vpres.user.last_name|title|escapetex }} }
       }}}}
       \put(165,0){\rotatebox{90}{\makebox[276mm]{\normalsize Le {{ event.date_end|date:"d F Y"|escapetex }} }}}
     \end{picture}
