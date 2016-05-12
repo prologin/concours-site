@@ -21,6 +21,7 @@ class TaskForce(models.Model):
     members = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                      related_name='task_forces')
     redundancy = models.IntegerField(default=0)
+    importance = models.IntegerField(default=0, blank=True)
 
     @property
     def members_count(self):
@@ -35,7 +36,7 @@ class TaskForce(models.Model):
     class Meta:
         verbose_name = _("Task force")
         verbose_name_plural = _("Task forces")
-        ordering = ('-event', '-redundancy', 'name')
+        ordering = ('-event', '-redundancy', '-importance', 'name')
         unique_together = ('event', 'name')
 
     def __str__(self):
