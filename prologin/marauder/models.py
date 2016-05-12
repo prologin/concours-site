@@ -36,7 +36,7 @@ class TaskForce(models.Model):
     class Meta:
         verbose_name = _("Task force")
         verbose_name_plural = _("Task forces")
-        ordering = ('-event', '-redundancy', '-importance', 'name')
+        ordering = ('-event', '-importance', '-redundancy', 'name')
         unique_together = ('event', 'name')
 
     def __str__(self):
