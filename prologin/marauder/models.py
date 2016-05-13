@@ -122,4 +122,4 @@ class EventSettings(models.Model):
     def is_current(self):
         """Returns whether this event is active for Marauder tracking."""
         now = timezone.now()
-        return (now > self.enable_on and now <= self.event.date_end)
+        return now > self.enable_on
