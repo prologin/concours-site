@@ -167,7 +167,7 @@ class ApiSendTaskforcePingView(MarauderMixin, View):
         data = json.loads(request.body.decode())
         taskforce = marauder.models.TaskForce.objects.get(pk=data['id'])
         members = taskforce.marauder_members
-        if data.get('onSiteOnly', False):
+        if data.get('onSiteOnly', True):
             members = [member for member in members if member.online]
         gcm.multicast_notification(
             members, '[{taskforce}] {username} ({fullname})', '{reason}',
