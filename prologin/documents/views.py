@@ -1,5 +1,6 @@
 import collections
 import io
+import json
 from django.conf import settings
 from django.contrib import messages
 from django.core import serializers
@@ -406,20 +407,18 @@ class FinalDataExportView(PermissionRequiredMixin, View):
                        .filter(user__is_active=True, user__is_staff=False, user__is_superuser=False)
                        .order_by(*USER_LIST_ORDERING))
 
-        serializer = serializers.get_serializer('json')()
-        stream = io.StringIO()
-
         def iter_users():
             for contestant in contestants:
                 user = contestant.user
-                user.username = user.normalized_username
-                yield user
+                yield {
+                    'id': user.id,
+                    'username': user.normalized_username,
+                    'first_name': user.first_name,
+                    'last_name': user.last_name,
+                    'password': user.plaintext_password,
+                }
 
-        serializer.serialize(iter_users(),
-                             fields=('username', 'first_name', 'last_name'),
-                             stream=stream)
-        stream.seek(0)
-
+        stream = json.dumps(list(iter_users()))
         response = HttpResponse(stream, content_type='application/json')
         response['Content-Disposition'] = ('attachment; filename="{}.json"'
                                            .format(slugify("export-final-{}"
