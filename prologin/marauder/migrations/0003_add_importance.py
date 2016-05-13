@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('marauder', '0001_initial'),
+        ('marauder', '0002_add_within_timestamp'),
     ]
 
     operations = [
