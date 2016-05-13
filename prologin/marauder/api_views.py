@@ -192,6 +192,7 @@ class ApiTaskForcesView(MarauderMixin, ListView):
         def members(taskforce):
             for member in (
                     taskforce.members.select_related('marauder_profile')
+                    .filter(marauder_profile__isnull=False)
                     .order_by('-marauder_profile__in_area', 'username')):
                 try:
                     profile = member.marauder_profile
