@@ -395,6 +395,38 @@ class FinalContestantCompilationView(BaseCompilationView):
     permission_required = 'documents.generate_final_contestant_document'
 
 
+class FinalDataExportView(PermissionRequiredMixin, View):
+    permission_required = 'documents.data_export'
+
+    def get(self, request, *args, **kwargs):
+        contestants = (contest.models.Contestant.objects
+                       .select_related('user', 'edition', 'assignation_semifinal_event')
+                       .filter(edition__year=self.kwargs['year'])
+                       .filter(assignation_final=contest.models.Assignation.assigned.value)
+                       .filter(user__is_active=True, user__is_staff=False, user__is_superuser=False)
+                       .order_by(*USER_LIST_ORDERING))
+
+        serializer = serializers.get_serializer('json')()
+        stream = io.StringIO()
+
+        def iter_users():
+            for contestant in contestants:
+                user = contestant.user
+                user.username = user.normalized_username
+                yield user
+
+        serializer.serialize(iter_users(),
+                             fields=('username', 'first_name', 'last_name'),
+                             stream=stream)
+        stream.seek(0)
+
+        response = HttpResponse(stream, content_type='application/json')
+        response['Content-Disposition'] = ('attachment; filename="{}.json"'
+                                           .format(slugify("export-final-{}"
+                                                           .format(self.kwargs['year']))))
+        return response
+
+
 class EnrollmentFormView(BaseDocumentView):
     template_name = 'documents/fiche-adhesion.tex'
     pdf_title = _("Prologin %(year)s: enrollment form")

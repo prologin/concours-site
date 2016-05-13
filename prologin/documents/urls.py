@@ -23,6 +23,7 @@ final_patterns = [
     url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.FinalContestantConvocationView.as_view(), name='contestant-convocation'),
     url(r'^contestants$', documents.views.FinalContestantsView.as_view(), name='contestants'),
     url(r'^convocations$', documents.views.FinalConvocationsView.as_view(), name='convocations'),
+    url(r'^data-export$', documents.views.FinalDataExportView.as_view(), name='data-export'),
     url(r'^diplomas$', documents.views.FinalDiplomasView.as_view(), name='diplomas'),
     url(r'^emergency-call-list$', documents.views.FinalEmergencyCallListView.as_view(), name='emergency-call-list'),
     url(r'^equipment-liability-release$', documents.views.FinalEquipmentLiabilityReleaseView.as_view(), name='equipment-liability-release'),

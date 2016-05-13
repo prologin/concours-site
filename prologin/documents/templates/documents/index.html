@@ -96,6 +96,9 @@
               <small class="text-muted">{{ final.date_begin|date:"SHORT_DATE_FORMAT" }}</small>
             </td>
             <td>
+              <a href="{% url 'documents:final:data-export' year %}" class="btn btn-warning btn-xs">
+                <i class="fa fa-upload"></i> {% trans "Data export" %}
+              </a>
               <a href="{% url 'documents:final:convocations' year %}" class="btn btn-default btn-xs">
                 <i class="fa fa-graduation-cap"></i> {% trans "Convocations" %}
               </a>
