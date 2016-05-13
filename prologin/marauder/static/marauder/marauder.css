@@ -184,11 +184,19 @@ ion-popover-view ion-content {
   padding: 4px 6px;
 }
 
+.ol-overlay-container:hover {
+  z-index: 99;
+}
+
 .urgent {
-  color: firebrick;
+color: firebrick;
 }
 
 .item .note {
-  font-size: 0.9em;
-  color: #666;
+font-size: 0.9em;
+color: #666;
+}
+
+#map-overlays {
+  display: none;
 }
