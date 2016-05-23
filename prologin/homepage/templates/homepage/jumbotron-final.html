@@ -34,7 +34,7 @@
             {% if edition.final_corrected %}
               <p>
                 <i class="fa fa-calendar-check-o"></i>
-                <strong>The final is now finished!</strong>
+                <strong>{% trans "The final is now finished!" %}</strong>
               </p>
               <p>
                 <a href="{% url 'archives:index' %}" class="btn btn-default btn-block">
@@ -45,7 +45,7 @@
             {% else %}
               <p>
                 <i class="fa fa-clock-o"></i>
-                <strong>The final is now finished! Stay tuned for the results.</strong>
+                <strong>{% trans "The final is now finished! Stay tuned for the results." %}</strong>
               </p>
             {% endif %}
           {% endif %}
