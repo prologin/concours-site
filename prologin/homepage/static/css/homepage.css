@@ -205,3 +205,8 @@
   vertical-align: middle;
   padding-right: 0.3em;
 }
+
+.semifinal-dates {
+  cursor: pointer;
+  text-decoration: none !important;
+}

@@ -76,7 +76,7 @@
               {% endif %}
             {% endif %}
           {% else %}
-            <p class="text-center dates-link"><strong><a style="cursor: pointer"
+            <p class="text-center dates-link"><strong><a class="semifinal-dates"
                                                          data-container="body" data-toggle="popover"
                                                          data-placement="bottom" data-html="true"
                                                          data-content="
@@ -85,7 +85,7 @@
                         {{ demi.date_begin|date:"d b Y"|default:no_such_date }}<br />
                         {% endfor %}
                         ">
-              ↓ {% trans "See all the dates" %}
+              <i class="fa fa-angle-down"></i> {% trans "See all the dates" %}
             </a></strong>
             </p>
           {% endif %}
