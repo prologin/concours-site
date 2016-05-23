@@ -145,6 +145,11 @@
           {% url 'archives:index' as url %}
           <p>{% blocktrans %}The final's results will be published on <a href="{{ url }}">the archives</a> as soon as they are available.{% endblocktrans %}</p>
           <p>{% trans "Stay tuned for next year's edition. We will announce when it starts on this website and by email." %}</p>
+          <p>
+            <a href="{% url 'problems:index' %}" class="btn btn-default btn-block">
+              <i class="fa fa-tachometer"></i> {% trans "Start training!" %}
+            </a>
+          </p>
         {% endif %} {# edition.is_active #}
         </div>
       </div>

@@ -139,6 +139,11 @@
   min-height: 6em;
 }
 
+.home-jumbo .tl-block .desc a:not(.btn) {
+  color: inherit;
+  text-decoration: underline;
+}
+
 .home-jumbo .tl-block .desc .btn {
   font-size: inherit;
 }
