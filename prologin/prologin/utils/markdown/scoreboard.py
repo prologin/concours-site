@@ -26,15 +26,14 @@ class ScoreboardProcessor(BlockProcessor):
             if type == 'before':
                 end = n
             elif type == 'after':
-                start = n
+                start = n + 1
             else:
                 return
         scoreboard = etree.SubElement(parent, 'div', {'class': 'scoreboard'})
-        scoreboard.text = get_template('archives/inline-scoreboard.html').render({
+        html = get_template('archives/inline-scoreboard.html').render({
             'scoreboard': self.scoreboard[start:end],
-            'scoreboard_start': 1 if start is None else start + 1,
-            'scoreboard_end': end or len(self.scoreboard),
         })
+        scoreboard.append(etree.fromstring(html))
 
 
 class ScoreboardExtension(Extension):

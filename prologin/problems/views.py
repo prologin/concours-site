@@ -22,7 +22,7 @@ from problems.forms import SearchForm, CodeSubmissionForm
 from problems.tasks import submit_problem_code
 from prologin.languages import Language
 from prologin.utils import cached
-from prologin.utils.scoring import decorate_with_rank
+from prologin.utils.scoring import Scoreboard
 from prologin.views import ChoiceGetAttrsMixin
 
 import problems.models
@@ -476,25 +476,20 @@ class ChallengeScoreboard(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        def score_getter(item):
-            return item['total_score']
-
-        def decorator(item, rank, ex_aequo):
-            item['rank'] = rank
-            item['ex_aequo'] = ex_aequo
-
         items = (problems.models.Submission.objects
                  .filter(challenge=self.challenge.name, score_base__gt=0,
                          user__is_staff=0)
                  .values('user_id', 'user__username')
                  .annotate(total_score=Sum(problems.models.Submission.ScoreFunc))
                  .order_by('-total_score'))
-
-        decorate_with_rank(items, score_getter, decorator)
         return items[:self.row_count]
 
     def get_context_data(self, **kwargs):
+        class Sb(Scoreboard):
+            def get_score(self, item):
+                return item['total_score']
         context = super().get_context_data(**kwargs)
         context['challenge'] = self.challenge
         context['row_count'] = self.row_count
+        context['scoreboard'] = Sb(self.object_list)
         return context

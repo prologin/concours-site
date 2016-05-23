@@ -26,15 +26,15 @@
     </tr>
     </thead>
     <tbody>
-    {% for line in contestant_scores %}
+    {% for line in scoreboard %}
       <tr>
-        <td class="text-center">{% if line.rank <= 3 %}
-          <span class="challenge-trophy-{{ line.rank }}"><i class="fa fa-trophy"></i></span>
-        {% endif %}</td>
+        <td class="text-center">
+          <span class="challenge-trophy-{{ line.rank }}"><i class="fa fa-fw {% if line.rank <= 3 %}fa-trophy{% endif %}"></i></span>
+        </td>
         <td style="width: 1%; white-space: nowrap;"><strong>{{ line.rank }}</strong>
           {% if line.ex_aequo %}<small>{% trans "(ex-aequo)" %}</small>{% endif %}</td>
-        <td><a href="{% url 'users:profile' line.user_id %}">{{ line.user__username }}</a></td>
-        <td>{{ line.total_score|intcomma }}</td>
+        <td><a href="{% url 'users:profile' line.item.user_id %}">{{ line.item.user__username }}</a></td>
+        <td>{{ line.item.total_score|intcomma }}</td>
       </tr>
     {% empty %}
       <tr>
@@ -43,6 +43,7 @@
         </td>
       </tr>
     {% endfor %}
+    </tbody>
   </table>
 
 {% endblock %}

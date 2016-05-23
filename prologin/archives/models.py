@@ -3,7 +3,6 @@ import os
 import random
 import redis, redis.exceptions
 import yaml
-from collections import namedtuple
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.safestring import mark_safe
@@ -13,7 +12,7 @@ import problems.models
 import qcm.models
 from archives.flickr import Flickr
 from prologin.utils import lazy_attr, open_try_hard
-from prologin.utils.scoring import decorate_with_rank
+from prologin.utils.scoring import Scoreboard
 
 logger = logging.getLogger('prologin.archives')
 
@@ -206,18 +205,10 @@ class FinalArchive(WithFlickrMixin, WithContentMixin, BaseArchive):
                 if particle.endswith('.'):
                     name = '{} {}'.format(particle.capitalize().strip(), name.split('.', 1)[1].strip())
                 extra = ' '.join(p.strip().strip('()').strip() for p in extra)
-                yield {'name': name.strip().title(), 'extra': extra, 'rank': pseudo_score}
-
-        def score_getter(item):
-            return item['rank']
-
-        def decorator(item, rank, exaequo):
-            item['rank'] = rank
+                yield {'name': name.strip().title(), 'extra': extra, 'score': pseudo_score}
 
         try:
-            scoreboard = list(scoreboard_gen())
-            decorate_with_rank(scoreboard, score_getter, decorator)
-            return scoreboard
+            return Scoreboard(scoreboard_gen())
         except FileNotFoundError:
             return None
 

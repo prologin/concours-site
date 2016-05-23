@@ -828,18 +828,6 @@ input[type=checkbox].task-list-item-checkbox {
   z-index: 1; /* because typehead appears after */
 }
 
-.ranked-enumeration {
-  list-style-type: none;
-}
-
-.ranked-enumeration li:before {
-  content: attr(data-rank) ".";
-  float: left;
-  width: 2em;
-  margin-left: -2.5em;
-  text-align: right;
-}
-
 /**
  * django-hijack
  */
