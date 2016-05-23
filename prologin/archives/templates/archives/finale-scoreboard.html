@@ -17,7 +17,7 @@
 
 {% block content %}
   <h1>{% blocktrans with year=archive.year %}Final scoreboard for Prologin {{ year }} final{% endblocktrans %}</h1>
-  {% with archive.final.scoreboard as scoreboard and "1" as scoreboard_start %}
+  {% with scoreboard=archive.final.scoreboard %}
     {% include "archives/inline-scoreboard.html" %}
   {% endwith %}
 {% endblock %}

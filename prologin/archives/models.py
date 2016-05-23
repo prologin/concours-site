@@ -13,6 +13,7 @@ import problems.models
 import qcm.models
 from archives.flickr import Flickr
 from prologin.utils import lazy_attr, open_try_hard
+from prologin.utils.scoring import decorate_with_rank
 
 logger = logging.getLogger('prologin.archives')
 
@@ -172,8 +173,6 @@ class FinalArchive(WithFlickrMixin, WithContentMixin, BaseArchive):
     dir_name = 'finale'
     flickr_redis_suffix = dir_name
 
-    ScoreboardItem = namedtuple('ScoreboardItem', 'name extra')
-
     def get_flickr_album_id(self):
         def read(file):
             return yaml.load(file.read()).get('flickr-album-id')
@@ -186,21 +185,39 @@ class FinalArchive(WithFlickrMixin, WithContentMixin, BaseArchive):
         def reader(file):
             return file.readlines()
 
-        def generator():
+        def scoreboard_gen():
             lines = open_try_hard(reader, self.file_path('HallOfFame'))
+            # pseudo_score so that decorate_with_rank can compute the rank with ties
+            pseudo_score = 0
             for line in lines:
                 line = line.strip()
                 if not line:
                     continue
+                if line.startswith('#'):
+                    continue
+                if line.lower().startswith('[tie]'):
+                    # don't change the score when there is a tie
+                    _, line = line.split('[tie]', 1)
+                    line = line.strip()
+                else:
+                    pseudo_score -= 1
                 name, *extra = line.split('(', 1)
                 particle = name.split()[0]
                 if particle.endswith('.'):
                     name = '{} {}'.format(particle.capitalize().strip(), name.split('.', 1)[1].strip())
                 extra = ' '.join(p.strip().strip('()').strip() for p in extra)
-                yield FinalArchive.ScoreboardItem(name=name.strip().title(), extra=extra)
+                yield {'name': name.strip().title(), 'extra': extra, 'rank': pseudo_score}
+
+        def score_getter(item):
+            return item['rank']
+
+        def decorator(item, rank, exaequo):
+            item['rank'] = rank
 
         try:
-            return list(generator())
+            scoreboard = list(scoreboard_gen())
+            decorate_with_rank(scoreboard, score_getter, decorator)
+            return scoreboard
         except FileNotFoundError:
             return None
 

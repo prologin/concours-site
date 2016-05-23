@@ -25,8 +25,10 @@ class ScoreboardProcessor(BlockProcessor):
             n = int(match.group('n'))
             if type == 'before':
                 end = n
-            else:
+            elif type == 'after':
                 start = n
+            else:
+                return
         scoreboard = etree.SubElement(parent, 'div', {'class': 'scoreboard'})
         scoreboard.text = get_template('archives/inline-scoreboard.html').render({
             'scoreboard': self.scoreboard[start:end],
