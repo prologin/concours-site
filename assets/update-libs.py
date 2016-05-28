@@ -150,9 +150,9 @@ def google_font(font_name, font_variants={'regular'}, font_formats={'woff', 'wof
 def datatables():
     style = 'bs'       # bootstrap
     plugins = [
-        'dt-1.10.11',  # datatables
-        'r-2.0.2',     # responsive
-        'se-1.1.2',    # multi-select
+        'dt-1.10.12',  # datatables
+        'r-2.1.0',     # responsive
+        'se-1.2.0',    # multi-select
     ]
     url = 'https://datatables.net/download/builder?{}/{}'.format(style, ','.join(plugins))
     print("Downloading datatabales:", url)
