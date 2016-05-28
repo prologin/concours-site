@@ -13,7 +13,11 @@ def thirdparty_jsonfield_to_native(apps, schema_editor):
             tbl=model.db_table,
             col=model.get_field('changes').column,
         ))
-        typeof = cursor.fetchone()[0]
+        b_typeof = cursor.fetchone()
+    try:
+        typeof = b_typeof[0]
+    except:
+        return
     if typeof == "jsonb":
         # already native
         print("\n    Not converting raw text JSON to Postgres jsonb (already jsonb)", end="\n   ")
