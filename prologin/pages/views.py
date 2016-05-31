@@ -39,7 +39,8 @@ class AboutOrganizationView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        members = team.models.TeamMember.objects.filter(year=self.request.current_edition.year).select_related('user')
+        members = (team.models.TeamMember.objects
+                   .filter(year=self.request.current_edition.year, role_public=True))
         context['team'] = members
         context['team_pres'] = members.filter(role_code=team.models.Role.president.name).first()
         return context
