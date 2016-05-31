@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load i18n staticfiles %}
+{% load i18n staticfiles rules %}
 {% load django_bootstrap_breadcrumbs utils %}
 
 {% block breadcrumbs %}
@@ -66,6 +66,28 @@
           <h3>{% trans "Staff roles" %}</h3>
           {% for membership in team_memberships|dictsortreversed:'year' %}
             <a href="{% url 'team:year' membership.year %}#m{{ shown_user.pk }}" class="btn btn-default staff-flair-{{ membership.role.name|slugify }}">{% blocktrans with year=membership.year role=membership.role_name %}{{ year }} ⋅ {{ role }}{% endblocktrans %}</a>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      {% with shown_user.get_contestants as user_contestants %}
+        {% if user_contestants %}
+          <h3>{% trans "User participations" %}</h3>
+          {% for contestant in user_contestants %}
+            {% with contestant.get_advancement_enum as contestant_level %}
+              {% with contestant.edition.year as year %}
+                <a
+                {% has_perm 'contest.can_download_home' request.user contestant as can_download_home %}
+                {% if contestant.has_home and can_download_home %}
+                  href="{% url 'users:download-final-home' shown_user.pk year %}"
+                {% else %}
+                  disabled
+                {% endif %}
+                class="btn btn-default btn-contestant-home contestant-plate-{{ contestant_level.name }}">
+                {{ year }} ⋅ {{ contestant_level|choiceenum_label }}
+                </a>
+              {% endwith %}
+            {% endwith %}
           {% endfor %}
         {% endif %}
       {% endwith %}

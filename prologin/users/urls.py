@@ -1,11 +1,18 @@
-from django.conf.urls import url
+from django.conf.urls import url, include
 from users import views
+
+user_patterns = [
+    url(r'profile/$', views.ProfileView.as_view(), name='profile'),
+    url(r'edit/$', views.EditUserView.as_view(), name='edit'),
+    url(r'edit/password/$', views.EditPasswordView.as_view(), name='edit_password'),
+
+    # Homes
+    url(r'home/(?P<year>[0-9]{4})/$', views.DownloadFinalHomeView.as_view(), name='download-final-home'),
+]
 
 urlpatterns = [
     # User profile, view and edit
-    url(r'^(?P<pk>[0-9]+)/profile/$', views.ProfileView.as_view(), name='profile'),
-    url(r'^(?P<pk>[0-9]+)/edit/$', views.EditUserView.as_view(), name='edit'),
-    url(r'^(?P<pk>[0-9]+)/edit/password/$', views.EditPasswordView.as_view(), name='edit_password'),
+    url(r'^(?P<pk>[0-9]+)/', include(user_patterns)),
 
     # Login and logout
     url(r'^login/$', views.custom_login, name='login'),

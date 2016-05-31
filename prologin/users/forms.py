@@ -36,6 +36,23 @@ class UserProfileForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['gender'].required = False
         self.fields['gender'].label = _("How do you prefer to be described?")
+
+        self.homes = []
+        for candidate in self.instance.get_homes():
+            print(candidate)
+            print(candidate.is_home_public)
+
+            home_year = candidate.edition.year
+            home_field = forms.BooleanField(
+                required=False,
+                initial=candidate.is_home_public,
+                label=(_("Make your %(year)s's home public") % {
+                    'year': home_year
+                })
+            )
+            self.homes.append(candidate)
+            self.fields['home_{}'.format(home_year)] = home_field
+
         self.fields['gender'].choices = [
             (Gender.female.value, mark_safe(_("<em>She is writing code for the contest</em>"))),
             (Gender.male.value, mark_safe(_("<em>He is writing code for the contest</em>"))),
@@ -52,6 +69,10 @@ class UserProfileForm(forms.ModelForm):
             self.fields.pop('picture', None)
 
     def clean(self):
+        for candidate in self.homes:
+            candidate.is_home_public = self.cleaned_data['home_{}'.format(candidate.edition.year)]
+            candidate.save()
+
         if self.is_contest:
             for field in self.readonly_during_contest:
                 self.cleaned_data.pop(field, None)

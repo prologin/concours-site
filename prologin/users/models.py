@@ -149,6 +149,12 @@ class ProloginUser(
 
     objects = ProloginUserManager()
 
+    def get_homes(self):
+        return [c for c in self.contestants.all() if c.has_home]
+
+    def get_contestants(self):
+        return self.contestants.select_related('edition').order_by('-edition__year')
+
     @property
     def preferred_language_enum(self):
         return Language[self.preferred_language]

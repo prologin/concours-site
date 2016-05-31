@@ -6,7 +6,7 @@ from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.db.models import Prefetch, Q
 from django.http import Http404
-from django.http.response import JsonResponse, HttpResponseBadRequest
+from django.http.response import JsonResponse, HttpResponseBadRequest, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.base import Template, Context
 from django.template.loader import get_template
@@ -21,12 +21,15 @@ from django.views.decorators.csrf import csrf_protect
 import django.contrib.auth.forms
 from django.views.generic.list import ListView
 from hmac import compare_digest
+import os
 from rules.contrib.views import PermissionRequiredMixin
+from wsgiref.util import FileWrapper
 from zinnia.models.author import Author
 
 from prologin.email import send_email
 from prologin.utils import absolute_site_url
 
+import contest.models
 import team.models
 import users.forms
 import users.models
@@ -128,6 +131,30 @@ class ProfileView(DetailView):
         context['shown_author'] = self.author
         context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
         return context
+
+
+class DownloadFinalHomeView(PermissionRequiredMixin, DetailView):
+    permission_required = 'contest.can_download_home'
+    error_message = _("Cannot download home: %(msg)s")
+    model = contest.models.Contestant
+
+    def get_object(self, queryset=None):
+        return (queryset or self.get_queryset()).get(
+            edition__year=self.kwargs['year'],
+            user__pk=self.kwargs['pk'])
+
+    def get(self, request, *args, **kwargs):
+        super().get(request, *args, **kwargs)
+
+        contestant = self.get_object()
+        if not contestant.has_home:
+            raise Http404()
+
+        path = contestant.home_path
+        response = StreamingHttpResponse(FileWrapper(open(path, 'rb')), content_type='application/x-gzip')
+        response['Content-Length'] = os.path.getsize(path)
+        response['Content-Disposition'] = "attachment; filename=%s" % contestant.home_filename
+        return response
 
 
 class UpdateUserAsAdminView(UpdateView):
