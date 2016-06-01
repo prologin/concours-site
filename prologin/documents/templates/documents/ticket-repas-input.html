@@ -1,0 +1,34 @@
+{% extends "prologin/base.html" %}
+{% load i18n %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for 'documents:index' %}{% trans "Documents" %}{% endbreadcrumb_for %}
+{% if year != None %}
+  {% breadcrumb_for 'documents:index' year %}{{ year }}{% endbreadcrumb_for %}
+{% endif %}
+  {% breadcrumb_for 'documents:index' %}{% trans "Ticket Repas" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% if year %}{% blocktrans %}Ticket Repas - {{ year }}{% endblocktrans %}{% else %}{% trans "Document index" %}{% endif %}{% endblock %}
+
+{% block content %}
+
+  <h1>
+    {% if year %}
+      {% blocktrans %}Ticket Repas - {{ year }}{% endblocktrans %}
+    {% else %}
+      {% trans "Document index" %}
+    {% endif %}
+  </h1>
+
+
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Valider"/>
+  </form>
+
+
+{% endblock %}

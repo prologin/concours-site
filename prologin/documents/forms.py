@@ -107,3 +107,13 @@ class ImportSemifinalResultUploadForm(forms.Form):
 
 class ImportSemifinalResultReviewForm(forms.Form):
     pass
+
+
+class MealTicketForm(forms.Form):
+    ticket_name = forms.CharField(label='Meal name')
+    ticket_id = forms.IntegerField(label='Starting ID')
+
+
+class BadgesOrganizersForm(forms.Form):
+    first_name = forms.CharField(label='First name', widget=forms.Textarea)
+    last_name = forms.CharField(label='Last name', widget=forms.Textarea)

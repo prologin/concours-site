@@ -129,6 +129,12 @@
               <a href="{% url 'documents:final:badges' year %}" class="btn btn-default btn-xs">
                 <i class="fa fa-ticket"></i> {% trans "Badges" %}
               </a>
+              <a href="{% url 'documents:final:badges-organizers' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-ticket"></i> {% trans "Bagdes Organisateurs" %}
+              </a>
+              <a href="{% url 'documents:final:ticket-repas-input' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-cutlery"></i> {% trans "Ticket Repas" %}
+              </a>
             </td>
           </tr>
         </tbody>

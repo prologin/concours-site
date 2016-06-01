@@ -6,7 +6,7 @@ from django.core import serializers
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
 from django.http.response import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
@@ -408,3 +408,65 @@ class FinalBadgesView(BaseFinalDocumentView):
 
     def contestant_queryset(self):
         return super().contestant_queryset().order_by(*USER_LIST_ORDERING)
+
+
+class FinalBadgesOrganisateursInputView(TemplateView):
+    template_name= 'documents/badges-organisateurs-input.html'
+    form_class = documents.forms.BadgesOrganizersForm
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            request.session['docs_organizers_last_name'] = form.cleaned_data['last_name'].split()
+            request.session['docs_organizers_first_name'] = form.cleaned_data['first_name'].split()
+            return HttpResponseRedirect('badges-organizers')
+        return render(request, self.template_name, {'form': form})
+
+
+
+class FinalTicketRepasInputView(TemplateView):
+    template_name= 'documents/ticket-repas-input.html'
+    form_class = documents.forms.MealTicketForm
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            request.session['docs_ticket_name'] = form.cleaned_data['ticket_name']
+            request.session['docs_ticket_id'] = form.cleaned_data['ticket_id']
+            return HttpResponseRedirect('../ticket-repas')
+        return render(request, self.template_name, {'form': form})
+
+
+
+class FinalTicketRepasView(BaseFinalDocumentView):
+    template_name = 'documents/ticket-repas.tex'
+    pdf_title = _("Prologin %(year)s: Ticket repas")
+    filename = pgettext_lazy("Document filename", "ticket-repas-%(year)s-final")
+
+    def get_extra_context(self):
+        context = super().get_extra_context()
+        context['ticket_name'] = self.request.session['docs_ticket_name']
+        context['ticket_id'] = self.request.session['docs_ticket_id']
+        return context
+
+
+class FinalBadgesOrganisateursView(BaseFinalDocumentView):
+    template_name = 'documents/badges-organisateurs.tex'
+    pdf_title = _("Prologin %(year)s: badges organisateurs")
+    filename = pgettext_lazy("Document filename", "badges-organisateurs-%(year)s-final")
+    
+    def get_extra_context(self):
+        context = super().get_extra_context()
+        last_name = self.request.session['docs_organizers_last_name']
+        first_name = self.request.session['docs_organizers_first_name']
+        context['organizers'] = list(zip(last_name, first_name))
+        return context
+
