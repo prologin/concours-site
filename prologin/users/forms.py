@@ -25,8 +25,8 @@ class UserProfileForm(forms.ModelForm):
                   'preferred_language', 'school_stage', 'timezone',
                   'preferred_locale', 'avatar', 'picture',)
         widgets = {
-            'avatar': PreviewFileInput(),
-            'picture': PreviewFileInput(),
+            'avatar': PreviewFileInput(image_attrs={'style': 'max-width: 90px; max-height: 90px;'}),
+            'picture': PreviewFileInput(image_attrs={'style': 'max-width: 90px; max-height: 90px;'}),
             'gender': forms.RadioSelect(),
             'address': forms.Textarea(attrs=dict(rows=2)),
         }
