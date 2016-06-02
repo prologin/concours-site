@@ -1,11 +1,9 @@
-import json
-
 import base64
 import hashlib
+import json
 import logging
 import os
 import requests
-
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser, UserManager
@@ -20,13 +18,16 @@ from django_prometheus.models import ExportModelOperationsMixin
 from hijack.signals import hijack_started, hijack_ended
 from timezone_field import TimeZoneField
 
+from prologin.languages import Language
 from prologin.models import (AddressableModel, GenderField,
                              CodingLanguageField, EnumField, ChoiceEnum)
-from prologin.languages import Language
-from prologin.utils import upload_path
+from prologin.utils import upload_path, storage
+from prologin.utils.models import ResizeOnSaveImageField
 
 ACTIVATION_TOKEN_LENGTH = 32
 logger = logging.getLogger('users.models')
+
+overwrite_storage = storage.OverwriteStorage()
 
 
 class InvalidActivationError(Exception):
@@ -101,11 +102,16 @@ class EducationStage(ChoiceEnum):
 
 class ProloginUser(
         ExportModelOperationsMixin('user'), AbstractUser, AddressableModel):
+
+    @staticmethod
+    def upload_seed(instance):
+        return b'prologinuser/%d' % instance.pk
+
     def upload_avatar_to(self, *args, **kwargs):
-        return upload_path('avatar')(self, *args, **kwargs)
+        return upload_path('avatar', using=ProloginUser.upload_seed)(self, *args, **kwargs)
 
     def upload_picture_to(self, *args, **kwargs):
-        return upload_path('picture')(self, *args, **kwargs)
+        return upload_path('picture', using=ProloginUser.upload_seed)(self, *args, **kwargs)
 
     USERNAME_FIELD = 'username'
     REQUIRED_FIELDS = ['email']
@@ -127,12 +133,16 @@ class ProloginUser(
     timezone = TimeZoneField(default=settings.TIME_ZONE, verbose_name=_("Time zone"))
     preferred_locale = models.CharField(max_length=8, blank=True, verbose_name=_("Locale"), choices=settings.LANGUAGES)
 
-    avatar = models.ImageField(upload_to=upload_avatar_to,
-                               blank=True,
-                               verbose_name=_("Profile picture"))
-    picture = models.ImageField(upload_to=upload_picture_to,
-                                blank=True,
-                                verbose_name=_("Official member picture"))
+    avatar = ResizeOnSaveImageField(upload_to=upload_avatar_to,
+                                    storage=overwrite_storage,
+                                    fit_into=settings.PROLOGIN_MAX_AVATAR_SIZE,
+                                    blank=True,
+                                    verbose_name=_("Profile picture"))
+    picture = ResizeOnSaveImageField(upload_to=upload_picture_to,
+                                     storage=overwrite_storage,
+                                     fit_into=settings.PROLOGIN_MAX_AVATAR_SIZE,
+                                     blank=True,
+                                     verbose_name=_("Official member picture"))
 
     # MD5 password from <2015 Drupal website
     legacy_md5_password = models.CharField(max_length=32, blank=True)
