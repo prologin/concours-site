@@ -40,11 +40,9 @@ def sizeof_fmt(num: int, suffix='B'):
     return "%.1f%s%s" % (num, 'Yi', suffix)
 
 
-def upload_path(*base_path):
+def upload_path(*base_path, using=None):
     """
     Generate upload path for a FileInput.
-    `base_path`: folder path components of where to upload the files,
-    relative to MEDIA_ROOT.
     Typical usage:
 
         class Whatever:
@@ -55,15 +53,23 @@ def upload_path(*base_path):
 
     :param base_path: path components to the directory (relative to MEDIA_ROOT)
     where to store the uploads
+    :param using: None to use a random file name
+                  or callable(instance) that returns bytes to generate a
+                  predictable filename
     :rtype callable
     """
     parts = ['upload']
     parts.extend(base_path)
 
     def func(instance, filename):
+        if using is None:
+            data = uuid.uuid4().bytes
+        else:
+            data = using(instance)
+        data = b''.join((settings.SECRET_KEY.encode(), data))
+        name = hashlib.sha1(data).hexdigest()
         path, ext = os.path.splitext(filename)
-        rand = hashlib.sha1(uuid.uuid4().bytes).hexdigest()
-        name = '%s%s' % (rand, ext)
+        name += ext
         return os.path.join(*(parts + [name]))
 
     return func
