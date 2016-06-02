@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AlterModelOptions(
             name='taskforce',
-            options={'ordering': ('-event', '-redundancy', '-importance', 'name'), 'verbose_name': 'Task force', 'verbose_name_plural': 'Task forces'},
+            options={'ordering': ('-event', '-importance', '-redundancy', 'name'), 'verbose_name': 'Task force', 'verbose_name_plural': 'Task forces'},
         ),
         migrations.AddField(
             model_name='taskforce',
