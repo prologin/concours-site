@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
-from django_prometheus.models import ExportModelOperationsMixin
 
 from prologin.utils import ChoiceEnum
 from prologin.languages import Language
