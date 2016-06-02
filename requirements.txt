@@ -67,6 +67,8 @@ redis
 rules
 # Transifex client for translation pull/push
 transifex-client==0.11b3
+# ImageMagick wrapper
+wand
 
 # MySQL database connector (for Drupal legacy) (uncomment if needed)
 # mysqlclient
