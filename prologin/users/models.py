@@ -105,7 +105,7 @@ class ProloginUser(
 
     @staticmethod
     def upload_seed(instance):
-        return b'prologinuser/%d' % instance.pk
+        return 'prologinuser/{}'.format(instance.pk).encode()
 
     def upload_avatar_to(self, *args, **kwargs):
         return upload_path('avatar', using=ProloginUser.upload_seed)(self, *args, **kwargs)
