@@ -2,7 +2,7 @@
 {% load utils %}
 
 <div class="row">
-  <div class="col-xs-6 col-md-4">
+  <div class="col-md-4">
     <h3>{% trans "Prologin" %}</h3>
     <ul class="nav">
       <li><a href="{% url 'pages:about-organization' %}"><i class="fa fa-cube fa-centered"></i> {% trans "The organization" %}</a></li>
@@ -16,7 +16,7 @@
     </ul>
         {% endcomment %}
   </div>
-  <div class="col-xs-6 col-md-4">
+  <div class="col-md-4">
         {% comment TODO %}
     <h3>{% trans "Terms" %}</h3>
     <ul class="nav">
@@ -44,7 +44,7 @@
       </span>
     </a>
   </div>
-  <div class="col-xs-12 col-md-4">
+  <div class="col-md-4">
     <h3>{% trans "Change locale" %} <i class=" fa fa-globe"></i></h3>
     {% get_current_language as LANGUAGE_CODE %}
     <form action="{% url 'set_language' %}" method="post" id="change-lang-form" class="form-inline">
