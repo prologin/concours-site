@@ -55,8 +55,13 @@
         {% endfor %}
       </p>
     </div>
-    <div class="entry-content">
-      {{ article.html_content|safe }}
+    <div class="entry-summary" itemprop="headline">
+      {{ article.html_lead|safe }}
+    </div>
+    <div class="entry-content" itemprop="articleBody">
+      {% if article.featured or not article.lead %}
+        {{ article.html_content|safe }}
+      {% endif %}
     </div>
   </section>
 
