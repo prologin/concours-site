@@ -13,7 +13,9 @@ import prologin.tests
 
 
 class ReportingTestCase(prologin.tests.ProloginTestCase):
-    def make_request(self, data={}):
+    def make_request(self, data=None):
+        if data is None:
+            data = {}
         return self.factory.post(
             reverse('marauder:api:report'),
             content_type='text/json',

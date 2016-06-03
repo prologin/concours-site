@@ -11,7 +11,7 @@ from users.models import ProloginUser
 def multicast_notification(recipients,
                            title_format: str,
                            message_format: str,
-                           format_data={}):
+                           format_data=None):
     """
     Sends a notification to a group of Marauder users (provided as an iterable
     of UserProfile). The title and the message of the notification are
@@ -21,6 +21,8 @@ def multicast_notification(recipients,
     Returns:
         (number of notifications successfully sent, total number of recipients)
     """
+    if format_data is None:
+        format_data = {}
     successful_recipients = total_recipients = 0
     for recipient in recipients:
         total_recipients += 1
@@ -36,7 +38,7 @@ def multicast_notification(recipients,
 def unicast_notification(to: UserProfile,
                          title_format: str,
                          message_format: str,
-                         format_data={}):
+                         format_data=None):
     """
     Sends a notification to a given Marauder user. The title and the message of
     the notification are localized for the recipient user and formatted using
@@ -45,6 +47,8 @@ def unicast_notification(to: UserProfile,
     Raises:
         ValueError: If the recipient does not have GCM data.
     """
+    if format_data is None:
+        format_data = {}
     title = _translate_for(title_format, to.user).format(**format_data)
     message = _translate_for(message_format, to.user).format(**format_data)
     _push_message(to.gcm_token, {"title": title, "message": message})
