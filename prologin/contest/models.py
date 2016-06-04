@@ -1,5 +1,6 @@
 import collections
 import itertools
+import os
 import random
 from adminsortable.models import SortableMixin
 from decimal import Decimal
@@ -182,12 +183,20 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     score_semifinal_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
     score_final = models.IntegerField(blank=True, null=True, verbose_name=_("Score"))
     score_final_bonus = models.IntegerField(blank=True, null=True, verbose_name=_("Bonus score"))
+    is_home_public = models.BooleanField(default=False)
 
     objects = ContestantManager()
     complete_for_semifinal = ContestantCompleteSemifinalManager()
 
     class Meta:
         unique_together = ('user', 'edition')
+
+    def get_advancement_enum(self):
+        if self.is_assigned_for_final:
+            return Event.Type.final
+        if self.is_assigned_for_semifinal:
+            return Event.Type.semifinal
+        return Event.Type.qualification
 
     def get_score_fields_for_type(self, type: Event.Type) -> dict:
         mapping = {Event.Type.qualification: 'qualif'}
@@ -211,6 +220,20 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
             self.wish_count = (self.assignation_semifinal_wishes
                                .filter(type=Event.Type.semifinal.value).distinct().count())
             return self.wish_count
+
+    @property
+    def home_path(self):
+        return os.path.join(settings.HOMES_PATH, str(self.edition.year), '{}.{}'.format(self.user.pk, 'tar.gz'))
+
+    @property
+    def has_home(self):
+        return os.path.exists(self.home_path)
+
+    @property
+    def home_filename(self):
+        return 'home-final-{year}-{username}.tar.gz'.format(
+            year=self.edition.year,
+            username=self.user.normalized_username)
 
     @property
     def is_complete_for_semifinal(self):
