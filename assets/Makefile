@@ -35,7 +35,7 @@ OBJS += $(ERROR_503_TPLS)
 all: all-assets update-libs update-emojis
 
 $(IMG_DIR)/silhouette.big.png: silhouette.svg
-	$(SVGRASTER) -h 112 --export-png $@ $<
+	$(SVGRASTER) -h 220 --export-png $@ $<
 
 $(IMG_DIR)/logo_cube.big.png: cube_perfect.svg
 	$(SVGRASTERTRIM) -w 100 --export-png $@ $<

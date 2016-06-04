@@ -17,11 +17,11 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='prologinuser',
             name='avatar',
-            field=prologin.utils.models.ResizeOnSaveImageField(blank=True, fit_into=(180, 180), storage=prologin.utils.storage.OverwriteStorage(), upload_to=users.models.ProloginUser.upload_avatar_to, verbose_name='Profile picture'),
+            field=prologin.utils.models.ResizeOnSaveImageField(blank=True, fit_into=(220, 220), storage=prologin.utils.storage.OverwriteStorage(), upload_to=users.models.ProloginUser.upload_avatar_to, verbose_name='Profile picture'),
         ),
         migrations.AlterField(
             model_name='prologinuser',
             name='picture',
-            field=prologin.utils.models.ResizeOnSaveImageField(blank=True, fit_into=(180, 180), storage=prologin.utils.storage.OverwriteStorage(), upload_to=users.models.ProloginUser.upload_picture_to, verbose_name='Official member picture'),
+            field=prologin.utils.models.ResizeOnSaveImageField(blank=True, fit_into=(220, 220), storage=prologin.utils.storage.OverwriteStorage(), upload_to=users.models.ProloginUser.upload_picture_to, verbose_name='Official member picture'),
         ),
     ]
