@@ -4,16 +4,15 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.views import logout, login as django_login_view
 from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
-from django.db.models import Prefetch, Q
 from django.http import Http404
-from django.http.response import JsonResponse, HttpResponseBadRequest, StreamingHttpResponse
+from django.http.response import JsonResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from django.template.base import Template, Context
+from django.template.base import Context
 from django.template.loader import get_template
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
-from django.views.generic.base import View, RedirectView, TemplateView
+from django.views.generic.base import View, RedirectView
 from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.views.generic.edit import CreateView, UpdateView, FormView
 from django.views.decorators.cache import never_cache
@@ -21,7 +20,6 @@ from django.views.decorators.csrf import csrf_protect
 import django.contrib.auth.forms
 from django.views.generic.list import ListView
 from hmac import compare_digest
-import os
 from rules.contrib.views import PermissionRequiredMixin
 from wsgiref.util import FileWrapper
 from zinnia.models.author import Author
@@ -30,7 +28,6 @@ from prologin.email import send_email
 from prologin.utils import absolute_site_url
 
 import contest.models
-import team.models
 import users.forms
 import users.models
 
@@ -152,7 +149,7 @@ class DownloadFinalHomeView(PermissionRequiredMixin, DetailView):
 
         path = contestant.home_path
         response = StreamingHttpResponse(FileWrapper(open(path, 'rb')), content_type='application/x-gzip')
-        response['Content-Length'] = os.path.getsize(path)
+        response['Content-Length'] = contestant.home_size
         response['Content-Disposition'] = "attachment; filename=%s" % contestant.home_filename
         return response
 

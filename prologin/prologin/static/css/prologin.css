@@ -432,6 +432,10 @@ footer .legal {
  * Misc
  */
 
+li address {
+  margin-bottom: 0;
+}
+
 .btn {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -448,12 +452,12 @@ footer .legal {
   padding-left: 0;
 }
 
-.alert > .fa {
+.alert > .fa, .well > .fa {
   display: table-cell;
-  vertical-align: middle;
+  /*vertical-align: middle;*/
 }
 
-.alert div, .alert span {
+.alert > div, .alert > span, .well > div, .well > span {
   padding-left: 8px;
   display: table-cell;
 }
@@ -484,6 +488,15 @@ footer .legal {
 
 .task-list-item {
   list-style-type: none;
+}
+
+.text-break-word {
+  word-wrap: break-word;
+}
+
+.text-smallcaps {
+  text-transform: capitalize;
+  font-variant: small-caps;
 }
 
 input[type=checkbox].task-list-item-checkbox {
@@ -530,9 +543,47 @@ input[type=checkbox].task-list-item-checkbox {
   margin: 0 0 10px;
 }
 
+.profile-info li {
+ margin-top: 4px;
+ margin-bottom: 4px;
+}
+
+.avatar-container-profile {
+  width: 220px;
+  height: 220px;
+  margin-bottom: 1.5em;
+}
+
+.avatar-container {
+  border-radius: 6px;
+  background-image: url('../img/silhouette.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.avatar-container > .avatar-container {
+  position: absolute;
+  bottom: -16px;
+  right: -16px;
+  border: 5px solid white;
+  box-sizing: content-box;
+  width: 64px;
+  height: 64px;
+}
+
+.avatar-container-round {
+  border-radius: 50%;
+  padding-right: 1px; /* fix for webkit clipping the image */
+}
+
 .avatar.avatar-full {
   border: 1px solid rgba(0, 0, 0, 0.2);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.compact-headings h1:first-of-type, .compact-headings h2:first-of-type, .compact-headings h3:first-of-type {
+  margin-top: 0;
 }
 
 .pager li a {
@@ -684,6 +735,10 @@ input[type=checkbox].task-list-item-checkbox {
 
 .sidebar-affix.affix-bottom {
   position: absolute;
+}
+
+.staff-flair {
+  margin: 0 0 4px 4px;
 }
 
 @keyframes staff-flair-president {
@@ -891,7 +946,7 @@ label[for$="clear_id"] {
 .tt-impersonate {
   background-color: white;
   width: 220px;
-  box-shadow: 0 6px 12px rgba(0,0,0,.175); /* dropdown */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, .175); /* dropdown */
   left: -20px !important; /* padding inside of dropdown li>a */
 }
 
@@ -900,7 +955,7 @@ label[for$="clear_id"] {
   margin: 0;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-top: 1px solid rgba(0,0,0,.25);
+  border-top: 1px solid rgba(0, 0, 0, .25);
   line-height: 1.2;
   min-height: 3em;
 }

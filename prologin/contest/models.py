@@ -236,6 +236,13 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
             username=self.user.normalized_username)
 
     @property
+    def home_size(self):
+        try:
+            return os.path.getsize(self.home_path)
+        except OSError:
+            return 0
+
+    @property
     def is_complete_for_semifinal(self):
         # update ContestantManager.complete_for_semifinal accordingly
         if self._wish_count < settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT:
@@ -259,8 +266,12 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         return self.assignation_final == Assignation.ruled_out.value
 
     @property
-    def is_complete_for_finale(self):
-        return self._is_complete
+    def completed_qualification(self):
+        return self.is_assigned_for_semifinal or self.is_ruled_out_for_semifinal
+
+    @property
+    def completed_semifinal(self):
+        return self.is_assigned_for_final or self.is_ruled_out_for_final
 
     def score_for(self, event_type: Event.Type):
         return sum(score or 0 for score in self.get_score_fields_for_type(event_type).values())

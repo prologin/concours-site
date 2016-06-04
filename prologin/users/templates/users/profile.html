@@ -13,116 +13,159 @@
 {% block content %}
 
   {% trans "<em>not provided</em>" as noinfo %}
-  <h1>{% if shown_user.get_full_name and see_private %}
-    {{ shown_user.get_full_name }} <small>{{ shown_user.username }}</small>
-  {% else %}
-    {{ shown_user.username }}
-  {% endif %}
-  {% if see_private %}
-    <p class="pull-right"><a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default"><i
-        class="fa fa-pencil"></i> {% trans "Edit" %}</a>
-  {% endif %}
-  </h1>
+
+  <a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default pull-right">
+    <i class="fa fa-pencil"></i> {% trans "Edit profile" %}</a>
+
+  <h1>{{ shown_user.username }}</h1>
 
   <div class="row">
 
-    <div class="col-sm-8">
-      <dl class="dl-horizontal">
-      {% if see_private %}
-        <dt>{% trans "First name" %}</dt>
-        <dd>{{ shown_user.first_name|default:noinfo }}</dd>
+    <div class="col-sm-4 col-md-3">
 
-        <dt>{% trans "Last name" %}</dt>
-        <dd>{{ shown_user.last_name|default:noinfo }}</dd>
+      <div class="avatar-container avatar-container-profile"
+           title="{% blocktrans with shown_user.username as username %}{{ username }}'s profile picture{% endblocktrans %}"
+           {% if shown_user.avatar %}style="background-image: url({{ shown_user.avatar.url }})"{% endif %}>
+        {% if shown_user.picture %}
+          <div class="avatar-container avatar-container-round"
+               style="background-image: url({{ shown_user.picture.url }})"
+               title="{% blocktrans with shown_user.username as username %}{{ username }}'s staff picture{% endblocktrans %}"></div>
+        {% endif %}
+      </div>
 
-        <dt>{% trans "Phone number" %}</dt>
-        <dd>{{ shown_user.phone|phone_number|default:noinfo }}</dd>
-
-        <dt>{% trans "Email address" %}</dt>
-        <dd>{{ shown_user.email|default:noinfo }}</dd>
-
-        <dt>{% trans "Birth day" %}</dt>
-        <dd>{% if shown_user.birthday %}{{ shown_user.birthday }} ({{ shown_user.birthday|timesince }}){% else %}{{ noinfo }}{% endif %}</dd>
-
-        <dt>{% trans "Postal address" %}</dt>
-        <dd>
-          {% if user.has_partial_address %}
+      <ul class="fa-ul text-break-word profile-info" style="margin-bottom: 1em">
+        {% if see_private %}
+          {% if shown_user.get_full_name %}
+          <li title="{% trans "Full name" %}">
+            <i class="fa fa-li fa-user"></i>
+            <span class="text-capitalize">{{ shown_user.first_name }}</span>
+            <span class="text-smallcaps">{{ shown_user.last_name }}</span>
+          </li>
+          {% endif %}
+          {% if shown_user.phone %}
+          <li title="{% trans "Phone number" %}">
+            <i class="fa fa-li fa-phone"></i>
+              <a href="tel:{{ shown_user.phone }}">{{ shown_user.phone|phone_number }}</a>
+          </li>
+          {% endif %}
+          {% if shown_user.email %}
+          <li title="{% trans "Email address" %}">
+            <i class="fa fa-li fa-envelope-o"></i>
+            <a href="email:{{ shown_user.email }}">{{ shown_user.email }}</a>
+          </li>
+          {% endif %}
+          {% if shown_user.birthday %}
+          <li title="{% trans "Birth day" %}"><i class="fa fa-li fa-birthday-cake"></i>
+            {{ shown_user.birthday }}<br>
+              <small class="text-muted">{{ shown_user.birthday|timesince }}</small>
+          </li>
+          {% endif %}
+         {% if user.has_partial_address %}
+          <li title="{% trans "Postal address" %}">
+            <i class="fa fa-li fa-map-marker"></i>
             <address>
               {{ shown_user.address|linebreaksbr }}<br>
               {{ shown_user.postal_code }} {{ shown_user.city }}<br>
               {{ shown_user.country }}
             </address>
-          {% else %}
-            {{ noinfo }}
+          </li>
           {% endif %}
-        </dd>
         {% endif %}
-        <dt>{% trans "Member for" %}</dt>
-        <dd>{{ shown_user.date_joined|timesince }}</dd>
-      </dl>
+        <li title="{% trans "Date joined" %}">
+          <i class="fa fa-li fa-clock-o"></i>
+          {% trans "Member for" %} {{ shown_user.date_joined|timesince }}
+        </li>
+      </ul>
+
+    </div>
+
+    <div class="col-sm-8 col-md-5 compact-headings">
+
+      <h3>{% trans "Contest involvment" %}</h3>
+
+      {% with shown_user.get_involved_contestants as user_contestants %}
+
+        {% if user_contestants %}
+
+          {% for contestant in user_contestants %}
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <table class="panel-title"><tbody><tr>
+                  <td width="100%">{{ contestant.edition.year }}</td>
+                  <td class="text-right">
+                    <a href="{% url 'archives:index' %}#prologin-{{ contestant.edition.year }}"
+                                            class="btn btn-default btn-xs">
+                      <i class="fa fa-book"></i> {% trans "See archives" %}</a>
+                  </td>
+                </tr></tbody></table>
+              </div>
+              <div class="panel-body">
+                <ul class="nav nav-stacked fa-ul">
+                  <li><i class="fa fa-li fa-asterisk"></i> {% trans "Completed the qualification step" %}</li>
+                  {% if contestant.edition.qualification_corrected and contestant.is_assigned_for_semifinal %}
+                    <li class="text-success"><i
+                      class="fa fa-li fa-check"></i> {% trans "Selected for regional events" %}</li>
+                    {% if contestant.completed_semifinal %}
+                      <li><i class="fa fa-li fa-asterisk"></i> {% trans "Competed in the regional events" %}</li>
+                      {% if contestant.edition.semifinal_corrected and contestant.is_assigned_for_final %}
+                        <li class="text-success"><i class="fa fa-li fa-check"></i> {% trans "Selected for the final" %}
+                        </li>
+                      {% endif %}
+                    {% endif %}
+                  {% endif %}
+                </ul>
+              </div>
+              {% has_perm 'contest.can_download_home' request.user contestant as can_download_home %}
+              {% if contestant.has_home and can_download_home %}
+              <div class="panel-footer">
+                 <a href="{% url 'users:download-final-home' shown_user.pk contestant.edition.year %}"
+                    class="btn btn-default btn-xs btn-contestant-home">
+                   <i class="fa fa-cloud-download"></i>
+                   {% blocktrans with size=contestant.home_size|human_file_size %}Download final home (tar.gz, {{ size }}){% endblocktrans %}
+                </a>
+              </div>
+              {% endif %}
+            </div>
+          {% endfor %}
+
+        {% else %}
+
+          <p class="text-muted"><i class="fa fa-fw fa-frown-o"></i>
+            <em>{% blocktrans with shown_user.username as username %}Sadly, {{ username }} did not take part in any Prologin edition yet.{% endblocktrans %}</em>
+          </p>
+
+        {% endif %}
+      {% endwith %}
+
+    </div>
+
+    <div class="col-sm-12 col-md-4 compact-headings">
+
+      {% with shown_author.entries_published.all as entries_published %}
+        {% if entries_published %}
+          <h3>{% trans "Latest authored news entries" %}</h3>
+          <ul class="nav nav-stacked">
+            {% for entry in entries_published|slice:":5" %}
+              <li><a href="{{ entry.get_absolute_url }}">
+                <span class="text-muted">{{ entry.creation_date|date:"DATE_FORMAT" }} ⋅</span> {{ entry.title }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      {% endwith %}
 
       {% with shown_user.team_memberships.all as team_memberships %}
         {% if team_memberships %}
           <h3>{% trans "Staff roles" %}</h3>
-          {% for membership in team_memberships|dictsortreversed:'year' %}
-            <a href="{% url 'team:year' membership.year %}#m{{ shown_user.pk }}" class="btn btn-default staff-flair-{{ membership.role.name|slugify }}">{% blocktrans with year=membership.year role=membership.role_name %}{{ year }} ⋅ {{ role }}{% endblocktrans %}</a>
-          {% endfor %}
+          {% spaceless %}{% for membership in team_memberships|dictsortreversed:'year' %}
+            <a href="{% url 'team:year' membership.year %}#m{{ shown_user.pk }}"
+               class="btn btn-default staff-flair staff-flair-{{ membership.role.name|slugify }}">
+              {% blocktrans with year=membership.year role=membership.role_name %}{{ year }} ⋅
+                {{ role }}{% endblocktrans %}</a>
+          {% endfor %}{% endspaceless %}
         {% endif %}
       {% endwith %}
 
-      {% with shown_user.get_contestants as user_contestants %}
-        {% if user_contestants %}
-          <h3>{% trans "User participations" %}</h3>
-          {% for contestant in user_contestants %}
-            {% with contestant.get_advancement_enum as contestant_level %}
-              {% with contestant.edition.year as year %}
-                <a
-                {% has_perm 'contest.can_download_home' request.user contestant as can_download_home %}
-                {% if contestant.has_home and can_download_home %}
-                  href="{% url 'users:download-final-home' shown_user.pk year %}"
-                {% else %}
-                  disabled
-                {% endif %}
-                class="btn btn-default btn-contestant-home contestant-plate-{{ contestant_level.name }}">
-                {{ year }} ⋅ {{ contestant_level|choiceenum_label }}
-                </a>
-              {% endwith %}
-            {% endwith %}
-          {% endfor %}
-        {% endif %}
-      {% endwith %}
-
-      {% with shown_author.entries_published.all as entries_published %}
-        {% if entries_published %}
-          <h3>{% trans "Latest news entries" %}</h3>
-          <ul class="nav nav-stacked">
-          {% for entry in entries_published|slice:":10" %}
-            <li><a href="{{ entry.get_absolute_url }}">
-              <span class="text-muted">{{ entry.creation_date|date:"DATE_FORMAT" }} ⋅</span> {{ entry.title }}</a>
-            </li>
-          {% endfor %}
-          </ul>
-        {% endif %}
-      {% endwith %}
-    </div>
-
-    <div class="col-sm-4">
-      <p class="text-right">
-      {% if shown_user.avatar %}
-        <img class="avatar avatar-full" src="{{ shown_user.avatar.url }}" alt="
-            {% blocktrans with shown_user.username as username %}{{ username }}'s profile picture{% endblocktrans %}"
-            style="max-width: 100%"/>
-      {% elif not shown_user.picture %}
-        <img class="avatar avatar-full" src="{% static 'img/silhouette.png' %}"
-            alt="{% trans "No profile picture" %}" style="max-width: 100%"/>
-      {% endif %}
-      {% if shown_user.picture %}
-        <img class="avatar avatar-full" src="{{ shown_user.picture.url }}" alt="
-            {% blocktrans with shown_user.username as username %}{{ username }}'s staff picture{% endblocktrans %}"
-            style="max-width: 100%"/>
-      {% endif %}
-      </p>
-      {# TODO: related links (forum posts, news, contest participations…) #}
     </div>
 
   </div>

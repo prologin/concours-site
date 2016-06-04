@@ -18,6 +18,7 @@ from django_prometheus.models import ExportModelOperationsMixin
 from hijack.signals import hijack_started, hijack_ended
 from timezone_field import TimeZoneField
 
+from contest.models import Assignation
 from prologin.languages import Language
 from prologin.models import (AddressableModel, GenderField,
                              CodingLanguageField, EnumField, ChoiceEnum)
@@ -154,6 +155,9 @@ class ProloginUser(
 
     def get_contestants(self):
         return self.contestants.select_related('edition').order_by('-edition__year')
+
+    def get_involved_contestants(self):
+        return self.get_contestants().exclude(assignation_semifinal=Assignation.not_assigned.value)
 
     @property
     def preferred_language_enum(self):
