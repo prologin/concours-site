@@ -279,9 +279,9 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
 
     @property
     def total_score(self):
-        return sum(getattr(self, name) or 0
-                   for name in self._meta.get_all_field_names()
-                   if name.startswith('score_'))
+        return sum(getattr(self, field.name) or 0
+                   for field in self._meta.get_fields()
+                   if field.name.startswith('score_'))
 
     @cached_property
     def semifinal_challenge(self):
