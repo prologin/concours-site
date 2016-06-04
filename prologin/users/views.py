@@ -132,7 +132,6 @@ class ProfileView(DetailView):
 
 class DownloadFinalHomeView(PermissionRequiredMixin, DetailView):
     permission_required = 'contest.can_download_home'
-    error_message = _("Cannot download home: %(msg)s")
     model = contest.models.Contestant
 
     def get_object(self, queryset=None):
