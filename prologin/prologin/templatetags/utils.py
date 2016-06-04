@@ -7,6 +7,7 @@ from django import template
 from django.conf import settings
 from django.template import Node, TemplateSyntaxError
 from django.utils import timezone
+from django.utils.text import pgettext
 from django.utils.encoding import smart_str
 from django.utils.module_loading import import_string
 from django.utils.timesince import timesince
@@ -66,6 +67,23 @@ def get_setting(name):
     Contact us at {% get_setting 'CONTACT_EMAIL' %}
     """
     return getattr(settings, name, None)
+
+
+@register.filter
+def human_file_size(size, binary=False):
+    suffix = pgettext("File size suffix", "B")
+    name = pgettext("File size unit", "bytes")
+    base = 1024. if binary else 1000.
+    unit_i = 'i' if binary else ''
+    for unit in ('', 'K', 'M', 'G', 'T', 'P', 'E', 'Z'):
+        if abs(size) < base:
+            if not unit:
+                unit = ''
+                unit_i = ''
+                suffix = name
+            return "{:.1f} {}{}{}".format(size, unit, unit_i, suffix)
+        size /= base
+    return "{:.1f} {}{}{}".format(size, 'Y', unit_i, suffix)
 
 
 @register.tag(name='captureas')
