@@ -22,17 +22,31 @@
   \noindent
   \begin{longtable}[c]{|p{8.4cm}|p{8.4cm}|}
     \hline
-    {% for contestant in contestants %}
-      \begin{picture}(8.2,5.5)
-        \includegraphics[width=8.2cm]{logo{{ year }}}
-        \put(-8,4){\Huge{\textsf{\textbf{
-          {{ contestant.user.last_name|title|escapetex }} }}}}
-        \put(-8,3){\makebox[82mm][r]{\Huge{\textsf{\textbf{
-          {{ contestant.user.first_name|title|escapetex }} }}}}}
-      \end{picture}
-      {% cycle '&' '\\\\\\hline' %}
-    {% endfor %}
-    {% if not contestants|length|divisibleby:"2" %}\\\hline{% endif %}
+    {% if organizers != None %}
+      {% for organizer in organizers %}
+        \begin{picture}(8.2,5.5)
+          \includegraphics[width=8.2cm]{logo{{ year }}}
+          \put(-8,4){\Huge{\textsf{\textbf{
+            {{ organizer.0|escapetex }} }}}}
+          \put(-8,3){\makebox[82mm][r]{\Huge{\textsf{\textbf{
+            {{ organizer.1|escapetex }} }}}}}
+        \end{picture}
+        {% cycle '&' '\\\\\\hline' %}
+      {% endfor %}
+      {% if not organizers|length|divisibleby:"2" %}\\\hline{% endif %}
+    {% else %}
+      {% for contestant in contestants %}
+        \begin{picture}(8.2,5.5)
+          \includegraphics[width=8.2cm]{logo{{ year }}}
+          \put(-8,4){\Huge{\textsf{\textbf{
+            {{ contestant.user.last_name|title|escapetex }} }}}}
+          \put(-8,3){\makebox[82mm][r]{\Huge{\textsf{\textbf{
+            {{ contestant.user.first_name|title|escapetex }} }}}}}
+        \end{picture}
+        {% cycle '&' '\\\\\\hline' %}
+      {% endfor %}
+      {% if not contestants|length|divisibleby:"2" %}\\\hline{% endif %}
+    {% endif %}
   \end{longtable}
 \end{document}
 {% endautoescape %}

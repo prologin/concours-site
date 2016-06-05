@@ -19,8 +19,8 @@ semifinals_patterns = [
 
 final_patterns = [
     url(r'^badges$', documents.views.FinalBadgesView.as_view(), name='badges'),
-    url(r'^badges-organizers$', documents.views.FinalBadgesOrganisateursView.as_view(), name='badges-organizers'),
-    url(r'^badges-organizers-input$', documents.views.FinalBadgesOrganisateursInputView.as_view(), name='badges-organizers'),
+    url(r'^badges-organizers$', documents.views.FinalOrganizersBadgesView.as_view(), name='badges-organizers'),
+    url(r'^badges-organizers-input$', documents.views.FinalOrganizersBadgesInputView.as_view(), name='badges-organizers-input'),
     url(r'^contestant/(?P<contestant>[0-9]+)/compilation', documents.views.FinalContestantCompilationView.as_view(), name='contestant-compilation'),
     url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.FinalContestantConvocationView.as_view(), name='contestant-convocation'),
     url(r'^contestants$', documents.views.FinalContestantsView.as_view(), name='contestants'),
@@ -33,8 +33,8 @@ final_patterns = [
     url(r'^passwords$', documents.views.FinalPasswordsView.as_view(), name='passwords'),
     url(r'^planning$', documents.views.FinalPlanningView.as_view(), name='planning'),
     url(r'^portrayal-agreement$', documents.views.FinalPortrayalAgreementView.as_view(), name='portrayal-agreement'),
-    url(r'^ticket-repas/$', documents.views.FinalTicketRepasView.as_view(), name='ticket-repas'),
-    url(r'^ticket-repas-input/$', documents.views.FinalTicketRepasInputView.as_view(), name='ticket-repas-input'),
+    url(r'^meal-tickets/$', documents.views.FinalMealTicketsView.as_view(), name='meal-tickets'),
+    url(r'^meal-tickets-input/$', documents.views.FinalMealTicketsInputView.as_view(), name='meal-tickets-input'),
 ]
 
 organization_patterns = [

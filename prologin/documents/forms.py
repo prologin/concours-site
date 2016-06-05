@@ -109,11 +109,28 @@ class ImportSemifinalResultReviewForm(forms.Form):
     pass
 
 
+DAY_OF_THE_WEEK = (
+    ('1', 'Monday'),
+    ('2', 'Tuesday'),
+    ('3', 'Wednesday'),
+    ('4', 'Thursday'),
+    ('5', 'Friday'),
+    ('6', 'Saturday'),
+    ('7', 'Sunday'),
+)
+
+TIME_OF_THE_DAY = (
+    ('1', 'Morning'),
+    ('2', 'Noon'),
+    ('3', 'Evening'),
+)
+
 class MealTicketForm(forms.Form):
-    ticket_name = forms.CharField(label='Meal name')
-    ticket_id = forms.IntegerField(label='Starting ID')
+    ticket_day = forms.ChoiceField(choices=DAY_OF_THE_WEEK, label='Ticket name')
+    ticket_day_nb = forms.ChoiceField(choices=list(zip(range(1, 31), range(1,31))), label='')
+    ticket_day_time = forms.ChoiceField(choices=TIME_OF_THE_DAY, label='')
+    ticket_id = forms.IntegerField(label='Starting ID', min_value=0, max_value=999, initial=1)
 
 
 class BadgesOrganizersForm(forms.Form):
-    first_name = forms.CharField(label='First name', widget=forms.Textarea)
-    last_name = forms.CharField(label='Last name', widget=forms.Textarea)
+    name = forms.CharField(label='Name :', widget=forms.Textarea)

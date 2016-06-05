@@ -1,6 +1,7 @@
 {% extends "prologin/base.html" %}
 {% load i18n %}
 {% load django_bootstrap_breadcrumbs %}
+{% load bootstrap %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -8,27 +9,20 @@
 {% if year != None %}
   {% breadcrumb_for 'documents:index' year %}{{ year }}{% endbreadcrumb_for %}
 {% endif %}
-  {% breadcrumb_for 'documents:index' %}{% trans "Ticket Repas" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'documents:index' %}{% trans "Organizers Badges" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
-{% block title %}{% if year %}{% blocktrans %}Ticket Repas - {{ year }}{% endblocktrans %}{% else %}{% trans "Document index" %}{% endif %}{% endblock %}
+{% block title %}{% blocktrans %}Organizers Badges{% endblocktrans %}{% endblock %}
 
 {% block content %}
 
   <h1>
-    {% if year %}
-      {% blocktrans %}Ticket Repas - {{ year }}{% endblocktrans %}
-    {% else %}
-      {% trans "Document index" %}
-    {% endif %}
+    {% blocktrans %}Organizers Badges{% endblocktrans %}
   </h1>
-
-
   <form action="" method="post">
     {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Valider"/>
+    {{ form|bootstrap_horizontal }}
+    <input type="submit" value="{% trans "Submit" %}">
   </form>
-
-
 {% endblock %}
+      
