@@ -33,7 +33,6 @@ class IndexRedirect(PermissionRequiredMixin, RedirectView):
 class IndexView(PermissionRequiredMixin, TemplateView):
     permission_required = 'documents.generate_batch_document'
     template_name = 'documents/index.html'
-    form_class = documents.forms.MealTicketForm
 
     @cached_property
     def year(self):
@@ -51,7 +50,7 @@ class IndexView(PermissionRequiredMixin, TemplateView):
             final = contest.models.Event.final_for_edition(self.year)
         except contest.models.Event.DoesNotExist:
             final = None
-        form = self.form_class()
+        form = documents.forms.MealTicketForm()
         context = super().get_context_data(**kwargs)
         context.update({'years': self.years,
                         'year': self.year,
@@ -315,6 +314,7 @@ class FinalContestantsView(BaseFinalDocumentView):
     def get_extra_context(self):
         context = super().get_extra_context()
         context['event_contestants'] = self.grouped_event_contestants
+        context['final'] = True
         return context
 
 
@@ -426,7 +426,7 @@ class FinalOrganizersBadgesInputView(TemplateView):
         if form.is_valid():
             lines = form.cleaned_data['name'].split('\n')
             request.session['docs_organizers_name'] = [ line.split(' ') for line in lines ]
-            return HttpResponseRedirect('badges-organizers')
+            return HttpResponseRedirect('organizer-badges')
         return render(request, self.template_name, {'form': form})
 
 
@@ -436,9 +436,9 @@ class FinalMealTicketsInputView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            name = documents.forms.DAY_OF_THE_WEEK[int(form.cleaned_data['ticket_day']) - 1][1]
+            name = documents.forms.DAY_OF_WEEK[int(form.cleaned_data['ticket_day']) - 1][1]
             name += ' ' + form.cleaned_data['ticket_day_nb']
-            name += ' ' + documents.forms.TIME_OF_THE_DAY[int(form.cleaned_data['ticket_day_time']) - 1][1]
+            name += ' ' + documents.forms.TIME_OF_DAY[int(form.cleaned_data['ticket_day_time']) - 1][1]
             request.session['docs_ticket_name'] = name
             request.session['docs_ticket_id'] = form.cleaned_data['ticket_id']
         return HttpResponseRedirect('../meal-tickets')
@@ -453,7 +453,6 @@ class FinalMealTicketsView(BaseFinalDocumentView):
         context = super().get_extra_context()
         context['ticket_name'] = self.request.session['docs_ticket_name']
         context['ticket_id'] = self.request.session['docs_ticket_id']
-        context['range'] = range(22)
         return context
 
 

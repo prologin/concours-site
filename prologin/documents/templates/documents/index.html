@@ -1,7 +1,6 @@
 {% extends "prologin/base.html" %}
 {% load i18n %}
-{% load django_bootstrap_breadcrumbs %}
-{% load bootstrap %}
+{% load django_bootstrap_breadcrumbs bootstrap %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -130,8 +129,8 @@
               <a href="{% url 'documents:final:badges' year %}" class="btn btn-default btn-xs">
                 <i class="fa fa-ticket"></i> {% trans "Badges" %}
               </a>
-              <a href="{% url 'documents:final:badges-organizers-input' year %}" class="btn btn-default btn-xs">
-                <i class="fa fa-ticket"></i> {% trans "Organizers Bagdes" %}
+              <a href="{% url 'documents:final:organizer-badges-input' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-ticket"></i> {% trans "Organizer Bagdes" %}
               </a>
             </td>
           </tr>

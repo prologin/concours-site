@@ -19,8 +19,8 @@ semifinals_patterns = [
 
 final_patterns = [
     url(r'^badges$', documents.views.FinalBadgesView.as_view(), name='badges'),
-    url(r'^badges-organizers$', documents.views.FinalOrganizersBadgesView.as_view(), name='badges-organizers'),
-    url(r'^badges-organizers-input$', documents.views.FinalOrganizersBadgesInputView.as_view(), name='badges-organizers-input'),
+    url(r'^organizer-badges$', documents.views.FinalOrganizersBadgesView.as_view(), name='organizer-badges'),
+    url(r'^organizer-badges-input$', documents.views.FinalOrganizersBadgesInputView.as_view(), name='organizer-badges-input'),
     url(r'^contestant/(?P<contestant>[0-9]+)/compilation', documents.views.FinalContestantCompilationView.as_view(), name='contestant-compilation'),
     url(r'^contestant/(?P<contestant>[0-9]+)/convocation$', documents.views.FinalContestantConvocationView.as_view(), name='contestant-convocation'),
     url(r'^contestants$', documents.views.FinalContestantsView.as_view(), name='contestants'),

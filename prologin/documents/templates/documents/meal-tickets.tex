@@ -27,8 +27,16 @@
   \begin{longtable}[c]{|p{5.6cm}|p{5.6cm}|p{5.6cm}|}
     \hline
   
-    {% for i in range %}
-      \hspace{15mm}\includegraphics[width=4cm]{logo{{ year }}} & \hspace{15mm} \includegraphics[width=4cm]{logo{{ year }}} & \hspace{15mm} \includegraphics[width=4cm]{logo{{ year }}} \\ Ticket Repas n\textsuperscript{o}\arabic{ticketID} \addtocounter{ticketID}{1} & Ticket Repas n\textsuperscript{o}\arabic{ticketID} \addtocounter{ticketID}{1} & Ticket Repas n\textsuperscript{o}\arabic{ticketID} \addtocounter{ticketID}{1} \\ \hspace{-3mm} \Large \textbf{ {{ ticket_name }} } & \hspace{-3mm} \Large \textbf{ {{ ticket_name }} } & \hspace{-3mm} \Large \textbf{ {{ ticket_name }} } \\ \hline
+    {% for i in 'x'|rjust:'22' %}
+      \hspace{15mm}\includegraphics[width=4cm]{logo{{ year }}} &
+      \hspace{15mm} \includegraphics[width=4cm]{logo{{ year }}} &
+      \hspace{15mm} \includegraphics[width=4cm]{logo{{ year }}} \\
+      Ticket Repas n\textsuperscript{o}\arabic{ticketID} \addtocounter{ticketID}{1} &
+      Ticket Repas n\textsuperscript{o}\arabic{ticketID} \addtocounter{ticketID}{1} &
+      Ticket Repas n\textsuperscript{o}\arabic{ticketID} \addtocounter{ticketID}{1} \\
+      \hspace{-3mm} \Large \textbf{ {{ ticket_name }} } &
+      \hspace{-3mm} \Large \textbf{ {{ ticket_name }} } &
+      \hspace{-3mm} \Large \textbf{ {{ ticket_name }} } \\ \hline
     {% endfor %}
   
   \end{longtable}

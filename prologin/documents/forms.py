@@ -109,7 +109,7 @@ class ImportSemifinalResultReviewForm(forms.Form):
     pass
 
 
-DAY_OF_THE_WEEK = (
+DAY_OF_WEEK = (
     ('1', 'Monday'),
     ('2', 'Tuesday'),
     ('3', 'Wednesday'),
@@ -119,16 +119,16 @@ DAY_OF_THE_WEEK = (
     ('7', 'Sunday'),
 )
 
-TIME_OF_THE_DAY = (
+TIME_OF_DAY = (
     ('1', 'Morning'),
     ('2', 'Noon'),
     ('3', 'Evening'),
 )
 
 class MealTicketForm(forms.Form):
-    ticket_day = forms.ChoiceField(choices=DAY_OF_THE_WEEK, label='Ticket name')
-    ticket_day_nb = forms.ChoiceField(choices=list(zip(range(1, 31), range(1,31))), label='')
-    ticket_day_time = forms.ChoiceField(choices=TIME_OF_THE_DAY, label='')
+    ticket_day = forms.ChoiceField(choices=DAY_OF_WEEK, label='Ticket name')
+    ticket_day_nb = forms.ChoiceField(choices=list(zip(range(1, 32), range(1,32))), label='')
+    ticket_day_time = forms.ChoiceField(choices=TIME_OF_DAY, label='')
     ticket_id = forms.IntegerField(label='Starting ID', min_value=0, max_value=999, initial=1)
 
 
