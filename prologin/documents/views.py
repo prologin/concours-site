@@ -1,5 +1,6 @@
 import collections
 import io
+import re
 from django.conf import settings
 from django.contrib import messages
 from django.core import serializers
@@ -12,6 +13,7 @@ from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.views.generic import TemplateView, View
 from django.views.generic.base import RedirectView
+from django.views.generic.edit import FormView
 from formtools.wizard.views import SessionWizardView
 from rules.compat.access_mixins import PermissionRequiredMixin
 
@@ -413,21 +415,16 @@ class FinalBadgesView(BaseFinalDocumentView):
         return super().contestant_queryset().order_by(*USER_LIST_ORDERING)
 
 
-class FinalOrganizersBadgesInputView(TemplateView):
+class FinalOrganizersBadgesInputView(FormView):
     template_name= 'documents/organizers-badges-input.html'
     form_class = documents.forms.BadgesOrganizersForm
 
-    def get(self, request, *args, **kwargs):
-        form = self.form_class()
-        return render(request, self.template_name, {'form': form})
-
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
+    def form_valid(self, form):
         if form.is_valid():
             lines = form.cleaned_data['name'].split('\n')
-            request.session['docs_organizers_name'] = [ line.split(' ') for line in lines ]
+            self.request.session['docs_organizers_name'] = [ re.split('[ \t]+', line) for line in lines ]
             return HttpResponseRedirect('organizer-badges')
-        return render(request, self.template_name, {'form': form})
+        return render(self.request, self.template_name, {'form': form})
 
 
 class FinalMealTicketsInputView(View):
