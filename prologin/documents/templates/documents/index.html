@@ -165,7 +165,7 @@
               <form class="form-inline" action="{% url 'documents:final:meal-tickets-input' year %}" method="post">
                 {% csrf_token %}
                 {{ form|bootstrap }}
-                <input type="submit" value="{% trans "Submit" %}" class="btn btn-default btn-s"/>
+                <input type="submit" value="{% trans "Submit" %}" class="btn btn-default btn-s" style="position: relative; top: 11px;"/>
               </form>
             </td>
         </tbody>

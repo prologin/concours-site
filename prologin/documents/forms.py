@@ -131,6 +131,11 @@ class MealTicketForm(forms.Form):
     ticket_day_time = forms.ChoiceField(choices=TIME_OF_DAY, label='')
     ticket_id = forms.IntegerField(label='Starting ID', min_value=0, max_value=999, initial=1)
 
+    def __init__(self, *args, **kwargs):
+        super(MealTicketForm, self).__init__(*args, **kwargs)
+        for field in self.fields:
+            self.fields[field].widget.attrs.update({'class': 'input-sm'})
+
 
 class BadgesOrganizersForm(forms.Form):
     name = forms.CharField(label='Name :', widget=forms.Textarea)
