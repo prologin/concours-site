@@ -1,5 +1,6 @@
 import io
 import os
+import warnings
 from django.core.files import File
 from django.db import models
 from wand.exceptions import MissingDelegateError
@@ -25,11 +26,13 @@ class ResizeOnSaveImageField(models.ImageField):
         file = super().pre_save(model_instance, add)
         if file:
             file.open()
-            try:
-                im = Image(file=file)
-            except MissingDelegateError:
-                file.seek(0)
-                im = Image(file=file, format=os.path.splitext(file.name)[1].strip(os.path.extsep))
+            with warnings.catch_warnings():
+                warnings.simplefilter("error", Image.DecompressionBombWarning)
+                try:
+                    im = Image(file=file)
+                except MissingDelegateError:
+                    file.seek(0)
+                    im = Image(file=file, format=os.path.splitext(file.name)[1].strip(os.path.extsep))
             file.close()
             im.transform(resize='{}x{}>'.format(*self.fit_into))
             buf = io.BytesIO()
