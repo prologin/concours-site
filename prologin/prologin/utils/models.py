@@ -1,6 +1,7 @@
 import io
 import os
 import warnings
+from PIL.Image import DecompressionBombWarning
 from django.core.files import File
 from django.db import models
 from wand.exceptions import MissingDelegateError
@@ -27,7 +28,7 @@ class ResizeOnSaveImageField(models.ImageField):
         if file:
             file.open()
             with warnings.catch_warnings():
-                warnings.simplefilter("error", Image.DecompressionBombWarning)
+                warnings.simplefilter("error", DecompressionBombWarning)
                 try:
                     im = Image(file=file)
                 except MissingDelegateError:
