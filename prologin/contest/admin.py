@@ -78,8 +78,10 @@ class EventAdmin(admin.ModelAdmin):
 
 
 class ContestantAdmin(NonSortableParentAdmin):
-    list_filter = ('edition',)
-    list_display = ('contestant', 'user_link', 'edition_link', 'total_score',)
+    list_filter = ('edition', 'assignation_semifinal', 'assignation_final', 'preferred_language', 'shirt_size',
+                   'is_home_public',)
+    list_display = ('contestant', 'user_link', 'edition_link', 'assignation_semifinal', 'assignation_final',
+                    'total_score', 'preferred_language', 'shirt_size', 'is_home_public',)
     search_fields = ('user__username', 'user__first_name', 'user__last_name', 'edition__year',)
     readonly_fields = ('user', 'edition',)
     fieldsets = (
