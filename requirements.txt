@@ -47,6 +47,8 @@ django-timezone-field>=2.0rc1
 djmail>=0.10.0
 # Tool to query Geoip services for exam center geo-localization
 geopy
+# Non-sucky template engine
+jinja2
 # XML parsing (eg. corrector communication)
 lxml
 # Markdown support
