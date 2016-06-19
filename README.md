@@ -6,6 +6,7 @@
 * Every package from requirements.txt (see recommended procedure below)
 * Redis (for training & contest)
 * optipng (used for assets generation)
+* texlive (for latexmk, pdflatex, and a few packages).
 
 ## Cloning
 
@@ -49,7 +50,9 @@ Then, check the following settings in the file you copied:
 
 1. Uncomment and update `PROLOGIN_EDITION` to the current edition year.
 1. Uncomment and update `PROBLEMS_REPOSITORY_PATH` to the directory where
-   you cloned the Prologin [`problem` repository](https://bitbucket.org/prologin/problems/).
+   you cloned the Prologin [`problems` repository](https://bitbucket.org/prologin/problems/).
+1. Uncomment and update `DOCUMENTS_REPOSITORY_PATH` to the directory where
+   you cloned the Prologin [`documents` repository](https://bitbucket.org/prologin/documents/).
 1. Add a local or remote correction VM to `PROBLEMS_CORRECTORS`.
 1. Uncomment and update `RECAPTCHA_{PUBLIC,PRIVATE}_KEY`. You can leave them
    empty for most tests.
