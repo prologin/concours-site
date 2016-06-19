@@ -73,6 +73,7 @@ INSTALLED_APPS = (
     'djmail',
     'hijack',
     'mptt',
+    'reversion',
     'rules.apps.AutodiscoverRulesConfig',
     'statictemplate',
     'tagging',

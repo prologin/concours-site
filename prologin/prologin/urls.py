@@ -61,6 +61,9 @@ urlpatterns += [
     # Marauder UI and API.
     url(r'^marauder/', include('marauder.urls', namespace='marauder')),
 
+    # Mailing
+    url(r'^mailing/', include('mailing.urls', namespace='mailing')),
+
     # Crash test
     url(r'^crashtest/', crash_test),
 

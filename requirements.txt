@@ -35,6 +35,8 @@ git+https://github.com/Zopieux/django-hijack.git@prologin
 django-prometheus
 # Google Recaptcha/Nocaptcha support
 django-recaptcha
+# Model history tracking
+django-reversion
 # Generate static templates (for 5xx error pages served by nginx, mainly)
 django-statictemplate
 # Model tagging support
