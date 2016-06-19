@@ -116,9 +116,6 @@ MIDDLEWARE_CLASSES = (
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            # insert your TEMPLATE_DIRS here
-        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'debug': DEBUG,
