@@ -209,6 +209,45 @@ ProloginUser._meta.get_field('email').blank = False
 ProloginUser._meta.get_field('email').db_index = True
 
 
+def search_users(query, qs=None, throw=False):
+    """
+    Token-based search of a user to impersonate.
+    If there are users whose fields *starts with* query tokens, they are returned immediately.
+    If there is no result, we try harder by searching fields that *contains* tokens.
+    :type query: query string to search for
+    :type qs: base query string
+    :type throw: if False, returns an empty queryset if query is invalid; if True, raises ValueError
+    :return a Queryset of matching users (can be empty)
+    """
+    from django.db.models import Q
+    from itertools import product, combinations, permutations
+
+    if qs is None:
+        qs = get_user_model().objects.all()
+
+    # limit to 4 tokens, as the combinatorics are explosive (24 clauses for 4 tokens, 60 for 5)
+    tokens = [token for token in query.split() if len(token) >= 2][:4]
+    if not tokens:
+        if throw:
+            raise ValueError("Not enough tokens")
+        return qs.none()
+
+    fields = ('username', 'first_name', 'last_name', 'email')
+    r = min(len(tokens), len(fields))
+
+    def build(operator):
+        q = Q()
+        for keys, values in product(combinations(fields, r=r), permutations(tokens, r=r)):
+            q |= Q(**{'{}__{}'.format(key, operator): value for key, value in zip(keys, values)})
+        return q
+
+    res = qs.filter(build('istartswith'))
+    if res.exists():
+        return res
+
+    return qs.filter(build('icontains'))
+
+
 def assign_preferred_language(sender, user, request, **kwargs):
     if hasattr(request, 'user') and request.user.is_authenticated():
         request.session[LANGUAGE_SESSION_KEY] = request.user.preferred_locale

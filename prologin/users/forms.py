@@ -138,35 +138,8 @@ class ImpersonateForm(forms.Form):
 
     @classmethod
     def search_users(cls, query):
-        """
-        Token-based search of a user to impersonate.
-        If there are users whose fields *starts with* query tokens, they are returned immediately.
-        If there is no result, we try harder by searching fields that *contains* tokens.
-        :type query: query string to search for
-        :return a Queryset of matching users (can be empty)
-        """
-        from itertools import product, combinations, permutations
-
-        qs = cls.base_fields['user'].queryset
-        # limit to 4 tokens, as the combinatorics are explosive (24 clauses for 4 tokens, 60 for 5)
-        tokens = [token for token in query.split() if len(token) >= 2][:4]
-        if not tokens:
-            return qs.none()
-
-        fields = ('username', 'first_name', 'last_name', 'email')
-        r = min(len(tokens), len(fields))
-
-        def build(operator):
-            q = Q()
-            for keys, values in product(combinations(fields, r=r), permutations(tokens, r=r)):
-                q |= Q(**{'{}__{}'.format(key, operator): value for key, value in zip(keys, values)})
-            return q
-
-        res = qs.filter(build('istartswith'))
-        if res.exists():
-            return res
-
-        return qs.filter(build('icontains'))
+        from users.models import search_users
+        return search_users(query, qs=cls.base_fields['user'].queryset)
 
     def clean(self):
         # provided by Javascript in the hidden field
