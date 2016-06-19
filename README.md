@@ -121,24 +121,6 @@ command instead:
     cd prologin && python manage.py edition create
     # Answer the questions
 
-## Importing data from the old Drupal website
-
-You should not do that. It's painful and useless outside of the production website.
-
-Order of migrations:
-
-1. users
-1. sponsors
-1. examcenters
-1. forums
-1. events
-1. user_pictures
-1. teams
-1. news
-1. contest_results
-1. problem_submissions
-1. legacy_problem_submissions
-
 
 ## Developing the website
 
