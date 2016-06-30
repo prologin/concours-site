@@ -26,10 +26,12 @@
   <meta name="description" content="{% block meta_descr %}{% endblock %}">
 
   {# Social stuff #}
+  {% trans "Prologin is a computer science contest, introducing students to the world of programming and algorithms with exciting challenges." context "Twitter message, LESS THAN 140 CHARS" as social_description %}
+  <meta property="fb:app_id" content="166681023395097">
   <meta property="og:site_name" content="{% trans "Prologin" %}"/>
   <meta property="og:title" content="{% trans "Prologin, the French National Computer Science Contest" %}"/>
   <meta property="og:url" content="{% get_setting 'SITE_BASE_URL' %}"/>
-  <meta property="og:description" content="{% trans "Prologin is a computer science contest. Our goal is to introduce students to the world of programming and algorithms by subjecting them to several conventional problems and exciting challenges." %}"/>
+  <meta property="og:description" content="{{ social_description }}"/>
   <meta property="og:type" content="website"/>
   <meta property="og:image" content="{% get_setting 'SITE_BASE_URL' %}{% static 'img/mstile-310x310.png' %}?20160630"/>
   <meta property="og:image:type" content="image/png"/>
@@ -38,13 +40,12 @@
   <meta property="og:locale" content="{{ LANGUAGE_CODE }}"/>
   {% get_available_languages as LANGUAGES %}
   {% for code, language in LANGUAGES %}{% if code != LANGUAGE_CODE %}<meta property="og:locale:alternate" content="{{ code }}"/>{% endif %}{% endfor %}
-  <meta property="fb:app_id" content="166681023395097">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@prologin">
   <meta name="twitter:creator" content="@prologin">
   <meta name="twitter:url" content="{% get_setting 'SITE_BASE_URL' %}">
   <meta name="twitter:title" content="{% trans "Prologin" %}">
-  <meta name="twitter:description" content="{% trans "Prologin is a computer science contest, introducing students to the world of programming and algorithms with exciting challenges." context "Twitter message, LESS THAN 140 CHARS" %}">
+  <meta name="twitter:description" content="{{ social_description }}">
   <meta name="twitter:image" content="{% get_setting 'SITE_BASE_URL' %}{% static 'img/mstile-310x310.png' %}?20160630">
 
 {% include "prologin/favicons.html" %}
