@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-04 17:36+0200\n"
-"PO-Revision-Date: 2016-06-04 15:59+0000\n"
+"POT-Creation-Date: 2016-06-30 19:36+0200\n"
+"PO-Revision-Date: 2016-06-30 17:46+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -249,30 +249,30 @@ msgstr "Plein format"
 msgid "Generate convocations"
 msgstr "Générer les convocations"
 
-#: contest/admin.py:69 contest/admin.py:110
+#: contest/admin.py:69 contest/admin.py:112
 #: documents/templates/documents/semifinal-import-review.html:44
 #: qcm/admin.py:58 qcm/admin.py:91
 msgid "Edition"
 msgstr "Édition"
 
-#: contest/admin.py:87
+#: contest/admin.py:89
 msgid "Qualification scores"
 msgstr "Scores des qualifications"
 
-#: contest/admin.py:90
+#: contest/admin.py:92
 msgid "Regionale scores"
 msgstr "Scores de la régionale"
 
-#: contest/admin.py:93
+#: contest/admin.py:95
 msgid "Finale scores"
 msgstr "Score de la finale"
 
-#: contest/admin.py:100
+#: contest/admin.py:102
 #, python-format
 msgid "%(user)s in edition %(year)s"
 msgstr "%(user)s pour l'édition %(year)s"
 
-#: contest/admin.py:104 contest/datatables.py:16
+#: contest/admin.py:106 contest/datatables.py:16
 msgid "User"
 msgstr "Utilisateur"
 
@@ -280,7 +280,7 @@ msgstr "Utilisateur"
 msgid "Programming language"
 msgstr "Langage de programmation"
 
-#: contest/datatables.py:53 contest/templates/correction/by-year.html.py:39
+#: contest/datatables.py:53 contest/templates/correction/by-year.html:39
 msgid "Correct"
 msgstr "Corriger"
 
@@ -295,7 +295,7 @@ msgstr "Statut d'assignation"
 #: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:184
 #: documents/templates/documents/semifinal-import-review.html:58
 #: documents/templates/documents/semifinal-import-review.html:77
-#: problems/admin.py:171 problems/templates/problems/manual.html.py:66
+#: problems/admin.py:171 problems/templates/problems/manual.html:66
 #: semifinal/templates/semifinal/monitoring.html:30
 msgid "Score"
 msgstr "Score"
@@ -1245,23 +1245,23 @@ msgctxt "Document filename"
 msgid "prologin-%(year)s-final-documents-%(fullname)s"
 msgstr "prologin-%(year)s-documents-finale-%(fullname)s"
 
-#: documents/views.py:432
+#: documents/views.py:431
 #, python-format
 msgid "Prologin %(year)s: enrollment form"
 msgstr "Prologin %(year)s : formulaire de recrutement"
 
-#: documents/views.py:433
+#: documents/views.py:432
 #, python-format
 msgctxt "Document filename"
 msgid "enrollment-form-%(year)s"
 msgstr "formulaire-recrutement-%(year)s"
 
-#: documents/views.py:438
+#: documents/views.py:437
 #, python-format
 msgid "Prologin %(year)s: badges"
 msgstr "Prologin %(year)s : badges"
 
-#: documents/views.py:439
+#: documents/views.py:438
 #, python-format
 msgctxt "Document filename"
 msgid "badges-%(year)s-final"
@@ -1319,12 +1319,13 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:22 problems/templates/problems/challenge-scoreboard.html:24
+#: forum/models.py:22 mailing/models.py:30 mailing/models.py:113
+#: problems/templates/problems/challenge-scoreboard.html:24
 #: semifinal/templates/semifinal/stub-scoreboard.html:9
 msgid "Name"
 msgstr "Nom"
 
-#: forum/models.py:24
+#: forum/models.py:24 mailing/models.py:31 mailing/models.py:114
 msgid "Description"
 msgstr "Description"
 
@@ -1340,10 +1341,10 @@ msgstr "Nombre de posts"
 msgid "Forum"
 msgstr "Forum"
 
-#: forum/models.py:33 forum/templates/forum/create_thread.html.py:7
+#: forum/models.py:33 forum/templates/forum/create_thread.html:7
 #: forum/templates/forum/edit_post.html:7
 #: forum/templates/forum/forum_threads.html:7
-#: forum/templates/forum/index.html:7 forum/templates/forum/index.html.py:10
+#: forum/templates/forum/index.html:7 forum/templates/forum/index.html:10
 #: forum/templates/forum/index.html:14
 #: forum/templates/forum/post_confirm_delete.html:7
 #: forum/templates/forum/thread_confirm_delete.html:7
@@ -1454,7 +1455,6 @@ msgstr "Prévisualisation"
 #: semifinal/templates/semifinal/monitoring.html:52
 #: users/templates/users/edit.html:9
 #: users/templates/users/edit_password.html:9
-#: users/templates/users/history.html:25 users/templates/users/history.html:52
 msgid "Edit"
 msgstr "Modifier"
 
@@ -1649,12 +1649,12 @@ msgstr "Le sujet a été supprimé avec succès."
 
 #: homepage/templates/homepage/homepage.html:5
 #: homepage/templates/homepage/jumbotron.html:6
-#: prologin/templates/prologin/base.html:29
+#: prologin/templates/prologin/base.html:30
 msgid "Prologin, the French National Computer Science Contest"
 msgstr "Prologin, le concours national d'informatique"
 
 #: homepage/templates/homepage/homepage.html:11
-#: prologin/templates/prologin/base.html:30
+#: prologin/templates/prologin/base.html:32
 msgid ""
 "Prologin is a computer science contest. Our goal is to introduce students to"
 " the world of programming and algorithms by subjecting them to several "
@@ -1882,6 +1882,223 @@ msgstr "Date inconnue"
 #: homepage/templates/homepage/sponsors.html:3
 msgid "Sponsors"
 msgstr "Partenaires"
+
+#: mailing/forms.py:9
+msgid "HTML enabled"
+msgstr "HTML activé"
+
+#: mailing/forms.py:10
+msgid "Generate HTML from plaintext"
+msgstr "Générer le HTML depuis le texte brut"
+
+#: mailing/forms.py:11
+msgid "Useful queries"
+msgstr "Requêtes utiles"
+
+#: mailing/forms.py:43
+msgid "You must provide an HTML template if HTML is enabled."
+msgstr "Vous devez fournir un gabarit HTML si vous activez le HTML."
+
+#: mailing/models.py:32
+msgid "Subject template"
+msgstr "Gabarit du sujet"
+
+#: mailing/models.py:33
+msgid "Plaintext body template"
+msgstr "Gabarit en texte brut"
+
+#: mailing/models.py:34
+msgid "HTML body template"
+msgstr "Gabarit en HTML"
+
+#: mailing/models.py:38 mailing/templates/mailing/template/details.html:45
+msgid "Template"
+msgstr "Gabarit"
+
+#: mailing/models.py:39 mailing/templates/mailing/dashboard.html:22
+#: mailing/templates/mailing/template/details.html:15
+msgid "Templates"
+msgstr "Gabarits"
+
+#: mailing/models.py:115 mailing/models.py:121 problems/forms.py:15
+msgid "Query"
+msgstr "Requête"
+
+#: mailing/models.py:117
+msgid "Useful with templates"
+msgstr "Utile avec les gabarits"
+
+#: mailing/models.py:122 mailing/templates/mailing/dashboard.html:43
+#: mailing/templates/mailing/query/details.html:15
+msgid "Queries"
+msgstr "Requêtes"
+
+#: mailing/models.py:146
+#, python-format
+msgid "The root model is not %(model)s. You must provide a `user` alias."
+msgstr "Le modèle racine n'est pas %(model)s. Vous devez fournir un alias `user`."
+
+#: mailing/models.py:151
+#, python-format
+msgid "%(label)s.%(field)s is not %(model)s"
+msgstr "%(label)s.%(field)s n'est pas %(model)s"
+
+#: mailing/models.py:154
+#, python-format
+msgid "%(label)s has no field `%(field)s`"
+msgstr "%(label)s n'a pas de champ `%(field)s`"
+
+#: mailing/templates/mailing/dashboard.html:5
+#: mailing/templates/mailing/dashboard.html:10
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
+#: mailing/templates/mailing/dashboard.html:5
+#: mailing/templates/mailing/dashboard.html:9
+#: mailing/templates/mailing/query/details.html:5
+#: mailing/templates/mailing/query/details.html:14
+#: mailing/templates/mailing/template/details.html:5
+#: mailing/templates/mailing/template/details.html:14
+msgid "Mailing"
+msgstr ""
+
+#: mailing/templates/mailing/dashboard.html:15
+msgid "Mailing dashboard"
+msgstr "Tableau de bord mailing"
+
+#: mailing/templates/mailing/dashboard.html:20
+msgid "Craft a new template"
+msgstr "Créer un nouveau gabarit"
+
+#: mailing/templates/mailing/dashboard.html:26
+msgid "Related useful queries"
+msgstr "Requêtes utiles liées"
+
+#: mailing/templates/mailing/dashboard.html:27
+msgid "Plaintext + HTML"
+msgstr "Brut + HTML"
+
+#: mailing/templates/mailing/dashboard.html:34
+msgid "There is no template yet."
+msgstr "Il n'y a pas encore de gabarit."
+
+#: mailing/templates/mailing/dashboard.html:41
+msgid "Craft a new query"
+msgstr "Créer une nouvelle requête"
+
+#: mailing/templates/mailing/dashboard.html:47
+msgid "Templates this query is useful for"
+msgstr "Gabarits utiles pour cette requête"
+
+#: mailing/templates/mailing/dashboard.html:56
+msgid "There is no query yet."
+msgstr "Il n'y a pas encore de requête."
+
+#: mailing/templates/mailing/query/details.html:5
+#: mailing/templates/mailing/query/details.html:19
+#: mailing/templates/mailing/query/details.html:28
+msgid "New query"
+msgstr "Nouvelle requête"
+
+#: mailing/templates/mailing/query/details.html:26
+#, python-format
+msgid "Update query %(name)s"
+msgstr "Modifier la requête %(name)s"
+
+#: mailing/templates/mailing/query/details.html:45
+msgid "Details"
+msgstr "Détails"
+
+#: mailing/templates/mailing/query/details.html:50
+msgid "Save query"
+msgstr "Enregistrer la requête"
+
+#: mailing/templates/mailing/query/details.html:54
+#: mailing/templates/mailing/template/details.html:80
+msgid "Preview"
+msgstr "Prévisualiser"
+
+#: mailing/templates/mailing/query/details.html:58
+msgid "<code class=\"result-model\"></code> count"
+msgstr "Nombre de <code class=\"result-model\"></code>"
+
+#: mailing/templates/mailing/query/details.html:62
+msgid "Unique user count"
+msgstr "Nombre d'utilisateurs uniques"
+
+#: mailing/templates/mailing/query/details.html:66
+msgid "<code class=\"result-model\"></code> accessible by"
+msgstr "<code class=\"result-model\"></code> accessible via"
+
+#: mailing/templates/mailing/query/details.html:70
+msgid "Available aliases"
+msgstr "Alias accessibles"
+
+#: mailing/templates/mailing/query/details.html:100
+msgid "Generated SQL query"
+msgstr "Requête SQL générée"
+
+#: mailing/templates/mailing/query/details.html:112
+msgid "Syntax guide & shortcuts"
+msgstr "Guide de syntaxe et raccourcis"
+
+#: mailing/templates/mailing/query/details.html:118
+msgid ""
+"Filters are implicity joined by the <code>and</code> operator.\n"
+"  If you are not querying on the <code>ProloginUser</code> model directly, you must create a\n"
+"  <code>user</code>\n"
+"  alias targeting a field containing the related user."
+msgstr "Les filtres sont implicitement joints par l'opérateur <code>and</code>.\nSi vous ne requêtez pas directement le modèle <code>ProloginUser</code>, vous devez définir un alias <code>user</code> qui cible le champ contenant l'utilisateur lié."
+
+#: mailing/templates/mailing/query/details.html:130
+msgid "Available models"
+msgstr "Modèles disponibles"
+
+#: mailing/templates/mailing/query/details.html:139
+msgid "Available enumerations"
+msgstr "Énumérations disponibles"
+
+#: mailing/templates/mailing/query/details.html:154
+msgid "Available functions"
+msgstr "Fonctions disponibles"
+
+#: mailing/templates/mailing/template/details.html:5
+#: mailing/templates/mailing/template/details.html:19
+#: mailing/templates/mailing/template/details.html:28
+msgid "New template"
+msgstr "Nouveau gabarit"
+
+#: mailing/templates/mailing/template/details.html:26
+#, python-format
+msgid "Update template %(name)s"
+msgstr "Modifier le gabarit %(name)s"
+
+#: mailing/templates/mailing/template/details.html:52
+msgid "Preview with query"
+msgstr "Prévisualiser avec la requête"
+
+#: mailing/templates/mailing/template/details.html:76
+msgid "Save template"
+msgstr "Enregistrer le gabarit"
+
+#: mailing/templates/mailing/template/details.html:85
+msgid "Plaintext"
+msgstr "Texte brut"
+
+#: mailing/templates/mailing/template/details.html:88
+msgid "HTML"
+msgstr "HTML"
+
+#: mailing/views.py:74
+msgid ""
+"The form was modified and saved while you were editing. Please merge with "
+"current version."
+msgstr "Le formulaire a été enregistré pendant vous le modifiez. Veuillez fusionner vos modifications avec la version actuelle."
+
+#: mailing/views.py:219
+#, python-format
+msgid "Syntax error at position %(pos)s."
+msgstr "Erreur de syntaxe à la position %(pos)s."
 
 #: marauder/models.py:37
 msgid "Task force"
@@ -2924,10 +3141,6 @@ msgstr "Résolu"
 msgid "Problem name (optional)"
 msgstr "Nom du problème (facultatif)"
 
-#: problems/forms.py:15
-msgid "Query"
-msgstr "Requête"
-
 #: problems/forms.py:16
 msgid "Any event type"
 msgstr "Peu importe"
@@ -3704,11 +3917,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:151
+#: prologin/settings/common.py:149
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:152
+#: prologin/settings/common.py:150
 msgid "French"
 msgstr "Français"
 
@@ -3746,16 +3959,17 @@ msgstr "Une erreur interne au serveur est survenue. Vous n'avez rien fait de mal
 msgid "Please try again later."
 msgstr "Veuillez réessayer plus tard."
 
-#: prologin/templates/503.html:11 prologin/templates/503.html.py:55
+#: prologin/templates/503.html:11 prologin/templates/503.html:55
 msgid "Undergoing maintenance"
 msgstr "En cours de maintenance"
 
-#: prologin/templates/503.html:21 prologin/templates/503.html.py:24
+#: prologin/templates/503.html:21 prologin/templates/503.html:24
 msgid "Prologin, the French computing contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:28
-#: prologin/templates/prologin/base.html:79
+#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:29
+#: prologin/templates/prologin/base.html:46
+#: prologin/templates/prologin/base.html:89
 #: prologin/templates/prologin/main-footer.html:6
 #: semifinal/templates/prologin/base.html:58
 #: semifinal/templates/prologin/main-footer.html:6
@@ -3789,11 +4003,18 @@ msgstr "Erreur %(number)s"
 msgid "You can go back to the <a href=\"%(url)s\">home page</a>."
 msgstr "Vous pouvez retourner à <a href=\"%(url)s\">l'accueil</a>."
 
-#: prologin/templates/prologin/base.html:42
+#: prologin/templates/prologin/base.html:47
+msgctxt "Twitter message, LESS THAN 140 CHARS"
+msgid ""
+"Prologin is a computer science contest, introducing students to the world of"
+" programming and algorithms with exciting challenges."
+msgstr "Prologin, le concours d'informatique : faire découvrir la programmation et l'algorithmique aux étudiants grâce à des challenges excitants !"
+
+#: prologin/templates/prologin/base.html:52
 msgid "Latest blog articles"
 msgstr "Dernières actualités"
 
-#: prologin/templates/prologin/base.html:107
+#: prologin/templates/prologin/base.html:117
 msgid "No user matching query"
 msgstr "Aucun utilisateur correspondant"
 
@@ -3896,7 +4117,7 @@ msgstr "Déconnexion"
 
 #: prologin/templates/prologin/main-menu.html:48
 #: semifinal/templates/prologin/main-menu.html:30
-#: users/templates/users/login.html:7 users/templates/users/login.html.py:10
+#: users/templates/users/login.html:7 users/templates/users/login.html:10
 #: users/templates/users/login.html:26
 msgid "Sign in"
 msgstr "Connexion"
@@ -4008,7 +4229,7 @@ msgstr "Réponse texte"
 msgid "Quiz"
 msgstr "Questionnaire"
 
-#: qcm/templates/qcm/display.html:17 qcm/templates/qcm/display.html.py:21
+#: qcm/templates/qcm/display.html:17 qcm/templates/qcm/display.html:21
 #, python-format
 msgid "Qualification quiz – Prologin %(year)s"
 msgstr "Questionnaire de qualification – Prologin %(year)s"
@@ -4406,11 +4627,11 @@ msgstr "Ce champ est insensible à la casse. Cela signifie qu'il n'y a pas de di
 msgid "Please enter a correct username (or email) and password."
 msgstr "Saisissez un nom d'utilisateur (ou adresse e-mail) et un mot de passe corrects."
 
-#: users/forms.py:178
+#: users/forms.py:151
 msgid "you must provide a username."
 msgstr "vous devez fournir un nom d'utilisateur."
 
-#: users/forms.py:181
+#: users/forms.py:154
 msgid "no user matches your query."
 msgstr "aucun utilisateur ne correspond à la recherche."
 
@@ -4458,7 +4679,7 @@ msgstr "Ancien étudiant"
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:125 users/templates/users/profile.html.py:58
+#: users/models.py:125 users/templates/users/profile.html:58
 msgid "Birth day"
 msgstr "Date de naissance"
 
@@ -4499,7 +4720,6 @@ msgstr "Photo de profil officielle"
 #: users/templates/registration/password_reset_confirm.html:7
 #: users/templates/users/edit.html:7
 #: users/templates/users/edit_password.html:7
-#: users/templates/users/history.html:9 users/templates/users/history.html:36
 #: users/templates/users/profile.html:7
 msgid "Members"
 msgstr "Membres"
@@ -4532,7 +4752,7 @@ msgid ""
 "Take extra care."
 msgstr "Attention ! Vous modifiez les informations d'un autre membre, en votre qualité de membre d'équipe. Restez concentré."
 
-#: users/templates/users/edit.html:12 users/templates/users/edit.html.py:15
+#: users/templates/users/edit.html:12 users/templates/users/edit.html:15
 #, python-format
 msgid "Editing %(username)s's profile"
 msgstr "Modification du profil de %(username)s"
@@ -4551,17 +4771,6 @@ msgstr "Enregistrer"
 #, python-format
 msgid "Editing %(username)s's password"
 msgstr "Modification du mot de passe de %(username)s"
-
-#: users/templates/users/history.html:13 users/templates/users/history.html:40
-#: users/templates/users/profile.html:11
-#, python-format
-msgid "%(username)s"
-msgstr "%(username)s"
-
-#: users/templates/users/history.html:17 users/templates/users/history.html:44
-#: users/templates/users/profile.html:15
-msgid "<em>not provided</em>"
-msgstr "<em>non renseigné</em>"
 
 #: users/templates/users/login.html:16
 msgid "Sign in with your credentials"
@@ -4661,6 +4870,15 @@ msgid ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
 msgstr "Mot de passe oublié? Entrez votre adresse email ci-dessous, et nous vous enverrons par email la procédure pour en définir un nouveau."
+
+#: users/templates/users/profile.html:11
+#, python-format
+msgid "%(username)s"
+msgstr "%(username)s"
+
+#: users/templates/users/profile.html:15
+msgid "<em>not provided</em>"
+msgstr "<em>non renseigné</em>"
 
 #: users/templates/users/profile.html:18
 msgid "Edit profile"
