@@ -3,10 +3,12 @@ from __future__ import unicode_literals
 
 import django.contrib.postgres.fields.jsonb
 import django.db.models.deletion
-from django.db import migrations
+from django.db import migrations, connection
 
 
 def thirdparty_jsonfield_to_native(apps, schema_editor):
+    if connection.vendor != 'postgresql':
+        return
     model = apps.get_model('contest', 'ContestantCorrection')._meta
     with schema_editor.connection.cursor() as cursor:
         cursor.execute("SELECT pg_typeof({col}) from {tbl} LIMIT 1".format(
@@ -29,6 +31,8 @@ def thirdparty_jsonfield_to_native(apps, schema_editor):
 
 
 def native_jsonfield_to_thirdparty(apps, schema_editor):
+    if connection.vendor != 'postgresql':
+        return
     try:
         from jsonfield import JSONField
     except ImportError:
