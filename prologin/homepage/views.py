@@ -21,13 +21,11 @@ class HomepageView(TemplateView):
             event__type=contest.models.Event.Type.qualification.value,
             event__edition=self.request.current_edition).first()
         try:
-            # FIXME: this is *training* challenge! not contest!
             current_qcm_challenge = problems.models.Challenge.by_year_and_event_type(
                 self.request.current_edition.year, contest.models.Event.Type.qualification)
         except ObjectDoesNotExist:
             raise ImproperlyConfigured("You must create the problem statement for edition {}"
                                        .format(settings.PROLOGIN_EDITION))
-        # FIXME: this is *training* challenge! not contest!
         current_contestant_qcm_problem_answers = problems.models.Submission.objects.none()
 
         qcm_completed = None

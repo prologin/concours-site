@@ -1,0 +1,16 @@
+{% load i18n %}
+
+{# desc not included when edition is finished #}
+
+<p>
+  <i class="fa fa-calendar-check-o"></i>
+  <strong>{% blocktrans with year=edition.year %}Prologin {{ year }} is now finished!{% endblocktrans %}</strong>
+</p>
+
+{% url 'archives:index' as url %}
+<p>{% trans "Stay tuned for next year's edition. We will announce when it starts on this website and by email." %}</p>
+<p>
+  <a href="{% url 'problems:index' %}" class="btn btn-default btn-block">
+    <i class="fa fa-tachometer"></i> {% trans "Start training!" %}
+  </a>
+</p>

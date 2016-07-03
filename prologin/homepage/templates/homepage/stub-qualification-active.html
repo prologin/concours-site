@@ -1,0 +1,53 @@
+{% load i18n %}
+
+{% include "homepage/stub-qualification-desc.html" %}
+
+{% if request.user.is_authenticated %} {# contestant logged in #}
+
+  <ul class="list-unstyled checklist">
+    {% if current_qcm %}
+      {# qualif have qcm #}
+      {% if qcm_completed %}
+        <li class="text-success">
+          <a href="{% url 'qcm:display' edition.year %}">
+            <i class="fa fa-check-square-o"></i>
+            {% trans "Quiz completed" %}
+          </a>
+        </li>
+      {% else %}
+        <li class="text-danger">
+          <a href="{% url 'qcm:display' edition.year %}">
+            <i class="fa fa-square-o"></i>
+            {% trans "Complete the quiz" %}
+          </a>
+        </li>
+      {% endif %} {# qcm_completed #}
+    {% endif %} {# qualif have qcm #}
+    {# checklist: solved problem #}
+    <li
+      class="text-{% if problems_completed == problems_count %}success{% elif problems_completed > 0 %}warning{% else %}danger{% endif %}">
+      <a href="{% url 'problems:challenge' edition.year 'qualification' %}">
+        <i class="fa fa-{% if problems_completed == problems_count %}check-{% endif %}square-o"></i>
+        {% blocktrans %}{{ problems_completed }}/{{ problems_count }} problems tackled{% endblocktrans %}
+      </a>
+    </li>
+    {# checklist: personnal details #}
+    <li
+      class="text-{% if contestant.is_complete_for_semifinal %}success{% else %}danger{% endif %}">
+      <a href="{% url 'contest:qualification_summary' edition.year %}">
+        <i class="fa fa-{% if contestant.is_complete_for_semifinal %}check-{% endif %}square-o"></i>
+        {% trans "Review the extra details" %}
+      </a>
+    </li>
+  </ul>
+
+{% else %} {# anonymous #}
+
+  <p class="text-center signin">
+    <a href="{% url 'users:register' %}" class="btn btn-default btn-block">
+      <i class="fa fa-rocket"></i>
+      {% trans "Register now!" %}
+    </a>
+  </p>
+
+{% endif %}

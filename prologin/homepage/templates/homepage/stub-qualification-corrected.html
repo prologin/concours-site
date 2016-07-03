@@ -1,0 +1,48 @@
+{% load i18n %}
+
+{% include "homepage/stub-qualification-desc.html" %}
+
+{% if request.user.is_authenticated %} {# logged in, announce result #}
+  {% if contestant.is_assigned_for_semifinal %}
+    {# complete/correct submission and accepted #}
+    {# :-) #}
+    <p>
+      <i class="fa fa-check text-success"></i>
+      <strong>{% trans "Congratulations! You have been selected for the regional events." %}</strong>
+    </p>
+    {% if phase.semifinal == 'future' or phase.semifinal == 'active' %}
+      {# ask for paperwork if semifinals are not finished yet #}
+      <p>{% trans "Please proceed to download your invitation papers and start training for the next step!" %}</p>
+    {% endif %}
+  {% elif contestant.is_ruled_out_for_semifinal %}
+    {# complete/correct submission but not accepted #}
+    {# :-( #}
+    <p>
+      <i class="fa fa-times text-danger"></i>
+      <strong>{% trans "Sorry, this year your application was not selected for the regional events." %}</strong>
+    </p>
+    <p>{% trans "Do not lose hope though! Start training right away so you can perfect your knowledge of algorithms and programming, and try again next year. Best luck!" %}</p>
+  {% elif contestant.is_complete_for_semifinal %}
+    {# complete but "unassigned", wtf? #}
+    <div class="alert alert-danger">
+      <i class="fa fa-bug"></i>
+      <div>{% trans "There is a problem with your application. Please contact the staff as soon as possible." %}</div>
+    </div>
+  {% else %}
+    {# incomplete submission #}
+    <p>
+      <i class="fa fa-times text-danger"></i>
+      <strong>{% trans "You did not apply for the contest this year." %}</strong>
+    </p>
+    <p>{% trans "Come back for the next edition!" %}</p>
+  {% endif %}
+
+{% elif phase.semifinal == 'future' or phase.semifinal == 'active' %} {# anonymous #}
+
+  <p>{% trans "Log in to check if you were selected for the regional events." %}</p>
+  <p>
+    <a href="{% url 'users:login' %}" class="btn btn-default btn-block"><i class="fa fa-user"></i> {% trans "Login" %}
+    </a>
+  </p>
+
+{% endif %}

@@ -1,0 +1,21 @@
+{% load i18n %}
+
+{# desc not yet available! #}
+
+{% if qualif.date_begin %}
+  <p>
+    <i class="fa fa-clock-o"></i>
+    <strong>{% blocktrans with date=qualif.date_begin|date:"d b Y" %}Qualifications will open {{ date }}.{% endblocktrans %}</strong>
+  </p>
+{% else %}
+  <p>
+    <i class="fa fa-clock-o"></i>
+    <strong>{% trans "Qualifications for this year's edition will be announced as soon as possible." %}</strong>
+  </p>
+{% endif %}
+
+<p class="text-center">
+  <a href="{% url 'problems:index' %}" class="btn btn-default btn-block">
+    <i class="fa fa-tachometer"></i> {% trans "Train now" %}
+  </a>
+</p>

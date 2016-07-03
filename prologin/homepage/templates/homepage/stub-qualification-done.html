@@ -1,0 +1,12 @@
+{% load i18n %}
+
+{% include "homepage/stub-qualification-desc.html" %}
+
+<p>
+  <i class="fa fa-clock-o"></i>
+  <strong>{% trans "The jury's decision will soon be announced by email and on the website." %}</strong>
+</p>
+
+{% if request.user.is_authenticated %}
+  <p>{% trans "You can start ahead by training for the regional events." %}</p>
+{% endif %}

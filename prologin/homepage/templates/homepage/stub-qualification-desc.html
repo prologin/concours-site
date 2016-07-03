@@ -1,0 +1,8 @@
+{% load i18n %}
+<p>
+  {% if request.current_qcm %}
+    {% blocktrans %}A quiz and {{ problems_count }} problems to solve online.{% endblocktrans %}
+  {% else %}
+    {% blocktrans %}{{ problems_count }} problems to solve online.{% endblocktrans %}
+  {% endif %}
+</p>

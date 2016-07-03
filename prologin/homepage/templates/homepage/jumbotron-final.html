@@ -1,12 +1,18 @@
 {% load i18n %}
 
 <div class="col-sm-4">
-  <div class="tl-block last{% if lastsemi.is_finished and not final.is_finished %} active{% endif %}">
+  <div class="tl-block last {% if phase.final == 'active' or phase.final == 'done' or phase.final == 'future' and phase.semifinal == 'corrected' %}active{% endif %}">
     <div class="row">
       <div class="col-xs-5 col-sm-12">
         <h4>{% trans "Final" %}</h4>
-        <p class="date">{{ final.date_begin|date:"d b Y"|default:no_such_date }}
-          →&nbsp;{{ final.date_end|date:"d b Y"|default:no_such_date }}</p>
+        <p class="date">
+          {% if final.date_begin or final.date_end %}
+          {{ final.date_begin|date:"d b Y"|default:no_such_date }}
+          →&nbsp;{{ final.date_end|date:"d b Y"|default:no_such_date }}
+          {% else %}
+            {{ no_such_date }}
+          {% endif %}
+        </p>
       </div>
       <div class="col-xs-7 col-sm-12">
         <div class="desc">
