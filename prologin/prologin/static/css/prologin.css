@@ -432,6 +432,10 @@ footer .legal {
  * Misc
  */
 
+.row > div > h1 {
+  margin-top: 0;
+}
+
 li address {
   margin-bottom: 0;
 }
