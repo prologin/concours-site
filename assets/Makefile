@@ -66,7 +66,7 @@ $(ARCHIVE_PLACEHOLDER): $(IMG_DIR)/favicon-apple-500.png
 %.png: %.big.png
 	$(PNGOPTIMIZE) -out $@ $<
 
-$(IMG_DIR)/favicon-%.big.png: cube_perfect.svg
+$(IMG_DIR)/favicon-%.big.png: cube_perfect_smallonly.svg
 	$(SVGRASTERTRIM) -w $* --export-png $@ $<
 
 $(IMG_DIR)/favicon-apple-%.png: cube_perfect.svg
@@ -98,6 +98,9 @@ update-emojis:
 	mogrify -resize $(EMOJI_SIZE)x $(IMG_DIR)/emojis/*.png
 
 all-assets: $(OBJS)
+
+clean-assets:
+	$(RM) $(OBJS)
 
 clean:
 	$(RM) $(OBJS) $(LIB_DIR)/*
