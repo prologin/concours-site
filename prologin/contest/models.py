@@ -1,5 +1,6 @@
 import collections
 import itertools
+
 import os
 import random
 from adminsortable.models import SortableMixin
@@ -34,8 +35,61 @@ class Edition(ExportModelOperationsMixin('edition'), models.Model):
         ordering = ('-year',)
 
     @property
+    def is_in_future(self):
+        return timezone.now() < self.date_begin
+
+    @property
     def is_active(self):
         return self.date_begin <= timezone.now() <= self.date_end
+
+    @property
+    def phase(self):
+        # future, active, corrected, done (finish but edition not finished), finished (edition finished)
+        if self.is_in_future:
+            # future
+            qualif = semifinal = final = 'future'
+        elif self.is_active:
+            events = collections.defaultdict(list)
+            for event in (Event.objects.filter(edition__year=self.year)
+                                             .order_by('date_begin', 'date_end')):
+                events[Event.Type(event.type)].append(event)
+            qualif_event = events.get(Event.Type.qualification, [None])[0]
+            semi_events = events.get(Event.Type.semifinal, [])
+            first_semi = min(semi_events, key=lambda e: e.date_begin)
+            last_semi = max(semi_events, key=lambda e: e.date_begin)
+            final_event = events.get(Event.Type.final, [None])[0]
+            if self.qualification_corrected:
+                qualif = 'corrected'
+            elif qualif_event and qualif_event.is_active:
+                qualif = 'active'
+            elif qualif_event and qualif_event.is_finished:
+                qualif = 'done'
+            else:
+                qualif = 'future'
+            if self.semifinal_corrected:
+                semifinal = 'corrected'
+            elif first_semi.date_begin <= timezone.now() <= last_semi.date_end:
+                semifinal = 'active'
+            elif last_semi.is_finished:
+                semifinal = 'done'
+            else:
+                semifinal = 'future'
+            if self.final_corrected:
+                final = 'corrected'
+            elif final_event and final_event.is_active:
+                final = 'active'
+            elif final_event and final_event.is_finished:
+                final = 'done'
+            else:
+                final = 'future'
+        else:
+            # edition finished
+            qualif = semifinal = final = 'finished'
+        return {
+            Event.Type.qualification.name: qualif,
+            Event.Type.semifinal.name: semifinal,
+            Event.Type.final.name: final,
+        }
 
     def __str__(self):
         return "Prologin {}".format(self.year)
