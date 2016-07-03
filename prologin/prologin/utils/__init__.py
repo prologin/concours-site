@@ -262,8 +262,8 @@ class SubprocessFailedException(Exception):
     def __init__(self, message, returncode, stdout, stderr):
         self.message = message
         self.returncode = returncode
-        self.stdout = stdout
-        self.stderr = stderr
+        self.stdout = stdout.decode('utf-8', 'replace')
+        self.stderr = stderr.decode('utf-8', 'replace')
 
 
 class LazyDictMeta(type):
