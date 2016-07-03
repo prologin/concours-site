@@ -1,8 +1,5 @@
-from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AnonymousUser
-from django.core.exceptions import SuspiciousOperation
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseForbidden
 
 import json
 
@@ -10,35 +7,39 @@ import marauder.api_views
 import marauder.models
 import marauder.views
 import prologin.tests
+from prologin.middleware import ContestMiddleware
 
 
 class ReportingTestCase(prologin.tests.ProloginTestCase):
     def make_request(self, data=None):
         if data is None:
             data = {}
-        return self.factory.post(
+        request = self.factory.post(
             reverse('marauder:api:report'),
             content_type='text/json',
             data=json.dumps(data))
+        # RequestFactory does not support middlewares; apply it manually
+        ContestMiddleware().process_request(request)
+        return request
 
     def test_authorization(self):
         """Tests if a non-team member can get a profile."""
         # No user
         request = self.make_request()
         request.user = AnonymousUser()
-        response = marauder.api_views.report(request)
+        response = marauder.api_views.ApiReportView.as_view()(request)
         self.assertEqual(response.status_code, 302)
 
-        # Non-team user.
+        # Non-team user
         request = self.make_request()
         request.user = self.contestant
-        response = marauder.api_views.report(request)
-        self.assertEqual(response.status_code, 403)
+        response = marauder.api_views.ApiReportView.as_view()(request)
+        self.assertEqual(response.status_code, 302)
 
-        # Team user.
+        # Team user
         request = self.make_request()
         request.user = self.organizer
-        response = marauder.api_views.report(request)
+        response = marauder.api_views.ApiReportView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
     def test_profile_creation(self):
@@ -48,7 +49,7 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
 
         request = self.make_request()
         request.user = self.organizer
-        response = marauder.api_views.report(request)
+        response = marauder.api_views.ApiReportView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
         self.assertTrue(marauder.models.UserProfile.objects.filter(
@@ -62,7 +63,7 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
                                      'gcm': {'app_id': 'test',
                                              'token': 'TOK'}})
         request.user = self.organizer
-        response = marauder.api_views.report(request)
+        response = marauder.api_views.ApiReportView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
         profile = marauder.models.UserProfile.objects.get(user=self.organizer)
@@ -80,7 +81,7 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
                                      'gcm': {'app_id': 'test',
                                              'token': 'TOK'}})
         request.user = self.organizer
-        response = marauder.api_views.report(request)
+        response = marauder.api_views.ApiReportView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
         profile = marauder.models.UserProfile.objects.get(user=self.organizer)
