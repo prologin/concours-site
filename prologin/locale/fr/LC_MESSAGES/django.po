@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-06-30 19:36+0200\n"
-"PO-Revision-Date: 2016-06-30 17:46+0000\n"
+"POT-Creation-Date: 2016-07-03 17:55+0200\n"
+"PO-Revision-Date: 2016-07-03 15:59+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -84,7 +84,7 @@ msgstr "Télécharger l'affiche"
 msgid "Poster not available"
 msgstr "Affiche indisponible"
 
-#: archives/templates/archives/index.html:44 contest/models.py:56
+#: archives/templates/archives/index.html:44 contest/models.py:110
 #: contest/templates/contest/index.html:9
 #: contest/templates/contest/qualification_summary.html:9
 #: contest/templates/correction/contestant-qualification.html:7
@@ -136,7 +136,7 @@ msgstr "Épreuves régionales"
 msgid "Regional events report"
 msgstr "Rapport des épreuves régionales"
 
-#: archives/templates/archives/index.html:76 contest/models.py:58
+#: archives/templates/archives/index.html:76 contest/models.py:112
 #: documents/templates/documents/index.html:87
 #: homepage/templates/homepage/jumbotron-final.html:7
 msgid "Final"
@@ -292,7 +292,7 @@ msgstr "Épreuve régionale assignée"
 msgid "Assignation status"
 msgstr "Statut d'assignation"
 
-#: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:184
+#: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:238
 #: documents/templates/documents/semifinal-import-review.html:58
 #: documents/templates/documents/semifinal-import-review.html:77
 #: problems/admin.py:171 problems/templates/problems/manual.html:66
@@ -365,7 +365,7 @@ msgid ""
 "preference. Most of the time, we are able to satisfy your first choice."
 msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'épreuve régionale. Faites au moins un vœu et jusqu'à trois vœux. Vous obtiendrez très probablement votre premier vœu."
 
-#: contest/models.py:57
+#: contest/models.py:111
 #: contest/templates/correction/contestant-semifinal.html:7
 #: contest/templates/correction/semifinal.html:10
 #: contest/templates/correction/semifinal.html:14
@@ -378,73 +378,73 @@ msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'�
 msgid "Regional event"
 msgstr "Épreuve régionale"
 
-#: contest/models.py:151
+#: contest/models.py:205
 msgid "Not assigned"
 msgstr "Non assigné"
 
-#: contest/models.py:152
+#: contest/models.py:206
 msgid "Ruled out"
 msgstr "Éliminé"
 
-#: contest/models.py:153
+#: contest/models.py:207
 msgid "Assigned"
 msgstr "Assigné"
 
-#: contest/models.py:161
+#: contest/models.py:215
 msgid "T-shirt size"
 msgstr "Taille du t-shirt"
 
-#: contest/models.py:161
+#: contest/models.py:215
 msgid "Choose your size"
 msgstr "Choisissez votre taille"
 
-#: contest/models.py:162
+#: contest/models.py:216
 msgid "We usually provide unisex Prologin t-shirts to the finalists."
 msgstr "Nous fournissons le plus souvent des t-shirts unisexe aux finalistes."
 
-#: contest/models.py:164
+#: contest/models.py:218
 msgid ""
 "The programming language you will most likely use during the regional "
 "events."
 msgstr "Le langage de programmation que vous utiliserez le plus probablement pour l'épreuve régionale."
 
-#: contest/models.py:168
+#: contest/models.py:222
 msgid "Regional event assignation status"
 msgstr "Assignation d'épreuve régionale"
 
-#: contest/models.py:171
+#: contest/models.py:225
 msgid "Regional event assignation whishes"
 msgstr "Vœux d'assignation épreuve régionale"
 
-#: contest/models.py:173
+#: contest/models.py:227
 msgid "Regional event assigned event"
 msgstr "Événement assigné pour l'épreuve régionale"
 
-#: contest/models.py:175
+#: contest/models.py:229
 msgid "Final assignation status"
 msgstr "Assignation de finale"
 
-#: contest/models.py:177
+#: contest/models.py:231
 msgid "Quiz score"
 msgstr "Score du quiz"
 
-#: contest/models.py:178
+#: contest/models.py:232
 msgid "Algo exercises score"
 msgstr "Score des exercices d'algo"
 
-#: contest/models.py:179 contest/models.py:183 contest/models.py:185
+#: contest/models.py:233 contest/models.py:237 contest/models.py:239
 msgid "Bonus score"
 msgstr "Score bonus"
 
-#: contest/models.py:180
+#: contest/models.py:234
 msgid "Written exam score"
 msgstr "Score de l'épreuve écrite"
 
-#: contest/models.py:181
+#: contest/models.py:235
 msgid "Interview score"
 msgstr "Score de l'entretien"
 
-#: contest/models.py:182
+#: contest/models.py:236
 msgid "Machine exam score"
 msgstr "Score de l'épreuve machine"
 
@@ -1649,224 +1649,83 @@ msgstr "Le sujet a été supprimé avec succès."
 
 #: homepage/templates/homepage/homepage.html:5
 #: homepage/templates/homepage/jumbotron.html:6
-#: prologin/templates/prologin/base.html:30
+#: prologin/templates/prologin/base.html:32
 msgid "Prologin, the French National Computer Science Contest"
 msgstr "Prologin, le concours national d'informatique"
 
 #: homepage/templates/homepage/homepage.html:11
-#: prologin/templates/prologin/base.html:32
 msgid ""
 "Prologin is a computer science contest. Our goal is to introduce students to"
 " the world of programming and algorithms by subjecting them to several "
 "conventional problems and exciting challenges."
 msgstr "Prologin est un concours d'informatique. Notre but est de faire découvrir le monde de la programmation et de l'algorithmique aux étudiants et de les confronter à des problèmes classiques et des challenges excitants."
 
-#: homepage/templates/homepage/homepage.html:29
+#: homepage/templates/homepage/homepage.html:30
 msgid "Latest news"
 msgstr "Dernières actualités"
 
-#: homepage/templates/homepage/homepage.html:31
-#: homepage/templates/homepage/homepage.html:70
+#: homepage/templates/homepage/homepage.html:32
+#: homepage/templates/homepage/homepage.html:71
 msgid "Browse all news"
 msgstr "Consulter toutes les actualités"
 
-#: homepage/templates/homepage/homepage.html:41
+#: homepage/templates/homepage/homepage.html:42
 #: news/templates/zinnia/_entry_detail_base.html:19
 msgid "Written by"
 msgstr "Rédigé par"
 
-#: homepage/templates/homepage/homepage.html:45
+#: homepage/templates/homepage/homepage.html:46
 #: news/templates/zinnia/_entry_detail_base.html:23
 #, python-format
 msgid "Show all %(author)s's entries"
 msgstr "Tous les articles de %(author)s"
 
-#: homepage/templates/homepage/homepage.html:47
+#: homepage/templates/homepage/homepage.html:48
 msgid "on"
 msgstr "le"
 
-#: homepage/templates/homepage/homepage.html:49
+#: homepage/templates/homepage/homepage.html:50
 msgid "Written on"
 msgstr "Rédigé le"
 
-#: homepage/templates/homepage/jumbotron-final.html:13
+#: homepage/templates/homepage/jumbotron-final.html:19
 msgid ""
 "You have one weekend to develop an Artificial Intelligence for a custom-made"
 " game, in Paris."
 msgstr "Développement d'une Intelligence Artificielle pour un jeu multi-joueur pendant un week-end, à Paris."
 
-#: homepage/templates/homepage/jumbotron-final.html:15
-#: homepage/templates/homepage/jumbotron-semifinals.html:24
+#: homepage/templates/homepage/jumbotron-final.html:21
+#: homepage/templates/homepage/jumbotron-semifinals.html:27
+#: homepage/templates/homepage/stub-qualification-future.html:19
 msgid "Train now"
 msgstr "S'entraîner"
 
-#: homepage/templates/homepage/jumbotron-final.html:18
+#: homepage/templates/homepage/jumbotron-final.html:24
 msgid "The final will take place at:"
 msgstr "La finale aura lieu à&nbsp;:"
 
-#: homepage/templates/homepage/jumbotron-final.html:28
-#: homepage/templates/homepage/jumbotron-semifinals.html:40
+#: homepage/templates/homepage/jumbotron-final.html:34
+#: homepage/templates/homepage/stub-semifinal-result.html:16
 msgid "Download paperwork"
 msgstr "Télécharger les documents"
 
-#: homepage/templates/homepage/jumbotron-final.html:37
+#: homepage/templates/homepage/jumbotron-final.html:43
 msgid "The final is now finished!"
 msgstr "La finale est maintenant terminée&nbsp;!"
 
-#: homepage/templates/homepage/jumbotron-final.html:42
+#: homepage/templates/homepage/jumbotron-final.html:48
 msgid "Statement, results & scoreboard"
 msgstr "Sujet, résultats & classement"
 
-#: homepage/templates/homepage/jumbotron-final.html:48
+#: homepage/templates/homepage/jumbotron-final.html:54
 msgid "The final is now finished! Stay tuned for the results."
 msgstr "La finale est maintenant terminée&nbsp;! Restez à l'écoute pour connaître les résultats."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:18
-msgid ""
-"Qualifications for this year's edition will be announced as soon as "
-"possible."
-msgstr "Les qualifications pour cette année seront annoncées dès que possible."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:22
-#: homepage/templates/homepage/jumbotron-qualification.html:150
-msgid "Start training!"
-msgstr "Entraînez-vous&nbsp;!"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:30
-#, python-format
-msgid "A quiz and %(problems_count)s problems to solve online."
-msgstr "Un questionnaire et %(problems_count)s exercices à résoudre en ligne."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:32
-#, python-format
-msgid "%(problems_count)s problems to solve online."
-msgstr "%(problems_count)s problèmes à résoudre en ligne."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:46
-msgid "Quiz completed"
-msgstr "Questionnaire soumis"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:53
-msgid "Complete the quiz"
-msgstr "Compléter le questionnaire"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:63
-#, python-format
-msgid "%(problems_completed)s/%(problems_count)s problems tackled"
-msgstr "%(problems_completed)s/%(problems_count)s problèmes abordés"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:71
-msgid "Review the extra details"
-msgstr "Vérifier les informations supplémentaires"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:80
-msgid "Register now!"
-msgstr "S'inscrire !"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:94
-msgid "Congratulations! You have been selected for the regional events."
-msgstr "Félicitations&nbsp;! Le jury a accepté votre participation pour les épreuves régionales."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:98
-msgid ""
-"Please proceed to download your invitation papers and start training for the"
-" next step!"
-msgstr "Téléchargez dès maintenant les documents de convocation et commencez à vous entraîner pour l'étape suivant&nbsp;!"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:105
-msgid ""
-"Sorry, this year your application was not selected for the regional events."
-msgstr "Navré, cette année votre participation n'a pas été retenue pour les épreuves régionales."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:107
-#: homepage/templates/homepage/jumbotron-semifinals.html:69
-msgid ""
-"Do not lose hope though! Start training right away so you can perfect your "
-"knowledge of algorithms and programming, and try again next year. Best luck!"
-msgstr "Ne perdez pas espoir&nbsp;! Continuez de vous entraîner pour parfaire votre connaissance de l'algorithmique et de la programmation, et recommencez l'an prochain. Bonne chance&nbsp;!"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:112
-#: homepage/templates/homepage/jumbotron-semifinals.html:74
-msgid ""
-"There is a problem with your application. Please contact the staff as soon "
-"as possible."
-msgstr "Il y a un problème avec votre participation. Merci de contacter l'équipe dès que possible."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:118
-msgid "You did not apply for the contest this year."
-msgstr "Vous n'avez pas participé au concours cette année."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:120
-msgid "Come back for the next edition!"
-msgstr "Tentez votre chance l'an prochain&nbsp;!"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:126
-#: homepage/templates/homepage/jumbotron-semifinals.html:48
-msgid ""
-"The jury's decision will soon be announced by email and on the website."
-msgstr "La décision du jury sera bientôt annoncée par e-mail et sur ce site."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:128
-msgid "You can start ahead by training for the regional events."
-msgstr "Vous pouvez dès à présent commencer à vous entraîner pour les épreuves régionales."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:132
-msgid "Log in to check if you were selected for the regional events."
-msgstr "Connectez-vous pour savoir si votre participation a été acceptée."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:134
-msgid "Login"
-msgstr "Connexion"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:143
-#, python-format
-msgid "Prologin %(year)s is now finished!"
-msgstr "Prologin %(year)s est maintenant terminé&nbsp;!"
-
-#: homepage/templates/homepage/jumbotron-qualification.html:146
-#, python-format
-msgid ""
-"The final's results will be published on <a href=\"%(url)s\">the "
-"archives</a> as soon as they are available."
-msgstr "Les résultats de la finale seront publiés dans <a href=\"%(url)s\">les archives</a> dès qu'ils deviennent disponibles."
-
-#: homepage/templates/homepage/jumbotron-qualification.html:147
-msgid ""
-"Stay tuned for next year's edition. We will announce when it starts on this "
-"website and by email."
-msgstr "Restez à l'affût de la prochaine édition. Nous annoncerons le lancement sur ce site et par e-mail."
 
 #: homepage/templates/homepage/jumbotron-semifinals.html:19
 msgid ""
 "Consists of a written exam and some problems to solve on the computer. Exam "
 "centers are distributed accross France large cities."
 msgstr "Une épreuve écrite et des exercices sur machine. Les centres d'examen sont répartis dans les grandes villes de France."
-
-#: homepage/templates/homepage/jumbotron-semifinals.html:33
-msgid "Your regional event will take place at:"
-msgstr "Votre épreuve régionale se déroulera à&nbsp;:"
-
-#: homepage/templates/homepage/jumbotron-semifinals.html:50
-msgid "You can start ahead by training for the final."
-msgstr "Vous pouvez dès à présent commencer à vous entraîner pour la finale."
-
-#: homepage/templates/homepage/jumbotron-semifinals.html:57
-msgid "Congratulations! You have been selected for the final."
-msgstr "Félicitations&nbsp;! Le jury a accepté votre participation pour la finale."
-
-#: homepage/templates/homepage/jumbotron-semifinals.html:61
-msgid ""
-"Please proceed to download your invitation papers and start reviewing "
-"previous edition finals."
-msgstr "Téléchargez dès maintenant les documents de convocation et commencez à consulter les archives des précédentes finales."
-
-#: homepage/templates/homepage/jumbotron-semifinals.html:67
-msgid "Sorry, this year your application was not selected for the final."
-msgstr "Navré, cette année votre participation n'a pas été retenue pour la finale."
-
-#: homepage/templates/homepage/jumbotron-semifinals.html:88
-msgid "See all the dates"
-msgstr "Voir toutes les dates"
 
 #: homepage/templates/homepage/jumbotron.html:7
 #, python-format
@@ -1882,6 +1741,150 @@ msgstr "Date inconnue"
 #: homepage/templates/homepage/sponsors.html:3
 msgid "Sponsors"
 msgstr "Partenaires"
+
+#: homepage/templates/homepage/stub-qualification-active.html:14
+msgid "Quiz completed"
+msgstr "Questionnaire soumis"
+
+#: homepage/templates/homepage/stub-qualification-active.html:21
+msgid "Complete the quiz"
+msgstr "Compléter le questionnaire"
+
+#: homepage/templates/homepage/stub-qualification-active.html:31
+#, python-format
+msgid "%(problems_completed)s/%(problems_count)s problems tackled"
+msgstr "%(problems_completed)s/%(problems_count)s problèmes abordés"
+
+#: homepage/templates/homepage/stub-qualification-active.html:39
+msgid "Review the extra details"
+msgstr "Vérifier les informations supplémentaires"
+
+#: homepage/templates/homepage/stub-qualification-active.html:49
+msgid "Register now!"
+msgstr "S'inscrire !"
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:11
+msgid "Congratulations! You have been selected for the regional events."
+msgstr "Félicitations&nbsp;! Le jury a accepté votre participation pour les épreuves régionales."
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:15
+msgid ""
+"Please proceed to download your invitation papers and start training for the"
+" next step!"
+msgstr "Téléchargez dès maintenant les documents de convocation et commencez à vous entraîner pour l'étape suivant&nbsp;!"
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:22
+msgid ""
+"Sorry, this year your application was not selected for the regional events."
+msgstr "Navré, cette année votre participation n'a pas été retenue pour les épreuves régionales."
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:24
+#: homepage/templates/homepage/stub-semifinal-result.html:48
+msgid ""
+"Do not lose hope though! Start training right away so you can perfect your "
+"knowledge of algorithms and programming, and try again next year. Best luck!"
+msgstr "Ne perdez pas espoir&nbsp;! Continuez de vous entraîner pour parfaire votre connaissance de l'algorithmique et de la programmation, et recommencez l'an prochain. Bonne chance&nbsp;!"
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:29
+#: homepage/templates/homepage/stub-semifinal-result.html:53
+msgid ""
+"There is a problem with your application. Please contact the staff as soon "
+"as possible."
+msgstr "Il y a un problème avec votre participation. Merci de contacter l'équipe dès que possible."
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:35
+msgid "You did not apply for the contest this year."
+msgstr "Vous n'avez pas participé au concours cette année."
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:37
+msgid "Come back for the next edition!"
+msgstr "Tentez votre chance l'an prochain&nbsp;!"
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:42
+msgid "Log in to check if you were selected for the regional events."
+msgstr "Connectez-vous pour savoir si votre participation a été acceptée."
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:44
+msgid "Login"
+msgstr "Connexion"
+
+#: homepage/templates/homepage/stub-qualification-desc.html:4
+#, python-format
+msgid "A quiz and %(problems_count)s problems to solve online."
+msgstr "Un questionnaire et %(problems_count)s exercices à résoudre en ligne."
+
+#: homepage/templates/homepage/stub-qualification-desc.html:6
+#, python-format
+msgid "%(problems_count)s problems to solve online."
+msgstr "%(problems_count)s problèmes à résoudre en ligne."
+
+#: homepage/templates/homepage/stub-qualification-done.html:7
+#: homepage/templates/homepage/stub-semifinal-result.html:27
+msgid ""
+"The jury's decision will soon be announced by email and on the website."
+msgstr "La décision du jury sera bientôt annoncée par e-mail et sur ce site."
+
+#: homepage/templates/homepage/stub-qualification-done.html:11
+msgid "You can start ahead by training for the regional events."
+msgstr "Vous pouvez dès à présent commencer à vous entraîner pour les épreuves régionales."
+
+#: homepage/templates/homepage/stub-qualification-finished.html:7
+#, python-format
+msgid "Prologin %(year)s is now finished!"
+msgstr "Prologin %(year)s est maintenant terminé&nbsp;!"
+
+#: homepage/templates/homepage/stub-qualification-finished.html:11
+msgid ""
+"Stay tuned for next year's edition. We will announce when it starts on this "
+"website and by email."
+msgstr "Restez à l'affût de la prochaine édition. Nous annoncerons le lancement sur ce site et par e-mail."
+
+#: homepage/templates/homepage/stub-qualification-finished.html:14
+msgid "Start training!"
+msgstr "Entraînez-vous&nbsp;!"
+
+#: homepage/templates/homepage/stub-qualification-future.html:8
+#, python-format
+msgid "Qualifications will open %(date)s."
+msgstr "Les qualifications ouvrent le %(date)s."
+
+#: homepage/templates/homepage/stub-qualification-future.html:13
+msgid ""
+"Qualifications for this year's edition will be announced as soon as "
+"possible."
+msgstr "Les qualifications pour cette année seront annoncées dès que possible."
+
+#: homepage/templates/homepage/stub-semifinal-result.html:8
+msgid "Your regional event will take place at:"
+msgstr "Votre épreuve régionale se déroulera à&nbsp;:"
+
+#: homepage/templates/homepage/stub-semifinal-result.html:20
+msgid ""
+"The jury did not assign your regional event location. Please contact the "
+"staff as soon as possible."
+msgstr "Le jury n'a pas assigné votre centre d'épreuve régionale. Merci de contacter l'équipe dès que possible."
+
+#: homepage/templates/homepage/stub-semifinal-result.html:29
+msgid "You can start ahead by training for the final."
+msgstr "Vous pouvez dès à présent commencer à vous entraîner pour la finale."
+
+#: homepage/templates/homepage/stub-semifinal-result.html:36
+msgid "Congratulations! You have been selected for the final."
+msgstr "Félicitations&nbsp;! Le jury a accepté votre participation pour la finale."
+
+#: homepage/templates/homepage/stub-semifinal-result.html:40
+msgid ""
+"Please proceed to download your invitation papers and start reviewing "
+"previous edition finals."
+msgstr "Téléchargez dès maintenant les documents de convocation et commencez à consulter les archives des précédentes finales."
+
+#: homepage/templates/homepage/stub-semifinal-result.html:46
+msgid "Sorry, this year your application was not selected for the final."
+msgstr "Navré, cette année votre participation n'a pas été retenue pour la finale."
+
+#: homepage/templates/homepage/stub-semifinal-result.html:69
+msgid "See all the dates"
+msgstr "Voir toutes les dates"
 
 #: mailing/forms.py:9
 msgid "HTML enabled"
@@ -1960,7 +1963,7 @@ msgstr "Tableau de bord"
 #: mailing/templates/mailing/template/details.html:5
 #: mailing/templates/mailing/template/details.html:14
 msgid "Mailing"
-msgstr ""
+msgstr "Mailing"
 
 #: mailing/templates/mailing/dashboard.html:15
 msgid "Mailing dashboard"
@@ -3967,9 +3970,9 @@ msgstr "En cours de maintenance"
 msgid "Prologin, the French computing contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:29
-#: prologin/templates/prologin/base.html:46
-#: prologin/templates/prologin/base.html:89
+#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:31
+#: prologin/templates/prologin/base.html:47
+#: prologin/templates/prologin/base.html:90
 #: prologin/templates/prologin/main-footer.html:6
 #: semifinal/templates/prologin/base.html:58
 #: semifinal/templates/prologin/main-footer.html:6
@@ -4003,18 +4006,18 @@ msgstr "Erreur %(number)s"
 msgid "You can go back to the <a href=\"%(url)s\">home page</a>."
 msgstr "Vous pouvez retourner à <a href=\"%(url)s\">l'accueil</a>."
 
-#: prologin/templates/prologin/base.html:47
+#: prologin/templates/prologin/base.html:29
 msgctxt "Twitter message, LESS THAN 140 CHARS"
 msgid ""
 "Prologin is a computer science contest, introducing students to the world of"
 " programming and algorithms with exciting challenges."
 msgstr "Prologin, le concours d'informatique : faire découvrir la programmation et l'algorithmique aux étudiants grâce à des challenges excitants !"
 
-#: prologin/templates/prologin/base.html:52
+#: prologin/templates/prologin/base.html:53
 msgid "Latest blog articles"
 msgstr "Dernières actualités"
 
-#: prologin/templates/prologin/base.html:117
+#: prologin/templates/prologin/base.html:118
 msgid "No user matching query"
 msgstr "Aucun utilisateur correspondant"
 
@@ -4956,7 +4959,7 @@ msgstr "Rôles dans l'équipe"
 msgid ""
 "%(year)s ⋅\n"
 "                %(role)s"
-msgstr ""
+msgstr "%(year)s ⋅ %(role)s"
 
 #: users/templates/users/register.html:7
 #: users/templates/users/register.html:10
