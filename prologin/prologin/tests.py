@@ -2,8 +2,8 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.test import RequestFactory, TestCase
 from django.test.client import Client
+from django.utils import timezone
 
-import datetime
 import http.client
 import urllib.parse
 import time
@@ -43,8 +43,8 @@ class ProloginTestCase(TestCase):
     def _make_edition(self):
         self.edition = contest.models.Edition()
         self.edition.year = settings.PROLOGIN_EDITION
-        self.edition.date_begin = datetime.datetime.now()
-        self.edition.date_end = datetime.datetime.now()
+        self.edition.date_begin = timezone.now()
+        self.edition.date_end = timezone.now()
         self.edition.save()
 
         self.finals = contest.models.Event()
