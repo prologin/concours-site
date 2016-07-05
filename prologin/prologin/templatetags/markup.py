@@ -26,7 +26,6 @@ def _init_flavored_markdown():
     import markdown.extensions.tables
     import markdown.extensions.footnotes
     import markdown.extensions.toc
-    import markdown.extensions.headerid
     import markdown.extensions.smart_strong
     import gfm
     from prologin.utils.markdown.emoji import EmojiExtension
@@ -75,8 +74,14 @@ def flavored_markdown(value, escape=True):
 
 @register.filter
 def archive_markdown(value, scoreboard):
+    import markdown.extensions.toc
     from prologin.utils.markdown.scoreboard import ScoreboardExtension
-    converter = markdown_lib.Markdown(extensions=[ScoreboardExtension(scoreboard)], safe_mode=False, output_format='html5')
+    converter = markdown_lib.Markdown(extensions=[
+        markdown.extensions.toc.TocExtension(slugify=lambda s, _: slugify('bdy-' + s),
+                                             permalink=True,
+                                             baselevel=1),
+        ScoreboardExtension(scoreboard),
+    ], safe_mode=False, output_format='html5')
     rendered = mark_safe(converter.convert(value))
     return rendered
 
