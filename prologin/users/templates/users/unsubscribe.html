@@ -1,8 +1,14 @@
 {% extends "prologin/base.html" %}
 {% load i18n staticfiles %}
-{% load bootstrap %}
+{% load django_bootstrap_breadcrumbs %}
 
 {% block title %}{% trans "Unsubscribe" %}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for '' %}{% trans "Members" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for '' %}{% trans "Unsubscribe from mailing" %}{% endbreadcrumb_for %}
+{% endblock %}
 
 {% block content %}
 <h1>{% trans "Unsubscribe" %}</h1>
@@ -15,20 +21,24 @@
   during the various stages of the contest. We hate spam as much as you do!
   {% endblocktrans %}</p>
 
-  <form action="" method="POST" class="form-horizontal">
+  <form action="" method="POST" style="margin-top: 1em">
     {% csrf_token %}
     <input type="hidden" name="uid" value="{{ unsubscribe_user.id }}" />
     <input type="hidden" name="token" value="{{ unsubscribe_token }}" />
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button class="btn btn-primary" type="submit">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-envelope-o fa-stack-1x"></i>
-                <i class="fa fa-ban fa-stack-2x text-danger"></i>
-            </span>
-            {% trans "Unsubscribe" %}
-            <strong>{{ unsubscribe_user.email }}</strong>
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <button class="btn btn-primary" type="submit" style="height: 3em">
+          <span class="fa-stack">
+            <i class="fa fa-envelope-o fa-stack-1x"></i>
+            <i class="fa fa-ban fa-stack-2x text-danger"></i>
+          </span>
+          {% trans "Unsubscribe" %}
+          <tt>{{ unsubscribe_user.email }}</tt>
         </button>
+      </div>
+      <div class="col-md-1 text-center" style="line-height: 2">{% trans "or" %}</div>
+      <div class="col-md-4 text-center">
+        <a href="{% url 'home' %}" class="btn btn-default" style="height: 3em; line-height: 2">{% trans "Stay subscribed" %}</a>
       </div>
     </div>
   </form>
