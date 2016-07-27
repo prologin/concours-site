@@ -1,4 +1,4 @@
-{% load staticfiles %}
+{% load staticfiles utils %}
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {
@@ -10,4 +10,6 @@
     showMathMenu: false,
   });
 </script>
-<script type="text/javascript" src="{% static 'lib/mathjax/MathJax.js' %}?config=TeX-AMS-MML_HTMLorMML"></script>
+{# HACK: don't use static tag, because for some reason the ManifestStorage renaming breaks MathJax #}
+{# <script type="text/javascript" src="{% static 'lib/mathjax/MathJax.js' %}?config=TeX-AMS-MML_HTMLorMML"></script> #}
+<script type="text/javascript" src="{% get_setting 'STATIC_URL' %}/lib/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
