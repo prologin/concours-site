@@ -422,7 +422,8 @@ class FinalOrganizersBadgesInputView(FormView):
     def form_valid(self, form):
         if form.is_valid():
             lines = form.cleaned_data['name'].split('\n')
-            self.request.session['docs_organizers_name'] = [ re.split('[ \t]+', line) for line in lines ]
+            #self.request.session['docs_organizers_name'] = [ re.split('[ \t]+', line) for line in lines ]
+            self.request.session['docs_organizers_name'] = lines
             return HttpResponseRedirect('organizer-badges')
         return render(self.request, self.template_name, {'form': form})
 
