@@ -9,15 +9,15 @@
 {% if year != None %}
   {% breadcrumb_for 'documents:index' year %}{{ year }}{% endbreadcrumb_for %}
 {% endif %}
-  {% breadcrumb_for 'documents:index' %}{% trans "Organizers Badges" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'documents:index' %}{% trans "Custom Badges" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
-{% block title %}{% blocktrans %}Organizers Badges{% endblocktrans %}{% endblock %}
+{% block title %}{% blocktrans %}Custom Badges{% endblocktrans %}{% endblock %}
 
 {% block content %}
 
   <h1>
-    {% trans "Organizer Badges" %}
+    {% trans "Custom Badges" %}
   </h1>
   <form action="" method="post">
     {% csrf_token %}

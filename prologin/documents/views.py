@@ -415,16 +415,15 @@ class FinalBadgesView(BaseFinalDocumentView):
         return super().contestant_queryset().order_by(*USER_LIST_ORDERING)
 
 
-class FinalOrganizersBadgesInputView(FormView):
-    template_name= 'documents/organizers-badges-input.html'
+class FinalCustomBadgesInputView(FormView):
+    template_name= 'documents/custom-badges-input.html'
     form_class = documents.forms.BadgesOrganizersForm
 
     def form_valid(self, form):
         if form.is_valid():
             lines = form.cleaned_data['name'].split('\n')
-            #self.request.session['docs_organizers_name'] = [ re.split('[ \t]+', line) for line in lines ]
             self.request.session['docs_organizers_name'] = lines
-            return HttpResponseRedirect('organizer-badges')
+            return HttpResponseRedirect('custom-badges')
         return render(self.request, self.template_name, {'form': form})
 
 
@@ -454,10 +453,10 @@ class FinalMealTicketsView(BaseFinalDocumentView):
         return context
 
 
-class FinalOrganizersBadgesView(BaseFinalDocumentView):
+class FinalCustomBadgesView(BaseFinalDocumentView):
     template_name = 'documents/badges.tex'
-    pdf_title = _("Prologin %(year)s: organizers badges")
-    filename = pgettext_lazy("Document filename", "organizers-badges-%(year)s-final")
+    pdf_title = _("Prologin %(year)s: custom badges")
+    filename = pgettext_lazy("Document filename", "custom-badges-%(year)s-final")
     
     def get_extra_context(self):
         context = super().get_extra_context()
