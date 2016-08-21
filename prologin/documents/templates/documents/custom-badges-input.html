@@ -1,0 +1,28 @@
+{% extends "prologin/base.html" %}
+{% load i18n %}
+{% load django_bootstrap_breadcrumbs %}
+{% load bootstrap %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for 'documents:index' %}{% trans "Documents" %}{% endbreadcrumb_for %}
+{% if year != None %}
+  {% breadcrumb_for 'documents:index' year %}{{ year }}{% endbreadcrumb_for %}
+{% endif %}
+  {% breadcrumb_for 'documents:index' %}{% trans "Custom Badges" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% blocktrans %}Custom Badges{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+  <h1>
+    {% trans "Custom Badges" %}
+  </h1>
+  <form action="" method="post">
+    {% csrf_token %}
+    {{ form|bootstrap_horizontal }}
+    <input type="submit" value="{% trans "Submit" %}" class="btn btn-default btn-s">
+  </form>
+{% endblock %}
+      

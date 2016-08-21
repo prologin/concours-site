@@ -7,6 +7,9 @@
 \usepackage[a4paper,dvips]{geometry}
 \usepackage{longtable}
 \usepackage{graphicx}
+\usepackage{amsmath}%
+\usepackage{MnSymbol}%
+\usepackage{wasysym}%
 \usepackage[table]{xcolor}
 {% include "documents/stub-preamble.tex" %}
 
@@ -20,27 +23,66 @@
 
 \begin{center}
     \Large
-    Liste des candidats -- Prologin {{ year }} -- {{ event.center.name|escapetex }} -- {{ event.date_begin|date:"SHORT_DATE_FORMAT"|escapetex }}
+    {% if final %}
+      Liste des candidats -- Finale Prologin {{ year }}
+    {% else %}
+      Liste des candidats -- Prologin {{ year }} -- {{ event.center.name|escapetex }} -- {{ event.date_begin|date:"SHORT_DATE_FORMAT"|escapetex }}
+    {% endif %}
 \end{center}
+
+{% if final %}
+  \vspace{5mm}
+
+  Légende :
+  \begin{itemize}
+    \item Droit à l'image : \textbf{Img.}
+    \item Renseignements médicaux : \textbf{Med.}
+    \item Décharge perte/vol : \textbf{Dcg.}
+    \item Candidat mineur : \textbf{Min.}
+    \item Autorisation parentale (pour les mineurs seulement) : \textbf{Par.}
+  \end{itemize}
+
+  \vspace{5mm}
+{% endif %}
 
 \pagestyle{empty}
 \thispagestyle{empty}
 \setlongtables
 
 \noindent
-\begin{longtable}[c]{|p{6cm}|p{2.5cm}|p{2cm}|p{5.5cm}|p{5.5cm}|}
+{% if final %}
+  \begin{longtable}[c]{|p{3cm}|p{2.5cm}|p{2cm}|p{5.5cm}|p{5.5cm}|c|c|c|c|c|}
+{% else %}
+  \begin{longtable}[c]{|p{6cm}|p{2.5cm}|p{2cm}|p{5.5cm}|p{5.5cm}|}
+{% endif %}
 \hline
 \rowcolor{gray!50}
-\textbf{Nom} & \textbf{Prénom} & \textbf{Né le} & \textbf{Heure d'arrivée \& signature} & \textbf{Heure de départ \& signature}\\
+{% if final %}
+  \textbf{Nom} & \textbf{Prénom} & \textbf{Né le} & \textbf{Heure d'arrivée \&
+    signature} & \textbf{Heure de départ \& signature} &
+    \textbf{Img.} & \textbf{Med.} & \textbf{Dcg.} & \textbf{Min.} & \textbf{Par.}\\
+{% else %}
+  \textbf{Nom} & \textbf{Prénom} & \textbf{Né le} & \textbf{Heure d'arrivée \&
+    signature} & \textbf{Heure de départ \& signature}\\
+{% endif %}
 \hline
 \endhead
 \rowcolor{white}\multicolumn{5}{r}{\emph{Suite du tableau page suivante}}
 \endfoot
 \endlastfoot
 
-{% for contestant in contestants %}{% with user=contestant.user %}
-{{ user.last_name|title|escapetex }} & {{ user.first_name|title|escapetex }} & {{ user.birthday|date:"Y-m-d"|escapetex }} & & \\\hline
-{% endwith %}{% endfor %}
+{% if final %}
+  {% for contestant in contestants %}
+    {{ contestant.user.last_name|title|escapetex }} &
+    {{ contestant.user.first_name|title|escapetex }} &
+    {{ contestant.user.birthday|date:"Y-m-d"|escapetex }} & & &
+    $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\\hline
+  {% endfor %}
+{% else %}
+  {% for contestant in contestants %}{% with user=contestant.user %}
+  {{ user.last_name|title|escapetex }} & {{ user.first_name|title|escapetex }} & {{ user.birthday|date:"Y-m-d"|escapetex }} & & \\\hline
+  {% endwith %}{% endfor %}
+{% endif %}
 
 \end{longtable}
 \newpage

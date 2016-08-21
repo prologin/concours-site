@@ -1,6 +1,6 @@
 {% extends "prologin/base.html" %}
 {% load i18n %}
-{% load django_bootstrap_breadcrumbs %}
+{% load django_bootstrap_breadcrumbs bootstrap %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -124,7 +124,7 @@
                 <i class="fa fa-calendar"></i> {% trans "Planning" %}
               </a>
               <a href="{% url 'documents:final:external-organizers' year %}" class="btn btn-default btn-xs">
-                    <i class="fa fa-hand-paper-o"></i> {% trans "External organizers" %}
+                <i class="fa fa-hand-paper-o"></i> {% trans "External organizers" %}
               </a>
               <a href="{% url 'documents:final:diplomas' year %}" class="btn btn-default btn-xs">
                 <i class="fa fa-trophy"></i> {% trans "Diplomas" %}
@@ -156,6 +156,28 @@
                 <i class="fa fa-users"></i> {% trans "Enrollment Form" %}
               </a>
             </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>{% trans "Meal tickets" %}</strong>
+            </td>
+            <td>
+              <form class="form-inline" action="{% url 'documents:final:meal-tickets-input' year %}" method="post">
+                {% csrf_token %}
+                {{ form|bootstrap }}
+                <input type="submit" value="{% trans "Submit" %}" class="btn btn-default btn-s" style="position: relative; top: 11px;"/>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>{% trans "Misc" %}</strong>
+            </td>
+            <td>
+              <a href="{% url 'documents:final:custom-badges-input' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-ticket"></i> {% trans "Custom Bagdes" %}
+              </a>
+           </td>
           </tr>
         </tbody>
       </table>

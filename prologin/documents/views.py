@@ -1,18 +1,21 @@
 import collections
 import io
 import json
+import re
+
 from django.conf import settings
 from django.contrib import messages
 from django.core import serializers
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
 from django.http.response import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 from django.views.generic import TemplateView, View
 from django.views.generic.base import RedirectView
+from django.views.generic.edit import FormView
 from formtools.wizard.views import SessionWizardView
 from rules.compat.access_mixins import PermissionRequiredMixin
 
@@ -51,11 +54,13 @@ class IndexView(PermissionRequiredMixin, TemplateView):
             final = contest.models.Event.final_for_edition(self.year)
         except contest.models.Event.DoesNotExist:
             final = None
+        form = documents.forms.MealTicketForm()
         context = super().get_context_data(**kwargs)
         context.update({'years': self.years,
                         'year': self.year,
                         'semifinals': semifinals,
-                        'final': final})
+                        'final': final,
+                        'form': form})
         return context
 
 
@@ -313,6 +318,7 @@ class FinalContestantsView(BaseFinalDocumentView):
     def get_extra_context(self):
         context = super().get_extra_context()
         context['event_contestants'] = self.grouped_event_contestants
+        context['final'] = True
         return context
 
 
@@ -439,3 +445,54 @@ class FinalBadgesView(BaseFinalDocumentView):
 
     def contestant_queryset(self):
         return super().contestant_queryset().order_by(*USER_LIST_ORDERING)
+
+
+class FinalCustomBadgesInputView(FormView):
+    template_name= 'documents/custom-badges-input.html'
+    form_class = documents.forms.BadgesOrganizersForm
+
+    def form_valid(self, form):
+        if form.is_valid():
+            lines = form.cleaned_data['name'].split('\n')
+            self.request.session['docs_organizers_name'] = lines
+            return HttpResponseRedirect('custom-badges')
+        return render(self.request, self.template_name, {'form': form})
+
+
+class FinalMealTicketsInputView(View):
+    form_class = documents.forms.MealTicketForm
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            name = documents.forms.DAY_OF_WEEK[int(form.cleaned_data['ticket_day']) - 1][1]
+            name += ' ' + form.cleaned_data['ticket_day_nb']
+            name += ' ' + documents.forms.TIME_OF_DAY[int(form.cleaned_data['ticket_day_time']) - 1][1]
+            request.session['docs_ticket_name'] = name
+            request.session['docs_ticket_id'] = form.cleaned_data['ticket_id']
+        return HttpResponseRedirect('../meal-tickets')
+
+
+class FinalMealTicketsView(BaseFinalDocumentView):
+    template_name = 'documents/meal-tickets.tex'
+    pdf_title = _("Prologin %(year)s: Meal tickets")
+    filename = pgettext_lazy("Document filename", "meal-tickets-%(year)s-final")
+
+    def get_extra_context(self):
+        context = super().get_extra_context()
+        context['ticket_name'] = self.request.session['docs_ticket_name']
+        context['ticket_id'] = self.request.session['docs_ticket_id']
+        return context
+
+
+class FinalCustomBadgesView(BaseFinalDocumentView):
+    template_name = 'documents/badges.tex'
+    pdf_title = _("Prologin %(year)s: custom badges")
+    filename = pgettext_lazy("Document filename", "custom-badges-%(year)s-final")
+    
+    def get_extra_context(self):
+        context = super().get_extra_context()
+        name = self.request.session['docs_organizers_name']
+        context['organizers'] = name
+        return context
+
