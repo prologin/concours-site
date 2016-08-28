@@ -27,6 +27,7 @@
     technically the contestants during the whole contest. The contestants are
     authorized (and invited) to communicate together.{% endblocktrans %}</p>
 
+  {% if request.current_events.final %}
   <?xml version="1.0" encoding="UTF-8" standalone="no"?>
   <svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="-50 0 650 190" preserveAspectRatio="xMaxYmax" style="max-width: 800px">
     <style type="text/css">
@@ -98,6 +99,7 @@
       </g>
     </g>
   </svg>
+  {% endif %}
 
     <p>{% blocktrans %}The main goal of the final is of course to select the
     best contestants, but also to allow them to meet together and share their
