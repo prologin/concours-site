@@ -16,7 +16,7 @@
       </div>
       <div class="col-xs-7 col-sm-12">
         <div class="desc">
-          <p>{% trans "You have one weekend to develop an Artificial Intelligence for a custom-made game, in Paris." %}</p>
+          <p>{% trans "You have one weekend to develop an artificial intelligence for a custom-made game, in Paris." %}</p>
           <p class="hide-no-active"><a href="{% url 'archives:index' %}" class="btn btn-default btn-block"><i
             class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
           {% if request.user.is_authenticated and not final.is_finished and edition.qualification_corrected and edition.semifinal_corrected and contestant.is_assigned_for_semifinal and contestant.is_assigned_for_final %}
