@@ -24,7 +24,7 @@ class AboutFinalView(generic.TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        current_final = self.request.current_events['final']
+        current_final = self.request.current_events.get('final')
         if current_final:
             base = current_final.date_begin
             # We combine() because motherfucking Django's |date cannot datify date objects. Only datetime. FFS.
