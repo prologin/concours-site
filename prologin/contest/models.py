@@ -140,6 +140,8 @@ class Event(ExportModelOperationsMixin('event'), models.Model):
 
     @property
     def is_active(self):
+        if self.date_begin is None or self.date_end is None:
+            return False
         return self.date_begin <= timezone.now() <= self.date_end
 
     @property
