@@ -480,8 +480,12 @@ class FinalMealTicketsView(BaseFinalDocumentView):
 
     def get_extra_context(self):
         context = super().get_extra_context()
-        context['ticket_name'] = self.request.session['docs_ticket_name']
-        context['ticket_id'] = self.request.session['docs_ticket_id']
+        if 'ticket_name' in self.request.session and 'ticket_id' in self.request.session:
+            context['ticket_name'] = self.request.session['docs_ticket_name']
+            context['ticket_id'] = self.request.session['docs_ticket_id']
+        else:
+            context['ticket_name'] = 'Please enter the date'
+            context['ticket_id'] = '1'
         return context
 
 
