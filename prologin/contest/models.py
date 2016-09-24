@@ -20,6 +20,7 @@ from django_prometheus.models import ExportModelOperationsMixin
 from centers.models import Center
 from prologin.models import EnumField, CodingLanguageField
 from prologin.utils import ChoiceEnum, save_random_state
+from schools.models import School
 
 
 class Edition(ExportModelOperationsMixin('edition'), models.Model):
@@ -215,6 +216,9 @@ class Assignation(ChoiceEnum):
 class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
     edition = models.ForeignKey(Edition, related_name='contestants')
+
+    school = models.ForeignKey(School, related_name='contestants', null=True,
+                               blank=True, default=None)
 
     shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True,
                            verbose_name=_("T-shirt size"), empty_label=_("Choose your size"),
