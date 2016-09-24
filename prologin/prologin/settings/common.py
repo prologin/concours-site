@@ -93,6 +93,7 @@ INSTALLED_APPS = (
     'news',
     'pages',
     'problems',
+    'schools',
     'sponsor',
     'team',
     'users',
