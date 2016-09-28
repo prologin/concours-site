@@ -28,7 +28,7 @@ class EventWishChoiceFieldWidget(forms.widgets.MultiWidget):
         return [None] * len(self.widgets)
 
     def format_output(self, rendered_widgets):
-        return format_html_join('', '<span class="text-muted">{}</span>{}',
+        return format_html_join('', '<span class="event-wish-label">{}</span>{}',
                                 ((name, mark_safe(widget))
                                  for name, widget in zip_longest(CHOICE_NAMES, rendered_widgets, fillvalue=_("Choice"))))
 

@@ -1,8 +1,9 @@
-from django.conf import settings
+from django.contrib import messages
+from django.core.urlresolvers import reverse
 from django.db import transaction
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic import UpdateView
 from django.views.generic.edit import ModelFormMixin
-from django.core.urlresolvers import reverse
 from rules.contrib.views import PermissionRequiredMixin
 
 import contest.forms
@@ -53,6 +54,7 @@ class QualificationSummary(PermissionRequiredMixin, UpdateView):
                 contest.models.EventWish(contestant=self.object, event=event, order=i).save()
             user = objects['user']
             user.save()
+        messages.success(self.request, _("Changes saved successfully."))
         return super(ModelFormMixin, self).form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -63,16 +65,12 @@ class QualificationSummary(PermissionRequiredMixin, UpdateView):
         if self.request.current_qcm:
             context['quiz_question_count'] = self.request.current_qcm.question_count
             context['completed_quiz_question_count'] = self.request.current_qcm.completed_question_count_for(contestant)
-            context['quiz_completed'] = self.request.current_qcm.is_completed_for(self.request.current_contestant)
 
         current_qualif_challenge = self.request.current_events['qualification'].challenge
         qualif_problem_answers = problems.models.Submission.objects.filter(user=self.request.user,
                                                                            challenge=current_qualif_challenge.name)
 
-        problem_count = len(current_qualif_challenge.problems)
-        completed_problem_count = qualif_problem_answers.count()
-        context['problem_count'] = problem_count
-        context['completed_problem_count'] = completed_problem_count
-        context['problems_completed'] = problem_count == completed_problem_count
+        context['problem_count'] = len(current_qualif_challenge.problems)
+        context['completed_problem_count'] = qualif_problem_answers.count()
 
         return context

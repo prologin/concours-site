@@ -36,6 +36,8 @@ class ContestantUserForm(forms.ModelForm):
         self.fields['last_name'].help_text = _("We need your real name and address for legal reasons, as the Prologin "
                                                "staff engages its responsibility to supervise you during the regional "
                                                "events and the finale.")
+        self.fields['country'].help_text = _("We will send the invitation to the regional events at this address, so "
+                                             "make sure it's valid.")
         self.fields['birthday'].help_text = _("Format: %(format)s") % {'format': utils.translate_format(formats.get_format('DATE_INPUT_FORMATS')[0])}
         if self.instance:
             url = reverse('users:profile', args=[self.instance.pk])
@@ -74,6 +76,8 @@ class ContestantForm(forms.ModelForm):
         edition = kwargs.pop('edition')
         kwargs.pop('complete')
         super().__init__(*args, **kwargs)
+        for field in self.Meta.fields:
+            self.fields[field].required = True
         # Overwrite assignation_semifinal_wishes with our custom over-engineered field
         self.fields['assignation_semifinal_wishes'] = EventWishChoiceField(
             queryset=(contest.models.Event.objects

@@ -572,8 +572,8 @@ input[type=checkbox].task-list-item-checkbox {
 }
 
 .profile-info li {
- margin-top: 4px;
- margin-bottom: 4px;
+  margin-top: 4px;
+  margin-bottom: 4px;
 }
 
 .avatar-container-profile {
@@ -949,6 +949,35 @@ input[type=checkbox].task-list-item-checkbox {
 
 label[for$="clear_id"] {
   font-weight: normal;
+}
+
+[class*="completion-color-"] {
+  position: relative;
+}
+
+.completion-color-0 .completion-text {
+  background-color: #d9534f;
+}
+.completion-color-1 .completion-text {
+  background-color: #f0ad4e;
+}
+.completion-color-2 .completion-text {
+  background-color: #4d994d;
+}
+
+.completion-text {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  padding: .75em 1em 0;
+  color: white;
+  font-size: .9em;
+  border-top-right-radius: inherit;
+}
+
+.event-wish-label {
+  display: block;
 }
 
 /**

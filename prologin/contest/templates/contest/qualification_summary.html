@@ -1,6 +1,6 @@
 {% extends "prologin/base.html" %}
 {% load i18n staticfiles %}
-{% load bootstrap django_bootstrap_breadcrumbs %}
+{% load bootstrap3 django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -22,23 +22,43 @@
 
   {% url 'pages:about-semifinals' as about_regional_url %}
   <p>{% blocktrans %}Thanks for joining the Prologin contest this year! This page sums up the requirements you have
-  to fulfill so you can be selectionned to participate in the next step: <a href="{{ about_regional_url }}">regional events</a>.{% endblocktrans %}</p>
-  <p class="well">
-    <span class="label label-info">{% trans "Heads up!" %}</span>
-    {% blocktrans with request.current_events.qualification.date_end|date:'DATETIME_FORMAT' as end_date %}The qualification step ends <strong>{{ end_date }}</strong>. Be sure to have the green light on this page before this date!{% endblocktrans %}
-  </p>
+  to fulfill so you can be selected to participate in the next step: <a href="{{ about_regional_url }}">regional events</a>.{% endblocktrans %}</p>
 
-  <h2>{% trans "Complete the exercices, as best as you can" %}</h2>
+  {% if contestant.qualification_completion == 2 %}
+  <div class="alert alert-success">
+    <i class="fa fa-check fa-2x pull-left"></i>
+    <div>{% blocktrans with request.current_events.qualification.date_end|date:'DATETIME_FORMAT' as end_date %}The qualification step ends <strong>{{ end_date }}</strong>.{% endblocktrans %}
+    {% trans "Your participation is valid. You can still make changes to your answers and profile information, but be sure to keep all the lights green on this page." %}</div>
+  </div>
+  {% elif contestant.qualification_completion == 1 %}
+  <div class="alert alert-warning">
+  <i class="fa fa-exclamation-triangle fa-2x pull-left"></i>
+    <div>{% blocktrans with request.current_events.qualification.date_end|date:'DATETIME_FORMAT' as end_date %}The qualification step ends <strong>{{ end_date }}</strong>.{% endblocktrans %}
+    {% blocktrans %}Your participation is valid and will be processed for the next step, but to improve your odds of being selected, you should complete the missing bits.{% endblocktrans %}
+    </div>
+  </div>
+  {% elif contestant.qualification_completion == 0 %}
+  <div class="alert alert-danger">
+    <i class="fa fa-times-o fa-2x pull-left"></i>
+    <div>{% blocktrans with request.current_events.qualification.date_end|date:'DATETIME_FORMAT' as end_date %}The qualification step ends <strong>{{ end_date }}</strong>.{% endblocktrans %}
+    {% blocktrans %}You are still missing some mandatory information to be able to contest this year. Please review the missing bits on this page.{% endblocktrans %}
+    </div>
+  </div>
+  {% endif %}
+
   <div class="row">
   {% if request.current_qcm %}
     <div class="col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading">
-          {% if quiz_completed %}
-            <span class="pull-right label label-success"><i class="fa fa-check"></i> {% trans "Completed" %}</span>
+        <div class="panel-heading completion-color-{{ contestant.qualification_qcm_completion }}">
+          <div class="completion-text">
+          {% if contestant.qualification_qcm_completion == 2 %}
+            <i class="fa fa-check"></i> {% trans "Complete" %}
+          {% elif contestant.qualification_qcm_completion == 1 %}
+            <i class="fa fa-warning"></i> {% trans "Incomplete" %}
           {% else %}
-            <span class="pull-right label label-warning"><i class="fa fa-warning"></i> {% trans "Incomplete" %}</span>
-          {% endif %}
+            <i class="fa fa-times-circle"></i> {% trans "Not tackled" %}
+          {% endif %}</div>
           {% trans "The quiz" %}
         </div>
         <div class="panel-body">
@@ -61,12 +81,15 @@
   {% endif %}
     <div class="col-md-6">
       <div class="panel panel-default">
-        <div class="panel-heading">
-          {% if problems_completed %}
-            <span class="pull-right label label-success"><i class="fa fa-check"></i> {% trans "Completed" %}</span>
+        <div class="panel-heading completion-color-{{ contestant.qualification_problems_completion }}">
+          <div class="completion-text">
+          {% if contestant.qualification_problems_completion == 2 %}
+            <i class="fa fa-check"></i> {% trans "Complete" %}
+          {% elif contestant.qualification_problems_completion == 1 %}
+            <i class="fa fa-warning"></i> {% trans "Incomplete" %}
           {% else %}
-            <span class="pull-right label label-warning"><i class="fa fa-warning"></i> {% trans "Incomplete" %}</span>
-          {% endif %}
+            <i class="fa fa-times-circle"></i> {% trans "Not tackled" %}
+          {% endif %}</div>
           {% trans "The problems" %}
         </div>
         <div class="panel-body">
@@ -88,19 +111,38 @@
     </div>
   </div>
 
-  <h2>{% trans "Fill in the extra details" %}
-    {% if form.is_valid or not form.is_bound %}<div style="font-size: 1ex;" class="pull-right">{% if contestant.is_complete_for_semifinal %}
-      <span class="label label-success"><i class="fa fa-check"></i> {% trans "Completed" %}</span>
-    {% else %}
-      <span class="label label-warning"><i class="fa fa-warning"></i> {% trans "Incomplete" %}</span>
-    {% endif %}</div>{% endif %}
-  </h2>
-  <form method="POST" class="form-horizontal">
+  <form method="POST" class="form-horizontal" id="form" action="#details">
     {% csrf_token %}
-    {{ form|bootstrap_horizontal }}
-    <div class="form-group">
-      <div class="col-sm-offset-2 col-sm-10">
-        <button type="submit" class="btn btn-primary"><i class="fa fa-paper-plane-o"></i> {% trans "Save application" %}</button>
+
+    <div class="panel panel-default" id="details">
+      <div class="panel-heading completion-color-{% if contestant.is_complete_for_semifinal %}2{% else %}0{% endif %}">
+        <div class="completion-text">{% if contestant.is_complete_for_semifinal %}<i class="fa fa-check"></i> {% trans "Complete" %}{% else %}
+          <i class="fa fa-times-circle"></i> {% trans "Incomplete" %}{% endif %}</div>
+        {% trans "Preparing the next steps" %}
+      </div>
+      <div class="panel-body">
+        <div class="row">
+          <div class="col-md-6">
+            {% bootstrap_field form.user.first_name layout='horizontal' %}
+            {% bootstrap_field form.user.last_name layout='horizontal' %}
+            {% bootstrap_field form.user.birthday layout='horizontal' %}
+            {% bootstrap_field form.user.address layout='horizontal' %}
+            {% bootstrap_field form.user.postal_code layout='horizontal' %}
+            {% bootstrap_field form.user.city layout='horizontal' %}
+            {% bootstrap_field form.user.country layout='horizontal' %}
+            {% bootstrap_field form.user.phone layout='horizontal' %}
+            {% bootstrap_field form.user.school_stage layout='horizontal' %}
+          </div>
+          <div class="col-md-6">
+            {% bootstrap_field form.contestant.preferred_language layout='horizontal' %}
+            {% bootstrap_field form.contestant.shirt_size layout='horizontal' %}
+            {% bootstrap_field form.contestant.assignation_semifinal_wishes layout='horizontal' %}
+            {% bootstrap_field form.user.epita layout='horizontal' %}
+           <button type="submit" class="btn btn-primary btn-lg btn-block">
+            <i class="fa fa-paper-plane-o"></i> {% trans "Save application" %}
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </form>
@@ -112,13 +154,12 @@
   <script type="text/javascript">
     {# Some logic to prevent user from selecting the same event twice in the wish selects #}
     $(function () {
-      var opts = {placeholder: '{% trans "Make your choice" %}', allowClear: true};
+      var opts = {placeholder: '{% trans "Make your choice" %}', allowClear: true, width: '100%'};
       $('select[name="preferred_language"]').select2(opts);
       var $event_wish_selects = $('.event-wish-select');
       $event_wish_selects
           .select2($.extend(opts, {
             templateResult: function (state) {
-              console.log(state.element);
               var e = $(state.element);
               var $name = $('<strong>').text(e.attr('data-name'));
               var $addr = $('<span>').addClass('text-muted').text(e.attr('data-addr'));

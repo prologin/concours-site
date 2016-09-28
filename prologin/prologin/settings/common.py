@@ -64,6 +64,7 @@ INSTALLED_APPS = (
     # Vendor
     'adminsortable',
     'bootstrapform',
+    'bootstrap3',
     'captcha',
     'compat',
     'datatableview',
@@ -341,6 +342,8 @@ CSP_FRAME_SRC = ("'self'", "*.google.com", "player.vimeo.com",)
 CSP_IMG_SRC = ("*",)
 CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "*.googleapis.com", "*.gstatic.com", "*.google.com", "cdn.mathjax.org",)
 CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "*.googleapis.com",)
+
+BOOTSTRAP3 = {'success_css_class': ''}
 
 # Zinnia (news)
 

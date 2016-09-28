@@ -18,8 +18,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-28 19:27+0200\n"
-"PO-Revision-Date: 2016-09-28 17:31+0000\n"
+"POT-Creation-Date: 2016-09-29 00:44+0200\n"
+"PO-Revision-Date: 2016-09-28 22:52+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -335,30 +335,36 @@ msgid ""
 msgstr "Nous avons besoin de votre vrai nom et de votre adresse pour des raisons légales : l'association engage sa responsabilité pour vous encadrer lors des épreuves régionales et de la finale."
 
 #: contest/forms.py:39
+msgid ""
+"We will send the invitation to the regional events at this address, so make "
+"sure it's valid."
+msgstr "Nous enverrons la convocation aux épreuves régionales à cette adresse, assurez-vous qu'elle soit correcte."
+
+#: contest/forms.py:41
 #, python-format
 msgid "Format: %(format)s"
 msgstr "Format&nbsp;: %(format)s"
 
-#: contest/forms.py:43
+#: contest/forms.py:45
 #, python-format
 msgid ""
 "You can modify or review all your personal information on your <a "
 "href=\"%(url)s\">profile page</a>."
 msgstr "Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a href=\"%(url)s\">page de profil</a>."
 
-#: contest/forms.py:55
+#: contest/forms.py:57
 msgid "You cannot participate if you are an EPITA/EPITECH student"
 msgstr "Vous ne pouvez pas participer si vous étudiez à EPITA/EPITECH."
 
-#: contest/forms.py:63
+#: contest/forms.py:65
 msgid "You cannot participate if you are born before {}"
 msgstr "Vous ne pouvez pas participer si vous êtes né avant {}"
 
-#: contest/forms.py:84
+#: contest/forms.py:88
 msgid "Regional event center wishes"
 msgstr "Choix de centres d'examen pour les épreuves régionales"
 
-#: contest/forms.py:85
+#: contest/forms.py:89
 msgid ""
 "This is where you would like to seat the regional events if you are "
 "selected. Choose at least one and up to three wishes, in order of "
@@ -494,95 +500,110 @@ msgstr "Résumé de la candidature pour Prologin %(year)s"
 #, python-format
 msgid ""
 "Thanks for joining the Prologin contest this year! This page sums up the requirements you have\n"
-"  to fulfill so you can be selectionned to participate in the next step: <a href=\"%(about_regional_url)s\">regional events</a>."
+"  to fulfill so you can be selected to participate in the next step: <a href=\"%(about_regional_url)s\">regional events</a>."
 msgstr "Merci de participer à Prologin cette année ! Cette page résume les informations que vous devez fournir pour espérer participer à la prochaine étape : les  <a href=\"%(about_regional_url)s\">épreuves régionales</a>."
 
-#: contest/templates/contest/qualification_summary.html:27
-msgid "Heads up!"
-msgstr "Attention !"
-
-#: contest/templates/contest/qualification_summary.html:28
+#: contest/templates/contest/qualification_summary.html:30
+#: contest/templates/contest/qualification_summary.html:36
+#: contest/templates/contest/qualification_summary.html:43
 #, python-format
-msgid ""
-"The qualification step ends <strong>%(end_date)s</strong>. Be sure to have "
-"the green light on this page before this date!"
-msgstr "L'étape de sélection prend fin le <strong>%(end_date)s</strong>. Passez tous les voyants de cette page au vert avant cette date !"
+msgid "The qualification step ends <strong>%(end_date)s</strong>."
+msgstr "L'étape de sélection prend fin le <strong>%(end_date)s</strong>."
 
 #: contest/templates/contest/qualification_summary.html:31
-msgid "Complete the exercices, as best as you can"
-msgstr "Résolvez les exercices, de votre mieux"
+msgid ""
+"Your participation is valid. You can still make changes to your answers and "
+"profile information, but be sure to keep all the lights green on this page."
+msgstr "Votre participation est valide. Vous pouvez encore modifier vos réponses et coordonnées, mais assurez-vous que toutes les boîtes de cette page restent vertes."
 
-#: contest/templates/contest/qualification_summary.html:38
-#: contest/templates/contest/qualification_summary.html:66
-#: contest/templates/contest/qualification_summary.html:93
-msgid "Completed"
+#: contest/templates/contest/qualification_summary.html:37
+msgid ""
+"Your participation is valid and will be processed for the next step, but to "
+"improve your odds of being selected, you should complete the missing bits."
+msgstr "Votre participation est valide et sera considérée pour la prochaine étape, mais pour améliorer vos chances d'être sélectionné(e), il serait bon de compléter les challenges manquants."
+
+#: contest/templates/contest/qualification_summary.html:44
+msgid ""
+"You are still missing some mandatory information to be able to contest this "
+"year. Please review the missing bits on this page."
+msgstr "Il manque des informations obligatoires pour pouvoir participer cette année. Vérifiez de n'avoir oublié aucun champ ci-dessous."
+
+#: contest/templates/contest/qualification_summary.html:56
+#: contest/templates/contest/qualification_summary.html:87
+#: contest/templates/contest/qualification_summary.html:119
+msgid "Complete"
 msgstr "Complet"
 
-#: contest/templates/contest/qualification_summary.html:40
-#: contest/templates/contest/qualification_summary.html:68
-#: contest/templates/contest/qualification_summary.html:95
+#: contest/templates/contest/qualification_summary.html:58
+#: contest/templates/contest/qualification_summary.html:89
+#: contest/templates/contest/qualification_summary.html:120
 msgid "Incomplete"
 msgstr "Incomplet"
 
-#: contest/templates/contest/qualification_summary.html:42
+#: contest/templates/contest/qualification_summary.html:60
+#: contest/templates/contest/qualification_summary.html:91
+msgid "Not tackled"
+msgstr "Non abordé"
+
+#: contest/templates/contest/qualification_summary.html:62
 msgid "The quiz"
 msgstr "Le questionnaire"
 
-#: contest/templates/contest/qualification_summary.html:46
+#: contest/templates/contest/qualification_summary.html:66
 #, python-format
 msgid "There is %(count)s quiz question this year."
 msgid_plural "There are %(count)s quiz questions this year."
 msgstr[0] "Il y a %(count)s question de QCM cette année."
 msgstr[1] "Le questionnaire comporte %(count)s questions cette année."
 
-#: contest/templates/contest/qualification_summary.html:47
+#: contest/templates/contest/qualification_summary.html:67
 #, python-format
 msgid "You completed %(count)s question."
 msgid_plural "You completed %(count)s questions."
 msgstr[0] "Vous avez répondu à %(count)s question."
 msgstr[1] "Vous avez répondu à %(count)s questions."
 
-#: contest/templates/contest/qualification_summary.html:52
+#: contest/templates/contest/qualification_summary.html:72
 msgid "Review answers"
 msgstr "Revoir les réponses"
 
-#: contest/templates/contest/qualification_summary.html:54
+#: contest/templates/contest/qualification_summary.html:74
 msgid "Complete answers"
 msgstr "Compléter les réponses"
 
-#: contest/templates/contest/qualification_summary.html:57
+#: contest/templates/contest/qualification_summary.html:77
 msgid ""
 "Although you are not required to answer all questions, it is recommended to "
 "answer as many as you can to improve you chances of being selected."
 msgstr "Même si vous n'êtes pas dans l'obligation de répondre à toutes les questions, il est recommandé de répondre à un maximum d'entre elles pour augmenter vos chances."
 
-#: contest/templates/contest/qualification_summary.html:70
+#: contest/templates/contest/qualification_summary.html:93
 msgid "The problems"
 msgstr "Les problèmes"
 
-#: contest/templates/contest/qualification_summary.html:74
+#: contest/templates/contest/qualification_summary.html:97
 #, python-format
 msgid "There is %(count)s problem this year."
 msgid_plural "There are %(count)s problems this year."
 msgstr[0] "Il y a %(count)s problème cette année."
 msgstr[1] "Il y a %(count)s problèmes cette année."
 
-#: contest/templates/contest/qualification_summary.html:75
+#: contest/templates/contest/qualification_summary.html:98
 #, python-format
 msgid "You tackled %(count)s problem."
 msgid_plural "You tackled %(count)s problems."
 msgstr[0] "Vous avez abordé %(count)s problème."
 msgstr[1] "Vous avez abordé %(count)s problèmes."
 
-#: contest/templates/contest/qualification_summary.html:80
+#: contest/templates/contest/qualification_summary.html:103
 msgid "Review submissions"
 msgstr "Revoir les soumissions"
 
-#: contest/templates/contest/qualification_summary.html:82
+#: contest/templates/contest/qualification_summary.html:105
 msgid "Complete submissions"
 msgstr "Compléter les soumissions"
 
-#: contest/templates/contest/qualification_summary.html:85
+#: contest/templates/contest/qualification_summary.html:108
 msgid ""
 "Your submissions do not have to pass all the tests. Nevertheless, the jury "
 "will favor codes that both compile, answer the statement and have a minimal "
@@ -591,15 +612,15 @@ msgid ""
 "the finale."
 msgstr "Vos soumissions n'ont pas à passer tous les tests. Toutefois, le jury privilégiera les codes qui compilent, répondent à l'énoncé et ont une complexité temporelle, et mémoire, minimale. Vous pouvez même soumettre du pseudo-code, mais gardez à l'esprit que vous devrez écrire du vrai code pour les épreuves régionales et la finale."
 
-#: contest/templates/contest/qualification_summary.html:91
-msgid "Fill in the extra details"
-msgstr "Fournissez les informations supplémentaires"
+#: contest/templates/contest/qualification_summary.html:121
+msgid "Preparing the next steps"
+msgstr "Préparer les étapes suivantes"
 
-#: contest/templates/contest/qualification_summary.html:103
+#: contest/templates/contest/qualification_summary.html:142
 msgid "Save application"
 msgstr "Enregistrer la participation"
 
-#: contest/templates/contest/qualification_summary.html:115
+#: contest/templates/contest/qualification_summary.html:157
 msgid "Make your choice"
 msgstr "Faites votre choix"
 
@@ -756,6 +777,10 @@ msgstr "tout"
 #: contest/templates/correction/qualification.html:23
 msgid "complete only"
 msgstr "complétés uniquement"
+
+#: contest/views.py:57
+msgid "Changes saved successfully."
+msgstr "Modifications enregistrées avec succès."
 
 #: contest/widgets.py:14
 msgid "First choice"
@@ -3959,11 +3984,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:149
+#: prologin/settings/common.py:150
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:150
+#: prologin/settings/common.py:151
 msgid "French"
 msgstr "Français"
 

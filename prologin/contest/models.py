@@ -262,7 +262,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
             if field.name.startswith('score_{}_'.format(mapping.get(type, type.name)))
         ])
 
-    @property
+    @cached_property
     def _is_complete(self):
         # update ContestantManager.complete_for_{,semi}final accordingly
         return all((self.shirt_size is not None, self.preferred_language, self.user.first_name, self.user.last_name,
@@ -298,7 +298,33 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         except OSError:
             return 0
 
-    @property
+    @cached_property
+    def qualification_problems_completion(self):
+        import problems.models
+        challenge = problems.models.Challenge.by_year_and_event_type(self.edition.year, Event.Type.qualification)
+        problem_count = len(challenge.problems)
+        qualif_problem_answers = problems.models.Submission.objects.filter(user=self.user, challenge=challenge.name)
+        completed_problems = qualif_problem_answers.count()
+        return 0 if completed_problems == 0 else 2 if completed_problems == problem_count else 1
+
+    @cached_property
+    def qualification_qcm_completion(self):
+        import qcm.models
+        current_qcm = (qcm.models.Qcm.objects
+                       .filter(event__edition=self.edition, event__type=Event.Type.qualification.value).first())
+        if not current_qcm:
+            return 2
+        question_count = current_qcm.question_count
+        completed_questions = current_qcm.completed_question_count_for(self)
+        return 0 if completed_questions == 0 else 2 if completed_questions == question_count else 1
+
+    @cached_property
+    def qualification_completion(self):
+        if not self.is_complete_for_semifinal:
+            return 0
+        return min(self.qualification_problems_completion, self.qualification_qcm_completion)
+
+    @cached_property
     def is_complete_for_semifinal(self):
         # update ContestantManager.complete_for_semifinal accordingly
         if self._wish_count < settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT:

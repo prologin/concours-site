@@ -19,6 +19,8 @@ django-blog-zinnia==0.15.2
 django-bootstrap-breadcrumbs>=0.7.0
 # Bootstrap-formatted forms
 django-bootstrap-form>=3.1
+# Bootstrap-formatted forms (other lib) # TODO: find a single good lib
+django-bootstrap3
 # Content Security Policy, helps prevent XSS & stuff
 django-csp
 # Datatable (nice jQuery plugin for table handling) adapter
