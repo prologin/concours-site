@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 from django.utils import formats
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from contest.widgets import EventWishChoiceField
@@ -22,7 +23,7 @@ class ContestantUserForm(forms.ModelForm):
         }
 
     epita = forms.BooleanField(required=True, initial=False,
-                               label=_("I am not a student at EPITA or EPITECH."))
+                               label=mark_safe(_("I am <strong>not</strong> a student at EPITA or EPITECH.")))
 
     def __init__(self, *args, **kwargs):
         kwargs.pop('edition')
