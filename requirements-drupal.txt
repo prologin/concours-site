@@ -1,0 +1,3 @@
+-r requirements.txt
+# For code charset detection
+chardet

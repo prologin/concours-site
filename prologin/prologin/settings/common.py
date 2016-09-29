@@ -335,13 +335,13 @@ DEBUG_TOOLBAR_CONFIG = {
 }
 
 # Content Security Policy
-
-CSP_DEFAULT_SRC = ("'self'",)
-CSP_FONT_SRC = ("'self'", "fonts.gstatic.com", "cdn.mathjax.org",)
-CSP_FRAME_SRC = ("'self'", "*.google.com", "player.vimeo.com",)
-CSP_IMG_SRC = ("*",)
-CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "*.googleapis.com", "*.gstatic.com", "*.google.com", "cdn.mathjax.org",)
-CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "*.googleapis.com",)
+# FIXME: this is too restrictive, disabled
+# CSP_DEFAULT_SRC = ("'self'",)
+# CSP_FONT_SRC = ("'self'", "fonts.gstatic.com", "cdn.mathjax.org",)
+# CSP_FRAME_SRC = ("'self'", "*.google.com", "player.vimeo.com",)
+# CSP_IMG_SRC = ("*",)
+# CSP_SCRIPT_SRC = ("'self'", "'unsafe-inline'", "'unsafe-eval'", "*.googleapis.com", "*.gstatic.com", "*.google.com", "cdn.mathjax.org",)
+# CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "*.googleapis.com",)
 
 BOOTSTRAP3 = {'success_css_class': ''}
 

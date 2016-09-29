@@ -2,17 +2,12 @@
 beautifulsoup4
 # HTML sanitizer (Markdown escaping)
 bleach
-# For code charset detection
-chardet
 # For async tasks (sending mails, correcting submissions, etc.)
 celery
 # Django
-django<1.10
+django<1.11
 # For ordered models (QCM questions, semifinal whishes, etc.)
 django-admin-sortable
-# BetterForms: allows merged ModelForms
-# TODO: use PyPi version when Django 1.8 PR eventually gets merged; ref. https://github.com/fusionbox/django-betterforms/pull/30
-git+https://github.com/frankier/django-betterforms.git@django1.8
 # News / blog
 django-blog-zinnia==0.15.2
 # Breadcrumbs
@@ -22,7 +17,8 @@ django-bootstrap-form>=3.1
 # Bootstrap-formatted forms (other lib) # TODO: find a single good lib
 django-bootstrap3
 # Content Security Policy, helps prevent XSS & stuff
-django-csp
+# TODO: too restrictive to be used properly
+# django-csp
 # Datatable (nice jQuery plugin for table handling) adapter
 # TODO: use PyPi version when it's available for 0.9
 git+https://github.com/Zopieux/django-datatable-view.git@master
@@ -31,8 +27,7 @@ django-debug-toolbar
 # Form wizards (they were a Django builtin, but split as of 1.8)
 django-formtools
 # Impersonation framework
-# TODO: use upstream when PyPi version released
-git+https://github.com/Zopieux/django-hijack.git@prologin
+django-hijack
 # Export metrics for prometheus monitoring
 django-prometheus
 # Google Recaptcha/Nocaptcha support

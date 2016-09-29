@@ -1,4 +1,3 @@
-from betterforms.multiform import MultiModelForm
 from collections import OrderedDict
 from django import forms
 from django.conf import settings
@@ -11,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from contest.widgets import EventWishChoiceField
 import contest.models
 from prologin import utils
+from prologin.utils.multiforms import MultiModelForm
 
 
 class ContestantUserForm(forms.ModelForm):
