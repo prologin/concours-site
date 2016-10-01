@@ -3,9 +3,10 @@
   <div id="hijacked-warning-wrapper">
     <div id="hijacked-warning" class="hijacked-warning hijacked-warning-boostrap" role="alert" data-spy="affix">
       <div class="container">
-        <a href="{% url 'release_hijack' %}" type=button"
-           class="btn btn-default btn-xs django-hijack-button-bootstrap pull-right">
-          <i class="fa fa-sign-out"></i> {% trans "Exit session" %}</a>
+      <form action="{% url 'release_hijack' %}" method="post">{% csrf_token %}
+        <button type="submit" class="btn btn-default btn-xs pull-right">
+          <i class="fa fa-sign-out"></i> {% trans "Exit session" %}</button>
+      </form>
         <i class="fa fa-fw fa-user-secret"></i>
         {% blocktrans with user=request.user %}You are currently browsing on behalf of <strong>{{ user }}</strong>. Keep
           focused.{% endblocktrans %}
