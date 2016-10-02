@@ -154,7 +154,7 @@ def datatables():
         'r-2.1.0',     # responsive
         'se-1.2.0',    # multi-select
     ]
-    url = 'https://datatables.net/download/builder?{}/{}'.format(style, ','.join(plugins))
+    url = 'https://datatables.net/download/builder?{}/{}'.format(style, '/'.join(plugins))
     print("Downloading datatabales:", url)
     zipball = io.BytesIO(requests.get(url).content)
     ftypes = ('js', 'css')
