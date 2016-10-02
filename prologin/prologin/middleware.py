@@ -30,9 +30,12 @@ class Data:
     def current_events(self):
         events_dict = collections.defaultdict(list)
         for event in self.events:
-            events_dict[contest.models.Event.Type(event.type).name].append(event)
-        events_dict = {k: v[0] if len(v) == 1 else sorted(v, key=lambda x: x.date_begin)
-                       for k, v in events_dict.items()}
+            event_type = contest.models.Event.Type(event.type)
+            if event_type == contest.models.Event.Type.semifinal:
+                events_dict[event_type.name].append(event)
+            else:
+                events_dict[event_type.name] = event
+        events_dict[contest.models.Event.Type.semifinal.name].sort(key=lambda x: x.date_begin)
         return events_dict
 
     @cached_property

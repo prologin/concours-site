@@ -51,12 +51,15 @@ class Edition(ExportModelOperationsMixin('edition'), models.Model):
         elif self.is_active:
             events = collections.defaultdict(list)
             for event in (Event.objects.filter(edition__year=self.year)
-                                             .order_by('date_begin', 'date_end')):
+                          .order_by('date_begin', 'date_end')):
                 events[Event.Type(event.type)].append(event)
             qualif_event = events.get(Event.Type.qualification, [None])[0]
-            semi_events = events.get(Event.Type.semifinal, [])
-            first_semi = min(semi_events, key=lambda e: e.date_begin)
-            last_semi = max(semi_events, key=lambda e: e.date_begin)
+            semi_events = sorted(events.get(Event.Type.semifinal, []), key=lambda e: e.date_begin)
+            if semi_events:
+                first_semi = semi_events[0]
+                last_semi = semi_events[-1]
+            else:
+                first_semi = last_semi = None
             final_event = events.get(Event.Type.final, [None])[0]
             if self.qualification_corrected:
                 qualif = 'corrected'
@@ -68,9 +71,9 @@ class Edition(ExportModelOperationsMixin('edition'), models.Model):
                 qualif = 'future'
             if self.semifinal_corrected:
                 semifinal = 'corrected'
-            elif first_semi.date_begin <= timezone.now() <= last_semi.date_end:
+            elif first_semi and first_semi.date_begin <= timezone.now() <= last_semi.date_end:
                 semifinal = 'active'
-            elif last_semi.is_finished:
+            elif last_semi and last_semi.is_finished:
                 semifinal = 'done'
             else:
                 semifinal = 'future'
