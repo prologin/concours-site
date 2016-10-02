@@ -39,7 +39,7 @@
   </div>
   {% elif contestant.qualification_completion == 0 %}
   <div class="alert alert-danger">
-    <i class="fa fa-times-o fa-2x pull-left"></i>
+    <i class="fa fa-times-circle fa-2x pull-left"></i>
     <div>{% blocktrans with request.current_events.qualification.date_end|date:'DATETIME_FORMAT' as end_date %}The qualification step ends <strong>{{ end_date }}</strong>.{% endblocktrans %}
     {% blocktrans %}You are still missing some mandatory information to be able to contest this year. Please review the missing bits on this page.{% endblocktrans %}
     </div>
