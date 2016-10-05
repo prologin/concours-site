@@ -111,32 +111,41 @@ class YearIndexView(CanCorrectPermissionMixin, EditionMixin, ListView):
                                   .annotate(c=Count('assigned_contestants'))
                                   .values_list('pk', 'c'))
 
-        challenge_qualif = problems.models.Challenge.by_year_and_event_type(self.edition.year, contest.models.Event.Type.qualification)
-        challenge_semifinal = problems.models.Challenge.by_year_and_event_type(self.edition.year, contest.models.Event.Type.semifinal)
+        try:
+            challenge_qualif = problems.models.Challenge.by_year_and_event_type(self.edition.year, contest.models.Event.Type.qualification)
+        except ObjectDoesNotExist:
+            challenge_qualif = None
+        try:
+            challenge_semifinal = problems.models.Challenge.by_year_and_event_type(self.edition.year, contest.models.Event.Type.semifinal)
+        except ObjectDoesNotExist:
+            challenge_semifinal = None
 
-        with connection.cursor() as c:
-            c.execute("""
-                SELECT
-                  contest_event.id, COUNT(contest_contestant.id)
-                FROM problems_submission
-                  INNER JOIN users_prologinuser ON (problems_submission.user_id = users_prologinuser.id)
-                  INNER JOIN contest_contestant ON (users_prologinuser.id = contest_contestant.user_id)
-                  INNER JOIN contest_event ON (contest_contestant.assignation_semifinal_event_id = contest_event.id)
-                WHERE (contest_event.edition_id = %s AND problems_submission.challenge = %s)
-                GROUP BY contest_event.id
-            """, [self.edition.year, challenge_semifinal.name])
-            event_submissions = dict(c.fetchall())
+        if challenge_semifinal:
+            with connection.cursor() as c:
+                c.execute("""
+                    SELECT
+                      contest_event.id, COUNT(contest_contestant.id)
+                    FROM problems_submission
+                      INNER JOIN users_prologinuser ON (problems_submission.user_id = users_prologinuser.id)
+                      INNER JOIN contest_contestant ON (users_prologinuser.id = contest_contestant.user_id)
+                      INNER JOIN contest_event ON (contest_contestant.assignation_semifinal_event_id = contest_event.id)
+                    WHERE (contest_event.edition_id = %s AND problems_submission.challenge = %s)
+                    GROUP BY contest_event.id
+                """, [self.edition.year, challenge_semifinal.name])
+                event_submissions = dict(c.fetchall())
 
         for item in qs:
             if item.type == contest.models.Event.Type.qualification.value:
                 item.absolute_url = reverse('contest:correction:qualification', kwargs={'year': self.edition.year})
                 item.contestant_count = contestants.count()
-                item.submission_count = problems.models.Submission.objects.filter(challenge=challenge_qualif.name).count()
+                if challenge_qualif:
+                    item.submission_count = problems.models.Submission.objects.filter(challenge=challenge_qualif.name).count()
             elif item.type == contest.models.Event.Type.semifinal.value:
                 item.absolute_url = reverse('contest:correction:semifinal',
                                             kwargs={'year': self.edition.year, 'event': item.pk})
                 item.contestant_count = events_contestants.get(item.pk, 0)
-                item.submission_count = event_submissions.get(item.pk, 0)
+                if challenge_semifinal:
+                    item.submission_count = event_submissions.get(item.pk, 0)
             else:
                 # what the fuck
                 continue
