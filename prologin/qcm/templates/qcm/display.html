@@ -39,7 +39,7 @@
     <ol class="mainlist qcm">
       {% for field in form %}
         {% with question=field.field.question %}
-          <li class="question">
+          <li class="question" id="q{{ forloop.counter }}">
             <div class="body">
               <div class="main">{{ question.body|markdown }}</div>
               {% if question.verbose %}
