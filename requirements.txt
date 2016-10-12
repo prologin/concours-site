@@ -27,7 +27,7 @@ django-debug-toolbar
 # Form wizards (they were a Django builtin, but split as of 1.8)
 django-formtools
 # Impersonation framework
-django-hijack
+git+https://github.com/Zopieux/django-hijack.git@prologin
 # Export metrics for prometheus monitoring
 django-prometheus
 # Google Recaptcha/Nocaptcha support
