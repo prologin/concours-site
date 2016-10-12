@@ -16,5 +16,6 @@ correction_patterns = [
 
 urlpatterns = [
     url(r'^(?P<year>[0-9]{4})/qualification', contest.views.QualificationSummary.as_view(), name='qualification_summary'),
+    url(r'^school/search$', contest.views.SchoolSearch.as_view(), name='school-search'),
     url(r'^correct/', include(correction_patterns, namespace='correction')),
 ]

@@ -366,3 +366,8 @@ ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER = 0  # disables trackbacks completely
 # Marauder
 
 MARAUDER_GCM_KEY = ""
+
+
+# Facebook
+
+FACEBOOK_GRAPH_API_ACCESS_TOKEN = ""

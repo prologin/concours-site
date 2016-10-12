@@ -1,16 +1,47 @@
 from collections import OrderedDict
+
 from django import forms
 from django.conf import settings
 from django.contrib.auth import get_user_model
+from django.core.exceptions import MultipleObjectsReturned
 from django.core.urlresolvers import reverse
 from django.utils import formats
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from contest.widgets import EventWishChoiceField
 import contest.models
+import schools.models
+from contest.widgets import EventWishChoiceField
 from prologin import utils
+from prologin.utils.forms import NewableModelChoiceField
 from prologin.utils.multiforms import MultiModelForm
+
+
+class SchoolField(NewableModelChoiceField):
+    def create_new(self, model, value, exc):
+        new_prefix = '_new_'
+        fb_prefix = 'fb_'
+        if not value.startswith(new_prefix):
+            raise exc
+        __, school = value.split(new_prefix, 1)
+        if school.startswith(fb_prefix):
+            # Facebook suggestion
+            __, fbid = school.split(fb_prefix, 1)
+            fb_school = schools.models.Facebook.get(fbid)
+            if fb_school:
+                school = fb_school['name']
+        school = school.strip()
+        # check if by chance it already exists
+        try:
+            school, created = model.objects.get_or_create(name__iexact=school, defaults={'name': school})
+            if created:
+                school.save()
+        except MultipleObjectsReturned:
+            school = schools.models.School.objects.filter(name__iexact=school).first()
+        return school
+
+    def label_from_instance(self, obj):
+        return obj.name
 
 
 class ContestantUserForm(forms.ModelForm):
@@ -70,14 +101,20 @@ class ContestantUserForm(forms.ModelForm):
 class ContestantForm(forms.ModelForm):
     class Meta:
         model = contest.models.Contestant
-        fields = ('shirt_size', 'preferred_language', 'assignation_semifinal_wishes')
+        fields = ('shirt_size', 'preferred_language', 'assignation_semifinal_wishes', 'school')
+        field_classes = {'school': SchoolField}
+        labels = {'school': _("Your school")}
 
     def __init__(self, *args, **kwargs):
         edition = kwargs.pop('edition')
         kwargs.pop('complete')
         super().__init__(*args, **kwargs)
+
         for field in self.Meta.fields:
             self.fields[field].required = True
+
+        self.fields['school'].required = False
+
         # Overwrite assignation_semifinal_wishes with our custom over-engineered field
         self.fields['assignation_semifinal_wishes'] = EventWishChoiceField(
             queryset=(contest.models.Event.objects

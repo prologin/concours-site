@@ -115,6 +115,26 @@
     {% csrf_token %}
 
     <div class="panel panel-default" id="details">
+      <div class="panel-heading">
+        {% trans "The school challenge" %}
+      </div>
+      <div class="panel-body">
+        {# TODO: url #}
+        <p>{% blocktrans with url='#' %}Help your school go up in the <a href="{{ url }}">inter-school rankings</a>!
+If you are a student, fill in the name of your high school or university below. If your school does not appear in the
+list, you can add it by selecting the first item: “Add a new school”.
+{% endblocktrans %}</p>
+        <div class="row">
+          <div class="col-md-6">
+          {% bootstrap_field form.contestant.school layout='horizontal' %}
+          </div>
+          <div class="col-md-6">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default" id="details">
       <div class="panel-heading completion-color-{% if contestant.is_complete_for_semifinal %}2{% else %}0{% endif %}">
         <div class="completion-text">{% if contestant.is_complete_for_semifinal %}<i class="fa fa-check"></i> {% trans "Complete" %}{% else %}
           <i class="fa fa-times-circle"></i> {% trans "Incomplete" %}{% endif %}</div>
@@ -151,37 +171,127 @@
 
 {% block extra_script %}
   <script src="{% static 'lib/js/select2.min.js' %}"></script>
+  {% get_current_language as language %}
+  <script src="{% static 'lib/js/i18n' %}/{{ language }}.js"></script>
+  <script type="text/javascript">
+    window.i18n = window.i18n || {};
+    window.i18n.makeChoice = "{% trans "Make your choice" %}";
+    window.i18n.addNewSchool = "{% trans "Add new school" %}";
+    window.i18n.makeSchoolChoice = "{% trans "Choose an existing school or add yours" %}";
+  </script>
   <script type="text/javascript">
     {# Some logic to prevent user from selecting the same event twice in the wish selects #}
     $(function () {
-      var opts = {placeholder: '{% trans "Make your choice" %}', allowClear: true, width: '100%'};
-      $('select[name="preferred_language"]').select2(opts);
+      var opts = {placeholder: window.i18n.makeChoice, width: '100%'};
+
+      $('#id_contestant-preferred_language').select2($.extend({allowClear: true}, opts));
+
+      /*
+      TODO: find why this enormous pile of crap does not work. Kill me.
+      var ews_opts = $.extend({
+          templateResult: function (state) {
+            var e = $(state.element);
+            var $name = $('<strong>').text(e.attr('data-name'));
+            var $addr = $('<span>').addClass('text-muted').text(e.attr('data-addr'));
+            return $('<span>').append($name).append('<br>').append($addr);
+          }
+        }, opts);
+      var $event_wish_selects = $('.event-wish-select');
+      $event_wish_selects.select2(ews_opts);
+      $event_wish_selects
+        .on('change', function () {
+          $event_wish_selects.each(function () { $(this).select2('destroy'); });
+
+          var taken_vals = [];
+          $event_wish_selects.each(function () { taken_vals.push($(this).val()); });
+
+          $event_wish_selects.each(function (i, select) {
+            var $select = $(this);
+            $select.find('option').prop('disabled', false);
+            $.each(taken_vals, function (j, val) {
+              if (!val || i == j) return; // empty or self
+              console.log('disabling', val);
+              $select.find('option[value="' + val + '"]').prop('disabled', true);
+            });
+          });
+          $event_wish_selects.each(function () { $(this).select2(ews_opts); });
+        })
+        .trigger('change');
+      */
+
+      /* plain-js workaround that Just Works(tm) */
       var $event_wish_selects = $('.event-wish-select');
       $event_wish_selects
-          .select2($.extend(opts, {
-            templateResult: function (state) {
-              var e = $(state.element);
-              var $name = $('<strong>').text(e.attr('data-name'));
-              var $addr = $('<span>').addClass('text-muted').text(e.attr('data-addr'));
-              return $('<span>').append($name).append('<br>').append($addr);
-            }
-          }))
-          .on('change', function () {
-            var taken_vals = [];
-            $event_wish_selects.each(function (i, select) {
-              taken_vals.push($(select).val());
+        .on('change', function() {
+          var used_vals = [];
+          $event_wish_selects.each(function(i, select) {
+            used_vals.push($(select).val());
+          });
+          $event_wish_selects.each(function(i, select) {
+            var $select = $(select);
+            $select.find('option').prop('disabled', false);
+            $.each(used_vals, function(j, val) {
+              if (!val || i == j) return;
+              $select.find('option[value="' + val + '"]').prop('disabled', true);
             });
-            $event_wish_selects.each(function (i, select) {
-              var $select = $(select);
-              $select.select2('destroy'); // because this shit plugin does not propagates 'disabled'
-              $select.find('option').prop('disabled', false);
-              $.each(taken_vals, function (j, val) {
-                if (val === "" || i == j) return; // self
-                $select.find('option[value="' + val + '"]').prop('disabled', true);
-              });
-              $select.select2(opts); // so we have to recreate the shit everytime
-            });
-          }).trigger('change');
+          });
+        })
+        .trigger('change');
+
+      var $school = $('#id_contestant-school');
+      $school.select2({
+        allowClear: true,
+        tags: true,
+        width: '100%',
+        ajax: {
+          url: "{% url 'contest:school-search' %}",
+          dataType: 'json',
+          delay: 250,
+          data: function (params) {
+            return {
+              q: params.term, // search term
+              page: params.page
+            };
+          },
+          processResults: function (data, params) {
+            params.page = params.page || 1;
+            return {
+              results: data.items,
+              pagination: {
+                more: (params.page * 5) < data.count
+              }
+            };
+          },
+          cache: true
+        },
+        minimumInputLength: 1,
+        placeholder: window.i18n.makeSchoolChoice,
+        escapeMarkup: function (markup) {
+          return markup;
+        },
+        templateResult: function (p) {
+          if (p.loading)
+            return p.text;
+
+          var $name = $('<span/>').text(p.text);
+          if (p.newOption) {
+            $name.prepend($('<br/>')).prepend($('<span class="label label-default"/>').text(window.i18n.addNewSchool));
+          }
+          var $picture = $('<div/>').addClass('school-picture');
+          if (p.picture)
+            $picture.css({backgroundImage: 'url(' + p.picture + ')', backgroundSize: 'cover'});
+          return $('<div class="row"/>')
+            .append($('<div class="col-xs-2"/>').append($picture))
+            .append($('<div class="col-xs-10"/>').append($name))
+        },
+        createTag: function (p) {
+          return {
+            id: '_new_' + p.term,
+            text: p.term,
+            newOption: true
+          }
+        }
+      });
     });
   </script>
 {% endblock %}

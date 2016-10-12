@@ -11,6 +11,7 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Count, Q
 from django.db.models.aggregates import Sum
+from django.db.models.deletion import SET_NULL
 from django.utils import timezone
 from django.utils.formats import date_format
 from django.utils.functional import cached_property
@@ -218,7 +219,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     edition = models.ForeignKey(Edition, related_name='contestants')
 
     school = models.ForeignKey(School, related_name='contestants', null=True,
-                               blank=True, default=None)
+                               blank=True, default=None, on_delete=SET_NULL)
 
     shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True,
                            verbose_name=_("T-shirt size"), empty_label=_("Choose your size"),

@@ -87,7 +87,7 @@ class EventWishChoiceField(forms.MultiValueField):
             EventWishModelChoiceField(queryset, required=False, empty_label='')
             for n in range(self._max_choices)
         ]
-        widget = EventWishChoiceFieldWidget(fields, attrs={'class': 'event-wish-select'})
+        widget = EventWishChoiceFieldWidget(fields, attrs={'class': 'event-wish-select form-control'})
         super().__init__(widget=widget, fields=fields, require_all_fields=False, *args, **kwargs)
 
     def clean(self, value):
