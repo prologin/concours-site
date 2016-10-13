@@ -332,7 +332,7 @@ class SearchProblems(ChoiceGetAttrsMixin, ListView):
             event_type = self.form.cleaned_data['event_type']
             difficulty_min = self.form.cleaned_data['difficulty_min']
             difficulty_max = self.form.cleaned_data['difficulty_max']
-            solved = self.form.cleaned_data['solved']
+            solved = self.form.cleaned_data.get('solved', False)
             solved_problems = set()
             if self.request.user.is_authenticated() and solved:
                 solved_problems = set(problems.models.Submission.objects
