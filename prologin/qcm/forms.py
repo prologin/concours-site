@@ -69,7 +69,8 @@ class QcmForm(forms.ModelForm):
         for question in self.instance.questions.prefetch_related('propositions').all():
             field_key = 'qcm_q_%d' % question.pk
             if question.is_open_ended:
-                textinput = forms.TextInput(attrs={'class': 'form-control'})  # For bootstrap css
+                textinput = forms.TextInput(attrs={'class': 'form-control',
+                                                   'placeholder': _("Put your answer here")})
                 field = self.fields[field_key] = forms.CharField(widget=textinput, required=False)
             else:
                 field = self.fields[field_key] = RandomOrderingModelChoiceField(
