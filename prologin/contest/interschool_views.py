@@ -18,7 +18,7 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
     model = schools.models.School
     context_object_name = 'schools'
     permission_required = 'contest.interschool.view_leaderboard'
-    # paginate_by = 42
+    limit = 42
 
     def get_permission_object(self):
         return self.request.current_edition
@@ -42,13 +42,8 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
             WHERE schools_school.approved
             GROUP BY schools_school.id
             ORDER BY final_score DESC, problem_solved_count DESC, schools_school.name ASC
-            LIMIT 42
-        ''', (edition.pk, challenge.name))
-        # case = models.Case(models.When(contestants__edition=edition, then=1), default=0,
-        #                    output_field=models.IntegerField())
-        # return (super().get_queryset()
-        #         .annotate(contestant_count=models.Sum(case))
-        #         .order_by('-contestant_count', 'name'))
+            LIMIT %s
+        ''', (edition.pk, challenge.name, self.limit))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
