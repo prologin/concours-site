@@ -202,6 +202,13 @@ class ProloginUser(
         return '{}{}?uid={}&token={}'.format(settings.SITE_BASE_URL, reverse('users:unsubscribe'), self.id,
                                              self.unsubscribe_token)
 
+    def young_enough_to_compete(self, edition):
+        if not self.birthday:
+            return False
+
+        last_ok_year = edition - settings.PROLOGIN_MAX_AGE
+        return last_ok_year <= self.birthday.year
+
 
 # Yay, monkey-path that bitch, thank you Django!
 ProloginUser._meta.get_field('email')._unique = True

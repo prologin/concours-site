@@ -180,7 +180,8 @@ class ContestantCompleteSemifinalManager(models.Manager):
     def get_queryset(self):
         return (super().get_queryset()
                 .select_related('user', 'assignation_semifinal_event', 'assignation_semifinal_event__center')
-                .filter(assignation_semifinal_wishes__type=Event.Type.semifinal.value)
+                .filter(assignation_semifinal_wishes__type=Event.Type.semifinal.value,
+                        user__birthday__year__gte=settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE)
                 .annotate(wish_count=Count('assignation_semifinal_wishes', distinct=True))
                 .filter(wish_count__gte=settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT)
                 .exclude(
@@ -271,10 +272,10 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         ])
 
     @cached_property
-    def _is_complete(self):
+    def has_mandatory_info(self):
         # update ContestantManager.complete_for_{,semi}final accordingly
         return all((self.shirt_size is not None, self.preferred_language, self.user.first_name, self.user.last_name,
-                    self.user.address, self.user.postal_code, self.user.city, self.user.country))
+                    self.user.address, self.user.postal_code, self.user.city, self.user.country, self.user.birthday))
 
     @property
     def _wish_count(self):
@@ -333,11 +334,19 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         return min(self.qualification_problems_completion, self.qualification_qcm_completion)
 
     @cached_property
+    def is_young_enough(self):
+        return self.user.young_enough_to_compete(self.edition.year)
+
+    @cached_property
+    def has_enough_semifinal_wishes(self):
+        return self._wish_count >= settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT
+
+    @cached_property
     def is_complete_for_semifinal(self):
         # update ContestantManager.complete_for_semifinal accordingly
-        if self._wish_count < settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT:
-            return False
-        return self._is_complete
+        return (self.has_mandatory_info
+                and self.is_young_enough
+                and self.has_enough_semifinal_wishes)
 
     @property
     def is_assigned_for_semifinal(self):

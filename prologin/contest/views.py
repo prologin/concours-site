@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
@@ -79,6 +80,16 @@ class QualificationSummary(PermissionRequiredMixin, UpdateView):
 
         context['problem_count'] = len(current_qualif_challenge.problems)
         context['completed_problem_count'] = qualif_problem_answers.count()
+
+        context['issues'] = issues = []
+
+        if not contestant.has_mandatory_info:
+            issues.append(_("You are missing some mandatory information."))
+        if not contestant.has_enough_semifinal_wishes:
+            issues.append(_("You need to specify more wishes for your semifinal center."))
+        if not contestant.is_young_enough:
+            birth_year = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
+            issues.append(_("You cannot participate if you are born before {}.").format(birth_year))
 
         return context
 
