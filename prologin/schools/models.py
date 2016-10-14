@@ -53,6 +53,10 @@ class School(AddressableModel):
         except (IndexError, KeyError):
             return None
 
+    def clean(self):
+        if self.uai == '':
+            self.uai = None
+
     def __str__(self):
         if self.approved:
             return self.name
