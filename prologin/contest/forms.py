@@ -49,11 +49,12 @@ class ContestantUserForm(forms.ModelForm):
         model = get_user_model()
         fields = ('first_name', 'last_name', 'birthday', 'address', 'postal_code', 'city',
                   'country', 'phone', 'school_stage')
+        optional_fields = ('phone', 'school_stage')
         widgets = {
             'address': forms.Textarea(attrs={'rows': 2}),
         }
 
-    epita = forms.BooleanField(required=True, initial=False,
+    epita = forms.BooleanField(required=True, initial=True,
                                label=mark_safe(_("I am <strong>not</strong> a student at EPITA or EPITECH.")))
 
     def __init__(self, *args, **kwargs):
@@ -76,25 +77,14 @@ class ContestantUserForm(forms.ModelForm):
                                                            _('You can modify or review all your personal information '
                                                              'on your <a href="%(url)s">profile page</a>.')
                                                            % {'url': url})
-        for field_name in ('first_name', 'last_name', 'address', 'postal_code',
-                           'city', 'country', 'birthday'):
-            self.fields[field_name].required = True
-        if complete:
-            self.fields['epita'].initial = True
+        for field in self.Meta.optional_fields:
+            self.fields[field].help_text = _("Optional.")
 
     def clean_epita(self):
         data = self.cleaned_data['epita']
         if not data:
             raise forms.ValidationError(_("You cannot participate if you are an "
                     "EPITA/EPITECH student"))
-        return data
-
-    def clean_birthday(self):
-        data = self.cleaned_data['birthday']
-        birth_year = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
-        if data.year < birth_year:
-            raise forms.ValidationError(_("You cannot participate if you are "
-                "born before {}").format(birth_year))
         return data
 
 
@@ -110,17 +100,12 @@ class ContestantForm(forms.ModelForm):
         kwargs.pop('complete')
         super().__init__(*args, **kwargs)
 
-        for field in self.Meta.fields:
-            self.fields[field].required = True
-
-        self.fields['school'].required = False
-
         # Overwrite assignation_semifinal_wishes with our custom over-engineered field
         self.fields['assignation_semifinal_wishes'] = EventWishChoiceField(
             queryset=(contest.models.Event.objects
                       .select_related('center')
                       .filter(edition=edition, type=contest.models.Event.Type.semifinal.value)),
-            min_choices=settings.PROLOGIN_SEMIFINAL_MIN_WISH_COUNT,
+            min_choices=0,
             max_choices=settings.PROLOGIN_SEMIFINAL_MAX_WISH_COUNT,
             label=_("Regional event center wishes"),
             help_text=_("This is where you would like to seat the regional events if you "
