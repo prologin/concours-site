@@ -89,7 +89,7 @@ class QualificationSummary(PermissionRequiredMixin, UpdateView):
             issues.append(_("You need to specify more wishes for your semifinal center."))
         if not contestant.is_young_enough:
             birth_year = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
-            issues.append(_("You cannot participate if you are born before {}.").format(birth_year))
+            issues.append(_("You cannot participate if you are born before %(year)s.") % {'year': birth_year})
 
         return context
 

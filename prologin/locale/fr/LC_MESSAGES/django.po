@@ -12,14 +12,15 @@
 # Rémi Audebert <rflah0@gmail.com>, 2015-2016
 # Robin Thoni <rob57530@gmail.com>, 2015
 # Stéphane Henriot <shloub@gmail.com>, 2016
+# Victor Collod <victor.collod@prologin.org>, 2016
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
 # Yves Stadler <mvyonline@gmail.com>, 2015
 msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-12 23:38+0200\n"
-"PO-Revision-Date: 2016-10-12 21:43+0000\n"
+"POT-Creation-Date: 2016-10-14 23:35+0200\n"
+"PO-Revision-Date: 2016-10-14 23:01+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +87,7 @@ msgstr "Affiche indisponible"
 
 #: archives/templates/archives/index.html:44 contest/models.py:115
 #: contest/templates/contest/index.html:9
-#: contest/templates/contest/qualification_summary.html:9
+#: contest/templates/contest/qualification-summary.html:9
 #: contest/templates/correction/contestant-qualification.html:7
 #: contest/templates/correction/qualification.html:10
 #: contest/templates/correction/qualification.html:13
@@ -164,6 +165,7 @@ msgid "Sample photo"
 msgstr "Photo d'illustration"
 
 #: archives/templates/archives/inline-scoreboard.html:6
+#: contest/templates/contest/interschool-leaderboard.html:40
 #: problems/templates/problems/challenge-scoreboard.html:23
 #: semifinal/templates/semifinal/stub-scoreboard.html:7
 msgid "Rank"
@@ -175,6 +177,7 @@ msgid "Contestant"
 msgstr "Participant"
 
 #: archives/templates/archives/inline-scoreboard.html:19
+#: contest/templates/contest/interschool-leaderboard.html:56
 #: problems/templates/problems/challenge-scoreboard.html:35
 #: semifinal/templates/semifinal/stub-scoreboard-item.html:13
 msgid "(ex-aequo)"
@@ -292,7 +295,7 @@ msgstr "Épreuve régionale assignée"
 msgid "Assignation status"
 msgstr "Statut d'assignation"
 
-#: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:248
+#: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:249
 #: documents/templates/documents/semifinal-import-review.html:58
 #: documents/templates/documents/semifinal-import-review.html:77
 #: problems/admin.py:171 problems/templates/problems/manual.html:66
@@ -316,59 +319,59 @@ msgstr "Convocation"
 msgid "Contestant is not assigned"
 msgstr "Le candidat n'est pas assigné"
 
-#: contest/forms.py:57
+#: contest/forms.py:58
 msgid "I am <strong>not</strong> a student at EPITA or EPITECH."
 msgstr "Je ne suis <strong>pas</strong> étudiant à EPITA ou EPITECH."
 
-#: contest/forms.py:65
+#: contest/forms.py:66
 #, python-format
 msgid ""
 "Students from EPITA and EPITCH are <a href=\"%(url)s\">not allowed</a> to "
 "join the contest."
 msgstr "Les étudiant(e)s de EPITA et EPITECH <a href=\"%(url)s\">ne peuvent pas participer</a> au concours."
 
-#: contest/forms.py:67
+#: contest/forms.py:68
 msgid ""
 "We need your real name and address for legal reasons, as the Prologin staff "
 "engages its responsibility to supervise you during the regional events and "
 "the finale."
 msgstr "Nous avons besoin de votre vrai nom et de votre adresse pour des raisons légales : l'association engage sa responsabilité pour vous encadrer lors des épreuves régionales et de la finale."
 
-#: contest/forms.py:70
+#: contest/forms.py:71
 msgid ""
 "We will send the invitation to the regional events at this address, so make "
 "sure it's valid."
 msgstr "Nous enverrons la convocation aux épreuves régionales à cette adresse, assurez-vous qu'elle soit correcte."
 
-#: contest/forms.py:72
+#: contest/forms.py:73
 #, python-format
 msgid "Format: %(format)s"
 msgstr "Format&nbsp;: %(format)s"
 
-#: contest/forms.py:76
+#: contest/forms.py:77
 #, python-format
 msgid ""
 "You can modify or review all your personal information on your <a "
 "href=\"%(url)s\">profile page</a>."
 msgstr "Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a href=\"%(url)s\">page de profil</a>."
 
-#: contest/forms.py:88
+#: contest/forms.py:81
+msgid "Optional."
+msgstr "Optionnel."
+
+#: contest/forms.py:86
 msgid "You cannot participate if you are an EPITA/EPITECH student"
 msgstr "Vous ne pouvez pas participer si vous étudiez à EPITA/EPITECH."
 
 #: contest/forms.py:96
-msgid "You cannot participate if you are born before {}"
-msgstr "Vous ne pouvez pas participer si vous êtes né avant {}"
-
-#: contest/forms.py:106
 msgid "Your school"
 msgstr "Votre établissement scolaire"
 
-#: contest/forms.py:125
+#: contest/forms.py:110
 msgid "Regional event center wishes"
 msgstr "Choix de centres d'examen pour les épreuves régionales"
 
-#: contest/forms.py:126
+#: contest/forms.py:111
 msgid ""
 "This is where you would like to seat the regional events if you are "
 "selected. Choose at least one and up to three wishes, in order of "
@@ -388,73 +391,73 @@ msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'�
 msgid "Regional event"
 msgstr "Épreuve régionale"
 
-#: contest/models.py:212
+#: contest/models.py:213
 msgid "Not assigned"
 msgstr "Non assigné"
 
-#: contest/models.py:213
+#: contest/models.py:214
 msgid "Ruled out"
 msgstr "Éliminé"
 
-#: contest/models.py:214
+#: contest/models.py:215
 msgid "Assigned"
 msgstr "Assigné"
 
-#: contest/models.py:225
+#: contest/models.py:226
 msgid "T-shirt size"
 msgstr "Taille du t-shirt"
 
-#: contest/models.py:225
+#: contest/models.py:226
 msgid "Choose your size"
 msgstr "Choisissez votre taille"
 
-#: contest/models.py:226
+#: contest/models.py:227
 msgid "We usually provide unisex Prologin t-shirts to the finalists."
 msgstr "Nous fournissons le plus souvent des t-shirts unisexe aux finalistes."
 
-#: contest/models.py:228
+#: contest/models.py:229
 msgid ""
 "The programming language you will most likely use during the regional "
 "events."
 msgstr "Le langage de programmation que vous utiliserez le plus probablement pour l'épreuve régionale."
 
-#: contest/models.py:232
+#: contest/models.py:233
 msgid "Regional event assignation status"
 msgstr "Assignation d'épreuve régionale"
 
-#: contest/models.py:235
+#: contest/models.py:236
 msgid "Regional event assignation whishes"
 msgstr "Vœux d'assignation épreuve régionale"
 
-#: contest/models.py:237
+#: contest/models.py:238
 msgid "Regional event assigned event"
 msgstr "Événement assigné pour l'épreuve régionale"
 
-#: contest/models.py:239
+#: contest/models.py:240
 msgid "Final assignation status"
 msgstr "Assignation de finale"
 
-#: contest/models.py:241
+#: contest/models.py:242
 msgid "Quiz score"
 msgstr "Score du quiz"
 
-#: contest/models.py:242
+#: contest/models.py:243
 msgid "Algo exercises score"
 msgstr "Score des exercices d'algo"
 
-#: contest/models.py:243 contest/models.py:247 contest/models.py:249
+#: contest/models.py:244 contest/models.py:248 contest/models.py:250
 msgid "Bonus score"
 msgstr "Score bonus"
 
-#: contest/models.py:244
+#: contest/models.py:245
 msgid "Written exam score"
 msgstr "Score de l'épreuve écrite"
 
-#: contest/models.py:245
+#: contest/models.py:246
 msgid "Interview score"
 msgstr "Score de l'entretien"
 
-#: contest/models.py:246
+#: contest/models.py:247
 msgid "Machine exam score"
 msgstr "Score de l'épreuve machine"
 
@@ -476,7 +479,7 @@ msgid ""
 msgstr "L'assignation à une épreuve régionale est requise si le candidat est assigné."
 
 #: contest/templates/contest/index.html:7
-#: contest/templates/contest/qualification_summary.html:7
+#: contest/templates/contest/qualification-summary.html:7
 #: contest/templates/correction/by-year.html:7
 #: contest/templates/correction/contestant-base.html:7
 #: contest/templates/correction/index.html:7
@@ -486,128 +489,194 @@ msgstr "L'assignation à une épreuve régionale est requise si le candidat est 
 msgid "Contest"
 msgstr "Concours"
 
-#: contest/templates/contest/qualification_summary.html:10
+#: contest/templates/contest/interschool-leaderboard.html:5
+#: contest/templates/contest/interschool-leaderboard.html:10
+#: contest/templates/contest/interschool-leaderboard.html:35
+msgid "Leaderboard"
+msgstr "Classement"
+
+#: contest/templates/contest/interschool-leaderboard.html:5
+#: contest/templates/contest/interschool-leaderboard.html:9
+#: contest/templates/contest/interschool-leaderboard.html:15
+msgid "Inter-school challenge"
+msgstr "Challenge des établissements scolaires"
+
+#: contest/templates/contest/interschool-leaderboard.html:19
+msgid "What is this about?"
+msgstr "Qu'est-ce que c'est&nbsp;?"
+
+#: contest/templates/contest/interschool-leaderboard.html:20
+msgid ""
+"This is the list of the schools competing in the inter-school challenge for this edition of\n"
+"Prologin. “Final score” is the sum of the scores obtained by the school students."
+msgstr "Voici la liste des établissements (collèges, lycées, universités, écoles, etc.) qui participent au challenge pour cette édition de Prologin. Le score final d'un établissement est la somme des scores obtenus par ses étudiants."
+
+#: contest/templates/contest/interschool-leaderboard.html:23
+#, python-format
+msgid ""
+"Start <a href=\"%(url)s\">solving challenges</a> to score points for your "
+"school!"
+msgstr "Commencez à <a href=\"%(url)s\">résoudre des problèmes</a> pour rapporter des points à votre établissement&nbsp;!"
+
+#: contest/templates/contest/interschool-leaderboard.html:26
+msgid "The rules"
+msgstr "Les règles"
+
+#: contest/templates/contest/interschool-leaderboard.html:27
+msgid ""
+"We remind you that you are not allowed to share your solution with other contestants,\n"
+"including friends or fellow students. The Prologin staff reviews all code submissions; if we find evidences of\n"
+"plagiarism, your school may be disqualified from the challenge."
+msgstr "Nous vous rappelons qu'il est interdit de partager vos solutions avec d'autres candidats, même vos amis et camarades. L'équipe Prologin passe en revue toutes les soumissions de code&nbsp;; si nous venions à trouver des plagiats, votre établissement pourrait en conséquence être disqualifié du challenge."
+
+#: contest/templates/contest/interschool-leaderboard.html:30
+msgid ""
+"The outcome of this challenge has no implication on your personal results.\n"
+"Your involvement in the inter-school challenge is optional."
+msgstr "L'issue de challenge n'a pas d'incidence sur vos résultats personnels. Votre investissement dans le challenge inter-établissements est optionnel."
+
+#: contest/templates/contest/interschool-leaderboard.html:41
+msgid "School name"
+msgstr "Nom de l'établissement"
+
+#: contest/templates/contest/interschool-leaderboard.html:42
+msgid "Student count"
+msgstr "Nombre d'étudiants"
+
+#: contest/templates/contest/interschool-leaderboard.html:43
+msgid "Problems solved"
+msgstr "Problèmes résolus"
+
+#: contest/templates/contest/interschool-leaderboard.html:44
+msgid "Final score"
+msgstr "Score final"
+
+#: contest/templates/contest/interschool-leaderboard.html:67
+msgid "No school is competing yet."
+msgstr "Aucun établissement ne participe pour le moment."
+
+#: contest/templates/contest/qualification-summary.html:10
 msgid "Application summary"
 msgstr "Résumé de la candidature"
 
-#: contest/templates/contest/qualification_summary.html:17
+#: contest/templates/contest/qualification-summary.html:17
 #, python-format
 msgid "Application summary – Prologin %(year)s"
 msgstr "Résumé de la candidature – Prologin %(year)s"
 
-#: contest/templates/contest/qualification_summary.html:21
+#: contest/templates/contest/qualification-summary.html:21
 #, python-format
 msgid "Application summary for Prologin %(year)s"
 msgstr "Résumé de la candidature pour Prologin %(year)s"
 
-#: contest/templates/contest/qualification_summary.html:24
+#: contest/templates/contest/qualification-summary.html:24
 #, python-format
 msgid ""
 "Thanks for joining the Prologin contest this year! This page sums up the requirements you have\n"
 "  to fulfill so you can be selected to participate in the next step: <a href=\"%(about_regional_url)s\">regional events</a>."
 msgstr "Merci de participer à Prologin cette année ! Cette page résume les informations que vous devez fournir pour espérer participer à la prochaine étape : les  <a href=\"%(about_regional_url)s\">épreuves régionales</a>."
 
-#: contest/templates/contest/qualification_summary.html:30
-#: contest/templates/contest/qualification_summary.html:36
-#: contest/templates/contest/qualification_summary.html:43
+#: contest/templates/contest/qualification-summary.html:30
+#: contest/templates/contest/qualification-summary.html:36
+#: contest/templates/contest/qualification-summary.html:43
 #, python-format
 msgid "The qualification step ends <strong>%(end_date)s</strong>."
 msgstr "L'étape de sélection prend fin le <strong>%(end_date)s</strong>."
 
-#: contest/templates/contest/qualification_summary.html:31
+#: contest/templates/contest/qualification-summary.html:31
 msgid ""
 "Your participation is valid. You can still make changes to your answers and "
 "profile information, but be sure to keep all the lights green on this page."
 msgstr "Votre participation est valide. Vous pouvez encore modifier vos réponses et coordonnées, mais assurez-vous que toutes les boîtes de cette page restent vertes."
 
-#: contest/templates/contest/qualification_summary.html:37
+#: contest/templates/contest/qualification-summary.html:37
 msgid ""
 "Your participation is valid and will be processed for the next step, but to "
 "improve your odds of being selected, you should complete the missing bits."
 msgstr "Votre participation est valide et sera considérée pour la prochaine étape, mais pour améliorer vos chances d'être sélectionné(e), il serait bon de compléter les challenges manquants."
 
-#: contest/templates/contest/qualification_summary.html:44
+#: contest/templates/contest/qualification-summary.html:44
 msgid ""
 "You are still missing some mandatory information to be able to contest this "
 "year. Please review the missing bits on this page."
 msgstr "Il manque des informations obligatoires pour pouvoir participer cette année. Vérifiez de n'avoir oublié aucun champ ci-dessous."
 
-#: contest/templates/contest/qualification_summary.html:56
-#: contest/templates/contest/qualification_summary.html:87
-#: contest/templates/contest/qualification_summary.html:139
+#: contest/templates/contest/qualification-summary.html:56
+#: contest/templates/contest/qualification-summary.html:87
+#: contest/templates/contest/qualification-summary.html:150
 msgid "Complete"
 msgstr "Complet"
 
-#: contest/templates/contest/qualification_summary.html:58
-#: contest/templates/contest/qualification_summary.html:89
-#: contest/templates/contest/qualification_summary.html:140
+#: contest/templates/contest/qualification-summary.html:58
+#: contest/templates/contest/qualification-summary.html:89
+#: contest/templates/contest/qualification-summary.html:151
 msgid "Incomplete"
 msgstr "Incomplet"
 
-#: contest/templates/contest/qualification_summary.html:60
-#: contest/templates/contest/qualification_summary.html:91
+#: contest/templates/contest/qualification-summary.html:60
+#: contest/templates/contest/qualification-summary.html:91
 msgid "Not tackled"
 msgstr "Non abordé"
 
-#: contest/templates/contest/qualification_summary.html:62
+#: contest/templates/contest/qualification-summary.html:62
 msgid "The quiz"
 msgstr "Le questionnaire"
 
-#: contest/templates/contest/qualification_summary.html:66
+#: contest/templates/contest/qualification-summary.html:66
 #, python-format
 msgid "There is %(count)s quiz question this year."
 msgid_plural "There are %(count)s quiz questions this year."
 msgstr[0] "Il y a %(count)s question de QCM cette année."
 msgstr[1] "Le questionnaire comporte %(count)s questions cette année."
 
-#: contest/templates/contest/qualification_summary.html:67
+#: contest/templates/contest/qualification-summary.html:67
 #, python-format
 msgid "You completed %(count)s question."
 msgid_plural "You completed %(count)s questions."
 msgstr[0] "Vous avez répondu à %(count)s question."
 msgstr[1] "Vous avez répondu à %(count)s questions."
 
-#: contest/templates/contest/qualification_summary.html:72
+#: contest/templates/contest/qualification-summary.html:72
 msgid "Review answers"
 msgstr "Revoir les réponses"
 
-#: contest/templates/contest/qualification_summary.html:74
+#: contest/templates/contest/qualification-summary.html:74
 msgid "Complete answers"
 msgstr "Compléter les réponses"
 
-#: contest/templates/contest/qualification_summary.html:77
+#: contest/templates/contest/qualification-summary.html:77
 msgid ""
 "Although you are not required to answer all questions, it is recommended to "
 "answer as many as you can to improve you chances of being selected."
 msgstr "Même si vous n'êtes pas dans l'obligation de répondre à toutes les questions, il est recommandé de répondre à un maximum d'entre elles pour augmenter vos chances."
 
-#: contest/templates/contest/qualification_summary.html:93
+#: contest/templates/contest/qualification-summary.html:93
 msgid "The problems"
 msgstr "Les problèmes"
 
-#: contest/templates/contest/qualification_summary.html:97
+#: contest/templates/contest/qualification-summary.html:97
 #, python-format
 msgid "There is %(count)s problem this year."
 msgid_plural "There are %(count)s problems this year."
 msgstr[0] "Il y a %(count)s problème cette année."
 msgstr[1] "Il y a %(count)s problèmes cette année."
 
-#: contest/templates/contest/qualification_summary.html:98
+#: contest/templates/contest/qualification-summary.html:98
 #, python-format
 msgid "You tackled %(count)s problem."
 msgid_plural "You tackled %(count)s problems."
 msgstr[0] "Vous avez abordé %(count)s problème."
 msgstr[1] "Vous avez abordé %(count)s problèmes."
 
-#: contest/templates/contest/qualification_summary.html:103
+#: contest/templates/contest/qualification-summary.html:103
 msgid "Review submissions"
 msgstr "Revoir les soumissions"
 
-#: contest/templates/contest/qualification_summary.html:105
+#: contest/templates/contest/qualification-summary.html:105
 msgid "Complete submissions"
 msgstr "Compléter les soumissions"
 
-#: contest/templates/contest/qualification_summary.html:108
+#: contest/templates/contest/qualification-summary.html:108
 msgid ""
 "Your submissions do not have to pass all the tests. Nevertheless, the jury "
 "will favor codes that both compile, answer the statement and have a minimal "
@@ -616,35 +685,51 @@ msgid ""
 "the finale."
 msgstr "Vos soumissions n'ont pas à passer tous les tests. Toutefois, le jury privilégiera les codes qui compilent, répondent à l'énoncé et ont une complexité temporelle, et mémoire, minimale. Vous pouvez même soumettre du pseudo-code, mais gardez à l'esprit que vous devrez écrire du vrai code pour les épreuves régionales et la finale."
 
-#: contest/templates/contest/qualification_summary.html:119
-msgid "The school challenge"
-msgstr "Le concours des établissements scolaires"
+#: contest/templates/contest/qualification-summary.html:118
+msgid "The inter-school challenge"
+msgstr "Le challenge des établissements scolaires"
 
-#: contest/templates/contest/qualification_summary.html:123
-#, python-format
+#: contest/templates/contest/qualification-summary.html:124
 msgid ""
-"Help your school go up in the <a href=\"%(url)s\">inter-school rankings</a>!\n"
-"If you are a student, fill in the name of your high school or university below. If your school does not appear in the\n"
-"list, you can add it by selecting the first item: “Add a new school”.\n"
-msgstr "Aidez votre établissement scolaire à grimper en haut du <a href=\"%(url)s\">classement inter-établissements</a>&nbsp;!\nSi vous êtes étudiant, remplissez ci-dessous le nom de votre collège, lycée, université ou école. Si votre établissement n'est pas dans la liste, ajoutez-le en sélectionnant le premier choix&nbsp;: « Ajouter un établissement ».\n"
+"If your school does not appear in the list, type its full name and choose "
+"the first item: “Add a new school”."
+msgstr "Si votre école n'apparaît pas dans la liste, écrivez son nom complet et choisissez le premier élément: «Ajouter un nouvel établissement»."
 
-#: contest/templates/contest/qualification_summary.html:141
+#: contest/templates/contest/qualification-summary.html:126
+msgid "I participate in the #Prologin inter-school challenge!"
+msgstr "Je participe au challenge #Prologin des établissements scolaires !"
+
+#: contest/templates/contest/qualification-summary.html:135
+msgid "Help your school go up in the inter-school rankings!"
+msgstr "Aidez votre établissement scolaire à grimper dans le classement&nbsp;!"
+
+#: contest/templates/contest/qualification-summary.html:136
+msgid ""
+"If you are a student, fill in the name of your high school or university.\n"
+"The points you score for solving this year problems will be accounted for your school total score."
+msgstr "Si vous êtes étudiant, saisissez le nom de votre établissement. Les points que vous gagnerez en résolvant les problèmes de cette année seront pris en compte dans le score de votre école. "
+
+#: contest/templates/contest/qualification-summary.html:140
+msgid "Rules & leaderboard"
+msgstr "Règles & classement"
+
+#: contest/templates/contest/qualification-summary.html:152
 msgid "Preparing the next steps"
 msgstr "Préparer les étapes suivantes"
 
-#: contest/templates/contest/qualification_summary.html:162
+#: contest/templates/contest/qualification-summary.html:181
 msgid "Save application"
 msgstr "Enregistrer la participation"
 
-#: contest/templates/contest/qualification_summary.html:178
+#: contest/templates/contest/qualification-summary.html:197
 msgid "Make your choice"
 msgstr "Faites votre choix"
 
-#: contest/templates/contest/qualification_summary.html:179
+#: contest/templates/contest/qualification-summary.html:198
 msgid "Add new school"
 msgstr "Ajouter un établissement"
 
-#: contest/templates/contest/qualification_summary.html:180
+#: contest/templates/contest/qualification-summary.html:199
 msgid "Choose an existing school or add yours"
 msgstr "Choisissez un établissement existant ou ajoutez le votre"
 
@@ -802,9 +887,22 @@ msgstr "tout"
 msgid "complete only"
 msgstr "complétés uniquement"
 
-#: contest/views.py:64
+#: contest/views.py:65
 msgid "Changes saved successfully."
 msgstr "Modifications enregistrées avec succès."
+
+#: contest/views.py:87
+msgid "You are missing some mandatory information."
+msgstr "Il manque des informations obligatoires."
+
+#: contest/views.py:89
+msgid "You need to specify more wishes for your semifinal center."
+msgstr "Vous devez spécifier davantage de vœux pour votre centre d'épreuve régionale."
+
+#: contest/views.py:92
+#, python-format
+msgid "You cannot participate if you are born before %(year)s."
+msgstr "Vous ne pouvez pas participer si vous êtes né avant %(year)s."
 
 #: contest/widgets.py:14
 msgid "First choice"
@@ -2336,74 +2434,74 @@ msgstr "Année précédente"
 msgid "Next year"
 msgstr "Année suivante"
 
-#: news/templates/zinnia/entry_detail_base.html:24
+#: news/templates/zinnia/entry_detail_base.html:22
 msgid "RSS feed of discussions on"
 msgstr "Flux RSS des discussions sur"
 
-#: news/templates/zinnia/entry_detail_base.html:26
+#: news/templates/zinnia/entry_detail_base.html:24
 msgid "RSS feed of comments on"
 msgstr "Flux RSS des commentaires sur"
 
-#: news/templates/zinnia/entry_detail_base.html:28
+#: news/templates/zinnia/entry_detail_base.html:26
 msgid "RSS feed of pingbacks on"
 msgstr "Flux RSS des pingbacks sur"
 
-#: news/templates/zinnia/entry_detail_base.html:30
+#: news/templates/zinnia/entry_detail_base.html:28
 msgid "RSS feed of trackbacks on"
 msgstr "Flux RSS des tracebacks sur"
 
-#: news/templates/zinnia/entry_detail_base.html:54
+#: news/templates/zinnia/entry_detail_base.html:52
 msgid "Next entry"
 msgstr "Article suivant"
 
-#: news/templates/zinnia/entry_detail_base.html:68
+#: news/templates/zinnia/entry_detail_base.html:66
 msgid "Previous entry"
 msgstr "Article précédent"
 
-#: news/templates/zinnia/entry_detail_base.html:82
+#: news/templates/zinnia/entry_detail_base.html:80
 msgid "Related entries"
 msgstr "Articles liés"
 
-#: news/templates/zinnia/entry_detail_base.html:96
+#: news/templates/zinnia/entry_detail_base.html:94
 msgid "Similar entries"
 msgstr "Articles similaires"
 
-#: news/templates/zinnia/entry_detail_base.html:105
+#: news/templates/zinnia/entry_detail_base.html:103
 msgid "Pingbacks"
 msgstr "Pingbacks"
 
-#: news/templates/zinnia/entry_detail_base.html:116
-#: news/templates/zinnia/entry_detail_base.html:160
+#: news/templates/zinnia/entry_detail_base.html:114
+#: news/templates/zinnia/entry_detail_base.html:158
 msgctxt "on date"
 msgid "on"
 msgstr "sur"
 
-#: news/templates/zinnia/entry_detail_base.html:122
+#: news/templates/zinnia/entry_detail_base.html:120
 msgid "Direct link to this pingback"
 msgstr "Lien direct vers ce pingback"
 
-#: news/templates/zinnia/entry_detail_base.html:138
+#: news/templates/zinnia/entry_detail_base.html:136
 msgid "Pingbacks are open."
 msgstr "Les pingbacks sont activés."
 
-#: news/templates/zinnia/entry_detail_base.html:140
+#: news/templates/zinnia/entry_detail_base.html:138
 msgid "Pingbacks are closed."
 msgstr "Les pingbacks sont désactivés."
 
-#: news/templates/zinnia/entry_detail_base.html:149
+#: news/templates/zinnia/entry_detail_base.html:147
 msgid "Trackbacks"
 msgstr "Trackbacks"
 
-#: news/templates/zinnia/entry_detail_base.html:166
+#: news/templates/zinnia/entry_detail_base.html:164
 msgid "Direct link to this trackback"
 msgstr "Lien direct vers ce traceback"
 
-#: news/templates/zinnia/entry_detail_base.html:184
+#: news/templates/zinnia/entry_detail_base.html:182
 msgid "Trackback URL"
 msgstr "URL du traceback"
 
-#: news/templates/zinnia/entry_detail_base.html:208
-#: news/templates/zinnia/entry_detail_base.html:209
+#: news/templates/zinnia/entry_detail_base.html:206
+#: news/templates/zinnia/entry_detail_base.html:207
 msgid "Edit the entry"
 msgstr "Modifier cet article"
 
@@ -4297,7 +4395,11 @@ msgstr "Question"
 msgid "Is correct"
 msgstr "Est correct"
 
-#: qcm/forms.py:79
+#: qcm/forms.py:73
+msgid "Put your answer here"
+msgstr "Écrivez votre réponse ici"
+
+#: qcm/forms.py:80
 msgid "I don't know"
 msgstr "Je ne sais pas"
 
