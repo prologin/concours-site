@@ -1,0 +1,74 @@
+{% extends "prologin/base.html" %}
+{% load i18n staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block title %}{% trans "Leaderboard" %} – {% trans "Inter-school challenge" %}{% endblock %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for '' %}{% trans "Inter-school challenge" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:interschool:leaderboard' %}{% trans "Leaderboard" %}{% endbreadcrumb_for %}
+{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "Inter-school challenge" %}</h1>
+
+  <div class="row">
+    <div class="col-md-6">
+      <h4>{% trans "What is this about?" %}</h4>
+      <p>{% blocktrans %}This is the list of the schools competing in the inter-school challenge for this edition of
+Prologin. “Final score” is the sum of the scores obtained by the school students.{% endblocktrans %}</p>
+      {% url 'contest:qualification-summary' request.current_edition.year as url %}
+      <p>{% blocktrans with url=url %}Start <a href="{{ url }}">solving challenges</a> to score points for your school!{% endblocktrans %}</p>
+    </div>
+    <div class="col-md-6">
+      <h4>{% trans "The rules" %}</h4>
+      <p>{% blocktrans %}We remind you that you are not allowed to share your solution with other contestants,
+including friends or fellow students. The Prologin staff reviews all code submissions; if we find evidences of
+plagiarism, your school may be disqualified from the challenge.{% endblocktrans %}</p>
+      <p>{% blocktrans %}The outcome of this challenge has no implication on your personal results.
+Your involvement in the inter-school challenge is optional.{% endblocktrans %}</p>
+    </div>
+  </div>
+
+  <h2>{% trans "Leaderboard" %}</h2>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th></th>
+      <th>{% trans "Rank" %}</th>
+      <th>{% trans "School name" %}</th>
+      <th>{% trans "Student count" %}</th>
+      <th>{% trans "Problems solved" %}</th>
+      <th>{% trans "Final score" %}</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for school in schools %}
+      <tr>
+        <td class="text-center">
+          <span class="challenge-trophy-{{ school.rank }}">
+            <i class="fa fa-fw {% if school.rank <= 3 %}fa-trophy{% endif %}"></i>
+          </span>
+        </td>
+        <td style="white-space: nowrap;">
+          <strong>{{ school.rank }}</strong>{% if school.ex_aequo %}<small> {% trans "(ex-aequo)" %}</small>{% endif %}
+        </td>
+        <td>{{ school.item.name }}</td>
+        <td>{{ school.item.contestant_count }}</td>
+        <td>{{ school.item.problem_solved_count }}</td>
+        <td>{{ school.item.final_score }}</td>
+      </tr>
+    {% empty %}
+      <tr>
+        <td colspan="3" class="empty">
+          <i class="fa fa-frown-o"></i>
+          <em>{% trans "No school is competing yet." %}</em>
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+
+{% endblock %}
