@@ -34,7 +34,7 @@
     {# checklist: personnal details #}
     <li
       class="text-{% if contestant.is_complete_for_semifinal %}success{% else %}danger{% endif %}">
-      <a href="{% url 'contest:qualification_summary' edition.year %}">
+      <a href="{% url 'contest:qualification-summary' edition.year %}">
         <i class="fa fa-{% if contestant.is_complete_for_semifinal %}check-{% endif %}square-o"></i>
         {% trans "Review the extra details" %}
       </a>

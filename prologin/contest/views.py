@@ -24,7 +24,7 @@ import schools.models
 
 
 class QualificationSummary(PermissionRequiredMixin, UpdateView):
-    template_name = 'contest/qualification_summary.html'
+    template_name = 'contest/qualification-summary.html'
     pk_url_kwarg = 'year'
     context_object_name = 'contestant'
     form_class = contest.forms.CombinedContestantUserForm
@@ -39,7 +39,7 @@ class QualificationSummary(PermissionRequiredMixin, UpdateView):
         return self.request.current_contestant
 
     def get_success_url(self):
-        return reverse('contest:qualification_summary', kwargs=self.kwargs)
+        return reverse('contest:qualification-summary', kwargs=self.kwargs)
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
