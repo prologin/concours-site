@@ -126,7 +126,7 @@ def notify_school_created(sender, instance, **kwargs):
     s = settings.PROLOGIN_NEW_SCHOOL_NOTIFY
     if not s:
         return
-    if not kwargs.get('created'):
+    if not kwargs.get('created') or instance.imported or instance.approved:
         return
     data = {'name': instance.name,
             'url': settings.SITE_BASE_URL + reverse('admin:schools_school_change', args=[instance.pk])}
