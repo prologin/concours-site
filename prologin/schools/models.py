@@ -52,10 +52,12 @@ class School(AddressableModel):
 
     @property
     def picture(self):
-        try:
-            return Facebook.search(self.name)[0]['picture']['data']['url']
-        except (IndexError, KeyError):
-            return None
+        for field in (self.name, self.acronym):
+            if field:
+                try:
+                    return Facebook.search(field)[0]['picture']['data']['url']
+                except (IndexError, KeyError):
+                    continue
 
     def clean(self):
         if self.uai == '':
