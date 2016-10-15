@@ -326,6 +326,8 @@ HIJACK_LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL
 PROLOGIN_HIJACK_NOTIFY = False
 # {'method': 'post', 'url': '/django/impersonate', 'kwargs': {'timeout': (1, 1)}}
 
+PROLOGIN_NEW_SCHOOL_NOTIFY = False
+
 # Debug toolbar
 
 DEBUG_TOOLBAR_CONFIG = {

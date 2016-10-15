@@ -1,8 +1,13 @@
 import hashlib
+import logging
+
 import requests
 from django.conf import settings
 from django.db import models
 from django.core.cache import cache
+from django.db.models.signals import post_save
+from django.dispatch.dispatcher import receiver
+from django.urls import reverse
 
 from prologin.models import AddressableModel
 from prologin.utils import upload_path
@@ -114,3 +119,18 @@ class Facebook:
 
         key = hashlib.sha1(id.encode('utf8', 'replace')).hexdigest()
         return cache.get_or_set('schools/id/' + key, get_data, 60 * 60 * 24)
+
+
+@receiver(post_save, sender=School)
+def notify_school_created(sender, instance, **kwargs):
+    s = settings.PROLOGIN_NEW_SCHOOL_NOTIFY
+    if not s:
+        return
+    if not kwargs.get('created'):
+        return
+    data = {'name': instance.name,
+            'url': settings.SITE_BASE_URL + reverse('admin:schools_school_change', args=[instance.pk])}
+    try:
+        requests.request(s['method'], s['url'], json=data, **s.get('kwargs', {}))
+    except Exception:
+        logging.exception("Could not notify of new-school")
