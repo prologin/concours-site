@@ -14,12 +14,12 @@ correction_patterns = [
     url(r'^(?P<year>[0-9]{4})/(?P<cid>[0-9]+)/live/(?P<type>[a-z]+)$', contest.staff_views.ContestantLiveUpdate.as_view(), name='live-update'),
 ]
 
-interschool_contest_patterns = [
+interschool_patterns = [
     url(r'^leaderboard$', contest.interschool_views.LeaderboardView.as_view(), name='leaderboard'),
 ]
 
 urlpatterns = [
     url(r'^(?P<year>[0-9]{4})/qualification', contest.views.QualificationSummary.as_view(), name='qualification-summary'),
-    url(r'^inter-school-contest/', include(interschool_contest_patterns, namespace='interschool')),
+    url(r'^inter-school-challenge/', include(interschool_patterns, namespace='interschool')),
     url(r'^correct/', include(correction_patterns, namespace='correction')),
 ]
