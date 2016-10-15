@@ -9,7 +9,7 @@ django<1.11
 # For ordered models (QCM questions, semifinal whishes, etc.)
 django-admin-sortable
 # News / blog
-django-blog-zinnia==0.15.2
+django-blog-zinnia
 # Breadcrumbs
 django-bootstrap-breadcrumbs>=0.7.0
 # Bootstrap-formatted forms

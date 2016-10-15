@@ -28,7 +28,7 @@
   {% endfor %}
 
   {% if middle %}
-  <li class="ellipsis">&hellip;</li>
+  <li class="page disabled"><span>&hellip;</span></li>
   {% for page_number in middle %}
   <li class="page{% ifequal page.number page_number %} active{% endifequal %}">
     {% ifequal page.number page_number %}
@@ -42,7 +42,7 @@
   {% endif %}
 
   {% if end %}
-  <li class="ellipsis">&hellip;</li>
+  <li class="page disabled"><span>&hellip;</span></li>
   {% for page_number in end %}
   <li class="page{% ifequal page.number page_number %} active{% endifequal %}">
     {% ifequal page.number page_number %}

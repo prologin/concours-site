@@ -50,7 +50,7 @@
 
 {% include "prologin/favicons.html" %}
 
-  <link rel="alternate" type="application/atom+xml" title="{% trans "Latest blog articles" %}" href="{% url 'zinnia:entry_latest_feed' %}"/>
+  <link rel="alternate" type="application/atom+xml" title="{% trans "Latest blog articles" %}" href="{% url 'zinnia:entry_feed' %}"/>
 
   {% block extra_head %}{% endblock %}
 </head>
