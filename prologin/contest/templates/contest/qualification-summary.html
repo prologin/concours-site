@@ -124,12 +124,10 @@
             <p class="text-muted small">{% trans "If your school does not appear in the list, type its full name and choose the first item: “Add a new school”." %}</p>
             {# twitter #}
             <a href="https://twitter.com/share" class="twitter-share-button" data-size="large" data-text="{% trans "I participate in the #Prologin inter-school challenge!" %}" data-url="https://prologin.org" data-show-count="false">Tweet</a>
-            <script async defer charset="utf-8" src="//platform.twitter.com/widgets.js"></script>
             {# facebook #}
             <iframe src="https://www.facebook.com/plugins/share_button.php?quote=lol&href=https%3A%2F%2Fprologin.org%2F&layout=button&size=large&mobile_iframe=true&appId=665072473660328&width=88&height=28" width="88" height="28" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowTransparency="true"></iframe>
             {# g+ (lol) #}
             <div class="g-plus" data-action="share" data-annotation="none" data-height="28" data-href="https://prologin.org/"></div>
-            <script async defer src="https://apis.google.com/js/platform.js"></script>
           </div>
           <div class="col-md-6">
             <h4>{% trans "Help your school go up in the inter-school rankings!" %}</h4>
@@ -313,4 +311,6 @@ The points you score for solving this year problems will be accounted for your s
       });
     });
   </script>
+  <script async charset="utf-8" src="//platform.twitter.com/widgets.js"></script>
+  <script async defer charset="utf-8" src="https://apis.google.com/js/platform.js"></script>
 {% endblock %}
