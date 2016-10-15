@@ -41,6 +41,9 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
                 LEFT JOIN problems_submission ON problems_submission.user_id = users_prologinuser.id AND problems_submission.challenge = %s
             WHERE schools_school.approved
             GROUP BY schools_school.id
+            HAVING SUM(CASE WHEN problems_submission.score_base > 0
+                    THEN problems_submission.score_base - problems_submission.malus
+                    ELSE 0 END) > 0
             ORDER BY final_score DESC, problem_solved_count DESC, schools_school.name ASC
             LIMIT %s
         ''', (edition.pk, challenge.name, self.limit))
