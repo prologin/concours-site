@@ -13,8 +13,6 @@ SECRET_KEY = 'CHANGEME'
 # SECURITY/PERFORMANCE WARNING: don't run with DEBUG turned on in production!
 DEBUG = True
 
-TEMPLATE_DEBUG = DEBUG
-
 ALLOWED_HOSTS = ['127.0.0.1']
 
 SITE_HOST = "localhost:8000"
