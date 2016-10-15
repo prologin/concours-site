@@ -30,12 +30,21 @@ class Command(BaseCommand):
                             acronym=row['sigle'],
                             academy=row['académie'],
                             address=row['adresse'],
-                            postal_code = row['CP'],
-                            city = row['commune'],
-                            country = 'France',
+                            postal_code=row['CP'],
+                            city=row['commune'],
+                            country='France',
+                            lat=row['latitude (Y)'],
+                            lng=row['longitude (X)'],
                             type=row["type d'établissement"],
                             imported=True, approved=True,
             )
+            try:
+                school.lat, school.lng = (float(row['latitude (Y)']),
+                                          float(row['longitude (X)']))
+            except ValueError:
+                pass
+            if not school.name:
+                pass
             res[school.uai] = school
         return res
 
@@ -48,12 +57,19 @@ class Command(BaseCommand):
                             name=row['appellation_officielle'],
                             address=(row['adresse_uai'] + ' ' +
                                      row['lieu_dit_uai']).strip(),
-                            postal_code = row['code_postal_uai'],
-                            city = row['localite_acheminement_uai'],
-                            country = 'France',
+                            postal_code=row['code_postal_uai'],
+                            city=row['localite_acheminement_uai'],
+                            country='France',
                             type=row['nature_uai_libe'],
                             imported=True, approved=True,
             )
+            try:
+                school.lat, school.lng = (float(row['coordonnee_y']),
+                                          float(row['coordonnee_x']))
+            except ValueError:
+                pass
+            if not school.name:
+                pass
             res[school.uai] = school
         return res
 
@@ -65,4 +81,4 @@ class Command(BaseCommand):
 
         for uais_batch in batch(uais, 100):
             School.objects.filter(uai__in=uais_batch).delete()
-        School.objects.bulk_create(schools)
+        School.objects.bulk_create(schools.values())

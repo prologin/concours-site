@@ -17,7 +17,7 @@ class School(AddressableModel):
     def picture_upload_to(self, *args, **kwargs):
         return upload_path('school', using=lambda p: p.pk)(self, *args, **kwargs)
 
-    name = models.CharField(max_length=128, blank=False, db_index=True)
+    name = models.CharField(max_length=512, blank=False, db_index=True)
     approved = models.BooleanField(default=False, db_index=True)
 
     # Optional fields
@@ -27,6 +27,10 @@ class School(AddressableModel):
     acronym = models.CharField(max_length=32, blank=True)
     type = models.CharField(max_length=128, blank=True)
     academy = models.CharField(max_length=128, blank=True)
+    lat = models.DecimalField(default=0, max_digits=16, decimal_places=6,
+                              null=True, blank=True)
+    lng = models.DecimalField(default=0, max_digits=16, decimal_places=6,
+                              null=True, blank=True)
 
     objects = models.Manager()
     approved_schools = ApprovedSchoolManager()
