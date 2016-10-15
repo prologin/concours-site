@@ -1,21 +1,15 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.urlresolvers import reverse
 from django.db import transaction
-from django.db.models import Q
-from django.http import JsonResponse
-from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import UpdateView
 from django.views.generic.edit import ModelFormMixin
-from django.views.generic.list import ListView
 from rules.contrib.views import PermissionRequiredMixin
 
 import contest.forms
 import contest.models
 import problems.models
-import schools.models
 
 
 # TODO:
@@ -92,44 +86,3 @@ class QualificationSummary(PermissionRequiredMixin, UpdateView):
             issues.append(_("You cannot participate if you are born before %(year)s.") % {'year': birth_year})
 
         return context
-
-
-class SchoolSearch(LoginRequiredMixin, ListView):
-    model = schools.models.School
-    paginate_by = 5
-    max_facebook_results = 3
-
-    @cached_property
-    def query(self):
-        return self.request.GET.get('q', '')
-
-    def get_queryset(self):
-        qs = Q(name__icontains=self.query, approved=True)
-        current_school = self.request.current_contestant.school
-        if current_school:
-            qs |= Q(name__icontains=self.query, pk=current_school.pk)
-        return super().get_queryset().filter(qs)
-
-    def render_to_response(self, context, **response_kwargs):
-        paginator = context['paginator']
-        # Database results
-        results = [{'id': school.pk,
-                    'text': school.name,
-                    'picture': school.picture}
-                   for school in context['object_list']]
-        known_names = {item['text'].lower() for item in results}
-        # Facebook results
-        fb_results = []
-        for result in schools.models.Facebook.search(self.query):
-            if result['name'].lower() in known_names:
-                continue
-            fb_results.append({'id': '_new_fb_{}'.format(result['id']),
-                               'text': result['name'],
-                               'picture': result['picture']['data']['url']})
-            if len(fb_results) == self.max_facebook_results:
-                break
-        results += fb_results
-        return JsonResponse({
-            'items': results,
-            'total': paginator.count + len(fb_results),
-        })

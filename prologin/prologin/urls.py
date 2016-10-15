@@ -64,6 +64,9 @@ urlpatterns += [
     # Mailing
     url(r'^mailing/', include('mailing.urls', namespace='mailing')),
 
+    # Schools
+    url(r'^schools/', include('schools.urls', namespace='schools')),
+
     # Crash test
     url(r'^crashtest/', crash_test),
 

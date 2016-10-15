@@ -3,7 +3,6 @@ import contest.views
 import contest.staff_views
 import contest.interschool_views
 
-
 correction_patterns = [
     url(r'^$', contest.staff_views.IndexView.as_view(), name='index'),
     url(r'^(?P<year>[0-9]{4})/$', contest.staff_views.YearIndexView.as_view(), name='year'),
@@ -21,7 +20,6 @@ interschool_contest_patterns = [
 
 urlpatterns = [
     url(r'^(?P<year>[0-9]{4})/qualification', contest.views.QualificationSummary.as_view(), name='qualification-summary'),
-    url(r'^school/search$', contest.views.SchoolSearch.as_view(), name='school-search'),
     url(r'^inter-school-contest/', include(interschool_contest_patterns, namespace='interschool')),
     url(r'^correct/', include(correction_patterns, namespace='correction')),
 ]

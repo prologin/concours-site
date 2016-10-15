@@ -261,7 +261,7 @@ The points you score for solving this year problems will be accounted for your s
         tags: true,
         width: '100%',
         ajax: {
-          url: "{% url 'contest:school-search' %}",
+          url: "{% url 'schools:search' %}",
           dataType: 'json',
           delay: 250,
           data: function (params) {
@@ -290,7 +290,11 @@ The points you score for solving this year problems will be accounted for your s
           if (p.loading)
             return p.text;
 
-          var $name = $('<span/>').text(p.text);
+          var $name;
+          if (p.official)
+            $name = $('<strong/>').text(p.text);
+          else
+            $name = $('<span/>').text(p.text);
           if (p.newOption) {
             $name.prepend($('<br/>')).prepend($('<span class="label label-default"/>').text(window.i18n.addNewSchool));
           }

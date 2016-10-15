@@ -5,6 +5,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import MultipleObjectsReturned
 from django.core.urlresolvers import reverse
+from django.forms.models import ModelChoiceIterator
 from django.utils import formats
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -113,6 +114,15 @@ class ContestantForm(forms.ModelForm):
                         "order of preference. Most of the time, we are able to satisfy "
                         "your first choice."))
         if self.instance:
+            # BEGIN fucking hack not to display full queryset
+            school_field = self.fields['school']
+            it = ModelChoiceIterator(school_field)
+            if self.instance.school:
+                it.queryset = it.queryset.filter(pk=self.instance.school.pk)
+            else:
+                it.queryset = it.queryset.none()
+            school_field.choices = list(it)
+            # END fucking hack
             # FIXME: figure why we have to do the ordering manually
             self.initial['assignation_semifinal_wishes'] = list(self.instance.assignation_semifinal_wishes
                                                                 .order_by('eventwish__order')
