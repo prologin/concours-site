@@ -55,7 +55,26 @@ Your involvement in the inter-school challenge is optional.{% endblocktrans %}</
         <td style="white-space: nowrap;">
           <strong>{{ school.rank }}</strong>{% if school.ex_aequo %}<small> {% trans "(ex-aequo)" %}</small>{% endif %}
         </td>
-        <td>{{ school.item.name }} {% if school.item.city %} — {{ school.item.city }}{% endif %}</td>
+        <td>
+          <p style="margin: 0">
+          {% if school.item.name|length > 25 and school.item.acronym %}
+            {{ school.item.acronym }}
+          {% else %}
+            {{ school.item.name }}
+          {% endif %}
+          </p>
+          <p style="margin: 0"><small class="text-muted">
+          {% if school.item.name|length > 25 and school.item.acronym %}
+            {{ school.item.name }}
+          {% elif school.item.acronym %}
+            {{ school.item.acronym }}
+          {% endif %}
+          {% if school.item.city %}
+            {% if school.item.acronym %}⋅{% endif %}
+            {{ school.item.city }}
+          {% endif %}
+          </small></p>
+        </td>
         <td>{{ school.item.contestant_count }}</td>
         <td>{{ school.item.problem_solved_count }}</td>
         <td>{{ school.item.final_score }}</td>
