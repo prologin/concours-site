@@ -82,9 +82,11 @@
                 <td>
                   {% if aschool != school %}
                   <a class="button" href="?use={{ aschool.pk }}">{% trans "Use as base" %}</a>
+                  {% else %}
+                    <span style="color: #888">{% trans "Used as base" %}</span>
                   {% endif %}
                   {% if schools|length >= 3 %}
-                  <a class="button" href="?remove={{ aschool.pk }}">&times;</a>
+                  <a class="button" href="?remove={{ aschool.pk }}">{% trans "Exclude" %}</a>
                   {% endif %}
                 </td>
               </tr>
