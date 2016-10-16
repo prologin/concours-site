@@ -37,6 +37,12 @@ def choiceenum_member(enum_path, type='value'):
         return member.name
 
 
+@register.simple_tag
+def admin_boolean_icon(boolean):
+    from django.contrib.admin.templatetags.admin_list import _boolean_icon
+    return _boolean_icon(boolean)
+
+
 @register.filter
 def naturaltimedelta(delta):
     # stupid Django timesince() does not takes a delta but two dates, so we have to create a dummy difference
