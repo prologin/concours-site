@@ -1,0 +1,118 @@
+{% extends "admin/app_index.html" %}
+{% load i18n staticfiles %}
+{% load utils %}
+
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+{{ form.media }}
+<script type="text/javascript">
+(function($) {
+  // monkey-patch the bitch
+  var drlp = window.dismissRelatedLookupPopup;
+  window.dismissRelatedLookupPopup = function() {
+    drlp.apply(this, arguments);
+    // redirect to the page with the new id
+    var val = $('#id_add_to_merge').val();
+    if (val)
+      window.location = window.location + ',' + val;
+  };
+})(django.jQuery);
+</script>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} change-form{% endblock %}
+
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "admin/css/forms.css" %}" />{% endblock %}
+
+{% block admin_change_form_document_ready %}
+    <script type="text/javascript"
+            id="django-admin-form-add-constants"
+            src="{% static 'admin/js/change_form.js' %}"></script>
+{% endblock %}
+
+{% block breadcrumbs %}
+  <div class="breadcrumbs">
+    <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+    &rsaquo; <a href="{% url 'admin:app_list' app_label=app_label %}">{{ app_config.verbose_name }}</a>
+    &rsaquo; {% trans "Merge schools" %}
+  </div>
+{% endblock %}
+
+{% block content %}
+  <h1>{% trans "Merge schools" %}</h1>
+  <div class="content-main">
+    <form method="post">
+      <div>
+        {% csrf_token %}
+        <fieldset class="module aligned">
+          <h2>{% trans "Schools to merge" %}</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Acronym" %}</th>
+                <th>{% trans "UAI" %}</th>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Academy" %}</th>
+                <th>{% trans "Lat" %}</th>
+                <th>{% trans "Lon" %}</th>
+                <th>{% trans "Approved" %}</th>
+                <th>{% trans "Improved" %}</th>
+                <th>{% trans "Contestants" %}</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for aschool in schools %}
+              <tr>
+                <td>{{ aschool.name }}</td>
+                <td>{{ aschool.acronym }}</td>
+                <td>{{ aschool.uai|default:'' }}</td>
+                <td>{{ aschool.type }}</td>
+                <td>{{ aschool.academy }}</td>
+                <td>{{ aschool.lat }}</td>
+                <td>{{ aschool.lng }}</td>
+                <td>{% admin_boolean_icon aschool.approved %}</td>
+                <td>{% admin_boolean_icon aschool.imported %}</td>
+                <td>{{ aschool.contestant_count }}</td>
+                <td>
+                  {% if aschool != school %}
+                  <a class="button" href="?use={{ aschool.pk }}">{% trans "Use as base" %}</a>
+                  {% endif %}
+                  {% if schools|length >= 3 %}
+                  <a class="button" href="?remove={{ aschool.pk }}">&times;</a>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+          <div class="form-row"><div>
+            {{ form.add_to_merge.label_tag }}
+            {{ form.add_to_merge }}
+          </div></div>
+        </fieldset>
+
+        <fieldset class="module aligned">
+          <h2>{% trans "Update merged school" %}</h2>
+          {% for field in form %}
+          {% if field.name != 'add_to_merge' %}
+            <div class="form-row">
+              <div>
+                {{ field.label_tag }}
+                {{ field }}
+              </div>
+            </div>
+          {% endif %}
+          {% endfor %}
+        </fieldset>
+
+        <p>{% blocktrans with school_count=deleted_school_count contestant_count=updated_contestant_count %}This merge will delete {{ school_count }} schools and update the school for {{ contestant_count }} contestants.{% endblocktrans %}</p>
+
+        <div class="submit-row">
+          <input type="submit" value="{% trans "Merge schools" %}" class="default">
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}
