@@ -8,6 +8,7 @@ import contest.models
 import qcm.models
 import problems.models
 import sponsor.models
+from contest.interschool_views import LeaderboardView
 
 
 class HomepageView(TemplateView):
@@ -48,4 +49,7 @@ class HomepageView(TemplateView):
         sponsors = list(sponsor.models.Sponsor.active.all())
         random.shuffle(sponsors)
         context['sponsors'] = sponsors
+        leaderboard = LeaderboardView(request=self.request)
+        leaderboard.get(self.request)
+        context['inter_school_leaderboard'] = leaderboard.get_context_data()['schools']
         return context

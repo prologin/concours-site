@@ -1,0 +1,30 @@
+{% load i18n %}
+
+<h2>{% trans "Inter-school challenge" %}</h2>
+
+<p><a href="{% url 'contest:interschool:leaderboard' %}"
+      class="btn btn-default btn-block"><i class="fa fa-trophy"></i> {% trans "Full leaderboard" %}</a></p>
+
+<table class="table">
+  <tbody>
+  {% for school in inter_school_leaderboard|slice:':4' %}
+    <tr>
+      <td class="text-center">
+          <span class="challenge-trophy-{{ school.rank }}">
+            <i class="fa fa-fw {% if school.rank <= 3 %}fa-trophy{% endif %}"></i>
+          </span>
+      </td>
+      <td style="white-space: nowrap;">
+        <strong>{{ school.rank }}</strong>
+      </td>
+      <td>
+      {% if school.item.name|length > 25 and school.item.acronym %}
+        {{ school.item.acronym }}
+      {% else %}
+        {{ school.item.name }}
+      {% endif %}
+      </td>
+    </tr>
+  {% endfor %}
+  </tbody>
+</table>
