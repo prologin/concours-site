@@ -97,7 +97,7 @@ class Facebook:
     def search(cls, query):
         query = query.strip().lower()
         if not query:
-            return None
+            return []
 
         def get_data():
             try:
