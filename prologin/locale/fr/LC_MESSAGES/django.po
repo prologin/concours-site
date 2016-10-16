@@ -19,8 +19,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-10-16 21:48+0200\n"
-"PO-Revision-Date: 2016-10-16 19:51+0000\n"
+"POT-Creation-Date: 2016-10-16 22:03+0200\n"
+"PO-Revision-Date: 2016-10-16 20:03+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -757,7 +757,7 @@ msgstr "Type d'évènement"
 #: documents/templates/documents/index.html:46
 #: documents/templates/documents/index.html:70
 #: documents/templates/documents/index.html:106
-#: schools/templates/admin/schools/merge.html:61 semifinal/forms.py:13
+#: schools/templates/admin/schools/merge.html:65 semifinal/forms.py:13
 msgid "Contestants"
 msgstr "Candidats"
 
@@ -1513,7 +1513,7 @@ msgstr "Choisissez un titre court et explicite."
 
 #: forum/models.py:22 mailing/models.py:31 mailing/models.py:114
 #: problems/templates/problems/challenge-scoreboard.html:24
-#: schools/templates/admin/schools/merge.html:52
+#: schools/templates/admin/schools/merge.html:56
 #: semifinal/templates/semifinal/stub-scoreboard.html:9
 msgid "Name"
 msgstr "Nom"
@@ -4473,61 +4473,69 @@ msgstr "Fusionner les établissements sélectionnés…"
 msgid "Add to merge"
 msgstr "Ajouter à la fusion"
 
-#: schools/templates/admin/schools/merge.html:35
+#: schools/templates/admin/schools/merge.html:39
 msgid "Home"
 msgstr "Accueil"
 
-#: schools/templates/admin/schools/merge.html:37
-#: schools/templates/admin/schools/merge.html:42
-#: schools/templates/admin/schools/merge.html:113
+#: schools/templates/admin/schools/merge.html:41
+#: schools/templates/admin/schools/merge.html:46
+#: schools/templates/admin/schools/merge.html:119
 msgid "Merge schools"
 msgstr "Fusionner les établissements"
 
-#: schools/templates/admin/schools/merge.html:48
+#: schools/templates/admin/schools/merge.html:52
 msgid "Schools to merge"
 msgstr "Établissements à fusionner"
 
-#: schools/templates/admin/schools/merge.html:53
+#: schools/templates/admin/schools/merge.html:57
 msgid "Acronym"
 msgstr "Acronyme"
 
-#: schools/templates/admin/schools/merge.html:54
+#: schools/templates/admin/schools/merge.html:58
 msgid "UAI"
 msgstr "UAI"
 
-#: schools/templates/admin/schools/merge.html:55
+#: schools/templates/admin/schools/merge.html:59
 msgid "Type"
 msgstr "Type"
 
-#: schools/templates/admin/schools/merge.html:56
+#: schools/templates/admin/schools/merge.html:60
 msgid "Academy"
 msgstr "Académie"
 
-#: schools/templates/admin/schools/merge.html:57
+#: schools/templates/admin/schools/merge.html:61
 msgid "Lat"
 msgstr "Lat"
 
-#: schools/templates/admin/schools/merge.html:58
+#: schools/templates/admin/schools/merge.html:62
 msgid "Lon"
 msgstr "Lon"
 
-#: schools/templates/admin/schools/merge.html:59
+#: schools/templates/admin/schools/merge.html:63
 msgid "Approved"
 msgstr "Approuvé"
 
-#: schools/templates/admin/schools/merge.html:60
+#: schools/templates/admin/schools/merge.html:64
 msgid "Improved"
 msgstr "Importé"
 
-#: schools/templates/admin/schools/merge.html:80
+#: schools/templates/admin/schools/merge.html:84
 msgid "Use as base"
 msgstr "Utiliser comme base"
 
-#: schools/templates/admin/schools/merge.html:97
+#: schools/templates/admin/schools/merge.html:86
+msgid "Used as base"
+msgstr "Utilisé comme base"
+
+#: schools/templates/admin/schools/merge.html:89
+msgid "Exclude"
+msgstr "Exclure"
+
+#: schools/templates/admin/schools/merge.html:103
 msgid "Update merged school"
 msgstr "Modifier l'établissement de fusion"
 
-#: schools/templates/admin/schools/merge.html:110
+#: schools/templates/admin/schools/merge.html:116
 #, python-format
 msgid ""
 "This merge will delete %(school_count)s schools and update the school for "
