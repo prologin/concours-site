@@ -13,8 +13,12 @@
     drlp.apply(this, arguments);
     // redirect to the page with the new id
     var val = $('#id_add_to_merge').val();
-    if (val)
-      window.location = window.location + ',' + val;
+    if (val) {
+      window.location = [
+        location.protocol, '//', location.host, location.pathname + ',' + val,
+        location.search, location.hash
+      ].join('');
+    }
   };
 })(django.jQuery);
 </script>
