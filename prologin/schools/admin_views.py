@@ -9,6 +9,7 @@ from django.utils.functional import cached_property
 from django.utils.text import ugettext_lazy as _
 from django.views.generic.edit import UpdateView
 from django.apps import apps
+from rules.contrib.views import PermissionRequiredMixin
 
 from contest.models import Contestant
 from schools.models import School
@@ -30,13 +31,14 @@ class MergeSchoolForm(forms.ModelForm):
     media = ModelAdmin(School, site).media
 
 
-class MergeView(UpdateView):
+class MergeView(PermissionRequiredMixin, UpdateView):
     template_name = 'admin/schools/merge.html'
     pk_url_kwarg = 'pks'
     model = School
     form_class = MergeSchoolForm
     context_object_name = 'school'
     success_url = reverse_lazy('admin:schools_school_changelist')
+    permission_required = 'schools.merge'
 
     def get(self, request, *args, **kwargs):
         remove = request.GET.get('remove')
