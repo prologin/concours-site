@@ -4487,12 +4487,12 @@ msgid "Add to merge"
 msgstr "Ajouter à la fusion"
 
 #: schools/models.py:81
-msgid "School"
-msgstr "Établissement"
+msgid "school"
+msgstr "établissement"
 
 #: schools/models.py:82
-msgid "Schools"
-msgstr "Établissements"
+msgid "schools"
+msgstr "établissements"
 
 #: schools/templates/admin/schools/merge.html:39
 msgid "Home"

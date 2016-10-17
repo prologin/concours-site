@@ -78,8 +78,8 @@ class School(AddressableModel):
 
     class Meta:
         ordering = ('approved', 'name')
-        verbose_name = _("School")
-        verbose_name_plural = _("Schools")
+        verbose_name = _("school")
+        verbose_name_plural = _("schools")
 
     func_total_contestants_count = Count('contestants')
     func_current_edition_contestants_count = lambda edition: \
