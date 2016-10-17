@@ -5,6 +5,7 @@ import requests
 from django.conf import settings
 from django.db import models
 from django.core.cache import cache
+from django.db.models import Sum, Count, Value, Case, When, IntegerField
 from django.db.models.signals import post_save
 from django.dispatch.dispatcher import receiver
 from django.urls import reverse
@@ -76,6 +77,11 @@ class School(AddressableModel):
 
     class Meta:
         ordering = ('approved', 'name')
+
+    func_total_contestants_count = Count('contestants')
+    func_current_edition_contestants_count = lambda edition: \
+        Sum(Case(When(contestants__edition__year=edition, then=Value(1)), default=Value(0),
+                 output_field=IntegerField()))
 
 
 class Facebook:

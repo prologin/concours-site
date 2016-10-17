@@ -65,7 +65,7 @@ class MergeView(PermissionRequiredMixin, UpdateView):
 
     def get_queryset(self):
         return (super().get_queryset()
-                .annotate(contestant_count=Count('contestants')))
+                .annotate(contestant_count=School.func_total_contestants_count))
 
     def get_object(self, queryset=None):
         use = self.request.GET.get('use')
