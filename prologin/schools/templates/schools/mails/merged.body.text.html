@@ -1,0 +1,30 @@
+{% spaceless %}{% autoescape off %}
+Bonjour {{ user.username }},
+
+Merci de participer au challenge inter-établissements scolaires !
+La liste des établissements auxquels s'inscrivent les candidats est
+manuellement entretenue par Prologin afin d'harmoniser les informations
+de chaque établissement.
+
+En l'occurrence, nous avons modifié l'établissement auquel vous
+dites appartenir. Vous aviez sélectionné :
+
+    {% if old_school.acronym %}Acronyme : {{ old_school.acronym }}{% endif %}
+         Nom : {{ old_school.name }}
+    {% if old_school.city %} Situé à : {{ old_school.city }}{% endif %}
+
+Nous l'avons remplacé par l'établissement suivant :
+
+    {% if school.acronym %}Acronyme : {{ school.acronym }}{% endif %}
+         Nom : {{ school.name }}
+    {% if school.city %} Situé à : {{ school.city }}{% endif %}
+
+Si ce changement s'avère être une erreur de notre part, merci de nous en
+informer en répondant à ce mail.
+
+Bonne chance pour la suite du concours !
+
+Cordialement,
+
+L'équipe Prologin
+{% endautoescape %}{% endspaceless %}

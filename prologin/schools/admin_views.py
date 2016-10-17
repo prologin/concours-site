@@ -12,6 +12,7 @@ from django.apps import apps
 from rules.contrib.views import PermissionRequiredMixin
 
 from contest.models import Contestant
+from prologin.email import send_email
 from schools.models import School
 
 from django.contrib.admin import site
@@ -77,6 +78,16 @@ class MergeView(PermissionRequiredMixin, UpdateView):
     def form_valid(self, form):
         # school that will be kept (and updated if user did so)
         base_school = self.get_object()
+
+        # notice affected users by mail
+        for contestant in self.contestants_to_merge:
+            user = contestant.user
+            send_email('schools/mails/merged', user.email, {
+                'user': user,
+                'old_school': contestant.school,
+                'school': base_school,
+            })
+
         with transaction.atomic():
             self.contestants_to_merge.update(school=base_school)
             self.schools_to_merge.delete()
