@@ -49,7 +49,11 @@ class SchoolSearchView(LoginRequiredMixin, ListView):
         paginator = context['paginator']
         # Database results
         results = [{'id': school.pk,
-                    'text': ' – '.join([school.name] + ([school.city] if school.city else [])),
+                    'text': ' – '.join(
+                        ([school.acronym] if school.acronym else [])
+                        + [school.name]
+                        + ([school.city] if school.city else [])
+                    ),
                     'official': school.approved,
                     'picture': reverse('schools:fb-picture', args=[school.pk])}
                    for school in context['object_list']]
