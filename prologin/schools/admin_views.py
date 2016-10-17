@@ -77,7 +77,7 @@ class MergeView(PermissionRequiredMixin, UpdateView):
 
     def form_valid(self, form):
         # school that will be kept (and updated if user did so)
-        base_school = self.get_object()
+        base_school = form.save(commit=False)
 
         # notice affected users by mail
         for contestant in self.contestants_to_merge:
@@ -89,7 +89,7 @@ class MergeView(PermissionRequiredMixin, UpdateView):
             })
 
         with transaction.atomic():
-            self.contestants_to_merge.update(school=base_school)
+            self.contestants_to_merge.update(school=self.get_object())
             self.schools_to_merge.delete()
             return super().form_valid(form)
 
