@@ -90,11 +90,14 @@ class ActivationView(AnonymousRequiredMixin, SingleObjectMixin, RedirectView):
     slug_field = 'slug'
     slug_url_kwarg = 'slug'
     permanent = False
-    url = reverse_lazy('home')
+    pattern_name = 'home'
 
     def get_object(self, queryset=None):
         slug = self.kwargs.get(self.slug_url_kwarg, None)
         return self.model.objects.activate(slug)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return super().get_redirect_url() + '?activated'
 
     def get(self, request, *args, **kwargs):
         try:
