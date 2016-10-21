@@ -84,8 +84,9 @@ class ContestantAdmin(NonSortableParentAdmin):
                     'total_score', 'preferred_language', 'shirt_size', 'is_home_public',)
     search_fields = ('user__username', 'user__first_name', 'user__last_name', 'edition__year',)
     readonly_fields = ('user', 'edition',)
+    raw_id_fields = ('school',)
     fieldsets = (
-        (None, {'fields': ('user', 'edition', 'shirt_size', 'preferred_language',)}),
+        (None, {'fields': ('user', 'edition', 'shirt_size', 'preferred_language', 'school', 'is_home_public')}),
         (_("Qualification scores"), {'classes': ('collapse',), 'fields':
             ('assignation_semifinal', 'assignation_semifinal_event',
              'score_qualif_qcm', 'score_qualif_algo', 'score_qualif_bonus',)}),
