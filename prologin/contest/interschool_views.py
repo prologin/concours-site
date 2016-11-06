@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.views.generic import ListView
 from rules.contrib.views import PermissionRequiredMixin
 
@@ -27,6 +28,7 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
         edition = self.request.current_edition
         challenge = problems.models.Challenge.by_year_and_event_type(
             edition.year, contest.models.Event.Type.qualification)
+        min_birth_year = edition.year - settings.PROLOGIN_MAX_AGE
         return super().get_queryset().raw('''
             SELECT
                 schools_school.*,
@@ -38,6 +40,8 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
             FROM schools_school
                 LEFT JOIN contest_contestant ON schools_school.id = contest_contestant.school_id AND contest_contestant.edition_id = %s
                 LEFT JOIN users_prologinuser ON contest_contestant.user_id = users_prologinuser.id
+                  AND users_prologinuser.birthday IS NOT NULL
+                  AND EXTRACT(YEAR FROM users_prologinuser.birthday) >= %s
                 LEFT JOIN problems_submission ON problems_submission.user_id = users_prologinuser.id AND problems_submission.challenge = %s
             WHERE schools_school.approved
             GROUP BY schools_school.id
@@ -46,7 +50,7 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
                     ELSE 0 END) > 0
             ORDER BY final_score DESC, problem_solved_count DESC, schools_school.name ASC
             LIMIT %s
-        ''', (edition.pk, challenge.name, self.limit))
+        ''', (edition.pk, min_birth_year, challenge.name, self.limit))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
