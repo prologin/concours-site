@@ -193,7 +193,7 @@ class ProloginUser(
         return all((self.address, self.city, self.country, self.postal_code))
 
     def has_complete_profile(self):
-        return self.has_complete_address() and all((self.phone_number, self.birthday))
+        return self.has_complete_address() and all((self.phone, self.birthday))
 
     def get_absolute_url(self):
         return reverse('users:profile', args=[self.pk])
