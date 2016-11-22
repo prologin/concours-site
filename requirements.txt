@@ -21,7 +21,7 @@ django-bootstrap3
 # django-csp
 # Datatable (nice jQuery plugin for table handling) adapter
 # TODO: use PyPi version when it's available for 0.9
-git+https://github.com/Zopieux/django-datatable-view.git@master
+git+https://github.com/pivotal-energy-solutions/django-datatable-view@master
 # Debug Toolbar
 django-debug-toolbar
 # Form wizards (they were a Django builtin, but split as of 1.8)
