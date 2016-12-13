@@ -172,6 +172,29 @@ Every time you need to work on the website:
         :::console
         make celeryworker
 
+### Translations
+
+The website user-facing strings are internationalized through Django's internal
+i18n framework.
+
+You can translate the strings locally by editing the `.po` files in your editor
+or using a dedicated software such as [poedit](https://poedit.net/).
+
+To ease the *community* translation process, it is possible to upload the untranslated
+(English) strings to Transifex, ask people to translate them (eg. using the
+Transifex web app) and download them back to the repository.
+To that end, use the provided `make` commands:
+
+    :::console
+    # I've created/update source (English) strings, let's push them
+    # (we pull before to update local strings just in case)
+    make tx-pull tx-push
+    # ... translate on Transifex ...
+    # Get back the translated strings
+    make tx-pull
+    # Commit
+    git commit prologin/locale -m 'locale: update for <feature>'
+
 
 ## Deploying the regional event environment
 
