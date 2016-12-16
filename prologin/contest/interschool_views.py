@@ -19,7 +19,7 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
     model = schools.models.School
     context_object_name = 'schools'
     permission_required = 'contest.interschool.view_leaderboard'
-    limit = 42
+    paginate_by = 42
 
     def get_permission_object(self):
         return self.request.current_edition
@@ -29,7 +29,7 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
         challenge = problems.models.Challenge.by_year_and_event_type(
             edition.year, contest.models.Event.Type.qualification)
         min_birth_year = edition.year - settings.PROLOGIN_MAX_AGE
-        return super().get_queryset().raw('''
+        qs = super().get_queryset().raw('''
             SELECT
                 schools_school.*,
                 COUNT(DISTINCT contest_contestant.id) AS contestant_count,
@@ -49,10 +49,5 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
                     THEN problems_submission.score_base - problems_submission.malus
                     ELSE 0 END) > 0
             ORDER BY final_score DESC, problem_solved_count DESC, schools_school.name ASC
-            LIMIT %s
-        ''', (edition.pk, min_birth_year, challenge.name, self.limit))
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context[self.context_object_name] = SchoolScoreboard(context[self.context_object_name])
-        return context
+        ''', (edition.pk, min_birth_year, challenge.name))
+        return SchoolScoreboard(qs)

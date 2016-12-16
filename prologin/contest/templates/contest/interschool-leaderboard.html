@@ -33,6 +33,9 @@ Your involvement in the inter-school challenge is optional.{% endblocktrans %}</
   </div>
 
   <h2>{% trans "Leaderboard" %}</h2>
+
+  {% include "stub_pagination.html" %}
+
   <table class="table table-striped">
     <thead>
     <tr>
@@ -89,5 +92,7 @@ Your involvement in the inter-school challenge is optional.{% endblocktrans %}</
     {% endfor %}
     </tbody>
   </table>
+
+  {% include "stub_pagination.html" %}
 
 {% endblock %}

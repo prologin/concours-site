@@ -50,6 +50,9 @@ class HomepageView(TemplateView):
         random.shuffle(sponsors)
         context['sponsors'] = sponsors
         leaderboard = LeaderboardView(request=self.request)
+        leaderboard.request = self.request
+        leaderboard.args = ()
+        leaderboard.kwargs = {}
         leaderboard.get(self.request)
-        context['inter_school_leaderboard'] = leaderboard.get_context_data()['schools']
+        context['inter_school_leaderboard'] = leaderboard.get_queryset()
         return context
