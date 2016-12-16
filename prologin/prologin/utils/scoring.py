@@ -17,6 +17,9 @@ class Scoreboard:
             return self.__iter__()
         raise AttributeError()
 
+    def __len__(self):
+        return len(self.iterable)
+
     def __iter__(self):
         self.rank = 1
         self.previous_score = None
