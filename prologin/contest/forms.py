@@ -56,7 +56,7 @@ class ContestantUserForm(forms.ModelForm):
         }
 
     epita = forms.BooleanField(required=True, initial=True,
-                               label=mark_safe(_("I am <strong>not</strong> a student at EPITA or EPITECH.")))
+                               label=mark_safe(_("I am <strong>not</strong> a student at EPITA.")))
 
     def __init__(self, *args, **kwargs):
         kwargs.pop('edition')
@@ -64,7 +64,7 @@ class ContestantUserForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         # Assigning the help_text there because for some reason reverse_lazy() is not lazy enough in
         # the static field declaration above
-        self.fields['epita'].help_text = _('Students from EPITA and EPITCH are <a href="%(url)s">not allowed</a> '
+        self.fields['epita'].help_text = _('Students from EPITA are <a href="%(url)s">not allowed</a> '
                                            'to join the contest.') % {'url': reverse('pages:about-qualification') + '#no-epita'}
         self.fields['last_name'].help_text = _("We need your real name and address for legal reasons, as the Prologin "
                                                "staff engages its responsibility to supervise you during the regional "
@@ -85,7 +85,7 @@ class ContestantUserForm(forms.ModelForm):
         data = self.cleaned_data['epita']
         if not data:
             raise forms.ValidationError(_("You cannot participate if you are an "
-                    "EPITA/EPITECH student"))
+                    "EPITA student"))
         return data
 
 

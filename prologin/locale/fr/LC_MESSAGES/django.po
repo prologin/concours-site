@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-23 00:35+0100\n"
-"PO-Revision-Date: 2016-12-22 23:38+0000\n"
+"POT-Creation-Date: 2016-12-23 11:27+0100\n"
+"PO-Revision-Date: 2016-12-23 10:30+0000\n"
 "Last-Translator: Prologin <association@prologin.org>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -321,15 +321,15 @@ msgid "Contestant is not assigned"
 msgstr "Le candidat n'est pas assigné"
 
 #: contest/forms.py:59
-msgid "I am <strong>not</strong> a student at EPITA or EPITECH."
-msgstr "Je ne suis <strong>pas</strong> étudiant à EPITA ou EPITECH."
+msgid "I am <strong>not</strong> a student at EPITA."
+msgstr "Je ne suis <strong>pas</strong> étudiant à EPITA."
 
 #: contest/forms.py:67
 #, python-format
 msgid ""
-"Students from EPITA and EPITCH are <a href=\"%(url)s\">not allowed</a> to "
-"join the contest."
-msgstr "Les étudiant(e)s de EPITA et EPITECH <a href=\"%(url)s\">ne peuvent pas participer</a> au concours."
+"Students from EPITA are <a href=\"%(url)s\">not allowed</a> to join the "
+"contest."
+msgstr "Les étudiant(e)s de EPITA <a href=\"%(url)s\">ne peuvent pas participer</a> au concours."
 
 #: contest/forms.py:69
 msgid ""
@@ -361,8 +361,8 @@ msgid "Optional."
 msgstr "Optionnel."
 
 #: contest/forms.py:87
-msgid "You cannot participate if you are an EPITA/EPITECH student"
-msgstr "Vous ne pouvez pas participer si vous étudiez à EPITA/EPITECH."
+msgid "You cannot participate if you are an EPITA student"
+msgstr "Vous ne pouvez pas participer si vous étudiez à EPITA."
 
 #: contest/forms.py:97
 msgid "Your school"
