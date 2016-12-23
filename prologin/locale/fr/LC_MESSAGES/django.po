@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-23 11:27+0100\n"
-"PO-Revision-Date: 2016-12-23 10:30+0000\n"
+"POT-Creation-Date: 2016-12-23 13:00+0100\n"
+"PO-Revision-Date: 2016-12-23 12:01+0000\n"
 "Last-Translator: Prologin <association@prologin.org>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3101,15 +3101,14 @@ msgid ""
 msgstr "Certaines années, le questionnaire est également publié dans différents magazines informatiques ciblés. Par exemple pour l'édition 2004, ce sont 120000 exemplaires du QCM qui ont été distribués en version papier."
 
 #: pages/templates/pages/about-qualification.html:32
-msgid "Why are students from EPITA and EPITECH not allowed to compete?"
-msgstr "Pourquoi les étudiant(e)s de EPITA et EPITECH n'ont pas le droit de concourir&nbsp;?"
+msgid "Why are students from EPITA not allowed to compete?"
+msgstr "Pourquoi les étudiant(e)s de EPITA n'ont pas le droit de concourir&nbsp;?"
 
 #: pages/templates/pages/about-qualification.html:33
 msgid ""
 "Prologin is registered as an association that is part of the EPITA engineering school. As such,\n"
-"  members of the school and other establishments belonging to their parent group (<em>IONIS Education</em>)\n"
-"  are not allowed to compete in the Prologin contest."
-msgstr "Prologin est une association qui fait partie de l'école d'ingénieur EPITA. Ainsi, les membres de cette école ainsi que des autres établissements du groupe père (<em>IONIS Education</em>) n'ont pas le droit de participer au concours Prologin."
+"  members of the school are not allowed to compete in the Prologin contest."
+msgstr "Prologin est une association qui fait partie de l'école d'ingénieur EPITA. Ainsi, les membres de cette école n'ont pas le droit de participer au concours Prologin."
 
 #: pages/templates/pages/about-semifinals.html:8
 #: pages/templates/pages/about-semifinals.html:11
