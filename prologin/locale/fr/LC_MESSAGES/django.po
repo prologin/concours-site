@@ -7,6 +7,7 @@
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015-2016
 # Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
 # Antoine Pietri <antoine.pietri1@gmail.com>, 2015
+# cbeausei <clementbeauseigneur@hotmail.fr>, 2016
 # Dettorer <p.hervot@gmail.com>, 2015
 # Dettorer <p.hervot@gmail.com>, 2015
 # Prologin <association@prologin.org>, 2016
@@ -20,9 +21,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-23 13:00+0100\n"
-"PO-Revision-Date: 2016-12-23 12:07+0000\n"
-"Last-Translator: Prologin <association@prologin.org>\n"
+"POT-Creation-Date: 2016-12-23 15:54+0100\n"
+"PO-Revision-Date: 2016-12-23 14:56+0000\n"
+"Last-Translator: cbeausei <clementbeauseigneur@hotmail.fr>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2684,8 +2685,8 @@ msgid ""
 msgstr "Tous les étudiant(e)s francophones de moins de 21 ans, habitant en Europe."
 
 #: pages/templates/pages/about-contest.html:45
-msgid "Students from EPITA/EPITECH are not allowed to participate."
-msgstr "Les étudiant(e)s de EPITA/EPITECH ne peuvent pas participer."
+msgid "Students from EPITA are not allowed to participate."
+msgstr "Les étudiant(e)s de EPITA ne peuvent pas participer."
 
 #: pages/templates/pages/about-contest.html:46
 #: pages/templates/pages/about-contest.html:71
@@ -3089,10 +3090,10 @@ msgstr "Cette épreuve prend généralement la forme de quatre ou cinq petits pr
 
 #: pages/templates/pages/about-qualification.html:26
 msgid ""
-"The questionnaire is distributed all over France: posters are sent to various schools\n"
-"(high schools, IUT, colleges, etc.). There are sent to former candidates as well,\n"
-"who represent the most effective way to publicize the competition."
-msgstr "Le questionnaire est diffusé dans toute la France : 15000 affiches sont envoyées dans de nombreux établissements scolaires (lycées, IUT, universités...) accompagnés d'affiches, ainsi qu'aux anciens candidats, qui sont le moyen le plus efficace de faire connaître le concours."
+"Posters are sent to various schools all over France (high schools, IUT, colleges, etc.).\n"
+"  There are sent to former candidates as well, who represent the most effective way to publicize the competition.\n"
+"  "
+msgstr "Des posters sont envoyés dans de nombreux établissements scolaires partout en France (lycées, IUT, universités...), ainsi qu'aux anciens candidats, qui sont le moyen le plus efficace de faire connaître le concours."
 
 #: pages/templates/pages/about-qualification.html:29
 msgid ""
