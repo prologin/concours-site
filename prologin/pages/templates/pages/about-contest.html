@@ -41,7 +41,7 @@ It is possible to submit the questionnaire by postal mail or directly on this we
       <p>{% trans "Registration is entirely free, you only need an Internet access to submit your answers." %}</p></div>
       <div class="col-sm-4">
         <h4>{% trans "Who can qualify?" %}</h4>
-        <p>{% blocktrans with born_year as born_year %}"Any student born in or after {{ born_year }}, living in Europe, who can understand and write French." {% endblocktrans %}</p>
+        <p>{% blocktrans with born_year as born_year %}Any student born in or after {{ born_year }}, living in Europe, who can understand and write French. {% endblocktrans %}</p>
         <p>{% trans "Students from EPITA are not allowed to participate." %}</p>
         <p><a href="{% url 'pages:about-qualification' %}" class="btn btn-default">{% trans "Learn more" %}</a></p>
       </div>

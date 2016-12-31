@@ -11,14 +11,14 @@ import team.models
 class AboutContestView(generic.TemplateView):
     template_name = 'pages/about-contest.html'
 
-
-class AboutQualificationView(generic.TemplateView):
-    template_name = 'pages/about-qualification.html'
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['born_year'] = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
         return context
+
+
+class AboutQualificationView(generic.TemplateView):
+    template_name = 'pages/about-qualification.html'
 
 class AboutSemifinalsView(generic.TemplateView):
     template_name = 'pages/about-semifinals.html'
