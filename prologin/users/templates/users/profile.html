@@ -14,8 +14,10 @@
 
   {% trans "<em>not provided</em>" as noinfo %}
 
+  {% if shown_user.id == user.id or see_private %}
   <a href="{% url 'users:edit' shown_user.id %}" class="btn btn-default pull-right">
     <i class="fa fa-pencil"></i> {% trans "Edit profile" %}</a>
+  {% endif %}
 
   <h1>{{ shown_user.username }}</h1>
 
