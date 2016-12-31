@@ -1,4 +1,5 @@
 from django.views import generic
+from django.conf import settings
 
 import datetime
 import os
@@ -14,6 +15,10 @@ class AboutContestView(generic.TemplateView):
 class AboutQualificationView(generic.TemplateView):
     template_name = 'pages/about-qualification.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['born_year'] = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
+        return context
 
 class AboutSemifinalsView(generic.TemplateView):
     template_name = 'pages/about-semifinals.html'
