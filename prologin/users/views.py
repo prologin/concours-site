@@ -132,6 +132,12 @@ class ProfileView(DetailView):
         context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
         return context
 
+    def get(self, request, *args, **kwargs):
+        result = super().get(request, *args, **kwargs)
+        if not self.object.is_active and not self.request.user.is_staff:
+            raise Http404()
+        return result
+
 
 class DownloadFinalHomeView(PermissionRequiredMixin, DetailView):
     permission_required = 'contest.can_download_home'
