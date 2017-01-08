@@ -24,8 +24,6 @@ class AbstractContestantTable(Datatable):
     class Meta:
         columns = []
         structure_template = 'correction/datatable.html'
-        # FIXME(halfr): page change is currently (2016-01-03) broken
-        page_length = 2000
 
     def __init__(self, object_list, url, **kwargs):
         super().__init__(object_list, url, **kwargs)

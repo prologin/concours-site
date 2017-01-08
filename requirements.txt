@@ -19,9 +19,9 @@ django-bootstrap3
 # Content Security Policy, helps prevent XSS & stuff
 # TODO: too restrictive to be used properly
 # django-csp
-# Datatable (nice jQuery plugin for table handling) adapter
-# TODO: use PyPi version when it's available for 0.9
-git+https://github.com/pivotal-energy-solutions/django-datatable-view@master
+# Back-end wrapper for Datatable (jQuery plugin for dynamic table)
+# TODO: use upstream version when it's unfucked
+git+https://github.com/Zopieux/django-datatable-view.git@prologin
 # Debug Toolbar
 django-debug-toolbar
 # Form wizards (they were a Django builtin, but split as of 1.8)
