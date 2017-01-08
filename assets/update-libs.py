@@ -148,13 +148,13 @@ def google_font(font_name, font_variants={'regular'}, font_formats={'woff', 'wof
 
 
 def datatables():
-    style = 'bs'       # bootstrap
     plugins = [
-        'dt-1.10.12',  # datatables
+        'bs',          # bootstrap
+        'dt-1.10.13',  # datatables
         'r-2.1.0',     # responsive
         'se-1.2.0',    # multi-select
     ]
-    url = 'https://datatables.net/download/builder?{}/{}'.format(style, '/'.join(plugins))
+    url = 'https://datatables.net/download/builder?{}'.format('/'.join(plugins))
     print("Downloading datatabales:", url)
     zipball = io.BytesIO(requests.get(url).content)
     ftypes = ('js', 'css')
