@@ -25,9 +25,9 @@
         {% with question=field.field.question %}
           <li class="question">
             <div class="body">
-              <div class="main">{{ question.body|markdown }}</div>
+              <div class="main">{{ question.body|markdown:0 }}</div>
               {% if question.verbose %}
-                <div class="verbose">{{ question.verbose|markdown }}</div>
+                <div class="verbose">{{ question.verbose|markdown:0 }}</div>
               {% endif %}
             </div>
             <ul class="propositions">
