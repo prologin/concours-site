@@ -32,7 +32,7 @@ Your involvement in the inter-school challenge is optional.{% endblocktrans %}</
     </div>
   </div>
 
-  <h2>{% trans "Leaderboard" %}</h2>
+  <h2>{% trans "Leaderboard" %} <small>{% blocktrans with count=schools|length %}{{ count }} schools{% endblocktrans %}</small></h2>
 
   {% include "stub_pagination.html" %}
 
