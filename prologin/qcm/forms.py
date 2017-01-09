@@ -3,7 +3,7 @@ from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 import random
 
-from prologin.templatetags.markup import markdown
+from prologin.templatetags.markup import flavored_markdown
 import qcm.models
 from prologin.utils import save_random_state
 
@@ -18,7 +18,7 @@ class RadioChoiceInputWithInstance(forms.widgets.RadioChoiceInput):
             choice = instance
         else:
             self.instance = instance
-            choice = (instance.pk, markdown(force_text(instance)))
+            choice = (instance.pk, flavored_markdown(force_text(instance), escape=False))
         super().__init__(name, value, attrs, choice, index)
 
 
