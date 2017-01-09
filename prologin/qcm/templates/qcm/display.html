@@ -14,11 +14,11 @@
   <link href="{% static 'qcm/qcm.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
-{% block title %}{% blocktrans with qcm.event.edition.year as year %}Qualification quiz â€“ Prologin {{ year }}{% endblocktrans %}{% endblock %}
+{% block title %}{% blocktrans with qcm.event.edition.year as year %}Qualification quiz – Prologin {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 
-  <h1>{% blocktrans with qcm.event.edition.year as year %}Qualification quiz â€“ Prologin {{ year }}{% endblocktrans %}</h1>
+  <h1>{% blocktrans with qcm.event.edition.year as year %}Qualification quiz – Prologin {{ year }}{% endblocktrans %}</h1>
 
   {% if qcm_can_receive_answers %}
     <p class="well">
@@ -41,9 +41,9 @@
         {% with question=field.field.question %}
           <li class="question" id="q{{ forloop.counter }}">
             <div class="body">
-              <div class="main">{{ question.body|markdown:0 }}</div>
+              <div class="main">{{ question.body|flavored_markdown:0 }}</div>
               {% if question.verbose %}
-                <div class="verbose">{{ question.verbose|markdown:0 }}</div>
+                <div class="verbose">{{ question.verbose|flavored_markdown:0 }}</div>
               {% endif %}
             </div>
             <ul class="propositions">
