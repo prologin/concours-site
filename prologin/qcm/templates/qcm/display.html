@@ -11,14 +11,15 @@
 {% endblock breadcrumbs %}
 
 {% block extra_head %}
+  <link href="{% static 'lib/css/pygments-monokai.css' %}" rel="stylesheet" type="text/css">
   <link href="{% static 'qcm/qcm.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 
-{% block title %}{% blocktrans with qcm.event.edition.year as year %}Qualification quiz – Prologin {{ year }}{% endblocktrans %}{% endblock %}
+{% block title %}{% blocktrans with qcm.event.edition.year as year %}Qualification quiz â€“ Prologin {{ year }}{% endblocktrans %}{% endblock %}
 
 {% block content %}
 
-  <h1>{% blocktrans with qcm.event.edition.year as year %}Qualification quiz – Prologin {{ year }}{% endblocktrans %}</h1>
+  <h1>{% blocktrans with qcm.event.edition.year as year %}Qualification quiz â€“ Prologin {{ year }}{% endblocktrans %}</h1>
 
   {% if qcm_can_receive_answers %}
     <p class="well">
