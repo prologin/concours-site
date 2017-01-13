@@ -1,4 +1,5 @@
 {% load i18n latex %}{% autoescape off %}
+{% load utils %}
 \documentclass[a4paper,11pt]{article}
 \usepackage{prologin-letter}
 {% include "documents/stub-preamble.tex" %}
@@ -19,7 +20,8 @@
 
 Bonjour {{ user.first_name|title|escapetex }},
 
-Nous avons le plaisir de vous informer que vous êtes sélectionné
+Nous avons le plaisir de vous informer que vous êtes
+sélectionné{{ user|genderize }}
 pour la phase des épreuves régionales du concours Prologin {{ year|escapetex|nonempty }}.
 Comme vous nous l'avez demandé, votre épreuve aura lieu à:
 
@@ -51,7 +53,7 @@ sur machine (3~h~30) se dérouleront l'après-midi. Vous serez libérés vers
 17~h~30 environ.
 
 Pour vous préparer à l'épreuve, nous vous invitons à utiliser le site
-d'entraînement de Prologin: \url{%
+d'entraînement de Prologin~: \url{%
   {{ site_url }}%
 }.
 

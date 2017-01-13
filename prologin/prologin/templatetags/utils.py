@@ -12,7 +12,18 @@ from django.utils.encoding import smart_str
 from django.utils.module_loading import import_string
 from django.utils.timesince import timesince
 
+from prologin.models import Gender
+
 register = template.Library()
+
+
+@register.filter
+def genderize(user, alternatives=',e'):
+    male, female = alternatives.split(',', 1)
+    try:
+        return female if user.gender == Gender.female.value else male
+    except AttributeError:
+        return male
 
 
 @register.filter
