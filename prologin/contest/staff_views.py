@@ -21,8 +21,6 @@ import contest.models
 import contest.datatables
 import contest.staff_forms
 import problems.models
-import qcm.forms
-import qcm.models
 
 User = get_user_model()
 
@@ -281,6 +279,8 @@ class ContestantQualificationView(ContestantCorrectionView):
         return (event.date_begin, event.date_end)
         
     def get_context_data(self, **kwargs):
+        import qcm.forms
+        import qcm.models
         context = super().get_context_data(**kwargs)
         contestant = context['contestant']
 

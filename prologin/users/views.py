@@ -22,9 +22,7 @@ from django.views.generic.list import ListView
 from hmac import compare_digest
 from rules.contrib.views import PermissionRequiredMixin
 from wsgiref.util import FileWrapper
-from zinnia.models.author import Author
 
-from prologin.email import send_email
 from prologin.utils import absolute_site_url
 
 import contest.models
@@ -75,6 +73,7 @@ class RegistrationView(AnonymousRequiredMixin, CreateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
+        from prologin.email import send_email
         response = super().form_valid(form)
         new_user = self.object
         activation = users.models.UserActivation.objects.register(new_user)
@@ -122,6 +121,7 @@ class ProfileView(DetailView):
     template_name = 'users/profile.html'
 
     def get_queryset(self):
+        from zinnia.models.author import Author
         self.author = Author(pk=self.kwargs[self.pk_url_kwarg])
         return super().get_queryset().prefetch_related('team_memberships')
 
@@ -242,6 +242,7 @@ class PasswordResetView(AnonymousRequiredMixin, FormView):
     success_url = reverse_lazy('users:login')
 
     def form_valid(self, form):
+        from prologin.email import send_email
         from django.utils.encoding import force_bytes
         from django.utils.http import urlsafe_base64_encode
         from django.contrib.auth.tokens import default_token_generator

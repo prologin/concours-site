@@ -5,7 +5,7 @@ from django.template.loader import get_template
 from django.views.generic import TemplateView, View
 from rules.contrib.views import PermissionRequiredMixin
 
-from problems.models import get_score_func
+from problems.models import Submission
 from prologin.utils.scoring import decorate_with_rank
 
 User = get_user_model()
@@ -15,7 +15,7 @@ class ScoreboardUserListMixin:
     def get_user_list(self):
         users = (User.objects
                  .filter(is_active=True, is_staff=False, is_superuser=False)
-                 .annotate(score=Sum(get_score_func('training_submissions')))
+                 .annotate(score=Sum(Submission.get_score_func('training_submissions')))
                  .order_by('-score', 'username'))
 
         def score_getter(user):

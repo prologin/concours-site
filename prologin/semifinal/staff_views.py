@@ -12,7 +12,7 @@ from django.views.generic.base import TemplateView
 from rules.contrib.views import PermissionRequiredMixin
 
 import contest.models
-import problems.models
+from problems.models import Submission
 import semifinal.forms
 
 
@@ -28,9 +28,9 @@ class MonitoringIndexView(MonitorPermissionMixin, TemplateView):
         contestants = (contest.models.Contestant.objects
                        .select_related('user')
                        .filter(user__is_staff=False, user__is_superuser=False,
-                           edition=self.request.current_edition)
-                       .annotate(score=Sum(problems.models.get_score_func(
-                           'user__training_submissions')))
+                               edition=self.request.current_edition)
+                       .annotate(score=Sum(
+                           Submission.get_score_func('user__training_submissions')))
                        .order_by('user__username'))
         now = timezone.now()
         for contestant in contestants:

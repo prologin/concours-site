@@ -1,0 +1,33 @@
+{% extends "prologin/base.html" %}
+{% load i18n staticfiles %}
+{% load bootstrap django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "users:login" %}{% trans "Sign in" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Sign in" %}{% endblock %}
+
+{% block content %}
+
+  <div class="row-fluid">
+    <div class="col-md-7">
+      <h2>{% trans "Sign in with your credentials" %}</h2>
+
+      <form method="POST" class="form-horizontal">
+        {% csrf_token %}
+        {{ form|bootstrap_horizontal }}
+        <input type="hidden" name="next" value="{{ next }}"/>
+
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button class="btn btn-primary" type="submit"><i
+                class="fa fa-sign-in"></i> {% trans "Sign in" %}</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}
