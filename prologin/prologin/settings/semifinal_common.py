@@ -6,6 +6,10 @@ PROLOGIN_SEMIFINAL_MODE = True
 # Format: a tuple of (warning amount, danger amount), amounts in seconds
 SEMIFINAL_CONCERNING_TIME_SPENT = (30 * 60, 45 * 60)
 
+# We won't use those in semifinal
+RECAPTCHA_PUBLIC_KEY = ''
+RECAPTCHA_PRIVATE_KEY = ''
+
 MIDDLEWARE_CLASSES = (
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -40,6 +44,7 @@ INSTALLED_APPS = (
     'centers',
     'contest',
     'problems',
+    'schools',
     'users',
 
     # Django and vendor, at the bottom for template overriding
