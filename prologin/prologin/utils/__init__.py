@@ -258,6 +258,15 @@ def save_random_state(seed=None):
     random.setstate(state)
 
 
+@contextmanager
+def override_locale(category, lang):
+    import locale
+    current = locale.getlocale(category)
+    locale.setlocale(category, lang)
+    yield
+    locale.setlocale(category, current)
+
+
 class SubprocessFailedException(Exception):
     def __init__(self, message, returncode, stdout, stderr):
         self.message = message
