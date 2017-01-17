@@ -47,7 +47,7 @@ $(IMG_DIR)/prologin_emoji.big.png: cube_perfect_smallonly.svg
 	$(SVGRASTERTRIM) -h $(EMOJI_SIZE) --export-png $@ $<
 
 $(IMG_DIR)/small_cube.big.png: $(IMG_DIR)/small_cube.alone.png
-	$(CONVERT) $< -bordercolor $(JUMBOTRON_BG) -border 16x0 $@
+	$(CONVERT) $< -matte -bordercolor none -border 16x0 $@
 
 $(IMG_DIR)/favicon.ico: $(patsubst %,$(IMG_DIR)/favicon-%.big.png,$(FAVICON_ICO_SIZES))
 	$(CONVERT) $^ $@

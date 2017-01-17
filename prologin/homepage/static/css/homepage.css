@@ -163,15 +163,15 @@
 
 .home-jumbo .tl-block h4:after {
   content: "";
-  display: block;
-  width: 100%;
-  height: 40px;
-  margin: 4px 0 2px;
-  z-index: 1;
-  background-image: url('../img/small_cube.png');
-  background-repeat: no-repeat;
-  background-position: 50%;
-  background-size: 53px 40px;
+   display: block;
+   width: 53px;
+   height: 40px;
+   margin: 4px auto 2px;
+   z-index: 1;
+   background-color: #35479a;
+   background-image: url('../img/small_cube.png');
+   background-repeat: no-repeat;
+   background-position: 50%;
 }
 
 @media screen and (min-width: 768px) {
