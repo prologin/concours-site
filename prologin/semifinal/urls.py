@@ -6,6 +6,7 @@ from django.views.generic.base import TemplateView
 
 import semifinal.staff_views
 import semifinal.views
+import users.views
 
 
 urlpatterns = [
@@ -19,6 +20,19 @@ urlpatterns = [
 monitoring_patterns = [
     url(r'^$', semifinal.staff_views.MonitoringIndexView.as_view(), name='index'),
     url(r'^unlock$', semifinal.staff_views.ExplicitUnlockView.as_view(), name='unlock'),
+]
+
+users_patterns = [
+    # Login and logout
+    url(r'^login/$', users.views.custom_login, name='login'),
+    url(r'^logout/$', users.views.protected_logout, {'next_page': '/'},
+        name='logout'),
+
+    # Impersonate (django-hijack)
+    url(r'^impersonate/search$', users.views.ImpersonateSearchView.as_view(),
+        name='impersonate-search'),
+    url(r'^impersonate$', users.views.ImpersonateView.as_view(),
+        name='impersonate'),
 ]
 
 urlpatterns += [
@@ -38,7 +52,7 @@ urlpatterns += [
     # Semifinal problems
     url(r'^semifinal/', include('problems.urls', namespace='problems')),
 
-    url(r'^user/', include('semifinal.urls_users', namespace='users')),
+    url(r'^user/', include(users_patterns, namespace='users')),
 ]
 
 if settings.DEBUG:
