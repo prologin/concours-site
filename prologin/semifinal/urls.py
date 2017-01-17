@@ -38,8 +38,7 @@ urlpatterns += [
     # Semifinal problems
     url(r'^semifinal/', include('problems.urls', namespace='problems')),
 
-    # Authentication and accounts
-    url(r'^user/', include('users.urls', namespace='users')),
+    url(r'^user/', include('semifinal.urls_users', namespace='users')),
 ]
 
 if settings.DEBUG:
