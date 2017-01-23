@@ -250,7 +250,7 @@ class Problem:
 
     def _get_correction_tests(self):
         perf_tests = set(self.performance_tests)
-        return sorted(test for test in set(test.split('.', 1)[0] for test in self.tests) if test not in perf_tests)
+        return sorted(test for test in set(test.rsplit('.', 1)[0] for test in self.tests) if test not in perf_tests)
     correction_tests = lazy_attr('_correction_tests_', _get_correction_tests)
 
     def _get_performance_tests(self):
