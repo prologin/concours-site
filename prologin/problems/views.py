@@ -8,7 +8,8 @@ from django.http import Http404, HttpResponseForbidden, HttpResponseBadRequest, 
 from django.shortcuts import get_object_or_404
 from django.utils.text import slugify
 from django.views.generic import TemplateView, ListView, DetailView, CreateView, View
-from django.views.generic.detail import BaseDetailView
+from django.views.generic.base import RedirectView
+from django.views.generic.detail import BaseDetailView, SingleObjectMixin
 from django.views.generic.edit import ModelFormMixin
 from rules.contrib.views import PermissionRequiredMixin
 import celery
@@ -70,6 +71,29 @@ def get_user_submissions(user, extra_filters=Q()):
                            .filter(user=user)
                            .filter(extra_filters)
                            .prefetch_related('codes'))
+
+
+def correct_submission(submission_code):
+    if not submission_code.correctable():
+        return
+
+    # schedule correction
+    submission_code.celery_task_id = celery.uuid()
+    submission_code.date_corrected = None
+    submission_code.result = None
+    submission_code.save()
+    logger.info("Scheduling code correction for CodeSubmission: %s, task uid: %s",
+                submission_code.pk, submission_code.celery_task_id)
+    future = submit_problem_code.apply_async(args=[submission_code.pk.id],
+                                             task_id=submission_code.celery_task_id)
+    try:
+        # wait a bit for the result
+        future.get(timeout=settings.PROBLEMS_RESULT_TIMEOUT)
+    except celery.exceptions.TimeoutError:
+        pass
+    except Exception:
+        future.revoke()
+        future.forget()
 
 
 class Index(TemplateView):
@@ -167,9 +191,7 @@ class Problem(PermissionRequiredMixin, CreateView):
         return problem
 
     def get_success_url(self):
-        kwargs = self.kwargs.copy()
-        kwargs['submission'] = self.submission_code.pk
-        return reverse('problems:submission', kwargs=kwargs)
+        return self.submission_code.get_absolute_url()
 
     def get_user_for_submission(self):
         as_user = self.request.GET.get('as')
@@ -209,7 +231,7 @@ class Problem(PermissionRequiredMixin, CreateView):
         try:
             prefill_submission = (problems.models.SubmissionCode.objects
                                   .select_related('submission', 'submission__user')
-                                  .filter(pk=int(self.request.GET['fork']),
+                                  .filter(pk=self.request.GET['fork'],
                                           submission__problem=problem.name,
                                           submission__challenge=challenge.name)
                                   .first())
@@ -241,30 +263,7 @@ class Problem(PermissionRequiredMixin, CreateView):
         # do something different here:
         #  - check (if training or qualif)
         #  - check and unlock (if semifinals)
-
-        if self.submission_code.correctable():
-            time.sleep(0.3)  # seems to be enough in most cases
-            for retry in range(3):
-                # schedule correction
-                self.submission_code.celery_task_id = celery.uuid()
-                self.submission_code.save()
-                logger.info("Scheduling code correction (retry %d) for CodeSubmission: %s, task uid: %s",
-                            retry, self.submission_code.pk, self.submission_code.celery_task_id)
-                future = submit_problem_code.apply_async(args=[self.submission_code.pk],
-                                                         task_id=self.submission_code.celery_task_id)
-                try:
-                    # wait a bit for the result
-                    future.get(timeout=settings.PROBLEMS_RESULT_TIMEOUT)
-                except celery.exceptions.TimeoutError:
-                    pass
-                except:
-                    delay = 0.3 * (1 + retry)
-                    logger.warning("future.get() threw, trying again in %.2f", delay)
-                    future.revoke()
-                    future.forget()
-                    time.sleep(delay)
-                    continue
-                break
+        correct_submission(self.submission_code)
 
         # we don't use super() because CreateView.form_valid() calls form.save() which overrides
         # the code submission, even if it is modified by the correction task!
@@ -389,13 +388,14 @@ class SearchProblems(ChoiceGetAttrsMixin, ListView):
         return context
 
 
-class AjaxSubmissionCorrected(BaseDetailView):
+class AjaxSubmissionCorrected(PermissionRequiredMixin, BaseDetailView):
     """
     Ajax endpoint that returns a JSON boolean: true if the given submission is done (i.e. has a score),
     false otherwise.
     This is used in the Submission view, to poll for results when they eventually become available.
     """
     model = problems.models.SubmissionCode
+    permission_required = 'problems.view_code_submission'
     pk_url_kwarg = 'submission'
 
     def get_queryset(self):
@@ -405,6 +405,21 @@ class AjaxSubmissionCorrected(BaseDetailView):
     def render_to_response(self, context):
         has_result = self.object.done()
         return JsonResponse(has_result, safe=False)
+
+
+class RecorrectView(PermissionRequiredMixin, SingleObjectMixin, RedirectView):
+    permanent = False
+    model = problems.models.SubmissionCode
+    pk_url_kwarg = 'submission'
+    permission_required = 'problems.recorrect_submission'
+    http_method_names = ['post']
+
+    def post(self, request, *args, **kwargs):
+        correct_submission(self.get_object())
+        return super(RecorrectView, self).post(request, *args, **kwargs)
+
+    def get_redirect_url(self, *args, **kwargs):
+        return self.get_object().get_absolute_url()
 
 
 class AjaxLanguageTemplate(View):

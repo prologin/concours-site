@@ -867,6 +867,15 @@ input[type=checkbox].task-list-item-checkbox {
   font-size: 90%;
 }
 
+.submission-metrics {
+  padding-left: .5em;
+}
+
+.submission-metrics:not(:last-of-type):after {
+  content: '⋅';
+  padding-left: .5em;
+}
+
 .event-wish-list {
   list-style: none;
   margin: 0;

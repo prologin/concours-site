@@ -1,12 +1,12 @@
 {% extends "problems/base.html" %}
 {% load humanize i18n staticfiles %}
-{% load bootstrap django_bootstrap_breadcrumbs drupal markup utils %}
+{% load bootstrap django_bootstrap_breadcrumbs drupal markup rules utils %}
 
 {% block breadcrumbs %}
   {{ block.super }}
   {% breadcrumb_for "problems:challenge" challenge.year challenge.event_type.name %}{{ challenge.event_type|choiceenum_label }} {{ challenge.year }}{% endbreadcrumb_for %}
   {% breadcrumb problem.title "problems:problem" challenge.year challenge.event_type.name problem.name %}
-  {% breadcrumb_for "problems:submission" challenge.year challenge.event_type.name problem.name submission.pk %}{% trans "Submission" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "" %}{% trans "Submission" %}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
 {% block title %}{% blocktrans with problem=problem.title %}Submission for {{ problem }}{% endblocktrans %} – {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}{% endblock %}
@@ -17,7 +17,7 @@
 
 {% block content %}
   <h1>{% blocktrans with problem=problem.title %}Submission for {{ problem }}{% endblocktrans %}
-    <small>– {% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}</small>
+    <small>– <a href="{% url "problems:challenge" challenge.year challenge.event_type.name %}">{% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year context "Problem title, eg. 2015 Qualification" %}{{ type }} {{ year }}{% endblocktrans %}</a></small>
   </h1>
 
   <div class="row">
@@ -45,10 +45,8 @@
           <i class="fa fa-check-circle text-success"></i> {% trans "Solution passes tests" %}
           {% elif submission.done %}
           <i class="fa fa-times-circle"></i> {% trans "Solution is invalid" %}
-          {% elif not submission.expired_result %}
-          <i class="fa fa-clock-o"></i> {% trans "Not corrected yet" %}
           {% else %}
-          <i class="fa fa-question"></i> {% trans "Unavailable status" %}
+          <i class="fa fa-clock-o"></i> {% trans "Not corrected yet" %}
           {% endif %}</p>
         {% if submission.done %}
           <p>{% trans "Points won" %} <span class="label label-{% if submission.succeeded %}success{% else %}danger{% endif %}">{{ submission.score }}</span></p>
@@ -58,12 +56,18 @@
             <span class="label label-danger">{{ submission.submission.malus }}</span>
           </p>
           {% endif %}
-          {% if submission.exec_time != None or submission.exec_memory != None %}<p><small>
-            {% blocktrans with ms=submission.exec_time|default:'?' %}Execution time: {{ ms }}&nbsp;ms{% endblocktrans %}<br>
-            {% blocktrans with kb=submission.exec_memory|default:'?' %}Memory used: {{ kb }}&nbsp;kB{% endblocktrans %}
-          </small></p>{% endif %}
         {% endif %}
-          <a href="{% url 'problems:problem' challenge.year challenge.event_type.name problem.name %}?fork={{ submission.pk }}#submit" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Edit and submit again" %}</a>
+          <p><a href="{% url 'problems:problem' challenge.year challenge.event_type.name problem.name %}?fork={{ submission.pk }}#submit" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Edit and submit again" %}</a></p>
+        {% has_perm 'problems.recorrect_submission' request.user submission as user_can_recorrect %}
+        {% if submission.correctable and not submission.has_result and user_can_recorrect %}
+          <form action="{% url 'problems:submission-recorrect' submission.pk %}" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-default"><i class="fa fa-refresh"></i>
+              {% trans "Resend to correction" %}<br>
+              <small class="text-muted" title="{% trans "Last corrected on" %}">{{ submission.date_corrected|date:'SHORT_DATETIME_FORMAT' }}</small>
+            </button>
+          </form>
+        {% endif %}
         </div>
       </div>
     </div>
@@ -78,17 +82,21 @@
     </div>
   </div>
 
-  {% if submission.correctable and submission.done and not submission.expired_result %}
+  {% if submission.has_result %}
   {% with results=submission.correction_results %}
+  {% if results.compilation %}
   <div class="alert alert-{% if results.compilation.success %}success{% else %}warning{% endif %}">
-  {% if results.compilation.success %}
-    <p><i class="fa fa-check-circle"></i> {% trans "The compilation went fine." %}</p>
-  {% else %}
-    <p><i class="fa fa-times-circle"></i> {% trans "The compilation failed:" %}</p>
-    <pre><code>{{ results.compilation.value }}</code></pre>
-  {% endif %}
+    <p>
+      <i class="fa fa-{% if results.compilation.success %}check{% else %}times{% endif %}-circle"></i>
+      {{ results.compilation.human_status }}
+    </p>
+    {% if not results.compilation.success and results.compilation.stderr %}
+      <p>{% trans "Compiler standard error output:" %}</p>
+      <pre><code>{{ results.compilation.stderr|truncate:4000 }}</code></pre>
+    {% endif %}
   </div>
-  {% if results.compilation.success %}
+  {% endif %}
+  {% if not results.compilation or results.compilation.success %}
   <div class="row">
     <div class="col-md-6">
       <div class="panel panel-default">
@@ -119,10 +127,9 @@
   </div>
   {% endif %}
   {% endwith %}
-  <div class="alert alert-info"><i class="fa fa-exclamation-triangle"></i> <div>{% blocktrans with rem=submission.expired_result_datetime|naturaltime %}These compilation and test results will be gone {{ rem }}.{% endblocktrans %}</div></div>
   {% elif not submission.correctable %}
     <p class="alert alert-info">{% blocktrans %}The submission can not be corrected as it was written in a language that can not be compiled nor executed.{% endblocktrans %}</p>
-  {% elif submission.expired_result %}
+  {% elif submission.done %}
     <p class="alert alert-info">{% blocktrans %}Submission results are not available anymore. This is because the code was submitted a long time ago.
 You can still try to submit your code again using the “Edit and submit again” button.{% endblocktrans %}</p>
   {% else %}
@@ -139,7 +146,7 @@ You can still try to submit your code again using the “Edit and submit again�
     });
   </script>
   <script type="text/javascript" src="{% static 'js/collapse-indicator.js' %}"></script>
-  {% if not submission.done and not submission.expired_result %}
+  {% if not submission.done and not submission.has_result %}
   {# if the submission is not corrected yet but we may get the result later #}
   <script type="text/javascript" charset="utf-8">
     function check_for_result() {

@@ -7,7 +7,7 @@ from django import template
 from django.conf import settings
 from django.template import Node, TemplateSyntaxError
 from django.utils import timezone
-from django.utils.text import pgettext
+from django.utils.text import pgettext, ugettext_lazy as _
 from django.utils.encoding import smart_str
 from django.utils.module_loading import import_string
 from django.utils.timesince import timesince
@@ -75,6 +75,13 @@ def phone_number(num):
         # so zip() does not truncate to min length
         num.append('')
     return '\u00A0'.join(a + b for a, b in zip(num[-1::-2], num[-2::-2]))
+
+
+@register.filter
+def truncate(value, length):
+    if len(value) <= length:
+        return value
+    return "{} [{}]".format(value[:length], _("truncated to %(length)s characters") % {'length': length})
 
 
 @register.simple_tag

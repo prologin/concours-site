@@ -30,6 +30,10 @@ urlpatterns = [
         problems.views.AjaxSubmissionCorrected.as_view(),
         name='ajax-submission-corrected'),
 
+    url(r'^submission-recorrect/(?P<submission>[a-zA-Z0-9]+)$',
+        problems.views.RecorrectView.as_view(),
+        name='submission-recorrect'),
+
     url(r'^search$', problems.views.SearchProblems.as_view(), name='search'),
 
     url(r'^$', problems.views.Index.as_view(), name='index'),
