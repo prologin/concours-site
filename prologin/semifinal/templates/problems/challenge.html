@@ -1,0 +1,39 @@
+{% extends "problems/base.html" %}
+{% load i18n staticfiles %}
+{% load bootstrap django_bootstrap_breadcrumbs drupal utils %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "problems:challenge" challenge.year challenge.event_type.name %}{{ challenge.event_type|choiceenum_label }} {{ challenge.year }}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}{% endblock %}
+
+{% block content %}
+
+<h1>{% blocktrans with type=challenge.event_type|choiceenum_label year=challenge.year %}Problems for {{ type }} {{ year }}{% endblocktrans %}</h1>
+
+  <article class="challenge-statement">
+    {{ challenge.subject|drupaltpl }}
+  </article>
+
+  <div class="list-group">
+    <div class="list-group-item list-group-item-info">
+      <div class="row">
+        <div class="col-sm-4">
+          {% blocktrans count problems|length as count %}The problem{% plural %}The {{ count }} problems{% endblocktrans %}
+        </div>
+        <div class="col-sm-8 text-right"><small>
+        {% if request.user.is_authenticated %}
+          {% if challenge_done %}{% trans "Congrats, you solved all the problems!" %} ⋅{% endif %}
+          {% blocktrans with score=challenge_score %}{{ score }} pts{% endblocktrans %}
+        {% endif %}
+        </small></div>
+      </div>
+    </div>
+    {% for problem in problems %}
+      {% include "problems/stub_problem.html" %}
+    {% endfor %}
+  </div>
+
+{% endblock %}
