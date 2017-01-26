@@ -10,10 +10,11 @@
 
 ## Cloning
 
-You obviously need the site source but also the problem repository, for
-training/contest to work. `--depth=1` is a convenient flag to reduce the amount
-of downloaded data by ignoring the git history. Remove this flag if you think
-you will need to work on `problems`.
+You obviously need the site source and its submodules, thus you have to clone
+this repository using the `--recursive` flag. You will also need the problem
+repository, for training/contest to work. `--depth=1` is a convenient flag to
+reduce the amount of downloaded data by ignoring the git history. Remove this
+flag if you think you will need to work on `problems`.
 
     :::console
     # Do this once!
