@@ -12,6 +12,7 @@ from django.views.generic.base import TemplateView
 from rules.contrib.views import PermissionRequiredMixin
 
 import contest.models
+import problems
 from problems.models import Submission
 import semifinal.forms
 
