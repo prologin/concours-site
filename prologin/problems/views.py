@@ -469,8 +469,7 @@ class ManualView(TemplateView):
             (Language.pascal, "fpc", "Free Pascal compiler"),
             (Language.perl, "perl", "Perl"),
             (Language.php, "php", "PHP"),
-            (Language.python2, "python2", "CPython"),
-            (Language.python3, "python", "CPython"),
+            (Language.python, "python", "CPython"),
             (Language.scheme, "gambit-c", "Gambit-C"),
             (Language.vb, "mono-basic", "Mono Basic"),
         ]

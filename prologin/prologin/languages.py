@@ -61,8 +61,7 @@ class Language(ChoiceEnum):
         camisole='haskell', memory=lambda m: 5 * m + 15000, time=lambda t: 4 * t + 1024)
     java = LanguageDef("Java", ['.java'], doc='java',
         camisole='java', memory=lambda m: 5 * m + 22000, time=lambda t: 4 * t + 36000)
-    python2 = LanguageDef("Python 2", ['.py', '.py2'], doc='python2')  # memory=lambda m: 5 * m + 7500, time=lambda t: 15 * t)
-    python3 = LanguageDef("Python 3", ['.py3'], doc='python3',
+    python = LanguageDef("Python", ['.py'], doc='python',
         camisole='python', memory=lambda m: 5 * m + 7500, time=lambda t: 15 * t)
     ada = LanguageDef("Ada", ['.adb'], doc='ada',
         camisole='ada', memory=lambda m: m + 4096)
@@ -118,7 +117,6 @@ class Language(ChoiceEnum):
         obj = obj.lower().strip()
         # some special cases
         obj = {
-            'python': 'python2',
             'caml': 'ocaml',
         }.get(obj, obj)
         try:
@@ -155,8 +153,7 @@ ACE_LEXER_MAPPING = {
     'perl': 'perl',
     'lua': 'lua',
     'csharp': 'csharp',
-    'python2': 'python',
-    'python3': 'python',
+    'python': 'python',
     'vb': 'vbscript',
     'js': 'javascript',
 }
@@ -169,8 +166,7 @@ PYGMENTS_LEXER_MAPPING = {
     'scheme': 'scheme',
     'haskell': 'haskell',
     'java': 'java',
-    'python2': 'python',
-    'python3': 'python',
+    'python': 'python',
     'ada': 'ada',
     'php': 'php',
     'js': 'javascript',
