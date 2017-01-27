@@ -23,7 +23,12 @@ class LanguageDef:
         self.doc = doc
         self.camisole_name = camisole
         self.time_limit = time
-        self.memory_limit = memory
+
+        # Hardcoded increase to account for various external factors and because
+        # we don't want those limits to be really tight, we mainly want to avoid
+        # really consuming programs asymptotically. Therefore, we always add
+        # 4MB of padding memory and multiply the displayed constraint by two.
+        self.memory_limit = lambda x: 4096 + memory(x) * 2
 
     def __str__(self):
         return str(self.name)  # force gettext resolution
