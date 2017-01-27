@@ -29,7 +29,7 @@ class Command(BaseCommand):
                                          code=options['code'].read())
         submission_code.save()
         self.stdout.write("Running task (4 second timeout)")
-        result = submit_problem_code.apply_async(args=[submission_code.pk], throw=True)
+        result = submit_problem_code.apply_async(args=[submission_code.pk.id], throw=True)
         self.stdout.write(str(result.get(timeout=4)))
 
         submission = submission._meta.model.objects.get(pk=submission.pk)  # refresh

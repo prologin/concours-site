@@ -84,7 +84,7 @@ def correct_submission(submission_code):
     submission_code.save()
     logger.info("Scheduling code correction for CodeSubmission: %s, task uid: %s",
                 submission_code.pk, submission_code.celery_task_id)
-    future = submit_problem_code.apply_async(args=[submission_code.pk.id],
+    future = submit_problem_code.apply_async(args=[submission_code.pk],
                                              task_id=submission_code.celery_task_id)
     try:
         # wait a bit for the result

@@ -9,12 +9,10 @@ from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
-from hashid_field.field import HashidAutoField
 
 from prologin.languages import Language
 from prologin.models import CodingLanguageField
 from problems.models.problem import Challenge, Problem, TestType, Test
-from prologin.utils import hashids
 
 
 class Result:
