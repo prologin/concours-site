@@ -60,7 +60,7 @@ class Language(ChoiceEnum):
     haskell = LanguageDef("Haskell", ['.hs'], doc='haskell',
         camisole='haskell', memory=lambda m: 5 * m + 10000, time=lambda t: 4 * t + 200)
     java = LanguageDef("Java", ['.java'], doc='java',
-        camisole='java', memory=lambda m: 5 * m + 50000, time=lambda t: 4 * t + 200)
+        camisole='java', memory=lambda m: 5 * m + 30000, time=lambda t: 4 * t + 200)
     python = LanguageDef("Python", ['.py'], doc='python',
         camisole='python', memory=lambda m: 5 * m + 9000, time=lambda t: 15 * t)
     ada = LanguageDef("Ada", ['.adb'], doc='ada',
