@@ -58,17 +58,17 @@ class Language(ChoiceEnum):
     scheme = LanguageDef("Scheme", ['.scm'], doc='scheme',
         camisole='scheme', memory=lambda m: m + 36384, time=lambda t: 3 * t)
     haskell = LanguageDef("Haskell", ['.hs'], doc='haskell',
-        camisole='haskell', memory=lambda m: 5 * m + 15000, time=lambda t: 4 * t + 1024)
+        camisole='haskell', memory=lambda m: 5 * m + 10000, time=lambda t: 4 * t + 200)
     java = LanguageDef("Java", ['.java'], doc='java',
-        camisole='java', memory=lambda m: 5 * m + 22000, time=lambda t: 4 * t + 36000)
+        camisole='java', memory=lambda m: 5 * m + 31000, time=lambda t: 4 * t + 200)
     python = LanguageDef("Python", ['.py'], doc='python',
-        camisole='python', memory=lambda m: 5 * m + 7500, time=lambda t: 15 * t)
+        camisole='python', memory=lambda m: 5 * m + 9000, time=lambda t: 15 * t)
     ada = LanguageDef("Ada", ['.adb'], doc='ada',
         camisole='ada', memory=lambda m: m + 4096)
     php = LanguageDef("PHP", ['.php'], doc='php',
         camisole='php', memory=lambda m: 5 * m + 36384, time=lambda t: 8 * t)
     js = LanguageDef("Javascript", ['.js'],
-        camisole='javascript', memory=lambda m: 5 * m + 100000, time=lambda t: 5 * t)
+        camisole='javascript', memory=lambda m: 5 * m + 26000, time=lambda t: 5 * t)
     vb = LanguageDef("Visual Basic", ['.vb'],
         camisole='visualbasic', memory=lambda m: m + 16384, time=lambda t: 2 * t)
     perl = LanguageDef("Perl", ['.pl', '.perl'],
@@ -80,7 +80,7 @@ class Language(ChoiceEnum):
     fsharp = LanguageDef("F#", ['.fs'],
         camisole='f#', memory=lambda m: m + 17408)
     brainfuck = LanguageDef("Brainfuck", ['.bf'],
-        camisole='brainfuck', memory=lambda m: 10 * m + 50000, time=lambda t: 8 * t)
+        camisole='brainfuck', memory=lambda m: 5 * m + 20000, time=lambda t: 8 * t)
     pseudocode = LanguageDef(_("Pseudocode"), ['.txt'])
 
     def name_display(self):
