@@ -54,13 +54,13 @@ class Language(ChoiceEnum):
     pascal = LanguageDef("Pascal", ['.pas', '.pascal'], doc='pascal',
         camisole='pascal', memory=lambda m: m + 4096)
     ocaml = LanguageDef("OCaml", ['.ml', '.ocaml'], doc='ocaml',
-        camisole='ocaml', memory=lambda m: 2 * m + 4096)
+        camisole='ocaml', memory=lambda m: 2 * m + 15000)
     scheme = LanguageDef("Scheme", ['.scm'], doc='scheme',
         camisole='scheme', memory=lambda m: m + 36384, time=lambda t: 3 * t)
     haskell = LanguageDef("Haskell", ['.hs'], doc='haskell',
         camisole='haskell', memory=lambda m: 5 * m + 10000, time=lambda t: 4 * t + 200)
     java = LanguageDef("Java", ['.java'], doc='java',
-        camisole='java', memory=lambda m: 5 * m + 31000, time=lambda t: 4 * t + 200)
+        camisole='java', memory=lambda m: 5 * m + 50000, time=lambda t: 4 * t + 200)
     python = LanguageDef("Python", ['.py'], doc='python',
         camisole='python', memory=lambda m: 5 * m + 9000, time=lambda t: 15 * t)
     ada = LanguageDef("Ada", ['.adb'], doc='ada',
@@ -70,15 +70,15 @@ class Language(ChoiceEnum):
     js = LanguageDef("Javascript", ['.js'],
         camisole='javascript', memory=lambda m: 5 * m + 26000, time=lambda t: 5 * t)
     vb = LanguageDef("Visual Basic", ['.vb'],
-        camisole='visualbasic', memory=lambda m: m + 16384, time=lambda t: 2 * t)
+        camisole='visualbasic', memory=lambda m: m + 30000, time=lambda t: 2 * t)
     perl = LanguageDef("Perl", ['.pl', '.perl'],
         camisole='perl', memory=lambda m: m + 5000, time=lambda t: 10 * t)
     lua = LanguageDef("Lua", ['.lua'],
         camisole='lua', memory=lambda m: m + 5000, time=lambda t: 10 * t)
     csharp = LanguageDef("C#", ['.cs'],
-        camisole='c#', memory=lambda m: m + 16384, time=lambda t: t + 38)
+        camisole='c#', memory=lambda m: m + 30000, time=lambda t: t + 38)
     fsharp = LanguageDef("F#", ['.fs'],
-        camisole='f#', memory=lambda m: m + 17408)
+        camisole='f#', memory=lambda m: m + 30000)
     brainfuck = LanguageDef("Brainfuck", ['.bf'],
         camisole='brainfuck', memory=lambda m: 5 * m + 20000, time=lambda t: 8 * t)
     pseudocode = LanguageDef(_("Pseudocode"), ['.txt'])
