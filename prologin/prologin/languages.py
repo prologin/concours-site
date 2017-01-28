@@ -48,13 +48,13 @@ class Language(ChoiceEnum):
     16 character long.
     """
     c = LanguageDef("C", ['.c'], doc='c',
-        camisole='c', memory=lambda m: m * 10 + 1024)
+        camisole='c', memory=lambda m: m + 4096)
     cpp = LanguageDef("C++", ['.cc', '.c++', '.cpp'], doc='cpp',
-        camisole='c++', memory=lambda m: m * 10 + 3000)
+        camisole='c++', memory=lambda m: m + 4096)
     pascal = LanguageDef("Pascal", ['.pas', '.pascal'], doc='pascal',
-        camisole='pascal', memory=lambda m: m + 1024)
+        camisole='pascal', memory=lambda m: m + 4096)
     ocaml = LanguageDef("OCaml", ['.ml', '.ocaml'], doc='ocaml',
-        camisole='ocaml', memory=lambda m: 2 * m + 1024)
+        camisole='ocaml', memory=lambda m: 2 * m + 4096)
     scheme = LanguageDef("Scheme", ['.scm'], doc='scheme',
         camisole='scheme', memory=lambda m: m + 36384, time=lambda t: 3 * t)
     haskell = LanguageDef("Haskell", ['.hs'], doc='haskell',
