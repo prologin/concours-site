@@ -8,7 +8,9 @@
 
   <span class="pull-right">
     {% if result.time %}
-      <span class="submission-metrics" title="{% trans "Run time" %}"><i class="fa fa-clock-o"></i> {{ result.time|floatformat:2 }}s</span>
+      <span class="submission-metrics"
+            title="{% trans "Run time" %}:&#xA;{{ result.time|floatformat:2 }}s (user)&#xA;{{ result.time_wall|floatformat:2 }}s (wall)">
+      <i class="fa fa-clock-o"></i> {{ result.time|floatformat:2 }}s</span>
     {% endif %}
     {% if result.memory %}
       <span class="submission-metrics" title="{% trans "Memory" %}"><i class="fa fa-database"></i> {{ result.memory|filesizeformat }}</span>

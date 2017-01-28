@@ -48,6 +48,10 @@ class Result:
 
         @property
         def time(self):
+            return self.data['meta']['time']
+
+        @property
+        def time_wall(self):
             return self.data['meta']['time-wall']
 
         @property
