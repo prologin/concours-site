@@ -70,15 +70,15 @@ class Language(ChoiceEnum):
     js = LanguageDef("Javascript", ['.js'],
         camisole='javascript', memory=lambda m: 5 * m + 26000, time=lambda t: 5 * t)
     vb = LanguageDef("Visual Basic", ['.vb'],
-        camisole='visualbasic', memory=lambda m: m + 30000, time=lambda t: 2 * t)
+        camisole='visualbasic', memory=lambda m: m + 50000, time=lambda t: 2 * t)
     perl = LanguageDef("Perl", ['.pl', '.perl'],
         camisole='perl', memory=lambda m: m + 5000, time=lambda t: 10 * t)
     lua = LanguageDef("Lua", ['.lua'],
         camisole='lua', memory=lambda m: m + 5000, time=lambda t: 10 * t)
     csharp = LanguageDef("C#", ['.cs'],
-        camisole='c#', memory=lambda m: m + 30000, time=lambda t: t + 38)
+        camisole='c#', memory=lambda m: m + 50000, time=lambda t: t + 38)
     fsharp = LanguageDef("F#", ['.fs'],
-        camisole='f#', memory=lambda m: m + 30000)
+        camisole='f#', memory=lambda m: m + 50000)
     brainfuck = LanguageDef("Brainfuck", ['.bf'],
         camisole='brainfuck', memory=lambda m: 5 * m + 20000, time=lambda t: 8 * t)
     pseudocode = LanguageDef(_("Pseudocode"), ['.txt'])
