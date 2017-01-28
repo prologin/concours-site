@@ -351,10 +351,10 @@ class Problem:
         limits = {'fsize': 4000}
         mem_limit = self.properties.get('mem')
         if mem_limit:
-            limits['mem'] = langdef.memory_limit(mem_limit) * 10
+            limits['mem'] = langdef.memory_limit(mem_limit)
         time_limit = self.properties.get('time')
         if time_limit:
-            limits['time'] = langdef.time_limit(time_limit / 1000.) * 10
+            limits['time'] = langdef.time_limit(time_limit / 1000.)
             # factor allowing a program to run MAX_REALTIME * ALLOWED if time (ie. user-time) is not reached
             limits['wall-time'] = 3 * limits['time']
         return limits
