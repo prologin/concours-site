@@ -58,7 +58,7 @@ class Language(ChoiceEnum):
     scheme = LanguageDef("Scheme", ['.scm'], doc='scheme',
         camisole='scheme', memory=lambda m: m + 36384, time=lambda t: 3 * t)
     haskell = LanguageDef("Haskell", ['.hs'], doc='haskell',
-        camisole='haskell', memory=lambda m: 5 * m + 10000, time=lambda t: 4 * t + 200)
+        camisole='haskell', memory=lambda m: 5 * m + 30000, time=lambda t: 4 * t + 200)
     java = LanguageDef("Java", ['.java'], doc='java',
         camisole='java', memory=lambda m: 5 * m + 30000, time=lambda t: 4 * t + 200)
     python = LanguageDef("Python", ['.py'], doc='python',
