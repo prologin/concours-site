@@ -131,12 +131,14 @@ class QualificationArchive(WithChallengeMixin, BaseArchive):
         - a challenge
         - a PDF statement
         - a PDF correction
+        - a PDF challenge
     """
     dir_name = 'questionnaire'
     event_type = contest.models.Event.Type.qualification
 
     pdf_statement = lazy_attr('_pdf_statement_', BaseArchive.file_url_or_none('questionnaire.pdf'))
     pdf_correction = lazy_attr('_pdf_correction_', BaseArchive.file_url_or_none('correction.pdf'))
+    pdf_challenges = lazy_attr('_pdf_challenges_', BaseArchive.file_url_or_none('challenges.pdf'))
 
     @property
     def quiz(self) -> qcm.models.Qcm:
@@ -146,7 +148,7 @@ class QualificationArchive(WithChallengeMixin, BaseArchive):
         return qcm_obj
 
     def populated(self):
-        return any((self.pdf_statement, self.pdf_correction, self.quiz, self.challenge))
+        return any((self.pdf_statement, self.pdf_correction, self.pdf_challenges, self.quiz, self.challenge))
 
 
 class SemifinalArchive(WithContentMixin, WithChallengeMixin, BaseArchive):
