@@ -56,6 +56,9 @@
               {% if archive.qualification.pdf_correction %}
                 <li><a href="{% static archive.qualification.pdf_correction %}"><i class="fa fa-fw fa-file-text-o"></i> {% trans "Test correction (PDF)" %}</a></li>
               {% endif %}
+              {% if archive.qualification.pdf_challenges %}
+                <li><a href="{% static archive.qualification.pdf_challenges %}"><i class="fa fa-fw fa-file-text-o"></i> {% trans "Test Challenge correction (PDF)" %}</a></li>
+              {% endif %}
               </ul>
             {% else %}
               <p class="archive-empty"><em>{% trans "Sorry, no resource available." %}</em></p>
