@@ -6,7 +6,7 @@
 # Alexandre <artifere@gmail.com>, 2015
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015-2017
 # Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
-# Antoine Pietri <antoine.pietri1@gmail.com>, 2015
+# Antoine Pietri <antoine.pietri1@gmail.com>, 2015,2017
 # cbeausei <clementbeauseigneur@hotmail.fr>, 2016
 # cbeausei <clementbeauseigneur@hotmail.fr>, 2016
 # Dettorer <p.hervot@gmail.com>, 2015
@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-29 16:15+0100\n"
-"PO-Revision-Date: 2017-01-25 21:29+0000\n"
-"Last-Translator: Prologin <association@prologin.org>\n"
+"POT-Creation-Date: 2017-02-07 14:48+0100\n"
+"PO-Revision-Date: 2017-02-07 13:46+0000\n"
+"Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
 "language/fr/)\n"
 "Language: fr\n"
@@ -838,7 +838,7 @@ msgstr "Candidats"
 
 #: contest/templates/correction/by-year.html:24
 #: documents/templates/documents/semifinal-import-review.html:78
-#: problems/models/submission.py:53
+#: problems/models/submission.py:182
 msgid "Submissions"
 msgstr "Soumissions"
 
@@ -1199,7 +1199,7 @@ msgid "Nickname"
 msgstr "Pseudonyme"
 
 #: documents/templates/documents/semifinal-import-review.html:76
-#: users/templates/users/profile.html:45
+#: users/templates/users/profile.html:41
 msgid "Full name"
 msgstr "Nom complet"
 
@@ -1729,8 +1729,7 @@ msgstr "Prévisualisation"
 #: forum/templates/forum/edit_post.html:10
 #: forum/templates/forum/thread_posts.html:114
 #: semifinal/templates/semifinal/monitoring.html:52
-#: users/templates/users/edit.html:9
-#: users/templates/users/edit_password.html:9
+#: users/templates/users/edit.html:9 users/templates/users/edit_password.html:9
 msgid "Edit"
 msgstr "Modifier"
 
@@ -1867,7 +1866,7 @@ msgid "Reply to the thread"
 msgstr "Répondre au sujet"
 
 #: forum/templates/forum/thread_posts.html:94
-#: users/templates/users/profile.html:33
+#: users/templates/users/profile.html:29
 #, python-format
 msgid "%(username)s's profile picture"
 msgstr "Photo de profil de %(username)s"
@@ -3779,7 +3778,7 @@ msgstr "corrigé"
 
 #: problems/admin.py:66
 msgid "results expired"
-msgstr ""
+msgstr "résultats expirés"
 
 #: problems/admin.py:87
 #, python-format
@@ -3877,36 +3876,80 @@ msgstr "Vous devez fournir un fichier source ou un code source."
 msgid "Qualifications"
 msgstr "Sélections"
 
-#: problems/models/submission.py:52
+#: problems/models/submission.py:65
+msgid "unknown"
+msgstr "inconnu"
+
+#: problems/models/submission.py:69
+msgid "Compilation went fine."
+msgstr "La compilation a réussi."
+
+#: problems/models/submission.py:70
+#, python-format
+msgid "Compilation exited with code %(code)s."
+msgstr "Le compilateur a quitté avec le code de retour %(code)s."
+
+#: problems/models/submission.py:71
+msgid "Compilation timed out."
+msgstr "La compilation a dépassé la limite de temps."
+
+#: problems/models/submission.py:72
+#, python-format
+msgid "Compilation was killed with signal %(signal)s."
+msgstr "La compilation a été tuée par le signal %(signal)s."
+
+#: problems/models/submission.py:73
+msgid "Compilation crashed with an internal error."
+msgstr "La compilation a crashée à cause d'une erreur interne."
+
+#: problems/models/submission.py:81
+msgid "your program executed fine, but:"
+msgstr "votre programme s'est exécuté correctement, mais :"
+
+#: problems/models/submission.py:82
+#, python-format
+msgid "your program exited with code %(code)s."
+msgstr "votre programme a quitté avec le code de retour %(code)s."
+
+#: problems/models/submission.py:83
+msgid "you program timed out."
+msgstr "votre programme a dépassé la limite de temps."
+
+#: problems/models/submission.py:84
+#, python-format
+msgid "your program was killed with signal %(signal)s."
+msgstr "votre programme a été tué par le signal %(signal)s."
+
+#: problems/models/submission.py:85
+msgid "your program crashed with an internal error."
+msgstr "votre programme a crashé à cause d'une erreur interne."
+
+#: problems/models/submission.py:181
 #: problems/templates/problems/submission.html:9
 msgid "Submission"
 msgstr "Soumission"
 
-#: problems/models/submission.py:89
-msgid "Expired"
-msgstr ""
-
-#: problems/models/submission.py:90
+#: problems/models/submission.py:226
 msgid "Pending"
 msgstr "En attente"
 
-#: problems/models/submission.py:91
+#: problems/models/submission.py:226
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:137
+#: problems/models/submission.py:248
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:138
+#: problems/models/submission.py:249
 msgid "Submission codes"
 msgstr "Codes soumis"
 
-#: problems/models/submission.py:162
+#: problems/models/submission.py:273
 msgid "Explicit problem unlock"
 msgstr "Déblocage explicite de problème"
 
-#: problems/models/submission.py:163
+#: problems/models/submission.py:274
 msgid "Explicit problem unlocks"
 msgstr "Déblocages explicites de problème"
 
@@ -4505,33 +4548,41 @@ msgstr "à"
 msgid "Search"
 msgstr "Rechercher"
 
-#: problems/templates/problems/stub_submission_result.html:5
-msgid "Test passed!"
-msgstr "Test passé&nbsp;!"
-
-#: problems/templates/problems/stub_submission_result.html:7
+#: problems/templates/problems/stub_submission_result.html:6
 msgid "Test skipped."
 msgstr "Test ignoré."
 
-#: problems/templates/problems/stub_submission_result.html:9
-msgid "Test failed."
-msgstr ""
+#: problems/templates/problems/stub_submission_result.html:12
+msgid "Run time"
+msgstr "Temps d'exécution"
 
-#: problems/templates/problems/stub_submission_result.html:11
+#: problems/templates/problems/stub_submission_result.html:16
+msgid "Memory"
+msgstr "Mémoire"
+
+#: problems/templates/problems/stub_submission_result.html:21
+msgid "Test passed!"
+msgstr "Test passé&nbsp;!"
+
+#: problems/templates/problems/stub_submission_result.html:23
+msgid "Test failed:"
+msgstr "Test échoué :"
+
+#: problems/templates/problems/stub_submission_result.html:25
 msgid "Detailed output is hidden."
 msgstr "Le détail du résultat est caché."
 
-#: problems/templates/problems/stub_submission_result.html:14
-msgid "Expected:"
-msgstr ""
+#: problems/templates/problems/stub_submission_result.html:28
+msgid "Expected standard output:"
+msgstr "Sortie standard attendue :"
 
-#: problems/templates/problems/stub_submission_result.html:16
-msgid "Returned by your program:"
-msgstr ""
+#: problems/templates/problems/stub_submission_result.html:30
+msgid "Standard output of your program:"
+msgstr "Sortie standard du programme :"
 
-#: problems/templates/problems/stub_submission_result.html:19
-msgid "Standard error output:"
-msgstr ""
+#: problems/templates/problems/stub_submission_result.html:33
+msgid "Standard error of your program:"
+msgstr "Sortie d'erreur du programme :"
 
 #: problems/templates/problems/submission.html:12
 #: problems/templates/problems/submission.html:19
@@ -4574,19 +4625,15 @@ msgstr "La solution est invalide"
 msgid "Not corrected yet"
 msgstr "Pas encore corrigée"
 
-#: problems/templates/problems/submission.html:51
-msgid "Unavailable status"
-msgstr ""
-
-#: problems/templates/problems/submission.html:54
+#: problems/templates/problems/submission.html:52
 msgid "Points won"
 msgstr "Points gagnés"
 
-#: problems/templates/problems/submission.html:57
+#: problems/templates/problems/submission.html:55
 msgid "Malus"
 msgstr "Malus"
 
-#: problems/templates/problems/submission.html:57
+#: problems/templates/problems/submission.html:55
 msgid ""
 "Every time you submit a solution that fails (ie. does not compile or does "
 "not pass all the tests), malus points are increased by a value proportional "
@@ -4596,53 +4643,42 @@ msgstr ""
 "tests), les points de malus sont incrémentés d'une valeur proportionnelle au "
 "niveau de l'exercice et au nombre d'essais."
 
-#: problems/templates/problems/submission.html:62
-#, python-format
-msgid "Execution time: %(ms)s&nbsp;ms"
-msgstr ""
-
-#: problems/templates/problems/submission.html:63
-#, python-format
-msgid "Memory used: %(kb)s&nbsp;kB"
-msgstr ""
-
-#: problems/templates/problems/submission.html:66
+#: problems/templates/problems/submission.html:60
 msgid "Edit and submit again"
 msgstr "Modifier et re-soumettre"
 
-#: problems/templates/problems/submission.html:75
-#: problems/templates/problems/submission.html:76
+#: problems/templates/problems/submission.html:66
+msgid "Resend to correction"
+msgstr "Renvoyer en correction"
+
+#: problems/templates/problems/submission.html:67
+msgid "Last corrected on"
+msgstr "Dernière correction le"
+
+#: problems/templates/problems/submission.html:79
+#: problems/templates/problems/submission.html:80
 msgid "Solution code"
 msgstr "Code de la solution"
 
-#: problems/templates/problems/submission.html:85
-msgid "The compilation went fine."
-msgstr ""
+#: problems/templates/problems/submission.html:94
+msgid "Compiler standard error output:"
+msgstr "Sortie d'erreur du compilateur :"
 
-#: problems/templates/problems/submission.html:87
-msgid "The compilation failed:"
-msgstr ""
-
-#: problems/templates/problems/submission.html:97
-#: problems/templates/problems/submission.html:98
+#: problems/templates/problems/submission.html:105
+#: problems/templates/problems/submission.html:106
 msgid "Correction tests"
 msgstr "Tests de correction"
 
-#: problems/templates/problems/submission.html:109
-#: problems/templates/problems/submission.html:110
+#: problems/templates/problems/submission.html:117
+#: problems/templates/problems/submission.html:118
 msgid "Performance tests"
 msgstr "Tests de performance"
 
-#: problems/templates/problems/submission.html:114
+#: problems/templates/problems/submission.html:122
 msgid "There are no such tests for this problem."
 msgstr "Il n'y a aucun test de ce type pour cet exercice."
 
-#: problems/templates/problems/submission.html:122
-#, python-format
-msgid "These compilation and test results will be gone %(rem)s."
-msgstr ""
-
-#: problems/templates/problems/submission.html:124
+#: problems/templates/problems/submission.html:131
 msgid ""
 "The submission can not be corrected as it was written in a language that can "
 "not be compiled nor executed."
@@ -4650,7 +4686,7 @@ msgstr ""
 "La soumission ne peut pas être corrigée car elle a été écrite dans un "
 "langage qui ne peut pas être compilé ou exécuté."
 
-#: problems/templates/problems/submission.html:126
+#: problems/templates/problems/submission.html:133
 msgid ""
 "Submission results are not available anymore. This is because the code was "
 "submitted a long time ago.\n"
@@ -4662,7 +4698,7 @@ msgstr ""
 "Vous pouvez toujours essayer de soumettre votre solution en utilisant le "
 "boutton «&nbsp;Modifier et re-soumettre&nbsp;»."
 
-#: problems/templates/problems/submission.html:129
+#: problems/templates/problems/submission.html:136
 msgid ""
 "This submission is pending correction. This can take from a few seconds to "
 "some minutes."
@@ -4670,7 +4706,7 @@ msgstr ""
 "La soumission est en cours de correction. Cela peut prendre de quelques "
 "secondes à plusieurs minutes."
 
-#: problems/templates/problems/submission.html:130
+#: problems/templates/problems/submission.html:137
 msgid ""
 "Your browser does not support Javascript. You will have to manually reload "
 "this page once in a while to check if results have arrived."
@@ -4679,7 +4715,7 @@ msgstr ""
 "rafraîchir cette page de temps en temps pour vérifier si les résultats sont "
 "arrivés."
 
-#: prologin/languages.py:52
+#: prologin/languages.py:84
 msgid "Pseudocode"
 msgstr "Pseudo-code"
 
@@ -4801,8 +4837,7 @@ msgstr ""
 "Nous nous excusons pour la gêne occasionnée. Cette opération ne devrait "
 "durer que quelques minutes. Revenez nous voir dans un petit moment !"
 
-#: prologin/templates/_error_base.html:8
-#: prologin/templates/_error_base.html:14
+#: prologin/templates/_error_base.html:8 prologin/templates/_error_base.html:14
 #, python-format
 msgid "Error %(number)s"
 msgstr "Erreur %(number)s"
@@ -4967,12 +5002,17 @@ msgstr "Suivant"
 msgid "Last"
 msgstr "Dernier"
 
-#: prologin/templatetags/utils.py:91
+#: prologin/templatetags/utils.py:84
+#, python-format
+msgid "truncated to %(length)s characters"
+msgstr "tronquée à %(length)s caractères"
+
+#: prologin/templatetags/utils.py:98
 msgctxt "File size suffix"
 msgid "B"
 msgstr "o"
 
-#: prologin/templatetags/utils.py:92
+#: prologin/templatetags/utils.py:99
 msgctxt "File size unit"
 msgid "bytes"
 msgstr "octets"
@@ -5620,7 +5660,7 @@ msgstr "Ancien étudiant"
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:125 users/templates/users/profile.html:64
+#: users/models.py:125 users/templates/users/profile.html:60
 msgid "Birth day"
 msgstr "Date de naissance"
 
@@ -5661,8 +5701,7 @@ msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
 #: users/templates/registration/password_reset_confirm.html:7
-#: users/templates/users/edit.html:7
-#: users/templates/users/edit_password.html:7
+#: users/templates/users/edit.html:7 users/templates/users/edit_password.html:7
 #: users/templates/users/profile.html:7
 #: users/templates/users/unsubscribe.html:9
 msgid "Members"
@@ -5864,96 +5903,95 @@ msgstr ""
 "Mot de passe oublié? Entrez votre adresse email ci-dessous, et nous vous "
 "enverrons par email la procédure pour en définir un nouveau."
 
-#: users/templates/users/profile.html:13
+#: users/templates/users/profile.html:11
 #, python-format
 msgid "%(username)s"
 msgstr "%(username)s"
 
-#: users/templates/users/profile.html:19
+#: users/templates/users/profile.html:15
 msgid "<em>not provided</em>"
 msgstr "<em>non renseigné</em>"
 
-#: users/templates/users/profile.html:23
+#: users/templates/users/profile.html:19
 msgid "Edit profile"
 msgstr "Modifier le profil"
 
-#: users/templates/users/profile.html:38
+#: users/templates/users/profile.html:34
 #, python-format
 msgid "%(username)s's staff picture"
 msgstr "Photo de profil d'équipe de %(username)s"
 
-#: users/templates/users/profile.html:52
+#: users/templates/users/profile.html:48
 msgid "Phone number"
 msgstr "Téléphone"
 
-#: users/templates/users/profile.html:58
+#: users/templates/users/profile.html:54
 msgid "Email address"
 msgstr "Adresse e-mail"
 
-#: users/templates/users/profile.html:70
+#: users/templates/users/profile.html:66
 msgid "Postal address"
 msgstr "Adresse postale"
 
-#: users/templates/users/profile.html:80
+#: users/templates/users/profile.html:76
 msgid "Date joined"
 msgstr "Date d'inscription"
 
-#: users/templates/users/profile.html:82
+#: users/templates/users/profile.html:78
 msgid "Member for"
 msgstr "Membre depuis"
 
-#: users/templates/users/profile.html:90
+#: users/templates/users/profile.html:86
 msgid "Contest involvment"
 msgstr "Participation au concours"
 
-#: users/templates/users/profile.html:104
+#: users/templates/users/profile.html:100
 msgid "See archives"
 msgstr "Voir les archives"
 
-#: users/templates/users/profile.html:110
+#: users/templates/users/profile.html:106
 msgid "Completed the qualification step"
 msgstr "A complété l'étape de qualification"
 
-#: users/templates/users/profile.html:113
+#: users/templates/users/profile.html:109
 msgid "Selected for regional events"
 msgstr "Sélectionné pour les épreuves régionales"
 
-#: users/templates/users/profile.html:115
+#: users/templates/users/profile.html:111
 msgid "Competed in the regional events"
 msgstr "A participé aux épreuves régionales"
 
-#: users/templates/users/profile.html:117
+#: users/templates/users/profile.html:113
 msgid "Selected for the final"
 msgstr "Sélectionné en finale"
 
-#: users/templates/users/profile.html:130
+#: users/templates/users/profile.html:126
 #, python-format
 msgid "Download final home (tar.gz, %(size)s)"
 msgstr "Télécharger la “home” (tar.gz, %(size)s)"
 
-#: users/templates/users/profile.html:140
+#: users/templates/users/profile.html:136
 #, python-format
 msgid "Sadly, %(username)s did not take part in any Prologin edition yet."
 msgstr ""
 "Hélas, %(username)s n'a jusqu'ici participé à aucune édition de Prologin."
 
-#: users/templates/users/profile.html:152
+#: users/templates/users/profile.html:148
 msgid "Latest authored news entries"
 msgstr "Dernières actualités publiées"
 
-#: users/templates/users/profile.html:165
+#: users/templates/users/profile.html:161
 msgid "Staff roles"
 msgstr "Rôles dans l'équipe"
 
-#: users/templates/users/profile.html:169
+#: users/templates/users/profile.html:165
 #, python-format
 msgid ""
 "%(year)s ⋅\n"
 "                %(role)s"
 msgstr "%(year)s ⋅ %(role)s"
 
-#: users/templates/users/register.html:7
-#: users/templates/users/register.html:10
+#: users/templates/users/register.html:7 users/templates/users/register.html:10
 #: users/templates/users/register.html:13
 #: users/templates/users/register.html:22
 msgid "Register"
