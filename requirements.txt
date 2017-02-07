@@ -68,6 +68,8 @@ redis
 rules
 # Transifex client for translation pull/push
 transifex-client
+# Typing module backport
+typing; python_version < '3.5'
 # ImageMagick wrapper
 wand
 
