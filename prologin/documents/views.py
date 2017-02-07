@@ -271,7 +271,7 @@ class SemifinalDataImportView(PermissionRequiredMixin, SessionWizardView):
                 continue
             old_submission_pk = submissioncode.object.submission_id
             current_submission = submissions[old_submission_pk]
-            fields = ('code', 'language', 'summary', 'score', 'exec_time', 'exec_memory', 'date_submitted', 'date_corrected')
+            fields = ('code', 'language', 'summary', 'score', 'result', 'date_submitted', 'date_corrected')
             current_code, created = (problems.models.SubmissionCode.objects
                                      .get_or_create(submission=current_submission,
                                                     defaults={'celery_task_id': submissioncode.object.celery_task_id},
