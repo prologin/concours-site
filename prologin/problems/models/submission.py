@@ -1,20 +1,149 @@
-import collections
-import datetime
+from typing import List, Optional
 
 from django.conf import settings
+from django.contrib.postgres.fields.jsonb import JSONField
 from django.db import models
 from django.db.models import F
 from django.db.models.functions import Coalesce, Greatest
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
 
 from prologin.languages import Language
 from prologin.models import CodingLanguageField
-from problems.models.problem import Challenge, Problem
+from problems.models.problem import Challenge, Problem, TestType, Test
 
-SubmissionResults = collections.namedtuple('SubmissionResults', 'compilation correction performance')
-SubmissionTest = collections.namedtuple('SubmissionTest', 'name success skipped expected returned debug hidden')
+
+class Result:
+    class MetaMixin:
+        STATUS = {}
+
+        def __init__(self, data: dict):
+            self.data = data
+
+        @property
+        def status(self):
+            return self.data['meta']['status']
+
+        @property
+        def exit_code(self):
+            return self.data['meta']['exitcode']
+
+        @property
+        def exit_signal(self):
+            return self.data['meta']['exitsig']
+
+        @property
+        def stdout(self):
+            return self.data['stdout']
+
+        @property
+        def stderr(self):
+            return self.data['stderr']
+
+        @property
+        def success(self):
+            return self.status == 'OK'
+
+        @property
+        def time(self):
+            return self.data['meta']['time']
+
+        @property
+        def time_wall(self):
+            return self.data['meta']['time-wall']
+
+        @property
+        def memory(self):
+            # in bytes, hence * 1000
+            return self.data['meta']['max-rss'] * 1000
+
+        @property
+        def human_status(self):
+            return self.STATUS[self.status] % {'code': self.exit_code,
+                                               'signal': self.exit_signal or _("unknown")}
+
+    class Compilation(MetaMixin):
+        STATUS = {
+            'OK': _("Compilation went fine."),
+            'RUNTIME_ERROR': _("Compilation exited with code %(code)s."),
+            'TIMED_OUT': _("Compilation timed out."),
+            'SIGNALED': _("Compilation was killed with signal %(signal)s."),
+            'INTERNAL_ERROR': _("Compilation crashed with an internal error."),
+        }
+
+    class SkippedTest:
+        skipped = True
+
+    class Test(MetaMixin):
+        STATUS = {
+            'OK': _("your program executed fine, but:"),
+            'RUNTIME_ERROR': _("your program exited with code %(code)s."),
+            'TIMED_OUT': _("you program timed out."),
+            'SIGNALED': _("your program was killed with signal %(signal)s."),
+            'INTERNAL_ERROR': _("your program crashed with an internal error."),
+        }
+        skipped = False
+
+        def __init__(self, reference: Test, data: dict, test_passes: bool):
+            super().__init__(data)
+            self.reference = reference
+            self.test_passes = test_passes
+
+        @property
+        def expected_stdout(self):
+            return self.reference.stdout
+
+        @property
+        def hidden(self):
+            return self.reference.hidden
+
+        @property
+        def success(self):
+            return super().success and self.test_passes
+
+        @classmethod
+        def parse(cls, problem: Problem, tests: list):
+            from problems.camisole import test_passes
+            correction = []
+            performance = []
+            skipped = False
+            references = problem.tests
+            ref_dict = {ref.name: ref for ref in references}
+            test_dict = {test['name']: test for test in tests if test}
+
+            for ref in references:
+                is_corr = ref.type is TestType.correction
+                storage = (correction if is_corr else performance)
+                test = test_dict.get(ref.name)
+
+                if not test or skipped:
+                    storage.append(Result.SkippedTest())
+                    continue
+
+                test_ok = test_passes(ref_dict[test['name']], test)
+                storage.append(Result.Test(data=test, reference=ref, test_passes=test_ok))
+                if not test_ok and problem.stop_early:
+                    skipped = True
+
+            return correction, performance
+
+    def __init__(self, compilation: Optional[Compilation], correction: List[Test], performance: List[Test]):
+        self.compilation = compilation
+        self.correction = correction
+        self.performance = performance
+
+    @classmethod
+    def parse(cls, problem: Problem, data: dict):
+        compilation = None
+        correction = []
+        performance = []
+        if 'compile' in data:
+            compilation = Result.Compilation(data['compile'])
+        if not compilation or compilation.success:
+            correction, performance = Result.Test.parse(problem, data.get('tests', []))
+        return cls(compilation, correction, performance)
 
 
 class Submission(ExportModelOperationsMixin('submission'), models.Model):
@@ -67,66 +196,48 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
     code = models.TextField()
     summary = models.TextField(blank=True)
     score = models.IntegerField(null=True, blank=True)
-    exec_time = models.IntegerField(null=True, blank=True)
-    exec_memory = models.IntegerField(null=True, blank=True)
     date_submitted = models.DateTimeField(default=timezone.now)
     date_corrected = models.DateTimeField(null=True, blank=True)
     celery_task_id = models.CharField(max_length=128, blank=True)
+    result = JSONField(null=True, blank=True)
 
     def done(self):
-        return self.score is not None
+        return not self.correctable() or self.score is not None
 
     def succeeded(self):
         return self.done() and self.score > 0
 
-    def language_enum(self):
+    def language_enum(self) -> Language:
         return Language[self.language]
 
     def correctable(self):
         return self.language_enum().correctable()
 
-    def status(self):
-        return (_("Expired") if self.expired_result() and not self.done()
-                else _("Pending") if not self.done()
-                else _("Corrected"))
-
-    def expired_result_datetime(self):
-        if not self.date_corrected:
-            return None
-        return self.date_corrected + datetime.timedelta(seconds=settings.CELERY_TASK_RESULT_EXPIRES)
-
-    def expired_result(self):
-        expired_datetime = self.expired_result_datetime()
-        if not expired_datetime:
+    def has_result(self):
+        if not self.correctable():
             return False
-        # submission is older that Celery task time-to-live
-        return expired_datetime < timezone.now()
+        if not self.done():
+            return False
+        if not self.celery_task_id or not self.date_corrected:
+            return False
+        return self.result is not None
+
+    def status(self):
+        return _("Pending") if not self.done() else _("Corrected")
 
     def correction_results(self):
         if not self.celery_task_id or not self.date_corrected:
             return None
-        from problems.tasks import submit_problem_code
-        results = submit_problem_code.AsyncResult(self.celery_task_id).result
-        if results is None:
+        if self.result is None:
             return None
-        compilation, tests = results
-        test_corr = []
-        test_perf = []
-        skipped = False
-        for test in tests:
-            is_test_corr = not test['performance']
-            result_obj = SubmissionTest(name=test['id'],
-                                        success=test['passed'],
-                                        skipped=is_test_corr and skipped,
-                                        expected=test.get('ref', '') or '',
-                                        returned=test.get('program', '') or '',
-                                        hidden=test.get('hidden'),
-                                        debug=test.get('debug', '') or '')
-            if is_test_corr and not test['passed']:
-                # next correction tests are skipped if this one failed
-                skipped = True
-            (test_corr if is_test_corr else test_perf).append(result_obj)
-        return SubmissionResults(compilation=compilation, correction=test_corr, performance=test_perf)
+        return Result.parse(self.submission.problem_model(), self.result)
+
+    def get_absolute_url(self):
+        problem = self.submission.problem_model()
+        return reverse('problems:submission', kwargs={
+            'year': problem.challenge.year, 'type': problem.challenge.event_type.name,
+            'problem': problem.name, 'submission': self.id,
+        })
 
     def __str__(self):
         return "{} in {} (score: {})".format(self.submission,

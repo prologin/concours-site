@@ -9,6 +9,20 @@ from prologin.languages import Language
 from prologin.utils import open_try_hard, lazy_attr, read_props
 
 
+class TestType(enum.Enum):
+    correction = 'correction'
+    performance = 'performance'
+
+
+class Test:
+    def __init__(self, name: str, type: TestType, hidden: bool, stdin: str, stdout: str):
+        self.name = name
+        self.type = type
+        self.hidden = hidden
+        self.stdin = stdin
+        self.stdout = stdout
+
+
 class Challenge:
     """
     A Challenge is a group of problems for a given year and event type.
@@ -238,15 +252,30 @@ class Problem:
     subject = lazy_attr('_subject_', _get_subject)
 
     def _get_tests(self):
-        tests = {}
+        tests_in = {}
+        tests_out = {}
         for item in os.listdir(self.file_path()):
             full_path = self.file_path(item)
             if item.endswith('.in') or item.endswith('.out'):
+                name = item.split('.', 1)[0]
+                storage = tests_in if item.endswith('.in') else tests_out
                 def store_item(f):
-                    tests[item] = f.read()
+                    storage[name] = f.read()
                 open_try_hard(store_item, full_path)
-        return tests
+
+        perf = self.performance_tests
+        hidden = self.hidden_tests
+
+        def gen():
+            for key in sorted(tests_in.keys() & tests_out.keys()):
+                yield Test(key, TestType.performance if key in perf else TestType.correction,
+                           key in hidden, tests_in[key], tests_out[key])
+        return list(gen())
     tests = lazy_attr('_tests_', _get_tests)
+
+    def _get_hidden_tests(self):
+        return set(str(self.properties.get('hidden', '')).split())
+    hidden_tests = lazy_attr('_hidden_tests_', _get_hidden_tests)
 
     def _get_correction_tests(self):
         perf_tests = set(self.performance_tests)
@@ -298,6 +327,10 @@ class Problem:
         return self.properties.get('difficulty', 0)
 
     @property
+    def stop_early(self):
+        return self.properties.get('stop-early', True)
+
+    @property
     def percentage_difficulty(self):
         return int(self.difficulty / settings.PROLOGIN_MAX_LEVEL_DIFFICULTY * 100)
 
@@ -312,6 +345,19 @@ class Problem:
         content, type = self.subject
         if type == 'markdown':
             return content
+
+    def execution_limits(self, language: Language):
+        langdef = language.value
+        limits = {'fsize': 4000}
+        mem_limit = self.properties.get('mem')
+        if mem_limit:
+            limits['mem'] = langdef.memory_limit(mem_limit)
+        time_limit = self.properties.get('time')
+        if time_limit:
+            limits['time'] = langdef.time_limit(time_limit / 1000.)
+            # factor allowing a program to run MAX_REALTIME * ALLOWED if time (ie. user-time) is not reached
+            limits['wall-time'] = 3 * limits['time']
+        return limits
 
     def _get_samples(self):
         samples = []

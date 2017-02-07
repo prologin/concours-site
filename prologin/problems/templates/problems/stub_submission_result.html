@@ -1,25 +1,41 @@
 {% load i18n %}
+{% load utils %}
 
 <li class="list-group-item list-group-item-{% if result.success %}success{% elif result.skipped %}default{% else %}warning{% endif %}">
-  {% if result.success %}
-    <i class="fa fa-smile-o"></i> <strong>{% trans "Test passed!" %}</strong>
-  {% elif result.skipped %}
+  {% if result.skipped %}
     <i class="fa fa-meh-o"></i> <strong>{% trans "Test skipped." %}</strong>
   {% else %}
-    <i class="fa fa-frown-o"></i> <strong>{% trans "Test failed." %}</strong>
+
+  <span class="pull-right">
+    {% if result.time != None %}
+      <span class="submission-metrics"
+            title="{% trans "Run time" %}:&#xA;{{ result.time|floatformat:2 }}s (user)&#xA;{{ result.time_wall|floatformat:2 }}s (wall)">
+      <i class="fa fa-clock-o"></i> {{ result.time|floatformat:2 }}s</span>
+    {% endif %}
+    {% if result.memory != None %}
+      <span class="submission-metrics" title="{% trans "Memory" %}"><i class="fa fa-database"></i> {{ result.memory|filesizeformat }}</span>
+    {% endif %}
+  </span>
+
+  {% if result.success %}
+    <i class="fa fa-smile-o"></i> <strong>{% trans "Test passed!" %}</strong>
+  {% else %}
+    <i class="fa fa-frown-o"></i> <strong>{% trans "Test failed:" %} {{ result.human_status|lower }}</strong>
     {% if result.hidden %}
-      <em>{% trans "Detailed output is hidden." %}</em>
-    {% else %}
-      {% if result.expected or result.returned or result.debug %}
-        {% trans "Expected:" %}
-        <pre>{{ result.expected }}</pre>
-        {% trans "Returned by your program:" %}
-        <pre>{{ result.returned }}</pre>
-        {% if result.debug %}
-        {% trans "Standard error output:" %}
-        <pre>{{ result.debug }}</pre>
+      <br><em>{% trans "Detailed output is hidden." %}</em>
+    {% elif result.status == 'OK' or result.status == 'RUNTIME_ERROR' %}
+      {% if result.expected_stdout or result.stdout or result.stderr %}
+        <br>{% trans "Expected standard output:" %}
+        <pre>{{ result.expected_stdout }}</pre>
+        {% trans "Standard output of your program:" %}
+        <pre>{{ result.stdout|truncate:4000 }}</pre>
+        {% if result.stderr %}
+        {% trans "Standard error of your program:" %}
+        <pre>{{ result.stderr|truncate:4000 }}</pre>
         {% endif %}
       {% endif %}
     {% endif %}
+  {% endif %}
+
   {% endif %}
 </li>

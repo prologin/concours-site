@@ -1,4 +1,5 @@
-from django.core.management.base import BaseCommand, CommandError
+import argparse
+from django.core.management.base import BaseCommand
 from django.contrib.auth import get_user_model
 from prologin.languages import Language
 from problems.models import Submission, SubmissionCode
@@ -7,21 +8,28 @@ import pprint
 
 
 class Command(BaseCommand):
-
-    args = "username challenge problem language code"
     help = "Test Celery submit_problem_code() task"
 
-    def handle(self, *args, **options):
-        user, challenge, problem, lang, code = args
+    def add_arguments(self, parser: argparse.ArgumentParser):
+        parser.add_argument('username')
+        parser.add_argument('challenge')
+        parser.add_argument('problem')
+        parser.add_argument('language', choices=[lang.name for lang in Language])
+        parser.add_argument('code', type=argparse.FileType('rb'))
 
-        user = get_user_model().objects.get(username=user)
-        submission, created = Submission.objects.get_or_create(user=user, challenge=challenge, problem=problem)
+    def handle(self, *args, **options):
+        user = get_user_model().objects.get(username=options['username'])
+        submission, created = Submission.objects.get_or_create(user=user,
+                                                               challenge=options['challenge'],
+                                                               problem=options['problem'])
         if created:
             submission.save()
-        submission_code = SubmissionCode(submission=submission, language=Language[lang].name, code=code)
+        submission_code = SubmissionCode(submission=submission,
+                                         language=Language[options['language']].name,
+                                         code=options['code'].read())
         submission_code.save()
         self.stdout.write("Running task (4 second timeout)")
-        result = submit_problem_code.apply_async(args=[submission_code.pk], throw=True)
+        result = submit_problem_code.apply_async(args=[submission_code.pk.id], throw=True)
         self.stdout.write(str(result.get(timeout=4)))
 
         submission = submission._meta.model.objects.get(pk=submission.pk)  # refresh
