@@ -205,7 +205,7 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
         return not self.correctable() or self.score is not None
 
     def succeeded(self):
-        return self.done() and self.score > 0
+        return self.done() and self.score is not None and self.score > 0
 
     def language_enum(self) -> Language:
         return Language[self.language]
