@@ -9,4 +9,6 @@ urlpatterns = [
     url(r'^about/contest/final', views.AboutFinalView.as_view(), name='about-final'),
     url(r'^about/contest/history', views.AboutHistoryView.as_view(), name='about-history'),
     url(r'^about/organization', views.AboutOrganizationView.as_view(), name='about-organization'),
+    url(r'^about/contest-rules', views.AboutContestRulesView.as_view(),
+        name='about-contest-rules'),
 ]

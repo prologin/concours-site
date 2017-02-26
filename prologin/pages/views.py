@@ -63,3 +63,7 @@ class AboutHistoryView(generic.TemplateView):
         except OSError:
             pass
         return context
+
+
+class AboutContestRulesView(generic.TemplateView):
+    template_name = 'pages/about-contest-rules.html'

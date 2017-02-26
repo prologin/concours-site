@@ -1,0 +1,156 @@
+{% extends "prologin/base.html" %}
+{% load i18n staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "pages:about-contest-rules" %}{% trans "Contest rules" %}
+  {% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Contest rules" %}{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "Contest rules" %}</h1>
+
+    {% get_current_language as page_lang %}
+    {% if page_lang != 'fr' %}
+    <h3>{% trans "Important notice" %}</h3>
+    <p>{% blocktrans %}The contest rules are only available in French, as the
+    contest is only open to French speakers ("article 3").
+    {% endblocktrans %}</p>
+    {% endif %}
+
+    <h3>Article 1</h3>
+    <p>L’association Prologin organise un concours informatique.</p>
+
+    <h3>Article 2</h3>
+    <p>L’inscription au concours est gratuite (hors frais de connexion
+    internet). Par ailleurs, Prologin prend à sa charge : </p>
+    <ul>
+      <li>le petit-déjeuner et le déjeuner des candidats en épreuves
+          régionales ;</li>
+      <li>la totalité des repas (trois par jour) ainsi que l’hébergement lors
+          de la finale.</li>
+    </ul>
+    <p>Le transport vers les centres d’examen ainsi que le site de la finale
+    reste à la charge du candidat.</p>
+
+    <h3>Article 3</h3>
+    <p>Chaque participant doit avoir 20 ans ou moins au 31 décembre de l’année
+    précédant l’édition (édition 2016 : né après le 1er janvier 1995), être
+    francophone, résider dans un pays de l'Union Européenne ou en Suisse et ne
+    pas être ou avoir été élève des écoles EPITA/EPITECH à Paris.</p>
+
+    <h3>Article 4</h3>
+    <p>Le concours se déroule en trois parties : le questionnaire de sélection,
+    les épreuves régionales et la finale. Le questionnaire de sélection est
+    librement accessible sur le site du concours
+    <a href="{% url 'home' %}">https://prologin.org/</a>. La participation aux
+    épreuves régionales puis à la finale dépend de la réussite du candidat aux
+    étapes précédentes.</p>
+
+    <h3>Article 5</h3>
+    <p>Le questionnaire de sélection permet de se qualifier pour les épreuves
+    régionales. Pour être valables, les questionnaires doivent être soumis
+    directement sur le site
+    <a href="{% url 'home'%}">https://prologin.org/</a>.</p>
+
+    <p>L’admission en épreuve régionale est décidée par le jury de
+    l’association, ses décisions sont souveraines.</p>
+
+    <h3>Article 6</h3>
+    <p>Les épreuves régionales permettent de sélectionner les candidats
+    finalistes.</p>
+
+    <p>La répartition en centre d’examen pour les épreuves régionales se fait
+    en fonction des vœux exprimés par les candidats, dans la limite des places
+    disponibles. Une liste d’attente par centre d’examen est constituée le cas
+    échéant.</p>
+
+    <p>L’admission en finale est décidée par le jury de l’association, il se
+    base sur la totalité des épreuves proposées et le cas échéant des
+    circonstances. Ses décisions sont souveraines.</p>
+
+    <h3>Article 7</h3>
+    <p>La finale se déroule sur trois jours à Paris. Les candidats sont évalués
+    lors d’un championnat automatisé dont les règles dépendent du sujet de
+    l’édition, ainsi que par une relecture manuelle des code soumis. Le
+    classement des rangs 11 et suivants ainsi établi n’est pas susceptible de
+    recours.</p>
+
+    <p>Le classement des rangs 1 à 10 inclus est établi par le jury de
+    l’association suite à une soutenance orale du candidat. Ses décisions sont
+    souveraines.</p>
+
+    <h3>Article 8</h3>
+    <p>Chaque participant devra communiquer à l’équipe Prologin lors de son
+    inscription :</p>
+    <ul>
+      <li>sa date de naissance, pour vérification de l’éligibilité ;</li>
+      <li>son adresse, pour y adresser les convocations ;</li>
+      <li>son nom complet.</li>
+    </ul>
+    <p>Ces données sont nécessaires à la bonne organisation du concours. Les
+    participants peuvent exercer les droits prévus par la loi Informatique et
+    Libertés du 6 janvier 1978 modifiée en écrivant à
+    <a href="mailto:association@prologin.org">association@prologin.org</a>.</p>
+    <p>L’association Prologin est déclarée à la CNIL sous le numéro 830039 ; le
+    responsable des traitements est son Président en exercice.</p>
+
+    <h3>Article 9</h3>
+    <p>En participant à Prologin, le candidat autorise Prologin à publier ses
+    nom et prénom dans le cadre de la communication du concours, notamment la
+    transmission des résultats. Cela inclut, sans être limitatif, le site web
+    de Prologin, les communications de Prologin dans des journaux numériques ou
+    papier.</p>
+
+    <h3>Article 10</h3>
+    <p>Voici la liste (non exhaustive) des raisons entraînant la
+    disqualification d’un candidat :</p>
+    <ul>
+      <li>utilisation de fausses informations (notamment âge, ou mauvaise
+          adresse) ;</li>
+      <li>défaut de présence dans les délais pour les différentes épreuves du
+          concours ;</li>
+      <li>tricherie avérée ;</li>
+      <li>non respect des règles de vie commune lors des épreuves ;</li>
+      <li>non respect de ce règlement.</li>
+    </ul>
+    <p>Il est à noter que sauf mention explicite du contraire, le concours se
+    déroule de manière individuelle, sans documents (numériques ou papier), et
+    sans communication avec l’extérieur.</p>
+    <p>Les candidats concernés peuvent contester leur disqualification en
+    écrivant à
+    <a href="mailto:association@prologin.org">association@prologin.org</a>.</p>
+
+    <h3>Article 11</h3>
+    <p>Les événements organisés par Prologin devraient être pour tous et toutes
+    un cadre agréable et convivial. Pour cela, un certain comportement est
+    attendu, tant de la part des différents acteurs (organisateurs et
+    organisatrices, internes ou externes à Prologin, intervenants et
+    intervenantes ponctuels, …) que des participants et participantes. En
+    particulier, ne sont pas tolérés :</p>
+    <ul>
+      <li>les comportements, propos et plaisanteries sexistes, racistes,
+          portant des préjugés sur le genre, l'orientation sexuelle, la
+          religion, les handicaps, l'apparence physique, … ;</li>
+      <li>le harcèlement sous quelque forme que ce soit ;</li>
+      <li>les insultes et plus généralement tout comportement susceptible de
+          blesser ou de heurter la sensibilité d'autrui.</li>
+    </ul>
+    <p>Si, en tant que participant ou qu'acteur de ce concours, vous vous
+    trouvez dans une telle situation vous ayant porté atteinte, nous vous
+    conseillons d'en parler à tout organisateur présent. Des mesures
+    proportionnées seront alors prises, qu'il s'agisse d'une réprimande privée,
+    d'un rappel à l'ordre, ou de toute autre mesure jugée utile et/ou
+    nécessaire par Prologin, pouvant aller jusqu’à l’exclusion définitive de
+    l’événement en question, voire des événements de Prologin en général dans
+    les cas les plus graves.</p>
+
+    <h3>Article 12</h3>
+    <p>La participation au concours implique l’acceptation du présent
+    règlement.</p>
+
+{% endblock %}
