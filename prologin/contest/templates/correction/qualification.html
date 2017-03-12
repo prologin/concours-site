@@ -29,7 +29,9 @@
   <script type="text/javascript" charset="utf8" src="{% static 'lib/js/datatables.min.js' %}"></script>
   <script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
   <script type="text/javascript" charset="utf8">
-    var dt = datatableview.initialize($('.datatable')).api();
+    var dt = datatableview.initialize($('.datatable'), {
+      language: { search: "_INPUT_", searchPlaceholder: "Search" },
+    }).api();
     var url = dt.ajax.url();
     $('#s-all').click(function(e) {
       e.preventDefault();

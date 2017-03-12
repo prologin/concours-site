@@ -1126,3 +1126,76 @@ label[for$="clear_id"] {
 .select2-container--default .select2-selection--single .select2-selection__arrow b {
   border-color: black transparent transparent transparent !important; /* down arrow color */
 }
+
+/**
+ * DataTables with FontAwesome
+ */
+
+.dataTables_filter .clear-search {
+  font-size: 0;
+  width: 0;
+  visibility: hidden;
+  overflow: hidden;
+}
+
+.dataTables_filter .clear-search:after {
+  color: #444;
+  content: "\f00d";
+  display: inline-block;
+  font-family: FontAwesome;
+  font-size: 15px;
+  height: 30px;
+  line-height: 30px;
+  margin-right: 1em;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  width: 2em;
+  visibility: visible;
+}
+
+table.dataTable thead th {
+  position: relative;
+  background-image: none !important; /* Remove the DataTables bootstrap integration styling */
+}
+
+table.dataTable thead .sorting:after {
+  opacity: initial !important;
+}
+
+table.dataTable thead th.sorting:after,
+table.dataTable thead th.sorting_asc:after,
+table.dataTable thead th.sorting_desc:after {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  display: block;
+  font-family: FontAwesome;
+}
+
+table.dataTable thead th.sorting:after {
+  content: "\f0dc";
+  color: #ddd;
+  font-size: 0.8em;
+  padding-top: 0.12em;
+}
+
+table.dataTable thead th.sorting_asc:after {
+  content: "\f0de";
+}
+
+table.dataTable thead th.sorting_desc:after {
+  content: "\f0dd";
+}
+
+div.dataTables_scrollBody table.dataTable thead th.sorting:after,
+div.dataTables_scrollBody table.dataTable thead th.sorting_asc:after,
+div.dataTables_scrollBody table.dataTable thead th.sorting_desc:after {
+  content: "";
+}
+
+table.table thead th.sorting:after,
+table.table thead th.sorting_asc:after,
+table.table thead th.sorting_desc:after {
+  bottom: 8px;
+}

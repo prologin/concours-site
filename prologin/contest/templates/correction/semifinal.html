@@ -29,6 +29,8 @@
   <script type="text/javascript" charset="utf8" src="{% static 'lib/js/datatables.min.js' %}"></script>
   <script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
   <script type="text/javascript" charset="utf8">
-    datatableview.auto_initialize = true;
+    datatableview.initialize($('.datatable'), {
+      language: { search: "_INPUT_", searchPlaceholder: "Search" },
+    });
   </script>
 {% endblock %}
