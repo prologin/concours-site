@@ -509,6 +509,10 @@ li address {
   outline: none;
 }
 
+.MathJax:focus, body :focus .MathJax {
+  display: inline !important;
+}
+
 .task-list-item {
   list-style-type: none;
 }

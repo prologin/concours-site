@@ -1,15 +1,25 @@
-{% load staticfiles utils %}
+{% load staticfiles i18n utils %}{% get_current_language as langcode %}
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX", "output/HTML-CSS", "output/PlainSource"],
     tex2jax: {
       inlineMath: [ ['$','$'], ["\\(","\\)"] ],
       displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
       processEscapes: true
     },
     "HTML-CSS": { availableFonts: ["TeX"], scale: 85 },
-    showMathMenu: false,
+    showMathMenu: true,
+    MathMenu: {
+      showLocale: false,
+      showRenderer: false,
+      showFontMenu: false,
+    },
+    menuSettings: {
+      locale: '{{ langcode }}',
+    },
   });
 </script>
 {# HACK: don't use static tag, because for some reason the ManifestStorage renaming breaks MathJax #}
 {# <script type="text/javascript" src="{% static 'lib/mathjax/MathJax.js' %}?config=TeX-AMS-MML_HTMLorMML"></script> #}
-<script type="text/javascript" src="{% get_setting 'STATIC_URL' %}/lib/mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="{% get_setting 'STATIC_URL' %}/lib/mathjax/MathJax.js"></script>
