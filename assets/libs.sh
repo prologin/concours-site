@@ -4,6 +4,7 @@ BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOTDIR=$(dirname "$BASEDIR")
 LIBDIR="$ROOTDIR/prologin/prologin/static/lib"
 CACHEDIR="$BASEDIR/cache"
+NODEJS=$(which node || which nodejs)
 
 source "$BASEDIR/libs-tools.sh"
 set -e
@@ -40,13 +41,12 @@ typeahead() {
 
 datatables() {
     LIBS=(DataTables Responsive Select)
-    OJBS=(datatables.min.css datatables.min.js)
     ZIP="$CACHEDIR/datatables.zip"
     # -- parse versionsé
     data=$(curl -sL "https://datatables.net/download/index" | grep -F 'var _libraries')
     exts='bs'
     for lib in ${LIBS[@]}; do
-        version=$(echo "$data" | node -p "eval(require('fs').readFileSync('/dev/stdin').toString()); _libraries.$lib['short-name'] + '-' + _libraries.$lib.version")
+        version=$(echo "$data" | $NODEJS -p "eval(require('fs').readFileSync('/dev/stdin').toString()); _libraries.$lib['short-name'] + '-' + _libraries.$lib.version")
         echo "$lib: $version"
         exts="$exts/$version"
     done
