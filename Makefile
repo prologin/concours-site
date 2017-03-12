@@ -1,7 +1,10 @@
-DIR = prologin
+TOP = $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+DIR = $(TOP)/prologin
+LOCALE_DIR = $(DIR)/locale
 MANAGE = cd $(DIR) && ./manage.py
 CELERY = cd $(DIR) && celery
 TX = tx --debug
+PORT = 8000
 
 # Main rules
 
@@ -11,7 +14,7 @@ all: assets
 # NOT SUITABLE FOR USE IN PRODUCTION.
 
 runserver:
-	$(MANAGE) runserver localhost:8000
+	$(MANAGE) runserver localhost:$(PORT)
 
 smtpserver:
 	python -m smtpd -n -c DebuggingServer localhost:1025
@@ -19,31 +22,23 @@ smtpserver:
 celeryworker:
 	$(CELERY) -l debug -A prologin worker
 
-ifeq (manage,$(firstword $(MAKECMDGOALS)))
-  RUN_ARGS := $(wordlist 2,$(words $(MAKECMDGOALS)),$(MAKECMDGOALS))
-  $(eval $(RUN_ARGS):;@:)
-endif
-
-manage:
-	$(MANAGE) $(RUN_ARGS)
-
 # Transifex
 
 tx-push:
 	$(MANAGE) makemessages -l en
 	$(MANAGE) makemessages -a
-	sed -i '/"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"/d' prologin/locale/en/LC_MESSAGES/django.po
+	sed -i '/"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\\n"/d' $(LOCALE_DIR)/en/LC_MESSAGES/django.po
 	$(TX) push -s -t
 
 tx-pull:
-	mkdir -p "$(DIR)/locale"
-	find "$(DIR)/locale" -mindepth 1 -maxdepth 1 -type d -exec rm -r "{}" \;
+	mkdir -p '$(LOCALE_DIR)'
+	find '$(LOCALE_DIR)' -mindepth 1 -maxdepth 1 -type d -exec rm -r "{}" \;
 	$(TX) pull -l fr
 	$(MANAGE) compilemessages
 
 # Building/updating assets
 
 assets:
-	$(MAKE) all clean-aux -C assets
+	$(MAKE) -C assets all
 
 .PHONY: all runserver smtpserver celeryworker assets tx-push tx-pull
