@@ -14,7 +14,7 @@ def can_view_thread(user, thread):
 
 @rules.predicate
 def can_view_post(user, post):
-    return can_view_thread(user, post.thread)
+    return post.is_visible and can_view_thread(user, post.thread)
 
 
 @rules.predicate
@@ -32,11 +32,6 @@ def is_thread_open(user, thread):
     return thread.is_open
 
 
-@rules.predicate
-def is_post_visible(user, post):
-    return post.is_visible
-
-
 # Permissions
 rules.add_perm('forum.view_forum', rules.is_staff | can_view_forum)
 rules.add_perm('forum.create_thread', rules.is_staff | (rules.is_authenticated & can_view_forum))
@@ -48,6 +43,6 @@ rules.add_perm('forum.edit_thread', rules.is_staff | (rules.is_authenticated & c
 rules.add_perm('forum.delete_thread', rules.is_staff)
 rules.add_perm('forum.view_post', rules.is_staff | can_view_post)
 rules.add_perm('forum.create_post', rules.is_staff | (rules.is_authenticated & can_view_thread & is_thread_open))
-rules.add_perm('forum.edit_post', rules.is_staff | (rules.is_authenticated & is_post_visible & can_view_post & is_resource_author))
+rules.add_perm('forum.edit_post', rules.is_staff | (rules.is_authenticated & can_view_post & is_resource_author))
 rules.add_perm('forum.edit_post_visibility', rules.is_staff)
 rules.add_perm('forum.delete_post', rules.is_staff)
