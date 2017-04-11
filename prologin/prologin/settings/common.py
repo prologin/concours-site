@@ -353,6 +353,8 @@ BOOTSTRAP3 = {'success_css_class': ''}
 
 HOMEPAGE_ARTICLES = 4
 ZINNIA_AUTO_CLOSE_COMMENTS_AFTER = 0  # disable comments
+ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER = 0  # disables pingbacks completely
+ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER = 0  # disables trackbacks completely
 ZINNIA_ENTRY_BASE_MODEL = 'news.models.NewsEntry'
 ZINNIA_FEEDS_FORMAT = 'atom'
 ZINNIA_FEEDS_MAX_ITEMS = 20
@@ -362,8 +364,7 @@ ZINNIA_PING_DIRECTORIES = ()
 ZINNIA_PING_EXTERNAL_URLS = False
 ZINNIA_PROTOCOL = 'https'
 ZINNIA_SAVE_PING_DIRECTORIES = False
-ZINNIA_AUTO_CLOSE_PINGBACKS_AFTER = 0  # disables pingbacks completely
-ZINNIA_AUTO_CLOSE_TRACKBACKS_AFTER = 0  # disables trackbacks completely
+ZINNIA_UPLOAD_TO = 'upload/zinnia'
 
 
 # Marauder
