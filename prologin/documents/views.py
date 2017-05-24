@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.core import serializers
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
-from django.http.response import HttpResponseRedirect, HttpResponse
+from django.http.response import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.functional import cached_property
 from django.utils.text import slugify
@@ -464,7 +464,10 @@ class FinalCustomBadgesView(BaseFinalDocumentView):
 
     def get_extra_context(self):
         context = super().get_extra_context()
-        context['organizers'] = self.request.session.pop('docs_organizers_name')
+        try:
+            context['organizers'] = self.request.session.pop('docs_organizers_name')
+        except KeyError:
+            raise Http404()
         return context
 
 
@@ -494,6 +497,5 @@ class FinalMealTicketsView(BaseFinalDocumentView):
             context['ticket_name'] = self.request.session['docs_ticket_name']
             context['ticket_id'] = self.request.session['docs_ticket_id']
         except KeyError:
-            context['ticket_name'] = 'Please enter the date'
-            context['ticket_id'] = '1'
+            raise Http404()
         return context
