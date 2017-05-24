@@ -6,7 +6,6 @@ from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
 import contest.models
-import problems.models
 
 User = get_user_model()
 SemifinalResults = namedtuple('SemifinalResults', 'event contestants submissions submissioncodes explicitunlocks')
@@ -110,26 +109,27 @@ class ImportSemifinalResultReviewForm(forms.Form):
 
 
 DAY_OF_WEEK = (
-    ('1', 'Monday'),
-    ('2', 'Tuesday'),
-    ('3', 'Wednesday'),
-    ('4', 'Thursday'),
-    ('5', 'Friday'),
-    ('6', 'Saturday'),
-    ('7', 'Sunday'),
+    (1, _('Monday')),
+    (2, _('Tuesday')),
+    (3, _('Wednesday')),
+    (4, _('Thursday')),
+    (5, _('Friday')),
+    (6, _('Saturday')),
+    (7, _('Sunday')),
 )
 
 TIME_OF_DAY = (
-    ('1', 'Morning'),
-    ('2', 'Noon'),
-    ('3', 'Evening'),
+    (1, _('Morning')),
+    (2, _('Noon')),
+    (3, _('Evening')),
 )
 
+
 class MealTicketForm(forms.Form):
-    ticket_day = forms.ChoiceField(choices=DAY_OF_WEEK, label='Ticket name')
-    ticket_day_nb = forms.ChoiceField(choices=list(zip(range(1, 32), range(1,32))), label='')
-    ticket_day_time = forms.ChoiceField(choices=TIME_OF_DAY, label='')
-    ticket_id = forms.IntegerField(label='Starting ID', min_value=0, max_value=999, initial=1)
+    ticket_day = forms.ChoiceField(choices=DAY_OF_WEEK, label=_("Day"))
+    ticket_day_nb = forms.ChoiceField(choices=list(zip(range(1, 32), range(1, 32))), label="")
+    ticket_day_time = forms.ChoiceField(choices=TIME_OF_DAY, label="")
+    ticket_id = forms.IntegerField(label=_("Starting ID"), min_value=0, max_value=999, initial=1)
 
     def __init__(self, *args, **kwargs):
         super(MealTicketForm, self).__init__(*args, **kwargs)
@@ -137,5 +137,5 @@ class MealTicketForm(forms.Form):
             self.fields[field].widget.attrs.update({'class': 'input-sm'})
 
 
-class BadgesOrganizersForm(forms.Form):
-    name = forms.CharField(label='Name :', widget=forms.Textarea)
+class CustomBadgesForm(forms.Form):
+    name = forms.CharField(label=_("Names"), help_text=_("One name per line"), widget=forms.Textarea)

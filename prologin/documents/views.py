@@ -1,7 +1,6 @@
 import collections
 import io
 import json
-import re
 
 from django.conf import settings
 from django.contrib import messages
@@ -9,7 +8,7 @@ from django.core import serializers
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse_lazy
 from django.http.response import HttpResponseRedirect, HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.shortcuts import get_object_or_404, redirect
 from django.utils.functional import cached_property
 from django.utils.text import slugify
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
@@ -447,16 +446,26 @@ class FinalBadgesView(BaseFinalDocumentView):
         return super().contestant_queryset().order_by(*USER_LIST_ORDERING)
 
 
-class FinalCustomBadgesInputView(FormView):
-    template_name= 'documents/custom-badges-input.html'
-    form_class = documents.forms.BadgesOrganizersForm
+class FinalCustomBadgesInputView(PermissionRequiredMixin, FormView):
+    form_class = documents.forms.CustomBadgesForm
+    template_name = 'documents/custom-badges-input.html'
+    permission_required = 'documents.generate_batch_document'
 
     def form_valid(self, form):
-        if form.is_valid():
-            lines = form.cleaned_data['name'].split('\n')
-            self.request.session['docs_organizers_name'] = lines
-            return HttpResponseRedirect('custom-badges')
-        return render(self.request, self.template_name, {'form': form})
+        self.request.session['docs_organizers_name'] = [
+            name for name in form.cleaned_data['name'].split('\n') if name]
+        return HttpResponseRedirect('custom-badges')
+
+
+class FinalCustomBadgesView(BaseFinalDocumentView):
+    template_name = 'documents/badges.tex'
+    pdf_title = _("Prologin %(year)s: custom badges")
+    filename = pgettext_lazy("Document filename", "custom-badges-%(year)s-final")
+
+    def get_extra_context(self):
+        context = super().get_extra_context()
+        context['organizers'] = self.request.session.pop('docs_organizers_name')
+        return context
 
 
 class FinalMealTicketsInputView(View):
@@ -465,10 +474,11 @@ class FinalMealTicketsInputView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            name = documents.forms.DAY_OF_WEEK[int(form.cleaned_data['ticket_day']) - 1][1]
-            name += ' ' + form.cleaned_data['ticket_day_nb']
-            name += ' ' + documents.forms.TIME_OF_DAY[int(form.cleaned_data['ticket_day_time']) - 1][1]
-            request.session['docs_ticket_name'] = name
+            request.session['docs_ticket_name'] = '{dayname} {day} {time}'.format(
+                dayname=dict(documents.forms.DAY_OF_WEEK)[int(form.cleaned_data['ticket_day'])],
+                day=form.cleaned_data['ticket_day_nb'],
+                time=dict(documents.forms.TIME_OF_DAY)[int(form.cleaned_data['ticket_day_time'])],
+            )
             request.session['docs_ticket_id'] = form.cleaned_data['ticket_id']
         return HttpResponseRedirect('../meal-tickets')
 
@@ -487,16 +497,3 @@ class FinalMealTicketsView(BaseFinalDocumentView):
             context['ticket_name'] = 'Please enter the date'
             context['ticket_id'] = '1'
         return context
-
-
-class FinalCustomBadgesView(BaseFinalDocumentView):
-    template_name = 'documents/badges.tex'
-    pdf_title = _("Prologin %(year)s: custom badges")
-    filename = pgettext_lazy("Document filename", "custom-badges-%(year)s-final")
-    
-    def get_extra_context(self):
-        context = super().get_extra_context()
-        name = self.request.session['docs_organizers_name']
-        context['organizers'] = name
-        return context
-
