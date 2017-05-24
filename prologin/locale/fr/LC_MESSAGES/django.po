@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-28 19:05+0200\n"
-"PO-Revision-Date: 2017-03-28 17:07+0000\n"
+"POT-Creation-Date: 2017-05-24 20:28+0200\n"
+"PO-Revision-Date: 2017-05-24 18:29+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -306,7 +306,7 @@ msgstr "Statut d'assignation"
 #: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:249
 #: documents/templates/documents/semifinal-import-review.html:58
 #: documents/templates/documents/semifinal-import-review.html:77
-#: problems/admin.py:171 problems/templates/problems/manual.html:66
+#: problems/admin.py:163 problems/templates/problems/manual.html:66
 #: semifinal/templates/semifinal/monitoring.html:30
 msgid "Score"
 msgstr "Score"
@@ -777,7 +777,7 @@ msgstr "Candidats"
 
 #: contest/templates/correction/by-year.html:24
 #: documents/templates/documents/semifinal-import-review.html:78
-#: problems/models/submission.py:182
+#: problems/models/submission.py:183
 msgid "Submissions"
 msgstr "Soumissions"
 
@@ -946,40 +946,96 @@ msgstr[1] "Vous devez fournir au moins %(count)d choix."
 msgid "all-centers"
 msgstr "tous-centres"
 
-#: documents/forms.py:16
+#: documents/forms.py:15
 msgid "JSON export file"
 msgstr "Fichier export JSON"
 
-#: documents/forms.py:18
+#: documents/forms.py:17
 msgid ""
 "Select the JSON export file obtained from regional event website and "
 "proceed."
 msgstr "Sélectionnez le fichier export JSON obtenu du site d'épreuve régionale et continuez."
 
-#: documents/forms.py:25
+#: documents/forms.py:24
 #, python-format
 msgid "Invalid format: could not read or deserialize %(type)s"
 msgstr "Format invalide&nbsp;: impossible de lire ou de dé-serialiser %(type)s"
 
-#: documents/forms.py:34
+#: documents/forms.py:33
 msgid "Imported edition is invalid."
 msgstr "L'édition importée est invalide."
 
-#: documents/forms.py:43
+#: documents/forms.py:42
 msgid "Imported center is invalid."
 msgstr "Le centre importé est invalide."
 
-#: documents/forms.py:52
+#: documents/forms.py:51
 msgid "Imported event is invalid."
 msgstr "L'événement importé est invalide."
 
-#: documents/forms.py:55
+#: documents/forms.py:54
 msgid "Imported event edition or center mismatches with known event."
 msgstr "L'édition ou le centre importé ne correspond pas à l'événement connu."
 
-#: documents/forms.py:63
+#: documents/forms.py:62
 msgid "Imported users mismatch."
 msgstr "Les utilisateurs importés ne correspondent pas."
+
+#: documents/forms.py:112
+msgid "Monday"
+msgstr "Lundi"
+
+#: documents/forms.py:113
+msgid "Tuesday"
+msgstr "Mardi"
+
+#: documents/forms.py:114
+msgid "Wednesday"
+msgstr "Mercredi"
+
+#: documents/forms.py:115
+msgid "Thursday"
+msgstr "Jeudi"
+
+#: documents/forms.py:116
+msgid "Friday"
+msgstr "Vendredi"
+
+#: documents/forms.py:117
+msgid "Saturday"
+msgstr "Samedi"
+
+#: documents/forms.py:118
+msgid "Sunday"
+msgstr "Dimanche"
+
+#: documents/forms.py:122
+msgid "Morning"
+msgstr "Matin"
+
+#: documents/forms.py:123
+msgid "Noon"
+msgstr "Midi"
+
+#: documents/forms.py:124
+msgid "Evening"
+msgstr "Soir"
+
+#: documents/forms.py:129
+msgid "Day"
+msgstr "Jour"
+
+#: documents/forms.py:132
+msgid "Starting ID"
+msgstr "ID départ"
+
+#: documents/forms.py:141
+msgid "Names"
+msgstr "Noms"
+
+#: documents/forms.py:141
+msgid "One name per line"
+msgstr "Un nom par ligne"
 
 #: documents/templates/documents/custom-badges-input.html:8
 #: documents/templates/documents/index.html:7
@@ -1451,27 +1507,27 @@ msgctxt "Document filename"
 msgid "badges-%(year)s-final"
 msgstr "badges-finale-%(year)s"
 
-#: documents/views.py:478
-#, python-format
-msgid "Prologin %(year)s: Meal tickets"
-msgstr "Prologin %(year)s : tickets repas"
-
-#: documents/views.py:479
-#, python-format
-msgctxt "Document filename"
-msgid "meal-tickets-%(year)s-final"
-msgstr "tickets-repas-%(year)s-finale"
-
-#: documents/views.py:494
+#: documents/views.py:463
 #, python-format
 msgid "Prologin %(year)s: custom badges"
 msgstr "Prologin %(year)s : badges personnalisés"
 
-#: documents/views.py:495
+#: documents/views.py:464
 #, python-format
 msgctxt "Document filename"
 msgid "custom-badges-%(year)s-final"
 msgstr "badges-personnalises-%(year)s-finale"
+
+#: documents/views.py:489
+#, python-format
+msgid "Prologin %(year)s: Meal tickets"
+msgstr "Prologin %(year)s : tickets repas"
+
+#: documents/views.py:490
+#, python-format
+msgctxt "Document filename"
+msgid "meal-tickets-%(year)s-final"
+msgstr "tickets-repas-%(year)s-finale"
 
 #: forum/admin.py:21
 msgid "Close selected threads"
@@ -1645,20 +1701,20 @@ msgstr "Créer un nouveau sujet"
 
 #: forum/templates/forum/create_thread.html:24
 #: forum/templates/forum/edit_post.html:29
-#: forum/templates/forum/thread_posts.html:165
+#: forum/templates/forum/thread_posts.html:166
 msgctxt "Preview, the action (button)"
 msgid "Preview"
 msgstr "Prévisualiser"
 
 #: forum/templates/forum/create_thread.html:29
 #: forum/templates/forum/edit_post.html:32
-#: forum/templates/forum/thread_posts.html:168
+#: forum/templates/forum/thread_posts.html:169
 msgctxt "Preview, the noun (title)"
 msgid "Preview"
 msgstr "Prévisualisation"
 
 #: forum/templates/forum/edit_post.html:10
-#: forum/templates/forum/thread_posts.html:114
+#: forum/templates/forum/thread_posts.html:115
 #: semifinal/templates/semifinal/monitoring.html:52
 #: users/templates/users/edit.html:9
 #: users/templates/users/edit_password.html:9
@@ -1786,7 +1842,7 @@ msgid "Close the thread"
 msgstr "Fermer le sujet"
 
 #: forum/templates/forum/thread_posts.html:75
-#: forum/templates/forum/thread_posts.html:158
+#: forum/templates/forum/thread_posts.html:159
 msgid "Reply to the thread"
 msgstr "Répondre au sujet"
 
@@ -1800,45 +1856,45 @@ msgstr "Photo de profil de %(username)s"
 msgid "Staff member"
 msgstr "Membre de l'équipe"
 
-#: forum/templates/forum/thread_posts.html:110
+#: forum/templates/forum/thread_posts.html:111
 msgid "Cite"
 msgstr "Cite"
 
-#: forum/templates/forum/thread_posts.html:124
+#: forum/templates/forum/thread_posts.html:125
 msgid "Hide"
 msgstr "Cacher"
 
-#: forum/templates/forum/thread_posts.html:124
+#: forum/templates/forum/thread_posts.html:125
 msgid "Unhide"
 msgstr "Ne plus cacher"
 
-#: forum/templates/forum/thread_posts.html:129
+#: forum/templates/forum/thread_posts.html:130
 msgid "Delete"
 msgstr "Supprimer"
 
-#: forum/templates/forum/thread_posts.html:136
+#: forum/templates/forum/thread_posts.html:137
 #, python-format
 msgid "Edited on <span title=\"%(date_iso)s\">%(date)s</span>"
 msgstr "Modifié le <span title=\"%(date_iso)s\">%(date)s</span>"
 
-#: forum/templates/forum/thread_posts.html:137
+#: forum/templates/forum/thread_posts.html:138
 #, python-format
 msgid "by %(username)s"
 msgstr "par %(username)s"
 
-#: forum/templates/forum/thread_posts.html:143
+#: forum/templates/forum/thread_posts.html:144
 msgid "Message is deleted."
 msgstr "Message supprimé."
 
-#: forum/templates/forum/thread_posts.html:155
+#: forum/templates/forum/thread_posts.html:156
 msgid "Back to top"
 msgstr "Retour en haut"
 
-#: forum/templates/forum/thread_posts.html:164
+#: forum/templates/forum/thread_posts.html:165
 msgid "Add reply"
 msgstr "Ajouter une réponse"
 
-#: forum/templates/forum/thread_posts.html:175
+#: forum/templates/forum/thread_posts.html:176
 msgid "Sorry, you are not allowed to post new messages in this thread."
 msgstr "Vous n'êtes pas autorisé à poster de nouveaux messages dans ce sujet."
 
@@ -2643,8 +2699,8 @@ msgstr "Remarque importante"
 #: pages/templates/pages/about-contest-rules.html:20
 msgid ""
 "The contest rules are only available in French, as the\n"
-"\tcontest is only open to French speakers (\"article 3\").\n"
-"\t"
+"    contest is only open to French speakers (\"article 3\").\n"
+"    "
 msgstr "Les règles du concours ne sont disponibles qu'en français, étant donné que le concours n'est ouvert qu'aux francophones (cf. « article 3 »)."
 
 #: pages/templates/pages/about-contest.html:7
@@ -3328,45 +3384,41 @@ msgstr "résolu"
 msgid "corrected"
 msgstr "corrigé"
 
-#: problems/admin.py:66
-msgid "results expired"
-msgstr "résultats expirés"
-
-#: problems/admin.py:87
+#: problems/admin.py:78
 #, python-format
 msgid "Code %(id)s"
 msgstr "Code %(id)s"
 
-#: problems/admin.py:93
+#: problems/admin.py:84
 msgid "Challenge"
 msgstr "Épreuve"
 
-#: problems/admin.py:98 semifinal/forms.py:9
+#: problems/admin.py:89 semifinal/forms.py:9
 msgid "Problem"
 msgstr "Problème"
 
-#: problems/admin.py:103 problems/admin.py:165
+#: problems/admin.py:94 problems/admin.py:157
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: problems/admin.py:109
+#: problems/admin.py:100
 msgid "Status"
 msgstr "Statut"
 
-#: problems/admin.py:114
+#: problems/admin.py:105
 msgid "Correctable"
 msgstr "Corrigeable"
 
-#: problems/admin.py:133
+#: problems/admin.py:125
 msgid "Submit to correction"
 msgstr "Envoyer en correction"
 
-#: problems/admin.py:159
+#: problems/admin.py:151
 #, python-format
 msgid "Submission %(id)s"
 msgstr "Soumission %(id)s"
 
-#: problems/admin.py:176 problems/forms.py:31
+#: problems/admin.py:168 problems/forms.py:31
 msgid "Solved"
 msgstr "Résolu"
 
@@ -3424,80 +3476,80 @@ msgstr "Vous devez fournir un fichier source ou un code source."
 msgid "Qualifications"
 msgstr "Sélections"
 
-#: problems/models/submission.py:65
+#: problems/models/submission.py:66
 msgid "unknown"
 msgstr "inconnu"
 
-#: problems/models/submission.py:69
+#: problems/models/submission.py:70
 msgid "Compilation went fine."
 msgstr "La compilation a réussi."
 
-#: problems/models/submission.py:70
+#: problems/models/submission.py:71
 #, python-format
 msgid "Compilation exited with code %(code)s."
 msgstr "Le compilateur a quitté avec le code de retour %(code)s."
 
-#: problems/models/submission.py:71
+#: problems/models/submission.py:72
 msgid "Compilation timed out."
 msgstr "La compilation a dépassé la limite de temps."
 
-#: problems/models/submission.py:72
+#: problems/models/submission.py:73
 #, python-format
 msgid "Compilation was killed with signal %(signal)s."
 msgstr "La compilation a été tuée par le signal %(signal)s."
 
-#: problems/models/submission.py:73
+#: problems/models/submission.py:74
 msgid "Compilation crashed with an internal error."
 msgstr "La compilation a crashée à cause d'une erreur interne."
 
-#: problems/models/submission.py:81
+#: problems/models/submission.py:82
 msgid "your program executed fine, but:"
 msgstr "votre programme s'est exécuté correctement, mais :"
 
-#: problems/models/submission.py:82
+#: problems/models/submission.py:83
 #, python-format
 msgid "your program exited with code %(code)s."
 msgstr "votre programme a quitté avec le code de retour %(code)s."
 
-#: problems/models/submission.py:83
+#: problems/models/submission.py:84
 msgid "you program timed out."
 msgstr "votre programme a dépassé la limite de temps."
 
-#: problems/models/submission.py:84
+#: problems/models/submission.py:85
 #, python-format
 msgid "your program was killed with signal %(signal)s."
 msgstr "votre programme a été tué par le signal %(signal)s."
 
-#: problems/models/submission.py:85
+#: problems/models/submission.py:86
 msgid "your program crashed with an internal error."
 msgstr "votre programme a crashé à cause d'une erreur interne."
 
-#: problems/models/submission.py:181
+#: problems/models/submission.py:182
 #: problems/templates/problems/submission.html:9
 msgid "Submission"
 msgstr "Soumission"
 
-#: problems/models/submission.py:226
+#: problems/models/submission.py:228
 msgid "Pending"
 msgstr "En attente"
 
-#: problems/models/submission.py:226
+#: problems/models/submission.py:228
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:248
+#: problems/models/submission.py:250
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:249
+#: problems/models/submission.py:251
 msgid "Submission codes"
 msgstr "Codes soumis"
 
-#: problems/models/submission.py:273
+#: problems/models/submission.py:275
 msgid "Explicit problem unlock"
 msgstr "Déblocage explicite de problème"
 
-#: problems/models/submission.py:274
+#: problems/models/submission.py:276
 msgid "Explicit problem unlocks"
 msgstr "Déblocages explicites de problème"
 
@@ -4286,6 +4338,7 @@ msgid "Latest blog articles"
 msgstr "Dernières actualités"
 
 #: prologin/templates/prologin/base.html:116
+#: prologin/templates/prologin/stub-impersonate-script.html:7
 msgid "No user matching query"
 msgstr "Aucun utilisateur correspondant"
 
@@ -4433,15 +4486,15 @@ msgctxt "File size unit"
 msgid "bytes"
 msgstr "octets"
 
-#: prologin/utils/__init__.py:244
+#: prologin/utils/__init__.py:245
 msgid "year"
 msgstr "année"
 
-#: prologin/utils/__init__.py:245
+#: prologin/utils/__init__.py:246
 msgid "month"
 msgstr "mois"
 
-#: prologin/utils/__init__.py:246
+#: prologin/utils/__init__.py:247
 msgid "day"
 msgstr "jour"
 
@@ -4943,7 +4996,7 @@ msgstr "Préférences"
 
 #: users/forms.py:38
 msgid "How do you prefer to be described?"
-msgstr "Comment préférez-vous être décrit ?"
+msgstr "Comment préférez-vous qu'on parle de vous ?"
 
 #: users/forms.py:49
 #, python-format
@@ -5388,6 +5441,11 @@ msgid ""
 "has been unsubscribed and will receive no further e-mails\n"
 "  from Prologin."
 msgstr "a été désinscrit et ne recevra plus d'e-mails de Prologin."
+
+#: users/templates/users/user-list.html:279
+#: users/templates/users/user-list.html:283
+msgid "User list"
+msgstr ""
 
 #: users/views.py:82
 #, python-format
