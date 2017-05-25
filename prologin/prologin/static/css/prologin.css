@@ -162,7 +162,7 @@ footer .legal {
   color: #fefefe;
 }
 
-.navbar-default .dropdown-menu li a, .navbar-default .dropdown-menu li button {
+.navbar-default .dropdown-menu > li > a, .navbar-default .dropdown-menu > li > button {
   padding: 8px 20px;
 }
 
@@ -901,13 +901,17 @@ input[type=checkbox].task-list-item-checkbox {
   content: " > ";
 }
 
-.form-impersonate {
+.user-inactive {
+  background: repeating-linear-gradient(45deg, #e7e7e7, #e7e7e7 10px, #efefef 10px, #efefef 20px);
+}
+
+.form-user-search {
   position: relative;
   padding: 0 20px;
   margin: 0;
 }
 
-.form-impersonate input, .form-impersonate input:focus {
+.form-user-search input, .form-user-search input:focus {
   border: none;
   box-shadow: none;
   outline: none;
@@ -918,7 +922,7 @@ input[type=checkbox].task-list-item-checkbox {
   width: 100% !important;
 }
 
-.form-impersonate i.fa {
+.form-user-search > i.fa {
   position: absolute;
   top: calc(50% - .5em);
   z-index: 1; /* because typehead appears after */
@@ -971,9 +975,11 @@ label[for$="clear_id"] {
 .completion-color-0 .completion-text {
   background-color: #d9534f;
 }
+
 .completion-color-1 .completion-text {
   background-color: #f0ad4e;
 }
+
 .completion-color-2 .completion-text {
   background-color: #4d994d;
 }
@@ -1006,6 +1012,10 @@ label[for$="clear_id"] {
   vertical-align: middle;
 }
 
+.staff-flare > i.fa {
+  color: goldenrod;
+}
+
 /**
  * django-hijack
  */
@@ -1021,19 +1031,19 @@ label[for$="clear_id"] {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
 }
 
-.tt-impersonate .tt-empty {
+.tt-user-search .tt-empty {
   padding: 1em;
   font-style: italic;
 }
 
-.tt-impersonate {
+.tt-user-search {
   background-color: white;
   width: 220px;
   box-shadow: 0 6px 12px rgba(0, 0, 0, .175); /* dropdown */
   left: -20px !important; /* padding inside of dropdown li>a */
 }
 
-.tt-impersonate .tt-suggestion {
+.tt-user-search .tt-suggestion {
   padding: 5px .5em 5px 0;
   margin: 0;
   overflow: hidden;
@@ -1043,18 +1053,22 @@ label[for$="clear_id"] {
   min-height: 3em;
 }
 
-.tt-impersonate .col-img, .tt-impersonate .col-info {
+.tt-user-search .col-img, .tt-user-search .col-info {
   padding: 0;
 }
 
-.tt-impersonate .col-img {
+.tt-user-search .col-img {
   text-align: center;
 }
 
-.tt-impersonate .col-img .team-member-avatar {
+.tt-user-search .col-img .team-member-avatar {
   width: 32px;
   height: 32px;
   border-radius: 16px;
+}
+
+.tt-user-search .btn {
+  margin-left: 2px;
 }
 
 .twitter-typeahead {
@@ -1076,7 +1090,7 @@ label[for$="clear_id"] {
   background: #0081c2;
 }
 
-.tt-suggestion.tt-cursor a {
+.tt-suggestion.tt-cursor > a {
   color: #fff;
 }
 

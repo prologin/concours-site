@@ -1,25 +1,25 @@
 $(function () {
-  var $id = $('#impersonate-user-id'), $username = $('#impersonate-username');
+  let $username = $('#search-user-name');
   $username.typeahead({
-    classNames: {menu: 'tt-menu tt-impersonate'},
+    classNames: {menu: 'tt-menu tt-user-search'},
     limit: 5
   }, {
-    name: 'impersonate',
+    name: 'search',
     display: 'username',
     source: function (query, syncResults, asyncResults) {
-      $.get(IMPERSONATE_URL + '?q=' + query, function (data) {
+      $.get(SEARCH_USER_URL + '?q=' + query, function (data) {
           asyncResults(data);
         }
       )
       ;
     },
     templates: {
-      empty: '<div class="tt-empty">' + IMPERSONATE_EMPTY + '</div>',
+      empty: '<div class="tt-empty">' + SEARCH_USER_EMPTY + '</div>',
       suggestion: function (data) {
         return data.html;
       }
     }
   }).on('typeahead:select', function (e, data) {
-    $id.val(data.id).closest('form').submit();
+    window.location = data.url;
   });
 });

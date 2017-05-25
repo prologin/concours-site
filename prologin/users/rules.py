@@ -7,6 +7,9 @@ def can_impersonate(hijacker, hijacked):
     # Nobody can impersonate superusers
     if hijacked.is_superuser:
         return False
+    # Inactive users cannot be hijacked
+    if not hijacked.is_active:
+        return False
     # Superusers can impersonate staff & members
     if hijacker.is_superuser:
         return True
@@ -19,15 +22,19 @@ def can_impersonate(hijacker, hijacked):
     return True
 
 
-rules.add_rule('can_impersonate_user', can_impersonate)
-rules.add_perm('users.may_impersonate', rules.is_staff)
+# A *rule* so we can use check_rule, because check_perm always returns True for superusers,
+# defeating the checks in can_impersonate
+rules.add_rule('users.can-impersonate', can_impersonate)
+rules.add_perm('users.may-impersonate', rules.is_staff)
+rules.add_perm('users.search', rules.is_staff)
+rules.add_perm('users.edit', rules.is_staff)
 
 
 def hijack_authorization_check(hijacker, hijacked):
     """
     Custom check for django-hijack
     """
-    return rules.test_rule('can_impersonate_user', hijacker, hijacked)
+    return rules.test_rule('users.can-impersonate', hijacker, hijacked)
 
 
 def hijack_forbidden(*args, **kwargs):

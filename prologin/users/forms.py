@@ -129,27 +129,3 @@ class ProloginAuthenticationForm(AuthenticationForm):
         self.fields['username'].help_text = _("This field is case insensitive. It means capitals and small letters are "
                                               "considered to be equal.")
         self.error_messages['invalid_login'] = _("Please enter a correct username (or email) and password.")
-
-
-class ImpersonateForm(forms.Form):
-    user = forms.ModelChoiceField(queryset=User.objects.filter(is_active=True, is_superuser=False),
-                                  required=False, empty_label='', widget=forms.HiddenInput())
-    username = forms.CharField(required=False)
-
-    @classmethod
-    def search_users(cls, query):
-        from users.models import search_users
-        return search_users(query, qs=cls.base_fields['user'].queryset)
-
-    def clean(self):
-        # provided by Javascript in the hidden field
-        user = self.cleaned_data.get('user')
-        if not user:
-            # graceful degradation if no JS: use plain text input as query & take first result
-            username = self.cleaned_data.get('username', '').strip()
-            if not username:
-                raise ValidationError(_("you must provide a username."))
-            user = ImpersonateForm.search_users(username).first()
-        if not user:
-            raise ValidationError(_("no user matches your query."))
-        self.cleaned_data['user'] = user

@@ -1,0 +1,22 @@
+{% load i18n rules %}
+{% spaceless %}<div class="row {% if not user.is_active %}user-inactive{% endif %}">
+  <div class="col-xs-3 col-img">
+    {% if user.picture_or_avatar %}
+      <div class="team-member-avatar" style="background-image: url({{ user.picture_or_avatar.url }})"></div>
+    {% endif %}
+  </div>
+  <div class="col-xs-9 col-info">
+    <div style="position: absolute; right: 0;">
+      <a href="{% url 'admin:users_prologinuser_change' user.pk %}" class="btn btn-info btn-xs" title="{% trans "Edit in admin" %}"><i class="fa fa-pencil"></i></a>
+      {% test_rule 'users.can-impersonate' request.user user as can_impersonate %}
+      {% if can_impersonate %}
+      <form method="post" action="{% url 'users:impersonate' user.pk %}" style="display: inline">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-default btn-xs" title="{% trans "Impersonate" %}"><i class="fa fa-user-secret"></i></button>
+      </form>
+      {% endif %}
+    </div>
+    <strong>{{ user.username }}</strong><br>
+    <small>{{ user.get_full_name }}</small>
+  </div>
+</div>{% endspaceless %}

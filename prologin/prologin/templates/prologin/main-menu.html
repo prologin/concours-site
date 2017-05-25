@@ -15,17 +15,17 @@
     <ul class="dropdown-menu dropdown-menu-right" role="menu">
       <li><a href="{% url 'admin:index' %}">{% trans "Django administration" %}</a></li>
       <li class="divider"></li>
-      {% has_perm 'correction.can_correct' request.user None as can_correct %}
+      {% has_perm 'correction.can_correct' request.user as can_correct %}
       {% if can_correct %}<li><a href="{% url 'contest:correction:index' %}"><i class="fa fa-fw fa-wrench"></i> {% trans "Correction" %}</a></li>{% endif %}
-      {% has_perm 'documents.generate_batch_document' request.user None as can_correct %}
+      {% has_perm 'documents.generate_batch_document' request.user as can_correct %}
       {% if can_correct %}<li><a href="{% url 'documents:index' %}"><i class="fa fa-fw fa-archive"></i> {% trans "Documents" %}</a></li>{% endif %}
-      {% if may_impersonate %}
+      {% has_perm 'users.search' request.user as can_search %}
+      {% if can_search %}
       <li>
-        <form class="form-inline form-impersonate" method="post" action="{% url 'users:impersonate' %}">
-          {% csrf_token %}
-          <i class="fa fa-fw fa-user-secret"></i>
-          <input type="hidden" id="impersonate-user-id" name="user">
-          <input id="impersonate-username" name="username" type="text" class="form-control" placeholder="{% trans "Impersonate user" %}">
+        <form class="form-inline form-user-search">
+          <i class="fa fa-fw fa-search"></i>
+          <input type="hidden" id="search-user-id" name="user">
+          <input id="search-user-name" name="username" type="text" autocomplete="off" class="form-control" placeholder="{% trans "Search users" %}">
         </form>
       </li>
       {% endif %}

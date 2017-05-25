@@ -191,10 +191,6 @@
   margin: 10px 0 0;
 }
 
-.staff-flare > i.fa {
-  color: goldenrod;
-}
-
 @media (min-width: 768px) {
 
   .post-author {

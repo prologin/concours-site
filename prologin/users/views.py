@@ -7,14 +7,13 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import Http404
 from django.http.response import JsonResponse, StreamingHttpResponse
 from django.shortcuts import get_object_or_404, render, redirect
-from django.template.base import Context
-from django.template.loader import get_template
+from django.template.loader import render_to_string
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
 from django.views.decorators.http import require_POST
 from django.views.generic.base import View, RedirectView
 from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.views.generic.edit import CreateView, UpdateView, FormView
+from django.views.generic.edit import CreateView, UpdateView, FormView, ModelFormMixin
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 import django.contrib.auth.forms
@@ -331,13 +330,13 @@ class UnsubscribeView(View):
                 {'unsubscribe_user': user})
 
 
-class ImpersonateView(PermissionRequiredMixin, FormView):
-    form_class = users.forms.ImpersonateForm
-    permission_required = 'users.may_impersonate'
-    error_message = _("Unable to complete impersonation: %(msg)s")
+class ImpersonateView(PermissionRequiredMixin, UpdateView):
+    model = get_user_model()
+    fields = []
 
-    def get(self, request, *args, **kwargs):
-        raise Http404()
+    def has_permission(self):
+        from hijack.helpers import is_authorized
+        return is_authorized(self.request.user, self.get_object())
 
     def get_success_url(self):
         url = self.request.GET.get('next')
@@ -346,48 +345,30 @@ class ImpersonateView(PermissionRequiredMixin, FormView):
         return '/'
 
     def form_valid(self, form):
-        from hijack.helpers import is_authorized, login_user
-
-        hijacked = form.cleaned_data['user']
-
-        error = None
-        if not hijacked.is_active:
-            error = _("you cannot impersonate an inactive user.")
-        elif not is_authorized(self.request.user, hijacked):
-            error = _("you don't have the permission to impersonate this user.")
-
-        if error:
-            messages.error(self.request, self.error_message % {'msg': error})
-            return redirect(self.get_success_url())
-
-        login_user(self.request, hijacked)
-        return super().form_valid(form)
-
-    def form_invalid(self, form):
-        # You can land here if JS is not enabled and there is no user or invalid form
-        # Field errors can stay hidden because they can only be the result of malicious request crafting
-        for error in form.non_field_errors():
-            messages.error(self.request, self.error_message % {'msg': error})
-        # Redirect without impersonating
-        return super().form_valid(form)
+        from hijack.helpers import login_user
+        login_user(self.request, self.get_object())
+        return super(ModelFormMixin, self).form_valid(form)
 
 
-class ImpersonateSearchView(PermissionRequiredMixin, ListView):
+class UserSearchSuggestView(PermissionRequiredMixin, ListView):
     model = get_user_model()
     paginate_by = 10
-    permission_required = 'users.may_impersonate'
+    permission_required = 'users.search'
 
     def get_queryset(self):
         query = self.request.GET.get('q', '').strip()
-        return users.forms.ImpersonateForm.search_users(query)
+        return (users.models.search_users(query)
+                .order_by('-is_active', 'username')
+                [:self.paginate_by])
 
     def render_to_response(self, context, **response_kwargs):
-        tpl = get_template('users/stub-impersonate-result.html')
-        results = [
-            {
-                'id': user.pk,
-                'username': user.username,
-                'html': tpl.render(Context({'user': user})),
-            }
-            for user in self.get_queryset()]
+        results = [{
+            'id': user.pk,
+            'username': user.username,
+            'url': reverse('users:profile', args=[user.pk]),
+            'html': render_to_string(
+                'users/stub-search-result.html',
+                {'user': user, 'request': self.request},
+                self.request),
+            } for user in self.get_queryset()]
         return JsonResponse(results, safe=False)

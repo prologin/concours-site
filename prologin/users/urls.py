@@ -8,6 +8,9 @@ user_patterns = [
 
     # Homes
     url(r'home/(?P<year>[0-9]{4})/$', views.DownloadFinalHomeView.as_view(), name='download-final-home'),
+
+    # Impersonate (django-hijack)
+    url(r'impersonate$', views.ImpersonateView.as_view(), name='impersonate'),
 ]
 
 urlpatterns = [
@@ -18,9 +21,8 @@ urlpatterns = [
     url(r'^login/$', views.custom_login, name='login'),
     url(r'^logout/$', views.protected_logout, {'next_page': '/'}, name='logout'),
 
-    # Impersonate (django-hijack)
-    url(r'^impersonate/search$', views.ImpersonateSearchView.as_view(), name='impersonate-search'),
-    url(r'^impersonate$', views.ImpersonateView.as_view(), name='impersonate'),
+    # Search
+    url(r'^search/suggest$', views.UserSearchSuggestView.as_view(), name='search-suggest'),
 
     # Password reset
     url(r'^password/reset/ask/$', views.PasswordResetView.as_view(), name='password_reset'),

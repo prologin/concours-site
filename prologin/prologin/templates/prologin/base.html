@@ -2,7 +2,6 @@
 {% load django_bootstrap_breadcrumbs rules utils %}
 
 {% get_current_language as LANGUAGE_CODE %}
-{% has_perm 'users.may_impersonate' request.user as may_impersonate %}
 <!doctype html>
 <html lang="{{ LANGUAGE_CODE }}">
 <head>
@@ -74,7 +73,7 @@
           <span class="icon-bar"></span>
         </button>
         <div class="navbar-collapse collapse pull-right">
-          {% include "prologin/main-menu.html" with may_impersonate=may_impersonate %}
+          {% include "prologin/main-menu.html" %}
         </div>
       </div>
       {% include "prologin/stub-impersonate-warning.html" %}
@@ -108,15 +107,15 @@
   {# Scripts #}
   <script src="{% static 'lib/js/jquery.min.js' %}"></script>
   <script src="{% static 'lib/js/bootstrap.min.js' %}"></script>
-
-  {% if may_impersonate %}
-  {# User can impersonate others: include JS for typeahead #}
+  {% has_perm 'users.search' request.user as can_search_users %}
+  {% if can_search_users %}
+  {# User can search users: include JS for typeahead #}
   <script src="{% static 'lib/js/typeahead.jquery.min.js' %}"></script>
   <script type="application/javascript">
-    var IMPERSONATE_EMPTY = "{% trans "No user matching query"|escapejs %}",
-      IMPERSONATE_URL = "{% url 'users:impersonate-search' %}";
+    var SEARCH_USER_EMPTY = "{% trans "No user matching query"|escapejs %}",
+      SEARCH_USER_URL = "{% url 'users:search-suggest' %}";
   </script>
-  <script src="{% static 'js/impersonate.js' %}"></script>
+  <script src="{% static 'js/user-search.js' %}"></script>
   {% endif %}
 
   {% if request.session.is_hijacked_user %}
