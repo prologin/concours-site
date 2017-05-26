@@ -162,7 +162,7 @@ footer .legal {
   color: #fefefe;
 }
 
-.navbar-default .dropdown-menu > li > a, .navbar-default .dropdown-menu > li > button {
+.navbar-default .dropdown-menu > li > a, .navbar-default .dropdown-menu > li > form > button {
   padding: 8px 20px;
 }
 
