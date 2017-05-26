@@ -25,14 +25,7 @@ monitoring_patterns = [
 users_patterns = [
     # Login and logout
     url(r'^login/$', users.views.custom_login, name='login'),
-    url(r'^logout/$', users.views.protected_logout, {'next_page': '/'},
-        name='logout'),
-
-    # Impersonate (django-hijack)
-    url(r'^impersonate/search$', users.views.ImpersonateSearchView.as_view(),
-        name='impersonate-search'),
-    url(r'^impersonate$', users.views.ImpersonateView.as_view(),
-        name='impersonate'),
+    url(r'^logout/$', users.views.protected_logout, {'next_page': '/'}, name='logout'),
 ]
 
 urlpatterns += [
