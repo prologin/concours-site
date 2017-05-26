@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-24 20:28+0200\n"
-"PO-Revision-Date: 2017-05-24 18:29+0000\n"
+"POT-Creation-Date: 2017-05-26 16:00+0200\n"
+"PO-Revision-Date: 2017-05-26 14:04+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1247,283 +1247,283 @@ msgstr "Sortie standard"
 msgid "Standard error"
 msgstr "Erreur standard"
 
-#: documents/views.py:69
+#: documents/views.py:68
 #, python-format
 msgid "Prologin %(year)s: batch invitations to the regional center %(center)s"
 msgstr "Prologin %(year)s : lot de convocations pour le centre régional %(center)s"
 
-#: documents/views.py:70
+#: documents/views.py:69
 #, python-format
 msgctxt "Document filename"
 msgid "invitations-%(year)s-regional-%(center)s"
 msgstr "invitations-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:75
+#: documents/views.py:74
 #, python-format
 msgid "Prologin %(year)s: invitation to the regional event for %(fullname)s"
 msgstr "Prologin %(year)s : convocation à l'épreuve régionale pour %(fullname)s"
 
-#: documents/views.py:76
+#: documents/views.py:75
 #, python-format
 msgctxt "Document filename"
 msgid "invitation-%(year)s-regional-%(fullname)s"
 msgstr "invitations-%(year)s-regionale-%(fullname)s"
 
-#: documents/views.py:81
+#: documents/views.py:80
 #, python-format
 msgid "Prologin %(year)s: call list for the regional center %(center)s"
 msgstr "Prologin %(year)s : liste d'appel pour le centre régional %(center)s"
 
-#: documents/views.py:82
+#: documents/views.py:81
 #, python-format
 msgctxt "Document filename"
 msgid "call-list-%(year)s-regional-%(center)s"
 msgstr "liste-appel-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:92
+#: documents/views.py:91
 #, python-format
 msgid "Prologin %(year)s: portrayal agreement for the regional events"
 msgstr "Prologin %(year)s : droit à l'image pour l'épreuve régionale"
 
-#: documents/views.py:93
+#: documents/views.py:92
 #, python-format
 msgctxt "Document filename"
 msgid "portrayal-agreement-%(year)s-regional"
 msgstr "droit-image-%(year)s-regionale"
 
-#: documents/views.py:108
+#: documents/views.py:107
 #, python-format
 msgid "Prologin %(year)s: password sheets for the regional center %(center)s"
 msgstr "Prologin %(year)s: mots de passe pour le centre régional %(center)s"
 
-#: documents/views.py:109
+#: documents/views.py:108
 #, python-format
 msgctxt "Document filename"
 msgid "password-list-%(year)s-regional-%(center)s"
 msgstr "mots-de-passe-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:119
+#: documents/views.py:118
 #, python-format
 msgid "Prologin %(year)s: interview sheets for the regional center %(center)s"
 msgstr "Prologin %(year)s : feuilles d'interview pour le centre régional %(center)s"
 
-#: documents/views.py:120
+#: documents/views.py:119
 #, python-format
 msgctxt "Document filename"
 msgid "interviews-%(year)s-regional-%(center)s"
 msgstr "interviews-%(year)s-regionale-%(center)s"
 
-#: documents/views.py:129
+#: documents/views.py:128
 #, python-format
 msgid ""
 "Prologin %(year)s: document compilation for regional events for %(fullname)s"
 msgstr "Prologin %(year)s : compilation de documents pour l'épreuve régionale pour %(fullname)s"
 
-#: documents/views.py:130
+#: documents/views.py:129
 #, python-format
 msgctxt "Document filename"
 msgid "prologin-%(year)s-regional-documents-%(fullname)s"
 msgstr "prologin-%(year)s-documents-regionale-%(fullname)s"
 
-#: documents/views.py:188
+#: documents/views.py:187
 msgid "Upload result file"
 msgstr "Envoyer le fichier de résultats"
 
-#: documents/views.py:189
+#: documents/views.py:188
 msgid "Review the imported data"
 msgstr "Vérifier les données importées"
 
-#: documents/views.py:216
+#: documents/views.py:215
 msgid "Contestant not found in local database."
 msgstr "Candidat non trouvé dans la base de données locale."
 
-#: documents/views.py:219
+#: documents/views.py:218
 msgid "Contestant not assigned to this regional event."
 msgstr "Candidat non assigné à cette épreuve régionale."
 
-#: documents/views.py:221
+#: documents/views.py:220
 msgid "User is inactive."
 msgstr "L'utilisateur est inactif."
 
-#: documents/views.py:225
+#: documents/views.py:224
 msgid "Contestant not found in imported data."
 msgstr "Candidat non trouvé dans les données importée."
 
-#: documents/views.py:294
+#: documents/views.py:293
 msgid "Successfully imported regional event results."
 msgstr "Résultats de l'épreuve régionale importés avec succès."
 
-#: documents/views.py:300
+#: documents/views.py:299
 #, python-format
 msgid "Prologin %(year)s: batch invitations to the final"
 msgstr "Prologin %(year)s : lots de convocations pour la finale"
 
-#: documents/views.py:301
+#: documents/views.py:300
 #, python-format
 msgctxt "Document filename"
 msgid "invitations-%(year)s-final"
 msgstr "convocations-%(year)s-finale"
 
-#: documents/views.py:306
+#: documents/views.py:305
 #, python-format
 msgid "Prologin %(year)s: invitation to the final for %(fullname)s"
 msgstr "Prologin %(year)s : convocation à la finale pour %(fullname)s"
 
-#: documents/views.py:307
+#: documents/views.py:306
 #, python-format
 msgctxt "Document filename"
 msgid "invitation-%(year)s-final-%(fullname)s"
 msgstr "convocation-%(year)s-finale-%(fullname)s"
 
-#: documents/views.py:312
+#: documents/views.py:311
 #, python-format
 msgid "Prologin %(year)s: call list for the final"
 msgstr "Prologin %(year)s : liste d'appel pour la finale"
 
-#: documents/views.py:313
+#: documents/views.py:312
 #, python-format
 msgctxt "Document filename"
 msgid "call-list-%(year)s-final"
 msgstr "liste-appel-%(year)s-finale"
 
-#: documents/views.py:327
+#: documents/views.py:326
 #, python-format
 msgid "Prologin %(year)s: password sheets for the final"
 msgstr "Prologin %(year)s : mots de passe pour la finale"
 
-#: documents/views.py:328
+#: documents/views.py:327
 #, python-format
 msgctxt "Document filename"
 msgid "password-list-%(year)s-final"
 msgstr "mots-de-passe-%(year)s-finale"
 
-#: documents/views.py:338
+#: documents/views.py:337
 #, python-format
 msgid "Prologin %(year)s: external organizers"
 msgstr "Prologin %(year)s : organisateurs externes"
 
-#: documents/views.py:339
+#: documents/views.py:338
 #, python-format
 msgctxt "Document filename"
 msgid "external-organizers-%(year)s"
 msgstr "orgas-externes-%(year)s"
 
-#: documents/views.py:344
+#: documents/views.py:343
 #, python-format
 msgid "Prologin %(year)s: portrayal agreement for the final"
 msgstr "Prologin %(year)s : droit à l'imagine pour la finale"
 
-#: documents/views.py:345
+#: documents/views.py:344
 #, python-format
 msgctxt "Document filename"
 msgid "portrayal-agreement-%(year)s-final"
 msgstr "droit-image-%(year)s-finale"
 
-#: documents/views.py:350
+#: documents/views.py:349
 #, python-format
 msgid "Prologin %(year)s: participation authorization for the final"
 msgstr "Prologin %(year)s : autorisation de participation à la finale"
 
-#: documents/views.py:351
+#: documents/views.py:350
 #, python-format
 msgctxt "Document filename"
 msgid "participation-authorization-%(year)s-final"
 msgstr "autorisation-participation-finale-%(year)s"
 
-#: documents/views.py:356
+#: documents/views.py:355
 #, python-format
 msgid "Prologin %(year)s: equipment liability release for the final"
 msgstr "Prologin %(year)s : décharge dégâts matériels pour la finale"
 
-#: documents/views.py:357
+#: documents/views.py:356
 #, python-format
 msgctxt "Document filename"
 msgid "equipment-liability-release-%(year)s-final"
 msgstr "decharge-degats-materiels-finale-%(year)s"
 
-#: documents/views.py:362
+#: documents/views.py:361
 #, python-format
 msgid "Prologin %(year)s: emergency call list for the final"
 msgstr "Prologin %(year)s : numéros d'urgence pour la finale"
 
-#: documents/views.py:363
+#: documents/views.py:362
 #, python-format
 msgctxt "Document filename"
 msgid "emergency-call-list-%(year)s-final"
 msgstr "numeros-urgence-finale-%(year)s"
 
-#: documents/views.py:369
+#: documents/views.py:368
 #, python-format
 msgid "Prologin %(year)s: planning for the final"
 msgstr "Prologin %(year)s : planning de la finale"
 
-#: documents/views.py:370
+#: documents/views.py:369
 #, python-format
 msgctxt "Document filename"
 msgid "planning-%(year)s-final"
 msgstr "planning-finale-%(year)s"
 
-#: documents/views.py:375
+#: documents/views.py:374
 #, python-format
 msgid "Prologin %(year)s: diplomas"
 msgstr "Prologin %(year)s : diplômes"
 
-#: documents/views.py:376
+#: documents/views.py:375
 #, python-format
 msgctxt "Document filename"
 msgid "diplomas-%(year)s-final"
 msgstr "diplomes-finale-%(year)s"
 
-#: documents/views.py:399
+#: documents/views.py:398
 #, python-format
 msgid "Prologin %(year)s: document compilation for final for %(fullname)s"
 msgstr "Prologin %(year)s: compilation de documents pour la finale pour %(fullname)s"
 
-#: documents/views.py:400
+#: documents/views.py:399
 #, python-format
 msgctxt "Document filename"
 msgid "prologin-%(year)s-final-documents-%(fullname)s"
 msgstr "prologin-%(year)s-documents-finale-%(fullname)s"
 
-#: documents/views.py:437
+#: documents/views.py:436
 #, python-format
 msgid "Prologin %(year)s: enrollment form"
 msgstr "Prologin %(year)s : formulaire de recrutement"
 
-#: documents/views.py:438
+#: documents/views.py:437
 #, python-format
 msgctxt "Document filename"
 msgid "enrollment-form-%(year)s"
 msgstr "formulaire-recrutement-%(year)s"
 
-#: documents/views.py:443
+#: documents/views.py:442
 #, python-format
 msgid "Prologin %(year)s: badges"
 msgstr "Prologin %(year)s : badges"
 
-#: documents/views.py:444
+#: documents/views.py:443
 #, python-format
 msgctxt "Document filename"
 msgid "badges-%(year)s-final"
 msgstr "badges-finale-%(year)s"
 
-#: documents/views.py:463
+#: documents/views.py:462
 #, python-format
 msgid "Prologin %(year)s: custom badges"
 msgstr "Prologin %(year)s : badges personnalisés"
 
-#: documents/views.py:464
+#: documents/views.py:463
 #, python-format
 msgctxt "Document filename"
 msgid "custom-badges-%(year)s-final"
 msgstr "badges-personnalises-%(year)s-finale"
 
-#: documents/views.py:489
+#: documents/views.py:491
 #, python-format
 msgid "Prologin %(year)s: Meal tickets"
 msgstr "Prologin %(year)s : tickets repas"
 
-#: documents/views.py:490
+#: documents/views.py:492
 #, python-format
 msgctxt "Document filename"
 msgid "meal-tickets-%(year)s-final"
@@ -1912,7 +1912,7 @@ msgstr "Le sujet a été supprimé avec succès."
 
 #: homepage/templates/homepage/homepage.html:5
 #: homepage/templates/homepage/jumbotron.html:6
-#: prologin/templates/prologin/base.html:32
+#: prologin/templates/prologin/base.html:31
 msgid "Prologin, the French National Computer Science Contest"
 msgstr "Prologin, le concours national d'informatique"
 
@@ -4216,7 +4216,7 @@ msgstr "Homme"
 msgid "Female"
 msgstr "Femme"
 
-#: prologin/models.py:52 users/forms.py:59
+#: prologin/models.py:52 users/forms.py:63
 msgid "Other or prefer not to tell"
 msgstr "Autre ou préfère ne pas le dire"
 
@@ -4240,11 +4240,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:151
+#: prologin/settings/common.py:152
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:152
+#: prologin/settings/common.py:153
 msgid "French"
 msgstr "Français"
 
@@ -4290,9 +4290,9 @@ msgstr "En cours de maintenance"
 msgid "Prologin, the French computing contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:31
-#: prologin/templates/prologin/base.html:47
-#: prologin/templates/prologin/base.html:90
+#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:30
+#: prologin/templates/prologin/base.html:46
+#: prologin/templates/prologin/base.html:89
 #: prologin/templates/prologin/main-footer.html:6
 #: semifinal/templates/prologin/base.html:58
 #: semifinal/templates/prologin/main-footer.html:6
@@ -4326,19 +4326,18 @@ msgstr "Erreur %(number)s"
 msgid "You can go back to the <a href=\"%(url)s\">home page</a>."
 msgstr "Vous pouvez retourner à <a href=\"%(url)s\">l'accueil</a>."
 
-#: prologin/templates/prologin/base.html:29
+#: prologin/templates/prologin/base.html:28
 msgctxt "Twitter message, LESS THAN 140 CHARS"
 msgid ""
 "Prologin is a computer science contest, introducing students to the world of"
 " programming and algorithms with exciting challenges."
 msgstr "Prologin, le concours d'informatique : faire découvrir la programmation et l'algorithmique aux étudiants grâce à des challenges excitants !"
 
-#: prologin/templates/prologin/base.html:53
+#: prologin/templates/prologin/base.html:52
 msgid "Latest blog articles"
 msgstr "Dernières actualités"
 
-#: prologin/templates/prologin/base.html:116
-#: prologin/templates/prologin/stub-impersonate-script.html:7
+#: prologin/templates/prologin/base.html:115
 msgid "No user matching query"
 msgstr "Aucun utilisateur correspondant"
 
@@ -4419,8 +4418,8 @@ msgid "Django administration"
 msgstr "Administration de Django"
 
 #: prologin/templates/prologin/main-menu.html:28
-msgid "Impersonate user"
-msgstr "Se faire passer pour…"
+msgid "Search users"
+msgstr "Chercher des utilisateurs"
 
 #: prologin/templates/prologin/main-menu.html:40
 msgid "My profile"
@@ -4994,74 +4993,74 @@ msgstr "Identité publique"
 msgid "Settings"
 msgstr "Préférences"
 
-#: users/forms.py:38
+#: users/forms.py:44
 msgid "How do you prefer to be described?"
 msgstr "Comment préférez-vous qu'on parle de vous ?"
 
-#: users/forms.py:49
+#: users/forms.py:53
 #, python-format
-msgid "Make your %(year)s's home public"
-msgstr "Rendre sa “home” %(year)s publique"
+msgid "%(year)s final home"
+msgstr "“home” de la finale %(year)s "
 
-#: users/forms.py:57
+#: users/forms.py:61
 msgid "<em>She is writing code for the contest</em>"
 msgstr "<em>Elle écrit du code pour le concours.</em>"
 
-#: users/forms.py:58
+#: users/forms.py:62
 msgid "<em>He is writing code for the contest</em>"
 msgstr "<em>Il écrit du code pour le concours.</em>"
 
-#: users/forms.py:64
+#: users/forms.py:70
 msgid ""
 "You can not change your details during the contest. If there is an important"
 " change you want to make, please contact the staff."
 msgstr "Vous ne pouvez pas modifier vos informations pendant le concours. Si vous devez effectuer un changement, veuillez contacter l'équipe."
 
+#: users/forms.py:82
+msgid "Public homes"
+msgstr "“Homes” publiques"
+
 #: users/forms.py:85
+msgid "Checked editions will make the files available for download to anyone."
+msgstr "Les éditions cochées rendront vos fichiers téléchargeables par tout le monde."
+
+#: users/forms.py:111
 msgid ""
 "Please check the box above and complete the additional tasks if any. This is"
 " required to fight spamming bots on the website."
 msgstr "Veuillez cocher la case ci-dessus et réaliser les éventuelles opérations supplémentaires. Cela permet de se prémunir des robots."
 
-#: users/forms.py:101
+#: users/forms.py:127
 msgid "This username is already in use. Please supply a different username."
 msgstr "Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre."
 
-#: users/forms.py:107
+#: users/forms.py:133
 msgid ""
 "This email address is already in use. Please supply a different email "
 "address."
 msgstr "Cette adresse e-mail est déjà utilisée. Merci d'en choisir une autre."
 
-#: users/forms.py:121
+#: users/forms.py:147
 msgid "Email"
 msgstr "E-mail"
 
-#: users/forms.py:122
+#: users/forms.py:148
 msgid "Your email address"
 msgstr "Votre adresse e-mail"
 
-#: users/forms.py:128
+#: users/forms.py:154
 msgid "Username or email"
 msgstr "Nom d'utilisateur ou e-mail"
 
-#: users/forms.py:129
+#: users/forms.py:155
 msgid ""
 "This field is case insensitive. It means capitals and small letters are "
 "considered to be equal."
 msgstr "Ce champ est insensible à la casse. Cela signifie qu'il n'y a pas de différence entre majuscules et minuscules."
 
-#: users/forms.py:131
+#: users/forms.py:157
 msgid "Please enter a correct username (or email) and password."
 msgstr "Saisissez un nom d'utilisateur (ou adresse e-mail) et un mot de passe corrects."
-
-#: users/forms.py:151
-msgid "you must provide a username."
-msgstr "vous devez fournir un nom d'utilisateur."
-
-#: users/forms.py:154
-msgid "no user matches your query."
-msgstr "aucun utilisateur ne correspond à la recherche."
 
 #: users/models.py:87
 msgid "Middle school"
@@ -5155,27 +5154,21 @@ msgstr "Membres"
 
 #: users/templates/registration/password_reset_confirm.html:8
 #: users/templates/registration/password_reset_confirm.html:11
-#: users/templates/registration/password_reset_confirm.html:16
+#: users/templates/registration/password_reset_confirm.html:15
 msgid "Password reset confirmation"
 msgstr "Confirmation de mise à jour du mot de passe"
 
-#: users/templates/registration/password_reset_confirm.html:20
+#: users/templates/registration/password_reset_confirm.html:17
 msgid ""
 "Please enter your new password twice so we can verify you typed it in "
 "correctly."
 msgstr "Veuillez entrer votre mot de passe deux fois pour confirmation"
 
-#: users/templates/registration/password_reset_confirm.html:29
+#: users/templates/registration/password_reset_confirm.html:26
 msgid "Change my password"
 msgstr "Changer mon mot de passe"
 
-#: users/templates/registration/password_reset_confirm.html:36
-msgid ""
-"The password reset link was invalid, possibly because it has already been "
-"used.  Please request a new password reset."
-msgstr "Le lien de réinitialisation du mot de passe n'est pas valide, peut-être parce qu'il a déjà été utilisé. Merci de faire une nouvelle demande."
-
-#: users/templates/users/as_staff_warning.html:4
+#: users/templates/users/as_staff_warning.html:3
 msgid ""
 "Heads up! You are editing another user's information, as a staff member. "
 "Take extra care."
@@ -5190,7 +5183,12 @@ msgstr "Modification du profil de %(username)s"
 msgid "Change password"
 msgstr "Modifier le mot de passe"
 
-#: users/templates/users/edit.html:26
+#: users/templates/users/edit.html:20
+msgid ""
+"Don't forget to click “Save” at the bottom when you are done making changes."
+msgstr "N'oubliez pas de cliquer sur « Enregistrer » en bas lorsque vous avez terminé vos modifications."
+
+#: users/templates/users/edit.html:25
 #: users/templates/users/edit_password.html:25
 msgid "Save"
 msgstr "Enregistrer"
@@ -5396,6 +5394,14 @@ msgid ""
 "receive a message to confirm your registration."
 msgstr "Choisissez un nom d'utilisateur. Vous devez utiliser une adresse e-mail valide, vous recevrez un message pour confirmer votre inscription."
 
+#: users/templates/users/stub-search-result.html:10
+msgid "Edit in admin"
+msgstr "Modifier dans l'admin"
+
+#: users/templates/users/stub-search-result.html:15
+msgid "Impersonate"
+msgstr "Se faire passer pour cet utilisateur"
+
 #: users/templates/users/unsubscribe.html:5
 #: users/templates/users/unsubscribe.html:14
 #: users/templates/users/unsubscribe.html:35
@@ -5442,27 +5448,22 @@ msgid ""
 "  from Prologin."
 msgstr "a été désinscrit et ne recevra plus d'e-mails de Prologin."
 
-#: users/templates/users/user-list.html:279
-#: users/templates/users/user-list.html:283
-msgid "User list"
-msgstr ""
-
-#: users/views.py:82
+#: users/views.py:80
 #, python-format
 msgid ""
 "Your account was created. We sent an email to %(mail)s so you can confirm "
 "your registration."
 msgstr "Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s pour que vous puissiez confirmer votre inscription."
 
-#: users/views.py:104
+#: users/views.py:102
 msgid "Your account was activated. Enjoy your visit!"
 msgstr "Votre compte est activé. Bonne visite&nbsp;!"
 
-#: users/views.py:106 users/views.py:299
+#: users/views.py:104 users/views.py:280
 msgid "You have been automatically logged in."
 msgstr "Vous avez été connecté automatiquement."
 
-#: users/views.py:111
+#: users/views.py:109
 #, python-format
 msgid ""
 "The activation link you provided is invalid or obsolete. If you created your"
@@ -5470,33 +5471,20 @@ msgid ""
 "may use the same username and email though."
 msgstr "Le lien d'activation que vous avez fourni est invalide ou obsolète. Si vous avez créé votre compte il y a plus de %(days)s jours, vous devez répéter l'opération. Vous pouvez utiliser les mêmes nom d'utilisateur et e-mail."
 
-#: users/views.py:208
+#: users/views.py:185
 msgid "Changes saved."
 msgstr "Modifications enregistrées."
 
-#: users/views.py:235 users/views.py:297
+#: users/views.py:218 users/views.py:278
 msgid "New password saved."
 msgstr "Mot de passe modifié."
 
-#: users/views.py:264
+#: users/views.py:247
 #, python-format
 msgid ""
 "You should receive an email at %(email)s in a few moments. Please follow the"
 " instructions to complete the password reset."
 msgstr "Vous devriez recevoir un e-mail à %(email)s dans quelques instants. Veuillez suivre les instructions pour finaliser la réinitialisation du mot de passe."
-
-#: users/views.py:337
-#, python-format
-msgid "Unable to complete impersonation: %(msg)s"
-msgstr "Impossible de se faire passer pour quelqu'un d'autre&nbsp;: %(msg)s"
-
-#: users/views.py:355
-msgid "you cannot impersonate an inactive user."
-msgstr "vous ne pouvez pas vous faire passer pour un utilisateur inactif."
-
-#: users/views.py:357
-msgid "you don't have the permission to impersonate this user."
-msgstr "vous n'avez pas l'autorisation de vous faire passer pour cet utilisateur."
 
 #: users/widgets.py:9
 msgid "Upload new image"
