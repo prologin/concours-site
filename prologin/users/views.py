@@ -1,11 +1,10 @@
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.views import logout, login as django_login_view
-from django.core.exceptions import PermissionDenied
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.http import Http404
-from django.http.response import JsonResponse, StreamingHttpResponse
+from django.http.response import JsonResponse, StreamingHttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect
 from django.template.loader import render_to_string
 from django.utils.http import is_safe_url
@@ -61,7 +60,7 @@ def auto_login(request, user):
 class AnonymousRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated():
-            return redirect('users:profile', pk=request.user.pk)
+            return HttpResponseForbidden()
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -157,49 +156,28 @@ class DownloadFinalHomeView(PermissionRequiredMixin, DetailView):
         path = contestant.home_path
         response = StreamingHttpResponse(FileWrapper(open(path, 'rb')), content_type='application/x-gzip')
         response['Content-Length'] = contestant.home_size
-        response['Content-Disposition'] = "attachment; filename=%s" % contestant.home_filename
+        response['Content-Disposition'] = "attachment; filename={}".format(contestant.home_filename)
         return response
 
 
-class UpdateUserAsAdminView(UpdateView):
+class EditUserView(PermissionRequiredMixin, UpdateView):
     model = get_user_model()
+    form_class = users.forms.UserProfileForm
+    template_name = 'users/edit.html'
     context_object_name = 'edited_user'
-    form_class_staff = None
-    success_view = 'users:edit'
+    permission_required = 'users.edit'
 
     def get_success_url(self):
-        return reverse(self.success_view, args=[self.get_object().pk])
-
-    def as_staff(self):
-        return self.request.user != self.get_object()
-
-    def get_form_class(self):
-        if self.as_staff() and self.form_class_staff is not None:
-            return self.form_class_staff
-        return self.form_class
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['as_staff'] = self.as_staff()
-        return context
-
-    def dispatch(self, request, *args, **kwargs):
-        if not self.request.user.is_staff and self.as_staff():
-            raise PermissionDenied()
-        return super().dispatch(request, *args, **kwargs)
-
-
-class EditUserView(UpdateUserAsAdminView):
-    template_name = 'users/edit.html'
-    form_class = users.forms.UserProfileForm
+        return reverse('users:edit', args=[self.get_object().pk])
 
     def get_form_kwargs(self):
-        # Make important fields read-only during contest, for non-staff users
-        # FIXME: use rules
-        is_contest = (not self.request.user.is_staff
-                      and self.request.current_edition.is_active
-                      and self.request.current_events['qualification'].is_finished)
         kwargs = super().get_form_kwargs()
+        # Make important fields read-only during contest (except if privileged)
+        if self.request.user.has_perm('users.edit-during-contest'):
+            is_contest = False
+        else:
+            is_contest = (self.request.current_edition.is_active
+                          and self.request.current_events['qualification'].is_finished)
         kwargs['is_contest'] = is_contest
         return kwargs
 
@@ -214,6 +192,8 @@ class PasswordFormMixin:
     “Because fuck logic, that's why.”
         — Django
     """
+    form_class = django.contrib.auth.forms.PasswordChangeForm
+
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs.pop('instance', None)
@@ -225,14 +205,18 @@ class PasswordFormMixin:
         return form_class(self.get_object(), **self.get_form_kwargs())
 
 
-class EditPasswordView(PasswordFormMixin, UpdateUserAsAdminView):
+class EditPasswordView(PermissionRequiredMixin, PasswordFormMixin, UpdateView):
+    model = get_user_model()
     template_name = 'users/edit_password.html'
-    form_class = django.contrib.auth.forms.PasswordChangeForm
-    form_class_staff = django.contrib.auth.forms.SetPasswordForm
+    context_object_name = 'edited_user'
+    permission_required = 'users.edit'
 
     def form_valid(self, form):
+        ret = super().form_valid(form)
+        # from django.contrib.auth.views: log out from other sessions
+        update_session_auth_hash(self.request, self.object)
         messages.success(self.request, _("New password saved."))
-        return super().form_valid(form)
+        return ret
 
 
 class PasswordResetView(AnonymousRequiredMixin, FormView):
@@ -278,30 +262,23 @@ class PasswordResetConfirmView(AnonymousRequiredMixin, PasswordFormMixin, Update
         from django.contrib.auth.tokens import default_token_generator
         uidb64 = self.kwargs['uidb64']
         token = self.kwargs['token']
-        user = None
         try:
             uid = force_text(urlsafe_base64_decode(uidb64))
             user = get_user_model().objects.get(pk=uid)
         except (TypeError, ValueError, OverflowError, self.model.DoesNotExist):
-            pass
-
-        if user is not None and not default_token_generator.check_token(user, token):
-            user = None
-        if not user:
             raise Http404()
+
+        if not default_token_generator.check_token(user, token):
+            raise Http404()
+
         return user
 
     def form_valid(self, form):
-        user = self.get_object()
+        user = form.save()
         messages.success(self.request, _("New password saved."))
         if auto_login(self.request, user):
             messages.success(self.request, _("You have been automatically logged in."))
-        return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['validlink'] = self.get_object() is not None
-        return context
+        return super(ModelFormMixin, self).form_valid(form)
 
 
 class UnsubscribeView(View):

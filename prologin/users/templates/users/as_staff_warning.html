@@ -1,5 +1,4 @@
 {% load i18n %}
-
-{% if as_staff %}
+{% if request.user != edited_user %}
 <p class="alert alert-warning">{% trans "Heads up! You are editing another user's information, as a staff member. Take extra care." %}</p>
 {% endif %}
