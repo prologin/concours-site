@@ -67,6 +67,7 @@ INSTALLED_APPS = (
     'bootstrap3',
     'captcha',
     'compat',
+    'crispy_forms',
     'datatableview',
     'django_bootstrap_breadcrumbs',
     'django_comments',
@@ -309,7 +310,6 @@ CORRECTION_LIVE_UPDATE_REDIS_KEY = 'prologin.correction.liveupdate.{key}'
 CORRECTION_LIVE_UPDATE_POLL_INTERVAL = 5  # seconds
 CORRECTION_LIVE_UPDATE_TIMEOUT = CORRECTION_LIVE_UPDATE_POLL_INTERVAL * 2  # offline if misses two pings
 
-
 # Recaptcha
 
 NOCAPTCHA = True
@@ -348,6 +348,7 @@ DEBUG_TOOLBAR_CONFIG = {
 # CSP_STYLE_SRC = ("'self'", "'unsafe-inline'", "*.googleapis.com",)
 
 BOOTSTRAP3 = {'success_css_class': ''}
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
 
 # Zinnia (news)
 

@@ -1,8 +1,9 @@
+from crispy_forms import layout
+from crispy_forms.helper import FormHelper
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm
-from django.core.exceptions import ValidationError
-from django.db.models import Q
+from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from captcha.fields import ReCaptchaField
@@ -19,11 +20,15 @@ class UserProfileForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'gender', 'birthday',
-                  'address', 'postal_code', 'city', 'country',
-                  'phone', 'email', 'allow_mailing',
-                  'preferred_language', 'school_stage', 'timezone',
-                  'preferred_locale', 'avatar', 'picture',)
+        # Take care when changing this: update the indexes in __init__ accordingly
+        fields = (
+            # left column
+            'first_name', 'last_name', 'email', 'birthday',
+            'address', 'postal_code', 'city', 'country',
+            'phone', 'school_stage',
+            # right column
+            'gender', 'allow_mailing', 'preferred_language', 'timezone',
+            'preferred_locale', 'avatar', 'picture',)
         widgets = {
             'avatar': PreviewFileInput(image_attrs={'style': 'max-width: 90px; max-height: 90px;'}),
             'picture': PreviewFileInput(image_attrs={'style': 'max-width: 90px; max-height: 90px;'}),
@@ -34,24 +39,23 @@ class UserProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         self.is_contest = kwargs.pop('is_contest', False)
         super().__init__(*args, **kwargs)
+
         self.fields['gender'].required = False
         self.fields['gender'].label = _("How do you prefer to be described?")
 
         self.homes = []
+        home_fields = []
         for candidate in self.instance.get_homes():
-            print(candidate)
-            print(candidate.is_home_public)
-
             home_year = candidate.edition.year
             home_field = forms.BooleanField(
                 required=False,
                 initial=candidate.is_home_public,
-                label=(_("Make your %(year)s's home public") % {
-                    'year': home_year
-                })
+                label=(_("%(year)s final home") % {'year': home_year}),
             )
             self.homes.append(candidate)
-            self.fields['home_{}'.format(home_year)] = home_field
+            key = 'home_{}'.format(home_year)
+            home_fields.append(key)
+            self.fields[key] = home_field
 
         self.fields['gender'].choices = [
             (Gender.female.value, mark_safe(_("<em>She is writing code for the contest</em>"))),
@@ -61,12 +65,34 @@ class UserProfileForm(forms.ModelForm):
         if self.is_contest:
             for field in self.readonly_during_contest:
                 self.fields[field].widget.attrs['readonly'] = 'readonly'
-                self.fields[field].help_text = _("You can not change your details during the contest. If there is an "
-                                                 "important change you want to make, please contact the staff.")
+                self.fields[field].help_text = format_html(
+                    '<small class="smaller">{}</small>',
+                    _("You can not change your details during the contest. If there is an "
+                      "important change you want to make, please contact the staff."))
 
         if not self.instance.team_memberships.count():
             # If not part of any team, makes no sense to add a staff picture
             self.fields.pop('picture', None)
+
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        if home_fields:
+            # regroup home checkboxes in a panel
+            home_panel = layout.Div(
+                layout.Div(layout.HTML(format_html('<i class="fa fa-book"></i> {}', _("Public homes"))), css_class="panel-heading"),
+                layout.Div(
+                    layout.HTML(format_html('<p class="text-muted">{}</p>',
+                                            _("Checked editions will make the files available for download to anyone."))),
+                    *(layout.Field(f, template='bootstrap3/layout/inline_field.html') for f in home_fields),
+                    css_class="panel-body"),
+                css_class="panel panel-default")
+            self.helper[len(self.helper) - len(home_fields):] = [home_panel]
+        # input, input, ...
+        self.helper[:10].wrap_together(layout.Div, css_class="col-md-6")
+        # COL, input, input...
+        self.helper[1:].wrap_together(layout.Div, css_class="col-md-6")
+        # COL, COL
+        self.helper[:].wrap_together(layout.Div, css_class="row")
 
     def clean(self):
         for candidate in self.homes:

@@ -16,6 +16,8 @@ django-bootstrap-breadcrumbs>=0.7.0
 django-bootstrap-form>=3.1
 # Bootstrap-formatted forms (other lib) # TODO: find a single good lib
 django-bootstrap3
+# Bootstrap-formatted forms (with powerful layout capabilities)
+django-crispy-forms
 # Content Security Policy, helps prevent XSS & stuff
 # TODO: too restrictive to be used properly
 # django-csp

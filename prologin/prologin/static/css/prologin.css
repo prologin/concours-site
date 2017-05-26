@@ -1102,6 +1102,14 @@ label[for$="clear_id"] {
   margin: 0;
 }
 
+.smaller {
+  font-size: .8em;
+}
+
+.asteriskField {
+  display: none;
+}
+
 /**
  * select2 with Bootstrap 3
  */

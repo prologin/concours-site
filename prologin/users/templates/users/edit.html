@@ -1,6 +1,6 @@
 {% extends "prologin/base.html" %}
 {% load i18n %}
-{% load bootstrap django_bootstrap_breadcrumbs %}
+{% load bootstrap django_bootstrap_breadcrumbs crispy_forms_tags %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -16,15 +16,12 @@
 
 {% include "users/as_staff_warning.html" %}
 
-<p class="text-right"><a href="{% url 'users:edit_password' edited_user.pk %}" class="btn btn-default"><i class="fa fa-key"></i> {% trans "Change password" %}</a></p>
+<p class="pull-right"><a href="{% url 'users:edit_password' edited_user.pk %}" class="btn btn-default"><i class="fa fa-key"></i> {% trans "Change password" %}</a></p>
+<p>{% trans "Don't forget to click “Save” at the bottom when you are done making changes." %}</p>
 
-<form method="POST" enctype="multipart/form-data" class="form-horizontal">
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
-  {{ form|bootstrap_horizontal }}
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <input class="btn btn-primary" type="submit" value="{% trans "Save" %}">
-    </div>
-  </div>
+  {% crispy form %}
+  <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save"></i> {% trans "Save" %}</button>
 </form>
 {% endblock %}
