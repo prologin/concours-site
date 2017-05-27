@@ -190,7 +190,7 @@ CELERY_TASK_RESULT_EXPIRES = 3600 * 12  # 12 hours
 DJMAIL_BODY_TEMPLATE_PROTOTYPE = "{name}.body.{type}.{ext}"
 DJMAIL_SUBJECT_TEMPLATE_PROTOTYPE = "{name}.subject.{ext}"
 DJMAIL_REAL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_BACKEND = "djmail.backends.async.EmailBackend"
+EMAIL_BACKEND = "djmail.backends.default.EmailBackend"
 
 
 # Static files (CSS, JavaScript, Images)
