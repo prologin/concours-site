@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-27 02:38+0200\n"
-"PO-Revision-Date: 2017-05-27 00:42+0000\n"
+"POT-Creation-Date: 2017-05-27 03:23+0200\n"
+"PO-Revision-Date: 2017-05-27 01:24+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1584,14 +1584,14 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:22 mailing/models.py:48 mailing/models.py:132
+#: forum/models.py:22 mailing/models.py:47 mailing/models.py:131
 #: problems/templates/problems/challenge-scoreboard.html:24
 #: schools/templates/admin/schools/merge.html:56
 #: semifinal/templates/semifinal/stub-scoreboard.html:9
 msgid "Name"
 msgstr "Nom"
 
-#: forum/models.py:24 mailing/models.py:49 mailing/models.py:133
+#: forum/models.py:24 mailing/models.py:48 mailing/models.py:132
 msgid "Description"
 msgstr "Description"
 
@@ -1872,7 +1872,7 @@ msgid "Unhide"
 msgstr "Ne plus cacher"
 
 #: forum/templates/forum/thread_posts.html:130
-#: mailing/templates/mailing/batch-list.html:38
+#: mailing/templates/mailing/batch-list.html:40
 #: mailing/templates/mailing/batch_confirm_delete.html:12
 #: mailing/templates/mailing/batch_confirm_delete.html:24
 msgid "Delete"
@@ -2202,77 +2202,78 @@ msgstr "Envoyer"
 msgid "Actually send to %(n)s people right now"
 msgstr "Vraiment envoyer à %(n)s personnes, immédiatement"
 
-#: mailing/models.py:50
+#: mailing/models.py:49
 msgid "Subject template"
 msgstr "Gabarit du sujet"
 
-#: mailing/models.py:51
+#: mailing/models.py:50
 msgid "Plaintext body template"
 msgstr "Gabarit en texte brut"
 
-#: mailing/models.py:52
+#: mailing/models.py:51
 msgid "HTML body template"
 msgstr "Gabarit en HTML"
 
-#: mailing/models.py:56 mailing/models.py:197
+#: mailing/models.py:55 mailing/models.py:196
 #: mailing/templates/mailing/batch-emails.html:20
-#: mailing/templates/mailing/batch-list.html:25
+#: mailing/templates/mailing/batch-list.html:26
 #: mailing/templates/mailing/template/details.html:45
 msgid "Template"
 msgstr "Gabarit"
 
-#: mailing/models.py:57 mailing/templates/mailing/dashboard.html:27
+#: mailing/models.py:56 mailing/templates/mailing/dashboard.html:27
 #: mailing/templates/mailing/template/details.html:15
 msgid "Templates"
 msgstr "Gabarits"
 
-#: mailing/models.py:134 mailing/models.py:140 mailing/models.py:198
+#: mailing/models.py:133 mailing/models.py:139 mailing/models.py:197
 #: mailing/templates/mailing/batch-emails.html:21
-#: mailing/templates/mailing/batch-list.html:26 problems/forms.py:15
+#: mailing/templates/mailing/batch-list.html:27 problems/forms.py:15
 msgid "Query"
 msgstr "Requête"
 
-#: mailing/models.py:136
+#: mailing/models.py:135
 msgid "Useful with templates"
 msgstr "Utile avec les gabarits"
 
-#: mailing/models.py:141 mailing/templates/mailing/dashboard.html:48
+#: mailing/models.py:140 mailing/templates/mailing/dashboard.html:48
 #: mailing/templates/mailing/query/details.html:15
 msgid "Queries"
 msgstr "Requêtes"
 
-#: mailing/models.py:168
+#: mailing/models.py:167
 #, python-format
 msgid "The root model is not %(model)s. You must provide a `user` alias."
 msgstr "Le modèle racine n'est pas %(model)s. Vous devez fournir un alias `user`."
 
-#: mailing/models.py:173
+#: mailing/models.py:172
 #, python-format
 msgid "%(label)s.%(field)s is not %(model)s"
 msgstr "%(label)s.%(field)s n'est pas %(model)s"
 
-#: mailing/models.py:176
+#: mailing/models.py:175
 #, python-format
 msgid "%(label)s has no field `%(field)s`"
 msgstr "%(label)s n'a pas de champ `%(field)s`"
 
-#: mailing/models.py:196
+#: mailing/models.py:195
 msgid "Optional name"
 msgstr "Nom (optionnel)"
 
-#: mailing/models.py:204 mailing/templates/mailing/batch-emails.html:5
+#: mailing/models.py:203 mailing/templates/mailing/batch-emails.html:5
 msgid "Batch"
 msgstr "Lot"
 
-#: mailing/models.py:205 mailing/templates/mailing/batch-create.html:10
+#: mailing/models.py:204 mailing/templates/mailing/batch-create.html:10
 #: mailing/templates/mailing/batch-emails.html:10
 #: mailing/templates/mailing/batch-list.html:5
 #: mailing/templates/mailing/batch-list.html:10
+#: mailing/templates/mailing/batch-list.html:15
 #: mailing/templates/mailing/batch_confirm_delete.html:10
 msgid "Batches"
 msgstr "Lots"
 
-#: mailing/models.py:211
+#: mailing/models.py:210
 #, python-format
 msgid "Batch %(id)s"
 msgstr "Lot %(id)s"
@@ -2327,19 +2328,23 @@ msgstr "État"
 msgid "Initiator"
 msgstr "Initiateur"
 
-#: mailing/templates/mailing/batch-list.html:28
+#: mailing/templates/mailing/batch-list.html:25
+msgid "Created"
+msgstr "Créé le"
+
+#: mailing/templates/mailing/batch-list.html:29
 msgid "Pending ⋅ Sent ⋅ Error ⋅ Total"
 msgstr "Attente ⋅ Envoyé ⋅ Erreur ⋅ Total"
 
-#: mailing/templates/mailing/batch-list.html:40
+#: mailing/templates/mailing/batch-list.html:42
 msgid "Completed"
 msgstr "Terminé"
 
-#: mailing/templates/mailing/batch-list.html:44
+#: mailing/templates/mailing/batch-list.html:46
 msgid "Retry pending"
 msgstr "Réessayer ceux en attente"
 
-#: mailing/templates/mailing/batch-list.html:59
+#: mailing/templates/mailing/batch-list.html:61
 msgid "There is no batch yet."
 msgstr "Il n'y a pas encore de lot."
 
@@ -2493,13 +2498,13 @@ msgstr "Texte brut"
 msgid "HTML"
 msgstr "HTML"
 
-#: mailing/views.py:80
+#: mailing/views.py:78
 msgid ""
 "The form was modified and saved while you were editing. Please merge with "
 "current version."
 msgstr "Le formulaire a été enregistré pendant vous le modifiez. Veuillez fusionner vos modifications avec la version actuelle."
 
-#: mailing/views.py:225
+#: mailing/views.py:223
 #, python-format
 msgid "Syntax error at position %(pos)s."
 msgstr "Erreur de syntaxe à la position %(pos)s."
