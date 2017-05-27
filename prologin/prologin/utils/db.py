@@ -1,4 +1,4 @@
-from django.db.models import Case, When, Value
+from django.db.models import Case, When, Value, Sum, IntegerField
 from django.utils.translation import ugettext_lazy
 
 
@@ -18,6 +18,40 @@ class CaseMapping(Case):
         cases = (When(**{field: key, 'then': Value(value)})
                  for key, value in mapping)
         super().__init__(*cases, **kwargs)
+
+
+class ConditionalSum(Sum):
+    """
+    Wrapper around the Sum annotation that provides a conditional sum.
+
+    class Foo(models.Model):
+        pass
+
+    class Bar(models.Model):
+        foo = models.ForeignKey(Bar, related_name='bars')
+        ok = models.BooleanField()
+
+    Foo.objects.annotate(
+        ok_count=ConditionalSum(bars__state=True),
+        nok_count=ConditionalSum(bars__state=False))
+    """
+    def __init__(self, **mapping):
+        super(ConditionalSum, self).__init__(*(
+            Case(When(**{field: value}, then=Value(1)), default=0, output_field=IntegerField())
+            for field, value in mapping.items()
+        ))
+
+
+def lock_table(table, mode=None):
+    """Lock a postgres 'table' using 'mode'."""
+    from django.db import connection
+    with connection.cursor() as cursor:
+        cursor.execute('LOCK TABLE {} IN {} MODE'.format(table, mode or 'ACCESS EXCLUSIVE'))
+
+
+def lock_model(model, mode=None):
+    """Lock a postgres-backed 'model' using 'mode'."""
+    return lock_table(model._meta.db_table, mode)
 
 
 class AdminOrderFieldsMixin:
