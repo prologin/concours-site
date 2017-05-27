@@ -37,7 +37,7 @@ class ConditionalSum(Sum):
     """
     def __init__(self, **mapping):
         super(ConditionalSum, self).__init__(*(
-            Case(When(**{field: value}, then=Value(1)), default=0, output_field=IntegerField())
+            CaseMapping(field, {value: 1}, default=0, output_field=IntegerField())
             for field, value in mapping.items()
         ))
 
