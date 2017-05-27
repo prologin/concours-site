@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-26 16:00+0200\n"
-"PO-Revision-Date: 2017-05-26 14:04+0000\n"
+"POT-Creation-Date: 2017-05-27 02:38+0200\n"
+"PO-Revision-Date: 2017-05-27 00:42+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -284,6 +284,7 @@ msgid "%(user)s in edition %(year)s"
 msgstr "%(user)s pour l'édition %(year)s"
 
 #: contest/admin.py:107 contest/datatables.py:16
+#: mailing/templates/mailing/batch-emails.html:29
 msgid "User"
 msgstr "Utilisateur"
 
@@ -306,7 +307,7 @@ msgstr "Statut d'assignation"
 #: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:249
 #: documents/templates/documents/semifinal-import-review.html:58
 #: documents/templates/documents/semifinal-import-review.html:77
-#: problems/admin.py:163 problems/templates/problems/manual.html:66
+#: problems/admin.py:171 problems/templates/problems/manual.html:66
 #: semifinal/templates/semifinal/monitoring.html:30
 msgid "Score"
 msgstr "Score"
@@ -777,7 +778,7 @@ msgstr "Candidats"
 
 #: contest/templates/correction/by-year.html:24
 #: documents/templates/documents/semifinal-import-review.html:78
-#: problems/models/submission.py:183
+#: problems/models/submission.py:182
 msgid "Submissions"
 msgstr "Soumissions"
 
@@ -1183,6 +1184,8 @@ msgid "# of codes"
 msgstr "# de codes"
 
 #: documents/templates/documents/semifinal-import-review.html:74
+#: mailing/templates/mailing/batch-emails.html:28
+#: mailing/templates/mailing/batch-list.html:23
 msgid "ID"
 msgstr "ID"
 
@@ -1581,14 +1584,14 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:22 mailing/models.py:33 mailing/models.py:117
+#: forum/models.py:22 mailing/models.py:48 mailing/models.py:132
 #: problems/templates/problems/challenge-scoreboard.html:24
 #: schools/templates/admin/schools/merge.html:56
 #: semifinal/templates/semifinal/stub-scoreboard.html:9
 msgid "Name"
 msgstr "Nom"
 
-#: forum/models.py:24 mailing/models.py:34 mailing/models.py:118
+#: forum/models.py:24 mailing/models.py:49 mailing/models.py:133
 msgid "Description"
 msgstr "Description"
 
@@ -1869,6 +1872,9 @@ msgid "Unhide"
 msgstr "Ne plus cacher"
 
 #: forum/templates/forum/thread_posts.html:130
+#: mailing/templates/mailing/batch-list.html:38
+#: mailing/templates/mailing/batch_confirm_delete.html:12
+#: mailing/templates/mailing/batch_confirm_delete.html:24
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -2153,76 +2159,138 @@ msgstr "Navré, cette année votre participation n'a pas été retenue pour la f
 msgid "See all the dates"
 msgstr "Voir toutes les dates"
 
-#: mailing/forms.py:9
+#: mailing/admin.py:37
+msgid "Email count"
+msgstr "Nombre de mails"
+
+#: mailing/forms.py:18
 msgid "HTML enabled"
 msgstr "HTML activé"
 
-#: mailing/forms.py:10
+#: mailing/forms.py:19
 msgid "Generate HTML from plaintext"
 msgstr "Générer le HTML depuis le texte brut"
 
-#: mailing/forms.py:11
+#: mailing/forms.py:20
 msgid "Useful queries"
 msgstr "Requêtes utiles"
 
-#: mailing/forms.py:43
+#: mailing/forms.py:52
 msgid "You must provide an HTML template if HTML is enabled."
 msgstr "Vous devez fournir un gabarit HTML si vous activez le HTML."
 
-#: mailing/models.py:35
+#: mailing/forms.py:63
+#, python-format
+msgid "i am fine bothering %(n)s people"
+msgstr "ok pour ennuyer %(n)s personnes"
+
+#: mailing/forms.py:72
+msgid "Foolproofing"
+msgstr "Anti-stupidité"
+
+#: mailing/forms.py:73
+#, python-format
+msgid "Type “%s” above"
+msgstr "Recopiez “%s” ci-dessus"
+
+#: mailing/forms.py:84
+msgid "Send"
+msgstr "Envoyer"
+
+#: mailing/forms.py:93
+#, python-format
+msgid "Actually send to %(n)s people right now"
+msgstr "Vraiment envoyer à %(n)s personnes, immédiatement"
+
+#: mailing/models.py:50
 msgid "Subject template"
 msgstr "Gabarit du sujet"
 
-#: mailing/models.py:36
+#: mailing/models.py:51
 msgid "Plaintext body template"
 msgstr "Gabarit en texte brut"
 
-#: mailing/models.py:37
+#: mailing/models.py:52
 msgid "HTML body template"
 msgstr "Gabarit en HTML"
 
-#: mailing/models.py:41 mailing/templates/mailing/template/details.html:45
+#: mailing/models.py:56 mailing/models.py:197
+#: mailing/templates/mailing/batch-emails.html:20
+#: mailing/templates/mailing/batch-list.html:25
+#: mailing/templates/mailing/template/details.html:45
 msgid "Template"
 msgstr "Gabarit"
 
-#: mailing/models.py:42 mailing/templates/mailing/dashboard.html:22
+#: mailing/models.py:57 mailing/templates/mailing/dashboard.html:27
 #: mailing/templates/mailing/template/details.html:15
 msgid "Templates"
 msgstr "Gabarits"
 
-#: mailing/models.py:119 mailing/models.py:125 problems/forms.py:15
+#: mailing/models.py:134 mailing/models.py:140 mailing/models.py:198
+#: mailing/templates/mailing/batch-emails.html:21
+#: mailing/templates/mailing/batch-list.html:26 problems/forms.py:15
 msgid "Query"
 msgstr "Requête"
 
-#: mailing/models.py:121
+#: mailing/models.py:136
 msgid "Useful with templates"
 msgstr "Utile avec les gabarits"
 
-#: mailing/models.py:126 mailing/templates/mailing/dashboard.html:43
+#: mailing/models.py:141 mailing/templates/mailing/dashboard.html:48
 #: mailing/templates/mailing/query/details.html:15
 msgid "Queries"
 msgstr "Requêtes"
 
-#: mailing/models.py:153
+#: mailing/models.py:168
 #, python-format
 msgid "The root model is not %(model)s. You must provide a `user` alias."
 msgstr "Le modèle racine n'est pas %(model)s. Vous devez fournir un alias `user`."
 
-#: mailing/models.py:158
+#: mailing/models.py:173
 #, python-format
 msgid "%(label)s.%(field)s is not %(model)s"
 msgstr "%(label)s.%(field)s n'est pas %(model)s"
 
-#: mailing/models.py:161
+#: mailing/models.py:176
 #, python-format
 msgid "%(label)s has no field `%(field)s`"
 msgstr "%(label)s n'a pas de champ `%(field)s`"
 
-#: mailing/templates/mailing/dashboard.html:5
-#: mailing/templates/mailing/dashboard.html:10
-msgid "Dashboard"
-msgstr "Tableau de bord"
+#: mailing/models.py:196
+msgid "Optional name"
+msgstr "Nom (optionnel)"
 
+#: mailing/models.py:204 mailing/templates/mailing/batch-emails.html:5
+msgid "Batch"
+msgstr "Lot"
+
+#: mailing/models.py:205 mailing/templates/mailing/batch-create.html:10
+#: mailing/templates/mailing/batch-emails.html:10
+#: mailing/templates/mailing/batch-list.html:5
+#: mailing/templates/mailing/batch-list.html:10
+#: mailing/templates/mailing/batch_confirm_delete.html:10
+msgid "Batches"
+msgstr "Lots"
+
+#: mailing/models.py:211
+#, python-format
+msgid "Batch %(id)s"
+msgstr "Lot %(id)s"
+
+#: mailing/templates/mailing/batch-create.html:5
+#: mailing/templates/mailing/batch-create.html:16
+#: mailing/templates/mailing/dashboard.html:19
+msgid "Send a new batch"
+msgstr "Envoyer un nouveau lot"
+
+#: mailing/templates/mailing/batch-create.html:5
+#: mailing/templates/mailing/batch-create.html:9
+#: mailing/templates/mailing/batch-emails.html:5
+#: mailing/templates/mailing/batch-emails.html:9
+#: mailing/templates/mailing/batch-list.html:5
+#: mailing/templates/mailing/batch-list.html:9
+#: mailing/templates/mailing/batch_confirm_delete.html:5
+#: mailing/templates/mailing/batch_confirm_delete.html:9
 #: mailing/templates/mailing/dashboard.html:5
 #: mailing/templates/mailing/dashboard.html:9
 #: mailing/templates/mailing/query/details.html:5
@@ -2232,35 +2300,101 @@ msgstr "Tableau de bord"
 msgid "Mailing"
 msgstr "Mailing"
 
+#: mailing/templates/mailing/batch-create.html:11
+#: mailing/templates/mailing/batch-list.html:17
+msgid "New batch"
+msgstr "Nouveau lot"
+
+#: mailing/templates/mailing/batch-emails.html:16
+#, python-format
+msgid "Batch details for %(name)s"
+msgstr "Détail du lot %(name)s"
+
+#: mailing/templates/mailing/batch-emails.html:18
+#, python-format
+msgid "Initiated by <strong>%(initiator)s</strong> on %(date)s."
+msgstr "Initié par <strong>%(initiator)s</strong> le %(date)s."
+
+#: mailing/templates/mailing/batch-emails.html:30
+msgid "Subject"
+msgstr "Sujet"
+
+#: mailing/templates/mailing/batch-emails.html:31
+msgid "State"
+msgstr "État"
+
+#: mailing/templates/mailing/batch-list.html:24
+msgid "Initiator"
+msgstr "Initiateur"
+
+#: mailing/templates/mailing/batch-list.html:28
+msgid "Pending ⋅ Sent ⋅ Error ⋅ Total"
+msgstr "Attente ⋅ Envoyé ⋅ Erreur ⋅ Total"
+
+#: mailing/templates/mailing/batch-list.html:40
+msgid "Completed"
+msgstr "Terminé"
+
+#: mailing/templates/mailing/batch-list.html:44
+msgid "Retry pending"
+msgstr "Réessayer ceux en attente"
+
+#: mailing/templates/mailing/batch-list.html:59
+msgid "There is no batch yet."
+msgstr "Il n'y a pas encore de lot."
+
+#: mailing/templates/mailing/batch_confirm_delete.html:5
+#: mailing/templates/mailing/batch_confirm_delete.html:17
+msgid "Delete a batch"
+msgstr "Supprimer un lot"
+
+#: mailing/templates/mailing/batch_confirm_delete.html:19
+#, python-format
+msgid "Are you sure you want to delete <em>%(batch)s</em>?"
+msgstr "Voulez-vous vraiment supprimer <em>%(batch)s</em> ?"
+
+#: mailing/templates/mailing/batch_confirm_delete.html:23
+msgid "Cancel"
+msgstr "Annuler"
+
+#: mailing/templates/mailing/dashboard.html:5
+#: mailing/templates/mailing/dashboard.html:10
+msgid "Dashboard"
+msgstr "Tableau de bord"
+
 #: mailing/templates/mailing/dashboard.html:15
 msgid "Mailing dashboard"
 msgstr "Tableau de bord mailing"
 
-#: mailing/templates/mailing/dashboard.html:20
+#: mailing/templates/mailing/dashboard.html:18
+msgid "All batches"
+msgstr "Tous les lots"
+
+#: mailing/templates/mailing/dashboard.html:25
 msgid "Craft a new template"
 msgstr "Créer un nouveau gabarit"
 
-#: mailing/templates/mailing/dashboard.html:26
+#: mailing/templates/mailing/dashboard.html:31
 msgid "Related useful queries"
 msgstr "Requêtes utiles liées"
 
-#: mailing/templates/mailing/dashboard.html:27
+#: mailing/templates/mailing/dashboard.html:32
 msgid "Plaintext + HTML"
 msgstr "Brut + HTML"
 
-#: mailing/templates/mailing/dashboard.html:34
+#: mailing/templates/mailing/dashboard.html:39
 msgid "There is no template yet."
 msgstr "Il n'y a pas encore de gabarit."
 
-#: mailing/templates/mailing/dashboard.html:41
+#: mailing/templates/mailing/dashboard.html:46
 msgid "Craft a new query"
 msgstr "Créer une nouvelle requête"
 
-#: mailing/templates/mailing/dashboard.html:47
+#: mailing/templates/mailing/dashboard.html:52
 msgid "Templates this query is useful for"
 msgstr "Gabarits utiles pour cette requête"
 
-#: mailing/templates/mailing/dashboard.html:56
+#: mailing/templates/mailing/dashboard.html:61
 msgid "There is no query yet."
 msgstr "Il n'y a pas encore de requête."
 
@@ -2359,13 +2493,13 @@ msgstr "Texte brut"
 msgid "HTML"
 msgstr "HTML"
 
-#: mailing/views.py:74
+#: mailing/views.py:80
 msgid ""
 "The form was modified and saved while you were editing. Please merge with "
 "current version."
 msgstr "Le formulaire a été enregistré pendant vous le modifiez. Veuillez fusionner vos modifications avec la version actuelle."
 
-#: mailing/views.py:219
+#: mailing/views.py:225
 #, python-format
 msgid "Syntax error at position %(pos)s."
 msgstr "Erreur de syntaxe à la position %(pos)s."
@@ -3384,41 +3518,45 @@ msgstr "résolu"
 msgid "corrected"
 msgstr "corrigé"
 
-#: problems/admin.py:78
+#: problems/admin.py:66
+msgid "results expired"
+msgstr ""
+
+#: problems/admin.py:87
 #, python-format
 msgid "Code %(id)s"
 msgstr "Code %(id)s"
 
-#: problems/admin.py:84
+#: problems/admin.py:93
 msgid "Challenge"
 msgstr "Épreuve"
 
-#: problems/admin.py:89 semifinal/forms.py:9
+#: problems/admin.py:98 semifinal/forms.py:9
 msgid "Problem"
 msgstr "Problème"
 
-#: problems/admin.py:94 problems/admin.py:157
+#: problems/admin.py:103 problems/admin.py:165
 msgid "Username"
 msgstr "Nom d'utilisateur"
 
-#: problems/admin.py:100
+#: problems/admin.py:109
 msgid "Status"
 msgstr "Statut"
 
-#: problems/admin.py:105
+#: problems/admin.py:114
 msgid "Correctable"
 msgstr "Corrigeable"
 
-#: problems/admin.py:125
+#: problems/admin.py:133
 msgid "Submit to correction"
 msgstr "Envoyer en correction"
 
-#: problems/admin.py:151
+#: problems/admin.py:159
 #, python-format
 msgid "Submission %(id)s"
 msgstr "Soumission %(id)s"
 
-#: problems/admin.py:168 problems/forms.py:31
+#: problems/admin.py:176 problems/forms.py:31
 msgid "Solved"
 msgstr "Résolu"
 
@@ -3476,80 +3614,80 @@ msgstr "Vous devez fournir un fichier source ou un code source."
 msgid "Qualifications"
 msgstr "Sélections"
 
-#: problems/models/submission.py:66
+#: problems/models/submission.py:65
 msgid "unknown"
 msgstr "inconnu"
 
-#: problems/models/submission.py:70
+#: problems/models/submission.py:69
 msgid "Compilation went fine."
 msgstr "La compilation a réussi."
 
-#: problems/models/submission.py:71
+#: problems/models/submission.py:70
 #, python-format
 msgid "Compilation exited with code %(code)s."
 msgstr "Le compilateur a quitté avec le code de retour %(code)s."
 
-#: problems/models/submission.py:72
+#: problems/models/submission.py:71
 msgid "Compilation timed out."
 msgstr "La compilation a dépassé la limite de temps."
 
-#: problems/models/submission.py:73
+#: problems/models/submission.py:72
 #, python-format
 msgid "Compilation was killed with signal %(signal)s."
 msgstr "La compilation a été tuée par le signal %(signal)s."
 
-#: problems/models/submission.py:74
+#: problems/models/submission.py:73
 msgid "Compilation crashed with an internal error."
 msgstr "La compilation a crashée à cause d'une erreur interne."
 
-#: problems/models/submission.py:82
+#: problems/models/submission.py:81
 msgid "your program executed fine, but:"
 msgstr "votre programme s'est exécuté correctement, mais :"
 
-#: problems/models/submission.py:83
+#: problems/models/submission.py:82
 #, python-format
 msgid "your program exited with code %(code)s."
 msgstr "votre programme a quitté avec le code de retour %(code)s."
 
-#: problems/models/submission.py:84
+#: problems/models/submission.py:83
 msgid "you program timed out."
 msgstr "votre programme a dépassé la limite de temps."
 
-#: problems/models/submission.py:85
+#: problems/models/submission.py:84
 #, python-format
 msgid "your program was killed with signal %(signal)s."
 msgstr "votre programme a été tué par le signal %(signal)s."
 
-#: problems/models/submission.py:86
+#: problems/models/submission.py:85
 msgid "your program crashed with an internal error."
 msgstr "votre programme a crashé à cause d'une erreur interne."
 
-#: problems/models/submission.py:182
+#: problems/models/submission.py:181
 #: problems/templates/problems/submission.html:9
 msgid "Submission"
 msgstr "Soumission"
 
-#: problems/models/submission.py:228
+#: problems/models/submission.py:226
 msgid "Pending"
 msgstr "En attente"
 
-#: problems/models/submission.py:228
+#: problems/models/submission.py:226
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:250
+#: problems/models/submission.py:248
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:251
+#: problems/models/submission.py:249
 msgid "Submission codes"
 msgstr "Codes soumis"
 
-#: problems/models/submission.py:275
+#: problems/models/submission.py:273
 msgid "Explicit problem unlock"
 msgstr "Déblocage explicite de problème"
 
-#: problems/models/submission.py:276
+#: problems/models/submission.py:274
 msgid "Explicit problem unlocks"
 msgstr "Déblocages explicites de problème"
 
@@ -4485,15 +4623,15 @@ msgctxt "File size unit"
 msgid "bytes"
 msgstr "octets"
 
-#: prologin/utils/__init__.py:245
+#: prologin/utils/__init__.py:244
 msgid "year"
 msgstr "année"
 
-#: prologin/utils/__init__.py:246
+#: prologin/utils/__init__.py:245
 msgid "month"
 msgstr "mois"
 
-#: prologin/utils/__init__.py:247
+#: prologin/utils/__init__.py:246
 msgid "day"
 msgstr "jour"
 
