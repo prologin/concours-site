@@ -44,6 +44,8 @@ class ConditionalSum(Sum):
 def lock_table(table, mode=None):
     """Lock a postgres 'table' using 'mode'."""
     from django.db import connection
+    if connection.vendor != 'postgresql':
+        return
     with connection.cursor() as cursor:
         cursor.execute('LOCK TABLE {} IN {} MODE'.format(table, mode or 'ACCESS EXCLUSIVE'))
 
