@@ -6,11 +6,11 @@ import json
 import marauder.api_views
 import marauder.models
 import marauder.views
-import prologin.tests
+from prologin import tests
 from prologin.middleware import ContestMiddleware
 
 
-class ReportingTestCase(prologin.tests.ProloginTestCase):
+class ReportingTestCase(tests.WithContestantMixin, tests.WithOrgaUserMixin, tests.ProloginTestCase):
     def make_request(self, data=None):
         if data is None:
             data = {}
@@ -27,33 +27,29 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
         # No user
         request = self.make_request()
         request.user = AnonymousUser()
-        response = marauder.api_views.ApiReportView.as_view()(request)
-        self.assertEqual(response.status_code, 302)
+        self.assertInvalidResponse(marauder.api_views.ApiReportView.as_view()(request))
 
         # Non-team user
         request = self.make_request()
         request.user = self.contestant
-        response = marauder.api_views.ApiReportView.as_view()(request)
-        self.assertEqual(response.status_code, 302)
+        self.assertInvalidResponse(marauder.api_views.ApiReportView.as_view()(request))
 
         # Team user
         request = self.make_request()
-        request.user = self.organizer
-        response = marauder.api_views.ApiReportView.as_view()(request)
-        self.assertEqual(response.status_code, 200)
+        request.user = self.orga_user
+        self.assertValidResponse(marauder.api_views.ApiReportView.as_view()(request))
 
     def test_profile_creation(self):
         """Tests whether a profile gets created on first access."""
         self.assertFalse(marauder.models.UserProfile.objects.filter(
-            user=self.organizer))
+            user=self.orga_user))
 
         request = self.make_request()
-        request.user = self.organizer
-        response = marauder.api_views.ApiReportView.as_view()(request)
-        self.assertEqual(response.status_code, 200)
+        request.user = self.orga_user
+        self.assertValidResponse(marauder.api_views.ApiReportView.as_view()(request))
 
         self.assertTrue(marauder.models.UserProfile.objects.filter(
-            user=self.organizer))
+            user=self.orga_user))
 
     def test_in_area(self):
         """Tests whether data gets stored when in area."""
@@ -62,11 +58,11 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
                                      'lon': 1337,
                                      'gcm': {'app_id': 'test',
                                              'token': 'TOK'}})
-        request.user = self.organizer
+        request.user = self.orga_user
         response = marauder.api_views.ApiReportView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
-        profile = marauder.models.UserProfile.objects.get(user=self.organizer)
+        profile = marauder.models.UserProfile.objects.get(user=self.orga_user)
         self.assertTrue(profile.in_area)
         self.assertEqual(profile.lat, 42)
         self.assertEqual(profile.lon, 1337)
@@ -80,11 +76,11 @@ class ReportingTestCase(prologin.tests.ProloginTestCase):
                                      'lon': 1337,
                                      'gcm': {'app_id': 'test',
                                              'token': 'TOK'}})
-        request.user = self.organizer
+        request.user = self.orga_user
         response = marauder.api_views.ApiReportView.as_view()(request)
         self.assertEqual(response.status_code, 200)
 
-        profile = marauder.models.UserProfile.objects.get(user=self.organizer)
+        profile = marauder.models.UserProfile.objects.get(user=self.orga_user)
         self.assertFalse(profile.in_area)
         self.assertEqual(profile.lat, 0)
         self.assertEqual(profile.lon, 0)
