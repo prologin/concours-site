@@ -23,6 +23,11 @@ smtpserver:
 celeryworker:
 	$(CELERY) -l debug -A prologin worker
 
+# Test
+
+test:
+	$(MANAGE) test --settings=prologin.settings.test
+
 # Transifex
 
 tx-push:
@@ -42,4 +47,4 @@ tx-pull:
 assets:
 	$(MAKE) -C assets all
 
-.PHONY: all runserver smtpserver celeryworker assets tx-push tx-pull
+.PHONY: all test runserver smtpserver celeryworker assets tx-push tx-pull
