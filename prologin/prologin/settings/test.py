@@ -2,6 +2,8 @@ from .common import *
 
 SECRET_KEY = 'foo'
 
+LANGUAGE_CODE = 'en'
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
