@@ -1,5 +1,6 @@
 import contextlib
 import tidylib
+import re
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.http.response import HttpResponse
@@ -92,12 +93,19 @@ class ProloginTestCase(TestCase):
         self.client.logout()
 
     def assertValidHTML(self, html):
+        reg_pos = re.compile(r'line ([0-9]+) column ([0-9]+)')
         doc, output = tidylib.tidy_document(html)
+
+        def context(reason):
+            m = reg_pos.search(reason)
+            if m is None:
+                return '?'
+            line, col = map(int, m.groups())
+            return html.splitlines()[line - 1].strip().decode()
+
         for line in output.strip().splitlines():
-            self.assertNotIn("Error", line, msg="invalid HTML: {}".format(line))
-            if 'trimming empty' in line:
-                continue
-            self.assertNotIn("Warning", line, msg="invalid HTML: {}".format(line))
+            if "Error" in line or ("Warning" in line and not 'trimming empty' in line):
+                self.fail(msg="invalid HTML: in {}, {}".format(context(line), line))
 
     def assertValidResponse(self, response):
         self.assertIsInstance(response, HttpResponse)
