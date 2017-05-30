@@ -1,3 +1,4 @@
+from django.http.response import Http404
 from django.utils.functional import cached_property
 from django.views.generic import ListView
 
@@ -14,8 +15,11 @@ class IndexView(ListView):
         return self.kwargs.get('year', self.request.current_edition.year)
 
     def get_queryset(self):
-        return (super().get_queryset()
-                .filter(year=self.year, role_public=True))
+        members = (super().get_queryset()
+                   .filter(year=self.year, role_public=True))
+        if not members:
+            raise Http404()
+        return members
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
