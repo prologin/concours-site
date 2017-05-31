@@ -5,7 +5,9 @@ MANAGE = cd $(DIR) && ./manage.py
 CELERY = cd $(DIR) && celery
 TX = tx --debug
 PORT = 8000
+SMTP_HOST = 127.0.0.1
 SMTP_PORT = 1025
+SMTP_LAG = 0
 
 # Main rules
 
@@ -18,7 +20,7 @@ runserver:
 	$(MANAGE) runserver localhost:$(PORT)
 
 smtpserver:
-	python -c 'import smtpd, asyncore; smtpd.DebuggingServer(("0.0.0.0", $(SMTP_PORT)), None); asyncore.loop()'
+	python $(TOP)/smtp_debug.py --host $(SMTP_HOST) --port $(SMTP_PORT) --lag $(SMTP_LAG)
 
 celeryworker:
 	$(CELERY) -l debug -A prologin worker
