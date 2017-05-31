@@ -41,20 +41,6 @@ class ConditionalSum(Sum):
         ])
 
 
-def lock_table(table, mode=None):
-    """Lock a postgres 'table' using 'mode'."""
-    from django.db import connection
-    if connection.vendor != 'postgresql':
-        return
-    with connection.cursor() as cursor:
-        cursor.execute('LOCK TABLE {} IN {} MODE'.format(table, mode or 'ACCESS EXCLUSIVE'))
-
-
-def lock_model(model, mode=None):
-    """Lock a postgres-backed 'model' using 'mode'."""
-    return lock_table(model._meta.db_table, mode)
-
-
 class AdminOrderFieldsMixin:
     """
     Mixin to automatically annotate() a ModelAdmin queryset with sortable
