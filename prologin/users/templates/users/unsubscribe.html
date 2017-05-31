@@ -43,7 +43,7 @@
     </div>
   </form>
 {% else %}
-    <p><strong>{{ unsubscribe_user.email }}</strong>{% blocktrans %} has
+  <p>{% blocktrans with email=unsubscribe_user.email %}<code>{{ email }}</code> has
     already been unsubscribed. You will receive no further e-mails from
     Prologin.{% endblocktrans %}</p>
 {% endif %}
