@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-27 03:23+0200\n"
-"PO-Revision-Date: 2017-05-27 01:24+0000\n"
+"POT-Creation-Date: 2017-06-01 00:34+0200\n"
+"PO-Revision-Date: 2017-05-31 22:37+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -1584,14 +1584,14 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:22 mailing/models.py:47 mailing/models.py:131
+#: forum/models.py:22 mailing/models.py:55 mailing/models.py:139
 #: problems/templates/problems/challenge-scoreboard.html:24
 #: schools/templates/admin/schools/merge.html:56
 #: semifinal/templates/semifinal/stub-scoreboard.html:9
 msgid "Name"
 msgstr "Nom"
 
-#: forum/models.py:24 mailing/models.py:48 mailing/models.py:132
+#: forum/models.py:24 mailing/models.py:56 mailing/models.py:140
 msgid "Description"
 msgstr "Description"
 
@@ -2202,69 +2202,69 @@ msgstr "Envoyer"
 msgid "Actually send to %(n)s people right now"
 msgstr "Vraiment envoyer à %(n)s personnes, immédiatement"
 
-#: mailing/models.py:49
+#: mailing/models.py:57
 msgid "Subject template"
 msgstr "Gabarit du sujet"
 
-#: mailing/models.py:50
+#: mailing/models.py:58
 msgid "Plaintext body template"
 msgstr "Gabarit en texte brut"
 
-#: mailing/models.py:51
+#: mailing/models.py:59
 msgid "HTML body template"
 msgstr "Gabarit en HTML"
 
-#: mailing/models.py:55 mailing/models.py:196
+#: mailing/models.py:63 mailing/models.py:219
 #: mailing/templates/mailing/batch-emails.html:20
 #: mailing/templates/mailing/batch-list.html:26
 #: mailing/templates/mailing/template/details.html:45
 msgid "Template"
 msgstr "Gabarit"
 
-#: mailing/models.py:56 mailing/templates/mailing/dashboard.html:27
+#: mailing/models.py:64 mailing/templates/mailing/dashboard.html:27
 #: mailing/templates/mailing/template/details.html:15
 msgid "Templates"
 msgstr "Gabarits"
 
-#: mailing/models.py:133 mailing/models.py:139 mailing/models.py:197
+#: mailing/models.py:141 mailing/models.py:147 mailing/models.py:220
 #: mailing/templates/mailing/batch-emails.html:21
 #: mailing/templates/mailing/batch-list.html:27 problems/forms.py:15
 msgid "Query"
 msgstr "Requête"
 
-#: mailing/models.py:135
+#: mailing/models.py:143
 msgid "Useful with templates"
 msgstr "Utile avec les gabarits"
 
-#: mailing/models.py:140 mailing/templates/mailing/dashboard.html:48
+#: mailing/models.py:148 mailing/templates/mailing/dashboard.html:48
 #: mailing/templates/mailing/query/details.html:15
 msgid "Queries"
 msgstr "Requêtes"
 
-#: mailing/models.py:167
+#: mailing/models.py:175
 #, python-format
 msgid "The root model is not %(model)s. You must provide a `user` alias."
 msgstr "Le modèle racine n'est pas %(model)s. Vous devez fournir un alias `user`."
 
-#: mailing/models.py:172
+#: mailing/models.py:180
 #, python-format
 msgid "%(label)s.%(field)s is not %(model)s"
 msgstr "%(label)s.%(field)s n'est pas %(model)s"
 
-#: mailing/models.py:175
+#: mailing/models.py:183
 #, python-format
 msgid "%(label)s has no field `%(field)s`"
 msgstr "%(label)s n'a pas de champ `%(field)s`"
 
-#: mailing/models.py:195
+#: mailing/models.py:218
 msgid "Optional name"
 msgstr "Nom (optionnel)"
 
-#: mailing/models.py:203 mailing/templates/mailing/batch-emails.html:5
+#: mailing/models.py:226 mailing/templates/mailing/batch-emails.html:5
 msgid "Batch"
 msgstr "Lot"
 
-#: mailing/models.py:204 mailing/templates/mailing/batch-create.html:10
+#: mailing/models.py:227 mailing/templates/mailing/batch-create.html:10
 #: mailing/templates/mailing/batch-emails.html:10
 #: mailing/templates/mailing/batch-list.html:5
 #: mailing/templates/mailing/batch-list.html:10
@@ -2273,7 +2273,7 @@ msgstr "Lot"
 msgid "Batches"
 msgstr "Lots"
 
-#: mailing/models.py:210
+#: mailing/models.py:233
 #, python-format
 msgid "Batch %(id)s"
 msgstr "Lot %(id)s"
@@ -2298,6 +2298,7 @@ msgstr "Envoyer un nouveau lot"
 #: mailing/templates/mailing/query/details.html:14
 #: mailing/templates/mailing/template/details.html:5
 #: mailing/templates/mailing/template/details.html:14
+#: prologin/templates/prologin/main-menu.html:23
 msgid "Mailing"
 msgstr "Mailing"
 
@@ -2333,8 +2334,8 @@ msgid "Created"
 msgstr "Créé le"
 
 #: mailing/templates/mailing/batch-list.html:29
-msgid "Pending ⋅ Sent ⋅ Error ⋅ Total"
-msgstr "Attente ⋅ Envoyé ⋅ Erreur ⋅ Total"
+msgid "Progress"
+msgstr "Progressio"
 
 #: mailing/templates/mailing/batch-list.html:42
 msgid "Completed"
@@ -2344,7 +2345,11 @@ msgstr "Terminé"
 msgid "Retry pending"
 msgstr "Réessayer ceux en attente"
 
-#: mailing/templates/mailing/batch-list.html:61
+#: mailing/templates/mailing/batch-list.html:51
+msgid "Total ⋅ Pending ⋅ Sending ⋅ Sent ⋅ Bounced ⋅ Complaints"
+msgstr "Total ⋅ En attente ⋅ En envoi ⋅ Envoyés ⋅ “Bounces” ⋅ Plaintes"
+
+#: mailing/templates/mailing/batch-list.html:70
 msgid "There is no batch yet."
 msgstr "Il n'y a pas encore de lot."
 
@@ -2498,13 +2503,13 @@ msgstr "Texte brut"
 msgid "HTML"
 msgstr "HTML"
 
-#: mailing/views.py:78
+#: mailing/views.py:80
 msgid ""
 "The form was modified and saved while you were editing. Please merge with "
 "current version."
 msgstr "Le formulaire a été enregistré pendant vous le modifiez. Veuillez fusionner vos modifications avec la version actuelle."
 
-#: mailing/views.py:223
+#: mailing/views.py:225
 #, python-format
 msgid "Syntax error at position %(pos)s."
 msgstr "Erreur de syntaxe à la position %(pos)s."
@@ -4560,24 +4565,24 @@ msgstr "Admin"
 msgid "Django administration"
 msgstr "Administration de Django"
 
-#: prologin/templates/prologin/main-menu.html:28
+#: prologin/templates/prologin/main-menu.html:30
 msgid "Search users"
 msgstr "Chercher des utilisateurs"
 
-#: prologin/templates/prologin/main-menu.html:40
+#: prologin/templates/prologin/main-menu.html:42
 msgid "My profile"
 msgstr "Mon profil"
 
-#: prologin/templates/prologin/main-menu.html:41
+#: prologin/templates/prologin/main-menu.html:43
 msgid "Profile &amp; settings"
 msgstr "Profil &amp; options"
 
-#: prologin/templates/prologin/main-menu.html:43
+#: prologin/templates/prologin/main-menu.html:45
 #: semifinal/templates/prologin/main-menu.html:25
 msgid "Sign out"
 msgstr "Déconnexion"
 
-#: prologin/templates/prologin/main-menu.html:48
+#: prologin/templates/prologin/main-menu.html:50
 #: semifinal/templates/prologin/main-menu.html:30
 #: semifinal/templates/users/login.html:7
 #: semifinal/templates/users/login.html:10
@@ -5579,11 +5584,12 @@ msgid "Stay subscribed"
 msgstr "Conserver l'abonnement"
 
 #: users/templates/users/unsubscribe.html:46
+#, python-format
 msgid ""
-" has\n"
+"<code>%(email)s</code> has\n"
 "    already been unsubscribed. You will receive no further e-mails from\n"
 "    Prologin."
-msgstr "a déjà été désinscrit. Vous ne recevrez plus d'e-mails de Prologin."
+msgstr "<code>%(email)s</code> a déjà été désinscrit. Vous ne recevrez plus d'e-mails de Prologin."
 
 #: users/templates/users/unsubscribe_confirm.html:10
 msgid ""
