@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-01 00:34+0200\n"
-"PO-Revision-Date: 2017-05-31 22:37+0000\n"
+"POT-Creation-Date: 2017-07-15 19:46+0200\n"
+"PO-Revision-Date: 2017-07-15 17:47+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr ""
 #: archives/templates/archives/finale-scoreboard.html:7
 #: archives/templates/archives/index.html:7
 #: archives/templates/archives/index.html:14
-#: archives/templates/archives/index.html:21
+#: archives/templates/archives/index.html:18
 #: archives/templates/archives/report.html:7
 #: news/templates/zinnia/entry_archive_day.html:5
 #: news/templates/zinnia/entry_archive_day.html:7
@@ -65,13 +65,13 @@ msgstr "Classement de la finale"
 msgid "Final scoreboard for Prologin %(year)s final"
 msgstr "Classement de la finale de Prologin %(year)s"
 
-#: archives/templates/archives/index.html:22
+#: archives/templates/archives/index.html:19
 msgid ""
 "Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?\n"
 "    You can find all the documents and photo albums from past Prologin editions in these pages."
 msgstr "Vous recherchez l'affiche du dernier Prologin&nbsp;? L'énoncé de la finale de 1996&nbsp;? Le QCM de 2003&nbsp;? Vous trouverez sur ces pages l'ensemble des documents et albums photo des précédentes éditions de Prologin."
 
-#: archives/templates/archives/index.html:34
+#: archives/templates/archives/index.html:31
 #: contest/templates/contest/index.html:12
 #: contest/templates/contest/index.html:16
 #: contest/templates/correction/contestant-base.html:17
@@ -81,15 +81,15 @@ msgstr "Vous recherchez l'affiche du dernier Prologin&nbsp;? L'énoncé de la fi
 msgid "Prologin %(year)s"
 msgstr "Prologin %(year)s"
 
-#: archives/templates/archives/index.html:37
+#: archives/templates/archives/index.html:34
 msgid "Download poster"
 msgstr "Télécharger l'affiche"
 
-#: archives/templates/archives/index.html:40
+#: archives/templates/archives/index.html:37
 msgid "Poster not available"
 msgstr "Affiche indisponible"
 
-#: archives/templates/archives/index.html:44 contest/models.py:115
+#: archives/templates/archives/index.html:41 contest/models.py:115
 #: contest/templates/contest/index.html:9
 #: contest/templates/contest/qualification-summary.html:9
 #: contest/templates/correction/contestant-qualification.html:7
@@ -101,61 +101,61 @@ msgstr "Affiche indisponible"
 msgid "Qualification"
 msgstr "Qualification"
 
-#: archives/templates/archives/index.html:48
+#: archives/templates/archives/index.html:45
 #, python-format
 msgid "%(count)s-question quiz"
 msgid_plural "%(count)s-question quiz"
 msgstr[0] "QCM à %(count)s question"
 msgstr[1] "QCM à %(count)s questions"
 
-#: archives/templates/archives/index.html:51
-#: archives/templates/archives/index.html:73
+#: archives/templates/archives/index.html:48
+#: archives/templates/archives/index.html:70
 #, python-format
 msgid "%(count)s problem"
 msgid_plural "%(count)s problems"
 msgstr[0] "%(count)s problème"
 msgstr[1] "%(count)s problèmes"
 
-#: archives/templates/archives/index.html:54
+#: archives/templates/archives/index.html:51
 msgid "Test statement (PDF)"
 msgstr "Énoncé (PDF)"
 
-#: archives/templates/archives/index.html:57
+#: archives/templates/archives/index.html:54
 msgid "Test correction (PDF)"
 msgstr "Correction (PDF)"
 
-#: archives/templates/archives/index.html:60
+#: archives/templates/archives/index.html:57
 msgid "Test Challenge correction (PDF)"
 msgstr "Correction des challenges (PDF)"
 
-#: archives/templates/archives/index.html:64
-#: archives/templates/archives/index.html:77
-#: archives/templates/archives/index.html:90
+#: archives/templates/archives/index.html:61
+#: archives/templates/archives/index.html:74
+#: archives/templates/archives/index.html:87
 msgid "Sorry, no resource available."
 msgstr "Désolé, aucune ressource disponible."
 
-#: archives/templates/archives/index.html:66
+#: archives/templates/archives/index.html:63
 #: documents/templates/documents/index.html:35
 #: homepage/templates/homepage/jumbotron-semifinals.html:7
 #: problems/models/__init__.py:8
 msgid "Regional events"
 msgstr "Épreuves régionales"
 
-#: archives/templates/archives/index.html:70
+#: archives/templates/archives/index.html:67
 msgid "Regional events report"
 msgstr "Rapport des épreuves régionales"
 
-#: archives/templates/archives/index.html:79 contest/models.py:117
+#: archives/templates/archives/index.html:76 contest/models.py:117
 #: documents/templates/documents/index.html:87
 #: homepage/templates/homepage/jumbotron-final.html:7
 msgid "Final"
 msgstr "Finale"
 
-#: archives/templates/archives/index.html:83
+#: archives/templates/archives/index.html:80
 msgid "Final report"
 msgstr "Rapport de la finale"
 
-#: archives/templates/archives/index.html:86
+#: archives/templates/archives/index.html:83
 #: problems/templates/problems/challenge-scoreboard.html:8
 #: problems/templates/problems/challenge-scoreboard.html:11
 #: problems/templates/problems/challenge-scoreboard.html:14
@@ -164,13 +164,18 @@ msgstr "Rapport de la finale"
 msgid "Scoreboard"
 msgstr "Classement"
 
-#: archives/templates/archives/index.html:96
-msgid "Browse photo album on Flickr"
-msgstr "Consulter l'album photo sur Flickr"
+#: archives/templates/archives/index.html:90
+msgid "Photos"
+msgstr "Photos"
 
-#: archives/templates/archives/index.html:96
-msgid "Sample photo"
+#: archives/templates/archives/index.html:93
+msgid "Cover photo"
 msgstr "Photo d'illustration"
+
+#: archives/templates/archives/index.html:95
+#, python-format
+msgid "Browse the %(count)s photos"
+msgstr "Parcourir les %(count)s photos"
 
 #: archives/templates/archives/inline-scoreboard.html:6
 #: contest/templates/contest/interschool-leaderboard.html:43
@@ -1584,14 +1589,14 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:22 mailing/models.py:55 mailing/models.py:139
+#: forum/models.py:22 mailing/models.py:54 mailing/models.py:138
 #: problems/templates/problems/challenge-scoreboard.html:24
 #: schools/templates/admin/schools/merge.html:56
 #: semifinal/templates/semifinal/stub-scoreboard.html:9
 msgid "Name"
 msgstr "Nom"
 
-#: forum/models.py:24 mailing/models.py:56 mailing/models.py:140
+#: forum/models.py:24 mailing/models.py:55 mailing/models.py:139
 msgid "Description"
 msgstr "Description"
 
@@ -2202,69 +2207,69 @@ msgstr "Envoyer"
 msgid "Actually send to %(n)s people right now"
 msgstr "Vraiment envoyer à %(n)s personnes, immédiatement"
 
-#: mailing/models.py:57
+#: mailing/models.py:56
 msgid "Subject template"
 msgstr "Gabarit du sujet"
 
-#: mailing/models.py:58
+#: mailing/models.py:57
 msgid "Plaintext body template"
 msgstr "Gabarit en texte brut"
 
-#: mailing/models.py:59
+#: mailing/models.py:58
 msgid "HTML body template"
 msgstr "Gabarit en HTML"
 
-#: mailing/models.py:63 mailing/models.py:219
+#: mailing/models.py:62 mailing/models.py:220
 #: mailing/templates/mailing/batch-emails.html:20
 #: mailing/templates/mailing/batch-list.html:26
 #: mailing/templates/mailing/template/details.html:45
 msgid "Template"
 msgstr "Gabarit"
 
-#: mailing/models.py:64 mailing/templates/mailing/dashboard.html:27
+#: mailing/models.py:63 mailing/templates/mailing/dashboard.html:27
 #: mailing/templates/mailing/template/details.html:15
 msgid "Templates"
 msgstr "Gabarits"
 
-#: mailing/models.py:141 mailing/models.py:147 mailing/models.py:220
+#: mailing/models.py:140 mailing/models.py:146 mailing/models.py:221
 #: mailing/templates/mailing/batch-emails.html:21
 #: mailing/templates/mailing/batch-list.html:27 problems/forms.py:15
 msgid "Query"
 msgstr "Requête"
 
-#: mailing/models.py:143
+#: mailing/models.py:142
 msgid "Useful with templates"
 msgstr "Utile avec les gabarits"
 
-#: mailing/models.py:148 mailing/templates/mailing/dashboard.html:48
+#: mailing/models.py:147 mailing/templates/mailing/dashboard.html:48
 #: mailing/templates/mailing/query/details.html:15
 msgid "Queries"
 msgstr "Requêtes"
 
-#: mailing/models.py:175
+#: mailing/models.py:174
 #, python-format
 msgid "The root model is not %(model)s. You must provide a `user` alias."
 msgstr "Le modèle racine n'est pas %(model)s. Vous devez fournir un alias `user`."
 
-#: mailing/models.py:180
+#: mailing/models.py:179
 #, python-format
 msgid "%(label)s.%(field)s is not %(model)s"
 msgstr "%(label)s.%(field)s n'est pas %(model)s"
 
-#: mailing/models.py:183
+#: mailing/models.py:182
 #, python-format
 msgid "%(label)s has no field `%(field)s`"
 msgstr "%(label)s n'a pas de champ `%(field)s`"
 
-#: mailing/models.py:218
+#: mailing/models.py:219
 msgid "Optional name"
 msgstr "Nom (optionnel)"
 
-#: mailing/models.py:226 mailing/templates/mailing/batch-emails.html:5
+#: mailing/models.py:227 mailing/templates/mailing/batch-emails.html:5
 msgid "Batch"
 msgstr "Lot"
 
-#: mailing/models.py:227 mailing/templates/mailing/batch-create.html:10
+#: mailing/models.py:228 mailing/templates/mailing/batch-create.html:10
 #: mailing/templates/mailing/batch-emails.html:10
 #: mailing/templates/mailing/batch-list.html:5
 #: mailing/templates/mailing/batch-list.html:10
@@ -2273,7 +2278,7 @@ msgstr "Lot"
 msgid "Batches"
 msgstr "Lots"
 
-#: mailing/models.py:233
+#: mailing/models.py:234
 #, python-format
 msgid "Batch %(id)s"
 msgstr "Lot %(id)s"
@@ -3530,7 +3535,7 @@ msgstr "corrigé"
 
 #: problems/admin.py:66
 msgid "results expired"
-msgstr ""
+msgstr "résultats expirés"
 
 #: problems/admin.py:87
 #, python-format
@@ -4671,7 +4676,7 @@ msgstr "Réponse %(id)s: %(answer)s"
 msgid "Answer %(id)s"
 msgstr "Réponse %(id)s"
 
-#: qcm/admin.py:97 qcm/models.py:108
+#: qcm/admin.py:97 qcm/models.py:113
 msgid "Question"
 msgstr "Question"
 
@@ -4687,19 +4692,19 @@ msgstr "Écrivez votre réponse ici"
 msgid "I don't know"
 msgstr "Je ne sais pas"
 
-#: qcm/models.py:84
+#: qcm/models.py:89
 msgid "Question body"
 msgstr "Corps de la question"
 
-#: qcm/models.py:85
+#: qcm/models.py:90
 msgid "Verbose description"
 msgstr "Description supplémentaire"
 
-#: qcm/models.py:124
+#: qcm/models.py:129
 msgid "Answer"
 msgstr "Réponse"
 
-#: qcm/models.py:126
+#: qcm/models.py:131
 msgid "Textual answer"
 msgstr "Réponse texte"
 
