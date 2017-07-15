@@ -102,10 +102,7 @@ class QualificationArchive(WithChallengeMixin, BaseArchive):
 
     @property
     def quiz(self) -> qcm.models.Qcm:
-        qcm_obj = qcm.models.Qcm.objects.filter(event__edition__year=self.archive.year, event__type=self.event_type.value).first()
-        if qcm_obj and hasattr(self.archive, 'user') and not self.archive.user.has_perm('qcm.view_qcm', qcm_obj):
-            return None
-        return qcm_obj
+        return self.archive.qcm
 
     def populated(self):
         return any((self.pdf_statement, self.pdf_correction, self.pdf_challenges, self.quiz, self.challenge))
@@ -209,12 +206,20 @@ class Archive:
         - final
     """
 
+    @staticmethod
+    def qcm_queryset():
+        return (qcm.models.Qcm.objects
+                .filter(event__type=contest.models.Event.Type.qualification.value))
+
     @classmethod
     def all_archives(cls):
+        qcm_by_year = {qcm.event.edition.year: qcm for qcm in cls.qcm_queryset()}
+
         def explore():
             for year_dir in os.listdir(settings.ARCHIVES_REPOSITORY_PATH):
                 try:
-                    yield Archive(int(year_dir))
+                    year = int(year_dir)
+                    yield Archive(year, qcm_by_year.get(year))
                 except Exception:
                     pass
 
@@ -222,10 +227,13 @@ class Archive:
 
     @classmethod
     def by_year(cls, year: int):
-        return Archive(year)
+        qcm_obj = cls.qcm_queryset().filter(event__edition__year=year).first()
+        return Archive(year, qcm_obj)
 
-    def __init__(self, year: int):
+    def __init__(self, year: int, qcm_obj: qcm.models.Qcm):
         self.year = year
+        self.qcm = qcm_obj
+
         if not os.path.exists(self.file_path()):
             raise ObjectDoesNotExist("Archive for year {} does not exist".format(year))
 
