@@ -234,7 +234,7 @@ def read_props(filename):
         return value
 
     def props(f):
-        return {k.strip(): parse(v)
+        return {k.strip().replace('_', '-'): parse(v)
                 for line in f if line.strip()
                 for k, v in [line.split(':', 1)]}
     return open_try_hard(props, filename)

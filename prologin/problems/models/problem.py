@@ -174,7 +174,7 @@ class Challenge:
 
     @property
     def displayable(self):
-        return self.properties.get('display_website', False)
+        return self.properties.get('display-website', False)
 
     @property
     def type(self) -> Type:
@@ -185,7 +185,7 @@ class Challenge:
         """
         The amount of seconds to wait before auto-unlocking new problem(s).
         """
-        return self.properties.get('unlock_delay', settings.PROBLEMS_DEFAULT_AUTO_UNLOCK_DELAY)
+        return self.properties.get('unlock-delay', settings.PROBLEMS_DEFAULT_AUTO_UNLOCK_DELAY)
 
     @property
     def problem_difficulty_list(self) -> [int]:
