@@ -78,10 +78,6 @@
   opacity: 1;
 }
 
-.archive .panel-footer {
-  padding: 10px;
-}
-
 .archive li .fa-fw {
   font-size: 14px;
 }
@@ -90,29 +86,8 @@
   padding: 10px 15px; /* same as .nav > li > a */
 }
 
-.archive .photos {
-  list-style: none;
-  display: block;
-  margin: 0;
-  padding: 0;
-}
-
-.archive .photos li {
-  display: inline-block;
-  width: 20%;
-  margin: 0;
-  padding: 2px;
-}
-
-.archive .photos li a {
-  width: 100%;
-  display: block;
-  border-radius: 4px;
-  padding: 2px;
-  border: 1px solid #ccc;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
-}
-
-.archive .photos li a img {
-  max-width: 100%;
+.archive-photo {
+  max-width: 48px;
+  max-height: 48px;
+  margin-right: .5em;
 }

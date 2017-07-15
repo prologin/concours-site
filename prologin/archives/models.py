@@ -1,8 +1,6 @@
 import logging
 import os
-import random
 import redis, redis.exceptions
-import yaml
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
 from django.utils.safestring import mark_safe
@@ -87,44 +85,6 @@ class WithContentMixin:
     content = lazy_attr('_content_', _get_content)
 
 
-class WithFlickrMixin:
-    flickr_album_id = None
-    flickr_redis_suffix = None
-
-    def get_flickr_album_id(self):
-        return self.flickr_album_id
-
-    def get_flickr_photos(self, flickr=None):
-        if not flickr:
-            flickr = Flickr(*settings.ARCHIVES_FLICKR_CREDENTIALS)
-        if self.get_flickr_album_id():
-            return list(flickr.photos(self.get_flickr_album_id()))
-        else:
-            return []
-
-    @property
-    def flickr_album_url(self):
-        return settings.ARCHIVES_FLICKR_ALBUM_URL.format(id=self.get_flickr_album_id())
-
-    def _flickr_redis_key(self):
-        return settings.ARCHIVES_FLICKR_REDIS_KEY.format(year=self.archive.year, suffix=self.flickr_redis_suffix)
-
-    def _get_flickr_thumbs(self):
-        if not self.flickr_redis_suffix:
-            raise ValueError('`flickr_redis_suffix` can not be empty')
-        try:
-            store = redis.StrictRedis(**settings.PROLOGIN_UTILITY_REDIS_STORE)
-            photos = store.lrange(self._flickr_redis_key(), 0, -1)
-            random.shuffle(photos)
-            return photos
-        except redis.exceptions.RedisError:
-            logger.exception("Could not connect to Redis %s to serve archive thumbnails",
-                             settings.PROLOGIN_UTILITY_REDIS_STORE)
-            return []
-
-    flickr_thumbs = lazy_attr('_flickr_thumbs_', _get_flickr_thumbs)
-
-
 class QualificationArchive(WithChallengeMixin, BaseArchive):
     """
     Qualification archive. May have:
@@ -164,7 +124,7 @@ class SemifinalArchive(WithContentMixin, WithChallengeMixin, BaseArchive):
         return any((self.content, self.challenge))
 
 
-class FinalArchive(WithFlickrMixin, WithContentMixin, BaseArchive):
+class FinalArchive(WithContentMixin, BaseArchive):
     """
     Final archive. May have:
         - a content
@@ -172,15 +132,6 @@ class FinalArchive(WithFlickrMixin, WithContentMixin, BaseArchive):
         - a flickr photo list
     """
     dir_name = 'finale'
-    flickr_redis_suffix = dir_name
-
-    def get_flickr_album_id(self):
-        def read(file):
-            return yaml.load(file.read()).get('flickr-album-id')
-        try:
-            return open_try_hard(read, self.file_path('event.props'))
-        except (FileNotFoundError, yaml.YAMLError):
-            return None
 
     def _get_scoreboard(self):
         def reader(file):
@@ -278,11 +229,43 @@ class Archive:
         if not os.path.exists(self.file_path()):
             raise ObjectDoesNotExist("Archive for year {} does not exist".format(year))
 
+        self.photo_collection_url = None
+        self.photo_cover_url = None
+        self.photo_count = 0
+        try:
+            self._populate_photo_attributes()
+        except Exception:
+            pass
+
+    def _populate_photo_attributes(self):
+        store = redis.StrictRedis(**settings.PROLOGIN_UTILITY_REDIS_STORE)
+        pipe = store.pipeline()
+        pipe.get(self.flickr_collection_url_key)
+        pipe.get(self.flickr_cover_photo_url_key)
+        pipe.get(self.flickr_photo_count_key)
+        collection_url, cover_url, photo_count = pipe.execute()
+        # format with size 's' (small square)
+        self.photo_collection_url = collection_url.decode()
+        self.photo_cover_url = Flickr.photo_url_format(cover_url.decode(), 's')
+        self.photo_count = int(photo_count.decode())
+
     def file_path(self, *tail) -> str:
         return os.path.abspath(os.path.join(settings.ARCHIVES_REPOSITORY_PATH, self.file_url(*tail)))
 
     def file_url(self, *tail) -> str:
         return os.path.join(str(self.year), *tail)
+
+    @property
+    def flickr_photo_count_key(self):
+        return settings.ARCHIVES_FLICKR_REDIS_KEY.format(year=self.year, suffix='count')
+
+    @property
+    def flickr_collection_url_key(self):
+        return settings.ARCHIVES_FLICKR_REDIS_KEY.format(year=self.year, suffix='collection')
+
+    @property
+    def flickr_cover_photo_url_key(self):
+        return settings.ARCHIVES_FLICKR_REDIS_KEY.format(year=self.year, suffix='cover-photo')
 
     qualification = subtype_factory('_qualification_', QualificationArchive)
     semifinal = subtype_factory('_semifinal_', SemifinalArchive)
@@ -292,7 +275,10 @@ class Archive:
     poster_thumb = get_poster_factory('thumb')
 
     def __repr__(self):
-        return "<Archive for {}>".format(self.year)
+        return "<Archive for {}>".format(self)
+
+    def __str__(self):
+        return "Prologin {}".format(self.year)
 
     def __hash__(self):
         return hash(self.year)

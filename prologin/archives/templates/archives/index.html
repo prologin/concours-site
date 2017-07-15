@@ -89,14 +89,15 @@
             {% else %}
               <p class="archive-empty"><em>{% trans "Sorry, no resource available." %}</em></p>
             {% endif %}
+            {% if archive.photo_collection_url %}
+              <h4>{% trans "Photos" %}</h4>
+              <a href="{{ archive.photo_collection_url }}">
+                {% if archive.photo_cover_url %}
+                <img src="{{ archive.photo_cover_url }}" alt="{% trans "Cover photo" %}" class="img-thumbnail archive-photo"/>
+                {% endif %}
+                {% blocktrans with count=archive.photo_count %}Browse the {{ count }} photos{% endblocktrans %}</a>
+            {% endif %}
           </div>
-          {% with archive.final.flickr_thumbs|slice:':5' as thumbs %}{% if thumbs %}
-          <div class="panel-footer archive-footer">
-            {% spaceless %}<ul class="photos">{% for photo in thumbs %}
-              <li><a href="{{ archive.final.flickr_album_url }}" title="{% trans "Browse photo album on Flickr" %}"><img src="{{ photo }}" alt="{% trans "Sample photo" %}"/></a></li>
-            {% endfor %}</ul>{% endspaceless %}
-          </div>
-          {% endif %}{% endwith %}
         </div>
       </div>
     {% endfor %}
