@@ -286,7 +286,7 @@ class ContestantQualificationView(ContestantCorrectionView):
 
         # Qualification-specific: quiz (if any)
         try:
-            quiz = qcm.models.Qcm.objects.get(event__edition=self.edition)
+            quiz = qcm.models.Qcm.full_objects.get(event__edition=self.edition)
             context['quiz'] = quiz
             context['user_can_view_correction'] = True  # for qcm template
             context['correction_mode'] = True  # for qcm template

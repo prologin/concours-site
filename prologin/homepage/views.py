@@ -18,7 +18,7 @@ class HomepageView(TemplateView):
         context = super().get_context_data(**kwargs)
         articles = Entry.published.prefetch_related('authors').all()[:settings.HOMEPAGE_ARTICLES]
 
-        current_qcm = qcm.models.Qcm.objects.filter(
+        current_qcm = qcm.models.Qcm.full_objects.filter(
             event__type=contest.models.Event.Type.qualification.value,
             event__edition=self.request.current_edition).first()
         try:

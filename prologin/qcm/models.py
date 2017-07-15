@@ -21,16 +21,21 @@ class QcmManager(models.Manager):
     def get_queryset(self):
         return (super().get_queryset()
                 .select_related('event', 'event__edition')
-                .prefetch_related('questions', 'questions__propositions')
                 .annotate(question_count=Count('questions', distinct=True),
                           proposition_count=Count('questions__propositions', distinct=True),
                           answer_count=Count('questions__propositions__answers', distinct=True)))
+
+
+class FullQcmManager(QcmManager):
+    def get_queryset(self):
+        return super().get_queryset().prefetch_related('questions', 'questions__propositions')
 
 
 class Qcm(ExportModelOperationsMixin('qcm'), models.Model):
     event = models.ForeignKey(contest.models.Event, related_name='qcms')
 
     objects = QcmManager()
+    full_objects = FullQcmManager()
 
     def completed_question_count_for(self, contestant):
         return contestant.qcm_answers.filter(proposition__question__qcm=self).count()
@@ -55,7 +60,7 @@ class Qcm(ExportModelOperationsMixin('qcm'), models.Model):
         # the annotations. Same issue in all other damn models using "complex"
         # annotations in their __str__ that may be called from anywhere.
         if item in ('question_count',):
-            return getattr(type(self).objects.get(pk=self.pk), item)
+            return getattr(self.__class__.objects.get(pk=self.pk), item)
         raise AttributeError()
 
     def __str__(self):
