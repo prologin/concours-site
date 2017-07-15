@@ -5,6 +5,8 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.views.generic.base import TemplateView
 
+import debug_toolbar
+
 from homepage.views import HomepageView
 
 
@@ -15,6 +17,9 @@ def crash_test(request):
 
 
 urlpatterns = [
+    # Debug toolbar
+    url(r'^__debug__/', include(debug_toolbar.urls)),
+
     # Homepage
     url(r'^$', HomepageView.as_view(), name='home'),
 
@@ -26,9 +31,7 @@ urlpatterns = [
 
     # Language selector
     url(r'^lang/', include('django.conf.urls.i18n')),
-]
 
-urlpatterns += [
     # News (blog)
     url(r'^news/', include('news.urls')),
 
@@ -78,10 +81,10 @@ urlpatterns += [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    urlpatterns += [
+    urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
+    urlpatterns.extend([
         url(r'^e/400/$', TemplateView.as_view(template_name='400.html')),
         url(r'^e/403/$', TemplateView.as_view(template_name='403.html')),
         url(r'^e/404/$', TemplateView.as_view(template_name='404.html')),
         url(r'^e/500/$', TemplateView.as_view(template_name='500.html')),
-    ]
+    ])
