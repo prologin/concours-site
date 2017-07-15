@@ -54,12 +54,14 @@ lxml
 markdown>=2.4
 # Image manipulation support, previously known as PIL
 pillow>=2.4
-# Github-flavored Markdown
-py-gfm
 # Postgres database connector
 psycopg2>=2.5
+# Github-flavored Markdown
+py-gfm
 # Code highlighting
 pygments>=2.0.2
+# Vimeo API
+pyvimeo
 # YAML support
 pyyaml
 # HTTP queries

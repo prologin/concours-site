@@ -87,13 +87,24 @@
               <p class="archive-empty"><em>{% trans "Sorry, no resource available." %}</em></p>
             {% endif %}
           </div>
-          {% if archive.photo_collection_url %}
-          <div class="panel-footer">
-            <a href="{{ archive.photo_collection_url }}">
-              {% if archive.photo_cover_url %}
-                <img src="{{ archive.photo_cover_url }}" alt="{% trans "Cover photo" %}" class="img-thumbnail archive-photo"/>
-              {% endif %}
-              {% blocktrans with count=archive.photo_count %}Browse the {{ count }} photos{% endblocktrans %}</a>
+          {% if archive.photo_collection_url or archive.video_id %}
+          <div class="panel-footer archive-footer">
+            {% if archive.video_id %}
+              <div>
+                <a href="{{ archive.video_url }}?autoplay=1">
+                  <img src="{{ archive.video_cover_url }}" alt="{% trans "Video" %}" class="img-thumbnail archive-photo"/>
+                  {% trans "Watch the video" %}</a>
+              </div>
+            {% endif %}
+            {% if archive.photo_collection_url %}
+            <div>
+              <a href="{{ archive.photo_collection_url }}">
+                {% if archive.photo_cover_url %}
+                  <img src="{{ archive.photo_cover_url }}" alt="{% trans "Cover photo" %}" class="img-thumbnail archive-photo"/>
+                {% endif %}
+                {% blocktrans with count=archive.photo_count %}Browse the {{ count }} photos{% endblocktrans %}</a>
+            </div>
+            {% endif %}
           </div>
           {% endif %}
         </div>

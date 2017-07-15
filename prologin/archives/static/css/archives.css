@@ -91,3 +91,7 @@
   max-height: 48px;
   margin-right: .5em;
 }
+
+.archive-footer > div:not(:last-child) {
+  margin-bottom: .5em;
+}

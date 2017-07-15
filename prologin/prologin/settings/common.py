@@ -297,9 +297,10 @@ PROBLEMS_REPOSITORY_STATIC_PREFIX = 'problems'
 # Path to archives repository (sub-folders shall be years)
 ARCHIVES_REPOSITORY_PATH = os.path.join(BASE_DIR, 'archives')
 ARCHIVES_REPOSITORY_STATIC_PREFIX = 'archives'
-ARCHIVES_FLICKR_REDIS_KEY = 'prologin.archives.photos.{year}.{suffix}'
+ARCHIVES_REDIS_KEY = 'prologin.archives.{year}.{suffix}'
 ARCHIVES_FLICKR_CREDENTIALS = ('username', 'api-key', 'secret')
-ARCHIVES_FLICKR_ALBUM_URL = 'https://www.flickr.com/photos/prologin/albums/{id}'
+# https://developer.vimeo.com/apps/63981#authentication
+ARCHIVES_VIMEO_CREDENTIALS = ('client-id', 'secrets', 'token')
 
 # Path to contestant final homes (for download)
 HOMES_PATH = ''

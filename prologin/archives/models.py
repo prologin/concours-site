@@ -8,7 +8,8 @@ from django.utils.safestring import mark_safe
 import contest.models
 import problems.models
 import qcm.models
-from archives.flickr import Flickr
+from archives.thirdparty.flickr import Flickr
+from archives.thirdparty.vimeo import Vimeo
 from prologin.utils import lazy_attr, open_try_hard
 from prologin.utils.scoring import Scoreboard
 
@@ -206,28 +207,26 @@ class Archive:
         - final
     """
 
-    @staticmethod
-    def qcm_queryset():
+    @classmethod
+    def _qcm_queryset(cls):
         return (qcm.models.Qcm.objects
                 .filter(event__type=contest.models.Event.Type.qualification.value))
 
     @classmethod
     def all_archives(cls):
-        qcm_by_year = {qcm.event.edition.year: qcm for qcm in cls.qcm_queryset()}
+        qcm_by_year = {qcm.event.edition.year: qcm for qcm in cls._qcm_queryset()}
 
         def explore():
             for year_dir in os.listdir(settings.ARCHIVES_REPOSITORY_PATH):
-                try:
+                if year_dir.isnumeric():
                     year = int(year_dir)
                     yield Archive(year, qcm_by_year.get(year))
-                except Exception:
-                    pass
 
         return explore()
 
     @classmethod
     def by_year(cls, year: int):
-        qcm_obj = cls.qcm_queryset().filter(event__edition__year=year).first()
+        qcm_obj = cls._qcm_queryset().filter(event__edition__year=year).first()
         return Archive(year, qcm_obj)
 
     def __init__(self, year: int, qcm_obj: qcm.models.Qcm):
@@ -240,22 +239,29 @@ class Archive:
         self.photo_collection_url = None
         self.photo_cover_url = None
         self.photo_count = 0
+        self.video_id = None
+        self.video_picture_id = None
         try:
-            self._populate_photo_attributes()
-        except Exception:
+            self._populate_redis_attributes()
+        except redis.exceptions.RedisError:
             pass
 
-    def _populate_photo_attributes(self):
+    def _populate_redis_attributes(self):
+        decode = lambda d: d if d is None else d.decode()
         store = redis.StrictRedis(**settings.PROLOGIN_UTILITY_REDIS_STORE)
         pipe = store.pipeline()
-        pipe.get(self.flickr_collection_url_key)
-        pipe.get(self.flickr_cover_photo_url_key)
-        pipe.get(self.flickr_photo_count_key)
-        collection_url, cover_url, photo_count = pipe.execute()
-        # format with size 's' (small square)
-        self.photo_collection_url = collection_url.decode()
-        self.photo_cover_url = Flickr.photo_url_format(cover_url.decode(), 's')
-        self.photo_count = int(photo_count.decode())
+        pipe.get(self.photo_collection_url_key)
+        pipe.get(self.photo_cover_url_key)
+        pipe.get(self.photo_count_key)
+        pipe.get(self.video_id_key)
+        pipe.get(self.video_picture_id_key)
+        (self.photo_collection_url, cover_url, photo_count, self.video_id, self.video_picture_id,
+        ) = map(decode, pipe.execute())
+        if cover_url:
+            # format with size 's' (small square)
+            self.photo_cover_url = Flickr.photo_url_format(cover_url, 's')
+        if photo_count:
+            self.photo_count = int(photo_count)
 
     def file_path(self, *tail) -> str:
         return os.path.abspath(os.path.join(settings.ARCHIVES_REPOSITORY_PATH, self.file_url(*tail)))
@@ -263,17 +269,44 @@ class Archive:
     def file_url(self, *tail) -> str:
         return os.path.join(str(self.year), *tail)
 
-    @property
-    def flickr_photo_count_key(self):
-        return settings.ARCHIVES_FLICKR_REDIS_KEY.format(year=self.year, suffix='count')
+    def _redis_key(self, suffix):
+        return settings.ARCHIVES_REDIS_KEY.format(year=self.year, suffix=suffix)
 
     @property
-    def flickr_collection_url_key(self):
-        return settings.ARCHIVES_FLICKR_REDIS_KEY.format(year=self.year, suffix='collection')
+    def photo_count_key(self):
+        return self._redis_key('photos.count')
 
     @property
-    def flickr_cover_photo_url_key(self):
-        return settings.ARCHIVES_FLICKR_REDIS_KEY.format(year=self.year, suffix='cover-photo')
+    def photo_collection_url_key(self):
+        return self._redis_key('photos.url')
+
+    @property
+    def photo_cover_url_key(self):
+        return self._redis_key('photos.cover.url')
+
+    @property
+    def video_id_key(self):
+        return self._redis_key('video.id')
+
+    @property
+    def video_picture_id_key(self):
+        return self._redis_key('video.picture.id')
+
+    @property
+    def video_embed_code(self):
+        if not self.video_id:
+            return
+        return Vimeo.video_embed_code(self.video_id, width="100%", height=300)
+
+    @property
+    def video_cover_url(self):
+        return Vimeo.video_cover_url(self.video_picture_id, size=48)
+
+    @property
+    def video_url(self):
+        if not self.video_id:
+            return
+        return Vimeo.video_url(self.video_id)
 
     qualification = subtype_factory('_qualification_', QualificationArchive)
     semifinal = subtype_factory('_semifinal_', SemifinalArchive)

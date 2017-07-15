@@ -1,15 +1,14 @@
 import hashlib
 import requests
+from django.conf import settings
 
 
 class Flickr:
     API_ENDPOINT = 'https://api.flickr.com/services/rest/'
     PHOTO_FORMAT = 'format'
 
-    def __init__(self, user_id, api_key, secret):
-        self.user_id = user_id
-        self.api_key = api_key
-        self.secret = secret
+    def __init__(self):
+        self.user_id, self.api_key, self.secret = settings.ARCHIVES_FLICKR_CREDENTIALS
         self.session = requests.Session()
 
     def _sign(self, attrs):
