@@ -86,15 +86,16 @@
             {% else %}
               <p class="archive-empty"><em>{% trans "Sorry, no resource available." %}</em></p>
             {% endif %}
-            {% if archive.photo_collection_url %}
-              <h4>{% trans "Photos" %}</h4>
-              <a href="{{ archive.photo_collection_url }}">
-                {% if archive.photo_cover_url %}
-                <img src="{{ archive.photo_cover_url }}" alt="{% trans "Cover photo" %}" class="img-thumbnail archive-photo"/>
-                {% endif %}
-                {% blocktrans with count=archive.photo_count %}Browse the {{ count }} photos{% endblocktrans %}</a>
-            {% endif %}
           </div>
+          {% if archive.photo_collection_url %}
+          <div class="panel-footer">
+            <a href="{{ archive.photo_collection_url }}">
+              {% if archive.photo_cover_url %}
+                <img src="{{ archive.photo_cover_url }}" alt="{% trans "Cover photo" %}" class="img-thumbnail archive-photo"/>
+              {% endif %}
+              {% blocktrans with count=archive.photo_count %}Browse the {{ count }} photos{% endblocktrans %}</a>
+          </div>
+          {% endif %}
         </div>
       </div>
     {% endfor %}
