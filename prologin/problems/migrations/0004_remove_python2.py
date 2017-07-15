@@ -1,4 +1,3 @@
-import django.contrib.postgres.fields.jsonb
 from django.db import migrations
 
 
