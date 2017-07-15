@@ -25,7 +25,7 @@ class DisplayQCMView(PermissionRequiredMixin, UpdateView):
 
     @cached_property
     def event(self):
-        return self.get_object().event
+        return self.object.event
 
     @property
     def year(self):
@@ -33,11 +33,11 @@ class DisplayQCMView(PermissionRequiredMixin, UpdateView):
 
     @property
     def can_view_correction(self):
-        return self.request.user.has_perm('qcm.view_correction', self.get_object())
+        return self.request.user.has_perm('qcm.view_correction', self.object)
 
     @property
     def can_save_answers(self):
-        return self.request.user.has_perm('qcm.save_answers', self.get_object())
+        return self.request.user.has_perm('qcm.save_answers', self.object)
 
     def get_success_url(self):
         return reverse('qcm:display', args=[self.year])
@@ -79,7 +79,7 @@ class DisplayQCMView(PermissionRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['qcm_can_receive_answers'] = rules.Predicate(qcm.rules.can_save_answers).test(None, self.get_object())
+        context['qcm_can_receive_answers'] = rules.Predicate(qcm.rules.can_save_answers).test(None, self.object)
         context['user_can_save_answers'] = self.can_save_answers
         context['user_can_view_correction'] = self.can_view_correction
         context['correction_mode'] = self.request.method == 'POST'
