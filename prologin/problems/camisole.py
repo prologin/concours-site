@@ -87,7 +87,7 @@ def submit(uri: str, code: SubmissionCode) -> dict:
         'all_fatal': True,
         'execute': problem.execution_limits(language),
         # FIXME: this is arbitrary
-        'compile': {'mem': int(1e7), 'time': 20, 'wall-time': 60, 'fsize': 4000},
+        'compile': {'cg-mem': int(1e7), 'time': 20, 'wall-time': 60, 'fsize': 4000},
         'tests': list(build_tests()),
     }
     logger.debug("sending to camisole: %r", input)
