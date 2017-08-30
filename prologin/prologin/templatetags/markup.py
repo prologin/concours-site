@@ -15,7 +15,7 @@ ALLOWED_TAGS = [
     'ul', 'ol', 'li',
     'dl', 'dd', 'dt',
     'div', 'code', 'pre', 'blockquote', 'input',
-    'table', 'thead', 'tfoot', 'tr', 'td', 'th',
+    'table', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th',
 ]
 ALLOWED_ATTRS = ['class', 'rel', 'src', 'alt', 'style', 'href', 'id', 'type', 'checked', 'disabled']
 
