@@ -59,7 +59,7 @@
         {% endif %}
           <p><a href="{% url 'problems:problem' challenge.year challenge.event_type.name problem.name %}?fork={{ submission.pk }}#submit" class="btn btn-default"><i class="fa fa-pencil"></i> {% trans "Edit and submit again" %}</a></p>
         {% has_perm 'problems.recorrect_submission' request.user submission as user_can_recorrect %}
-        {% if submission.correctable and not submission.has_result and user_can_recorrect %}
+        {% if submission.correctable and user_can_recorrect %}
           <form action="{% url 'problems:submission-recorrect' submission.pk %}" method="post">
             {% csrf_token %}
             <button type="submit" class="btn btn-default"><i class="fa fa-refresh"></i>
