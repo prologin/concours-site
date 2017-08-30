@@ -257,7 +257,7 @@ class Problem:
         for item in os.listdir(self.file_path()):
             full_path = self.file_path(item)
             if item.endswith('.in') or item.endswith('.out'):
-                name = item.split('.', 1)[0]
+                name = os.path.splitext(item)[0]
                 storage = tests_in if item.endswith('.in') else tests_out
                 def store_item(f):
                     storage[name] = f.read()
