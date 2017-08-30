@@ -397,6 +397,12 @@ footer .legal {
 /*
  * Code (pygments)
  */
+
+.pyg-hltable {
+  display: block;
+  overflow-x: auto;
+}
+
 .pyg-hltable, .pyg-hltable td.code {
   width: 100%;
 }
