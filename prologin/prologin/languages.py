@@ -58,9 +58,9 @@ class Language(ChoiceEnum):
     scheme = LanguageDef("Scheme", ['.scm'], doc='scheme',
         camisole='scheme', memory=lambda m: m + 36384, time=lambda t: 3 * t)
     haskell = LanguageDef("Haskell", ['.hs'], doc='haskell',
-        camisole='haskell', memory=lambda m: 5 * m + 30000, time=lambda t: 4 * t + 200)
+        camisole='haskell', memory=lambda m: 5 * m + 30000, time=lambda t: 4 * t + 0.200)
     java = LanguageDef("Java", ['.java'], doc='java',
-        camisole='java', memory=lambda m: 5 * m + 30000, time=lambda t: 4 * t + 200)
+        camisole='java', memory=lambda m: 5 * m + 30000, time=lambda t: 4 * t + 0.200)
     python = LanguageDef("Python", ['.py'], doc='python',
         camisole='python', memory=lambda m: 5 * m + 9000, time=lambda t: 15 * t)
     ada = LanguageDef("Ada", ['.adb'], doc='ada',
@@ -76,7 +76,7 @@ class Language(ChoiceEnum):
     lua = LanguageDef("Lua", ['.lua'],
         camisole='lua', memory=lambda m: m + 5000, time=lambda t: 10 * t)
     csharp = LanguageDef("C#", ['.cs'],
-        camisole='c#', memory=lambda m: m + 50000, time=lambda t: t + 38)
+        camisole='c#', memory=lambda m: m + 50000, time=lambda t: t + 0.038)
     fsharp = LanguageDef("F#", ['.fs'],
         camisole='f#', memory=lambda m: m + 50000)
     brainfuck = LanguageDef("Brainfuck", ['.bf'],
