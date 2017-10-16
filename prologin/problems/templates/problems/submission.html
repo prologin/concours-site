@@ -136,6 +136,35 @@ You can still try to submit your code again using the â€œEdit and submit againâ€
     <p class="alert alert-info">{% trans "This submission is pending correction. This can take from a few seconds to some minutes." %}</p>
     <noscript><div class="alert alert-warning"><i class="fa fa-exclamation-triangle"></i> <div>{% trans "Your browser does not support Javascript. You will have to manually reload this page once in a while to check if results have arrived." %}</div></div></noscript>
   {% endif %}
+
+  {% if request.user.is_staff %}
+  <div class="row">
+    <div class="col-md-6">
+      <div class="panel panel-default clearfix">
+        <div class="panel-heading">
+          <i class="fa" data-indicator="#submission-camisole-request"></i>
+          <a role="button" data-toggle="collapse" href="#submission-camisole-request" aria-expanded="false" aria-controls="submission-camisole-request">{% trans "Camisole request" %}</a></div>
+        <div class="panel-body panel-collapse collapse" style="padding: 0;" id="submission-camisole-request" role="tabpanel" aria-labelledby="{% trans "Camisole request" %}">
+          {% pygmentize submission.request_printable 'python' %}
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6">
+      {% if submission.result %}
+      <div class="panel panel-default clearfix">
+        <div class="panel-heading">
+          <i class="fa" data-indicator="#submission-camisole-result"></i>
+          <a role="button" data-toggle="collapse" href="#submission-camisole-result" aria-expanded="false" aria-controls="submission-camisole-result">{% trans "Camisole result" %}</a></div>
+        <div class="panel-body panel-collapse collapse" style="padding: 0;" id="submission-camisole-result" role="tabpanel" aria-labelledby="{% trans "Camisole result" %}">
+          {% pygmentize submission.result_printable 'python' %}
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
 {% endblock %}
 
 

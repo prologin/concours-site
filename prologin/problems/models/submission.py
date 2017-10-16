@@ -1,3 +1,5 @@
+import copy
+import pprint
 from typing import List, Optional
 
 from django.conf import settings
@@ -190,6 +192,11 @@ class Submission(ExportModelOperationsMixin('submission'), models.Model):
     ScoreFunc = get_score_func()
 
 
+def _strip_str(s, l=100):
+    append = b'...' if isinstance(s, bytes) else '...'
+    return s[:l] + append if len(s) > l else s
+
+
 class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model):
     submission = models.ForeignKey(Submission, related_name='codes')
     language = CodingLanguageField()
@@ -232,12 +239,50 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
             return None
         return Result.parse(self.submission.problem_model(), self.result)
 
+    def request_printable(self):
+        req = self.generate_request()
+        req['source'] = _strip_str(req['source'])
+        for test in req['tests']:
+            test['stdin'] = _strip_str(test['stdin'])
+        return pprint.pformat(req, indent=2, width=72)
+
+    def result_printable(self):
+        rep = copy.deepcopy(self.result)
+        for test in rep['tests']:
+            test['stdout'] = _strip_str(test['stdout'])
+            test['stderr'] = _strip_str(test['stderr'])
+        return pprint.pformat(rep, indent=2, width=72)
+
     def get_absolute_url(self):
         problem = self.submission.problem_model()
         return reverse('problems:submission', kwargs={
-            'year': problem.challenge.year, 'type': problem.challenge.event_type.name,
+            'year': problem.challenge.year,
+            'type': problem.challenge.event_type.name,
             'problem': problem.name, 'submission': self.id,
         })
+
+    def generate_request(self) -> dict:
+        """Generate a camisole request for the SubmissionCode."""
+        problem = self.submission.problem_model()
+
+        def build_tests():
+            for ref in problem.tests:
+                yield {'name': ref.name, 'stdin': ref.stdin}
+
+        language = self.language_enum()
+        request = {
+            'lang': language.value.camisole_name,
+            'source': self.code,
+            'all_fatal': True,
+            'execute': problem.execution_limits(language),
+            # FIXME: this is arbitrary
+            'compile': {'cg-mem': int(1e7),
+                        'time': 20,
+                        'wall-time': 60,
+                        'fsize': 4000},
+            'tests': list(build_tests()),
+        }
+        return request
 
     def __str__(self):
         return "{} in {} (score: {})".format(self.submission,
