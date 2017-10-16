@@ -74,22 +74,7 @@ def submit(uri: str, code: SubmissionCode) -> dict:
     :param code: the SubmissionCode to test
     :return: JSON-decoded result from camisole
     """
-    problem = code.submission.problem_model()
-
-    def build_tests():
-        for ref in problem.tests:
-            yield {'name': ref.name, 'stdin': ref.stdin}
-
-    language = code.language_enum()
-    input = {
-        'lang': language.value.camisole_name,
-        'source': code.code,
-        'all_fatal': True,
-        'execute': problem.execution_limits(language),
-        # FIXME: this is arbitrary
-        'compile': {'cg-mem': int(1e7), 'time': 20, 'wall-time': 60, 'fsize': 4000},
-        'tests': list(build_tests()),
-    }
-    logger.debug("sending to camisole: %r", input)
-    result = requests.post(uri, json=input).json()
+    request = code.generate_request()
+    logger.debug("sending to camisole: %r", request)
+    result = requests.post(uri, json=request).json()
     return result
