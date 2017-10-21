@@ -71,10 +71,8 @@ class School(AddressableModel):
             self.uai = None
 
     def __str__(self):
-        if self.approved:
-            return self.name
-        else:
-            return '(unapproved) %s' % self.name
+        name = self.name + (" ({})".format(self.acronym) if self.acronym else "")
+        return "{}, {}".format(name, self.city)
 
     class Meta:
         ordering = ('approved', 'name')

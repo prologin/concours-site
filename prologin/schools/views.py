@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.postgres.search import SearchVector, SearchQuery, SearchRank
 from django.db.models import Q
 from django.http import JsonResponse
 from django.http.response import Http404
@@ -34,16 +35,22 @@ class SchoolSearchView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         q = Q()
+
+        # add current selection for intuitive UX
         current_school = self.request.current_contestant.school
         if current_school:
-            q |= Q(name__icontains=self.query, pk=current_school.pk)
-        q |= Q(approved=True) & (Q(name__iexact=self.query) | Q(acronym__iexact=self.query))
-        q |= Q(approved=True) & (Q(name__icontains=self.query) | Q(acronym__icontains=self.query))
-        token_q = Q(approved=True)
-        for token in (token for token in map(str.strip, self.query.split()) if token):
-            token_q &= (Q(name__icontains=token) | Q(acronym__icontains=token))
-        q |= token_q
-        return super().get_queryset().filter(q)
+            q |= Q(pk=current_school.pk)
+
+        # full-text search
+        search_vector = (SearchVector('name', weight='A', config='french') +
+                         SearchVector('acronym', weight='A', config='french') +
+                         SearchVector('address', 'city', 'type', weight='B', config='french'))
+        search_query = SearchQuery(self.query, config='french')
+        q |= Q(search=search_query, approved=True)
+        return (super().get_queryset()
+                .annotate(search=search_vector, rank=SearchRank(search_vector, search_query))
+                .filter(q)
+                .order_by('-rank'))
 
     def render_to_response(self, context, **response_kwargs):
         paginator = context['paginator']
