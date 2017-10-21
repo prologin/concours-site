@@ -38,11 +38,11 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
                     THEN problems_submission.score_base - problems_submission.malus
                     ELSE 0 END) AS final_score
             FROM schools_school
-                LEFT JOIN contest_contestant ON schools_school.id = contest_contestant.school_id AND contest_contestant.edition_id = %s
-                LEFT JOIN users_prologinuser ON contest_contestant.user_id = users_prologinuser.id
-                  AND users_prologinuser.birthday IS NOT NULL
-                  AND EXTRACT(YEAR FROM users_prologinuser.birthday) >= %s
-                LEFT JOIN problems_submission ON problems_submission.user_id = users_prologinuser.id AND problems_submission.challenge = %s
+            LEFT JOIN contest_contestant ON schools_school.id = contest_contestant.school_id AND contest_contestant.edition_id = %s
+            INNER JOIN users_prologinuser ON contest_contestant.user_id = users_prologinuser.id
+                AND users_prologinuser.birthday IS NOT NULL
+                AND EXTRACT(YEAR FROM users_prologinuser.birthday) >= %s
+            LEFT JOIN problems_submission ON problems_submission.user_id = users_prologinuser.id AND problems_submission.challenge = %s
             WHERE schools_school.approved
             GROUP BY schools_school.id
             HAVING SUM(CASE WHEN problems_submission.score_base > 0
