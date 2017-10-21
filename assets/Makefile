@@ -17,7 +17,7 @@ OBJS :=
 # -- images
 include images.mk
 # -- pygments
-PYGMENTS_CSS := $(CSS_DIR)/pygments-$(PYGMENTS_THEME).css
+PYGMENTS_CSS := $(LIB_DIR)/css/pygments-$(PYGMENTS_THEME).css
 OBJS += $(PYGMENTS_CSS)
 # -- error templates
 OBJS += $(addsuffix .html,$(addprefix $(PUBLIC_DIR)/503.,$(ERROR_503_LANGS)))
