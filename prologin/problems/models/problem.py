@@ -254,8 +254,8 @@ class Problem:
     def _get_tests(self):
         tests_in = {}
         tests_out = {}
-        for item in os.listdir(self.file_path()):
-            full_path = self.file_path(item)
+        for item in os.listdir(self.file_path('test')):
+            full_path = self.file_path('test', item)
             if item.endswith('.in') or item.endswith('.out'):
                 name = os.path.splitext(item)[0]
                 storage = tests_in if item.endswith('.in') else tests_out
@@ -363,14 +363,21 @@ class Problem:
         samples = []
         for sample in str(self.properties.get('samples', '')).split():
             try:
-                sample_in = open_try_hard(lambda f: f.read(), self.file_path(sample) + '.in')
-                sample_out = open_try_hard(lambda f: f.read(), self.file_path(sample) + '.out')
+                sample_in = open_try_hard(
+                    lambda f: f.read(),
+                    self.file_path('test', sample) + '.in')
+                sample_out = open_try_hard(
+                    lambda f: f.read(),
+                    self.file_path('test', sample) + '.out')
                 sample_comment = ''
                 try:
-                    sample_comment = open_try_hard(lambda f: f.read(), self.file_path(sample) + '.comment')
+                    sample_comment = open_try_hard(
+                        lambda f: f.read(),
+                        self.file_path('test', sample) + '.comment')
                 except IOError:
                     pass
-                samples.append(Problem.Sample(sample_in, sample_out, sample_comment))
+                samples.append(Problem.Sample(sample_in, sample_out,
+                                              sample_comment))
             except IOError:
                 pass
         return samples
