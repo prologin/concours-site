@@ -12,9 +12,10 @@ from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
 
+from problems.models.problem import Challenge, Problem, TestType, Test
 from prologin.languages import Language
 from prologin.models import CodingLanguageField
-from problems.models.problem import Challenge, Problem, TestType, Test
+from prologin.utils.rec_truncate import rec_truncate
 
 
 class Result:
@@ -192,11 +193,6 @@ class Submission(ExportModelOperationsMixin('submission'), models.Model):
     ScoreFunc = get_score_func()
 
 
-def _strip_str(s, l=100):
-    append = b'...' if isinstance(s, bytes) else '...'
-    return s[:l] + append if len(s) > l else s
-
-
 class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model):
     submission = models.ForeignKey(Submission, related_name='codes')
     language = CodingLanguageField()
@@ -241,19 +237,11 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
 
     def request_printable(self):
         req = self.generate_request()
-        req['source'] = _strip_str(req['source'])
-        for test in req['tests']:
-            if 'stdin' in test:
-                test['stdin'] = _strip_str(test['stdin'])
+        req = rec_truncate(req, maxlen=100)
         return pprint.pformat(req, indent=2, width=72)
 
     def result_printable(self):
-        rep = copy.deepcopy(self.result)
-        for test in rep['tests']:
-            if 'stdout' in test:
-                test['stdout'] = _strip_str(test['stdout'])
-            if 'stderr' in test:
-                test['stderr'] = _strip_str(test['stderr'])
+        rep = rec_truncate(self.result, maxlen=100)
         return pprint.pformat(rep, indent=2, width=72)
 
     def get_absolute_url(self):
