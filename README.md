@@ -18,8 +18,8 @@ flag if you think you will need to work on `problems`.
 
     :::console
     # Do this once!
-    git clone git@bitbucket.org:prologin/site.git
-    git clone --depth=1 git@bitbucket.org:prologin/problems.git
+    git clone git@github.com:prologin/site.git
+    git clone --depth=1 git@github.com:prologin/problems.git
 
 ## Using a virtualenv
 

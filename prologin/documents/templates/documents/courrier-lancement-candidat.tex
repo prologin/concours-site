@@ -1,0 +1,88 @@
+\documentclass[11pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+\usepackage{hyperref}
+\usepackage{helvet}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{multicol}
+\setlength\columnsep{7pt}
+\renewcommand{\familydefault}{\sfdefault}
+
+\geometry{margin=2.5cm}
+
+\usepackage[table,dvipsnames]{xcolor}
+
+\newcommand*{\vcenteredhbox}[1]{\begingroup
+\setbox0=\hbox{#1}\parbox{\wd0}{\box0}\endgroup}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand\headrulewidth{0pt} 
+\cfoot{\begin{footnotesize}
+    Association Prologin\\
+    14-16 rue Voltaire — 94270 Le Kremlin-Bicêtre — France\\
+    Tél. : 01 44 08 01 90 — E-mail : info@prologin.org — http://prologin.org\\
+\end{footnotesize}}
+
+\begin{document}
+    \begin{flushright}
+        Paris, le \today
+    \end{flushright}
+    
+    \hspace{-1cm}
+    \includegraphics[width=6.5cm]{logo{{year}}.pdf}
+    \vspace{1.5cm}
+    
+    \noindent
+    \textbf{\underline{Objet :} Concours Prologin {{ year }}}
+    
+    \vspace{1cm}
+    \noindent
+    Bonjour,\\
+
+    \noindent
+    Comme chaque année depuis 1992, Prologin organise le concours national
+    d’informatique. Ce concours hors du commun récompense les étudiants, de 20
+    ans et moins, les plus doués en programmation et en algorithmique.\\
+
+    \noindent
+    Tu es invité à venir t’inscrire. Par ailleurs, tu connais sûrement des
+    personnes qui seraient intéressées pour participer au concours : nous
+    espérons vous voir nombreux tenter l’expérience !\\
+
+    \noindent
+    Nous t’envoyons donc deux affiches pour promouvoir le concours autour de
+    toi. Pour participer, il suffit de remplir le questionnaire sur
+    \url{http://prologin.org} \textbf{avant le {{ qualif.date_end|date:"d F Y" }}}.\\
+    
+    \noindent
+    Si possible, essaie de parler du concours à un enseignant d’informatique de
+    ton établissement ; par exemple, le professeur de spécialité Informatique
+    et Sciences du Numérique si ton lycée la propose. Si tu souhaites recevoir
+    davantage d’affiches, n’hésite pas à nous contacter. D’ici là, accepte tous
+    nos remerciements pour ton aide.\\
+    
+    \noindent
+    À bientôt,
+    
+    \begin{flushright}
+         Pour l’équipe Prologin
+    \end{flushright}
+    
+    \begin{flushright}
+        {{ pres.title_name }} {{ pres.user.first_name|title }} {{ pres.user.last_name|title }}
+        \vcenteredhbox{\includegraphics[width=2.5cm]{signature_{{ year }}.png}}
+    \end{flushright}
+    
+    \vspace{1.5cm}
+    
+    \begin{multicols}{ {{ sponsors|length }} }    
+        {% for sponsor in sponsors %}
+            \noindent
+            \includegraphics[width=.9\columnwidth]{{ "{" }}{{ sponsor.logo.path }}}
+        {% endfor %}
+    \end{multicols}
+\end{document}

@@ -159,6 +159,19 @@
           </tr>
           <tr>
             <td>
+              <strong>{% trans "Launch" %}</strong>
+            </td>
+            <td>
+              <a href="{% url 'documents:organization:launch-mail-contestant' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-envelope"></i> {% trans "Mail to contestant" %}
+              </a>
+              <a href="{% url 'documents:organization:launch-mail-school' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-envelope"></i> {% trans "Mail to school" %}
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>
               <strong>{% trans "Meal tickets" %}</strong>
             </td>
             <td>
