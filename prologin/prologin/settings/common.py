@@ -245,7 +245,7 @@ PROLOGIN_MAX_AGE = 21
 PROLOGIN_MAX_LEVEL_DIFFICULTY = 9
 PROLOGIN_SEMIFINAL_MIN_WISH_COUNT = 1
 PROLOGIN_SEMIFINAL_MAX_WISH_COUNT = 3
-PROLOGIN_VM_VERSION_PATH = 'http://vm.prologin.org/versions'
+PROLOGIN_VM_VERSION_PATH = 'http://vm.prologin.org/languages'
 PROLOGIN_BUG_TRACKER_URL = 'https://bitbucket.org/prologin/site-issues/issues?status=new&status=open'
 LATEX_GENERATION_PROC_TIMEOUT = 60  # in seconds
 PLAINTEXT_PASSWORD_LENGTH = 8
