@@ -459,7 +459,8 @@ class ManualView(TemplateView):
             name = language.get('name')
             program = list(language.get('programs').keys())[0]
             version = language.get('programs').get(program).get('version')
-            versions.append((name, program, version))
+            args = language.get('programs').get(program).get('opts')
+            versions.append((name, program, version, args))
         context['versions'] = versions
         return context
 
