@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth import get_user_model, update_session_auth_hash
 from django.contrib.auth.views import logout, login as django_login_view
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.urls import reverse, reverse_lazy
 from django.http import Http404
 from django.http.response import JsonResponse, StreamingHttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render, redirect

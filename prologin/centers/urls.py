@@ -1,7 +1,9 @@
-from django.conf.urls import url
+from django.urls import path
 
 import centers.views
 
+app_name = 'centers'
+
 urlpatterns = [
-    url(r'^$', centers.views.CenterListView.as_view(), name='map'),
+    path('', centers.views.CenterListView.as_view(), name='map'),
 ]

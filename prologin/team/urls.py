@@ -1,11 +1,10 @@
-from django.conf.urls import url
+from django.urls import path
 
 from team import views
 
+app_name = 'team'
+
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view(),
-        name='index'),
-    url(r'^(?P<year>\d+)/$',
-        views.IndexView.as_view(),
-        name='year'),
+    path('', views.IndexView.as_view(), name='index'),
+    path('<int:year>', views.IndexView.as_view(), name='year'),
 ]

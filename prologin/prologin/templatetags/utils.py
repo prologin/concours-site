@@ -7,10 +7,10 @@ from django import template
 from django.conf import settings
 from django.template import Node, TemplateSyntaxError
 from django.utils import timezone
-from django.utils.text import pgettext, ugettext_lazy as _
 from django.utils.encoding import smart_str
 from django.utils.module_loading import import_string
 from django.utils.timesince import timesince
+from django.utils.translation import pgettext, ugettext_lazy as _
 
 from prologin.models import Gender
 

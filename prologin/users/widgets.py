@@ -2,7 +2,7 @@ import time
 from django.forms.widgets import ClearableFileInput, CheckboxInput
 from django.utils.html import conditional_escape, format_html
 from django.utils.safestring import mark_safe
-from django.utils.text import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 
 class PreviewFileInput(ClearableFileInput):

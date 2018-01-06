@@ -2,7 +2,7 @@ from collections import namedtuple
 from django.conf import settings
 from django.db import models
 from django.db.models import BooleanField, CharField, IntegerField
-from django.utils.text import force_text
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _, pgettext_lazy
 
 from prologin.models import TextEnumField, Gender

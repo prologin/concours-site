@@ -4,7 +4,7 @@ from datatableview.views import DatatableView
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.db import transaction, connection
 from django.db.models import Count
 from django.http import JsonResponse, Http404

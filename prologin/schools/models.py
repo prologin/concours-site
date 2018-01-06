@@ -9,7 +9,7 @@ from django.db.models import Sum, Count, Value, Case, When, IntegerField
 from django.db.models.signals import post_save
 from django.dispatch.dispatcher import receiver
 from django.urls import reverse
-from django.utils.text import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 from prologin.models import AddressableModel
 from prologin.utils import upload_path

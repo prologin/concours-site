@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.core import serializers
 from django.core.files.storage import FileSystemStorage
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.http.response import HttpResponseRedirect, HttpResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.functional import cached_property

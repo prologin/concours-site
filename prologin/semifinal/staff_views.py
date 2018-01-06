@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import messages
-from django.core.urlresolvers import reverse_lazy
+from django.urls import reverse_lazy
 from django.db import IntegrityError
 from django.db.models.aggregates import Sum
 from django.shortcuts import get_object_or_404

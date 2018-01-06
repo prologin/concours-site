@@ -1,31 +1,33 @@
-from django.conf.urls import url, include
+from django.urls import path, re_path, include
 
 from forum import views
 
+app_name = 'forum'
+
 post_patterns = [
-    url(r'^$', views.ThreadView.as_view(), name='thread'),
-    url(r'^edit/lock$', views.EditThreadLockView.as_view(), name='edit-thread-lock'),
-    url(r'^edit/pin$', views.EditThreadPinView.as_view(), name='edit-thread-pin'),
-    url(r'^edit/move$', views.MoveThreadView.as_view(), name='move-thread'),
-    url(r'^delete$', views.DeleteThreadView.as_view(), name='delete-thread'),
+    path('', views.ThreadView.as_view(), name='thread'),
+    path('edit/lock', views.EditThreadLockView.as_view(), name='edit-thread-lock'),
+    path('edit/pin', views.EditThreadPinView.as_view(), name='edit-thread-pin'),
+    path('edit/move', views.MoveThreadView.as_view(), name='move-thread'),
+    path('delete', views.DeleteThreadView.as_view(), name='delete-thread'),
 ]
 
 short_post_patterns = [
-    url(r'^$', views.PostRedirectView.as_view(), name='post'),
-    url(r'^edit$', views.EditPostView.as_view(), name='edit-post'),
-    url(r'^edit/visibility$', views.EditPostVisibilityView.as_view(), name='edit-post-visibility'),
-    url(r'^cite$', views.CitePostView.as_view(), name='cite-post'),
-    url(r'^delete$', views.DeletePostView.as_view(), name='delete-post'),
+    path('', views.PostRedirectView.as_view(), name='post'),
+    path('edit', views.EditPostView.as_view(), name='edit-post'),
+    path('edit/visibility', views.EditPostVisibilityView.as_view(), name='edit-post-visibility'),
+    path('cite', views.CitePostView.as_view(), name='cite-post'),
+    path('delete', views.DeletePostView.as_view(), name='delete-post'),
 ]
 
 thread_patterns = [
-    url(r'^new-thread', views.CreateThreadView.as_view(), name='create-thread'),
-    url(r'^(?:(?P<slug>[\w-]+)-)?(?P<pk>[0-9]+)/', include(post_patterns)),
+    path('new-thread', views.CreateThreadView.as_view(), name='create-thread'),
+    re_path(r'^(?:(?P<slug>[\w-]+)-)?(?P<pk>[0-9]+)/', include(post_patterns)),
 ]
 
 urlpatterns = [
-    url(r'^$', views.IndexView.as_view(), name='index'),
-    url(r'^post/(?P<thread_slug>[\w-]+)/(?P<pk>[0-9]+)/', include(short_post_patterns)),
-    url(r'^(?:(?P<slug>[\w-]+)-)?(?P<pk>[0-9]+)/$', views.ForumView.as_view(), name='forum'),
-    url(r'^(?:(?P<forum_slug>[\w-]+)-)?(?P<forum_pk>[0-9]+)/', include(thread_patterns)),
+    path('', views.IndexView.as_view(), name='index'),
+    re_path(r'^post/(?P<thread_slug>[\w-]+)/(?P<pk>[0-9]+)/', include(short_post_patterns)),
+    re_path(r'^(?:(?P<slug>[\w-]+)-)?(?P<pk>[0-9]+)$', views.ForumView.as_view(), name='forum'),
+    re_path(r'^(?:(?P<forum_slug>[\w-]+)-)?(?P<forum_pk>[0-9]+)/', include(thread_patterns)),
 ]

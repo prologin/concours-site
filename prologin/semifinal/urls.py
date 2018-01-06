@@ -1,5 +1,5 @@
 from django.conf import settings
-from django.conf.urls import include, url
+from django.urls import path, include
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.views.generic.base import TemplateView
@@ -8,51 +8,52 @@ import semifinal.staff_views
 import semifinal.views
 import users.views
 
+app_name = 'prologin'
 
 urlpatterns = [
     # Built-in Django admin
-    url(r'^admin/', include(admin.site.urls)),
+    path('admin/', admin.site.urls),
 
     # Language selector
-    url(r'^lang/', include('django.conf.urls.i18n')),
+    path('lang/', include('django.conf.urls.i18n')),
 ]
 
 monitoring_patterns = [
-    url(r'^$', semifinal.staff_views.MonitoringIndexView.as_view(), name='index'),
-    url(r'^unlock$', semifinal.staff_views.ExplicitUnlockView.as_view(), name='unlock'),
+    path('', semifinal.staff_views.MonitoringIndexView.as_view(), name='index'),
+    path('unlock', semifinal.staff_views.ExplicitUnlockView.as_view(), name='unlock'),
 ]
 
 users_patterns = [
     # Login and logout
-    url(r'^login/$', users.views.custom_login, name='login'),
-    url(r'^logout/$', users.views.protected_logout, {'next_page': '/'}, name='logout'),
+    path('login', users.views.custom_login, name='login'),
+    path('logout', users.views.protected_logout, {'next_page': '/'}, name='logout'),
 ]
 
 urlpatterns += [
     # Homepage
-    url(r'^$', semifinal.views.Homepage.as_view(), name='home'),
+    path('', semifinal.views.Homepage.as_view(), name='home'),
 
     # Live scoreboard
-    url(r'^scoreboard$', semifinal.views.Scoreboard.as_view(), name='scoreboard'),
-    url(r'^scoreboard/data$', semifinal.views.ScoreboardData.as_view(), name='scoreboard-data'),
+    path('scoreboard', semifinal.views.Scoreboard.as_view(), name='scoreboard'),
+    path('scoreboard/data', semifinal.views.ScoreboardData.as_view(), name='scoreboard-data'),
 
     # Contest monitoring
-    url(r'^contest/monitor/', include(monitoring_patterns, namespace='monitoring')),
+    path('contest/monitor/', include((monitoring_patterns, app_name), namespace='monitoring')),
 
     # Contest
-    url(r'^contest/', include('contest.urls', namespace='contest')),
+    path('contest/', include('contest.urls', namespace='contest')),
 
     # Semifinal problems
-    url(r'^semifinal/', include('problems.urls', namespace='problems')),
+    path('semifinal/', include('problems.urls', namespace='problems')),
 
-    url(r'^user/', include(users_patterns, namespace='users')),
+    path('user/', include((users_patterns, app_name), namespace='users')),
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += [
-        url(r'^e/400/$', TemplateView.as_view(template_name='400.html')),
-        url(r'^e/403/$', TemplateView.as_view(template_name='403.html')),
-        url(r'^e/404/$', TemplateView.as_view(template_name='404.html')),
-        url(r'^e/500/$', TemplateView.as_view(template_name='500.html')),
+        path('e/400/', TemplateView.as_view(template_name='400.html')),
+        path('e/403/', TemplateView.as_view(template_name='403.html')),
+        path('e/404/', TemplateView.as_view(template_name='404.html')),
+        path('e/500/', TemplateView.as_view(template_name='500.html')),
     ]

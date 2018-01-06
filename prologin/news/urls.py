@@ -1,8 +1,7 @@
-from django.conf.urls import url, include
+from django.urls import path, include
 from news.views import LegacyUrlRedirectView
 
-
 urlpatterns = [
-    url(r'^legacy/(?P<pk>[0-9]+)$', LegacyUrlRedirectView.as_view()),
-    url(r'^', include('zinnia.urls', namespace='zinnia')),
+    path('legacy/<int:pk>', LegacyUrlRedirectView.as_view()),
+    path('', include('zinnia.urls', namespace='zinnia')),
 ]

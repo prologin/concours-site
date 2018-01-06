@@ -6,7 +6,7 @@ from django.db.models import Count
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.utils.functional import cached_property
-from django.utils.text import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django.views.generic.edit import UpdateView
 from django.apps import apps
 from rules.contrib.views import PermissionRequiredMixin

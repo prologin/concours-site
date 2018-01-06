@@ -1,40 +1,20 @@
-from django.conf.urls import url
+from django.urls import path
 import problems.views
 
+app_name = 'problems'
+
 urlpatterns = [
-    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)$',
-        problems.views.Challenge.as_view(),
-        name='challenge'),
+    path('<int:year>/<type>', problems.views.Challenge.as_view(), name='challenge'),
+    path('<int:year>/<type>/scoreboard', problems.views.ChallengeScoreboard.as_view(), name='challenge-scoreboard'),
 
-    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/scoreboard$',
-        problems.views.ChallengeScoreboard.as_view(),
-        name='challenge-scoreboard'),
+    path('<int:year>/<type>/<problem>', problems.views.Problem.as_view(), name='problem'),
+    path('<int:year>/<type>/<problem>/lang-template', problems.views.AjaxLanguageTemplate.as_view(), name='ajax-language-template'),
+    path('<int:year>/<type>/<problem>/<submission>', problems.views.SubmissionCode.as_view(), name='submission'),
 
-    url(r'^manual$',
-        problems.views.ManualView.as_view(),
-        name='manual'),
+    path('submission-corrected/<submission>', problems.views.AjaxSubmissionCorrected.as_view(), name='ajax-submission-corrected'),
+    path('submission-recorrect/<submission>', problems.views.RecorrectView.as_view(), name='submission-recorrect'),
 
-    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/(?P<problem>[^/]+)$',
-        problems.views.Problem.as_view(),
-        name='problem'),
-
-    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/(?P<problem>[^/]+)/lang-template$',
-        problems.views.AjaxLanguageTemplate.as_view(),
-        name='ajax-language-template'),
-
-    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/(?P<problem>[^/]+)/(?P<submission>[0-9]+)$',
-        problems.views.SubmissionCode.as_view(),
-        name='submission'),
-
-    url(r'^submission-corrected/(?P<submission>[0-9]+)$',
-        problems.views.AjaxSubmissionCorrected.as_view(),
-        name='ajax-submission-corrected'),
-
-    url(r'^submission-recorrect/(?P<submission>[a-zA-Z0-9]+)$',
-        problems.views.RecorrectView.as_view(),
-        name='submission-recorrect'),
-
-    url(r'^search$', problems.views.SearchProblems.as_view(), name='search'),
-
-    url(r'^$', problems.views.Index.as_view(), name='index'),
+    path('manual', problems.views.ManualView.as_view(), name='manual'),
+    path('search', problems.views.SearchProblems.as_view(), name='search'),
+    path('', problems.views.Index.as_view(), name='index'),
 ]

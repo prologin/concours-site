@@ -1,25 +1,27 @@
-from django.conf.urls import url, include
+from django.urls import path, include
 import contest.views
 import contest.staff_views
 import contest.interschool_views
 
+app_name = 'contest'
+
 correction_patterns = [
-    url(r'^$', contest.staff_views.IndexView.as_view(), name='index'),
-    url(r'^(?P<year>[0-9]{4})/$', contest.staff_views.YearIndexView.as_view(), name='year'),
-    url(r'^(?P<year>[0-9]{4})/qualification$', contest.staff_views.QualificationIndexView.as_view(), name='qualification'),
-    url(r'^(?P<year>[0-9]{4})/semifinal$', contest.staff_views.SemifinalIndexView.as_view(), name='semifinal'),
-    url(r'^(?P<year>[0-9]{4})/semifinal/(?P<event>[0-9]+)$', contest.staff_views.SemifinalEventIndexView.as_view(), name='semifinal'),
-    url(r'^(?P<year>[0-9]{4})/(?P<cid>[0-9]+)/qualification$', contest.staff_views.ContestantQualificationView.as_view(), name='contestant-qualification'),
-    url(r'^(?P<year>[0-9]{4})/(?P<cid>[0-9]+)/semifinal$', contest.staff_views.ContestantSemifinalView.as_view(), name='contestant-semifinal'),
-    url(r'^(?P<year>[0-9]{4})/(?P<cid>[0-9]+)/live/(?P<type>[a-z]+)$', contest.staff_views.ContestantLiveUpdate.as_view(), name='live-update'),
+    path('', contest.staff_views.IndexView.as_view(), name='index'),
+    path('<int:year>', contest.staff_views.YearIndexView.as_view(), name='year'),
+    path('<int:year>/qualification', contest.staff_views.QualificationIndexView.as_view(), name='qualification'),
+    path('<int:year>/semifinal', contest.staff_views.SemifinalIndexView.as_view(), name='semifinal'),
+    path('<int:year>/semifinal/<int:event>', contest.staff_views.SemifinalEventIndexView.as_view(), name='semifinal'),
+    path('<int:year>/<int:cid>/qualification', contest.staff_views.ContestantQualificationView.as_view(), name='contestant-qualification'),
+    path('<int:year>/<int:cid>/semifinal', contest.staff_views.ContestantSemifinalView.as_view(), name='contestant-semifinal'),
+    path('<int:year>/<int:cid>/live/<type>', contest.staff_views.ContestantLiveUpdate.as_view(), name='live-update'),
 ]
 
 interschool_patterns = [
-    url(r'^leaderboard$', contest.interschool_views.LeaderboardView.as_view(), name='leaderboard'),
+    path('leaderboard', contest.interschool_views.LeaderboardView.as_view(), name='leaderboard'),
 ]
 
 urlpatterns = [
-    url(r'^(?P<year>[0-9]{4})/qualification', contest.views.QualificationSummary.as_view(), name='qualification-summary'),
-    url(r'^inter-school-challenge/', include(interschool_patterns, namespace='interschool')),
-    url(r'^correct/', include(correction_patterns, namespace='correction')),
+    path('<int:year>/qualification', contest.views.QualificationSummary.as_view(), name='qualification-summary'),
+    path('inter-school-challenge/', include((interschool_patterns, app_name), namespace='interschool')),
+    path('correct/', include((correction_patterns, app_name), namespace='correction')),
 ]

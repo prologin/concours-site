@@ -1,6 +1,6 @@
 import datatableview
 from datatableview import Datatable
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _, ngettext_lazy

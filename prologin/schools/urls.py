@@ -1,14 +1,16 @@
-from django.conf.urls import url, include
+from django.urls import path, re_path, include
 
 import schools.views
 import schools.admin_views
 
+app_name = 'schools'
+
 admin_patterns = [
-    url(r'^merge/(?P<pks>[0-9,]+)$', schools.admin_views.MergeView.as_view(), name='merge')
+    re_path(r'^merge/(?P<pks>[0-9,]+)$', schools.admin_views.MergeView.as_view(), name='merge')
 ]
 
 urlpatterns = [
-    url(r'^search$', schools.views.SchoolSearchView.as_view(), name='search'),
-    url(r'^picture/(?P<pk>[0-9]+)$', schools.views.FacebookPictureView.as_view(), name='fb-picture'),
-    url(r'^admin/', include(admin_patterns, namespace='admin')),
+    path('search', schools.views.SchoolSearchView.as_view(), name='search'),
+    path('picture/<int:pk>', schools.views.FacebookPictureView.as_view(), name='fb-picture'),
+    path('admin/', include((admin_patterns, app_name), namespace='admin')),
 ]
