@@ -79,7 +79,7 @@ class Thread(ExportModelOperationsMixin('thread'), models.Model):
         ugettext_noop("Closed")
         ugettext_noop("Moved")
 
-    forum = models.ForeignKey(Forum, related_name='threads')
+    forum = models.ForeignKey(Forum, related_name='threads', on_delete=models.CASCADE)
 
     title = models.CharField(max_length=255, verbose_name=_("Title"))
     slug = models.SlugField(max_length=300, db_index=True)
@@ -89,7 +89,8 @@ class Thread(ExportModelOperationsMixin('thread'), models.Model):
     is_visible = models.BooleanField(default=True, db_index=True, verbose_name=_("Visible"))
 
     date_last_edited = models.DateTimeField(auto_now=True)
-    last_edited_author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='forum_last_edited_threads', blank=True, null=True)
+    last_edited_author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='forum_last_edited_threads',
+                                           blank=True, null=True, on_delete=models.SET_NULL)
 
     post_count = models.PositiveIntegerField(verbose_name=_("Number of posts"), editable=False, blank=True, default=0)
     date_last_post = models.DateTimeField(verbose_name=_("Last post added on"), blank=True, null=True)  # so we can sort
@@ -194,14 +195,15 @@ class Thread(ExportModelOperationsMixin('thread'), models.Model):
 
 
 class Post(ExportModelOperationsMixin('post'), models.Model):
-    thread = models.ForeignKey(Thread, related_name='posts')
+    thread = models.ForeignKey(Thread, related_name='posts', on_delete=models.CASCADE)
 
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='forum_posts')
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='forum_posts', on_delete=models.CASCADE)
     content = models.TextField(verbose_name=_("Content"))
 
     date_created = models.DateTimeField(default=timezone.now)
     date_last_edited = models.DateTimeField(auto_now=True)
-    last_edited_author = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='forum_last_edited_posts')
+    last_edited_author = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True,
+                                           related_name='forum_last_edited_posts', on_delete=models.SET_NULL)
     last_edited_reason = models.TextField(verbose_name=_("Edit reason"), blank=True)
 
     is_visible = models.BooleanField(default=True, db_index=True)

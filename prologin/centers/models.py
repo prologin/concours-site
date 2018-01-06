@@ -79,7 +79,7 @@ class Contact(ContactModel):
         ugettext_noop("Manager")
         ugettext_noop("Contact")
 
-    center = models.ForeignKey(Center, related_name='contacts')
+    center = models.ForeignKey(Center, related_name='contacts', on_delete=models.CASCADE)
     type = EnumField(Type, db_index=True)
 
     def __str__(self):

@@ -30,8 +30,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(verbose_name='ID', auto_created=True, serialize=False, primary_key=True)),
                 ('year', models.PositiveIntegerField(db_index=True)),
-                ('role', models.ForeignKey(related_name='members', to='team.Role')),
-                ('user', models.ForeignKey(related_name='team_memberships', to=settings.AUTH_USER_MODEL)),
+                ('role', models.ForeignKey(related_name='members', to='team.Role', on_delete=models.CASCADE)),
+                ('user', models.ForeignKey(related_name='team_memberships', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': "Membres de l'équipe",
@@ -41,6 +41,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='teammember',
-            unique_together=set([('user', 'year')]),
+            unique_together={('user', 'year')},
         ),
     ]

@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.db import models, migrations
-import contest.models
 import django.utils.timezone
 from django.conf import settings
+from django.db import models, migrations
+
+import contest.models
 import prologin.models
 
 try:
@@ -56,8 +57,8 @@ class Migration(migrations.Migration):
                 ('type', prologin.models.EnumField(contest.models.Event.Type, choices=[(0, 'Qualification'), (1, 'Regional event'), (2, 'Final')], db_index=True)),
                 ('date_begin', models.DateTimeField(null=True, blank=True)),
                 ('date_end', models.DateTimeField(null=True, blank=True)),
-                ('center', models.ForeignKey(null=True, to='centers.Center', related_name='events', blank=True)),
-                ('edition', models.ForeignKey(related_name='events', to='contest.Edition')),
+                ('center', models.ForeignKey(null=True, to='centers.Center', related_name='events', blank=True, on_delete=models.SET_NULL)),
+                ('edition', models.ForeignKey(related_name='events', to='contest.Edition', on_delete=models.CASCADE)),
             ],
         ),
         migrations.CreateModel(
@@ -65,8 +66,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('order', models.IntegerField(editable=False, db_index=True)),
-                ('contestant', models.ForeignKey(to='contest.Contestant')),
-                ('event', models.ForeignKey(to='contest.Event')),
+                ('contestant', models.ForeignKey(to='contest.Contestant', on_delete=models.CASCADE)),
+                ('event', models.ForeignKey(to='contest.Event', on_delete=models.CASCADE)),
             ],
             options={
                 'ordering': ('order',),
@@ -76,7 +77,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='contestant',
             name='edition',
-            field=models.ForeignKey(related_name='contestants', to='contest.Edition'),
+            field=models.ForeignKey(related_name='contestants', to='contest.Edition', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='contestant',
@@ -86,7 +87,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='contestant',
             name='user',
-            field=models.ForeignKey(related_name='contestants', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(related_name='contestants', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
         migrations.AlterUniqueTogether(
             name='contestant',
@@ -100,13 +101,13 @@ class Migration(migrations.Migration):
                 ('event_type', prologin.models.EnumField(contest.models.Event.Type, choices=[(0, 'Qualification'), (1, 'Regional event'), (2, 'Final')], db_index=True)),
                 ('changes', JSONField(blank=True)),
                 ('date_added', models.DateTimeField(default=django.utils.timezone.now)),
-                ('author', models.ForeignKey(related_name='contestant_correction', to=settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=django.db.models.deletion.CASCADE)),
-                ('contestant', models.ForeignKey(to='contest.Contestant', related_name='corrections')),
+                ('author', models.ForeignKey(related_name='contestant_correction', to=settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL)),
+                ('contestant', models.ForeignKey(to='contest.Contestant', related_name='corrections', on_delete=models.CASCADE)),
             ],
         ),
         migrations.AddField(
             model_name='contestant',
             name='assigned_event',
-            field=models.ForeignKey(null=True, to='contest.Event', blank=True, related_name='assigned_contestants', verbose_name='Regional event assigned event'),
+            field=models.ForeignKey(null=True, to='contest.Event', blank=True, related_name='assigned_contestants', verbose_name='Regional event assigned event', on_delete=models.SET_NULL),
         ),
     ]

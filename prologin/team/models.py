@@ -98,7 +98,8 @@ class TeamMemberManager(models.Manager):
 
 class TeamMember(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             related_name='team_memberships')
+                             related_name='team_memberships',
+                             on_delete=models.CASCADE)
     role_code = TextEnumField(Role,
                               verbose_name=_("Role"),
                               db_index=True,

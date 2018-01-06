@@ -41,8 +41,8 @@ class Migration(migrations.Migration):
                 ('date_last_edited', models.DateTimeField(auto_now=True)),
                 ('last_edited_reason', models.TextField(blank=True, verbose_name='Edit reason')),
                 ('is_visible', models.BooleanField(db_index=True, default=True)),
-                ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='forum_posts')),
-                ('last_edited_author', models.ForeignKey(to=settings.AUTH_USER_MODEL, blank=True, related_name='forum_last_edited_posts', null=True)),
+                ('author', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='forum_posts', on_delete=models.CASCADE)),
+                ('last_edited_author', models.ForeignKey(to=settings.AUTH_USER_MODEL, blank=True, related_name='forum_last_edited_posts', null=True, on_delete=models.SET_NULL)),
             ],
             options={
                 'ordering': ('date_created',),
@@ -63,8 +63,8 @@ class Migration(migrations.Migration):
                 ('date_last_edited', models.DateTimeField(auto_now=True)),
                 ('post_count', models.PositiveIntegerField(blank=True, verbose_name='Number of posts', editable=False, default=0)),
                 ('date_last_post', models.DateTimeField(blank=True, null=True, verbose_name='Last post added on')),
-                ('forum', models.ForeignKey(to='forum.Forum', related_name='threads')),
-                ('last_edited_author', models.ForeignKey(to=settings.AUTH_USER_MODEL, blank=True, related_name='forum_last_edited_threads', null=True)),
+                ('forum', models.ForeignKey(to='forum.Forum', related_name='threads', on_delete=models.CASCADE)),
+                ('last_edited_author', models.ForeignKey(to=settings.AUTH_USER_MODEL, blank=True, related_name='forum_last_edited_threads', null=True, on_delete=models.SET_NULL)),
             ],
             options={
                 'ordering': ('-type', '-date_last_post'),
@@ -76,6 +76,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='post',
             name='thread',
-            field=models.ForeignKey(to='forum.Thread', related_name='posts'),
+            field=models.ForeignKey(to='forum.Thread', related_name='posts', on_delete=models.CASCADE),
         ),
     ]

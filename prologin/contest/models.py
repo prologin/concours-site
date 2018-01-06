@@ -11,7 +11,6 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Count, Q
 from django.db.models.aggregates import Sum
-from django.db.models.deletion import SET_NULL
 from django.utils import timezone
 from django.utils.formats import date_format
 from django.utils.functional import cached_property
@@ -116,8 +115,8 @@ class Event(ExportModelOperationsMixin('event'), models.Model):
         ugettext_noop("Regional event")
         ugettext_noop("Final")
 
-    edition = models.ForeignKey(Edition, related_name='events')
-    center = models.ForeignKey(Center, blank=True, null=True, related_name='events')
+    edition = models.ForeignKey(Edition, related_name='events', on_delete=models.CASCADE)
+    center = models.ForeignKey(Center, blank=True, null=True, related_name='events', on_delete=models.SET_NULL)
     type = EnumField(Type, db_index=True)
     date_begin = models.DateTimeField(blank=True, null=True)
     date_end = models.DateTimeField(blank=True, null=True)
@@ -216,11 +215,11 @@ class Assignation(ChoiceEnum):
 
 
 class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants')
-    edition = models.ForeignKey(Edition, related_name='contestants')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants', on_delete=models.CASCADE)
+    edition = models.ForeignKey(Edition, related_name='contestants', on_delete=models.CASCADE)
 
     school = models.ForeignKey(School, related_name='contestants', null=True,
-                               blank=True, default=None, on_delete=SET_NULL)
+                               blank=True, default=None, on_delete=models.SET_NULL)
 
     shirt_size = EnumField(ShirtSize, null=True, blank=True, db_index=True,
                            verbose_name=_("T-shirt size"), empty_label=_("Choose your size"),
@@ -235,6 +234,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
                                                           related_name='applicants', blank=True,
                                                           verbose_name=_("Regional event assignation whishes"))
     assignation_semifinal_event = models.ForeignKey(Event, related_name='assigned_contestants', blank=True, null=True,
+                                                    on_delete=models.SET_NULL,
                                                     verbose_name=_("Regional event assigned event"))
     assignation_final = EnumField(Assignation, default=Assignation.not_assigned.value,
                                   verbose_name=_("Final assignation status"))
@@ -522,8 +522,8 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
 
 
 class EventWish(ExportModelOperationsMixin('event_wish'), SortableMixin):
-    contestant = models.ForeignKey(Contestant)
-    event = models.ForeignKey(Event)
+    contestant = models.ForeignKey(Contestant, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
     order = models.IntegerField(editable=False, db_index=True)
 
     class Meta:
@@ -538,8 +538,9 @@ class EventWish(ExportModelOperationsMixin('event_wish'), SortableMixin):
 
 
 class ContestantCorrection(ExportModelOperationsMixin('contestant_correction'), models.Model):
-    contestant = models.ForeignKey(Contestant, related_name='corrections')
-    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestant_correction', null=True, blank=True)
+    contestant = models.ForeignKey(Contestant, related_name='corrections', on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestant_correction', null=True, blank=True,
+                               on_delete=models.SET_NULL)
     comment = models.TextField(blank=True)
     event_type = EnumField(Event.Type, db_index=True)
     changes = JSONField(blank=True)

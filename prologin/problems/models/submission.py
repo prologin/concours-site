@@ -152,7 +152,7 @@ class Result:
 class Submission(ExportModelOperationsMixin('submission'), models.Model):
     challenge = models.CharField(max_length=64, db_index=True)
     problem = models.CharField(max_length=64, db_index=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='training_submissions')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='training_submissions', on_delete=models.CASCADE)
     score_base = models.IntegerField(default=0)
     malus = models.IntegerField(default=0)
 
@@ -194,7 +194,7 @@ class Submission(ExportModelOperationsMixin('submission'), models.Model):
 
 
 class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model):
-    submission = models.ForeignKey(Submission, related_name='codes')
+    submission = models.ForeignKey(Submission, related_name='codes', on_delete=models.CASCADE)
     language = CodingLanguageField()
     code = models.TextField()
     summary = models.TextField(blank=True)
@@ -288,8 +288,8 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
 
 
 class SubmissionCodeChoice(ExportModelOperationsMixin('submission_code_choice'), models.Model):
-    submission = models.ForeignKey(Submission, related_name='submission_choices')
-    code = models.ForeignKey(SubmissionCode, related_name='submission_code_choices')
+    submission = models.ForeignKey(Submission, related_name='submission_choices', on_delete=models.CASCADE)
+    code = models.ForeignKey(SubmissionCode, related_name='submission_code_choices', on_delete=models.CASCADE)
 
     class Meta:
         unique_together = [('submission', 'code')]
@@ -298,8 +298,10 @@ class SubmissionCodeChoice(ExportModelOperationsMixin('submission_code_choice'),
 class ExplicitProblemUnlock(models.Model):
     challenge = models.CharField(max_length=64, db_index=True)
     problem = models.CharField(max_length=64, db_index=True)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='explicit_problem_unlocks')
-    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, related_name='explicit_problem_unlocks_created')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='explicit_problem_unlocks',
+                             on_delete=models.CASCADE)
+    created_by = models.ForeignKey(settings.AUTH_USER_MODEL, blank=True, null=True, on_delete=models.SET_NULL,
+                                   related_name='explicit_problem_unlocks_created')
     date_created = models.DateTimeField(default=timezone.now)
 
     def __str__(self):

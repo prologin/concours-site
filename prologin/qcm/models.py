@@ -32,7 +32,7 @@ class FullQcmManager(QcmManager):
 
 
 class Qcm(ExportModelOperationsMixin('qcm'), models.Model):
-    event = models.ForeignKey(contest.models.Event, related_name='qcms')
+    event = models.ForeignKey(contest.models.Event, related_name='qcms', on_delete=models.CASCADE)
 
     objects = QcmManager()
     full_objects = FullQcmManager()
@@ -84,11 +84,12 @@ class QuestionManager(models.Manager):
 
 
 class Question(ExportModelOperationsMixin('question'), SortableMixin):
-    qcm = models.ForeignKey(Qcm, related_name='questions')
+    qcm = models.ForeignKey(Qcm, related_name='questions', on_delete=models.CASCADE)
 
     body = models.TextField(verbose_name=_("Question body"))
     verbose = models.TextField(blank=True, verbose_name=_("Verbose description"))
-    for_sponsor = models.ForeignKey(sponsor.models.Sponsor, blank=True, null=True, related_name='qcm_questions')
+    for_sponsor = models.ForeignKey(sponsor.models.Sponsor, blank=True, null=True, related_name='qcm_questions',
+                                    on_delete=models.SET_NULL)
     order = models.IntegerField(editable=False, db_index=True)
     # Open ended questions have only one correct proposition.
     # The user only sees a text input and has to give his or her answer.
@@ -110,7 +111,8 @@ class Question(ExportModelOperationsMixin('question'), SortableMixin):
 
 
 class Proposition(ExportModelOperationsMixin('proposition'), models.Model):
-    question = models.ForeignKey(Question, related_name='propositions', verbose_name=_("Question"))
+    question = models.ForeignKey(Question, related_name='propositions', verbose_name=_("Question"),
+                                 on_delete=models.CASCADE)
     text = models.CharField(max_length=255)
     is_correct = models.BooleanField(default=False)
 
@@ -125,8 +127,10 @@ class AnswerManager(models.Manager):
 
 
 class Answer(ExportModelOperationsMixin('answer'), models.Model):
-    contestant = models.ForeignKey(contest.models.Contestant, related_name='qcm_answers')
-    proposition = models.ForeignKey(Proposition, related_name='answers', verbose_name=_("Answer"))
+    contestant = models.ForeignKey(contest.models.Contestant, related_name='qcm_answers',
+                                   on_delete=models.CASCADE)
+    proposition = models.ForeignKey(Proposition, related_name='answers', verbose_name=_("Answer"),
+                                    on_delete=models.CASCADE)
     # Textual answer given by the contestant if the question is open ended.
     textual_answer = models.TextField(blank=True, null=True, verbose_name=_("Textual answer"))
 

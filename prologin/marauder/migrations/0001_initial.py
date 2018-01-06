@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 
 from django.conf import settings
 from django.db import migrations, models
-import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
@@ -24,7 +23,7 @@ class Migration(migrations.Migration):
                 ('lon', models.FloatField()),
                 ('radius_meters', models.FloatField()),
                 ('enable_on', models.DateTimeField()),
-                ('event', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='marauder_settings', to='contest.Event')),
+                ('event', models.OneToOneField(on_delete=models.CASCADE, related_name='marauder_settings', to='contest.Event')),
             ],
         ),
         migrations.CreateModel(
@@ -33,7 +32,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=50)),
                 ('redundancy', models.IntegerField(default=0)),
-                ('event', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='task_forces', to='contest.Event')),
+                ('event', models.ForeignKey(on_delete=models.CASCADE, related_name='task_forces', to='contest.Event')),
                 ('members', models.ManyToManyField(related_name='task_forces', to=settings.AUTH_USER_MODEL)),
             ],
             options={
@@ -52,7 +51,7 @@ class Migration(migrations.Migration):
                 ('lon', models.FloatField(default=0.0)),
                 ('gcm_app_id', models.CharField(max_length=64)),
                 ('gcm_token', models.CharField(max_length=256)),
-                ('user', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, related_name='marauder_profile', to=settings.AUTH_USER_MODEL)),
+                ('user', models.OneToOneField(on_delete=models.CASCADE, related_name='marauder_profile', to=settings.AUTH_USER_MODEL)),
             ],
             options={
                 'verbose_name': 'User profile',
@@ -62,7 +61,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='taskforce',
-            unique_together=set([('event', 'name')]),
+            unique_together={('event', 'name')},
         ),
         migrations.AlterModelOptions(
             name='eventsettings',

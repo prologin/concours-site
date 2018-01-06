@@ -62,7 +62,7 @@ class UserActivationManager(models.Manager):
 
 
 class UserActivation(ExportModelOperationsMixin('user_activation'), models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='activation')
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, related_name='activation', on_delete=models.CASCADE)
     slug = models.SlugField(max_length=ACTIVATION_TOKEN_LENGTH, db_index=True)
     expiration_date = models.DateTimeField()
 

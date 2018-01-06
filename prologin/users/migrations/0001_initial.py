@@ -2,9 +2,7 @@
 from __future__ import unicode_literals
 
 from django.db import models, migrations
-import django.contrib.auth.models
 from django.conf import settings
-from prologin.utils import upload_path
 import timezone_field.fields
 import django.utils.timezone
 import django.core.validators
@@ -68,7 +66,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
                 ('slug', models.SlugField(max_length=32)),
                 ('expiration_date', models.DateTimeField()),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, related_name='activation')),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, related_name='activation', on_delete=models.CASCADE)),
             ],
         ),
 

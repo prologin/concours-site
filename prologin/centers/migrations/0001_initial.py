@@ -45,7 +45,7 @@ class Migration(migrations.Migration):
                 ('contact_phone_fax', models.CharField(max_length=16, blank=True)),
                 ('contact_email', models.EmailField(max_length=254, blank=True)),
                 ('type', prologin.models.EnumField(centers.models.Contact.Type, db_index=True, choices=[(0, 'Manager'), (1, 'Contact')])),
-                ('center', models.ForeignKey(related_name='contacts', to='centers.Center')),
+                ('center', models.ForeignKey(related_name='contacts', to='centers.Center', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,

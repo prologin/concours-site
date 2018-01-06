@@ -28,7 +28,7 @@ class Migration(migrations.Migration):
                 ('rght', models.PositiveIntegerField(editable=False, db_index=True)),
                 ('tree_id', models.PositiveIntegerField(editable=False, db_index=True)),
                 ('level', models.PositiveIntegerField(editable=False, db_index=True)),
-                ('parent', mptt.fields.TreeForeignKey(verbose_name='parent category', to='zinnia.Category', null=True, related_name='children', blank=True)),
+                ('parent', mptt.fields.TreeForeignKey(verbose_name='parent category', to='zinnia.Category', null=True, related_name='children', blank=True, on_delete=models.SET_NULL)),
             ],
             options={
                 'ordering': ['title'],
@@ -108,6 +108,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterIndexTogether(
             name='entry',
-            index_together=set([('slug', 'creation_date'), ('status', 'creation_date', 'start_publication', 'end_publication')]),
+            index_together={('slug', 'creation_date'), ('status', 'creation_date', 'start_publication', 'end_publication')},
         ),
     ]

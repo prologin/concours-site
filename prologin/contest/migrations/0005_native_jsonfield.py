@@ -2,7 +2,6 @@
 from __future__ import unicode_literals
 
 import django.contrib.postgres.fields.jsonb
-import django.db.models.deletion
 from django.db import migrations, connection
 
 

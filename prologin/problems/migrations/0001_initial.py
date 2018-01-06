@@ -23,7 +23,7 @@ class Migration(migrations.Migration):
                 ('problem', models.CharField(db_index=True, max_length=64)),
                 ('score_base', models.IntegerField(default=0)),
                 ('malus', models.IntegerField(default=0)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='training_submissions')),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='training_submissions', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'Submissions',
@@ -43,7 +43,7 @@ class Migration(migrations.Migration):
                 ('exec_memory', models.IntegerField(null=True, blank=True)),
                 ('date_submitted', models.DateTimeField(default=django.utils.timezone.now)),
                 ('date_corrected', models.DateTimeField(blank=True, null=True)),
-                ('submission', models.ForeignKey(to='problems.Submission', related_name='codes')),
+                ('submission', models.ForeignKey(to='problems.Submission', related_name='codes', on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Submission code',
@@ -56,16 +56,16 @@ class Migration(migrations.Migration):
             name='SubmissionCodeChoice',
             fields=[
                 ('id', models.AutoField(primary_key=True, verbose_name='ID', auto_created=True, serialize=False)),
-                ('code', models.ForeignKey(related_name='submission_code_choices', to='problems.SubmissionCode')),
-                ('submission', models.ForeignKey(related_name='submission_choices', to='problems.Submission')),
+                ('code', models.ForeignKey(related_name='submission_code_choices', to='problems.SubmissionCode', on_delete=models.CASCADE)),
+                ('submission', models.ForeignKey(related_name='submission_choices', to='problems.Submission', on_delete=models.CASCADE)),
             ],
         ),
         migrations.AlterUniqueTogether(
             name='submissioncodechoice',
-            unique_together=set([('submission', 'code')]),
+            unique_together={('submission', 'code')},
         ),
         migrations.AlterUniqueTogether(
             name='submission',
-            unique_together=set([('challenge', 'problem', 'user')]),
+            unique_together={('challenge', 'problem', 'user')},
         ),
     ]

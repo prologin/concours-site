@@ -16,7 +16,7 @@ class TaskForce(models.Model):
     $redundancy people from the task force should be present onsite at all
     times.
     """
-    event = models.ForeignKey(contest.models.Event, related_name='task_forces')
+    event = models.ForeignKey(contest.models.Event, related_name='task_forces', on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     members = models.ManyToManyField(settings.AUTH_USER_MODEL,
                                      related_name='task_forces')
@@ -50,7 +50,8 @@ class UserProfile(models.Model):
     the reporting API.
     """
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                related_name='marauder_profile')
+                                related_name='marauder_profile',
+                                on_delete=models.CASCADE)
 
     # Location reporting data.
     last_report_timestamp = models.DateTimeField(auto_now=True)
@@ -101,7 +102,8 @@ class UserProfile(models.Model):
 class EventSettings(models.Model):
     """Container for per-event settings related to Marauder."""
     event = models.OneToOneField(contest.models.Event,
-                                 related_name='marauder_settings')
+                                 related_name='marauder_settings',
+                                 on_delete=models.CASCADE)
 
     # Geofence of the event location. Currently using a circle instead of an
     # arbitrary polygon for simplicity.

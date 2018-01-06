@@ -21,13 +21,13 @@ class Migration(migrations.Migration):
                 ('challenge', models.CharField(max_length=64, db_index=True)),
                 ('problem', models.CharField(max_length=64, db_index=True)),
                 ('date_created', models.DateTimeField(default=django.utils.timezone.now)),
-                ('created_by', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, related_name='explicit_problem_unlocks_created', blank=True)),
-                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='explicit_problem_unlocks')),
+                ('created_by', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True, related_name='explicit_problem_unlocks_created', blank=True, on_delete=models.SET_NULL)),
+                ('user', models.ForeignKey(to=settings.AUTH_USER_MODEL, related_name='explicit_problem_unlocks', on_delete=models.CASCADE)),
             ],
             options={'verbose_name': 'Explicit problem unlock', 'verbose_name_plural': 'Explicit problem unlocks'},
         ),
         migrations.AlterUniqueTogether(
             name='explicitproblemunlock',
-            unique_together=set([('challenge', 'problem', 'user')]),
+            unique_together={('challenge', 'problem', 'user')},
         ),
     ]

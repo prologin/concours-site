@@ -3,7 +3,6 @@
 from __future__ import unicode_literals
 
 from django.db import migrations, models
-import django.db.models.deletion
 import django.utils.timezone
 import mptt.fields
 
@@ -34,7 +33,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='category',
             name='parent',
-            field=mptt.fields.TreeForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='children', to='zinnia.Category', verbose_name='parent category'),
+            field=mptt.fields.TreeForeignKey(blank=True, null=True, on_delete=models.SET_NULL, related_name='children', to='zinnia.Category', verbose_name='parent category'),
         ),
         migrations.AlterField(
             model_name='entry',
@@ -48,7 +47,7 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterIndexTogether(
             name='entry',
-            index_together=set([('slug', 'publication_date'), ('status', 'publication_date', 'start_publication', 'end_publication')]),
+            index_together={('slug', 'publication_date'), ('status', 'publication_date', 'start_publication', 'end_publication')},
         ),
         migrations.RunPython(fill_publication_date, migrations.RunPython.noop)
     ]

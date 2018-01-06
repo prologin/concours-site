@@ -27,7 +27,7 @@ class ConditionalSum(Sum):
         pass
 
     class Bar(models.Model):
-        foo = models.ForeignKey(Bar, related_name='bars')
+        foo = models.ForeignKey(Bar, related_name='bars', on_delete=models.CASCADE)
         ok = models.BooleanField()
 
     Foo.objects.annotate(
