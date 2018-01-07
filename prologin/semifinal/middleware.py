@@ -1,17 +1,19 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
-from django.utils.deprecation import MiddlewareMixin
 
 import contest.models
 import problems.models
 
 
-class SemifinalMiddleware(MiddlewareMixin):
+class SemifinalMiddleware:
+    def __init__(self, get_response):
+        self.get_response = get_response
+
     def _raise(self):
         raise ImproperlyConfigured("You need to create/configure a single Edition and related regional event Event "
                                    "for year {}.".format(settings.PROLOGIN_EDITION))
 
-    def process_request(self, request):
+    def __call__(self, request):
         year = settings.PROLOGIN_EDITION
         # Current semifinal event
         event = (contest.models.Event.objects
@@ -44,3 +46,5 @@ class SemifinalMiddleware(MiddlewareMixin):
                                                    .get_or_create(user=user, edition=request.current_edition))
             if created:
                 request.current_contestant.save()
+
+        return self.get_response(request)

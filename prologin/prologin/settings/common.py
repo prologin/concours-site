@@ -104,8 +104,9 @@ INSTALLED_APPS = (
     'zinnia',
 )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.middleware.locale.LocaleMiddleware',

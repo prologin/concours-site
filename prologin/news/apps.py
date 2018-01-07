@@ -1,5 +1,5 @@
 from django.apps import AppConfig
-from django.db import models
+from django.urls import reverse
 
 
 class NewsConfig(AppConfig):
@@ -15,6 +15,8 @@ class NewsConfig(AppConfig):
         # URL regexp. So this kind of usernames triggers a reverse lookup
         # exception.
         from zinnia.models.author import Author
+
         def get_absolute_url(self):
-            return ('users:profile', [self.pk])
-        Author.get_absolute_url = models.permalink(get_absolute_url)
+            return reverse('users:profile', args=[self.pk])
+
+        Author.get_absolute_url = get_absolute_url

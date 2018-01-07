@@ -1,5 +1,5 @@
-from django.contrib.auth.backends import ModelBackend
 from django.contrib.auth import get_user_model
+from django.contrib.auth.backends import ModelBackend
 import hashlib
 import logging
 
@@ -7,8 +7,8 @@ logger = logging.getLogger('prologin.backends')
 
 
 class ModelBackendWithLegacy(ModelBackend):
-    def authenticate(self, username=None, password=None, **kwargs):
-        user = super().authenticate(username, password, **kwargs)
+    def authenticate(self, request, username=None, password=None, **kwargs):
+        user = super().authenticate(request, username=username, password=password, **kwargs)
         if user is not None:
             return user
 
@@ -26,4 +26,4 @@ class ModelBackendWithLegacy(ModelBackend):
                         "Django password updated", username)
             return user
         except User.DoesNotExist:
-            return None
+            pass
