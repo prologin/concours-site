@@ -20,8 +20,8 @@ urlpatterns = [
     path('<int:pk>/', include(user_patterns)),
 
     # Login and logout
-    path('login', views.custom_login, name='login'),
-    path('logout', views.protected_logout, {'next_page': '/'}, name='logout'),
+    path('login', views.LoginView.as_view(), name='login'),
+    path('logout', views.LogoutView.as_view(), name='logout'),
 
     # Search
     path('search/suggest', views.UserSearchSuggestView.as_view(), name='search-suggest'),

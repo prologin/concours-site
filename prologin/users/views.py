@@ -1,58 +1,39 @@
 from django.conf import settings
-from django.contrib import messages
-from django.contrib.auth import get_user_model, update_session_auth_hash
-from django.contrib.auth.views import logout, login as django_login_view
-from django.urls import reverse, reverse_lazy
+from django.contrib import messages, auth
 from django.http import Http404
 from django.http.response import JsonResponse, StreamingHttpResponse, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
+from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.cache import never_cache
+from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 from django.views.generic.base import View, RedirectView
 from django.views.generic.detail import DetailView, SingleObjectMixin
 from django.views.generic.edit import CreateView, UpdateView, FormView, ModelFormMixin
-from django.views.decorators.cache import never_cache
-from django.views.decorators.csrf import csrf_protect
-import django.contrib.auth.forms
 from django.views.generic.list import ListView
 from hmac import compare_digest
 from rules.contrib.views import PermissionRequiredMixin
 from wsgiref.util import FileWrapper
 
 from prologin.utils import absolute_site_url
-
 import contest.models
 import users.forms
 import users.models
 
 
-@csrf_protect
-@require_POST
-@never_cache
-def protected_logout(*args, **kwargs):
-    return logout(*args, **kwargs)
-
-
-def custom_login(request, *args, **kwargs):
-    kwargs['template_name'] = 'users/login.html'
-    kwargs['authentication_form'] = users.forms.ProloginAuthenticationForm
-    if request.user.is_authenticated:
-        return redirect('users:profile', pk=request.user.pk)
-    return django_login_view(request, *args, **kwargs)
-
-
 def auto_login(request, user):
     # Auto-login bullshit because we don't want to write our own backend
-    from django.contrib.auth import load_backend, login
     if not hasattr(user, 'backend'):
         for backend in settings.AUTHENTICATION_BACKENDS:
-            if user == load_backend(backend).get_user(user.pk):
+            if user == auth.load_backend(backend).get_user(user.pk):
                 user.backend = backend
                 break
     if hasattr(user, 'backend'):
-        login(request, user)
+        auth.login(request, user)
         return True
     return False
 
@@ -64,8 +45,18 @@ class AnonymousRequiredMixin:
         return super().dispatch(request, *args, **kwargs)
 
 
+class LoginView(auth.views.LoginView):
+    template_name = 'users/login.html'
+    authentication_form = users.forms.AuthenticationForm
+
+
+@method_decorator([require_POST, csrf_protect, never_cache], name='dispatch')
+class LogoutView(auth.views.LogoutView):
+    next_page = reverse_lazy('home')
+
+
 class RegistrationView(AnonymousRequiredMixin, CreateView):
-    model = get_user_model()
+    model = auth.get_user_model()
     form_class = users.forms.RegisterForm
     template_name = 'users/register.html'
     success_url = reverse_lazy('home')
@@ -77,8 +68,10 @@ class RegistrationView(AnonymousRequiredMixin, CreateView):
         activation = users.models.UserActivation.objects.register(new_user)
         url = absolute_site_url(self.request, reverse('users:activate', args=[activation.slug]))
         send_email("users/mails/activation", self.object.email, {'user': self, 'url': url})
-        messages.success(self.request, _("Your account was created. We sent an email to %(mail)s "
-                                         "so you can confirm your registration.") % {'mail': self.object.email})
+        messages.success(self.request,
+                         _("Your account was created. We sent an email to %(mail)s so you can confirm your "
+                           "registration.") % {'mail': self.object.email},
+                         extra_tags='modal')
         return response
 
 
@@ -99,10 +92,8 @@ class ActivationView(AnonymousRequiredMixin, SingleObjectMixin, RedirectView):
     def get(self, request, *args, **kwargs):
         try:
             activated_user = self.get_object()
-            messages.success(request, _("Your account was activated. Enjoy your visit!"))
-            if auto_login(request, activated_user):
-                messages.success(request, _("You have been automatically logged in."))
-            else:
+            messages.success(request, _("Your account was activated. Enjoy your visit!"), extra_tags='modal')
+            if not auto_login(request, activated_user):
                 # If could not log the user in automatically, redirect to login
                 self.url = 'users:login'
         except users.models.InvalidActivationError:
@@ -114,7 +105,7 @@ class ActivationView(AnonymousRequiredMixin, SingleObjectMixin, RedirectView):
 
 
 class ProfileView(DetailView):
-    model = get_user_model()
+    model = auth.get_user_model()
     context_object_name = 'shown_user'
     template_name = 'users/profile.html'
 
@@ -161,7 +152,7 @@ class DownloadFinalHomeView(PermissionRequiredMixin, DetailView):
 
 
 class EditUserView(PermissionRequiredMixin, UpdateView):
-    model = get_user_model()
+    model = auth.get_user_model()
     form_class = users.forms.UserProfileForm
     template_name = 'users/edit.html'
     context_object_name = 'edited_user'
@@ -192,7 +183,7 @@ class PasswordFormMixin:
     “Because fuck logic, that's why.”
         — Django
     """
-    form_class = django.contrib.auth.forms.PasswordChangeForm
+    form_class = auth.forms.PasswordChangeForm
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
@@ -206,7 +197,7 @@ class PasswordFormMixin:
 
 
 class EditPasswordView(PermissionRequiredMixin, PasswordFormMixin, UpdateView):
-    model = get_user_model()
+    model = auth.get_user_model()
     template_name = 'users/edit_password.html'
     context_object_name = 'edited_user'
     permission_required = 'users.edit'
@@ -214,7 +205,7 @@ class EditPasswordView(PermissionRequiredMixin, PasswordFormMixin, UpdateView):
     def form_valid(self, form):
         ret = super().form_valid(form)
         # from django.contrib.auth.views: log out from other sessions
-        update_session_auth_hash(self.request, self.object)
+        auth.update_session_auth_hash(self.request, self.object)
         messages.success(self.request, _("New password saved."))
         return ret
 
@@ -231,7 +222,7 @@ class PasswordResetView(AnonymousRequiredMixin, FormView):
         from django.contrib.auth.tokens import default_token_generator
 
         email = form.cleaned_data['email']
-        active_users = get_user_model().objects.filter(email__iexact=email, is_active=True)
+        active_users = auth.get_user_model().objects.filter(email__iexact=email, is_active=True)
         for user in active_users:
             # Make sure that no email is sent to a user that actually has
             # a password marked as unusable
@@ -251,9 +242,9 @@ class PasswordResetView(AnonymousRequiredMixin, FormView):
 
 
 class PasswordResetConfirmView(AnonymousRequiredMixin, PasswordFormMixin, UpdateView):
-    model = get_user_model()
+    model = auth.get_user_model()
     template_name = 'registration/password_reset_confirm.html'
-    form_class = django.contrib.auth.forms.SetPasswordForm
+    form_class = auth.forms.SetPasswordForm
     success_url = reverse_lazy('home')
 
     def get_object(self, queryset=None):
@@ -264,7 +255,7 @@ class PasswordResetConfirmView(AnonymousRequiredMixin, PasswordFormMixin, Update
         token = self.kwargs['token']
         try:
             uid = force_text(urlsafe_base64_decode(uidb64))
-            user = get_user_model().objects.get(pk=uid)
+            user = auth.get_user_model().objects.get(pk=uid)
         except (TypeError, ValueError, OverflowError, self.model.DoesNotExist):
             raise Http404()
 
@@ -288,7 +279,7 @@ class UnsubscribeView(View):
             token = req_params['token']
         except KeyError:
             raise Http404()
-        User = get_user_model()
+        User = auth.get_user_model()
         u = get_object_or_404(User, pk=user_id)
         if not compare_digest(token, u.unsubscribe_token):
             raise Http404()
@@ -297,18 +288,18 @@ class UnsubscribeView(View):
     def get(self, request, *args, **kwargs):
         user, token = self.get_user_token(request.GET)
         return render(request, 'users/unsubscribe.html',
-                {'unsubscribe_user': user, 'unsubscribe_token': token})
+                      {'unsubscribe_user': user, 'unsubscribe_token': token})
 
     def post(self, request, *args, **kwargs):
         user, _ = self.get_user_token(request.POST)
         user.allow_mailing = False
         user.save()
         return render(request, 'users/unsubscribe_confirm.html',
-                {'unsubscribe_user': user})
+                      {'unsubscribe_user': user})
 
 
 class ImpersonateView(PermissionRequiredMixin, UpdateView):
-    model = get_user_model()
+    model = auth.get_user_model()
     fields = []
 
     def has_permission(self):
@@ -328,15 +319,13 @@ class ImpersonateView(PermissionRequiredMixin, UpdateView):
 
 
 class UserSearchSuggestView(PermissionRequiredMixin, ListView):
-    model = get_user_model()
+    model = auth.get_user_model()
     paginate_by = 10
     permission_required = 'users.search'
 
     def get_queryset(self):
         query = self.request.GET.get('q', '').strip()
-        return (users.models.search_users(query)
-                .order_by('-is_active', 'username')
-                [:self.paginate_by])
+        return users.models.search_users(query).order_by('-is_active', 'username')[:self.paginate_by]
 
     def render_to_response(self, context, **response_kwargs):
         results = [{
@@ -347,5 +336,5 @@ class UserSearchSuggestView(PermissionRequiredMixin, ListView):
                 'users/stub-search-result.html',
                 {'user': user, 'request': self.request},
                 self.request),
-            } for user in self.get_queryset()]
+        } for user in self.get_queryset()]
         return JsonResponse(results, safe=False)

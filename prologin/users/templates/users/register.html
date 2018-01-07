@@ -10,8 +10,9 @@
 {% block title %}{% trans "Register" %}{% endblock %}
 
 {% block content %}
-<h1>{% trans "Register" %}</h1>
+<div class="row"><div class="col-lg-6 col-md-8">
 
+<h1>{% trans "Register" %}</h1>
 <p>{% trans "Please choose a username. You must use a valid email address, as you will receive a message to confirm your registration." %}</p>
 
 <form method="POST" class="form-horizontal" action="{% url 'users:register' %}?next={{ next }}">
@@ -23,4 +24,6 @@
     </div>
   </div>
 </form>
+
+</div></div>
 {% endblock %}

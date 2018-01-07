@@ -2,7 +2,7 @@ from crispy_forms import layout
 from crispy_forms.helper import FormHelper
 from django import forms
 from django.contrib.auth import get_user_model
-from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.forms import AuthenticationForm as DjangoAuthenticationForm
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
@@ -148,7 +148,7 @@ class PasswordResetForm(forms.Form):
                              widget=forms.EmailInput(attrs={'placeholder': _("Your email address")}))
 
 
-class ProloginAuthenticationForm(AuthenticationForm):
+class AuthenticationForm(DjangoAuthenticationForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['username'].label = _("Username or email")

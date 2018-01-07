@@ -49,5 +49,8 @@
   <li class="{% active 'users:login' %}">
     <a href="{% url 'users:login' %}?next={{ request.get_full_path }}">{% trans "Sign in" %}</a>
   </li>
+  <li class="{% active 'users:register' %}">
+    <a href="{% url 'users:register' %}?next={{ request.get_full_path }}">{% trans "Register" %}</a>
+  </li>
   {% endif %}
 </ul>
