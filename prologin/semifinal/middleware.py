@@ -38,7 +38,7 @@ class SemifinalMiddleware(MiddlewareMixin):
         # Logged-in user related queries
         request.current_contestant = None
         user = request.user
-        if user.is_authenticated():
+        if user.is_authenticated:
             # Create the contestant if it does not exist
             request.current_contestant, created = (contest.models.Contestant.objects
                                                    .get_or_create(user=user, edition=request.current_edition))

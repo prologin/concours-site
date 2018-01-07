@@ -49,7 +49,7 @@ class Data:
     def current_contestant(self):
         current_contestant = None
         user = self.request.user
-        if user.is_authenticated():
+        if user.is_authenticated:
             # Create the contestant if it does not exist
             current_contestant, created = contest.models.Contestant.objects.get_or_create(
                 user=user, edition=self.edition)

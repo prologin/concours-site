@@ -5,7 +5,7 @@ import rules
 @rules.predicate
 def is_challenge_displayable(user, challenge):
     if settings.PROLOGIN_SEMIFINAL_MODE:
-        if not user.is_authenticated():
+        if not user.is_authenticated:
             return False
         # bypass challenge.displayable in semifinal mode
         return not settings.PROBLEMS_CHALLENGE_WHITELIST or challenge.name in settings.PROBLEMS_CHALLENGE_WHITELIST

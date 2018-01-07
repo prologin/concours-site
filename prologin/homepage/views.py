@@ -30,7 +30,7 @@ class HomepageView(TemplateView):
         current_contestant_qcm_problem_answers = problems.models.Submission.objects.none()
 
         qcm_completed = None
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             current_contestant_qcm_problem_answers = problems.models.Submission.objects.filter(
                 user=self.request.user, challenge=current_qcm_challenge.name)
             if current_qcm:

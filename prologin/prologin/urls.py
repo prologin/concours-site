@@ -11,7 +11,7 @@ from homepage.views import HomepageView
 
 
 def crash_test(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         1 / 0
     return HttpResponse(status=204)
 

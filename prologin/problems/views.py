@@ -107,7 +107,7 @@ class Index(TemplateView):
         context['challenges'] = [c for c in problems.models.Challenge.all()
                                  if self.request.user.has_perm('problems.view_challenge', c)]
         context['search_form'] = SearchForm()
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             del context['search_form'].fields['solved']
         return context
 
@@ -151,7 +151,7 @@ class Challenge(PermissionRequiredMixin, TemplateView):
                 if not self.request.user.has_perm('problems.view_problem', problem):
                     problem.locked = True
 
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             # To display user score on each problem
             submissions = get_user_submissions(self.request.user,
                                                extra_filters=Q(challenge=challenge.name))
@@ -197,7 +197,7 @@ class Problem(PermissionRequiredMixin, CreateView):
         as_user = self.request.GET.get('as')
         if as_user and self.request.user.has_perm('problems.view_others_submissions'):
             return get_object_or_404(get_user_model(), pk=as_user)
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             return self.request.user
 
     def get_context_data(self, **kwargs):
@@ -244,7 +244,7 @@ class Problem(PermissionRequiredMixin, CreateView):
         return context
 
     def form_valid(self, form):
-        if not self.request.user.is_authenticated():
+        if not self.request.user.is_authenticated:
             return HttpResponseForbidden()
         context = self.get_context_data()
         self.submission_code = form.save(commit=False)
@@ -333,7 +333,7 @@ class SearchProblems(ChoiceGetAttrsMixin, ListView):
             difficulty_max = self.form.cleaned_data['difficulty_max']
             solved = self.form.cleaned_data.get('solved', False)
             solved_problems = set()
-            if self.request.user.is_authenticated() and solved:
+            if self.request.user.is_authenticated and solved:
                 solved_problems = set(problems.models.Submission.objects
                                       .filter(user=self.request.user,
                                               score_base__gt=0)
@@ -359,7 +359,7 @@ class SearchProblems(ChoiceGetAttrsMixin, ListView):
                         filter |= Q(challenge=challenge.name, problem=problem.name)
                         all_results.append(problem)
 
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             # To display user score on each problem
             submissions = get_user_submissions(self.request.user,
                                                extra_filters=filter)

@@ -256,7 +256,7 @@ def search_users(query, qs=None, throw=False):
 
 
 def assign_preferred_language(sender, user, request, **kwargs):
-    if hasattr(request, 'user') and request.user.is_authenticated():
+    if hasattr(request, 'user') and request.user.is_authenticated:
         request.session[LANGUAGE_SESSION_KEY] = request.user.preferred_locale
 
 user_logged_in.connect(assign_preferred_language)

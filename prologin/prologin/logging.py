@@ -29,7 +29,7 @@ class HTTPRequestHandler(logging.Handler):
         except Exception:
             request = None
 
-        message = {"request": {"user": request.user.username if request.user.is_authenticated() else None,
+        message = {"request": {"user": request.user.username if request.user.is_authenticated else None,
                                "path": request.get_full_path(),
                                "method": request.method,
                                "meta": {k: repr(v) for k, v in request.META.items() if

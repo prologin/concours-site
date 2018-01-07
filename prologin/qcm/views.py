@@ -67,7 +67,7 @@ class DisplayQCMView(PermissionRequiredMixin, UpdateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         kwargs['contestant'] = self.request.current_contestant
-        if self.request.user.is_authenticated():
+        if self.request.user.is_authenticated:
             ordering_seed = self.request.user.pk
         else:
             try:
