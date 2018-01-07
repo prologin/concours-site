@@ -3,12 +3,12 @@ import rules
 
 @rules.predicate
 def event_is_active(user, event):
-    return event.is_active
+    return event and event.is_active
 
 
 @rules.predicate
 def edition_is_active(user, edition):
-    return edition.is_active
+    return edition and edition.is_active
 
 
 @rules.predicate

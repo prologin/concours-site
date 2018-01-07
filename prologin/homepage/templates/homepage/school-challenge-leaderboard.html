@@ -1,5 +1,7 @@
 {% load i18n %}
-
+{% load rules %}
+{% has_perm 'contest.interschool.view_leaderboard' request.user as view_leaderboard %}
+{% if view_leaderboard %}
 <h2>{% trans "Inter-school challenge" %}</h2>
 
 <p><a href="{% url 'contest:interschool:leaderboard' %}"
@@ -28,3 +30,4 @@
   {% endfor %}
   </tbody>
 </table>
+{% endif %}
