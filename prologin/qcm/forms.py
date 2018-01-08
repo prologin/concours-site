@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import RadioSelect
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 import random
@@ -6,28 +7,6 @@ import random
 from prologin.templatetags.markup import flavored_markdown
 import qcm.models
 from prologin.utils import save_random_state
-
-
-class RadioChoiceInputWithInstance(forms.widgets.RadioChoiceInput):
-    """
-    So we can access the instance underlying this choice in the template.
-    """
-    def __init__(self, name, value, attrs, instance, index):
-        if isinstance(instance, (tuple, list)):
-            self.instance = None
-            choice = instance
-        else:
-            self.instance = instance
-            choice = (instance.pk, flavored_markdown(force_text(instance), escape=False))
-        super().__init__(name, value, attrs, choice, index)
-
-
-class PropositionRadioFieldRenderer(forms.widgets.RadioFieldRenderer):
-    choice_input_class = RadioChoiceInputWithInstance
-
-
-class PropositionRadioSelect(forms.widgets.RadioSelect):
-    renderer = PropositionRadioFieldRenderer
 
 
 class RandomOrderingModelChoiceField(forms.ModelChoiceField):
@@ -40,7 +19,9 @@ class RandomOrderingModelChoiceField(forms.ModelChoiceField):
         self.ordering_seed = kwargs.pop('ordering_seed')
         super().__init__(*args, **kwargs)
 
-        choices = list(self.queryset)
+        # choices = list(self.queryset)
+        choices = [(c.pk, flavored_markdown(force_text(c), escape=False))
+                   for c in self.queryset]
         # shuffle with our own seed
         with save_random_state(seed=self.ordering_seed):
             random.shuffle(choices)
@@ -76,7 +57,7 @@ class QcmForm(forms.ModelForm):
                 field = self.fields[field_key] = RandomOrderingModelChoiceField(
                     required=False,
                     queryset=question.propositions.all(),
-                    widget=PropositionRadioSelect,
+                    widget=RadioSelect,
                     empty_label=_("I don't know"),
                     ordering_seed=ordering_seed,
                 )

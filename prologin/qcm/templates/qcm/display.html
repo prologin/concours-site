@@ -41,7 +41,7 @@
       {% for field in form %}
         {% with question=field.field.question %}
           <li class="question" id="q{{ forloop.counter }}">
-            <div class="body">
+            <div class="body tex2jax_process">
               <div class="main">{{ question.body|flavored_markdown:0 }}</div>
               {% if question.verbose %}
                 <div class="verbose">{{ question.verbose|flavored_markdown:0 }}</div>
@@ -49,7 +49,7 @@
             </div>
             <ul class="propositions">
               {% for proposition in field %}
-                <li class="{% if user_can_view_correction and correction_mode %}{% if proposition.instance.is_correct %}correct{% endif %}{% if proposition.is_checked and not proposition.instance.is_correct %}incorrect{% endif %}{% endif %}">
+                <li class="tex2jax_process {% if user_can_view_correction and correction_mode %}{% if proposition.instance.is_correct %}correct{% endif %}{% if proposition.is_checked and not proposition.instance.is_correct %}incorrect{% endif %}{% endif %}">
                   {{ proposition }}
                 {% if user_can_view_correction and correction_mode and question.is_open_ended %}
                   <p>{% trans "Correct answer:" %} <code class="text-success">{{ question.correct_answer.text }}</code></p>
@@ -72,6 +72,7 @@
 {% endblock %}
 
 {% block extra_script %}
+  {% include "stub-mathjax.html" %}
   <script src="{% static 'js/utils.js' %}"></script>
   <script type="text/javascript">
     $(function () {
