@@ -5,7 +5,7 @@ bleach
 # For async tasks (sending mails, correcting submissions, etc.)
 celery
 # Django
-django<1.11
+django<3
 # For ordered models (QCM questions, semifinal whishes, etc.)
 django-admin-sortable
 # News / blog
