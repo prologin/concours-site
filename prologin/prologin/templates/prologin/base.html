@@ -107,6 +107,11 @@
   {# Scripts #}
   <script src="{% static 'lib/js/jquery.min.js' %}"></script>
   <script src="{% static 'lib/js/bootstrap.min.js' %}"></script>
+  <script type="application/javascript">
+  $(function() {
+    $('.modal[role="dialog"]').modal();
+  });
+  </script>
   {% has_perm 'users.search' request.user as can_search_users %}
   {% if can_search_users %}
   {# User can search users: include JS for typeahead #}

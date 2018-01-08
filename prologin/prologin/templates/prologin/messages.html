@@ -1,5 +1,22 @@
-{% if messages %}
+{% load i18n %}
+
 {% for message in messages %}
+
+{% if 'modal' in message.extra_tags %}
+<div class="modal fade" tabindex="-1" role="dialog" data-show="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        {{ message|safe }}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">{% trans "Close" %}</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% else %}
 
 {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
 <div class="alert alert-dismissable alert-danger">
@@ -20,6 +37,5 @@
 {% endif %}
   <div>{{ message|safe }}</div>
 </div>
-
-{% endfor %}
 {% endif %}
+{% endfor %}
