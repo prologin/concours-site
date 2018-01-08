@@ -1,7 +1,7 @@
 TOP = $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 DIR = $(TOP)/prologin
 LOCALE_DIR = $(DIR)/locale
-MANAGE = cd $(DIR) && ./manage.py
+MANAGE = cd $(DIR) && PYTHONWARNINGS=once ./manage.py
 REGIONAL_MANAGE = cd $(DIR) && DJANGO_SETTINGS_MODULE=prologin.settings.semifinal_dev ./manage.py
 CELERY = cd $(DIR) && celery
 TX = tx --debug
