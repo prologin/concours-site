@@ -1,7 +1,5 @@
 from django import forms
-from django.utils import formats
-from django.utils.encoding import force_text
-from django.utils.html import format_html_join, format_html
+from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _, ungettext
 from itertools import zip_longest
@@ -34,31 +32,7 @@ class EventWishChoiceFieldWidget(forms.widgets.MultiWidget):
 
 
 class EventWishSelect(forms.widgets.Select):
-    """
-    Custom implementation of a Select to add data-name and data-addr to each rendered <option/>.
-    Uses Django's internals. May break with future Django releases.
-    """
-    def render_option(self, selected_choices, option_value, option_label):
-        # BEGIN copy-pasted from Django source, because no other way
-        if option_value is None:
-            option_value = ''
-        option_value = force_text(option_value)
-        if option_value in selected_choices:
-            selected_html = mark_safe(' selected="selected"')
-            if not self.allow_multiple_selected:
-                # Only allow for a single selection.
-                selected_choices.remove(option_value)
-        else:
-            selected_html = ''
-        # END
-        if option_value:
-            center = option_label.center
-            date = formats.date_format(option_label.date_begin, "SHORT_DATE_FORMAT")
-            addr = "{}, {} {}".format(center.address, center.postal_code, center.city)
-            name = "{} — {}".format(date, center.name)
-            selected_html = mark_safe(selected_html + format_html(' data-name="{}" data-addr="{}"', name, addr))
-            option_label = '{} — {} — {}, {} {}'.format(date, center.name, center.address, center.postal_code, center.city)
-        return format_html('<option value="{}"{}>{}</option>', option_value, selected_html, force_text(option_label))
+    option_template_name = 'contest/school-select-option.html'
 
 
 class EventWishModelChoiceField(forms.ModelChoiceField):

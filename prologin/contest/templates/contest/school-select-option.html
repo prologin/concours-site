@@ -1,0 +1,10 @@
+<option value="{{ widget.value }}"{% include "django/forms/widgets/attrs.html" %}
+{% if widget.label %}
+  data-name="{{ widget.label.date_begin|date:'SHORT_DATE_FORMAT' }} — {{ widget.label.center.name }}"
+  data-addr="{{ widget.label.center.address }}, {{ widget.label.center.postal_code }} {{ widget.label.center.city }}">
+  {{ widget.label.date_begin|date:'SHORT_DATE_FORMAT' }} — {{ widget.label.center.name }} — {{ widget.label.center.address }},
+  {{ widget.label.center.postal_code }} {{ widget.label.center.city }}
+{% else %}
+  >{{ widget.label }}
+{% endif %}
+</option>

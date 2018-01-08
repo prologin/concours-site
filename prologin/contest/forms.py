@@ -60,7 +60,7 @@ class ContestantUserForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         kwargs.pop('edition')
-        complete = kwargs.pop('complete')
+        kwargs.pop('complete')
         super().__init__(*args, **kwargs)
         # Assigning the help_text there because for some reason reverse_lazy() is not lazy enough in
         # the static field declaration above
