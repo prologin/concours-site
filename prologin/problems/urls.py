@@ -14,15 +14,15 @@ urlpatterns = [
         problems.views.ManualView.as_view(),
         name='manual'),
 
-    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/(?P<problem>[a-zA-Z0-9_.-]+)$',
+    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/(?P<problem>[^/]+)$',
         problems.views.Problem.as_view(),
         name='problem'),
 
-    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/(?P<problem>[a-zA-Z0-9_.-]+)/lang-template$',
+    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/(?P<problem>[^/]+)/lang-template$',
         problems.views.AjaxLanguageTemplate.as_view(),
         name='ajax-language-template'),
 
-    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/(?P<problem>[a-zA-Z0-9_.-]+)/(?P<submission>[0-9]+)$',
+    url(r'^(?P<year>[0-9]{4})/(?P<type>[a-z\-]+)/(?P<problem>[^/]+)/(?P<submission>[0-9]+)$',
         problems.views.SubmissionCode.as_view(),
         name='submission'),
 
