@@ -1,11 +1,12 @@
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured, ObjectDoesNotExist
+from django.utils.deprecation import MiddlewareMixin
 
 import contest.models
 import problems.models
 
 
-class SemifinalMiddleware(object):
+class SemifinalMiddleware(MiddlewareMixin):
     def _raise(self):
         raise ImproperlyConfigured("You need to create/configure a single Edition and related regional event Event "
                                    "for year {}.".format(settings.PROLOGIN_EDITION))

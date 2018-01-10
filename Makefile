@@ -2,6 +2,7 @@ TOP = $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 DIR = $(TOP)/prologin
 LOCALE_DIR = $(DIR)/locale
 MANAGE = cd $(DIR) && ./manage.py
+REGIONAL_MANAGE = cd $(DIR) && DJANGO_SETTINGS_MODULE=prologin.settings.semifinal_dev ./manage.py
 CELERY = cd $(DIR) && celery
 TX = tx --debug
 PORT = 8000
@@ -18,6 +19,9 @@ all: assets
 
 runserver:
 	$(MANAGE) runserver localhost:$(PORT)
+
+regional-runserver:
+	$(REGIONAL_MANAGE) runserver localhost:$(PORT)
 
 smtpserver:
 	python $(TOP)/smtp_debug.py --host $(SMTP_HOST) --port $(SMTP_PORT) --lag $(SMTP_LAG)

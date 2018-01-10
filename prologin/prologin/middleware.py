@@ -2,6 +2,7 @@ import collections
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
 from django.core.handlers.wsgi import WSGIRequest
+from django.utils.deprecation import MiddlewareMixin
 from django.utils.functional import cached_property
 
 import contest.models
@@ -57,7 +58,7 @@ class Data:
         return current_contestant
 
 
-class ContestMiddleware(object):
+class ContestMiddleware(MiddlewareMixin):
     def process_request(self, request):
         # Warning: terrible hack ahead.
         # Attach a custom attribute getter on WSGIRequest to lazy-load

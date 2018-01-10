@@ -52,7 +52,7 @@
             <i class="fa fa-pencil"></i> {% trans "Edit" %}
           </a>
           {# FIXME: find the name of admin user password change URL #}
-          <a class="btn btn-xs btn-default" href="{% url 'admin:users_prologinuser_change' contestant.user.pk %}./password">
+          <a class="btn btn-xs btn-default" href="{% url 'admin:users_prologinuser_change' contestant.user.pk %}../password">
             <i class="fa fa-key"></i> {% trans "Password" %}
           </a>
           <a class="btn btn-xs btn-default" href="{% url 'monitoring:unlock' %}?contestant={{ contestant.pk }}">
