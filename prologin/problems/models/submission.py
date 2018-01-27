@@ -55,7 +55,7 @@ class Result:
 
         @property
         def time_wall(self):
-            return self.data['meta']['time-wall']
+            return self.data['meta']['wall-time']
 
         @property
         def memory(self):
