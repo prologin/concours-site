@@ -121,8 +121,8 @@ vCPU and {{ hardware_mem }} Gio of dedicated random access memory.
 </thead>
 <tbody>
 {% trans "<em>unknown</em>" context "unknown version" as unknown %}
-{% for langname, lang in languages.items %}
-  {% for pname, prog in lang.programs.items %}
+{% for langname, lang in languages.items|dictsort:'0.lower' %}
+  {% for pname, prog in lang.programs.items|dictsort:'0.lower' %}
     <tr>
     {% if forloop.first %} {# first row: put name #}
       <th rowspan="{{ lang.programs|length }}">{{ lang.name }}</th>
