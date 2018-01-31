@@ -454,27 +454,14 @@ class ManualView(TemplateView):
         except Exception:
             logger.exception("Retrieving fresh VM compilers versions failed")
 
-        languages = [
-            (Language.ada, "gcc-ada", "gcc-ada"),
-            (Language.brainfuck, "esotope-bfc", "esotope-bfc"),
-            (Language.c, "gcc", "GCC"),
-            (Language.cpp, "gcc", "G++"),
-            (Language.csharp, "mono", "Mono"),
-            (Language.fsharp, "fsharp", "Mono"),
-            (Language.haskell, "ghc", "GHC"),
-            (Language.java, "jdk7-openjdk", "OpenJDK Runtime Environment (IcedTea)"),
-            (Language.js, "nodejs", "NodeJS"),
-            (Language.lua, "luajit", "LuaJit"),
-            (Language.ocaml, "ocaml", "The Objective Caml toplevel"),
-            (Language.pascal, "fpc", "Free Pascal compiler"),
-            (Language.perl, "perl", "Perl"),
-            (Language.php, "php", "PHP"),
-            (Language.python, "python", "CPython"),
-            (Language.scheme, "gambit-c", "Gambit-C"),
-            (Language.vb, "mono-basic", "Mono Basic"),
-        ]
-        context['versions'] = [(lang, description, cached_versions.get(key))
-                               for lang, key, description in languages]
+        versions = []
+        for language in cached_versions.get('languages').values():
+            name = language.get('name')
+            program = list(language.get('programs').keys())[0]
+            version = language.get('programs').get(program).get('version')
+            args = language.get('programs').get(program).get('opts')
+            versions.append((name, program, version, args))
+        context['versions'] = versions
         return context
 
 

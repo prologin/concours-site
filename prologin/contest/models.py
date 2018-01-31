@@ -128,6 +128,10 @@ class Event(ExportModelOperationsMixin('event'), models.Model):
         ordering = ('date_begin',)
 
     @classmethod
+    def qualification_for_edition(cls, year: int):
+        return cls.objects.select_related('center').get(edition__year=year, type=cls.Type.qualification.value)
+
+    @classmethod
     def semifinals_for_edition(cls, year: int):
         return cls.objects.select_related('center').filter(edition__year=year, type=cls.Type.semifinal.value)
 

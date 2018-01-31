@@ -110,7 +110,7 @@ vCPU and {{ hardware_mem }} Gio of dedicated random access memory.
 
 <h3>{% trans "Compilers and interpreters" %}</h3>
 <dl class="dl-horizontal">
-{% for lang, description, version in versions %}
+{% for lang, description, version, args in versions %}
   <dt>{{ lang }}</dt><dd>{{ description }}, {% if version %}version <code>{{ version }}</code>{% else %}<em>{% trans "unknown version" %}</em>{% endif %}</dd>
 {% endfor %}
 </dl>
@@ -118,14 +118,16 @@ vCPU and {{ hardware_mem }} Gio of dedicated random access memory.
 <h3>{% trans "Compilation options" %}</h3>
 
 <dl class="dl-horizontal">
-{# TODO: retrieve from VM when it's available #}
-<dt>C</dt><dd><code>-Wextra -Wall -O2 -std=c11 -lm</code></dd>
-<dt>C++</dt><dd><code>-Wextra -Wall -O2 -std=c++14 -lm</code></dd>
-<dt>C#</dt><dd><code>-optimize+</code></dd>
-<dt>F#</dt><dd><code>-O</code></dd>
-<dt>Haskell</dt><dd><code>-dynamic -O2</code></dd>
-<dt>OCaml</dt><dd><code>-w A</code></dd>
-<dt>Pascal</dt><dd><code>-XD -Fainitc</code></dd>
+{% for lang, description, version, args in versions %}
+  {% if args|length != 0 %}
+    <dt>{{ lang }}</dt><dd>
+    <code>
+    {% for arg in args %}
+      {{ arg }}
+    {% endfor %}
+    </code/></dd>
+  {% endif %}
+{% endfor %}
 </dl>
 
 {% endblock %}
