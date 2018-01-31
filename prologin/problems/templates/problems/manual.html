@@ -109,23 +109,33 @@ vCPU and {{ hardware_mem }} Gio of dedicated random access memory.
 {% endwith %}
 
 <h3>{% trans "Compilers and interpreters" %}</h3>
-<dl class="dl-horizontal">
-{% for lang, description, version in versions %}
-  <dt>{{ lang }}</dt><dd>{{ description }}, {% if version %}version <code>{{ version }}</code>{% else %}<em>{% trans "unknown version" %}</em>{% endif %}</dd>
+
+<table class="table table-hover table-condensed">
+<thead>
+  <tr>
+    <th>{% trans "Language" context "manual language table" %}</th>
+    <th>{% trans "Binary" context "manual language table" %}</th>
+    <th>{% trans "Version" context "manual language table" %}</th>
+    <th>{% trans "Options" context "manual language table" %}</th>
+  </tr>
+</thead>
+<tbody>
+{% trans "<em>unknown</em>" context "unknown version" as unknown %}
+{% for langname, lang in languages.items %}
+  {% for pname, prog in lang.programs.items %}
+    <tr>
+    {% if forloop.first %} {# first row: put name #}
+      <th rowspan="{{ lang.programs|length }}">{{ lang.name }}</th>
+    {% endif %}
+      <td><code>{{ pname }}</code></td>
+      <td>{{ prog.version|default_if_none:unknown }}</td>
+      <td>{% if prog.opts %}<code>{{ prog.opts|join:' ' }}</code>{% endif %}</td>
+    </tr>
+  {% endfor %}
+{% empty %}
+  <tr><td colspan="4"><i class="fa fa-frown-o"></i> <em>{% trans "The program list is temporarily unavailable." %}</em></td></tr>
 {% endfor %}
-</dl>
-
-<h3>{% trans "Compilation options" %}</h3>
-
-<dl class="dl-horizontal">
-{# TODO: retrieve from VM when it's available #}
-<dt>C</dt><dd><code>-Wextra -Wall -O2 -std=c11 -lm</code></dd>
-<dt>C++</dt><dd><code>-Wextra -Wall -O2 -std=c++14 -lm</code></dd>
-<dt>C#</dt><dd><code>-optimize+</code></dd>
-<dt>F#</dt><dd><code>-O</code></dd>
-<dt>Haskell</dt><dd><code>-dynamic -O2</code></dd>
-<dt>OCaml</dt><dd><code>-w A</code></dd>
-<dt>Pascal</dt><dd><code>-XD -Fainitc</code></dd>
-</dl>
+</tbody>
+</table>
 
 {% endblock %}

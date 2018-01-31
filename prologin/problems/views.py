@@ -445,36 +445,15 @@ class ManualView(TemplateView):
         context = super().get_context_data()
 
         def get_versions():
-            logger.info("Retrieving fresh VM compilers versions")
-            return requests.get(settings.PROLOGIN_VM_VERSION_PATH).json()
+            return requests.get(settings.PROLOGIN_VM_VERSION_PATH).json()['languages']
 
-        cached_versions = {}
+        languages = {}
         try:
-            cached_versions = cached(get_versions, 'problems:compilers:versions')
+            languages = cached(get_versions, 'problems:camisole:languages')
         except Exception:
             logger.exception("Retrieving fresh VM compilers versions failed")
 
-        languages = [
-            (Language.ada, "gcc-ada", "gcc-ada"),
-            (Language.brainfuck, "esotope-bfc", "esotope-bfc"),
-            (Language.c, "gcc", "GCC"),
-            (Language.cpp, "gcc", "G++"),
-            (Language.csharp, "mono", "Mono"),
-            (Language.fsharp, "fsharp", "Mono"),
-            (Language.haskell, "ghc", "GHC"),
-            (Language.java, "jdk7-openjdk", "OpenJDK Runtime Environment (IcedTea)"),
-            (Language.js, "nodejs", "NodeJS"),
-            (Language.lua, "luajit", "LuaJit"),
-            (Language.ocaml, "ocaml", "The Objective Caml toplevel"),
-            (Language.pascal, "fpc", "Free Pascal compiler"),
-            (Language.perl, "perl", "Perl"),
-            (Language.php, "php", "PHP"),
-            (Language.python, "python", "CPython"),
-            (Language.scheme, "gambit-c", "Gambit-C"),
-            (Language.vb, "mono-basic", "Mono Basic"),
-        ]
-        context['versions'] = [(lang, description, cached_versions.get(key))
-                               for lang, key, description in languages]
+        context['languages'] = languages
         return context
 
 

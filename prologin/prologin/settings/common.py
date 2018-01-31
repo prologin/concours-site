@@ -262,7 +262,7 @@ PROLOGIN_SEMIFINAL_MODE = False
 # Cache durations and keys
 CacheSetting = namedtuple('CacheSetting', 'key duration')
 PROLOGIN_CACHES = {
-    'problems:compilers:versions': CacheSetting('problems:compilers:versions', 3600 * 24),
+    'problems:camisole:languages': CacheSetting('problems:camisole:languages', 3600 * 24),
 }
 
 # Prologin correction system
