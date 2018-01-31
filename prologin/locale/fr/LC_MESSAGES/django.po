@@ -4,7 +4,7 @@
 # 
 # Translators:
 # Alexandre <artifere@gmail.com>, 2015
-# Alexandre Macabies <web+transifex@zopieux.com>, 2015-2017
+# Alexandre Macabies <web+transifex@zopieux.com>, 2015-2018
 # Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
 # Antoine Pietri <antoine.pietri1@gmail.com>, 2015,2017
 # cbeausei <clementbeauseigneur@hotmail.fr>, 2016
@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-07-15 22:51+0200\n"
-"PO-Revision-Date: 2017-07-15 20:52+0000\n"
+"POT-Creation-Date: 2018-01-31 19:34+0100\n"
+"PO-Revision-Date: 2018-01-31 18:36+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -787,7 +787,7 @@ msgstr "Candidats"
 
 #: contest/templates/correction/by-year.html:24
 #: documents/templates/documents/semifinal-import-review.html:78
-#: problems/models/submission.py:182
+#: problems/models/submission.py:185
 msgid "Submissions"
 msgstr "Soumissions"
 
@@ -3633,80 +3633,80 @@ msgstr "Vous devez fournir un fichier source ou un code source."
 msgid "Qualifications"
 msgstr "Sélections"
 
-#: problems/models/submission.py:65
+#: problems/models/submission.py:68
 msgid "unknown"
 msgstr "inconnu"
 
-#: problems/models/submission.py:69
+#: problems/models/submission.py:72
 msgid "Compilation went fine."
 msgstr "La compilation a réussi."
 
-#: problems/models/submission.py:70
+#: problems/models/submission.py:73
 #, python-format
 msgid "Compilation exited with code %(code)s."
 msgstr "Le compilateur a quitté avec le code de retour %(code)s."
 
-#: problems/models/submission.py:71
+#: problems/models/submission.py:74
 msgid "Compilation timed out."
 msgstr "La compilation a dépassé la limite de temps."
 
-#: problems/models/submission.py:72
+#: problems/models/submission.py:75
 #, python-format
 msgid "Compilation was killed with signal %(signal)s."
 msgstr "La compilation a été tuée par le signal %(signal)s."
 
-#: problems/models/submission.py:73
+#: problems/models/submission.py:76
 msgid "Compilation crashed with an internal error."
 msgstr "La compilation a crashée à cause d'une erreur interne."
 
-#: problems/models/submission.py:81
+#: problems/models/submission.py:84
 msgid "your program executed fine, but:"
 msgstr "votre programme s'est exécuté correctement, mais :"
 
-#: problems/models/submission.py:82
+#: problems/models/submission.py:85
 #, python-format
 msgid "your program exited with code %(code)s."
 msgstr "votre programme a quitté avec le code de retour %(code)s."
 
-#: problems/models/submission.py:83
+#: problems/models/submission.py:86
 msgid "you program timed out."
 msgstr "votre programme a dépassé la limite de temps."
 
-#: problems/models/submission.py:84
+#: problems/models/submission.py:87
 #, python-format
 msgid "your program was killed with signal %(signal)s."
 msgstr "votre programme a été tué par le signal %(signal)s."
 
-#: problems/models/submission.py:85
+#: problems/models/submission.py:88
 msgid "your program crashed with an internal error."
 msgstr "votre programme a crashé à cause d'une erreur interne."
 
-#: problems/models/submission.py:181
+#: problems/models/submission.py:184
 #: problems/templates/problems/submission.html:9
 msgid "Submission"
 msgstr "Soumission"
 
-#: problems/models/submission.py:226
+#: problems/models/submission.py:229
 msgid "Pending"
 msgstr "En attente"
 
-#: problems/models/submission.py:226
+#: problems/models/submission.py:229
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:248
+#: problems/models/submission.py:284
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:249
+#: problems/models/submission.py:285
 msgid "Submission codes"
 msgstr "Codes soumis"
 
-#: problems/models/submission.py:273
+#: problems/models/submission.py:309
 msgid "Explicit problem unlock"
 msgstr "Déblocage explicite de problème"
 
-#: problems/models/submission.py:274
+#: problems/models/submission.py:310
 msgid "Explicit problem unlocks"
 msgstr "Déblocages explicites de problème"
 
@@ -3962,13 +3962,34 @@ msgstr "\nVos programmes sont exécutés dans une machine virtuelle architectur�
 msgid "Compilers and interpreters"
 msgstr "Compilateurs et interpréteurs"
 
-#: problems/templates/problems/manual.html:114
-msgid "unknown version"
-msgstr "version inconnue"
+#: problems/templates/problems/manual.html:116
+msgctxt "manual language table"
+msgid "Language"
+msgstr "Langage"
+
+#: problems/templates/problems/manual.html:117
+msgctxt "manual language table"
+msgid "Binary"
+msgstr "Binaire"
 
 #: problems/templates/problems/manual.html:118
-msgid "Compilation options"
-msgstr "Options de compilation"
+msgctxt "manual language table"
+msgid "Version"
+msgstr "Version"
+
+#: problems/templates/problems/manual.html:119
+msgctxt "manual language table"
+msgid "Options"
+msgstr "Options"
+
+#: problems/templates/problems/manual.html:123
+msgctxt "unknown version"
+msgid "<em>unknown</em>"
+msgstr "inconnue"
+
+#: problems/templates/problems/manual.html:136
+msgid "The program list is temporarily unavailable."
+msgstr "La liste des programmes est temporairement indisponible."
 
 #: problems/templates/problems/problem.html:23
 #, python-format
@@ -4360,6 +4381,16 @@ msgid ""
 "Your browser does not support Javascript. You will have to manually reload "
 "this page once in a while to check if results have arrived."
 msgstr "Votre navigateur ne supporte par Javascript. Vous devez manuellement rafraîchir cette page de temps en temps pour vérifier si les résultats sont arrivés."
+
+#: problems/templates/problems/submission.html:146
+#: problems/templates/problems/submission.html:147
+msgid "Camisole request"
+msgstr "Requête envoyée à camisole"
+
+#: problems/templates/problems/submission.html:158
+#: problems/templates/problems/submission.html:159
+msgid "Camisole result"
+msgstr "Résultat reçu de camisole"
 
 #: prologin/languages.py:84
 msgid "Pseudocode"
@@ -4772,11 +4803,11 @@ msgstr "Fusionner les établissements sélectionnés…"
 msgid "Add to merge"
 msgstr "Ajouter à la fusion"
 
-#: schools/models.py:81
+#: schools/models.py:79
 msgid "school"
 msgstr "établissement"
 
-#: schools/models.py:82
+#: schools/models.py:80
 msgid "schools"
 msgstr "établissements"
 
