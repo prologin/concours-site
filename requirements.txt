@@ -52,6 +52,8 @@ jinja2
 lxml
 # Markdown support
 markdown>=2.4
+# msgpack (camisole results)
+msgpack-python
 # Image manipulation support, previously known as PIL
 pillow>=2.4
 # Postgres database connector

@@ -1,8 +1,10 @@
 import logging
 import requests
+from django.utils.encoding import force_text
 
 from problems.models import SubmissionCode
 from problems.models.problem import Problem, Test, TestType
+from prologin.utils import msgpack_dumps, msgpack_loads
 
 logger = logging.getLogger(__name__)
 
@@ -15,9 +17,11 @@ def test_passes(reference: Test, test: dict):
     - meta.status shall be OK
     - stdout must be ref. stdout (except for leading and trailing whitespaces)
     """
+    # assume UnicodeDecode errors as contestant's garbage output
+    stdout = force_text(test['stdout'], strings_only=False, errors='replace').strip()
     return (test['exitcode'] == 0 and
             test['meta']['status'] == 'OK' and
-            test['stdout'].strip() == reference.stdout.strip())
+            stdout == reference.stdout.strip())
 
 
 def get_score(problem: Problem, result: dict):
@@ -76,5 +80,10 @@ def submit(uri: str, code: SubmissionCode) -> dict:
     """
     request = code.generate_request()
     logger.debug("sending to camisole: %r", request)
-    result = requests.post(uri, json=request).json()
-    return result
+    result = requests.post(
+        uri,
+        data=msgpack_dumps(request),
+        headers={'content-type': 'application/msgpack',
+                 'accept': 'application/msgpack'})
+    result.raise_for_status()
+    return msgpack_loads(result.content)

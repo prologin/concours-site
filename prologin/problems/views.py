@@ -92,6 +92,7 @@ def correct_submission(submission_code):
     except celery.exceptions.TimeoutError:
         pass
     except Exception:
+        # don't keep any result if something fails
         future.revoke()
         future.forget()
 

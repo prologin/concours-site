@@ -2,18 +2,19 @@ import pprint
 from typing import List, Optional
 
 from django.conf import settings
-from django.contrib.postgres.fields.jsonb import JSONField
 from django.db import models
 from django.db.models import F
 from django.db.models.functions import Coalesce, Greatest
 from django.urls import reverse
 from django.utils import timezone
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
 
 from problems.models.problem import Challenge, Problem, TestType, Test
 from prologin.languages import Language
 from prologin.models import CodingLanguageField
+from prologin.utils.db import MsgpackField
 from prologin.utils.rec_truncate import rec_truncate
 
 
@@ -38,11 +39,11 @@ class Result:
 
         @property
         def stdout(self):
-            return self.data['stdout']
+            return force_text(self.data['stdout'], strings_only=False, errors='replace').strip()
 
         @property
         def stderr(self):
-            return self.data['stderr']
+            return force_text(self.data['stderr'], strings_only=False, errors='replace').strip()
 
         @property
         def success(self):
@@ -201,7 +202,7 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
     date_submitted = models.DateTimeField(default=timezone.now)
     date_corrected = models.DateTimeField(null=True, blank=True)
     celery_task_id = models.CharField(max_length=128, blank=True)
-    result = JSONField(null=True, blank=True)
+    result = MsgpackField(null=True, blank=True)
 
     def done(self):
         return not self.correctable() or self.score is not None
@@ -237,11 +238,11 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
     def request_printable(self):
         req = self.generate_request()
         req = rec_truncate(req, maxlen=100)
-        return pprint.pformat(req, indent=2, width=72)
+        return pprint.pformat(req, width=72)
 
     def result_printable(self):
         rep = rec_truncate(self.result, maxlen=100)
-        return pprint.pformat(rep, indent=2, width=72)
+        return pprint.pformat(rep, width=72)
 
     def get_absolute_url(self):
         problem = self.submission.problem_model()
