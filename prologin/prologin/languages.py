@@ -77,10 +77,6 @@ class Language(ChoiceEnum):
         camisole='lua', memory=lambda m: m + 5000, time=lambda t: 10 * t)
     csharp = LanguageDef("C#", ['.cs'],
         camisole='c#', memory=lambda m: m + 50000, time=lambda t: t + 0.038)
-    fsharp = LanguageDef("F#", ['.fs'],
-        camisole='f#', memory=lambda m: m + 50000)
-    brainfuck = LanguageDef("Brainfuck", ['.bf'],
-        camisole='brainfuck', memory=lambda m: 5 * m + 20000, time=lambda t: 8 * t)
     pseudocode = LanguageDef(_("Pseudocode"), ['.txt'])
 
     def name_display(self):
@@ -174,6 +170,4 @@ PYGMENTS_LEXER_MAPPING = {
     'perl': 'perl',
     'lua': 'lua',
     'csharp': 'csharp',
-    'fsharp': 'fsharp',
-    'brainfuck': 'brainfuck',
 }
