@@ -1,5 +1,6 @@
 from django.forms.widgets import ClearableFileInput
 from django.utils.html import format_html
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -14,6 +15,6 @@ class PreviewFileInput(ClearableFileInput):
     def get_context(self, name, value, attrs):
         context = super().get_context(name, value, attrs)
         context['widget']['image_attrs'] = (
-            " ".join(format_html('{}="{}"', k, v) for k, v in self.image_attrs.items())
-            if self.image_attrs else "")
+            mark_safe(" ".join(format_html('{}="{}"', k, v) for k, v in self.image_attrs.items())
+            if self.image_attrs else ""))
         return context
