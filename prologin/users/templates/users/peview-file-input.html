@@ -1,0 +1,25 @@
+<div class="panel panel-default panel-form">
+  <div class="panel-body">
+    <div class="row">
+      <div class="col-xs-3" style="text-align: center;">
+        {% if widget.is_initial %} {# not empty #}
+          <img src="{{ widget.value.url }}?{% now 'U' %}" {{ widget.image_attrs }}/>
+        {% else %}
+          <i class="fa fa-image fa-2x text-muted"></i>
+        {% endif %}
+      </div>
+      <div class="col-xs-9">
+        <a href="#" class="btn btn-default btn-file-input">
+          <label{% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>
+            {{ widget.input_text }}
+            <input type="{{ widget.type }}" name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %} />
+          </label>
+        </a>
+        {% if widget.is_initial and not widget.required %} {# not empty and not required: clearable #}
+          <label for="{{ widget.checkbox_id }}">{{ widget.clear_checkbox_label }}</label>
+          <input type="checkbox" name="{{ widget.checkbox_name }}" id="{{ widget.checkbox_id }}" />
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
