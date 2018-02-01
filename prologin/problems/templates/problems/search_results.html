@@ -21,7 +21,7 @@
     <a href="{% qurl request.get_full_path sort='title' %}">{% trans "by title" %}</a> ⋅
     <a href="{% qurl request.get_full_path sort='year' %}">{% trans "by year" %}</a> ⋅
     <a href="{% qurl request.get_full_path sort='difficulty' %}">{% trans "by difficulty" %}</a>,
-    <a href="{% qurl request.get_full_path order='asc' %}">{% trans "ascending" %}</a> or
+    <a href="{% qurl request.get_full_path order='asc' %}">{% trans "ascending" %}</a> {% trans "or" %}
     <a href="{% qurl request.get_full_path order='desc' %}">{% trans "descending" %}</a>
   </p>
 
