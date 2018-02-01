@@ -16,7 +16,7 @@ semifinals_patterns = [
     path('contestant/<int:contestant>/convocation', documents.views.SemifinalContestantConvocationView.as_view(), name='contestant-convocation'),
     path('contestant/<int:contestant>/compilation', documents.views.SemifinalContestantCompilationView.as_view(), name='contestant-compilation'),
     path('portrayal-agreement', documents.views.SemifinalPortrayalAgreementView.as_view(), name='portrayal-agreement'),
-    re_path(r'^(?P<event>[0-9]+|all)/', include((semifinals_event_patterns, app_name))),
+    re_path(r'^(?P<event>[0-9]+|all)/', include(semifinals_event_patterns)),
 ]
 
 final_patterns = [
