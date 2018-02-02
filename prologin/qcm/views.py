@@ -20,6 +20,7 @@ class DisplayQCMView(PermissionRequiredMixin, UpdateView):
     pk_url_kwarg = 'year'
     context_object_name = 'qcm'
     form_class = qcm.forms.QcmForm
+    model = qcm.models.Qcm
     queryset = qcm.models.Qcm.full_objects.all()
     permission_required = 'qcm.view_qcm'
 
