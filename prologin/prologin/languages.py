@@ -69,8 +69,6 @@ class Language(ChoiceEnum):
         camisole='php', memory=lambda m: 5 * m + 36384, time=lambda t: 8 * t)
     js = LanguageDef("Javascript", ['.js'],
         camisole='javascript', memory=lambda m: 5 * m + 26000, time=lambda t: 5 * t)
-    vb = LanguageDef("Visual Basic", ['.vb'],
-        camisole='visualbasic', memory=lambda m: m + 50000, time=lambda t: 2 * t)
     perl = LanguageDef("Perl", ['.pl', '.perl'],
         camisole='perl', memory=lambda m: m + 5000, time=lambda t: 10 * t)
     lua = LanguageDef("Lua", ['.lua'],
@@ -150,7 +148,6 @@ ACE_LEXER_MAPPING = {
     'lua': 'lua',
     'csharp': 'csharp',
     'python': 'python',
-    'vb': 'vbscript',
     'js': 'javascript',
 }
 
@@ -166,7 +163,6 @@ PYGMENTS_LEXER_MAPPING = {
     'ada': 'ada',
     'php': 'php',
     'js': 'javascript',
-    'vb': 'vb.net',
     'perl': 'perl',
     'lua': 'lua',
     'csharp': 'csharp',
