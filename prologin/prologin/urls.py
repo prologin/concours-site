@@ -61,9 +61,6 @@ urlpatterns = [
     # Authentication and accounts
     path('user/', include('users.urls', namespace='users')),
 
-    # Marauder UI and API.
-    path('marauder/', include('marauder.urls', namespace='marauder')),
-
     # Mailing
     path('mailing/', include('mailing.urls', namespace='mailing')),
 
