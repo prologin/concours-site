@@ -23,7 +23,7 @@ django-crispy-forms
 # django-csp
 # Back-end wrapper for Datatable (jQuery plugin for dynamic table)
 # TODO: use upstream version when it's unfucked
-git+https://github.com/Zopieux/django-datatable-view.git@prologin
+git+https://github.com/prologin/django-datatable-view.git@prologin
 # Debug Toolbar
 django-debug-toolbar
 # Form wizards (they were a Django builtin, but split as of 1.8)
