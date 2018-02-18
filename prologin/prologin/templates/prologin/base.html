@@ -76,9 +76,9 @@
           {% include "prologin/main-menu.html" %}
         </div>
       </div>
-      {% include "prologin/stub-impersonate-warning.html" %}
     </div>
   </div>
+  {% include "prologin/stub-impersonate-warning.html" %}
   {% endblock super_header %}
 
   {% block super_content %}
@@ -121,19 +121,6 @@
       SEARCH_USER_URL = "{% url 'users:search-suggest' %}";
   </script>
   <script src="{% static 'js/user-search.js' %}"></script>
-  {% endif %}
-
-  {% if request.session.is_hijacked_user %}
-  {# User is being impersonated: handle impersonation warning affix #}
-  <script type="application/javascript">
-    $(function() {
-      var $warning = $('#hijacked-warning'), $warningWrapper = $('#hijacked-warning-wrapper');
-      $warningWrapper.css('min-height', $warning.height()).css('backgroundColor', 'white');
-      $warning.affix({offset: {
-        top: $('.navbar-header > .navbar > .container').outerHeight(true)
-      }});
-    });
-  </script>
   {% endif %}
 
   {% block extra_script %}{% endblock %}

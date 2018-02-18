@@ -1020,16 +1020,14 @@ label[for$="clear_id"] {
 /**
  * django-hijack
  */
-.hijacked-warning-boostrap {
-  padding: .5em 1em;
-}
-
-.hijacked-warning-boostrap.affix {
+.hijacked-warning {
+  position: sticky;
   top: 0;
-  left: 0;
-  right: 0;
-  z-index: 9;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+  z-index: 1;
+  padding: .5em 1em;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+  margin-top: -20px; /* compensate .navbar margin-bottom */
+  margin-bottom: 20px;
 }
 
 .tt-user-search .tt-empty {

@@ -27,7 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 
     # Hijack
-    path('hijack/', include('hijack.urls')),
+    path('hijack/', include('hijack.urls', namespace='hijack')),
 
     # Language selector
     path('lang/', include('django.conf.urls.i18n')),
