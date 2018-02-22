@@ -19,22 +19,18 @@ flag if you think you will need to work on `problems`.
     :::console
     # Do this once!
     git clone git@github.com:prologin/site
-    git clone --depth=1 git@github.com:prologin/problems.git
+    git clone --depth=1 git@github.com:prologin/problems
 
 ## Using a virtualenv
 
 It is recommended to use a virtualenv to isolate Prologin Python environment.
-While you can use the raw `virtualenv` tool, the following procedure makes good
-use of the [`pew` tool](https://pypi.python.org/pypi/pew/).
 
     :::console
+    cd site
     # Do this once!
-    cd /path/to/site
-    # If Python 3 executable is 'python3'
-    pew new -p $(which python3) -r requirements.txt prologin-site
-    # If Python 3 executable is 'python' (eg. ArchLinux)
-    pew new -r requirements.txt prologin-site
-    pew setproject
+    python3 -m venv .venv
+    source .venv/bin/activate
+    pip install -r requirements-txt
 
 ## Configuration
 
@@ -144,10 +140,10 @@ command instead:
 
 Every time you need to work on the website:
 
-1. Enter the virtualenv, eg. with pew:
+1. Enter the virtualenv:
 
         :::console
-        pew workon prologin-site
+        source .venv/bin/activate
 
 1. Load the right settings:
 
@@ -163,13 +159,13 @@ Every time you need to work on the website:
 1. *If needed*, you can launch a debug SMTP server to check that mails are
    correctly sent with the right content. This will print the outbound mails
    on the console.
-   
+
         :::console
         make smtpserver
-    
+
 1. *If needed* (training & contest submissions), you can launch a debug celery
    worker:
-    
+
         :::console
         make celeryworker
 
@@ -212,32 +208,32 @@ Follow the generic how-to, with the following differences:
 
         :::python
         from .semifinal_common import *
-        
+
         # You can use $ pwgen -y 64
         SECRET_KEY = 'CHANGEME'
-        
+
         # Set the right year here
         PROLOGIN_EDITION = 2016
-        
+
         # Set the right hostname, as seen by contestant's machines
         SITE_HOST = "localhost:8000"
-        
+
         # Set the right local corrector ("VM") URL
         PROBLEMS_CORRECTORS = ('http://localhost:8080/submit',)
-        
+
         # Set the right path to the problems repository
         PROBLEMS_REPOSITORY_PATH = '/home/prologin/problems'
-        
+
         # These should be OK (assuming no TLS)
         PROBLEMS_CHALLENGE_WHITELIST = ('demi{}'.format(PROLOGIN_EDITION),)
         SITE_BASE_URL = 'http://{}'.format(SITE_HOST)
-        
+
         # Uncomment and modify if needed:
-        
+
         # Time before a new problem is automatically unlocked to help pass the
         # current level
         # PROBLEMS_DEFAULT_AUTO_UNLOCK_DELAY = 15 * 60
-        
+
         # How much time spent on a problem becomes concerning
         # Format: a tuple of (warning amount, danger amount), amounts in seconds
         # SEMIFINAL_CONCERNING_TIME_SPENT = (30 * 60, 45 * 60)
@@ -249,7 +245,7 @@ Follow the generic how-to, with the following differences:
         # activate venv, export DJANGO_SETTINGS_MODULE
         $ python manage.py semifinal_bootstrap export-semifinal-2016-whatever.json
 
-* during the initial setup, you may want to set `DEBUG = True` in the settings. Do not forget to **set it to `False` 
+* during the initial setup, you may want to set `DEBUG = True` in the settings. Do not forget to **set it to `False`
   during the contest**.
 
 
@@ -259,7 +255,7 @@ Follow the generic how-to, with the following differences:
 * If the `prologin/settings/conf.example.py` file changed upstream, you may need to adapt your local settings consequently.
 * Don't put any file in `prologin/static/`. All the static files must be
   located in their application's static folder
-  (eg: `prologin/team/static/team/`). If you uses the internal web server 
+  (eg: `prologin/team/static/team/`). If you uses the internal web server
   everything will work just fine. On production servers, use `collectstatic`
   (see above).
 * Namespace template files. When writing the `index.html` template for the
