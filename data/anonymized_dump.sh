@@ -30,15 +30,16 @@ export PGOPTIONS='--client-min-messages=warning'
 
 echo
 echo "Anonymizing table users_prologinuser"
-anonymize_field users_prologinuser password
-anonymize_field users_prologinuser first_name
-anonymize_field users_prologinuser last_name
-anonymize_field users_prologinuser email "encode(digest(username, 'sha1'), 'hex')"
-anonymize_field users_prologinuser address
-anonymize_field users_prologinuser postal_code
-anonymize_field users_prologinuser city
-anonymize_field users_prologinuser country
-anonymize_field users_prologinuser phone
+# Replace all passwords by "test"
+anonymize_field users_prologinuser password "'pbkdf2_sha256$100000$vCF9hiF6rTDk$5Og7f4Z6hqv4onD7Y3dn8bzTsbejhN986xzZ747iMGU='"
+anonymize_field users_prologinuser first_name "'Joseph'"
+anonymize_field users_prologinuser last_name "'Marchand'"
+anonymize_field users_prologinuser email "encode(digest(username, 'sha256'), 'hex')"
+anonymize_field users_prologinuser address "'1 rue Ginette Fake'"
+anonymize_field users_prologinuser postal_code "'42404'"
+anonymize_field users_prologinuser city "'Donaldville'"
+anonymize_field users_prologinuser country "'Syldavie'"
+anonymize_field users_prologinuser phone "'0147200001'"
 anonymize_field users_prologinuser gender 0
 anonymize_field users_prologinuser school_stage 0
 anonymize_field users_prologinuser birthday "'2000-01-01'"
