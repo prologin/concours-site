@@ -30,6 +30,7 @@ export PGOPTIONS='--client-min-messages=warning'
 
 echo
 echo "Anonymizing table users_prologinuser"
+anonymize_field users_prologinuser username "'user-' || CAST(id AS text)"
 # Replace all passwords by "test"
 anonymize_field users_prologinuser password "'pbkdf2_sha256$100000$vCF9hiF6rTDk$5Og7f4Z6hqv4onD7Y3dn8bzTsbejhN986xzZ747iMGU='"
 anonymize_field users_prologinuser first_name "'Joseph'"
@@ -48,10 +49,12 @@ echo
 echo -n "Deleting all submission codes... "
 echo "truncate problems_submissioncode cascade" | psql "$tmpdb"
 
+echo -n "Deleting all djmail messages... "
+echo "truncate djmail_message cascade" | psql "$tmpdb"
+
 dump="prologin-anonymized-dump-$( date --iso-8601 ).psql"
-echo
 echo -n "Dumping data to $dump... "
-pg_dump --no-owner --no-privileges "$tmpdb" > "$dump"
+pg_dump -Fc --no-owner --no-privileges "$tmpdb" > "$dump"
 echo "done."
 
 echo
