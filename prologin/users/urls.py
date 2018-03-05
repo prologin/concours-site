@@ -13,6 +13,9 @@ user_patterns = [
 
     # Impersonate (django-hijack)
     path('impersonate', views.ImpersonateView.as_view(), name='impersonate'),
+
+    #Delete
+    path('delete', views.DeleteView.as_view(), name='delete'),
 ]
 
 urlpatterns = [

@@ -338,3 +338,27 @@ class UserSearchSuggestView(PermissionRequiredMixin, ListView):
                 self.request),
         } for user in self.get_queryset()]
         return JsonResponse(results, safe=False)
+
+class DeleteView(PermissionRequiredMixin,View):
+    permission_required = 'users.delete'
+
+    def get(self,request,pk):
+        model = auth.get_user_model()
+        user = get_object_or_404(model, pk=pk)
+        return render(self.request,'users/delete.html',{'delete_user' : user})
+
+    def post(self,request,pk):
+        model = auth.get_user_model()
+        user = get_object_or_404(model, pk=pk)
+
+        if self.request.user.has_perm('users.edit-during-contest'):
+            is_contest = False
+        else:
+            is_contest = (self.request.current_edition.is_active
+                          and self.request.current_events['qualification'].is_finished)
+        if is_contest:
+            messages.error(request, "You can't delete your account during the contest if you really want to, please send an email to info@prologin.fr")
+        else :
+            user.delete()
+            messages.success(request, "Your account has been succesfuly deleted")
+        return render(self.request,'users/delete_confirm.html',{'delete_user' : user})

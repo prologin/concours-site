@@ -1,0 +1,30 @@
+{% extends "prologin/base.html" %}
+{% load i18n %}
+{% load bootstrap django_bootstrap_breadcrumbs crispy_forms_tags %}
+
+{% block title %}{% blocktrans with delete_user.username as username %}Deleting {{ username }}'s account{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<h1>{% blocktrans with delete_user.username as username %}Deleting {{ username }}'s account{% endblocktrans %}</h1>
+
+
+<p>{% trans "Are you sure you sure you want to delete your account ?" %}</p>
+
+
+  <form action="" method="POST" style="margin-top: 1em">
+    {% csrf_token %}
+    <input type="hidden" name="uid" value="{{ delete_user.id }}" />
+    <div class="row">
+      <div class="col-md-4 text-center">
+        <button class="btn btn-primary" type="submit" style="height: 3em">
+          {% trans "Delete Account" %}
+        </button>
+      </div>
+      <div class="col-md-1 text-center" style="line-height: 2">{% trans "or" %}</div>
+      <div class="col-md-4 text-center">
+        <a href="{% url 'home' %}" class="btn btn-default" style="height: 3em; line-height: 2">{% trans "Come back" %}</a>
+      </div>
+    </div>
+  </form>
+
+{% endblock %}
