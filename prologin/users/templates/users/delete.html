@@ -8,23 +8,23 @@
 <h1>{% blocktrans with delete_user.username as username %}Deleting {{ username }}'s account{% endblocktrans %}</h1>
 
 
-<p>{% trans "Are you sure you sure you want to delete your account ?" %}</p>
 
+<div class="col-md-7">
+  <h2>{% trans "Enter your password to confirm" %}</h2>
 
-  <form action="" method="POST" style="margin-top: 1em">
+  <form method="POST" class="form-horizontal">
     {% csrf_token %}
-    <input type="hidden" name="uid" value="{{ delete_user.id }}" />
-    <div class="row">
-      <div class="col-md-4 text-center">
-        <button class="btn btn-primary" type="submit" style="height: 3em">
-          {% trans "Delete Account" %}
-        </button>
-      </div>
-      <div class="col-md-1 text-center" style="line-height: 2">{% trans "or" %}</div>
-      <div class="col-md-4 text-center">
-        <a href="{% url 'home' %}" class="btn btn-default" style="height: 3em; line-height: 2">{% trans "Come back" %}</a>
+    
+    {{ form|bootstrap_horizontal }}
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i> {% trans "Delete" %}</button>
+        <button type="button" class="btn btn-default" onclick="window.history.back();">{% trans "Cancel" %}</button>
       </div>
     </div>
   </form>
+ </div>
+
 
 {% endblock %}

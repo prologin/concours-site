@@ -155,3 +155,7 @@ class AuthenticationForm(DjangoAuthenticationForm):
         self.fields['username'].help_text = _("This field is case insensitive. It means capitals and small letters are "
                                               "considered to be equal.")
         self.error_messages['invalid_login'] = _("Please enter a correct username (or email) and password.")
+
+
+class PasswordConfirmForm(forms.Form):
+    password = forms.CharField(label='password', widget=forms.PasswordInput())

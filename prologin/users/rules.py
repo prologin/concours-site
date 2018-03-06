@@ -33,7 +33,7 @@ rules.add_rule('users.can-impersonate', can_impersonate)
 rules.add_perm('users.may-impersonate', rules.is_staff)
 rules.add_perm('users.search', rules.is_staff)
 rules.add_perm('users.edit', rules.is_staff | is_self)
-rules.add_perm('users.delete', rules.is_staff | is_self)
+rules.add_perm('users.delete', rules.is_superuser | is_self)
 rules.add_perm('users.edit-during-contest', rules.is_staff)
 
 
