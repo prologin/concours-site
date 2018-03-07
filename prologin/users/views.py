@@ -23,6 +23,7 @@ from prologin.utils import absolute_site_url
 import contest.models
 import users.forms
 import users.models
+from users.decorators import confirm_password
 
 
 def auto_login(request, user):
@@ -164,11 +165,7 @@ class EditUserView(PermissionRequiredMixin, UpdateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         # Make important fields read-only during contest (except if privileged)
-        if self.request.user.has_perm('users.edit-during-contest'):
-            is_contest = False
-        else:
-            is_contest = (self.request.current_edition.is_active
-                          and self.request.current_events['qualification'].is_finished)
+        is_contest = contest.models.Edition.qualification_finished(self)
         kwargs['is_contest'] = is_contest
         return kwargs
 
@@ -340,45 +337,47 @@ class UserSearchSuggestView(PermissionRequiredMixin, ListView):
         return JsonResponse(results, safe=False)
 
 
-class DeleteView(PermissionRequiredMixin, View):
+class DeleteView(PermissionRequiredMixin, UpdateView):
+    #Here apparently if it's a FormView and not a UpdateView it does not have the user and I don't know why ! great !
     permission_required = 'users.delete'
+    template_name = 'users/delete.html'
+    form_class = users.forms.ConfirmPasswordForm
+    context_object_name = 'delete_user'
 
     def get(self, request, pk):
-        model = auth.get_user_model()
-        user = get_object_or_404(model, pk=pk)
-        return render(self.request, 'users/delete.html', {
-            'delete_user': user,
-            'form': users.forms.PasswordConfirmForm
-        })
+        user = self.request.user
+        form = users.forms.ConfirmPasswordForm
+        context = {'delete_user': self.request.user, 'form': form}
+        return render(self.request, 'users/delete.html',
+                      context)  #ici que se passe bien le contexte
 
-    def post(self, request, pk):
-        model = auth.get_user_model()
-        user = get_object_or_404(model, pk=pk)
+    def get_object(self):
+        return self.request.user
 
-        form = users.forms.PasswordConfirmForm(request.POST)
-        if form.is_valid():
-            password = form.cleaned_data['password']
-            print(user.password)
-            if user.check_password(password):
-                if self.request.user.has_perm('users.edit-during-contest'):
-                    is_contest = False
-                else:
-                    is_contest = (self.request.current_edition.is_active
-                                  and self.request.
-                                  current_events['qualification'].is_finished)
-                if is_contest:
-                    messages.error(
-                        request,
-                        "You can't delete your account during the contest if you really want to, please send an email to info@prologin.fr"
-                    )
-                else:
-                    user.delete()
-                    messages.success(
-                        request, "Your account has been succesfuly deleted")
-                return render(self.request, 'users/delete_confirm.html', {})
-            else:
-                messages.error(request, "Please enter a correct password.")
-                return render(self.request, 'users/delete.html', {
-                    'delete_user': user,
-                    'form': users.forms.PasswordConfirmForm
-                })
+    def form_valid(self, *args, **kwargs):
+        user = self.request.user
+        is_contest = contest.models.Edition.qualification_finished(self)
+
+        if is_contest:
+            messages.error(
+                self.request,
+                "You can't delete your account during the contest if you really want to, please send an email to info@prologin.fr"
+            )
+        else:
+            user.logout()
+            user.delete()
+            messages.success(self.request,
+                             "Your account has been succesfuly deleted")
+        return render(self.request, 'users/delete_confirm.html', {})
+
+
+class ConfirmPasswordView(UpdateView):
+    # Not used yet but working see decorators.py
+    form_class = users.forms.ConfirmPasswordForm
+    template_name = 'users/confirm_password.html'
+
+    def get_object(self):
+        return self.request.user
+
+    def get_success_url(self):
+        return self.request.get_full_path()

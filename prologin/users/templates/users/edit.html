@@ -36,9 +36,9 @@
 
   
   <p>{% trans "Are you sure you sure you want to delete your account ?" %}</p>
-  <p>{% trans "This will delete all your personnal informations, all your posts on the forum and all the code you have submited." %}</p>
+  <p>{% trans "This will delete all your personnal information, all your posts on the forum and all the code you have submited." %}</p>
 
-  <a href="{% url 'users:delete' user.id %}" class="btn btn-danger">
+  <a href="{% url 'users:delete' edited_user.id %}" class="btn btn-danger">
   {% trans "Delete Account" %}</a>
 </div>
 
