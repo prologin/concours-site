@@ -3,8 +3,6 @@ from crispy_forms.helper import FormHelper
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm as DjangoAuthenticationForm
-from django.contrib.auth.hashers import check_password
-from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
@@ -14,6 +12,7 @@ from prologin.models import Gender
 from .widgets import PreviewFileInput
 
 User = get_user_model()
+
 
 
 class UserProfileForm(forms.ModelForm):
@@ -159,22 +158,14 @@ class AuthenticationForm(DjangoAuthenticationForm):
         self.error_messages['invalid_login'] = _("Please enter a correct username (or email) and password.")
 
 
-class ConfirmPasswordForm(forms.ModelForm):
+class ConfirmDeleteForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput())
 
     class Meta:
         model = User
         fields = ('confirm_password', )
 
-    def clean(self):
-        cleaned_data = super(ConfirmPasswordForm, self).clean()
-        confirm_password = cleaned_data.get('confirm_password')
-        if not check_password(confirm_password, self.instance.password):
-            self.add_error('confirm_password', 'Password does not match.')
-
-    def save(self, commit=True):
-        user = super(ConfirmPasswordForm, self).save(commit)
-        user.last_login = timezone.now()
-        if commit:
-            user.save()
-        return user
+    def __init__(self, user, **kwargs):
+        super().__init__(**kwargs)
+        if user.is_staff:
+            self.fields['confirm_user'] = forms.CharField()
