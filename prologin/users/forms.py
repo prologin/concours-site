@@ -14,7 +14,6 @@ from .widgets import PreviewFileInput
 User = get_user_model()
 
 
-
 class UserProfileForm(forms.ModelForm):
     readonly_during_contest = ('first_name', 'last_name', 'address', 'birthday',
                                'postal_code', 'city', 'country',)

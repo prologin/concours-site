@@ -382,11 +382,12 @@ class DeleteView(PermissionRequiredMixin, UpdateView):
         if is_contest:
             messages.error(
                 self.request,
-                "You can't delete your account during the contest if you really want to, please send an email to info@prologin.fr"
+                "You can't delete your account during the contest. "
+                "If you really want to do so, please send an email to info@prologin.fr"
             )
         else:
             delete_username = delete_user.username
             delete_user.delete()
             messages.success(self.request,
-                             delete_username + " account has been succesfuly deleted")
+                             delete_username + "'s account has been succesfully deleted")
         return render(self.request, 'users/delete_confirm.html', {})
