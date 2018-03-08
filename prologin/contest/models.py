@@ -183,16 +183,6 @@ class ContestantManager(models.Manager):
         return (super().get_queryset()
                 .select_related('edition', 'user'))
 
-    def is_contestant(self):
-        #not functional yet
-        try:
-            contestant = (super().get_queryset().select_related(
-                'edition', 'user'))
-            is_contestant = True
-        except model_contestant.DoesNotExist:
-            is_contestant = False
-        return is_contestant
-
 
 class ContestantCompleteSemifinalManager(models.Manager):
     def get_queryset(self):
