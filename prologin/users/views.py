@@ -347,7 +347,6 @@ class DeleteView(PermissionRequiredMixin, UpdateView):
         context = super().get_context_data(**kwargs)
         model = auth.get_user_model()
         context['delete_user'] = get_object_or_404(model, pk=self.kwargs['pk'])
-        context['form'] = users.forms.ConfirmDeleteForm(self.request.user)
         return context
 
     def get_form_kwargs(self):
@@ -363,7 +362,7 @@ class DeleteView(PermissionRequiredMixin, UpdateView):
         password = form.cleaned_data['confirm_password']
 
         if not user.check_password(password):
-            form.add_error('confirm_password', 'Password does not match.')
+            form.add_error('confirm_password', 'Wrong assword.')
             context = self.get_context_data()
             context['form'] = form
             return render(self.request, 'users/delete.html', context)
@@ -371,7 +370,7 @@ class DeleteView(PermissionRequiredMixin, UpdateView):
         try:
             username = form.cleaned_data['confirm_user']
             if username != delete_user.username:
-                form.add_error('confirm_user', 'Username does not match.')
+                form.add_error('confirm_user', 'Wrong username.')
                 context = self.get_context_data()
                 context['form'] = form
                 return render(self.request, 'users/delete.html', context)
