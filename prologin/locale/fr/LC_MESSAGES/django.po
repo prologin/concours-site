@@ -787,7 +787,7 @@ msgstr "Candidats"
 
 #: contest/templates/correction/by-year.html:24
 #: documents/templates/documents/semifinal-import-review.html:78
-#: problems/models/submission.py:185
+#: problems/models/submission.py:187
 msgid "Submissions"
 msgstr "Soumissions"
 
@@ -3633,80 +3633,84 @@ msgstr "Vous devez fournir un fichier source ou un code source."
 msgid "Qualifications"
 msgstr "Sélections"
 
-#: problems/models/submission.py:68
+#: problems/models/submission.py:70
 msgid "unknown"
 msgstr "inconnu"
 
-#: problems/models/submission.py:72
+#: problems/models/submission.py:74
 msgid "Compilation went fine."
 msgstr "La compilation a réussi."
 
-#: problems/models/submission.py:73
+#: problems/models/submission.py:75
 #, python-format
 msgid "Compilation exited with code %(code)s."
 msgstr "Le compilateur a quitté avec le code de retour %(code)s."
 
-#: problems/models/submission.py:74
+#: problems/models/submission.py:76
 msgid "Compilation timed out."
 msgstr "La compilation a dépassé la limite de temps."
 
-#: problems/models/submission.py:75
+#: problems/models/submission.py:77
 #, python-format
 msgid "Compilation was killed with signal %(signal)s."
 msgstr "La compilation a été tuée par le signal %(signal)s."
 
-#: problems/models/submission.py:76
+#: problems/models/submission.py:78
 msgid "Compilation crashed with an internal error."
 msgstr "La compilation a crashée à cause d'une erreur interne."
 
-#: problems/models/submission.py:84
+#: problems/models/submission.py:86
 msgid "your program executed fine, but:"
 msgstr "votre programme s'est exécuté correctement, mais :"
 
-#: problems/models/submission.py:85
+#: problems/models/submission.py:87
 #, python-format
 msgid "your program exited with code %(code)s."
 msgstr "votre programme a quitté avec le code de retour %(code)s."
 
-#: problems/models/submission.py:86
+#: problems/models/submission.py:88
 msgid "you program timed out."
 msgstr "votre programme a dépassé la limite de temps."
 
-#: problems/models/submission.py:87
+#: problems/models/submission.py:89
+msgid "your program has exceeded the memory limit."
+msgstr "votre programme a dépassé la limite de mémoire."
+
+#: problems/models/submission.py:90
 #, python-format
 msgid "your program was killed with signal %(signal)s."
 msgstr "votre programme a été tué par le signal %(signal)s."
 
-#: problems/models/submission.py:88
+#: problems/models/submission.py:91
 msgid "your program crashed with an internal error."
 msgstr "votre programme a crashé à cause d'une erreur interne."
 
-#: problems/models/submission.py:184
+#: problems/models/submission.py:187
 #: problems/templates/problems/submission.html:9
 msgid "Submission"
 msgstr "Soumission"
 
-#: problems/models/submission.py:229
+#: problems/models/submission.py:232
 msgid "Pending"
 msgstr "En attente"
 
-#: problems/models/submission.py:229
+#: problems/models/submission.py:232
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:284
+#: problems/models/submission.py:287
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:285
+#: problems/models/submission.py:288
 msgid "Submission codes"
 msgstr "Codes soumis"
 
-#: problems/models/submission.py:309
+#: problems/models/submission.py:314
 msgid "Explicit problem unlock"
 msgstr "Déblocage explicite de problème"
 
-#: problems/models/submission.py:310
+#: problems/models/submission.py:315
 msgid "Explicit problem unlocks"
 msgstr "Déblocages explicites de problème"
 

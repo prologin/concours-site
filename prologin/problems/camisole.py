@@ -86,4 +86,10 @@ def submit(uri: str, code: SubmissionCode) -> dict:
         headers={'content-type': 'application/msgpack',
                  'accept': 'application/msgpack'})
     result.raise_for_status()
-    return msgpack_loads(result.content)
+
+    # Temporary, until better API to handle MLE error status
+    dict_result = msgpack_loads(result.content)
+    for test in dict_result['tests']:
+        if test and test['meta']['cg-oom-killed'] == 1:
+            test['meta']['status'] = 'MEMORY_EXCEEDED'
+    return dict_result
