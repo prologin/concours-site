@@ -351,7 +351,7 @@ class Problem:
         limits = {'fsize': 4000}
         mem_limit = self.properties.get('mem')
         if mem_limit:
-            limits['cg-mem'] = langdef.memory_limit(mem_limit)
+            limits['mem'] = langdef.memory_limit(mem_limit)
         time_limit = self.properties.get('time')
         if time_limit:
             limits['time'] = langdef.time_limit(time_limit / 1000.)

@@ -267,7 +267,7 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
             'all_fatal': True,
             'execute': problem.execution_limits(language),
             # FIXME: this is arbitrary
-            'compile': {'cg-mem': int(1e7),
+            'compile': {'mem': int(1e7),
                         'time': 20,
                         'wall-time': 60,
                         'fsize': 4000},
