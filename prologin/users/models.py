@@ -18,7 +18,7 @@ from django_prometheus.models import ExportModelOperationsMixin
 from hijack.signals import hijack_started, hijack_ended
 from timezone_field import TimeZoneField
 
-from contest.models import Assignation
+from contest.models import Assignation, Event
 from prologin.languages import Language
 from prologin.models import (AddressableModel, GenderField,
                              CodingLanguageField, EnumField, ChoiceEnum)
@@ -158,6 +158,36 @@ class ProloginUser(
 
     def get_involved_contestants(self):
         return self.get_contestants().exclude(assignation_semifinal=Assignation.not_assigned.value)
+
+    def can_edit_profile(self, edition):
+        if edition is None:
+            # no edition, fallback to allow
+            return True
+        if self.has_perm('users.edit-during-contest'):
+            # privileged
+            return True
+        event, type = edition.phase
+        if event is None:
+            # future or finished, allow
+            return True
+        assigned_semifinal = self.contestants.filter(edition=edition, assignation_semifinal=Assignation.assigned.value).exists()
+        if event == Event.Type.qualification and type == 'corrected' and assigned_semifinal:
+            return False
+        if not assigned_semifinal:
+            return True
+        # below: assigned to semifinal
+        assigned_final = self.contestants.filter(edition=edition, assignation_final=Assignation.assigned.value).exists()
+        if event == Event.Type.semifinal:
+            if type in ('active', 'done'):
+                return False
+            if type == 'corrected' and assigned_final:
+                return False
+        if not assigned_final:
+            return True
+        # below: assigned to final
+        if event == Event.Type.final and type in ('active', 'done'):
+            return False
+        return True
 
     @property
     def preferred_language_enum(self):

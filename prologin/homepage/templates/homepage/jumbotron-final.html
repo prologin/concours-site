@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="col-sm-4">
-  <div class="tl-block last {% if phase.final == 'active' or phase.final == 'done' or phase.final == 'future' and phase.semifinal == 'corrected' %}active{% endif %}">
+  <div class="tl-block last {% if phase_event == 'semifinal' and phase_type == 'corrected' or phase_event == 'final' or phase_type == 'finished' %}active{% endif %}">
     <div class="row">
       <div class="col-xs-5 col-sm-12">
         <h4>{% trans "Final" %}</h4>
@@ -35,25 +35,23 @@
                 </a>
               </p>
             {% endwith %}
-          {% elif final.is_finished %}
+          {% elif phase_type == 'finished' %}
             {# final finished #}
-            {% if edition.final_corrected %}
-              <p>
-                <i class="fa fa-calendar-check-o"></i>
-                <strong>{% trans "The final is now finished!" %}</strong>
-              </p>
-              <p>
-                <a href="{% url 'archives:index' %}" class="btn btn-default btn-block">
-                  <i class="fa fa-trophy"></i>
-                  {% trans "Statement, results & scoreboard" %}
-                </a>
-              </p>
-            {% else %}
-              <p>
-                <i class="fa fa-clock-o"></i>
-                <strong>{% trans "The final is now finished! Stay tuned for the results." %}</strong>
-              </p>
-            {% endif %}
+            <p>
+              <i class="fa fa-calendar-check-o"></i>
+              <strong>{% trans "The final is now finished!" %}</strong>
+            </p>
+            <p>
+              <a href="{% url 'archives:index' %}" class="btn btn-default btn-block">
+                <i class="fa fa-trophy"></i>
+                {% trans "Statement, results & scoreboard" %}
+              </a>
+            </p>
+          {% elif phase_event == 'final' and phase_type == 'done' %}
+            <p>
+              <i class="fa fa-clock-o"></i>
+              <strong>{% trans "The final is now finished! Stay tuned for the results." %}</strong>
+            </p>
           {% endif %}
         </div>
       </div>

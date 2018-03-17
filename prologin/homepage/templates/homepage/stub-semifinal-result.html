@@ -1,7 +1,7 @@
 {% load i18n %}
 
 {% if request.user.is_authenticated and edition.qualification_corrected and contestant.is_assigned_for_semifinal %}
-  {% if phase.semifinal == 'future' or phase.semifinal == 'active' %}
+  {% if phase_event == 'qualification' and phase_type == 'corrected' or phase_event == 'semifinal' and phase_type == 'active' %}
     {# qualif corrected, semifinals not done, semifinals not corrected: show semifinal assignation #}
     {% with event=contestant.assignation_semifinal_event %}
       {% if event %}
@@ -20,14 +20,14 @@
         <div class="alert alert-danger"><i class="fa fa-bug"></i> <div>{% trans "The jury did not assign your regional event location. Please contact the staff as soon as possible." %}</div></div>
       {% endif %}
     {% endwith %}
-  {% elif phase.semifinal == 'done' %}
+  {% elif phase_event == 'semifinal' and phase_type == 'done' %}
     {# qualif corrected, semifinals done but not yet corrected: show please wait #}
     <p>
       <i class="fa fa-clock-o"></i>
       <strong>{% trans "The jury's decision will soon be announced by email and on the website." %}</strong>
     </p>
     <p>{% trans "You can start ahead by training for the final." %}</p>
-  {% elif phase.semifinal == 'corrected' %}
+  {% elif phase_event == 'semifinal' and phase_type == 'corrected' or phase_event == 'final' %}
     {# qualif corrected and semifinals corrected: show candidate status #}
     {% if contestant.is_assigned_for_final %}
       {# :-) #}

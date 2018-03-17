@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="col-sm-4">
-  <div class="tl-block {% if phase.qualification == 'future' or phase.qualification == 'active' or phase.qualification == 'done' %}active{% endif %}">
+  <div class="tl-block {% if phase_type == 'future' or phase_event == 'qualification' and phase_type != 'corrected' %}active{% endif %}">
     <div class="row">
       <div class="col-xs-5 col-sm-12">
         <h4>{% trans "Qualification" %}</h4>
@@ -16,16 +16,16 @@
       </div>
       <div class="col-xs-7 col-sm-12">
         <div class="desc">
-        {% if phase.qualification == 'future' %}
+        {% if phase_type == 'future' %}
           {% include "homepage/stub-qualification-future.html" %}
-        {% elif phase.qualification == 'active' %}
+        {% elif phase_event == 'qualification' and phase_type == 'active' %}
           {% include "homepage/stub-qualification-active.html" %}
-        {% elif phase.qualification == 'done' %}
+        {% elif phase_event == 'qualification' and phase_type == 'done' %}
           {% include "homepage/stub-qualification-done.html" %}
-        {% elif phase.qualification == 'corrected' %}
-          {% include "homepage/stub-qualification-corrected.html" %}
-        {% else %}
+        {% elif phase_type == 'finished' %}
           {% include "homepage/stub-qualification-finished.html" %}
+        {% else %}
+          {% include "homepage/stub-qualification-corrected.html" %}
         {% endif %}
         </div>
       </div>

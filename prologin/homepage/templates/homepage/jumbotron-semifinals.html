@@ -1,7 +1,7 @@
 {% load i18n %}
 
 <div class="col-sm-4">
-  <div class="tl-block {% if phase.semifinal == 'active' or phase.semifinal == 'done' or phase.semifinal == 'future' and phase.qualification == 'corrected' %}active{% endif %}">
+  <div class="tl-block {% if phase_event == 'qualification' and phase_type == 'corrected' or phase_event == 'semifinal' and phase_type != 'corrected' %}active{% endif %}">
     <div class="row">
       <div class="col-xs-5 col-sm-12">
         <h4>{% trans "Regional events" %}</h4>
@@ -17,11 +17,10 @@
       <div class="col-xs-7 col-sm-12">
         <div class="desc">
           <p>{% trans "Consists of a written exam and some problems to solve on the computer. Exam centers are distributed accross France large cities." %}</p>
-        {{ current_contestant.is_complete_for_semifinal }}
         {% if semifinals %}
           {% include "homepage/stub-semifinal-result.html" %}
         {% endif %}
-        {% if phase.semifinal == 'future' or phase.semifinal == 'active' %}
+        {% if phase_event == 'qualification' and phase_type == 'corrected' or phase_event == 'semifinal' and phase_type == 'active' %}
           <p>
             <a href="{% url 'problems:index' %}" class="btn btn-default btn-block">
               <i class="fa fa-tachometer"></i> {% trans "Train now" %}

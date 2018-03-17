@@ -35,5 +35,6 @@ urlpatterns = [
     path('register', views.RegistrationView.as_view(), name='register'),
     path('activate/<slug>', views.ActivationView.as_view(), name='activate'),
 
+    # Mailing unsubscribe
     path('unsubscribe', views.UnsubscribeView.as_view(), name='unsubscribe'),
 ]

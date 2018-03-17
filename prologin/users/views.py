@@ -151,7 +151,14 @@ class DownloadFinalHomeView(PermissionRequiredMixin, DetailView):
         return response
 
 
-class EditUserView(PermissionRequiredMixin, UpdateView):
+class CanEditProfileMixin:
+    def can_edit_profile(self):
+        # request user is privileged OR subject user can edit profile
+        return (self.request.user.has_perm('users.edit-during-contest')
+                or self.get_object().can_edit_profile(self.request.current_edition))
+
+
+class EditUserView(PermissionRequiredMixin, CanEditProfileMixin, UpdateView):
     model = auth.get_user_model()
     form_class = users.forms.UserProfileForm
     template_name = 'users/edit.html'
@@ -163,13 +170,7 @@ class EditUserView(PermissionRequiredMixin, UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        # Make important fields read-only during contest (except if privileged)
-        if self.request.user.has_perm('users.edit-during-contest'):
-            is_contest = False
-        else:
-            is_contest = (self.request.current_edition.is_active
-                          and self.request.current_events['qualification'].is_finished)
-        kwargs['is_contest'] = is_contest
+        kwargs['can_edit_profile'] = self.can_edit_profile()
         return kwargs
 
     def form_valid(self, form):

@@ -37,7 +37,7 @@ class UserProfileForm(forms.ModelForm):
         }
 
     def __init__(self, *args, **kwargs):
-        self.is_contest = kwargs.pop('is_contest', False)
+        self.can_edit_profile = kwargs.pop('can_edit_profile', True)
         super().__init__(*args, **kwargs)
 
         self.fields['gender'].required = False
@@ -62,7 +62,7 @@ class UserProfileForm(forms.ModelForm):
             (Gender.male.value, mark_safe(_("<em>He is writing code for the contest</em>"))),
             ("", _("Other or prefer not to tell")),
         ]
-        if self.is_contest:
+        if not self.can_edit_profile:
             for field in self.readonly_during_contest:
                 self.fields[field].widget.attrs['readonly'] = 'readonly'
                 self.fields[field].help_text = format_html(
@@ -99,7 +99,7 @@ class UserProfileForm(forms.ModelForm):
             candidate.is_home_public = self.cleaned_data['home_{}'.format(candidate.edition.year)]
             candidate.save()
 
-        if self.is_contest:
+        if not self.can_edit_profile:
             for field in self.readonly_during_contest:
                 self.cleaned_data.pop(field, None)
         return super().clean()

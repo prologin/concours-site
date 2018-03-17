@@ -47,53 +47,41 @@ class Edition(ExportModelOperationsMixin('edition'), models.Model):
     def phase(self):
         # future, active, corrected, done (finish but edition not finished), finished (edition finished)
         if self.is_in_future:
-            # future
-            qualif = semifinal = final = 'future'
-        elif self.is_active:
-            events = collections.defaultdict(list)
-            for event in (Event.objects.filter(edition__year=self.year)
-                          .order_by('date_begin', 'date_end')):
-                events[Event.Type(event.type)].append(event)
-            qualif_event = events.get(Event.Type.qualification, [None])[0]
-            semi_events = sorted(events.get(Event.Type.semifinal, []), key=lambda e: e.date_begin)
-            if semi_events:
-                first_semi = semi_events[0]
-                last_semi = semi_events[-1]
-            else:
-                first_semi = last_semi = None
-            final_event = events.get(Event.Type.final, [None])[0]
-            if self.qualification_corrected:
-                qualif = 'corrected'
-            elif qualif_event and qualif_event.is_active:
-                qualif = 'active'
-            elif qualif_event and qualif_event.is_finished:
-                qualif = 'done'
-            else:
-                qualif = 'future'
-            if self.semifinal_corrected:
-                semifinal = 'corrected'
-            elif first_semi and first_semi.date_begin <= timezone.now() <= last_semi.date_end:
-                semifinal = 'active'
-            elif last_semi and last_semi.is_finished:
-                semifinal = 'done'
-            else:
-                semifinal = 'future'
-            if self.final_corrected:
-                final = 'corrected'
-            elif final_event and final_event.is_active:
-                final = 'active'
-            elif final_event and final_event.is_finished:
-                final = 'done'
-            else:
-                final = 'future'
+            return (None, 'future')
+        if not self.is_active:
+            return (None, 'finished')
+        events = collections.defaultdict(list)
+        for event in (Event.objects.filter(edition__year=self.year)
+                      .order_by('date_begin', 'date_end')):
+            events[Event.Type(event.type)].append(event)
+        qualif_event = events.get(Event.Type.qualification, [None])[0]
+        semi_events = sorted(events.get(Event.Type.semifinal, []), key=lambda e: e.date_begin)
+        if semi_events:
+            first_semi = semi_events[0]
+            last_semi = semi_events[-1]
         else:
-            # edition finished
-            qualif = semifinal = final = 'finished'
-        return {
-            Event.Type.qualification.name: qualif,
-            Event.Type.semifinal.name: semifinal,
-            Event.Type.final.name: final,
-        }
+            first_semi = last_semi = None
+        final_event = events.get(Event.Type.final, [None])[0]
+        if final_event and self.final_corrected:
+            return (None, 'finished')
+        elif final_event and final_event.is_active:
+            return (Event.Type.final, 'active')
+        elif final_event and final_event.is_finished:
+            return (Event.Type.final, 'done')
+        elif semi_events and self.semifinal_corrected:
+            return (Event.Type.semifinal, 'corrected')
+        elif first_semi and first_semi.date_begin <= timezone.now() <= last_semi.date_end:
+            return (Event.Type.semifinal, 'active')
+        elif last_semi and last_semi.is_finished:
+            return (Event.Type.semifinal, 'done')
+        elif qualif_event and self.qualification_corrected:
+            return (Event.Type.qualification, 'corrected')
+        elif qualif_event and qualif_event.is_active:
+            return (Event.Type.qualification, 'active')
+        elif qualif_event and qualif_event.is_finished:
+            return (Event.Type.qualification, 'done')
+        else:
+            return (None, 'future')
 
     def __str__(self):
         return "Prologin {}".format(self.year)
