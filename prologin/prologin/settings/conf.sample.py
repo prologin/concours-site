@@ -1,13 +1,7 @@
 from .common import *
 import os
 
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-# You can generate a key using the following command:
-# openssl rand 64 -base64 | sed "s/[/10lO#+=]//g" | tr -d "\n"; echo
+# You can use $ pwgen -y 64
 SECRET_KEY = 'CHANGEME'
 
 # SECURITY/PERFORMANCE WARNING: don't run with DEBUG turned on in production!
@@ -18,7 +12,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '::1', 'localhost']
 SITE_HOST = "localhost:8000"
 
 # Mandatory settings:
-# PROLOGIN_EDITION = 2015
+# PROLOGIN_EDITION = 2018
 # PROBLEMS_REPOSITORY_PATH = '/path/to/problems'
 # PROBLEMS_CORRECTORS = ()
 # RECAPTCHA_PUBLIC_KEY = ''
@@ -32,8 +26,8 @@ SITE_HOST = "localhost:8000"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'dev.db.sqlite'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'prologin',
     }
 }
 

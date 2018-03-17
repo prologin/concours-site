@@ -206,38 +206,9 @@ Follow the generic how-to, with the following differences:
 
 * create the settings (eg. `prologin/settings/semifinal.py`) using the following template:
 
-        :::python
-        from .semifinal_common import *
+    cp prologin/prologin/settings/{semifinal.sample,semifinal}.py
 
-        # You can use $ pwgen -y 64
-        SECRET_KEY = 'CHANGEME'
-
-        # Set the right year here
-        PROLOGIN_EDITION = 2016
-
-        # Set the right hostname, as seen by contestant's machines
-        SITE_HOST = "localhost:8000"
-
-        # Set the right local corrector ("VM") URL
-        PROBLEMS_CORRECTORS = ('http://localhost:8080/submit',)
-
-        # Set the right path to the problems repository
-        PROBLEMS_REPOSITORY_PATH = '/home/prologin/problems'
-
-        # These should be OK (assuming no TLS)
-        PROBLEMS_CHALLENGE_WHITELIST = ('demi{}'.format(PROLOGIN_EDITION),)
-        SITE_BASE_URL = 'http://{}'.format(SITE_HOST)
-
-        # Uncomment and modify if needed:
-
-        # Time before a new problem is automatically unlocked to help pass the
-        # current level
-        # PROBLEMS_DEFAULT_AUTO_UNLOCK_DELAY = 15 * 60
-
-        # How much time spent on a problem becomes concerning
-        # Format: a tuple of (warning amount, danger amount), amounts in seconds
-        # SEMIFINAL_CONCERNING_TIME_SPENT = (30 * 60, 45 * 60)
-
+* edit the settings to match your database, edition, correctors etc.
 * do *not* create the minimal context;
 * don't forget to migrate the database for the next step;
 * import the user data you previously exported:
