@@ -83,7 +83,7 @@ class Result:
         STATUS = {
             'OK': _("your program executed fine, but:"),
             'RUNTIME_ERROR': _("your program exited with code %(code)s."),
-            'TIMED_OUT': _("you program timed out."),
+            'TIMED_OUT': _("your program timed out."),
             'SIGNALED': _("your program was killed with signal %(signal)s."),
             'INTERNAL_ERROR': _("your program crashed with an internal error."),
         }
