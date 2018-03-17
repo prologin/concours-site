@@ -164,11 +164,7 @@ class EditUserView(PermissionRequiredMixin, UpdateView):
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
         # Make important fields read-only during contest (except if privileged)
-        if self.request.user.has_perm('users.edit-during-contest'):
-            is_contest = False
-        else:
-            is_contest = (self.request.current_edition.is_active
-                          and self.request.current_events['qualification'].is_finished)
+        is_contest = contest.models.Edition.qualification_finished(self)
         kwargs['is_contest'] = is_contest
         return kwargs
 
@@ -338,3 +334,59 @@ class UserSearchSuggestView(PermissionRequiredMixin, ListView):
                 self.request),
         } for user in self.get_queryset()]
         return JsonResponse(results, safe=False)
+
+
+class DeleteView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'users.delete'
+    template_name = 'users/delete.html'
+    form_class = users.forms.ConfirmDeleteForm
+    context_object_name = 'delete_user'
+    model = auth.get_user_model()
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        model = auth.get_user_model()
+        context['delete_user'] = get_object_or_404(model, pk=self.kwargs['pk'])
+        return context
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
+
+    def form_valid(self, form, *args, **kwargs):
+
+        model = auth.get_user_model()
+        user = self.request.user
+        delete_user = get_object_or_404(model, pk=self.kwargs['pk'])
+        password = form.cleaned_data['confirm_password']
+
+        if not user.check_password(password):
+            form.add_error('confirm_password', 'Wrong assword.')
+            context = self.get_context_data()
+            context['form'] = form
+            return render(self.request, 'users/delete.html', context)
+
+        try:
+            username = form.cleaned_data['confirm_user']
+            if username != delete_user.username:
+                form.add_error('confirm_user', 'Wrong username.')
+                context = self.get_context_data()
+                context['form'] = form
+                return render(self.request, 'users/delete.html', context)
+        except KeyError:
+            pass
+
+        is_contest = contest.models.Edition.qualification_finished(self)
+        if is_contest:
+            messages.error(
+                self.request,
+                "You can't delete your account during the contest. "
+                "If you really want to do so, please send an email to info@prologin.fr"
+            )
+        else:
+            delete_username = delete_user.username
+            delete_user.delete()
+            messages.success(self.request,
+                             delete_username + "'s account has been succesfully deleted")
+        return render(self.request, 'users/delete_confirm.html', {})

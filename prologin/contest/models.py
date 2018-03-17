@@ -98,6 +98,15 @@ class Edition(ExportModelOperationsMixin('edition'), models.Model):
     def __str__(self):
         return "Prologin {}".format(self.year)
 
+    def qualification_finished(self):
+        if self.request.user.has_perm('users.edit-during-contest'):
+            is_contest = False
+        else:
+            is_contest = (
+                self.request.current_edition.is_active
+                and self.request.current_events['qualification'].is_finished)
+        return is_contest
+
 
 class EventManager(models.Manager):
     def get_queryset(self):

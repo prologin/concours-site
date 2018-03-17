@@ -1,0 +1,30 @@
+{% extends "prologin/base.html" %}
+{% load i18n %}
+{% load bootstrap django_bootstrap_breadcrumbs crispy_forms_tags %}
+
+{% block title %}{% blocktrans with delete_user.username as username %}Deleting {{ username }}'s account{% endblocktrans %}{% endblock %}
+
+{% block content %}
+<h1>{% blocktrans with delete_user.username as username %}Deleting {{ username }}'s account{% endblocktrans %}</h1>
+
+
+
+<div class="col-md-7">
+  <h2>{% trans "Enter your password to confirm" %}</h2>
+
+  <form method="POST" class="form-horizontal">
+    {% csrf_token %}
+    
+    {{ form|bootstrap_horizontal }}
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-danger"><i class="fa fa-trash-o"></i> {% trans "Delete" %}</button>
+        <button type="button" class="btn btn-default" onclick="window.history.back();">{% trans "Cancel" %}</button>
+      </div>
+    </div>
+  </form>
+ </div>
+
+
+{% endblock %}
