@@ -6,6 +6,7 @@
 * Every package from requirements.txt (see recommended procedure below)
 * Redis (for training & contest)
 * optipng (used for assets generation)
+* jq (used for assets generation)
 * texlive (for latexmk, pdflatex, and a few packages).
 
 ## Cloning
@@ -30,7 +31,7 @@ It is recommended to use a virtualenv to isolate Prologin Python environment.
     # Do this once!
     python3 -m venv .venv
     source .venv/bin/activate
-    pip install -r requirements-txt
+    pip install -r requirements.txt
 
 ## Configuration
 
