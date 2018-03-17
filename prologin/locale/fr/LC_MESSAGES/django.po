@@ -23,8 +23,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-01-31 19:34+0100\n"
-"PO-Revision-Date: 2018-01-31 18:36+0000\n"
+"POT-Creation-Date: 2018-03-17 21:08+0100\n"
+"PO-Revision-Date: 2018-03-17 20:16+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -89,7 +89,7 @@ msgstr "Télécharger l'affiche"
 msgid "Poster not available"
 msgstr "Affiche indisponible"
 
-#: archives/templates/archives/index.html:41 contest/models.py:115
+#: archives/templates/archives/index.html:41 contest/models.py:102
 #: contest/templates/contest/index.html:9
 #: contest/templates/contest/qualification-summary.html:9
 #: contest/templates/correction/contestant-qualification.html:7
@@ -145,7 +145,7 @@ msgstr "Épreuves régionales"
 msgid "Regional events report"
 msgstr "Rapport des épreuves régionales"
 
-#: archives/templates/archives/index.html:76 contest/models.py:117
+#: archives/templates/archives/index.html:76 contest/models.py:104
 #: documents/templates/documents/index.html:87
 #: homepage/templates/homepage/jumbotron-final.html:7
 msgid "Final"
@@ -313,7 +313,7 @@ msgstr "Épreuve régionale assignée"
 msgid "Assignation status"
 msgstr "Statut d'assignation"
 
-#: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:249
+#: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:237
 #: documents/templates/documents/semifinal-import-review.html:58
 #: documents/templates/documents/semifinal-import-review.html:77
 #: problems/admin.py:171 problems/templates/problems/manual.html:66
@@ -396,7 +396,7 @@ msgid ""
 "preference. Most of the time, we are able to satisfy your first choice."
 msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'épreuve régionale. Faites au moins un vœu et jusqu'à trois vœux. Vous obtiendrez très probablement votre premier vœu."
 
-#: contest/models.py:116
+#: contest/models.py:103
 #: contest/templates/correction/contestant-semifinal.html:7
 #: contest/templates/correction/semifinal.html:10
 #: contest/templates/correction/semifinal.html:14
@@ -409,73 +409,73 @@ msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'�
 msgid "Regional event"
 msgstr "Épreuve régionale"
 
-#: contest/models.py:213
+#: contest/models.py:200
 msgid "Not assigned"
 msgstr "Non assigné"
 
-#: contest/models.py:214
+#: contest/models.py:201
 msgid "Ruled out"
 msgstr "Éliminé"
 
-#: contest/models.py:215
+#: contest/models.py:202
 msgid "Assigned"
 msgstr "Assigné"
 
-#: contest/models.py:226
+#: contest/models.py:213
 msgid "T-shirt size"
 msgstr "Taille du t-shirt"
 
-#: contest/models.py:226
+#: contest/models.py:213
 msgid "Choose your size"
 msgstr "Choisissez votre taille"
 
-#: contest/models.py:227
+#: contest/models.py:214
 msgid "We usually provide unisex Prologin t-shirts to the finalists."
 msgstr "Nous fournissons le plus souvent des t-shirts unisexe aux finalistes."
 
-#: contest/models.py:229
+#: contest/models.py:216
 msgid ""
 "The programming language you will most likely use during the regional "
 "events."
 msgstr "Le langage de programmation que vous utiliserez le plus probablement pour l'épreuve régionale."
 
-#: contest/models.py:233
+#: contest/models.py:220
 msgid "Regional event assignation status"
 msgstr "Assignation d'épreuve régionale"
 
-#: contest/models.py:236
+#: contest/models.py:223
 msgid "Regional event assignation whishes"
 msgstr "Vœux d'assignation épreuve régionale"
 
-#: contest/models.py:238
+#: contest/models.py:226
 msgid "Regional event assigned event"
 msgstr "Événement assigné pour l'épreuve régionale"
 
-#: contest/models.py:240
+#: contest/models.py:228
 msgid "Final assignation status"
 msgstr "Assignation de finale"
 
-#: contest/models.py:242
+#: contest/models.py:230
 msgid "Quiz score"
 msgstr "Score du quiz"
 
-#: contest/models.py:243
+#: contest/models.py:231
 msgid "Algo exercises score"
 msgstr "Score des exercices d'algo"
 
-#: contest/models.py:244 contest/models.py:248 contest/models.py:250
+#: contest/models.py:232 contest/models.py:236 contest/models.py:238
 msgid "Bonus score"
 msgstr "Score bonus"
 
-#: contest/models.py:245
+#: contest/models.py:233
 msgid "Written exam score"
 msgstr "Score de l'épreuve écrite"
 
-#: contest/models.py:246
+#: contest/models.py:234
 msgid "Interview score"
 msgstr "Score de l'entretien"
 
-#: contest/models.py:247
+#: contest/models.py:235
 msgid "Machine exam score"
 msgstr "Score de l'épreuve machine"
 
@@ -516,7 +516,7 @@ msgstr "Classement"
 #: contest/templates/contest/interschool-leaderboard.html:5
 #: contest/templates/contest/interschool-leaderboard.html:9
 #: contest/templates/contest/interschool-leaderboard.html:15
-#: homepage/templates/homepage/school-challenge-leaderboard.html:3
+#: homepage/templates/homepage/school-challenge-leaderboard.html:5
 msgid "Inter-school challenge"
 msgstr "Challenge des établissements scolaires"
 
@@ -787,7 +787,7 @@ msgstr "Candidats"
 
 #: contest/templates/correction/by-year.html:24
 #: documents/templates/documents/semifinal-import-review.html:78
-#: problems/models/submission.py:185
+#: problems/models/submission.py:192
 msgid "Submissions"
 msgstr "Soumissions"
 
@@ -929,23 +929,23 @@ msgstr "Vous devez spécifier davantage de vœux pour votre centre d'épreuve r�
 msgid "You cannot participate if you are born before %(year)s."
 msgstr "Vous ne pouvez pas participer si vous êtes né avant %(year)s."
 
-#: contest/widgets.py:14
+#: contest/widgets.py:12
 msgid "First choice"
 msgstr "Premier choix"
 
-#: contest/widgets.py:14
+#: contest/widgets.py:12
 msgid "Second choice"
 msgstr "Deuxième choix"
 
-#: contest/widgets.py:14
+#: contest/widgets.py:12
 msgid "Third choice"
 msgstr "Troisième choix"
 
-#: contest/widgets.py:33
+#: contest/widgets.py:31
 msgid "Choice"
 msgstr "Choix"
 
-#: contest/widgets.py:97
+#: contest/widgets.py:71
 #, python-format
 msgid "You must provide at least %(count)d choice."
 msgid_plural "You must provide at least %(count)d choices."
@@ -1593,14 +1593,14 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:22 mailing/models.py:54 mailing/models.py:138
+#: forum/models.py:22 mailing/models.py:55 mailing/models.py:139
 #: problems/templates/problems/challenge-scoreboard.html:24
 #: schools/templates/admin/schools/merge.html:56
 #: semifinal/templates/semifinal/stub-scoreboard.html:9
 msgid "Name"
 msgstr "Nom"
 
-#: forum/models.py:24 mailing/models.py:55 mailing/models.py:139
+#: forum/models.py:24 mailing/models.py:56 mailing/models.py:140
 msgid "Description"
 msgstr "Description"
 
@@ -1608,7 +1608,7 @@ msgstr "Description"
 msgid "Number of threads"
 msgstr "Nombre de sujets"
 
-#: forum/models.py:28 forum/models.py:94
+#: forum/models.py:28 forum/models.py:95
 msgid "Number of posts"
 msgstr "Nombre de posts"
 
@@ -1664,31 +1664,31 @@ msgstr "Statut du suje"
 msgid "Visible"
 msgstr "Visible"
 
-#: forum/models.py:95
+#: forum/models.py:96
 msgid "Last post added on"
 msgstr "Dernier post ajouté le"
 
-#: forum/models.py:104
+#: forum/models.py:105
 msgid "Thread"
 msgstr "Sujet"
 
-#: forum/models.py:105
+#: forum/models.py:106
 msgid "Threads"
 msgstr "Sujet"
 
-#: forum/models.py:200
+#: forum/models.py:201
 msgid "Content"
 msgstr "Contenu"
 
-#: forum/models.py:205
+#: forum/models.py:207
 msgid "Edit reason"
 msgstr "Raison de l'édition"
 
-#: forum/models.py:216
+#: forum/models.py:218
 msgid "Post"
 msgstr "Article"
 
-#: forum/models.py:217
+#: forum/models.py:219
 msgid "Posts"
 msgstr "Articles"
 
@@ -1973,7 +1973,7 @@ msgid ""
 msgstr "Développement d'une intelligence artificielle pour un jeu multi-joueur pendant un week-end, à Paris."
 
 #: homepage/templates/homepage/jumbotron-final.html:21
-#: homepage/templates/homepage/jumbotron-semifinals.html:27
+#: homepage/templates/homepage/jumbotron-semifinals.html:26
 #: homepage/templates/homepage/stub-qualification-future.html:19
 msgid "Train now"
 msgstr "S'entraîner"
@@ -1987,15 +1987,15 @@ msgstr "La finale aura lieu à&nbsp;:"
 msgid "Download paperwork"
 msgstr "Télécharger les documents"
 
-#: homepage/templates/homepage/jumbotron-final.html:43
+#: homepage/templates/homepage/jumbotron-final.html:42
 msgid "The final is now finished!"
 msgstr "La finale est maintenant terminée&nbsp;!"
 
-#: homepage/templates/homepage/jumbotron-final.html:48
+#: homepage/templates/homepage/jumbotron-final.html:47
 msgid "Statement, results & scoreboard"
 msgstr "Sujet, résultats & classement"
 
-#: homepage/templates/homepage/jumbotron-final.html:54
+#: homepage/templates/homepage/jumbotron-final.html:53
 msgid "The final is now finished! Stay tuned for the results."
 msgstr "La finale est maintenant terminée&nbsp;! Restez à l'écoute pour connaître les résultats."
 
@@ -2016,7 +2016,7 @@ msgstr "Vous êtes né en %(born_year)s ou après&nbsp;? Participez à Prologin&
 msgid "Unknown date"
 msgstr "Date inconnue"
 
-#: homepage/templates/homepage/school-challenge-leaderboard.html:6
+#: homepage/templates/homepage/school-challenge-leaderboard.html:8
 msgid "Full leaderboard"
 msgstr "Classement complet"
 
@@ -2211,69 +2211,69 @@ msgstr "Envoyer"
 msgid "Actually send to %(n)s people right now"
 msgstr "Vraiment envoyer à %(n)s personnes, immédiatement"
 
-#: mailing/models.py:56
+#: mailing/models.py:57
 msgid "Subject template"
 msgstr "Gabarit du sujet"
 
-#: mailing/models.py:57
+#: mailing/models.py:58
 msgid "Plaintext body template"
 msgstr "Gabarit en texte brut"
 
-#: mailing/models.py:58
+#: mailing/models.py:59
 msgid "HTML body template"
 msgstr "Gabarit en HTML"
 
-#: mailing/models.py:62 mailing/models.py:220
+#: mailing/models.py:63 mailing/models.py:221
 #: mailing/templates/mailing/batch-emails.html:20
 #: mailing/templates/mailing/batch-list.html:26
 #: mailing/templates/mailing/template/details.html:45
 msgid "Template"
 msgstr "Gabarit"
 
-#: mailing/models.py:63 mailing/templates/mailing/dashboard.html:27
+#: mailing/models.py:64 mailing/templates/mailing/dashboard.html:27
 #: mailing/templates/mailing/template/details.html:15
 msgid "Templates"
 msgstr "Gabarits"
 
-#: mailing/models.py:140 mailing/models.py:146 mailing/models.py:221
+#: mailing/models.py:141 mailing/models.py:147 mailing/models.py:222
 #: mailing/templates/mailing/batch-emails.html:21
 #: mailing/templates/mailing/batch-list.html:27 problems/forms.py:15
 msgid "Query"
 msgstr "Requête"
 
-#: mailing/models.py:142
+#: mailing/models.py:143
 msgid "Useful with templates"
 msgstr "Utile avec les gabarits"
 
-#: mailing/models.py:147 mailing/templates/mailing/dashboard.html:48
+#: mailing/models.py:148 mailing/templates/mailing/dashboard.html:48
 #: mailing/templates/mailing/query/details.html:15
 msgid "Queries"
 msgstr "Requêtes"
 
-#: mailing/models.py:174
+#: mailing/models.py:175
 #, python-format
 msgid "The root model is not %(model)s. You must provide a `user` alias."
 msgstr "Le modèle racine n'est pas %(model)s. Vous devez fournir un alias `user`."
 
-#: mailing/models.py:179
+#: mailing/models.py:180
 #, python-format
 msgid "%(label)s.%(field)s is not %(model)s"
 msgstr "%(label)s.%(field)s n'est pas %(model)s"
 
-#: mailing/models.py:182
+#: mailing/models.py:183
 #, python-format
 msgid "%(label)s has no field `%(field)s`"
 msgstr "%(label)s n'a pas de champ `%(field)s`"
 
-#: mailing/models.py:219
+#: mailing/models.py:220
 msgid "Optional name"
 msgstr "Nom (optionnel)"
 
-#: mailing/models.py:227 mailing/templates/mailing/batch-emails.html:5
+#: mailing/models.py:228 mailing/templates/mailing/batch-emails.html:5
 msgid "Batch"
 msgstr "Lot"
 
-#: mailing/models.py:228 mailing/templates/mailing/batch-create.html:10
+#: mailing/models.py:229 mailing/templates/mailing/batch-create.html:10
 #: mailing/templates/mailing/batch-emails.html:10
 #: mailing/templates/mailing/batch-list.html:5
 #: mailing/templates/mailing/batch-list.html:10
@@ -2282,7 +2282,7 @@ msgstr "Lot"
 msgid "Batches"
 msgstr "Lots"
 
-#: mailing/models.py:234
+#: mailing/models.py:235
 #, python-format
 msgid "Batch %(id)s"
 msgstr "Lot %(id)s"
@@ -2531,19 +2531,19 @@ msgstr "Force opérationnelle"
 msgid "Task forces"
 msgstr "Forces opérationnelles"
 
-#: marauder/models.py:67
+#: marauder/models.py:68
 msgid "User profile"
 msgstr "Profil utilisateur"
 
-#: marauder/models.py:68
+#: marauder/models.py:69
 msgid "User profiles"
 msgstr "Profils utilisateurs"
 
-#: marauder/models.py:117
+#: marauder/models.py:119
 msgid "Event settings"
 msgstr "Paramètres d'événement"
 
-#: marauder/models.py:118
+#: marauder/models.py:120
 msgid "Events settings"
 msgstr "Paramètres d'événements"
 
@@ -3633,80 +3633,80 @@ msgstr "Vous devez fournir un fichier source ou un code source."
 msgid "Qualifications"
 msgstr "Sélections"
 
-#: problems/models/submission.py:68
+#: problems/models/submission.py:72
 msgid "unknown"
 msgstr "inconnu"
 
-#: problems/models/submission.py:72
+#: problems/models/submission.py:76
 msgid "Compilation went fine."
 msgstr "La compilation a réussi."
 
-#: problems/models/submission.py:73
+#: problems/models/submission.py:77
 #, python-format
 msgid "Compilation exited with code %(code)s."
 msgstr "Le compilateur a quitté avec le code de retour %(code)s."
 
-#: problems/models/submission.py:74
+#: problems/models/submission.py:78
 msgid "Compilation timed out."
 msgstr "La compilation a dépassé la limite de temps."
 
-#: problems/models/submission.py:75
+#: problems/models/submission.py:79
 #, python-format
 msgid "Compilation was killed with signal %(signal)s."
 msgstr "La compilation a été tuée par le signal %(signal)s."
 
-#: problems/models/submission.py:76
+#: problems/models/submission.py:80
 msgid "Compilation crashed with an internal error."
 msgstr "La compilation a crashée à cause d'une erreur interne."
 
-#: problems/models/submission.py:84
+#: problems/models/submission.py:91
 msgid "your program executed fine, but:"
 msgstr "votre programme s'est exécuté correctement, mais :"
 
-#: problems/models/submission.py:85
+#: problems/models/submission.py:92
 #, python-format
 msgid "your program exited with code %(code)s."
 msgstr "votre programme a quitté avec le code de retour %(code)s."
 
-#: problems/models/submission.py:86
-msgid "you program timed out."
-msgstr "votre programme a dépassé la limite de temps."
+#: problems/models/submission.py:93
+msgid "your program timed out."
+msgstr ""
 
-#: problems/models/submission.py:87
+#: problems/models/submission.py:94
 #, python-format
 msgid "your program was killed with signal %(signal)s."
 msgstr "votre programme a été tué par le signal %(signal)s."
 
-#: problems/models/submission.py:88
+#: problems/models/submission.py:95
 msgid "your program crashed with an internal error."
 msgstr "votre programme a crashé à cause d'une erreur interne."
 
-#: problems/models/submission.py:184
+#: problems/models/submission.py:191
 #: problems/templates/problems/submission.html:9
 msgid "Submission"
 msgstr "Soumission"
 
-#: problems/models/submission.py:229
+#: problems/models/submission.py:236
 msgid "Pending"
 msgstr "En attente"
 
-#: problems/models/submission.py:229
+#: problems/models/submission.py:236
 msgid "Corrected"
 msgstr "Corrigé"
 
-#: problems/models/submission.py:284
+#: problems/models/submission.py:291
 msgid "Submission code"
 msgstr "Code soumis"
 
-#: problems/models/submission.py:285
+#: problems/models/submission.py:292
 msgid "Submission codes"
 msgstr "Codes soumis"
 
-#: problems/models/submission.py:309
+#: problems/models/submission.py:318
 msgid "Explicit problem unlock"
 msgstr "Déblocage explicite de problème"
 
-#: problems/models/submission.py:310
+#: problems/models/submission.py:319
 msgid "Explicit problem unlocks"
 msgstr "Déblocages explicites de problème"
 
@@ -4171,6 +4171,11 @@ msgstr "par difficulté"
 msgid "ascending"
 msgstr "croissant"
 
+#: problems/templates/problems/search_results.html:24
+#: users/templates/users/unsubscribe.html:39
+msgid "or"
+msgstr "ou"
+
 #: problems/templates/problems/search_results.html:25
 msgid "descending"
 msgstr "décroissant"
@@ -4231,39 +4236,39 @@ msgstr "à"
 msgid "Search"
 msgstr "Rechercher"
 
-#: problems/templates/problems/stub_submission_result.html:6
+#: problems/templates/problems/stub_submission_result.html:7
 msgid "Test skipped."
 msgstr "Test ignoré."
 
-#: problems/templates/problems/stub_submission_result.html:12
+#: problems/templates/problems/stub_submission_result.html:13
 msgid "Run time"
 msgstr "Temps d'exécution"
 
-#: problems/templates/problems/stub_submission_result.html:16
+#: problems/templates/problems/stub_submission_result.html:17
 msgid "Memory"
 msgstr "Mémoire"
 
-#: problems/templates/problems/stub_submission_result.html:21
+#: problems/templates/problems/stub_submission_result.html:22
 msgid "Test passed!"
 msgstr "Test passé&nbsp;!"
 
-#: problems/templates/problems/stub_submission_result.html:23
+#: problems/templates/problems/stub_submission_result.html:24
 msgid "Test failed:"
 msgstr "Test échoué :"
 
-#: problems/templates/problems/stub_submission_result.html:25
+#: problems/templates/problems/stub_submission_result.html:26
 msgid "Detailed output is hidden."
 msgstr "Le détail du résultat est caché."
 
-#: problems/templates/problems/stub_submission_result.html:28
+#: problems/templates/problems/stub_submission_result.html:29
 msgid "Expected standard output:"
 msgstr "Sortie standard attendue :"
 
-#: problems/templates/problems/stub_submission_result.html:30
+#: problems/templates/problems/stub_submission_result.html:31
 msgid "Standard output of your program:"
 msgstr "Sortie standard du programme :"
 
-#: problems/templates/problems/stub_submission_result.html:33
+#: problems/templates/problems/stub_submission_result.html:34
 msgid "Standard error of your program:"
 msgstr "Sortie d'erreur du programme :"
 
@@ -4392,7 +4397,7 @@ msgstr "Requête envoyée à camisole"
 msgid "Camisole result"
 msgstr "Résultat reçu de camisole"
 
-#: prologin/languages.py:84
+#: prologin/languages.py:78
 msgid "Pseudocode"
 msgstr "Pseudo-code"
 
@@ -4404,7 +4409,7 @@ msgstr "Homme"
 msgid "Female"
 msgstr "Femme"
 
-#: prologin/models.py:52 users/forms.py:63
+#: prologin/models.py:52 users/forms.py:65
 msgid "Other or prefer not to tell"
 msgstr "Autre ou préfère ne pas le dire"
 
@@ -4525,7 +4530,7 @@ msgstr "Prologin, le concours d'informatique : faire découvrir la programmation
 msgid "Latest blog articles"
 msgstr "Dernières actualités"
 
-#: prologin/templates/prologin/base.html:115
+#: prologin/templates/prologin/base.html:120
 msgid "No user matching query"
 msgstr "Aucun utilisateur correspondant"
 
@@ -4631,16 +4636,28 @@ msgstr "Déconnexion"
 msgid "Sign in"
 msgstr "Connexion"
 
-#: prologin/templates/prologin/stub-impersonate-warning.html:8
+#: prologin/templates/prologin/main-menu.html:53
+#: users/templates/users/register.html:7
+#: users/templates/users/register.html:10
+#: users/templates/users/register.html:15
+#: users/templates/users/register.html:23
+msgid "Register"
+msgstr "S'inscrire"
+
+#: prologin/templates/prologin/messages.html:13
+msgid "Close"
+msgstr "Fermer"
+
+#: prologin/templates/prologin/stub-impersonate-warning.html:7
 msgid "Exit session"
 msgstr "Terminer la session"
 
-#: prologin/templates/prologin/stub-impersonate-warning.html:11
+#: prologin/templates/prologin/stub-impersonate-warning.html:10
 #, python-format
 msgid ""
 "You are currently browsing on behalf of <strong>%(user)s</strong>. Keep\n"
-"          focused."
-msgstr "Vous naviguez actuellement sous l'identité de <strong>%(user)s</strong>. Restez alerte."
+"        focused."
+msgstr ""
 
 #: prologin/templates/stub_pagination.html:7
 msgid "First"
@@ -4673,17 +4690,25 @@ msgctxt "File size unit"
 msgid "bytes"
 msgstr "octets"
 
-#: prologin/utils/__init__.py:244
+#: prologin/utils/__init__.py:245
 msgid "year"
 msgstr "année"
 
-#: prologin/utils/__init__.py:245
+#: prologin/utils/__init__.py:246
 msgid "month"
 msgstr "mois"
 
-#: prologin/utils/__init__.py:246
+#: prologin/utils/__init__.py:247
 msgid "day"
 msgstr "jour"
+
+#: prologin/utils/forms.py:17
+msgid "Your current password"
+msgstr "Votre actuel mot de passe"
+
+#: prologin/utils/forms.py:26
+msgid "Wrong password."
+msgstr "Mot de passe incorrect."
 
 #: qcm/admin.py:41
 msgid "Questions"
@@ -4711,7 +4736,7 @@ msgstr "Réponse %(id)s: %(answer)s"
 msgid "Answer %(id)s"
 msgstr "Réponse %(id)s"
 
-#: qcm/admin.py:97 qcm/models.py:113
+#: qcm/admin.py:97 qcm/models.py:114
 msgid "Question"
 msgstr "Question"
 
@@ -4719,11 +4744,11 @@ msgstr "Question"
 msgid "Is correct"
 msgstr "Est correct"
 
-#: qcm/forms.py:73
+#: qcm/forms.py:54
 msgid "Put your answer here"
 msgstr "Écrivez votre réponse ici"
 
-#: qcm/forms.py:80
+#: qcm/forms.py:61
 msgid "I don't know"
 msgstr "Je ne sais pas"
 
@@ -4735,11 +4760,11 @@ msgstr "Corps de la question"
 msgid "Verbose description"
 msgstr "Description supplémentaire"
 
-#: qcm/models.py:129
+#: qcm/models.py:132
 msgid "Answer"
 msgstr "Réponse"
 
-#: qcm/models.py:131
+#: qcm/models.py:135
 msgid "Textual answer"
 msgstr "Réponse texte"
 
@@ -4783,7 +4808,7 @@ msgstr "Enregistrer les nouvelles réponses"
 msgid "Check your answers"
 msgstr "Vérifiez vos réponses"
 
-#: qcm/views.py:63
+#: qcm/views.py:64
 msgid "Your new answers have been saved."
 msgstr "Vos nouvelles réponses ont été enregistrées."
 
@@ -5005,7 +5030,7 @@ msgstr "Connexion"
 msgid "Active"
 msgstr "Actif"
 
-#: team/admin.py:8 team/admin.py:34 team/models.py:103
+#: team/admin.py:8 team/admin.py:34 team/models.py:104
 msgid "Role"
 msgstr "Rôle"
 
@@ -5143,11 +5168,11 @@ msgctxt "female role"
 msgid "External organizer"
 msgstr "Organisatrice externe"
 
-#: team/models.py:114
+#: team/models.py:115
 msgid "Team member"
 msgstr "Membre de l'équipe"
 
-#: team/models.py:115
+#: team/models.py:116
 msgid "Team members"
 msgstr "Membres de l'équipe"
 
@@ -5181,74 +5206,86 @@ msgstr "Identité publique"
 msgid "Settings"
 msgstr "Préférences"
 
-#: users/forms.py:44
+#: users/forms.py:46
 msgid "How do you prefer to be described?"
 msgstr "Comment préférez-vous qu'on parle de vous ?"
 
-#: users/forms.py:53
+#: users/forms.py:55
 #, python-format
 msgid "%(year)s final home"
 msgstr "“home” de la finale %(year)s "
 
-#: users/forms.py:61
+#: users/forms.py:63
 msgid "<em>She is writing code for the contest</em>"
 msgstr "<em>Elle écrit du code pour le concours.</em>"
 
-#: users/forms.py:62
+#: users/forms.py:64
 msgid "<em>He is writing code for the contest</em>"
 msgstr "<em>Il écrit du code pour le concours.</em>"
 
-#: users/forms.py:70
+#: users/forms.py:72
 msgid ""
 "You can not change your details during the contest. If there is an important"
 " change you want to make, please contact the staff."
 msgstr "Vous ne pouvez pas modifier vos informations pendant le concours. Si vous devez effectuer un changement, veuillez contacter l'équipe."
 
-#: users/forms.py:82
+#: users/forms.py:84
 msgid "Public homes"
 msgstr "“Homes” publiques"
 
-#: users/forms.py:85
+#: users/forms.py:87
 msgid "Checked editions will make the files available for download to anyone."
 msgstr "Les éditions cochées rendront vos fichiers téléchargeables par tout le monde."
 
-#: users/forms.py:111
+#: users/forms.py:113
 msgid ""
 "Please check the box above and complete the additional tasks if any. This is"
 " required to fight spamming bots on the website."
 msgstr "Veuillez cocher la case ci-dessus et réaliser les éventuelles opérations supplémentaires. Cela permet de se prémunir des robots."
 
-#: users/forms.py:127
+#: users/forms.py:129
 msgid "This username is already in use. Please supply a different username."
 msgstr "Ce nom d'utilisateur est déjà utilisé. Merci d'en choisir un autre."
 
-#: users/forms.py:133
+#: users/forms.py:135
 msgid ""
 "This email address is already in use. Please supply a different email "
 "address."
 msgstr "Cette adresse e-mail est déjà utilisée. Merci d'en choisir une autre."
 
-#: users/forms.py:147
+#: users/forms.py:149
 msgid "Email"
 msgstr "E-mail"
 
-#: users/forms.py:148
+#: users/forms.py:150
 msgid "Your email address"
 msgstr "Votre adresse e-mail"
 
-#: users/forms.py:154
+#: users/forms.py:156
 msgid "Username or email"
 msgstr "Nom d'utilisateur ou e-mail"
 
-#: users/forms.py:155
+#: users/forms.py:157
 msgid ""
 "This field is case insensitive. It means capitals and small letters are "
 "considered to be equal."
 msgstr "Ce champ est insensible à la casse. Cela signifie qu'il n'y a pas de différence entre majuscules et minuscules."
 
-#: users/forms.py:157
+#: users/forms.py:159
 msgid "Please enter a correct username (or email) and password."
 msgstr "Saisissez un nom d'utilisateur (ou adresse e-mail) et un mot de passe corrects."
+
+#: users/forms.py:164
+msgid "Your username"
+msgstr "Votre nom d'utilisateur"
+
+#: users/forms.py:165
+msgid "Type your username to confirm you know what you are doing."
+msgstr "Saisissez votre nom d'utilisateur pour confirmer que vous réalisez ce que vous allez faire."
+
+#: users/forms.py:181
+msgid "Wrong username."
+msgstr "Nom d'utilisateur incorrect."
 
 #: users/models.py:87
 msgid "Middle school"
@@ -5333,6 +5370,7 @@ msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
 #: users/templates/registration/password_reset_confirm.html:7
+#: users/templates/users/delete-confirm.html:7
 #: users/templates/users/edit.html:7
 #: users/templates/users/edit_password.html:7
 #: users/templates/users/profile.html:7
@@ -5362,6 +5400,44 @@ msgid ""
 "Take extra care."
 msgstr "Attention ! Vous modifiez les informations d'un autre membre, en votre qualité de membre d'équipe. Restez concentré."
 
+#: users/templates/users/delete-confirm.html:12
+#: users/templates/users/delete-confirm.html:15
+#, python-format
+msgid "Delete %(username)s account"
+msgstr "Supprimer le compte de %(username)s"
+
+#: users/templates/users/delete-confirm.html:17
+msgid "Are you sure you want to delete your account?"
+msgstr "Voulez-vous vraiment supprimer votre compte ?"
+
+#: users/templates/users/delete-confirm.html:18
+msgid "This will delete all your personal information, including:"
+msgstr "Cela aura pour effet de supprimer toutes vos données personnelles, notamment&nbsp;:"
+
+#: users/templates/users/delete-confirm.html:20
+msgid "the codes you submitted during training and contest"
+msgstr "les codes que vous avez soumis en entraînement et pendant les épreuves"
+
+#: users/templates/users/delete-confirm.html:21
+msgid "your forum messages"
+msgstr "vos messages sur les forums"
+
+#: users/templates/users/delete-confirm.html:22
+msgid "your participation history in the contest"
+msgstr "votre historique de participation au concours"
+
+#: users/templates/users/delete-confirm.html:25
+msgid ""
+"\n"
+"    This action <strong>cannot be reverted</strong>, in compliance with GDPR article 17. You will be logged out\n"
+"    immediately after clicking the button below. To proceed, provide your username and password and confirm.\n"
+"    "
+msgstr "\nCette action <strong>ne peut pas être annulée</strong>, conformément l'article 17 du RGPD. Vous serez immédiatement déconnecté⋅e après avoir cliqué sur le bouton ci-dessous. Pour continuer, fournissez votre nom d'utilisateur, votre mot de passe et confirmez."
+
+#: users/templates/users/delete-confirm.html:36
+msgid "Delete and log out"
+msgstr "Supprimer et déconnecter"
+
 #: users/templates/users/edit.html:12 users/templates/users/edit.html:15
 #, python-format
 msgid "Editing %(username)s's profile"
@@ -5380,6 +5456,20 @@ msgstr "N'oubliez pas de cliquer sur « Enregistrer » en bas lorsque vous ave
 #: users/templates/users/edit_password.html:25
 msgid "Save"
 msgstr "Enregistrer"
+
+#: users/templates/users/edit.html:30
+msgid "Danger zone"
+msgstr "Zone de danger"
+
+#: users/templates/users/edit.html:34 users/templates/users/edit.html:36
+msgid "Delete your account"
+msgstr "Supprimer votre compte"
+
+#: users/templates/users/edit.html:37
+msgid ""
+"You cannot delete your account while participating to the contest. If "
+"needed, contact the staff."
+msgstr "Vous ne pouvez pas supprimer votre compte alors que vous participez au concours. Si besoin, contactez l'équipe."
 
 #: users/templates/users/edit_password.html:13
 #: users/templates/users/edit_password.html:16
@@ -5569,14 +5659,7 @@ msgid ""
 "                %(role)s"
 msgstr "%(year)s ⋅ %(role)s"
 
-#: users/templates/users/register.html:7
-#: users/templates/users/register.html:10
-#: users/templates/users/register.html:13
-#: users/templates/users/register.html:22
-msgid "Register"
-msgstr "S'inscrire"
-
-#: users/templates/users/register.html:15
+#: users/templates/users/register.html:16
 msgid ""
 "Please choose a username. You must use a valid email address, as you will "
 "receive a message to confirm your registration."
@@ -5615,10 +5698,6 @@ msgid ""
 "  "
 msgstr "Pour rappel, nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/templates/users/unsubscribe.html:39
-msgid "or"
-msgstr "ou"
-
 #: users/templates/users/unsubscribe.html:41
 msgid "Stay subscribed"
 msgstr "Conserver l'abonnement"
@@ -5637,22 +5716,18 @@ msgid ""
 "  from Prologin."
 msgstr "a été désinscrit et ne recevra plus d'e-mails de Prologin."
 
-#: users/views.py:80
+#: users/views.py:72
 #, python-format
 msgid ""
 "Your account was created. We sent an email to %(mail)s so you can confirm "
 "your registration."
 msgstr "Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s pour que vous puissiez confirmer votre inscription."
 
-#: users/views.py:102
+#: users/views.py:95
 msgid "Your account was activated. Enjoy your visit!"
 msgstr "Votre compte est activé. Bonne visite&nbsp;!"
 
-#: users/views.py:104 users/views.py:280
-msgid "You have been automatically logged in."
-msgstr "Vous avez été connecté automatiquement."
-
-#: users/views.py:109
+#: users/views.py:100
 #, python-format
 msgid ""
 "The activation link you provided is invalid or obsolete. If you created your"
@@ -5660,21 +5735,30 @@ msgid ""
 "may use the same username and email though."
 msgstr "Le lien d'activation que vous avez fourni est invalide ou obsolète. Si vous avez créé votre compte il y a plus de %(days)s jours, vous devez répéter l'opération. Vous pouvez utiliser les mêmes nom d'utilisateur et e-mail."
 
-#: users/views.py:185
+#: users/views.py:177
 msgid "Changes saved."
 msgstr "Modifications enregistrées."
 
-#: users/views.py:218 users/views.py:278
+#: users/views.py:210 users/views.py:270
 msgid "New password saved."
 msgstr "Mot de passe modifié."
 
-#: users/views.py:247
+#: users/views.py:239
 #, python-format
 msgid ""
 "You should receive an email at %(email)s in a few moments. Please follow the"
 " instructions to complete the password reset."
 msgstr "Vous devriez recevoir un e-mail à %(email)s dans quelques instants. Veuillez suivre les instructions pour finaliser la réinitialisation du mot de passe."
 
-#: users/widgets.py:9
+#: users/views.py:272
+msgid "You have been automatically logged in."
+msgstr "Vous avez été connecté automatiquement."
+
+#: users/views.py:365
+#, python-format
+msgid "Account %(username)s was deleted successfully."
+msgstr "Le compte %(username)s a été supprimé avec succès."
+
+#: users/widgets.py:8
 msgid "Upload new image"
 msgstr "Envoyer une nouvelle image"
