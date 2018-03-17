@@ -15,7 +15,7 @@ SITE_HOST = "localhost:8000"
 PROLOGIN_EDITION = 2018
 
 # Set the right local corrector ("VM") URL
-PROBLEMS_CORRECTORS = ('http://localhost:42920/submit',)
+PROBLEMS_CORRECTORS = ('http://localhost:42920/run',)
 
 # Set the right path to the problems repository
 PROBLEMS_REPOSITORY_PATH = '/home/prologin/problems'

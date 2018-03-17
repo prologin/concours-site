@@ -268,7 +268,7 @@ PROLOGIN_CACHES = {
 # Prologin correction system
 # List of strings (tried in order for load-balancing/fallback):
 #  - if local: 'local:///path/to/prefix'
-#  - if remote: 'http://thehost:55080/submit'
+#  - if remote: 'http://thehost:55080/run'
 PROBLEMS_CORRECTORS = (
 )
 
