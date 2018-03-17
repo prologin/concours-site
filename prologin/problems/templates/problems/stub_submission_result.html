@@ -1,7 +1,8 @@
 {% load i18n %}
 {% load utils %}
 
-<li class="list-group-item list-group-item-{% if result.success %}success{% elif result.skipped %}default{% else %}warning{% endif %}">
+<li class="list-group-item list-group-item-{% if result.success %}success{% elif result.skipped %}default{% else %}warning{% endif %}"
+    title="{{ result.name }}">
   {% if result.skipped %}
     <i class="fa fa-meh-o"></i> <strong>{% trans "Test skipped." %}</strong>
   {% else %}

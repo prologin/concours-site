@@ -26,6 +26,10 @@ class Result:
             self.data = data
 
         @property
+        def name(self):
+            return self.data['name']
+
+        @property
         def status(self):
             return self.data['meta']['status']
 
@@ -79,6 +83,9 @@ class Result:
     class SkippedTest:
         skipped = True
 
+        def __init__(self, name):
+            self.name = name
+
     class Test(MetaMixin):
         STATUS = {
             'OK': _("your program executed fine, but:"),
@@ -122,7 +129,7 @@ class Result:
                 test = test_dict.get(ref.name)
 
                 if not test or skipped:
-                    storage.append(Result.SkippedTest())
+                    storage.append(Result.SkippedTest(ref.name))
                     continue
 
                 test_ok = test_passes(ref_dict[test['name']], test)
