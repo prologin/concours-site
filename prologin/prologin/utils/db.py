@@ -100,7 +100,7 @@ class AdminOrderFieldsMixin:
 
 
 class MsgpackField(models.Field):
-    description = _("Msgpack encoded data")
+    description = "Msgpack encoded data"
     empty_values = [None, b'']
 
     def __init__(self, *args, **kwargs):
