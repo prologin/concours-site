@@ -10,7 +10,7 @@ SEMIFINAL_CONCERNING_TIME_SPENT = (30 * 60, 45 * 60)
 RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE = (
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
