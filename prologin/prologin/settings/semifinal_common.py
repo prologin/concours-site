@@ -47,7 +47,9 @@ INSTALLED_APPS = (
     'centers',
     'contest',
     'problems',
+    'qcm',
     'schools',
+    'sponsor',
     'users',
 
     # Django and vendor, at the bottom for template overriding

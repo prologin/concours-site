@@ -25,8 +25,8 @@ monitoring_patterns = [
 
 users_patterns = [
     # Login and logout
-    path('login', users.views.custom_login, name='login'),
-    path('logout', users.views.protected_logout, {'next_page': '/'}, name='logout'),
+    path('login', users.views.LoginView.as_view(), name='login'),
+    path('logout', users.views.LogoutView.as_view(), {'next_page': '/'}, name='logout'),
 ]
 
 urlpatterns += [
