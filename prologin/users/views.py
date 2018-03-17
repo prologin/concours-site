@@ -13,7 +13,7 @@ from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
 from django.views.generic.base import View, RedirectView
 from django.views.generic.detail import DetailView, SingleObjectMixin
-from django.views.generic.edit import CreateView, UpdateView, FormView, ModelFormMixin
+from django.views.generic.edit import CreateView, UpdateView, FormView, ModelFormMixin, FormMixin
 from django.views.generic.list import ListView
 from hmac import compare_digest
 from rules.contrib.views import PermissionRequiredMixin
@@ -339,3 +339,30 @@ class UserSearchSuggestView(PermissionRequiredMixin, ListView):
                 self.request),
         } for user in self.get_queryset()]
         return JsonResponse(results, safe=False)
+
+
+class DeleteUserView(PermissionRequiredMixin, CanEditProfileMixin, UpdateView):
+    model = auth.get_user_model()
+    form_class = users.forms.ConfirmDeleteUserForm
+    permission_required = 'users.delete'
+    context_object_name = 'delete_user'
+    success_url = reverse_lazy('home')
+    template_name = 'users/delete-confirm.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['action_user'] = self.request.user
+        return kwargs
+
+    def has_permission(self):
+        # also check that deleted user can_edit_profile()
+        return super().has_permission() and self.can_edit_profile()
+
+    def form_valid(self, form):
+        self.object = self.get_object()
+        messages.success(
+            self.request,
+            _("Account %(username)s was deleted successfully.") % {'username': self.object.username},
+            extra_tags='modal')
+        self.object.delete()
+        return FormMixin.form_valid(self, form)

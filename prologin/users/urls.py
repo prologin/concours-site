@@ -7,6 +7,7 @@ user_patterns = [
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('edit', views.EditUserView.as_view(), name='edit'),
     path('edit/password', views.EditPasswordView.as_view(), name='edit_password'),
+    path('delete', views.DeleteUserView.as_view(), name='delete'),
 
     # Homes
     path('home/<int:year>', views.DownloadFinalHomeView.as_view(), name='download-final-home'),

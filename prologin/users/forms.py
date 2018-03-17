@@ -1,14 +1,16 @@
 from crispy_forms import layout
 from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm as DjangoAuthenticationForm
 from django.utils.html import format_html
-from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
 from captcha.fields import ReCaptchaField
 
 from prologin.models import Gender
+from prologin.utils import _
+from prologin.utils.forms import ConfirmDangerMixin
 from .widgets import PreviewFileInput
 
 User = get_user_model()
@@ -155,3 +157,25 @@ class AuthenticationForm(DjangoAuthenticationForm):
         self.fields['username'].help_text = _("This field is case insensitive. It means capitals and small letters are "
                                               "considered to be equal.")
         self.error_messages['invalid_login'] = _("Please enter a correct username (or email) and password.")
+
+
+class ConfirmDeleteUserForm(ConfirmDangerMixin, forms.ModelForm):
+    username_conf = forms.CharField(
+        required=True, label=_("Your username"),
+        help_text=_("Type your username to confirm you know what you are doing."))
+
+    class Meta:
+        model = get_user_model()
+        fields = []
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        assert self.instance
+        self.helper = FormHelper(self)
+        self.helper.form_tag = False
+        self.helper.layout = Layout('username_conf', 'password_conf')
+        self.fields['username_conf'].widget.attrs['placeholder'] = self.instance.username
+
+    def clean_username_conf(self):
+        if self.cleaned_data['username_conf'] != self.instance.username:
+            raise forms.ValidationError(_("Wrong username."))
