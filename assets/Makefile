@@ -28,7 +28,7 @@ $(PUBLIC_DIR)/503.%.html:
 
 # Pygments CSS theme
 $(PYGMENTS_CSS):
-	mkdir -p $(CSS_DIR)
+	mkdir -p $(dir $(@))
 	pygmentize -S $(PYGMENTS_THEME) -a $(PYGMENTS_PREFIX) -f html >$@
 
 # Debug rule
