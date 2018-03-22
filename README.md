@@ -74,6 +74,12 @@ We have to fetch them or generate them using scripts. To do that, run:
 
         :::python
         INSTALLED_APPS += ('debug_toolbar',)
+   
+  You also need to add a middleware:
+
+        :::python
+        MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
+   
 
 * By default a SQLite3 (file based) database is used. Disclaimer: this is
   convenient but *performance is poor*. It is thus recommended to setup a local
