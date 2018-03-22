@@ -70,11 +70,11 @@ We have to fetch them or generate them using scripts. To do that, run:
 This is broken at the moment (see
 [#65](https://bitbucket.org/prologin/site/issues/65/assets-zopieux-must-fix-his-shit)
 ), so you'll have to do without the assets. The emojis are required for
-the migrations, and the libs are pretty useful, though; so you'll have to run only
+the migrations, so the current workaround is
 
 	:::console
-	# Generate the emojis only
-	cd assets && make update-libs && make update-emojis
+	# Set an empty emoji list
+	echo 'EMOJIS = {}' > prologin/prologin/utils/markdown/emoji_list.py
 
 If you really need the assets, ask Zopieux.
 
