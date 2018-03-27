@@ -406,7 +406,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         from problems.models import Submission
         return (Submission.objects
                 .filter(user=self.user, challenge=self.semifinal_challenge.name)
-                .aggregate(score=Sum(Submission.ScoreFunc)).score)
+                .aggregate(score=Sum(Submission.ScoreFunc))['score'])
 
     @cached_property
     def available_semifinal_problems(self):
