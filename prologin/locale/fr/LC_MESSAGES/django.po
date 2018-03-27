@@ -24,7 +24,7 @@ msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-03-17 21:08+0100\n"
-"PO-Revision-Date: 2018-03-17 20:16+0000\n"
+"PO-Revision-Date: 2018-03-17 20:34+0000\n"
 "Last-Translator: Alexandre Macabies <web+transifex@zopieux.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -3670,7 +3670,7 @@ msgstr "votre programme a quitté avec le code de retour %(code)s."
 
 #: problems/models/submission.py:93
 msgid "your program timed out."
-msgstr ""
+msgstr "votre programme a dépassé la limite de temps."
 
 #: problems/models/submission.py:94
 #, python-format
@@ -4657,7 +4657,7 @@ msgstr "Terminer la session"
 msgid ""
 "You are currently browsing on behalf of <strong>%(user)s</strong>. Keep\n"
 "        focused."
-msgstr ""
+msgstr "Vous naviguez actuellement sous l'identité de <strong>%(user)s</strong>. Restez alerte."
 
 #: prologin/templates/stub_pagination.html:7
 msgid "First"
