@@ -32,7 +32,7 @@ def takeout(user):
         takeout_dir = pathlib.Path(td)
         export_user_fields(user, takeout_dir)
         export_avatar(user, takeout_dir)
-        export_all_contestants(user, takeout_dir / 'contest')
+        export_all_contestants(user, takeout_dir)
         export_all_codes(user, takeout_dir / 'codes')
         export_all_forum_posts(user, takeout_dir / 'forum')
         arcname = '{}-{}'.format(user.username, datetime.date.today())
@@ -93,8 +93,8 @@ def export_all_forum_posts(user, forum_dir):
         post_file.write_text(post.content)
 
 
-def export_all_contestants(user, contest_dir):
-    contest_dir.mkdir()
+def export_all_contestants(user, path):
+    data = {}
     for contestant in user.contestants.all():
         # School
         if contestant.school:
@@ -114,13 +114,14 @@ def export_all_contestants(user, contest_dir):
         except ValueError:
             shirt_size = None
 
-        data = {
+        data[str(contestant.edition.year)] = {
             'school': school_name,
             'shirt_size': shirt_size,
             'preferred_language': pref_lang,
         }
+    if data:
         serialized_data = dump(data)
-        serialized_path = contest_dir / (str(contestant.edition.year) + '.yml')
+        serialized_path = path / 'participations.yml'
         serialized_path.write_text(serialized_data)
 
 
