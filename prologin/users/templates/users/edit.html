@@ -36,6 +36,8 @@
       <a href="#" class="btn btn-danger disabled">{% trans "Delete your account" %}</a>
       <p><small class="text-muted">{% trans "You cannot delete your account while participating to the contest. If needed, contact the staff." %}</small></p>
     {% endif %}
+    <a href="{% url 'users:takeout' edited_user.id %}"
+       class="btn btn-warning">{% trans "Download all my data" %}</a>
   </div>
 </div>
 

@@ -27,14 +27,15 @@ def is_self(user, edited_user):
     return user == edited_user
 
 
-# A *rule* so we can use check_rule, because check_perm always returns True for superusers,
-# defeating the checks in can_impersonate
+# A *rule* so we can use check_rule, because check_perm always returns True for
+# superusers, defeating the checks in can_impersonate
 rules.add_rule('users.can-impersonate', can_impersonate)
 rules.add_perm('users.may-impersonate', rules.is_staff)
 rules.add_perm('users.search', rules.is_staff)
 rules.add_perm('users.edit', rules.is_staff | is_self)
 rules.add_perm('users.edit-during-contest', rules.is_staff)
 rules.add_perm('users.delete', rules.is_superuser | is_self)
+rules.add_perm('users.takeout', rules.is_superuser | is_self)
 
 
 def hijack_authorization_check(hijacker, hijacked):

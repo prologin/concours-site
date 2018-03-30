@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.contrib import messages, auth
-from django.http import Http404
+from django.http import Http404, HttpResponse
 from django.http.response import JsonResponse, StreamingHttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
@@ -23,6 +23,7 @@ from prologin.utils import absolute_site_url
 import contest.models
 import users.forms
 import users.models
+import users.takeout
 
 
 def auto_login(request, user):
@@ -366,3 +367,19 @@ class DeleteUserView(PermissionRequiredMixin, CanEditProfileMixin, UpdateView):
             extra_tags='modal')
         self.object.delete()
         return FormMixin.form_valid(self, form)
+
+
+class TakeoutDownloadUserView(PermissionRequiredMixin, DetailView):
+    permission_required = 'users.takeout'
+    model = auth.get_user_model()
+
+    def get(self, request, *args, **kwargs):
+        super().get(request, *args, **kwargs)
+
+        # TODO: Add a cache.
+        takeout_tar, arcname = users.takeout.takeout(self.object)
+
+        response = HttpResponse(takeout_tar, content_type='application/x-gzip')
+        response['Content-Disposition'] = ("attachment; filename={}.tar.gz"
+                                           .format(arcname))
+        return response
