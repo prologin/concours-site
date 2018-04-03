@@ -148,6 +148,10 @@
   font-weight: bold;
 }
 
+.thread-unread {
+  font-weight: bold;
+}
+
 .forum-post {
   background: #f5f5f5;
   border-bottom: 3px solid #202b66;

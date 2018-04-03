@@ -96,7 +96,7 @@ class Thread(ExportModelOperationsMixin('thread'), models.Model):
     date_last_post = models.DateTimeField(verbose_name=_("Last post added on"), blank=True, null=True)  # so we can sort
 
     # Managers
-    objects = models.Manager()
+    objects = managers.ThreadObjectManager()
     visible = managers.VisibleObjectsManager()
 
     class Meta:
@@ -161,6 +161,11 @@ class Thread(ExportModelOperationsMixin('thread'), models.Model):
             return posts[0]
         except IndexError:
             return None
+
+    def mark_read_by(self, user):
+        ReadState.objects.update_or_create(user=user,
+                                           thread=self,
+                                           defaults={'post': self.last_post})
 
     def save(self, *args, **kwargs):
         # Keep track of old instance so we can update the forum trackers of the old forum to which this belongs
@@ -271,6 +276,21 @@ class Post(ExportModelOperationsMixin('post'), models.Model):
 
     def get_permalink(self):
         return reverse('forum:post', kwargs={'thread_slug': self.thread.slug, 'pk': self.pk})
+
+
+class ReadState(models.Model):
+    thread = models.ForeignKey(Thread, related_name='read_states',
+                               on_delete=models.CASCADE)
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name='read_states',
+                             on_delete=models.CASCADE)
+
+    post = models.ForeignKey(Post, related_name='read_states',
+                             on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ("thread", "user")
 
 
 @receiver(post_save, sender=Post)

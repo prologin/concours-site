@@ -72,19 +72,10 @@ class ForumView(PermissionRequiredMixin, ListView):
         return self.get_forum
 
     def get_queryset(self):
-        # FIXME: un-fuck this fuckery
-        # Super hacky way of retrieving the first post and last post of each thread so we don't make O(3n) queries in
-        # the forum thread list. Instead we do 3 queries, one for thread list, one for {first,last} posts.
-        # OH I WISH I HAD AN ACTUAL ORM.
-
-        # Standard queryset with sub-queries (not *that* bad, is it?) for fist and last post ID
-        return (super().get_queryset()
-                       .filter(forum=self.get_forum)
-                       .select_related('forum')
-                       .extra(select={
-                           'first_post_id': "SELECT p.id FROM forum_post p WHERE p.thread_id = forum_thread.id ORDER BY date_created ASC LIMIT 1",
-                           'last_post_id': "SELECT p.id FROM forum_post p WHERE p.thread_id = forum_thread.id ORDER BY date_created DESC LIMIT 1",
-                       }))
+        return (self.model.objects
+                .with_readstate_of(self.request.user)
+                .select_related('forum')
+                .filter(forum=self.get_forum))
 
     def paginate_queryset(self, queryset, page_size):
         paginator, page, page.object_list, page.has_other_pages = super().paginate_queryset(queryset, page_size)
@@ -203,6 +194,17 @@ class ThreadView(PermissionRequiredMixin, PreviewMixin, FormMixin, ListView):
             if self.request.user.has_perm('forum.view_post', post):
                 raise Http404()
             context['form'].initial['content'] = cite_post_content(post)
+
+        # If user is logged and the page contains the last post, mark the
+        # thread as read.
+        # XXX: This shouldn't be in get_context_data() but in get(), but we
+        # can't access the paginated posts in get() without reexecuting the
+        # query by calling paginate_queryset().
+        if ((self.request.user.is_authenticated
+             and any(thread.last_post.id == post.id
+                     for post in context['posts']))):
+            thread.mark_read_by(self.request.user)
+
         return context
 
     def get(self, request, *args, **kwargs):

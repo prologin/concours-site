@@ -10,7 +10,7 @@
         {% if thread.is_closed %}<i class="fa fa-lg fa-lock"></i>{% endif %}
       </div>
       <a href="{{ thread.get_absolute_url }}">
-        <h3>{{ thread.title }}</h3>
+        <h3{% if not thread.seen %} class="thread-unread"{% endif %}>{{ thread.title }}</h3>
         <span class="text-muted forum-meta">
             {% blocktrans with username=thread.author.username date_full=thread.date_created|date:"c" date=thread.date_created|date:"DATETIME_FORMAT" %}By <span class="thread-item-author">{{ username }}</span> ⋅ <span title="{{ date_full }}">{{ date }}</span>{% endblocktrans %}
         </span>
