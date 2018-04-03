@@ -25,20 +25,4 @@
   <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save"></i> {% trans "Save" %}</button>
 </form>
 
-<div class="panel panel-danger" style="margin-top: 1em">
-  <div class="panel-heading">
-    <h3 class="panel-title"><i class="fa fa-exclamation-triangle"></i> {% trans "Danger zone" %}</h3>
-  </div>
-  <div class="panel-body">
-    {% if form.can_edit_profile %}
-      <a href="{% url 'users:delete' edited_user.id %}" class="btn btn-danger">{% trans "Delete your account" %}</a>
-    {% else %}
-      <a href="#" class="btn btn-danger disabled">{% trans "Delete your account" %}</a>
-      <p><small class="text-muted">{% trans "You cannot delete your account while participating to the contest. If needed, contact the staff." %}</small></p>
-    {% endif %}
-    <a href="{% url 'users:takeout' edited_user.id %}"
-       class="btn btn-warning">{% trans "Download all my data" %}</a>
-  </div>
-</div>
-
 {% endblock %}

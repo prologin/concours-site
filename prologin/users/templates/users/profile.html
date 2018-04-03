@@ -172,4 +172,59 @@
 
   </div>
 
+  {% if shown_user.id == user.id or see_private %}
+  <div class="panel panel-info" style="margin-top: 1em">
+    <div class="panel-heading">
+      <h3 class="panel-title"> {% trans "Account management" %}</h3>
+    </div>
+    <div class="panel-body">
+      <table class="table table-noborder table-align-middle"><tbody>
+        <tr>
+          <td>
+            <a href="{% url 'users:takeout' shown_user.id %}"
+               class="btn btn-block btn-info">
+              <i class="fa fa-download"></i>
+              {% trans "Export your personal data" %}
+            </a>
+          </td>
+          <td>
+            {% blocktrans %}
+            You can download an archive containing all your personal data, as
+            provided by your Right to data portability (Art. 20 of GDPR).
+            {% endblocktrans %}
+          </td>
+        </tr>
+
+        <tr>
+          <td>
+            <a
+               {% if view.can_edit_profile %}
+                 href="{% url 'users:delete' shown_user.id %}"
+                 class="btn btn-block btn-danger"
+               {% else %}
+                 href="#"
+                 class="btn btn-block btn-danger disabled"
+               {% endif %}
+            >
+              <i class="fa fa-exclamation-triangle"></i>
+              {% trans "Delete your account" %}
+            </a>
+        </td>
+        <td {% if not view.can_edit_profile %}class="text-muted"{% endif %}>
+          {% blocktrans %}
+          You can delete your account and all associated personal data, as
+          provided by your Right to erasure (Art. 17 of GDPR).
+          {% endblocktrans %}
+          {% if not view.can_edit_profile %}
+            <strong>{% blocktrans %}
+              You cannot delete your account while participating to the
+              contest. If needed, contact the staff.
+            {% endblocktrans %}</strong>
+          {% endif %}
+        </td>
+      </tr></tbody></table>
+    </div>
+  </div>
+  {% endif %}
+
 {% endblock %}

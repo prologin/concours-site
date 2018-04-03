@@ -105,7 +105,14 @@ class ActivationView(AnonymousRequiredMixin, SingleObjectMixin, RedirectView):
         return super().get(request, *args, **kwargs)
 
 
-class ProfileView(DetailView):
+class CanEditProfileMixin:
+    def can_edit_profile(self):
+        # request user is privileged OR subject user can edit profile
+        return (self.request.user.has_perm('users.edit-during-contest')
+                or self.get_object().can_edit_profile(self.request.current_edition))
+
+
+class ProfileView(CanEditProfileMixin, DetailView):
     model = auth.get_user_model()
     context_object_name = 'shown_user'
     template_name = 'users/profile.html'
@@ -150,13 +157,6 @@ class DownloadFinalHomeView(PermissionRequiredMixin, DetailView):
         response['Content-Length'] = contestant.home_size
         response['Content-Disposition'] = "attachment; filename={}".format(contestant.home_filename)
         return response
-
-
-class CanEditProfileMixin:
-    def can_edit_profile(self):
-        # request user is privileged OR subject user can edit profile
-        return (self.request.user.has_perm('users.edit-during-contest')
-                or self.get_object().can_edit_profile(self.request.current_edition))
 
 
 class EditUserView(PermissionRequiredMixin, CanEditProfileMixin, UpdateView):

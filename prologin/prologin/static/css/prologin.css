@@ -1220,3 +1220,11 @@ table.table thead th.sorting_asc:after,
 table.table thead th.sorting_desc:after {
   bottom: 8px;
 }
+
+table.table-noborder > tbody > tr > td {
+  border: none;
+}
+
+table.table-align-middle > tbody > tr > td {
+  vertical-align: middle;
+}
