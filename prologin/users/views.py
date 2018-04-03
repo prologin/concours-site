@@ -17,6 +17,7 @@ from django.views.generic.edit import CreateView, UpdateView, FormView, ModelFor
 from django.views.generic.list import ListView
 from hmac import compare_digest
 from rules.contrib.views import PermissionRequiredMixin
+from urllib.parse import quote as url_quote
 from wsgiref.util import FileWrapper
 
 from prologin.utils import absolute_site_url
@@ -381,5 +382,5 @@ class TakeoutDownloadUserView(PermissionRequiredMixin, DetailView):
 
         response = HttpResponse(takeout_tar, content_type='application/x-gzip')
         response['Content-Disposition'] = ("attachment; filename={}.tar.gz"
-                                           .format(arcname))
+                                           .format(url_quote(arcname)))
         return response
