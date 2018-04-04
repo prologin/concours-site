@@ -195,14 +195,13 @@ class ThreadView(PermissionRequiredMixin, PreviewMixin, FormMixin, ListView):
                 raise Http404()
             context['form'].initial['content'] = cite_post_content(post)
 
-        # If user is logged and the page contains the last post, mark the
+        # If user is logged and on the last page of the thread, mark the
         # thread as read.
         # XXX: This shouldn't be in get_context_data() but in get(), but we
         # can't access the paginated posts in get() without reexecuting the
         # query by calling paginate_queryset().
         if ((self.request.user.is_authenticated
-             and any(thread.last_post.id == post.id
-                     for post in context['posts']))):
+             and not context['page_obj'].has_next())):
             thread.mark_read_by(self.request.user)
 
         return context
