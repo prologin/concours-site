@@ -26,3 +26,27 @@
 </form>
 
 {% endblock %}
+
+{% block extra_script %}
+  {{ block.super }}
+  <script>
+    let formGroupIds = ["id_picture", "id_avatar"];
+
+    formGroupIds.forEach(function (id) {
+      let form = $("#div_" + id);
+
+      if (form != null) {
+        $("#" + id).change(function (e) {
+          // if FileReader is supported and files isn't empty
+          if (FileReader && this.files.length > 0) {
+            let fr = new FileReader();
+            fr.onload = function () {
+              $("#div_" + id + " img")[0].src = fr.result;
+            };
+            fr.readAsDataURL(this.files[0]);
+          }
+        });
+      }
+    });
+  </script>
+{% endblock %}
