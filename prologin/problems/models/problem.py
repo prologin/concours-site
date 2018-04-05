@@ -1,5 +1,6 @@
 import enum
 import os
+import re
 from collections import namedtuple
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
@@ -7,6 +8,8 @@ from django.core.exceptions import ObjectDoesNotExist
 from contest.models import Event
 from prologin.languages import Language
 from prologin.utils import open_try_hard, lazy_attr, read_props
+
+PROBLEM_NAME_PATTERN = r'^[a-z0-9_.-]+$'
 
 
 class TestType(enum.Enum):
@@ -215,6 +218,11 @@ class Problem:
     def __init__(self, challenge, name):
         assert isinstance(challenge, Challenge)
         props_path = challenge.file_path(name, 'problem.props')
+        if re.match(PROBLEM_NAME_PATTERN, name) is None:
+            raise ObjectDoesNotExist(
+                'Invalid problem name "{}": does not match '
+                'regular expression {}'
+                .format(name, PROBLEM_NAME_PATTERN))
         if not os.path.exists(props_path):
             raise ObjectDoesNotExist("No such Problem: no such file: {}".format(props_path))
         self._challenge = challenge
