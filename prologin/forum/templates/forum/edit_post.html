@@ -36,5 +36,6 @@
 {% endblock %}
 
 {% block extra_script %}
+  {{ block.super }}
   {% include "stub-mathjax.html" %}
 {% endblock %}

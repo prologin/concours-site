@@ -3,14 +3,6 @@ SVGRASTERTRIM := inkscape --export-area-drawing
 SVGRASTER := inkscape --export-area-page
 CONVERT := convert
 PNGOPTIMIZE := optipng -quiet -clobber -preserve
-UPDATE_EMOJIS := $(TOP)/update-emojis.py
-
-# Emojis
-EMOJIS_DIR := $(IMG_DIR)/emojis
-EMOJIS_PY_DB := $(PROLOGIN_DIR)/prologin/utils/markdown/emoji_list.py
-# -- easter egg
-PROLOGIN_EMOJI := $(EMOJIS_DIR)/prologin.png
-OBJS += $(EMOJIS_DIR) $(PROLOGIN_EMOJI)
 
 # Archive
 ARCHIVE_PLACEHOLDER := $(PROLOGIN_DIR)/archives/static/img/archive-placeholder.png
@@ -63,16 +55,6 @@ $(ARCHIVE_PLACEHOLDER): $(IMG_DIR)/favicon-apple-500.png
 	    -background $(JUMBOTRON_BG) \
 	    -extent $(ARCHIVE_PLACEHOLDER_SIZE)x$(ARCHIVE_PLACEHOLDER_SIZE) \
 	    $@
-
-# Emojis
-
-$(PROLOGIN_EMOJI:.png=.big.png): cube_perfect_smallonly.svg
-	$(SVGRASTERTRIM) -h $(EMOJI_SIZE) --export-png $@ $<
-
-$(EMOJIS_DIR): $(UPDATE_EMOJIS)
-	$< $(EMOJIS_DIR) $(EMOJIS_PY_DB)
-
-$(PROLOGIN_EMOJI): $(EMOJIS_DIR)
 
 # Generics
 

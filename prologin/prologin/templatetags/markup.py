@@ -28,7 +28,6 @@ def _init_flavored_markdown():
     import markdown.extensions.toc
     import markdown.extensions.smart_strong
     import gfm
-    from prologin.utils.markdown.emoji import EmojiExtension
     from prologin.utils.markdown.nofollow import NofollowExtension
     ext = [
         markdown.extensions.fenced_code.FencedCodeExtension(),
@@ -47,7 +46,6 @@ def _init_flavored_markdown():
         gfm.TaskListExtension(checked=('[x]', '✅', '✓', '✔'), unchecked=('[ ]', '✗', '✘'),
                               item_attrs={'class': 'task-list-item'},
                               checkbox_attrs={'class': 'task-list-item-checkbox'}),
-        EmojiExtension(),
         NofollowExtension(),
     ]
     return markdown_lib.Markdown(extensions=ext, output_format='html5')

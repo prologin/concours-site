@@ -13,6 +13,14 @@ jquery() {
     extract dist/jquery.min.js js
 }
 
+emojipicker() {
+    # emoji-picker
+    with emojipicker 1.x.x https://github.com/OneSignal/emoji-picker.git
+    extract lib/js .
+    extract lib/css .
+    extract lib/img .
+}
+
 bootstrap() {
     with bootstrap v3.x.x https://github.com/twbs/bootstrap.git
     extract dist/css/bootstrap.min.css css
@@ -104,6 +112,7 @@ mathjax() {
 mkdir -p "$CACHEDIR"
 
 jquery
+emojipicker
 bootstrap
 fontawesome
 select2

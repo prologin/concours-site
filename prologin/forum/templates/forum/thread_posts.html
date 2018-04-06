@@ -184,6 +184,7 @@
 {% endblock %}
 
 {% block extra_script %}
+  {{ block.super }}
   {% include "stub-mathjax.html" %}
   <script type="text/javascript">
     /* When clicking permalinks, just scroll to message, don't do the full redirect */
