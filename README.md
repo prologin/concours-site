@@ -67,20 +67,6 @@ We have to fetch them or generate them using scripts. To do that, run:
     # Generate the static assets
     make assets
 
-This is broken at the moment (see
-[#65](https://bitbucket.org/prologin/site/issues/65/assets-zopieux-must-fix-his-shit)
-), so you'll have to do without the assets. The emojis are required for
-the migrations, so the current workaround is
-
-	:::console
-	# Set an empty emoji list
-	echo 'EMOJIS = {}' > prologin/prologin/utils/markdown/emoji_list.py
-
-If you really need the assets, ask Zopieux.
-
-> <seirl> n'oublie pas de le reping à chaque fois que make assets marche pas
-
-
 ### Development setup
 
 * *Django Debug Toolbar* is here to help; you can use it by adding the

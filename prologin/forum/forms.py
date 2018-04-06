@@ -19,6 +19,8 @@ class PostForm(forms.ModelForm):
         widgets = {
             'content': forms.Textarea(attrs={
                 'placeholder': MESSAGE_CONTENT_PLACEHOLDER,
+                'data-emojiable': "true",
+                'data-emoji-input':"unicode",
                 'rows': 4}),
         }
 
@@ -35,6 +37,10 @@ class UpdatePostForm(forms.ModelForm):
             'last_edited_reason': _("Optional explanation"),
         }
         widgets = {
+            'content': forms.Textarea(attrs={
+                'placeholder': MESSAGE_CONTENT_PLACEHOLDER,
+                'data-emoji-input':"unicode", 'data-emojiable': "true",
+                'rows': 4}),
             'last_edited_reason': forms.TextInput(attrs={
                 'placeholder': _("This explanation will be shown above the message.")})
         }
@@ -66,7 +72,10 @@ class StaffUpdatePostForm(UpdatePostForm):
 
 class ThreadForm(forms.ModelForm):
     content = forms.CharField(min_length=1, required=True,
-                              widget=forms.Textarea(attrs={'placeholder': MESSAGE_CONTENT_PLACEHOLDER}),
+                              widget=forms.Textarea(attrs={
+                                  'placeholder': MESSAGE_CONTENT_PLACEHOLDER,
+                                  'data-emoji-input':"unicode",
+                                  'data-emojiable': "true"}),
                               label=_("Message content"))
 
     class Meta:

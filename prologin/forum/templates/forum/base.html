@@ -7,4 +7,22 @@
 
 {% block extra_head %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/forum.css' %}"/>
+  <link rel="stylesheet" href="{% static 'lib/css/emoji.css' %}">
+{% endblock %}
+
+{% block extra_script %}
+  {{ block.super }}
+  <script src="{% static 'lib/js/config.js' %}"></script>
+  <script src="{% static 'lib/js/util.js' %}"></script>
+  <script src="{% static 'lib/js/jquery.emojiarea.js' %}"></script>
+  <script src="{% static 'lib/js/emoji-picker.js' %}"></script>
+  <script type="application/javascript">
+    $(function() {
+      window.emojiPicker = new EmojiPicker({
+      assetsPath: '{% static 'lib/img' %}',
+        popupButtonClasses: 'fa fa-smile-o'
+      });
+      window.emojiPicker.discover();
+    });
+  </script>
 {% endblock %}

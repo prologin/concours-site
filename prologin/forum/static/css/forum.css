@@ -215,3 +215,17 @@
   }
 
 }
+
+/* Emoji Picker fix */
+
+div.create-thread-fix i.emoji-picker-icon {
+  right: 22px;
+}
+
+div.create-thread-fix div.emoji-menu {
+  right: 16px;
+}
+
+div.form-group>div {
+  position: relative;
+}
