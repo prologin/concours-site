@@ -59,15 +59,22 @@ def export_user_fields(user, path):
         'first_name': user.first_name,
         'last_name': user.last_name,
         'email': user.email,
+        'gender': gender,
+        'phone': user.phone,
+        'school_stage': school_stage,
+        'birthday': str(user.birthday),
+
+        'address': user.address,
+        'postal_code': user.postal_code,
+        'city': user.city,
+        'country': user.country,
+
         'last_login': str(user.last_login),
         'date_joined': str(user.date_joined),
-        'gender': gender,
-        'school_stage': school_stage,
-        'phone': user.phone,
-        'birthday': str(user.birthday),
         'preferred_language': user.preferred_language,
         'timezone': str(user.timezone),
         'preferred_locale': str(user.preferred_locale),
+
     }
     serialized_data = dump(data)
     (path / 'user.yml').write_text(serialized_data)
