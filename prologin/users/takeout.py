@@ -81,6 +81,8 @@ def export_user_fields(user, path):
 
 
 def export_avatar(user, path):
+    if not user.avatar:
+        return
     try:
         with user.avatar.open() as avatar_f:
             avatar = avatar_f.read()
