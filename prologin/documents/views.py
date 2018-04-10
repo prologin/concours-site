@@ -21,6 +21,7 @@ from rules.compat.access_mixins import PermissionRequiredMixin
 import contest.models
 import documents.forms
 import problems.models
+import sponsor.models
 import team.models
 from documents.base_views import (BaseDocumentView, BaseSemifinalDocumentView,
                                   BaseFinalDocumentView, BaseCompilationView,
@@ -468,6 +469,32 @@ class FinalCustomBadgesView(BaseFinalDocumentView):
             context['organizers'] = self.request.session.pop('docs_organizers_name')
         except KeyError:
             raise Http404()
+        return context
+
+
+class LaunchMailToContestantView(BaseDocumentView):
+    template_name = 'documents/courrier-lancement-candidat.tex'
+    pdf_title = _("Prologin %(year)s: mail to contestant")
+    filename = pgettext_lazy("Document filename", "launch-mail-contestant-%(year)s")
+
+    def get_extra_context(self):
+        context = super().get_extra_context()
+        context['pres'] = team.models.TeamMember.objects.get(year=self.year, role_code=team.models.Role.president.name)
+        context['qualif'] = contest.models.Event.qualification_for_edition(self.year)
+        context['sponsors'] = sponsor.models.Sponsor.active.all()
+        return context
+
+
+class LaunchMailToSchoolView(BaseDocumentView):
+    template_name = 'documents/courrier-lancement-lycee.tex'
+    pdf_title = _("Prologin %(year)s: mail to school")
+    filename = pgettext_lazy("Document filename", "launch-mail-lycee-%(year)s")
+
+    def get_extra_context(self):
+        context = super().get_extra_context()
+        context['pres'] = team.models.TeamMember.objects.get(year=self.year, role_code=team.models.Role.president.name)
+        context['qualif'] = contest.models.Event.qualification_for_edition(self.year)
+        context['sponsors'] = sponsor.models.Sponsor.active.all()
         return context
 
 

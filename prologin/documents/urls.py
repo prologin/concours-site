@@ -42,6 +42,8 @@ final_patterns = [
 
 organization_patterns = [
     path('enrollment-form', documents.views.EnrollmentFormView.as_view(), name='enrollment-form'),
+    path('launch-mail-contestant', documents.views.LaunchMailToContestantView.as_view(), name='launch-mail-contestant'),
+    path('launch-mail-school', documents.views.LaunchMailToSchoolView.as_view(), name='launch-mail-school'),
 ]
 
 urlpatterns = [
