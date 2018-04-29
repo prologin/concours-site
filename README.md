@@ -70,14 +70,11 @@ We have to fetch them or generate them using scripts. To do that, run:
 ### Development setup
 
 * *Django Debug Toolbar* is here to help; you can use it by adding the
-  following line to your settings:
+  following lines to your settings:
 
         :::python
         INSTALLED_APPS += ('debug_toolbar',)
-   
-  You also need to add a middleware:
-
-        :::python
+	
         MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
    
 
