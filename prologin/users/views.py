@@ -40,6 +40,15 @@ def auto_login(request, user):
     return False
 
 
+def send_activation_email(user, request=None):
+    from django.test import RequestFactory
+    from prologin.email import send_email
+    request = request or RequestFactory().generic('get', '/', secure=settings.SITE_BASE_URL.startswith('https'))
+    activation = users.models.UserActivation.objects.register(user)
+    url = absolute_site_url(request, reverse('users:activate', args=[activation.slug]))
+    send_email("users/mails/activation", user.email, {'user': user, 'url': url})
+
+
 class AnonymousRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -64,12 +73,8 @@ class RegistrationView(AnonymousRequiredMixin, CreateView):
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        from prologin.email import send_email
         response = super().form_valid(form)
-        new_user = self.object
-        activation = users.models.UserActivation.objects.register(new_user)
-        url = absolute_site_url(self.request, reverse('users:activate', args=[activation.slug]))
-        send_email("users/mails/activation", self.object.email, {'user': self, 'url': url})
+        send_activation_email(self.object, request=self.request)
         messages.success(self.request,
                          _("Your account was created. We sent an email to %(mail)s so you can confirm your "
                            "registration.") % {'mail': self.object.email},

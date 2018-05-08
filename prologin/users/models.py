@@ -10,7 +10,7 @@ from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.auth.signals import user_logged_in
 from django.contrib.sites.models import Site
 from django.urls import reverse
-from django.db import models
+from django.db import models, transaction
 from django.utils import timezone
 from django.utils.text import slugify
 from django.utils.translation import LANGUAGE_SESSION_KEY, ugettext_lazy as _
@@ -40,7 +40,10 @@ class UserActivationManager(models.Manager):
         expiration_date = timezone.now() + settings.USER_ACTIVATION_EXPIRATION
         slug = base64.urlsafe_b64encode(os.urandom(ACTIVATION_TOKEN_LENGTH))
         slug = slug.decode('ascii')[:ACTIVATION_TOKEN_LENGTH]
-        activation = self.model(user=user, slug=slug, expiration_date=expiration_date)
+        # user and activation are linked one-to-one
+        # create or update the activation with a new expiration & token (invalidating the old one)
+        activation, created = self.model.objects.update_or_create(
+            user=user, defaults={'slug': slug, 'expiration_date': expiration_date})
         activation.save()
         return activation
 
@@ -53,8 +56,9 @@ class UserActivationManager(models.Manager):
             raise InvalidActivationError("{} is obsolete".format(self.model.__class__.__name__))
         user = activation.user
         user.is_active = True
-        user.save()
-        activation.delete()
+        with transaction.atomic():
+            user.save()
+            activation.delete()
         return user
 
     def expired_users(self):

@@ -9,6 +9,8 @@ PORT = 8000
 SMTP_HOST = 127.0.0.1
 SMTP_PORT = 1025
 SMTP_LAG = 0
+DBDUMPPATH = /tmp/prologin-temp-db-dump.sql
+DBDOCKERNAME = prologin-dev-db
 
 # Main rules
 
@@ -28,6 +30,21 @@ smtpserver:
 
 celeryworker:
 	$(CELERY) -l debug -A prologin worker
+
+shell:
+	$(MANAGE) shell
+
+testdb:
+	-docker run --name $(DBDOCKERNAME) -e POSTGRES_USER=prologin -e POSTGRES_PASSWORD=prologindev -p 5432:5432 -d postgres:10-alpine
+	docker start $(DBDOCKERNAME)
+
+testdb-populate: testdb
+	curl --user prologin https://sitedev.prologin.org/dbdump/latest | \
+		docker exec -i $(DBDOCKERNAME) pg_restore --no-owner --no-acl -e -U prologin -d prologin
+
+testdb-reset:
+	docker stop -t 1 $(DBDOCKERNAME)
+	docker rm -f $(DBDOCKERNAME)
 
 # Test
 
@@ -53,4 +70,4 @@ tx-pull:
 assets:
 	$(MAKE) -C assets all
 
-.PHONY: all test runserver smtpserver celeryworker assets tx-push tx-pull
+.PHONY: all test runserver smtpserver celeryworker assets tx-push tx-pull testdb testdb-populate testdb-reset shell
