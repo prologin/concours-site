@@ -74,6 +74,7 @@ INSTALLED_APPS = (
     'sponsor',
     'team',
     'users',
+    'dashboard',
 
     # Django and vendor, at the bottom for template overriding
     'django.contrib.admin',

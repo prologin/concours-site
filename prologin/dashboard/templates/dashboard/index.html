@@ -1,0 +1,35 @@
+{% extends "prologin/base.html" %}
+{% load i18n %}
+{% load django_bootstrap_breadcrumbs bootstrap %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for 'dashboard:index' %}{% trans "Dashboard" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Dashboard" %}{% endblock %}
+
+{% block content %}
+  <table class="table table-stripped table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Value</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for s in statuses %}
+        <tr>
+          <td>{{ s.name }}</td>
+          <td>{{ s.value }}</td>
+          <td>{% if s.status %}OK{% else %}NOK{% endif %}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3"><i class="fa fa-fw fa-frown-o"></i><em>No data.</em></td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

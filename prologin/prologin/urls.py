@@ -70,6 +70,9 @@ urlpatterns = [
     # Crash test
     path('crashtest/', crash_test),
 
+    # Dashboard
+    path('dashboard/', include('dashboard.urls', namespace='dashboard')),
+
     # Pages
     path('', include('pages.urls', namespace='pages')),
 
