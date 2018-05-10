@@ -14,16 +14,25 @@
     <thead>
       <tr>
         <th>Name</th>
-        <th>Value</th>
-        <th>Status</th>
+        <th>Count</th>
+        <th>Detail</th>
       </tr>
     </thead>
     <tbody>
       {% for s in statuses %}
         <tr>
           <td>{{ s.name }}</td>
-          <td>{{ s.value }}</td>
-          <td>{% if s.status %}OK{% else %}NOK{% endif %}</td>
+          <td>{{ s.count }}</td>
+          <td>
+            {% if s.detail %}
+              <button class="btn" type="button" data-toggle="collapse" data-target="#detail_{{ forloop.counter }}" aria-expanded="false" aria-controls="detail_{{ forloop.counter }}">Show</button>
+              <div class="collapse" id="detail_{{ forloop.counter }}">
+                {% for elm in s.detail %}
+                  {{ elm }}{%if not forloop.last%}, {% endif %}
+                {% endfor %}
+              </div>
+            {% endif %}
+          </td>
         </tr>
       {% empty %}
         <tr>
