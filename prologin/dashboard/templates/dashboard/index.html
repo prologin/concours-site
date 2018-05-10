@@ -10,35 +10,40 @@
 {% block title %}{% trans "Dashboard" %}{% endblock %}
 
 {% block content %}
-  <table class="table table-stripped table-hover">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Count</th>
-        <th>Detail</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for s in statuses %}
+  {% for section,statuses in sections.items %}
+    <h2>{{section}}</h2>
+    <table class="table table-stripped table-hover">
+      <thead>
         <tr>
-          <td>{{ s.name }}</td>
-          <td>{{ s.count }}</td>
-          <td>
-            {% if s.detail %}
-              <button class="btn" type="button" data-toggle="collapse" data-target="#detail_{{ forloop.counter }}" aria-expanded="false" aria-controls="detail_{{ forloop.counter }}">Show</button>
-              <div class="collapse" id="detail_{{ forloop.counter }}">
+          <th>Name</th>
+          <th>Count</th>
+          <th>Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in statuses %}
+          {% with sect_i=forloop.parentloop.counter stat_i=forloop.counter %}
+          <tr>
+            <td>{{ s.name }}</td>
+            <td>{{ s.count }}</td>
+            <td>
+              {% if s.detail %}
+                <button class="btn" type="button" data-toggle="collapse" data-target="#detail_{{sect_i}}_{{stat_i}}" aria-expanded="false" aria-controls="detail_{{sect_i}}_{{stat_i}}">Show</button>
+                <div class="collapse" id="detail_{{sect_i}}_{{stat_i}}">
                 {% for elm in s.detail %}
                   {{ elm }}{%if not forloop.last%}, {% endif %}
                 {% endfor %}
               </div>
             {% endif %}
-          </td>
-        </tr>
-      {% empty %}
-        <tr>
-          <td colspan="3"><i class="fa fa-fw fa-frown-o"></i><em>No data.</em></td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+            </td>
+          </tr>
+          {% endwith %}
+        {% empty %}
+          <tr>
+            <td colspan="3"><i class="fa fa-fw fa-frown-o"></i><em>No data.</em></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endfor %}
 {% endblock %}
