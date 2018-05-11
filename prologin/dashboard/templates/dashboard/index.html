@@ -16,8 +16,8 @@
       <thead>
         <tr>
           <th>Name</th>
-          <th>Count</th>
           <th>Detail</th>
+          <th>Count</th>
         </tr>
       </thead>
       <tbody>
@@ -25,7 +25,6 @@
           {% with sect_i=forloop.parentloop.counter stat_i=forloop.counter %}
           <tr>
             <td>{{ s.name }}</td>
-            <td>{{ s.count }}</td>
             <td>
               {% if s.detail %}
                 <button class="btn" type="button" data-toggle="collapse" data-target="#detail_{{sect_i}}_{{stat_i}}" aria-expanded="false" aria-controls="detail_{{sect_i}}_{{stat_i}}">Show</button>
@@ -36,6 +35,7 @@
               </div>
             {% endif %}
             </td>
+            <td>{{ s.count }}</td>
           </tr>
           {% endwith %}
         {% empty %}

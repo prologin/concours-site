@@ -1,5 +1,4 @@
 from collections import defaultdict
-import datetime
 
 from django.conf import settings
 from django.contrib import messages
@@ -7,6 +6,7 @@ from django.core import serializers
 from django.views.generic import TemplateView
 from rules.compat.access_mixins import PermissionRequiredMixin
 from django.db.models import Q
+from django.utils import timezone
 
 from users.models import UserActivation
 from contest.models import Contestant, Edition, Assignation
@@ -32,14 +32,14 @@ class status(object):
 @status("Activations")
 def fetchExpiredUserActivations():
     objects = UserActivation.objects.filter(
-            expiration_date__lt=datetime.datetime.now())
+            expiration_date__lt=timezone.now())
     return {'name':'Expired user activations', 'count':objects.count(),
             'detail':objects}
 
 @status("Activations")
 def fetchAwaitingUserActivations():
     objects = UserActivation.objects.filter(
-            expiration_date__gte=datetime.datetime.now())
+            expiration_date__gte=timezone.now())
     return {'name':'Awaiting user activations', 'count':objects.count(),
             'detail':objects}
 
