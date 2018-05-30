@@ -1,3 +1,4 @@
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.views.generic import TemplateView
 
@@ -10,7 +11,8 @@ class Index(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['archives'] = sorted(archives.models.Archive.all_archives(), reverse=True)
+        context['archives'] = sorted(archives.models.Archive.all_archives(),
+                                     reverse=True)
         for archive in context['archives']:
             archive.user = self.request.user
         return context
@@ -25,7 +27,7 @@ class SingleArchiveMixin:
             year = int(self.kwargs[self.year_field])
             event_type = Event.Type[self.kwargs[self.type_field]]
             return archives.models.Archive.by_year(year), event_type
-        except (KeyError, ValueError):
+        except (ObjectDoesNotExist, KeyError, ValueError):
             raise Http404()
 
     def get_context_data(self, **kwargs):
@@ -42,7 +44,8 @@ class Report(SingleArchiveMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        attr = 'semifinal' if context['event_type'] is Event.Type.semifinal else 'final'
+        attr = ('semifinal' if context['event_type'] is Event.Type.semifinal
+                else 'final')
         context['content'] = getattr(context['archive'], attr).content
         if not context['content']:
             raise Http404()
