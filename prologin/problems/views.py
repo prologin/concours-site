@@ -218,13 +218,22 @@ class Problem(PermissionRequiredMixin, CreateView):
         context['meta_solved_by'] = sum(1 for sub in tackled_by if sub.succeeded())
 
         user_submission = None
+        previous_submission = None
         user_for_submission = self.get_user_for_submission()
         if user_for_submission:
             user_submission = (user_for_submission.training_submissions
                                .prefetch_related('codes', 'submission_choices')
                                .filter(challenge=challenge.name, problem=problem.name)
                                .first())
+            previous_submission = (problems.models.SubmissionCode.objects
+                                   .select_related('submission', 'submission__user')
+                                   .filter(submission=user_submission,
+                                          submission__problem=problem.name,
+                                          submission__challenge=challenge.name)
+                                   .order_by('date_submitted')
+                                   .last())
         context['user_submission'] = user_submission
+        context['previous_submission'] = previous_submission
 
         # load forked submission if wanted, and if everything is fine (right user)
         # staff users can fork (thus see) everyone's submissions
