@@ -267,6 +267,8 @@ class Problem(PermissionRequiredMixin, CreateView):
             submission.save()
 
         self.submission_code.submission = submission
+        submission.user.preferred_language = self.submission_code.language
+        submission.user.save()
         self.submission_code.save()
 
         # FIXME: according to the challenge type (qualif, semifinals) we need to
