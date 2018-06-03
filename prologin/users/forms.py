@@ -29,7 +29,7 @@ class UserProfileForm(forms.ModelForm):
             'address', 'postal_code', 'city', 'country',
             'phone', 'school_stage',
             # right column
-            'gender', 'allow_mailing', 'preferred_language', 'timezone',
+            'gender', 'allow_mailing', 'timezone',
             'preferred_locale', 'avatar', 'picture',)
         widgets = {
             'avatar': PreviewFileInput(image_attrs={'style': 'max-width: 90px; max-height: 90px;'}),
