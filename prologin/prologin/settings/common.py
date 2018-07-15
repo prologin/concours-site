@@ -73,6 +73,7 @@ INSTALLED_APPS = (
     'sponsor',
     'team',
     'users',
+    'gcc',
 
     # Django and vendor, at the bottom for template overriding
     'django.contrib.admin',
