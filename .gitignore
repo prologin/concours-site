@@ -5,6 +5,7 @@ public/static
 public/media
 .idea/
 venv/
+.venv/
 fabfile.py
 *.swp
 *.pyc
@@ -13,3 +14,4 @@ fabfile.py
 *.pdf
 *.bak
 *~
+prologin/prologin/static/img/favicon*
