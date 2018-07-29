@@ -75,6 +75,9 @@ urlpatterns = [
 
     # Monitoring
     path('', include('django_prometheus.urls')),
+ 
+    # GCC!
+    path('gcc/', include('gcc.urls', namespace='gcc')),
 ]
 
 if settings.DEBUG:
