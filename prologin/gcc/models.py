@@ -31,20 +31,20 @@ class Application(models.Model):
     class Meta:
         unique_together = (('user','event'),)
 
+@ChoiceEnum.labels(str.capitalize)
+class Forms(ChoiceEnum):
+    application = 0
+    profile = 1
+
+@ChoiceEnum.labels(str.capitalize)
+class ResponseTypes(ChoiceEnum):
+    boolean = 0
+    integer = 1
+    date = 2
+    string = 3
+    text = 4
+
 class Question(models.Model):
-    @ChoiceEnum.labels(str.capitalize)
-    class Forms(ChoiceEnum):
-        application = 0
-        profile = 1
-
-    @ChoiceEnum.labels(str.capitalize)
-    class ResponseTypes(ChoiceEnum):
-        boolean = 0
-        integer = 1
-        date = 2
-        string = 3
-        text = 4
-
     question = models.TextField()
     form = EnumField(Forms)
     response_type = EnumField(ResponseTypes)
