@@ -46,7 +46,7 @@ class HomepageView(TemplateView):
         context['problems_completed'] = problems_completed
         context['born_year'] = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
         context['articles'] = articles
-        sponsors = list(sponsor.models.Sponsor.active.all())
+        sponsors = list(sponsor.models.Sponsor.active_prologin.all())
         random.shuffle(sponsors)
         context['sponsors'] = sponsors
         leaderboard = LeaderboardView(request=self.request)
