@@ -1,6 +1,6 @@
 from django.db import models
+from django.conf import settings
 
-from users.models import ProloginUser
 from centers.models import Center
 from prologin.models import EnumField
 from prologin.utils import ChoiceEnum
@@ -18,12 +18,12 @@ class Event(models.Model):
 
 class Trainer(models.Model):
     events = models.ManyToManyField(Event)
-    user = models.ForeignKey(ProloginUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     can_view_applications = models.BooleanField(default=False)
     description = models.TextField()
 
 class Application(models.Model):
-    user = models.ForeignKey(ProloginUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     selected = models.BooleanField(default=False)
     accepted = models.BooleanField(default=False)
@@ -53,10 +53,13 @@ class Question(models.Model):
     meta = models.TextField()
 
 class Response(models.Model):
-    user = models.ForeignKey(ProloginUser, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     #TODO: Use postgre's JSONField ?
     response = models.TextField()
 
     class Meta:
         unique_together = (('user','question'),)
+
+class SubscriberEmail(models.Model):
+    email = models.EmailField()
