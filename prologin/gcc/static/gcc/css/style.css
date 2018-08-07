@@ -1,34 +1,69 @@
 body {
-	background: #f5efe5;
+	display: grid;
+	/* TODO: use auto-fill instead of a fixed value when this firefox bug is
+	 * fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1341507
+	 */
+	grid-template-rows: min-content 2rem auto min-content repeat(100, 0fr);
+	min-height: 100vh;
+	padding: 0;
 	margin: 0;
-	padding-top: 56px;
+	text-align: justify;
+	font-family: "Cantarell", "Roboto", "San Francisco", "Segoe UI", "Noto Sans", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Cantarell Light", "Roboto Light", "San Francisco Light", "Segoe UI Light", "Noto Sans Light", sans-serif;
 }
 
 header {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
 	height: 56px;
-	line-height: 56px;
-	background: #23221f;
+	position: sticky;
+	top: 0;
+	width: 100%;
+	background: #282726;
 }
 
-header div.container {
-	padding-top: 0;
+header a {
+	text-align: center;
 }
 
-header a, header a:hover {
-	display: inline-block;
+header a img{
+	height: calc(56px - 20px);
+}
+
+nav {
+	position: sticky;
+	top: 56px;
+	line-height: 2rem;
+	background: #181716;
+	display: flex;
+	justify-content: center;
+}
+
+nav a {
+	text-decoration: none;
 	color: #ffffff;
-	padding: 0 5px;
+	padding: 0 1rem;
 }
 
-header a:hover {
-	height: 54px;
-	border-bottom: 2px solid #39e0ff;
+nav a:hover{
+	border-bottom: 3px solid #fc7107;
 }
 
-.container {
-	padding-top: 2rem;
+main {
+}
+
+footer {
+	background: #023770;
+	color: #ffffff;
+}
+
+section {
+	display: grid;
+	grid-template-columns: 1fr minmax(auto, 65ch) 1fr;
+	padding: 10px 5px;
+}
+
+section>* {
+	grid-column: 2/3;
 }

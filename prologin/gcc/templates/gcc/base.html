@@ -1,29 +1,32 @@
 {% load static %}
 <!DOCTYPE HTML>
-<html>
+<html lang="fr">
 	<head>
 		<meta charset="utf-8">
 		<title>{% block title %}TITRE NON DÉFINIS{% endblock %}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.3.0/milligram.min.css">
 		<link rel="stylesheet" href="{% static "gcc/css/style.css"%}">
 	</head>
 	<body>
 		<header>
-			<div class="container">
+			<section>
 				{% comment %}TODO Add real logo {% endcomment %}
-				<a href="#" class="nav-title">GCC!</a>
-				<nav class="float-right">
-					<a href="">Qu'est-ce que GCC</a>
-				</nav>
-			</div>
+				<a href="{% url "gcc:index" %}" class="nav-title"><img src="{% static "gcc/img/logo.png" %}" alt="GCC!"></a>
+			</section>
 		</header>
+		<nav>
+			<a href="#">À Propos</a>
+			<a href="#">L'Équipe</a>
+			<a href="#">Images</a>
+			<a href="#">Se connecter</a>
 		</nav>
 		<main>
-		{% block content %}CONTENU NON DÉFINIS{% endblock %}
+			{% block content %}<section><p>CONTENU NON DÉFINIS</p></section>{% endblock %}
 		</main>
-		<footer class="container">
-			Copyright © Prologin 2018
+		<footer>
+			<section>
+				<p>Copyright © Prologin 2018</p>
+			</section>
 		</footer>
 	</body>
 </html>
