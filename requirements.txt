@@ -72,7 +72,7 @@ requests
 # Celery storage & broker for async tasks
 redis
 # Generic rules/permissions
-rules
+rules==1.4
 # Transifex client for translation pull/push
 transifex-client
 # Typing module backport
