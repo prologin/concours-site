@@ -113,6 +113,8 @@ We have to fetch them or generate them using scripts. To do that, run:
     :::console
     cd prologin && python manage.py migrate
 
+On macOS, if you get an `ImportError: MagickWand shared library not found.`, you can refer to this [StackOverflow answer](https://stackoverflow.com/questions/37011291/python-wand-image-is-not-recognized/41772062#41772062) to fix it.
+
 ## Creating the minimal context
 
 The website has to display some data about the current Prologin edition, upcoming events,
