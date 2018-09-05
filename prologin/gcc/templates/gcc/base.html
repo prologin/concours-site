@@ -15,9 +15,10 @@
 			</section>
 		</header>
 		<nav>
-			<a href="#">À Propos</a>
-			<a href="#">L'Équipe</a>
-			<a href="#">Images</a>
+			<a href="{% url "gcc:about" %}">À Propos</a>
+			<a href="{% url "gcc:team_index" %}">L'Équipe</a>
+			<a href="{% url "gcc:posters"%}">Posters</a>
+			<a href="{% url "gcc:photos_index"%}">Photos</a>
 			<a href="#">Se connecter</a>
 		</nav>
 		<main>
@@ -25,7 +26,9 @@
 		</main>
 		<footer>
 			<section>
+				<p><a href="mailto:association@prologin.org?subject=GCC!">Nous contacter</a></p>
 				<p>Copyright © Prologin 2018</p>
+				<p>Les stages GCC! sont organisés par <a href="{% url "home" %}">l'association Prologin</a></p>
 			</section>
 		</footer>
 	</body>
