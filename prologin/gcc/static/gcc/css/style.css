@@ -67,3 +67,27 @@ section {
 section>* {
 	grid-column: 2/3;
 }
+
+#social {
+	position: fixed;
+	right: 0;
+	top: 0;
+	height: 100vh;
+	display: grid;
+	grid-template-rows: 1fr min-content 1fr;
+}
+
+#social div {
+	grid-row: 2/3;
+	background: #181716;
+	padding: 5px;
+
+}
+
+#social div a {
+	display: block;
+	text-align: center;
+	font-size: 22px;
+	color: #ffffff;
+	margin: 4px 0;
+}
