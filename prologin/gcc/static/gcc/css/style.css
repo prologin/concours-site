@@ -1,9 +1,10 @@
 body {
+	--accent: #fc7107;
 	display: grid;
 	/* TODO: use auto-fill instead of a fixed value when this firefox bug is
 	 * fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1341507
 	 */
-	grid-template-rows: min-content 2rem auto min-content repeat(100, 0fr);
+	grid-template-rows: min-content 3rem auto min-content repeat(100, 0fr);
 	min-height: 100vh;
 	padding: 0;
 	margin: 0;
@@ -34,7 +35,7 @@ header a img{
 nav {
 	position: sticky;
 	top: 56px;
-	line-height: 2rem;
+	line-height: 3rem;
 	background: #181716;
 	display: flex;
 	justify-content: center;
@@ -47,15 +48,26 @@ nav a {
 }
 
 nav a:hover{
-	border-bottom: 3px solid #fc7107;
+	border-bottom: 3px solid var(--accent);
 }
 
 main {
 }
 
+main a {
+	color: var(--accent);
+}
+
 footer {
 	background: #023770;
+	color: #eeeeee;
+	text-align: center;
+}
+
+footer a {
 	color: #ffffff;
+	text-decoration: none;
+	border-bottom: 2px dotted;
 }
 
 section {
@@ -80,8 +92,8 @@ section>* {
 #social div {
 	grid-row: 2/3;
 	background: #181716;
-	padding: 5px;
-
+	padding: 9px;
+	border-radius: 9px 0 0 9px;
 }
 
 #social div a {
@@ -89,5 +101,9 @@ section>* {
 	text-align: center;
 	font-size: 22px;
 	color: #ffffff;
-	margin: 4px 0;
+	padding: 2px
+}
+
+#social div a:hover {
+	color: var(--accent);
 }
