@@ -3,31 +3,31 @@ from django.views.generic import TemplateView
 # Photos
 
 class PhotosIndexView(TemplateView):
-    pass
+    template_name="gcc/photos_index.html"
 
 class PhotosYearView(TemplateView):
-    pass
+    template_name="gcc/photos_year.html"
 
 class PhotosEditionView(TemplateView):
-    pass
+    template_name="gcc/photos_edition.html"
 
 # Posters
 
 class PostersView(TemplateView):
-    pass
+    template_name="gcc/posters.html"
 
 # Team
 
 class TeamIndexView(TemplateView):
-    pass
+    template_name="gcc/team_index.html"
 
 class TeamYearView(TemplateView):
-    pass
+    template_name="gcc/team_year.html"
 
 # About
 
 class AboutView(TemplateView):
-    pass
+    template_name="gcc/about.html"
 
 # Homepage
 
