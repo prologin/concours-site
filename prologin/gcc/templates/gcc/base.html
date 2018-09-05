@@ -6,6 +6,7 @@
 		<title>{% block title %}TITRE NON DÉFINIS{% endblock %}</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="{% static "gcc/css/style.css"%}">
+		<link rel="stylesheet" href="{% static 'lib/css/font-awesome.min.css' %}"/>
 	</head>
 	<body>
 		<header>
@@ -31,5 +32,13 @@
 				<p>Les stages GCC! sont organisés par <a href="{% url "home" %}">l'association Prologin</a></p>
 			</section>
 		</footer>
+		<aside id="social">
+			<div>
+				<!-- social links -->
+				<a aria-label="facebook" href="https://www.facebook.com/stagegirlscancode"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+				<a aria-label="twitter" href="https://twitter.com/prologin"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+				<a aria-label="flickr" href="https://www.flickr.com/photos/prologin/"><i class="fa fa-flickr" aria-hidden="true"></i></a>
+			</div>
+		</aside>
 	</body>
 </html>
