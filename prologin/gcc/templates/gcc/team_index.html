@@ -1,0 +1,22 @@
+{% extends "gcc/base.html" %}
+
+{% block title %}GCC! − L'équipe{% endblock %}
+
+{% block content %}
+<section>
+	<h1>Editions de GCC!</h1>
+	<!-- Grille des années (avec le poster en fond) -->
+	{% if editions %}
+	<div class="grid">
+		{% for e in editions %}
+		<a href="{% url "gcc:team_edition" e.year %}">
+			<img src="FIXME" alt="Affiche edition {{e.year}}">
+			<h2>{{ e.year }}</h2>
+		</a>
+		{% endfor %}
+	</div>
+	{% else %}
+	<p>Pas d'éditions enregistrées</p>
+	{% endif %}
+</section>
+{% endblock %}

@@ -1,4 +1,5 @@
 from django.views.generic import TemplateView
+from gcc.models import Edition
 
 # Photos
 
@@ -21,6 +22,10 @@ class PostersView(TemplateView):
 class TeamIndexView(TemplateView):
     template_name="gcc/team_index.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["editions"] = Edition.objects.order_by('-year')
+        return context
 
 class TeamEditionView(TemplateView):
     template_name="gcc/team_edition.html"
