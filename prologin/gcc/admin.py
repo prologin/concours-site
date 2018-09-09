@@ -1,3 +1,4 @@
 from django.contrib import admin
+from gcc.models import Edition, Event, Trainer
 
-# Register your models here.
+admin.site.register([Edition, Event, Trainer])
