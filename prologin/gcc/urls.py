@@ -5,13 +5,13 @@ app_name = 'gcc'
 
 photos_patterns = [
     path('', views.PhotosIndexView.as_view(), name='photos_index'),
-    path('<int:year>', views.PhotosYearView.as_view(), name='photos_year'),
-    path('<int:year>/<int:edition>', views.PhotosEditionView.as_view(), name='photos_edition'),
+    path('<int:edition>', views.PhotosEditionView.as_view(), name='photos_edition'),
+    path('<int:edition>/<int:event>', views.PhotosEventView.as_view(), name='photos_event'),
 ]
 
 team_patterns = [
     path('', views.TeamIndexView.as_view(), name='team_index'),
-    path('<int:year>', views.TeamYearView.as_view(), name='team_year'),
+    path('<int:edition>', views.TeamEditionView.as_view(), name='team_edition'),
 ]
 
 urlpatterns = [

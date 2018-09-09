@@ -5,11 +5,11 @@ from django.views.generic import TemplateView
 class PhotosIndexView(TemplateView):
     template_name="gcc/photos_index.html"
 
-class PhotosYearView(TemplateView):
-    template_name="gcc/photos_year.html"
-
 class PhotosEditionView(TemplateView):
     template_name="gcc/photos_edition.html"
+
+class PhotosEventView(TemplateView):
+    template_name="gcc/photos_event.html"
 
 # Posters
 
@@ -21,8 +21,9 @@ class PostersView(TemplateView):
 class TeamIndexView(TemplateView):
     template_name="gcc/team_index.html"
 
-class TeamYearView(TemplateView):
-    template_name="gcc/team_year.html"
+
+class TeamEditionView(TemplateView):
+    template_name="gcc/team_edition.html"
 
 # About
 
