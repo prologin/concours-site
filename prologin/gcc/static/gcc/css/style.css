@@ -40,6 +40,7 @@ header a img{
 }
 
 nav {
+	z-index: 99;
 	position: sticky;
 	top: 56px;
 	line-height: 3rem;
@@ -92,7 +93,8 @@ section>* {
 
 
 /* halo buttons */
-a.halo-button {
+.halo-button {
+	display: block;
 	margin: 1rem auto;
 	padding: 1.2rem 4rem;
 	font-size: 1.4rem;
@@ -100,20 +102,12 @@ a.halo-button {
 	color: #ffffff;
 	text-decoration: none;
 	text-transform: capitalize;
+	border: none;
 }
 
-a.halo-button:hover {
+.halo-button:hover {
 	box-shadow: var(--shadow);
 }
-
-
-/* homepage photo collage */
-section#collage {
-	background: center fixed url("../img/collage.jpg");
-	background-size: cover;
-	min-height: 70vh;
-}
-
 
 /* Social links */
 #social {
@@ -143,4 +137,10 @@ section#collage {
 
 #social div a:hover {
 	color: var(--accent);
+}
+
+
+/* random helper classes */
+.full-width {
+	width: 100%;
 }

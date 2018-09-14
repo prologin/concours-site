@@ -1,6 +1,11 @@
 {% extends "gcc/base.html" %}
+{% load static %}
 
 {% block title %}GCC! − Girls Can Code!{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "gcc/css/index.css"%}">
+{% endblock %}
 
 {% block content %}
 <section id="collage">
@@ -24,13 +29,13 @@
 	<!-- Inscriptions encore ouvertes (grille) -->
 </section>
 
-<section>
+<section id="newsletter-signup">
 	<!-- Form signup newsletter -->
+	<h2>S'inscrire à la lettre d'information</h2>
 	<form method="post">{% csrf_token %}
-	{{ form.as_p }}
-	<input type="submit" value="Send message">
-</form>
-
+		{{ form.as_p }}
+		<input class="halo-button" type="submit" value="Valider">
+	</form>
 </section>
 
 <section>

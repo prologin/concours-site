@@ -1,0 +1,32 @@
+/* photo collage */
+section#collage {
+	background: center fixed url("../img/collage.jpg");
+	background-size: cover;
+	min-height: 70vh;
+}
+
+/* newsletter signup */
+section#newsletter-signup {
+	--background: #ff00ff;
+	--foreground: #ffffff;
+	background: var(--background);
+	color: var(--foreground);
+}
+
+section#newsletter-signup label {
+	position: absolute;
+	background: var(--background);
+	margin-left: 0.3em;
+	padding: 0 0.2em;
+}
+
+section#newsletter-signup input[type=email] {
+	margin-top: .8rem;
+	background: var(--background);
+	border: 2px var(--foreground) solid;
+	padding: 1rem;
+	width: 100%;
+	border-radius: 4px;
+	font-size: 1.2rem;
+	color: var(--foreground);
+}
