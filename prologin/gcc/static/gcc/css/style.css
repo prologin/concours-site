@@ -4,7 +4,7 @@
 
 body {
 	--accent: #fc7107;
-	--shadow: 0 0 10px rgba(0,0,0,.75);
+	--shadow: 0 0 5px rgba(0,0,0,1);
 	display: grid;
 	/* TODO: use auto-fill instead of a fixed value when this firefox bug is
 	 * fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1341507
@@ -90,6 +90,23 @@ section>* {
 	grid-column: 2/3;
 }
 
+
+/* halo buttons */
+a.halo-button {
+	margin: 1rem auto;
+	padding: 1.2rem 4rem;
+	font-size: 1.4rem;
+	background: var(--accent);
+	color: #ffffff;
+	text-decoration: none;
+	text-transform: capitalize;
+}
+
+a.halo-button:hover {
+	box-shadow: var(--shadow);
+}
+
+
 /* homepage photo collage */
 section#collage {
 	background: center fixed url("../img/collage.jpg");
@@ -97,6 +114,8 @@ section#collage {
 	min-height: 70vh;
 }
 
+
+/* Social links */
 #social {
 	position: fixed;
 	right: 0;
