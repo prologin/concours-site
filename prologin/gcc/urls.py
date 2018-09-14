@@ -21,10 +21,32 @@ team_patterns = [
         '<int:edition>', views.TeamEditionView.as_view(), name='team_edition'),
 ]
 
+newsletter_patterns = [
+        path(
+            'unsubscribe',
+            views.NewsletterUnsubscribeView.as_view(),
+            name='news_unsubscribe'),
+        path(
+            'unsubscribe_failed',
+            views.NewsletterUnsubscribeView.as_view(
+                extra_context={'fail':True}),
+            name='news_unsubscribe_failed'),
+
+        path(
+            'confirm_subscribe',
+            views.NewsletterConfirmSubscribeView.as_view(),
+            name='news_confirm_subscribe'),
+        path(
+            'confirm_unsubscribe',
+            views.NewsletterConfirmUnsubView.as_view(),
+            name='news_confirm_unsub'),
+]
+
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('about', views.AboutView.as_view(), name='about'),
     path('posters', views.PostersView.as_view(), name='posters'),
     path('team/', include(team_patterns)),
     path('photos/', include(photos_patterns)),
+    path('newsletter/', include(newsletter_patterns)),
 ]
