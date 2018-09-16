@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.utils.functional import cached_property
 
 from centers.models import Center
 from prologin.models import EnumField
@@ -9,6 +10,7 @@ from prologin.utils import ChoiceEnum
 class Edition(models.Model):
     year = models.PositiveIntegerField(primary_key=True)
 
+    @cached_property
     def trainers(self):
         """Gets the trainers who participate to this edition"""
         return Trainer.objects.filter(events__edition=self)

@@ -46,6 +46,18 @@ class TeamIndexView(TemplateView):
 class TeamEditionView(TemplateView):
     template_name = "gcc/team_edition.html"
 
+    def get_context_data(self, year):
+        context = {
+            'year': year,
+        }
+
+        try:
+            context['edition'] = Edition.objects.get(year=year)
+        except Edition.DoesNotExist:
+            pass
+
+        return context
+
 
 # About
 

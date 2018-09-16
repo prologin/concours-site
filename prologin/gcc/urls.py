@@ -18,7 +18,7 @@ photos_patterns = [
 team_patterns = [
     path('', views.TeamIndexView.as_view(), name='team_index'),
     path(
-        '<int:edition>', views.TeamEditionView.as_view(), name='team_edition'),
+        '<int:year>', views.TeamEditionView.as_view(), name='team_edition'),
 ]
 
 newsletter_patterns = [
