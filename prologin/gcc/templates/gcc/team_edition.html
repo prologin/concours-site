@@ -1,7 +1,7 @@
 {% extends "gcc/base.html" %}
 {% load static %}
 
-{% block title %}GCC! − L'équipe {{year}}{% endblock %}
+{% block title %}GCC! − L'équipe {{edition.year}}{% endblock %}
 
 {% block head %}
 <link rel="stylesheet" href="{% static "gcc/css/team.css"%}">
@@ -9,12 +9,7 @@
 
 {% block content %}
 <section>
-  <h1>L'équipe de {{year}}</h1>
-  {% if edition %}
-  <!-- Trainers for first edition -->
+  <h1>L'équipe de {{edition.year}}</h1>
   {% include "gcc/elements/trainer_list.html" with trainers=edition.trainers %}
-	{% else %}
-	<p>Pas d'édition enregistrée pour l'année selectionnée</p>
-	{% endif %}
 </section>
 {% endblock %}
