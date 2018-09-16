@@ -46,3 +46,38 @@
 	margin: 0;
 	font-size: 14px;
 }
+
+
+/**
+ * Editions displayed as a grid
+ */
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: center;
+}
+
+.grid > .edition-container {
+	display: block;
+	margin: 10px;
+	max-width: 150px;
+}
+
+.grid > .edition-container > h2 {
+	margin: 15px 0 5px;
+	position: absolute;
+	margin: 10px;
+	color: white;
+	text-shadow: 1px 1px 0px rgba(0, 0, 0);
+	font-weight: bold;
+}
+
+.grid > .edition-container > img {
+	width: 100%;
+	z-index: -100;
+}
+
+.grid > .edition-container:hover > img {
+	filter: brightness(50%);
+}
