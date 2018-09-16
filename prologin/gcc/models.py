@@ -58,7 +58,7 @@ class Application(models.Model):
         elif self.rejected:
             status = 'rejected'
         else:
-            status = 'pending
+            status = 'pending'
 
         return '{} for {} ({})'.format(
             str(self.user),
