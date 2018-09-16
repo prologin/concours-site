@@ -1,5 +1,6 @@
-from django.urls import reverse_lazy
 from django.http import HttpResponseRedirect
+from django.shortcuts import get_object_or_404
+from django.urls import reverse_lazy
 
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
@@ -48,14 +49,8 @@ class TeamEditionView(TemplateView):
 
     def get_context_data(self, year):
         context = {
-            'year': year,
+            'edition': get_object_or_404(Edition, year=year)
         }
-
-        try:
-            context['edition'] = Edition.objects.get(year=year)
-        except Edition.DoesNotExist:
-            pass
-
         return context
 
 
