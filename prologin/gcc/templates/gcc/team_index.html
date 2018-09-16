@@ -12,17 +12,7 @@
   {% if editions %}
   <!-- Trainers for first edition -->
 	<h1>Dernière édition ({{ editions.first.year }})</h1>
-	<ul class="trainer-list">
-		{% for t in editions.first.trainers %}
-		<li class="trainer-item">
-			<img class="media-object pull-left" src="{% if t.user.picture_or_avatar %}{{t.user.picture_or_avatar.url}}{% endif %}" alt="{{t.user.first_name}} {{t.user.last_name}}" width="100" height="100">
-			<div class="content">
-				<a class="name" href="{% url 'users:profile' t.user.pk %}">{{t.user.first_name}} {{t.user.last_name}}</a>
-				<p>{{ t.description }}</p>
-			</div>
-		</li>
-		{% endfor %}
-	</ul>
+  {% include "gcc/elements/trainer_list.html" with trainers=editions.first.trainers %}
   <!-- Grille des années (avec le poster en fond) -->
 	<h1>Editions de GCC!</h1>
 	<div class="grid">
