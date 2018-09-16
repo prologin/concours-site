@@ -7,10 +7,8 @@ section#collage {
 
 /* newsletter signup */
 section#newsletter-signup {
-	--background: #ff00ff;
-	--foreground: #ffffff;
 	background: var(--background);
-	color: var(--foreground);
+	color: #ffffff;
 }
 
 section#newsletter-signup label {
@@ -23,7 +21,7 @@ section#newsletter-signup label {
 section#newsletter-signup input[type=email] {
 	margin-top: .8rem;
 	background: var(--background);
-	border: 2px var(--foreground) solid;
+	border: 2px #ffffff solid;
 	padding: 1rem;
 	width: 100%;
 	border-radius: 4px;

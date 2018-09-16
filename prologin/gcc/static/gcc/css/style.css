@@ -3,8 +3,19 @@
 }
 
 body {
-	--accent: #fc7107;
+	/* theme colors */
+	--color1: #C40098;
+	--color2: #5F09AD;
+	--color3: #000EC4;
+	--color4: #0974AD;
+	--color5: #0AC496;
+
+	/* default accent color */
+	--accent: var(--color1);
+
+	/* shadow to apply to elevated elements */
 	--shadow: 0 0 5px rgba(0,0,0,1);
+
 	display: grid;
 	/* TODO: use auto-fill instead of a fixed value when this firefox bug is
 	 * fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1341507
@@ -62,6 +73,7 @@ nav a:hover{
 }
 
 main {
+	background: var(--color2);
 }
 
 main a {
@@ -70,7 +82,7 @@ main a {
 
 footer {
 	box-shadow: var(--shadow);
-	background: #023770;
+	background: #282726;
 	color: #eeeeee;
 	text-align: center;
 }
@@ -91,6 +103,14 @@ section>* {
 	grid-column: 2/3;
 }
 
+/* section colors */
+
+main section { background: var(--background ); color: #ffffff; }
+main section:nth-child(5n)   { --background: var(--color1); --accent: var(--color4); }
+main section:nth-child(5n+1) { --background: var(--color2); --accent: var(--color5); }
+main section:nth-child(5n+2) { --background: var(--color3); --accent: var(--color1); }
+main section:nth-child(5n+3) { --background: var(--color4); --accent: var(--color2); }
+main section:nth-child(5n+4) { --background: var(--color5); --accent: var(--color4); }
 
 /* halo buttons */
 .halo-button {
