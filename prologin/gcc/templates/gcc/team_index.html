@@ -8,23 +8,25 @@
 {% endblock %}
 
 {% block content %}
-<section>
   {% if editions %}
   <!-- Trainers for first edition -->
-	<h1>Dernière édition ({{ editions.first.year }})</h1>
-  {% include "gcc/elements/trainer_list.html" with trainers=editions.first.trainers %}
+  <section>
+  	<h1>Dernière édition ({{ editions.first.year }})</h1>
+    {% include "gcc/elements/trainer_list.html" with trainers=editions.first.trainers %}
+  </section>
   <!-- Grille des années (avec le poster en fond) -->
-	<h1>Editions de GCC!</h1>
-	<div class="grid">
-		{% for e in editions %}
-		<a class="edition-container" href="{% url "gcc:team_edition" e.year %}">
-			<h2>{{ e.year }}</h2>
-      <img src="https://gcc.prologin.org/static/pictures/poster_gcc_2018.jpg" alt="Affiche edition {{e.year}}">
-		</a>
-		{% endfor %}
-	</div>
-	{% else %}
-	<p>Pas d'éditions enregistrées</p>
-	{% endif %}
-</section>
+  <section>
+  	<h1>Editions de GCC!</h1>
+  	<div class="grid">
+  		{% for e in editions %}
+  		<a class="edition-container" href="{% url "gcc:team_edition" e.year %}">
+  			<h2>{{ e.year }}</h2>
+        <img src="https://gcc.prologin.org/static/pictures/poster_gcc_2018.jpg" alt="Affiche edition {{e.year}}">
+  		</a>
+  		{% endfor %}
+  	</div>
+  	{% else %}
+  	<p>Pas d'éditions enregistrées</p>
+  	{% endif %}
+  </section>
 {% endblock %}
