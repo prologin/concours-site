@@ -65,6 +65,7 @@
 }
 
 .grid > .edition-container > h2 {
+	z-index: 1;
 	margin: 15px 0 5px;
 	position: absolute;
 	margin: 10px;
@@ -75,7 +76,7 @@
 
 .grid > .edition-container > img {
 	width: 100%;
-	z-index: -100;
+	z-index: 0;
 }
 
 .grid > .edition-container:hover > img {
