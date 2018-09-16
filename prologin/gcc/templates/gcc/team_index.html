@@ -1,12 +1,30 @@
 {% extends "gcc/base.html" %}
+{% load static %}
 
 {% block title %}GCC! − L'équipe{% endblock %}
 
+{% block head %}
+<link rel="stylesheet" href="{% static "gcc/css/team.css"%}">
+{% endblock %}
+
 {% block content %}
 <section>
+  {% if editions %}
+  <!-- Trainers for first edition -->
+	<h1>Dernière édition ({{ editions.first.year }})</h1>
+	<ul class="trainer-list">
+		{% for t in editions.first.trainers %}
+		<li class="trainer-item">
+			<img class="media-object pull-left" src="{% if t.user.picture_or_avatar %}{{t.user.picture_or_avatar.url}}{% endif %}" alt="{{t.user.first_name}} {{t.user.last_name}}" width="100" height="100">
+			<div class="content">
+				<a class="name" href="{% url 'users:profile' t.user.pk %}">{{t.user.first_name}} {{t.user.last_name}}</a>
+				<p>{{ t.description }}</p>
+			</div>
+		</li>
+		{% endfor %}
+	</ul>
+  <!-- Grille des années (avec le poster en fond) -->
 	<h1>Editions de GCC!</h1>
-	<!-- Grille des années (avec le poster en fond) -->
-	{% if editions %}
 	<div class="grid">
 		{% for e in editions %}
 		<a href="{% url "gcc:team_edition" e.year %}">
