@@ -9,6 +9,10 @@ from prologin.utils import ChoiceEnum
 class Edition(models.Model):
     year = models.PositiveIntegerField(primary_key=True)
 
+    def trainers(self):
+        """Gets the trainers who participate to this edition"""
+        return Trainer.objects.filter(events__edition=self)
+
 
 class Event(models.Model):
     center = models.ForeignKey(Center, on_delete=models.CASCADE)

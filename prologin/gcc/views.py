@@ -4,7 +4,7 @@ from django.http import HttpResponseRedirect
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from gcc.models import Edition, SubscriberEmail
+from gcc.models import Edition, SubscriberEmail, Trainer
 
 from gcc.forms import EmailForm
 
@@ -39,6 +39,7 @@ class TeamIndexView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["editions"] = Edition.objects.order_by('-year')
+        context["trainers"] = Trainer.objects.order_by('user__last_name', 'user__first_name')
         return context
 
 

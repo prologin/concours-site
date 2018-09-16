@@ -1,0 +1,48 @@
+/**
+ * Objects to display a list of trainers
+ * The main element is of class `trainer-list`, each trainer is represented by
+ *  a `trainer-item` element which contains
+ *   - a picture (img)
+ *   - his name (.content > .name)
+ *   - a description (.content > p)
+ */
+
+.trainer-list{
+	margin: 0;
+}
+
+.trainer-item {
+	display: inline-block;
+	min-width: 100%;
+	list-style-type: none;
+	padding: 15px;
+}
+
+.trainer-item:not(:last-child) {
+	border-bottom: #cccccc solid 1px;
+}
+
+.trainer-item img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-right: 20px;
+}
+
+.trainer-item .content {
+	overflow: hidden;
+}
+
+.trainer-item .content > .name {
+	display: block;
+	margin: 0 0 5px 0;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.trainer-item .content > p {
+	display: block;
+	margin: 0;
+	font-size: 14px;
+}
