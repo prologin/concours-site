@@ -21,7 +21,7 @@
   		{% for e in editions %}
   		<a class="edition-container" href="{% url "gcc:team_edition" e.year %}">
   			<h2>{{ e.year }}</h2>
-        <img src="https://gcc.prologin.org/static/pictures/poster_gcc_2018.jpg" alt="Affiche edition {{e.year}}">
+        <img src="{{e.poster_url}}" alt="Affiche edition {{e.year}}">
   		</a>
   		{% endfor %}
   	</div>

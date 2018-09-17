@@ -188,6 +188,7 @@ STATICFILES_FINDERS = (
     'npm.finders.NpmFinder',
     'problems.staticfinder.ProblemsStaticFinder',
     'archives.staticfinder.ArchivesStaticFinder',
+    'gcc.staticfinder.ArchivesStaticFinder',
 )
 
 
@@ -295,6 +296,10 @@ ARCHIVES_REDIS_KEY = 'prologin.archives.{year}.{suffix}'
 ARCHIVES_FLICKR_CREDENTIALS = ('username', 'api-key', 'secret')
 # https://developer.vimeo.com/apps/63981#authentication
 ARCHIVES_VIMEO_CREDENTIALS = ('client-id', 'secrets', 'token')
+
+# Path to GCC's archive repository (sub-folders shall be years)
+GCC_REPOSITORY_PATH = os.path.join(BASE_DIR, 'gcc')
+GCC_REPOSITORY_STATIC_PREFIX = 'gcc'
 
 # Path to contestant final homes (for download)
 HOMES_PATH = ''
