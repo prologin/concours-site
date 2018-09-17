@@ -214,6 +214,21 @@ def open_try_hard(callback, filename, *args, encodings=ENCODINGS, **kwargs):
 
 
 def lazy_attr(prop_name, getter):
+    """
+    Wraps the member calls of `getter` to cache the result of its first call in
+    the attribute `prop_name` if it isn't already defined. The wrapped function
+    itself is wrapped as a property, which means that the defined value must be
+    accessed as an object's attribute.
+
+    >> class Foo():
+    >>   def getter(self):
+    >>     pass
+    >>
+    >>   fake_property = lazy_attr('unique_name', getter)
+    >>
+    >> bar = Foo()
+    Calling `bar.fake_property` is equivalent to a first call of `bar.getter()`.
+    """
     def wrapped(self, *args, **kwargs):
         try:
             return getattr(self, prop_name)
