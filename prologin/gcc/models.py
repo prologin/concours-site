@@ -1,3 +1,5 @@
+import os
+
 from django.db import models
 from django.conf import settings
 from django.utils.functional import cached_property
@@ -14,6 +16,31 @@ class Edition(models.Model):
     def trainers(self):
         """Gets the trainers who participate to this edition"""
         return Trainer.objects.filter(events__edition=self)
+
+    @cached_property
+    def poster_url(self):
+        """Gets poster's url if it exists else return None"""
+        name = 'poster.full.jpg'
+        path = self.file_path(name)
+        if os.path.exists(path):
+            return self.file_url(name)
+
+
+    def file_path(self, *tail):
+        """Gets file's absolute path"""
+        return os.path.abspath(
+            os.path.join(
+                settings.GCC_REPOSITORY_PATH,
+                str(self.year), *tail
+            )
+        )
+
+    def file_url(self, *tail):
+        """Gets file's url"""
+        return os.path.join(
+            settings.STATIC_URL, settings.GCC_REPOSITORY_STATIC_PREFIX,
+            str(self.year), *tail
+        )
 
     def __str__(self):
         return str(self.year)

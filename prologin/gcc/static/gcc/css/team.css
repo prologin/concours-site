@@ -13,7 +13,6 @@
 
 .trainer-item {
 	display: inline-block;
-	min-width: 100%;
 	list-style-type: none;
 	padding: 15px;
 }
