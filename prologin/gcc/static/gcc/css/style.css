@@ -1,0 +1,166 @@
+* {
+	transition: all linear 0.1s;
+}
+
+body {
+	/* theme colors */
+	--color1: #C40098;
+	--color2: #5F09AD;
+	--color3: #000EC4;
+	--color4: #0974AD;
+	--color5: #0AC496;
+
+	/* default accent color */
+	--accent: var(--color1);
+
+	/* shadow to apply to elevated elements */
+	--shadow: 0 0 5px rgba(0,0,0,1);
+
+	display: grid;
+	/* TODO: use auto-fill instead of a fixed value when this firefox bug is
+	 * fixed: https://bugzilla.mozilla.org/show_bug.cgi?id=1341507
+	 */
+	grid-template-rows: min-content 3rem auto min-content repeat(100, 0fr);
+	min-height: 100vh;
+	padding: 0;
+	margin: 0;
+	text-align: justify;
+	font-family: "Cantarell", "Roboto", "San Francisco", "Segoe UI", "Noto Sans", sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-family: "Cantarell Light", "Roboto Light", "San Francisco Light", "Segoe UI Light", "Noto Sans Light", sans-serif;
+}
+
+header {
+	box-shadow: var(--shadow);
+	z-index: 100;
+	height: 56px;
+	position: sticky;
+	top: 0;
+	width: 100%;
+	background: #282726;
+}
+
+header a {
+	text-align: center;
+}
+
+header a img{
+	height: calc(56px - 20px);
+}
+
+nav {
+	z-index: 99;
+	position: sticky;
+	top: 56px;
+	line-height: 3rem;
+	background: #181716;
+	display: flex;
+	justify-content: center;
+	box-shadow: var(--shadow);
+}
+
+nav a {
+	text-decoration: none;
+	color: #ffffff;
+	padding: 0 1rem;
+	border-color: var(--accent);
+}
+
+nav a:hover{
+	border-bottom: 3px solid var(--accent);
+}
+
+main {
+	background: var(--color2);
+}
+
+main a {
+	color: var(--accent);
+}
+
+footer {
+	box-shadow: var(--shadow);
+	background: #282726;
+	color: #eeeeee;
+	text-align: center;
+}
+
+footer a {
+	color: #ffffff;
+	text-decoration: none;
+	border-bottom: 2px dotted;
+}
+
+section {
+	display: grid;
+	grid-template-columns: 1fr minmax(auto, 65ch) 1fr;
+	padding: 10px 5px;
+}
+
+section>* {
+	grid-column: 2/3;
+}
+
+/* section colors */
+
+main section { background: var(--background ); color: #ffffff; }
+main section:nth-child(5n)   { --background: var(--color1); --accent: var(--color4); }
+main section:nth-child(5n+1) { --background: var(--color2); --accent: var(--color5); }
+main section:nth-child(5n+2) { --background: var(--color3); --accent: var(--color1); }
+main section:nth-child(5n+3) { --background: var(--color4); --accent: var(--color2); }
+main section:nth-child(5n+4) { --background: var(--color5); --accent: var(--color4); }
+
+/* halo buttons */
+.halo-button {
+	display: block;
+	margin: 1rem auto;
+	padding: 1.2rem 4rem;
+	font-size: 1.4rem;
+	background: var(--accent);
+	color: #ffffff;
+	text-decoration: none;
+	text-transform: capitalize;
+	border: none;
+}
+
+.halo-button:hover {
+	box-shadow: var(--shadow);
+}
+
+/* Social links */
+#social {
+	position: fixed;
+	right: 0;
+	top: 0;
+	height: 100vh;
+	display: grid;
+	grid-template-rows: 1fr min-content 1fr;
+}
+
+#social div {
+	box-shadow: var(--shadow);
+	grid-row: 2/3;
+	background: #181716;
+	padding: 9px;
+	border-radius: 9px 0 0 9px;
+}
+
+#social div a {
+	display: block;
+	text-align: center;
+	font-size: 22px;
+	color: #ffffff;
+	padding: 2px
+}
+
+#social div a:hover {
+	color: var(--accent);
+}
+
+
+/* random helper classes */
+.full-width {
+	width: 100%;
+}

@@ -1,0 +1,44 @@
+{% extends "gcc/base.html" %}
+{% load static %}
+
+{% block title %}GCC! − Girls Can Code!{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "gcc/css/index.css"%}">
+{% endblock %}
+
+{% block content %}
+<section id="collage">
+	<!-- Logo et collage -->
+	<a href="{% url "home" %}">by Prologin</a>
+</section>
+
+<section>
+	<!-- affiche actuelle et FAQ -->
+	<img src="" alt="Affiche GCC!">
+	<aside>
+		<h2>FAQ</h2>
+		<ul>
+			<!-- nth-child odd/even pour styliser question/reponse -->
+			<li></li>
+			<li></li>
+		</ul>
+</section>
+
+<section>
+	<!-- Inscriptions encore ouvertes (grille) -->
+</section>
+
+<section id="newsletter-signup">
+	<!-- Form signup newsletter -->
+	<h2>S'inscrire à la lettre d'information</h2>
+	<form method="post">{% csrf_token %}
+		{{ form.as_p }}
+		<input class="halo-button" type="submit" value="Valider">
+	</form>
+</section>
+
+<section>
+	<!-- Sponsors -->
+</section>
+{% endblock %}

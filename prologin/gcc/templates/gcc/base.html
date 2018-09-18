@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE HTML>
+<html lang="fr">
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}TITRE NON DÉFINIS{% endblock %}</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="{% static "gcc/css/style.css"%}">
+		<link rel="stylesheet" href="{% static 'lib/css/font-awesome.min.css' %}"/>
+		{% block head %}{% endblock %}
+	</head>
+	<body>
+		<header>
+			<section>
+				{% comment %}TODO Add real logo {% endcomment %}
+				<a href="{% url "gcc:index" %}" class="nav-title"><img src="{% static "gcc/img/logo.png" %}" alt="GCC!"></a>
+			</section>
+		</header>
+		<nav>
+			<a href="{% url "gcc:about" %}">À Propos</a>
+			<a href="{% url "gcc:team_index" %}">L'Équipe</a>
+			<a href="{% url "gcc:posters"%}">Posters</a>
+			<a href="{% url "gcc:photos_index"%}">Photos</a>
+			<a href="#">Se connecter</a>
+		</nav>
+		<main>
+			{% block content %}<section><p>CONTENU NON DÉFINIS</p></section>{% endblock %}
+		</main>
+		<footer>
+			<section>
+				<p><a href="mailto:association@prologin.org?subject=GCC!">Nous contacter</a></p>
+				<p>Copyright © Prologin 2018</p>
+				<p>Les stages GCC! sont organisés par <a href="{% url "home" %}">l'association Prologin</a></p>
+			</section>
+		</footer>
+		<aside id="social">
+			<div>
+				<!-- social links -->
+				<a aria-label="facebook" href="https://www.facebook.com/stagegirlscancode"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+				<a aria-label="twitter" href="https://twitter.com/prologin"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+				<a aria-label="flickr" href="https://www.flickr.com/photos/prologin/"><i class="fa fa-flickr" aria-hidden="true"></i></a>
+			</div>
+		</aside>
+	</body>
+</html>

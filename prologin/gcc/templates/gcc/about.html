@@ -1,0 +1,13 @@
+{% extends "gcc/base.html" %}
+
+{% block title %}GCC! − L'équipe{% endblock %}
+
+{% block content %}
+<section>
+	<h1>À propos de GCC!</h1>
+	<p>GCC! est un stage d'informatique créé et organisé par l'association
+	Prologin</p>
+	<!--TODO: put real content -->
+	<a class="halo-button" href="{% url "gcc:team_index" %}">Découvrir l'équipe</a>
+</section>
+{% endblock %}

@@ -1,0 +1,83 @@
+/**
+ * Objects to display a list of trainers
+ * The main element is of class `trainer-list`, each trainer is represented by
+ *  a `trainer-item` element which contains
+ *   - a picture (img)
+ *   - his name (.content > .name)
+ *   - a description (.content > p)
+ */
+
+.trainer-list{
+	margin: 0;
+}
+
+.trainer-item {
+	display: inline-block;
+	list-style-type: none;
+	padding: 15px;
+}
+
+.trainer-item:not(:last-child) {
+	border-bottom: #cccccc solid 1px;
+}
+
+.trainer-item img {
+	width: 100px;
+	height: 100px;
+	border-radius: 50%;
+	margin-right: 20px;
+}
+
+.trainer-item .content {
+	overflow: hidden;
+}
+
+.trainer-item .content > .name {
+	display: block;
+	margin: 0 0 5px 0;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.trainer-item .content > p {
+	display: block;
+	margin: 0;
+	font-size: 14px;
+}
+
+
+/**
+ * Editions displayed as a grid
+ */
+.grid {
+	display: flex;
+	flex-wrap: wrap;
+	width: 100%;
+	justify-content: center;
+}
+
+.grid > .edition-container {
+	display: block;
+	margin: 10px;
+	max-width: 150px;
+}
+
+.grid > .edition-container > h2 {
+	z-index: 1;
+	margin: 15px 0 5px;
+	position: absolute;
+	margin: 10px;
+	color: white;
+	text-shadow: 1px 1px 0px rgba(0, 0, 0);
+	font-weight: bold;
+}
+
+.grid > .edition-container > img {
+	width: 100%;
+	z-index: 0;
+}
+
+.grid > .edition-container:hover > img {
+	filter: brightness(50%);
+}
