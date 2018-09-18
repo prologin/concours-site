@@ -26,29 +26,6 @@ ALLOWED_HOSTS = []
 
 SITE_ID = 1
 
-
-# Databases
-# https://docs.djangoproject.com/en/1.7/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'HOST': '',
-        'NAME': '',
-        'USER': '',
-        'PASSWORD': '',
-    },
-    # Uncomment if you need to migrate some data from the old drupal website
-    # 'mysql_legacy': {
-    #     'ENGINE': 'mysql.connector.django',
-    #     'HOST': '',
-    #     'NAME': '',
-    #     'USER': '',
-    #     'PASSWORD': '',
-    # },
-}
-
-
 # Application definition
 
 INSTALLED_APPS = (
