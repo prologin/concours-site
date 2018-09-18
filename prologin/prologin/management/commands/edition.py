@@ -13,8 +13,7 @@ class Command(BaseCommand):
         :type parser: argparse.ArgumentParser
         """
         sp = parser.add_subparsers(dest="cmd")
-        sp.add_parser(name="create", cmd="create",
-                      help="create a new Prologin edition")
+        sp.add_parser(name="create", help="create a new Prologin edition")
 
     def _ask_for(self, question, default=None, validate=None, coerce=None):
         while True:
