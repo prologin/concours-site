@@ -4,6 +4,7 @@
 
 * Python 3
 * Every package from requirements.txt (see recommended procedure below)
+* PostgreSQL
 * Redis (for training & contest)
 * optipng (used for assets generation)
 * jq (used for assets generation)
@@ -55,6 +56,16 @@ Then, check the following settings in the file you copied:
 1. Add a local or remote correction VM to `PROBLEMS_CORRECTORS`.
 1. Uncomment and update `RECAPTCHA_{PUBLIC,PRIVATE}_KEY`. You can leave them
    empty for most tests.
+1. It is required to setup a local Postgres database, the default configuration
+   file uses database name *prologin*:
+
+     :::python
+     DATABASES = {
+         'default': {
+             'ENGINE': 'django.db.backends.postgresql',
+             'NAME': 'prologin',
+         }
+     }
 
 Now proceed to the sub-section corresponding to your environment for specific
 instructions.
@@ -77,23 +88,8 @@ We have to fetch them or generate them using scripts. To do that, run:
         INSTALLED_APPS += ('debug_toolbar',)
 	
         MIDDLEWARE += ('debug_toolbar.middleware.DebugToolbarMiddleware',)
-   
 
-* By default a SQLite3 (file based) database is used. Disclaimer: this is
-  convenient but *performance is poor*. It is thus recommended to setup a local
-  Postgres database and use that instead. If you do choose to use Postgres,
-  change `dev.py` accordingly:
 
-        :::python
-        DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.postgresql_psycopg2',
-                'HOST': 'localhost',
-                'NAME': 'prologin',
-                'USER': 'prologin',
-                'PASSWORD': 'prologin',
-            }
-        }
 
 * You may need to customize the Redis URI. Check the database index (0 by
   default) so it does not clash with your other data if you use this Redis
