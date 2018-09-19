@@ -6,6 +6,7 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
 from gcc.models import Edition, SubscriberEmail, Trainer, Forms
+from users.models import ProloginUser
 
 from gcc.forms import EmailForm, build_dynamic_form
 
@@ -106,5 +107,16 @@ class NewsletterConfirmUnsubView(TemplateView):
 
 
 class ApplicationForm(FormView):
+    success_url = reverse_lazy("gcc:index")
     template_name = 'gcc/application_form.html'
-    form_class = build_dynamic_form(Forms.application)
+
+    def get_form_class(self):
+        """
+        Returns the form class to use in this view
+        """
+        user = get_object_or_404(ProloginUser, pk=self.kwargs['user_id'])
+        return build_dynamic_form(Forms.application, user)
+
+    def form_valid(self, form):
+        form.save()
+        return super(ApplicationForm, self).form_valid(form)

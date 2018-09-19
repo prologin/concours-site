@@ -1,6 +1,8 @@
+import json
+
 from django import forms
 
-from gcc.models import Question, Forms, ResponseTypes
+from gcc.models import Question, Response, Forms, ResponseTypes
 
 
 class EmailForm(forms.Form):
@@ -10,45 +12,80 @@ class EmailForm(forms.Form):
 
 
 # TODO: cache this function
-def build_dynamic_form(form):
+def build_dynamic_form(form, user):
     """
     Initialize a django form with fields described in models.Question
     :param form: the form that must be displayed / edited
     :type form: models.Form
+    :type user: users.models.ProloginUser
     """
 
     class DynamicForm(forms.Form):
         """
-        A form generated for a specific set of questions.
+        A form generated for a specific set of questions, specificly for one user.
+
+        `form` and `user` are the parameters of function gcc.models.build_dynamic_form(form)
+        which generated this class.
         """
+
         def __init__(self, *args, **kwargs):
-            """
-            Initialize a django form with field described as models.Question
-            for the form `form` where `form` is the parameter of function
-            gcc.models.build_dynamic_form(form) which generated this class.
-            """
-            super().__init__(*args, **kwargs)
+            super(DynamicForm, self).__init__(*args, **kwargs)
 
-            questions = Question.objects.filter(form=form.value)
+            # Add fields to the form
+            self.questions = Question.objects.filter(form=form.value)
 
-            for question in questions:
+            for question in self.questions:
                 # set basic fields parameters
                 basic_args = {
                     'label': question.question,
                     'required': question.required,
                 }
+                fieldId = 'field' + str(question.pk)
+
+                # Try to load existing configuration
+                try:
+                    answer = Response.objects.get(question=question, user=user)
+                    basic_args['initial'] = json.loads(answer.response)
+                except Response.DoesNotExist:
+                    pass
 
                 if question.response_type == ResponseTypes.boolean.value:
-                    self.fields[question.pk] = forms.BooleanField(**basic_args)
+                    self.fields[fieldId] = forms.BooleanField(**basic_args)
                 elif question.response_type == ResponseTypes.integer.value:
-                    self.fields[question.pk] = forms.IntegerField(**basic_args)
+                    self.fields[fieldId] = forms.IntegerField(**basic_args)
                 elif question.response_type == ResponseTypes.date.value:
-                    self.fields[question.pk] = forms.DateField(**basic_args)
+                    self.fields[fieldId] = forms.DateField(**basic_args)
                 elif question.response_type == ResponseTypes.string.value:
-                    self.fields[question.pk] = forms.CharField(**basic_args)
+                    self.fields[fieldId] = forms.CharField(**basic_args)
                 elif question.response_type == ResponseTypes.text.value:
-                    self.fields[question.pk] = forms.CharField(
-                        widget=forms.Textarea, **basic_args
-                    )
+                    self.fields[fieldId] = forms.CharField(widget=forms.Textarea, **basic_args)
+
+        def save(self):
+            """
+            Saves all filled fields for `user`.
+            """
+            data = self.cleaned_data
+
+            for question in self.questions:
+                fieldId = 'field' + str(question.pk)
+
+                if data[fieldId] is not None:
+                    try:
+                        serialized = json.dumps(data[fieldId])
+                    except TypeError:
+                        # Set the fallback serialization to __str__
+                        serialized = json.dumps(str(data[fieldId]))
+
+                    # Try to modify existing answer, overwise create a new answer
+                    try:
+                        answer = Response.objects.get(user=user, question=question)
+                    except Response.DoesNotExist:
+                        answer = Response(
+                            user = user,
+                            question = question
+                        )
+
+                    answer.response = serialized
+                    answer.save()
 
     return DynamicForm

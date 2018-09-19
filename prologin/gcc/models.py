@@ -111,7 +111,6 @@ class ResponseTypes(ChoiceEnum):
 
 # TODO: add a 'hint'/'placeholder'/'description' field
 # TODO: a way to order questions ?
-# TODO: choose editions a question is part of ?
 class Question(models.Model):
     question = models.TextField()
     form = EnumField(Forms)
@@ -119,6 +118,9 @@ class Question(models.Model):
     required = models.BooleanField(default=False)
     #TODO: Use postgre's JSONField ?
     meta = models.TextField()
+
+    def __str__(self):
+        return self.question
 
 
 # TODO: rename response -> answer for consistency with prologin's quizz
