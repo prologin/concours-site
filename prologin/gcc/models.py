@@ -109,6 +109,9 @@ class ResponseTypes(ChoiceEnum):
     text = 4
 
 
+# TODO: add a 'hint'/'placeholder'/'description' field
+# TODO: a way to order questions ?
+# TODO: choose editions a question is part of ?
 class Question(models.Model):
     question = models.TextField()
     form = EnumField(Forms)
@@ -118,6 +121,7 @@ class Question(models.Model):
     meta = models.TextField()
 
 
+# TODO: rename response -> answer for consistency with prologin's quizz
 class Response(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

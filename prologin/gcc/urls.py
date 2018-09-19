@@ -49,4 +49,5 @@ urlpatterns = [
     path('team/', include(team_patterns)),
     path('photos/', include(photos_patterns)),
     path('newsletter/', include(newsletter_patterns)),
+    path('application/<int:user_id>', views.ApplicationForm.as_view(), name='application')
 ]

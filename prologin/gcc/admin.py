@@ -1,8 +1,9 @@
 from django.contrib import admin
 from gcc.models import Edition, Event, Trainer, SubscriberEmail
+from gcc.models import Question, Response
 
 
-admin.site.register([Edition, SubscriberEmail])
+admin.site.register([Edition, SubscriberEmail, Question, Response])
 
 @admin.register(Trainer)
 class TrainerAdmin(admin.ModelAdmin):

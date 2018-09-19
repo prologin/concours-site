@@ -5,9 +5,9 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from gcc.models import Edition, SubscriberEmail, Trainer
+from gcc.models import Edition, SubscriberEmail, Trainer, Forms
 
-from gcc.forms import EmailForm
+from gcc.forms import EmailForm, build_dynamic_form
 
 # Photos
 
@@ -100,3 +100,11 @@ class NewsletterConfirmSubscribeView(TemplateView):
 
 class NewsletterConfirmUnsubView(TemplateView):
     template_name = "gcc/news_confirm_unsub.html"
+
+
+# Registration
+
+
+class ApplicationForm(FormView):
+    template_name = 'gcc/application_form.html'
+    form_class = build_dynamic_form(Forms.application)
