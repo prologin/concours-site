@@ -31,13 +31,15 @@ def build_dynamic_form(form, user):
             super(DynamicForm, self).__init__(*args, **kwargs)
 
             # Add fields to the form
-            self.questions = Question.objects.filter(form=form.value)
+            self.questions = \
+                Question.objects.filter(form=form.value).order_by('order')
 
             for question in self.questions:
                 # set basic fields parameters
                 basic_args = {
                     'label': question.question,
                     'required': question.required,
+                    'help_text': question.comment
                 }
                 fieldId = 'field' + str(question.pk)
 

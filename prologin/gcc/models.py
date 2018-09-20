@@ -4,6 +4,7 @@ from django.db import models
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
+from django.db.models import Max
 from django.utils.functional import cached_property
 
 from centers.models import Center
@@ -111,14 +112,30 @@ class ResponseTypes(ChoiceEnum):
     text = 4
 
 
-# TODO: add a 'hint'/'placeholder'/'description' field
-# TODO: a way to order questions ?
 class Question(models.Model):
+
+    def default_order():
+        """Default order index will by default go 10 by 10"""
+        max_order = Question.objects.all().aggregate(Max('order'))['order__max']
+        if max_order:
+            return max_order + 10
+        else:
+            return 10
+
+    # Formulation of the question
     question = models.TextField()
+    # Potential additional indications about the questions
+    comment = models.TextField(blank=True)
+    # The form this question is part of
     form = EnumField(Forms)
+    # How to represent the answer
     response_type = EnumField(ResponseTypes)
+    # Wether the answer is mandatory or not
     required = models.BooleanField(default=False)
-    meta = JSONField(encoder=DjangoJSONEncoder)
+    # Some extra constraints on the answer
+    meta = JSONField(encoder=DjangoJSONEncoder, default=dict, null=True)
+    # An index that will be used to order the questions
+    order = models.IntegerField(default=default_order)
 
     def __str__(self):
         return self.question
