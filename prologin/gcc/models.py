@@ -104,7 +104,7 @@ class Forms(ChoiceEnum):
 
 
 @ChoiceEnum.labels(str.capitalize)
-class ResponseTypes(ChoiceEnum):
+class AnswerTypes(ChoiceEnum):
     boolean = 0
     integer = 1
     date = 2
@@ -129,7 +129,7 @@ class Question(models.Model):
     # The form this question is part of
     form = EnumField(Forms)
     # How to represent the answer
-    response_type = EnumField(ResponseTypes)
+    response_type = EnumField(AnswerTypes)
     # Wether the answer is mandatory or not
     required = models.BooleanField(default=False)
     # Some extra constraints on the answer
@@ -141,8 +141,7 @@ class Question(models.Model):
         return self.question
 
 
-# TODO: rename response -> answer for consistency with prologin's quizz
-class Response(models.Model):
+class Answer(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)

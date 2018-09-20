@@ -2,7 +2,7 @@ import json
 
 from django import forms
 
-from gcc.models import Question, Response, Forms, ResponseTypes
+from gcc.models import Question, Answer, Forms, AnswerTypes
 
 
 class EmailForm(forms.Form):
@@ -45,20 +45,20 @@ def build_dynamic_form(form, user):
 
                 # Try to load existing configuration
                 try:
-                    answer = Response.objects.get(question=question, user=user)
-                    basic_args['initial'] = json.loads(answer.response)
-                except Response.DoesNotExist:
+                    answer = Answer.objects.get(question=question, user=user)
+                    basic_args['initial'] = answer.response
+                except Answer.DoesNotExist:
                     pass
 
-                if question.response_type == ResponseTypes.boolean.value:
+                if question.response_type == AnswerTypes.boolean.value:
                     self.fields[fieldId] = forms.BooleanField(**basic_args)
-                elif question.response_type == ResponseTypes.integer.value:
+                elif question.response_type == AnswerTypes.integer.value:
                     self.fields[fieldId] = forms.IntegerField(**basic_args)
-                elif question.response_type == ResponseTypes.date.value:
+                elif question.response_type == AnswerTypes.date.value:
                     self.fields[fieldId] = forms.DateField(**basic_args)
-                elif question.response_type == ResponseTypes.string.value:
+                elif question.response_type == AnswerTypes.string.value:
                     self.fields[fieldId] = forms.CharField(**basic_args)
-                elif question.response_type == ResponseTypes.text.value:
+                elif question.response_type == AnswerTypes.text.value:
                     self.fields[fieldId] = forms.CharField(widget=forms.Textarea, **basic_args)
 
         def save(self):
@@ -73,9 +73,9 @@ def build_dynamic_form(form, user):
                 if data[fieldId] is not None:
                     # Try to modify existing answer, overwise create a new answer
                     try:
-                        answer = Response.objects.get(user=user, question=question)
-                    except Response.DoesNotExist:
-                        answer = Response(
+                        answer = Answer.objects.get(user=user, question=question)
+                    except Answer.DoesNotExist:
+                        answer = Answer(
                             user = user,
                             question = question
                         )

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from gcc.models import Edition, Event, Trainer, SubscriberEmail
-from gcc.models import Question, Response
+from gcc.models import Question, Answer
 
 
 admin.site.register([Edition, SubscriberEmail, Question])
@@ -14,6 +14,6 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ('edition', 'center', 'event_start', 'event_end', 'signup_start', 'signup_end')
 
 
-@admin.register(Response)
-class ResponseAdmin(admin.ModelAdmin):
+@admin.register(Answer)
+class AnswerAdmin(admin.ModelAdmin):
     list_display = ('user', 'question', 'response')
