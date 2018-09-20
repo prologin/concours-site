@@ -11,13 +11,12 @@ class EmailForm(forms.Form):
     email = forms.EmailField(label='Adresse électronique', max_length=254)
 
 
-# TODO: cache this function
 def build_dynamic_form(form, user):
     """
     Initialize a django form with fields described in models.Question
     :param form: the form that must be displayed / edited
     :type form: models.Form
-    :type user: users.models.ProloginUser
+    :type user: settings.AUTH_USER_MODEL
     """
 
     class DynamicForm(forms.Form):
@@ -70,12 +69,6 @@ def build_dynamic_form(form, user):
                 fieldId = 'field' + str(question.pk)
 
                 if data[fieldId] is not None:
-                    try:
-                        serialized = json.dumps(data[fieldId])
-                    except TypeError:
-                        # Set the fallback serialization to __str__
-                        serialized = json.dumps(str(data[fieldId]))
-
                     # Try to modify existing answer, overwise create a new answer
                     try:
                         answer = Response.objects.get(user=user, question=question)
@@ -85,7 +78,7 @@ def build_dynamic_form(form, user):
                             question = question
                         )
 
-                    answer.response = serialized
+                    answer.response = data[fieldId]
                     answer.save()
 
     return DynamicForm

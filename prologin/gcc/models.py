@@ -2,6 +2,8 @@ import os
 
 from django.db import models
 from django.conf import settings
+from django.contrib.postgres.fields import JSONField
+from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.functional import cached_property
 
 from centers.models import Center
@@ -116,8 +118,7 @@ class Question(models.Model):
     form = EnumField(Forms)
     response_type = EnumField(ResponseTypes)
     required = models.BooleanField(default=False)
-    #TODO: Use postgre's JSONField ?
-    meta = models.TextField()
+    meta = JSONField(encoder=DjangoJSONEncoder)
 
     def __str__(self):
         return self.question
@@ -128,8 +129,10 @@ class Response(models.Model):
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
-    #TODO: Use postgre's JSONField ?
-    response = models.TextField()
+    response = JSONField(encoder=DjangoJSONEncoder)
+
+    def __str__(self):
+        return self.response
 
     class Meta:
         unique_together = (('user', 'question'), )
