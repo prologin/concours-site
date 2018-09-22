@@ -1,0 +1,43 @@
+form {
+    margin-left: 30px;
+}
+
+form > p {
+    display: block;
+}
+
+form > p > label {
+    width: 25%;
+    display: inline-block;
+    vertical-align: top;
+}
+
+form > p > input,textarea {
+    display: inline-block;
+    width: 65%;
+    margin-left: 5%;
+
+    color: white;
+
+    border: none;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.1);
+    padding: 8px;
+}
+
+form > p > input:focus, textarea:focus {
+    box-shadow: 0px 0px 2px black;
+}
+
+form > p > input[type="checkbox"] {
+    width: auto;
+    vertical-align: top;
+}
+
+form > p > .helptext {
+    display: block;
+    margin-left: 30%;
+    width: 65%;
+    color: lightgrey;
+    padding: 3px 0px 0px 8px;
+}
