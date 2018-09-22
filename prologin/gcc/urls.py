@@ -22,24 +22,35 @@ team_patterns = [
 ]
 
 newsletter_patterns = [
-        path(
-            'unsubscribe',
-            views.NewsletterUnsubscribeView.as_view(),
-            name='news_unsubscribe'),
-        path(
-            'unsubscribe_failed',
-            views.NewsletterUnsubscribeView.as_view(
-                extra_context={'fail':True}),
-            name='news_unsubscribe_failed'),
+    path(
+        'unsubscribe',
+        views.NewsletterUnsubscribeView.as_view(),
+        name='news_unsubscribe'),
+    path(
+        'unsubscribe_failed',
+        views.NewsletterUnsubscribeView.as_view(
+            extra_context={'fail':True}),
+        name='news_unsubscribe_failed'),
 
-        path(
-            'confirm_subscribe',
-            views.NewsletterConfirmSubscribeView.as_view(),
-            name='news_confirm_subscribe'),
-        path(
-            'confirm_unsubscribe',
-            views.NewsletterConfirmUnsubView.as_view(),
-            name='news_confirm_unsub'),
+    path(
+        'confirm_subscribe',
+        views.NewsletterConfirmSubscribeView.as_view(),
+        name='news_confirm_subscribe'),
+    path(
+        'confirm_unsubscribe',
+        views.NewsletterConfirmUnsubView.as_view(),
+        name='news_confirm_unsub'),
+]
+
+application_patterns = [
+    path(
+        'form/<int:user_id>',
+        views.ApplicationForm.as_view(),
+        name='application_form'),
+    path(
+        'validation/<int:user_id>',
+        views.ApplicationValidation.as_view(),
+        name='application_validation'),
 ]
 
 urlpatterns = [
@@ -49,5 +60,5 @@ urlpatterns = [
     path('team/', include(team_patterns)),
     path('photos/', include(photos_patterns)),
     path('newsletter/', include(newsletter_patterns)),
-    path('application/<int:user_id>', views.ApplicationForm.as_view(), name='application')
+    path('application/', include(application_patterns))
 ]

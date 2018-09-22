@@ -1,3 +1,5 @@
+from datetime import date
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.urls import reverse_lazy
@@ -5,10 +7,10 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from gcc.models import Edition, SubscriberEmail, Trainer, Forms
+from gcc.models import Edition, Event, SubscriberEmail, Trainer, Forms
 from users.models import ProloginUser
 
-from gcc.forms import EmailForm, build_dynamic_form
+from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
 
 # Photos
 
@@ -106,17 +108,36 @@ class NewsletterConfirmUnsubView(TemplateView):
 # Registration
 
 
+#TODO: Check if the user is logged in
 class ApplicationForm(FormView):
-    success_url = reverse_lazy("gcc:index")
     template_name = 'gcc/application_form.html'
 
     def get_form_class(self):
         """
         Returns the form class to use in this view
         """
-        user = get_object_or_404(ProloginUser, pk=self.kwargs['user_id'])
-        return build_dynamic_form(Forms.application, user)
+        self.user = get_object_or_404(ProloginUser, pk=self.kwargs['user_id'])
+        return build_dynamic_form(Forms.application, self.user)
+
+    def get_success_url(self):
+        return reverse_lazy(
+            'gcc:application_validation',
+            kwargs = {'user_id': self.user.pk})
 
     def form_valid(self, form):
         form.save()
         return super(ApplicationForm, self).form_valid(form)
+
+
+#TODO: Check if the user is logged in and has filled ApplicationForm
+class ApplicationValidation(FormView):
+    success_url = reverse_lazy("gcc:index")
+    template_name = 'gcc/application_validation.html'
+    form_class = ApplicationValidationForm
+
+    def get_context_data(self, **kwargs):
+        kwargs['events'] = Event.objects.filter(
+            signup_start__lt = date.today(),
+            signup_end__gt = date.today()
+        )
+        return super(ApplicationValidation, self).get_context_data(**kwargs)

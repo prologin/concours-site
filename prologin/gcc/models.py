@@ -52,10 +52,10 @@ class Edition(models.Model):
 class Event(models.Model):
     center = models.ForeignKey(Center, on_delete=models.CASCADE)
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
-    event_start = models.DateField(auto_now_add=True)
-    event_end = models.DateField(auto_now_add=True)
-    signup_start = models.DateField(auto_now_add=True)
-    signup_end = models.DateField(auto_now_add=True)
+    event_start = models.DateField()
+    event_end = models.DateField()
+    signup_start = models.DateField()
+    signup_end = models.DateField()
 
     def __str__(self):
         return str(self.event_start) + ' ' + str(self.center)

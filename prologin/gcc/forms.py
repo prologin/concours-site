@@ -1,8 +1,10 @@
 import json
 
+from datetime import date
+
 from django import forms
 
-from gcc.models import Question, Answer, Forms, AnswerTypes
+from gcc.models import Question, Answer, Forms, AnswerTypes, Event
 
 
 class EmailForm(forms.Form):
@@ -84,3 +86,19 @@ def build_dynamic_form(form, user):
                     answer.save()
 
     return DynamicForm
+
+
+class ApplicationValidationForm(forms.Form):
+    """
+    Select the top three events a candidate wants to participate in.
+    """
+    # Get a list of (primary_key, event name) for the selectors
+    events = Event.objects.filter(
+        signup_start__lt = date.today(),
+        signup_end__gt = date.today()
+    )
+    events_selection = [(None, '')] + [(event.pk, str(event)) for event in events]
+
+    priority1 = forms.TypedChoiceField(label='1er choix', choices=events_selection, required=True)
+    priority2 = forms.TypedChoiceField(label='2nd choix', choices=events_selection)
+    priority3 = forms.TypedChoiceField(label='3e choix', choices=events_selection)
