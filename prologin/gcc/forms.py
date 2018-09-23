@@ -103,10 +103,10 @@ class ApplicationValidationForm(forms.Form):
         label='1er choix', choices=events_selection, required=True
     )
     priority2 = forms.TypedChoiceField(
-        label='2nd choix', choices=events_selection
+        label='2nd choix', choices=events_selection, required=False
     )
     priority3 = forms.TypedChoiceField(
-        label='3e choix', choices=events_selection
+        label='3e choix', choices=events_selection, required=False
     )
 
     def save(self, user):
@@ -134,10 +134,10 @@ class ApplicationValidationForm(forms.Form):
         # Collect selected events, remove duplicatas
         events = [ Event.objects.get(pk=data['priority1']) ]
 
-        if data['priority2'] != data['priority1']:
+        if data['priority2'] and data['priority2'] != data['priority1']:
             events.append(Event.objects.get(pk=data['priority2']))
 
-        if data['priority3'] not in [data['priority1'], data['priority2']]:
+        if data['priority3'] and data['priority3'] not in [data['priority1'], data['priority2']]:
             events.append(Event.objects.get(pk=data['priority3']))
 
         # Save applications
