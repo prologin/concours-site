@@ -129,7 +129,7 @@ class ApplicationForm(FormView):
         return super(ApplicationForm, self).form_valid(form)
 
 
-#TODO: Check if the user is logged in and has filled ApplicationForm
+#TODO: Check if the user is logged in and has filled ApplicationForm and isn't registered yet
 class ApplicationValidation(FormView):
     success_url = reverse_lazy("gcc:index")
     template_name = 'gcc/application_validation.html'
@@ -141,3 +141,8 @@ class ApplicationValidation(FormView):
             signup_end__gt = date.today()
         )
         return super(ApplicationValidation, self).get_context_data(**kwargs)
+
+    def form_valid(self, form):
+        self.user = get_object_or_404(ProloginUser, pk=self.kwargs['user_id'])
+        form.save(self.user)
+        return super(ApplicationValidation, self).form_valid(form)

@@ -4,7 +4,7 @@ from datetime import date
 
 from django import forms
 
-from gcc.models import Question, Answer, Forms, AnswerTypes, Event
+from gcc.models import Answer, Application, Question, Forms, AnswerTypes, Event, Edition
 
 
 class EmailForm(forms.Form):
@@ -99,6 +99,54 @@ class ApplicationValidationForm(forms.Form):
     )
     events_selection = [(None, '')] + [(event.pk, str(event)) for event in events]
 
-    priority1 = forms.TypedChoiceField(label='1er choix', choices=events_selection, required=True)
-    priority2 = forms.TypedChoiceField(label='2nd choix', choices=events_selection)
-    priority3 = forms.TypedChoiceField(label='3e choix', choices=events_selection)
+    priority1 = forms.TypedChoiceField(
+        label='1er choix', choices=events_selection, required=True
+    )
+    priority2 = forms.TypedChoiceField(
+        label='2nd choix', choices=events_selection
+    )
+    priority3 = forms.TypedChoiceField(
+        label='3e choix', choices=events_selection
+    )
+
+    def save(self, user):
+        """
+        Saves the new applications.
+        If an application was already pending for current year, it will be
+        replaced. If an application was rejected or accepted, it will raise
+        an Application.AlreadyLocked exception.
+        """
+        data = self.cleaned_data
+        edition = Edition.objects.latest('year')
+        applications = Application.objects.filter(
+            user=user, event__edition=edition)
+
+        # Verify that no application is already accepted or rejected
+        for application in applications:
+            if application.selected or application.accepted:
+                raise Application.AlreadyLocked(
+                    'The user has a processed application'
+                )
+
+        # Remove previous applications
+        applications.delete()
+
+        # Collect selected events, remove duplicatas
+        events = [ Event.objects.get(pk=data['priority1']) ]
+
+        if data['priority2'] != data['priority1']:
+            events.append(Event.objects.get(pk=data['priority2']))
+
+        if data['priority3'] not in [data['priority1'], data['priority2']]:
+            events.append(Event.objects.get(pk=data['priority3']))
+
+        # Save applications
+        for i in range(len(events)):
+            application = Application(
+                user = user,
+                event = events[i],
+                selected = False,
+                accepted = False,
+                priority = i + 1
+            )
+            application.save()

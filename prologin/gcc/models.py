@@ -78,15 +78,26 @@ class Application(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     selected = models.BooleanField(default=False)
     accepted = models.BooleanField(default=False)
+    # Priority defined by the candidate to express his prefered event
+    # The lower the priority is, the more important is the choice
+    priority = models.IntegerField(default=1)
+
+
+    class AlreadyLocked(Exception):
+        """
+        This exception is raised if a new application is submitted for an user
+        who has already been accepted or rejected this year.
+        """
+        pass
 
     class Meta:
         unique_together = (('user', 'event'), )
 
     def __str__(self):
-        if self.accepted:
+        if self.selected:
+            status = 'selected'
+        elif self.accepted:
             status = 'accepted'
-        elif self.rejected:
-            status = 'rejected'
         else:
             status = 'pending'
 
