@@ -105,7 +105,7 @@ class NewsletterConfirmUnsubView(TemplateView):
     template_name = "gcc/news_confirm_unsub.html"
 
 
-# Registration
+# Application
 
 
 #TODO: Check if the user is logged in
@@ -129,7 +129,9 @@ class ApplicationForm(FormView):
         return super(ApplicationForm, self).form_valid(form)
 
 
-#TODO: Check if the user is logged in and has filled ApplicationForm and isn't registered yet
+#TODO: Check if the user is logged in
+#TODO: Check if there is an event with opened application
+#TODO: Check that the user has filled ApplicationForm and isn't registered yet
 class ApplicationValidation(FormView):
     success_url = reverse_lazy("gcc:index")
     template_name = 'gcc/application_validation.html'
@@ -146,3 +148,8 @@ class ApplicationValidation(FormView):
         self.user = get_object_or_404(ProloginUser, pk=self.kwargs['user_id'])
         form.save(self.user)
         return super(ApplicationValidation, self).form_valid(form)
+
+
+#TODO: Check permissions to access this page
+class ApplicationIndexView(TemplateView):
+    template_name = "gcc/application_index.html"

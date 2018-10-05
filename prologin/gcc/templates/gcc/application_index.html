@@ -1,0 +1,80 @@
+{% extends "gcc/base.html" %}
+{% load static %}
+
+{% block title %}GCC! − Applications{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static "gcc/css/application.css"%}">
+{% endblock %}
+
+{% block content %}
+<section>
+  <h2>Liste des candidates pour 2018</h2>
+  <ul class="applicant-list">
+    <li>Joseph Marchand</li>
+    <li>Rémi Dupré</li>
+    <li>
+      <span>Joseph Marchand</span>
+      <span class="label-list">
+        <span class="label">another-label</span>
+      </span>
+    </li>
+    <li class="selected">
+      <span>Rémi Dupré</span>
+      <span class="label-list">
+        <span class="label">âge</span>
+        <span class="label">bâclé</span>
+        <span class="label">any-label</span>
+      </span>
+      <div class="detail">
+        <div class="detail-section">
+          <a class="btn" href="#">View complete profile</a>
+          <a class="btn" href="#">Reject all</a>
+        </div>
+        <div class="detail-section">
+          <table class="recap">
+            <tr>
+              <td>email</td>
+              <td>email@provider.org</td>
+            </tr>
+            <tr>
+              <td>birthdate</td>
+              <td>10/03/1999</td>
+            </tr>
+            <tr>
+              <td>previous participations</td>
+              <td>none</td>
+            </tr>
+          </table>
+        </div>
+        <div class="detail-section">
+          <ul style="list-style: decimal; font-size: 20px;">
+            <li>
+              <span>Paris I <small>(17/05/2018)</small></span>
+              <span style="float:right">
+                <a class="btn btn-little" href="#">accept</a>
+                <a class="btn btn-little" href="#">reject</a>
+              </span>
+            </li>
+            <li>
+              <span>Lyon <small>(10/05/2018)</small></span>
+              <span style="float:right">
+                <a class="btn btn-little" href="#">accept</a>
+                <a class="btn btn-little" href="#">reject</a>
+              </span>
+            </li>
+          </ul>
+        </div>
+        <div class="detail-section">
+          Here is a review written by a staff member who already read this application.
+          This could also be implemented like some kind of comment section?
+        </div>
+      </div>
+    </li>
+    <li>Joseph Marchand</li>
+    <li>Rémi Dupré</li>
+    <li>Joseph Marchand</li>
+  </ul>
+  </table>
+</section>
+{% endblock %}

@@ -43,6 +43,7 @@ newsletter_patterns = [
 ]
 
 application_patterns = [
+    path('', views.ApplicationIndexView.as_view(), name='application_index'),
     path(
         'form/<int:user_id>',
         views.ApplicationForm.as_view(),

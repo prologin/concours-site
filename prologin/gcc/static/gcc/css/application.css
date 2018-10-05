@@ -1,0 +1,83 @@
+.applicant-list > li {
+    list-style: none;
+    display: block;
+    padding: 8px;
+}
+
+.applicant-list > li:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.applicant-list > li:nth-child(odd) {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.applicant-list > li:not(.selected) {
+    margin: 0 4px 0 4px;
+}
+
+.applicant-list > li.selected {
+    margin: 10px 0 10px 0;
+}
+
+.applicant-list > li:not(.selected) > .detail {
+    display: none;
+}
+
+.applicant-list > li.selected > .detail {
+    display: block;
+    margin: 8px -8px -8px -8px;
+    padding: 8px;
+    background-color: rgba(255, 255, 255, 0.02);
+}
+
+.applicant-list .detail > p {
+    display: block;
+}
+
+.applicant-list .detail-section:not(:last-child) {
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: var(--color5) solid 1px;
+}
+
+.applicant-list .btn {
+    display: inline-block;
+    padding: 5px;
+    margin: 0 5px 0 5px;
+    text-decoration: none;
+    background-color: var(--color5);
+    color: lightgrey;
+}
+
+.applicant-list .btn-little {
+    font-size: 10px;
+    padding: 2px;
+    margin: 0 2px 0 2px;
+    border-radius: 3px;
+}
+
+/* List of labels displayed on the right */
+.applicant-list .label-list {
+    float: right;
+}
+
+.applicant-list .label {
+    display: inline-block;
+    font-size: 12px;
+    padding: 3px 6px 3px 6px;
+    border-radius: 9px;
+    background: var(--color4);
+}
+
+/* Table for generic informations on the candidate */
+.applicant-list .recap {
+    width: 100%;
+}
+
+.applicant-list .recap td:first-child {
+    max-width: 90px;
+    color: var(--color5);
+}
+
+/* Buttons */
