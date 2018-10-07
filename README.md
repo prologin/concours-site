@@ -31,6 +31,7 @@ It is recommended to use a virtualenv to isolate Prologin Python environment.
     # Do this once!
     python3 -m venv .venv
     source .venv/bin/activate
+    pip install --upgrade pip # fixes some package conflicts with old pip versions
     pip install -r requirements.txt
 
 ## Configuration
