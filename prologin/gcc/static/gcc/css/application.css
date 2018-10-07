@@ -29,16 +29,33 @@
     margin: 8px -8px -8px -8px;
     padding: 8px;
     background-color: rgba(255, 255, 255, 0.02);
+    font-size: 12px;
 }
 
 .applicant-list .detail > p {
     display: block;
 }
 
-.applicant-list .detail-section:not(:last-child) {
-    padding-bottom: 8px;
-    margin-bottom: 8px;
-    border-bottom: var(--color5) solid 1px;
+.applicant-list .detail-section h1 {
+    font-size: 13px;
+    overflow: hidden;
+    margin: 8px 0 5px -5px;
+    color: lightgreen;
+}
+
+.applicant-list .detail-section h1:after {
+    content:'';
+    display:inline-block;
+    width:100%;
+    height: 4px;
+    /* padding: 10px 0 10px 0px; */
+    margin-left: 10px;
+    margin-right:-100%;
+    border-top: 1px solid var(--color5);
+}
+
+.applicant-list .detail-section {
+    margin-left: 5px;
 }
 
 .applicant-list .btn {
@@ -51,9 +68,9 @@
 }
 
 .applicant-list .btn-little {
-    font-size: 10px;
-    padding: 2px;
-    margin: 0 2px 0 2px;
+    font-size: 8px;
+    padding: 1px;
+    margin: 0 0 0 1px;
     border-radius: 3px;
 }
 
@@ -80,4 +97,14 @@
     color: var(--color5);
 }
 
-/* Buttons */
+/* Form */
+.applicant-list h5 {
+    font-size: 13px;
+    color: lightblue;
+    margin: 0 0 5px;
+}
+
+.applicant-list p {
+    margin: 5px 5px 5px 10px;
+    /* color: lightgreen; */
+}
