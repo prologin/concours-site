@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from gcc.models import Edition, Event, SubscriberEmail, Trainer, Forms
+from gcc.models import Answer, Application, Edition, Event, SubscriberEmail, Trainer, Forms
 from users.models import ProloginUser
 
 from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
@@ -153,3 +153,28 @@ class ApplicationValidation(FormView):
 #TODO: Check permissions to access this page
 class ApplicationIndexView(TemplateView):
     template_name = "gcc/application_index.html"
+
+    def get_context_data(self, **kwargs):
+        """
+        Extract the list of users who have an application this year and list
+        their applications in the same object.
+        """
+        #TODO: permissions to moderate each event ?
+        current_edition = Edition.objects.latest('year')
+        applications = Application.objects.filter(event__edition=current_edition)
+
+        # Get the set of users applying for this year
+        applicants = {
+            app.user.pk: {
+                'user': app.user,
+                'answers': Answer.objects.filter(user=app.user),
+                'applications': []
+            }
+            for app in applications
+        }
+
+        # Populate the set of applicants with their applications
+        for app in applications:
+            applicants[app.user.pk]['applications'].append(app)
+
+        return {'applicants': applicants}

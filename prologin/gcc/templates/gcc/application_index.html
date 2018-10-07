@@ -108,7 +108,74 @@
     <li>Joseph Marchand</li>
     <li>Rémi Dupré</li>
     <li>Joseph Marchand</li>
+
+
+    {% for pk, applicant in applicants.items %}
+      <li class="selected">
+        <span>{{applicant.user.first_name}} {{applicant.user.last_name}}</span>
+        <span class="label-list">
+          <span class="label">âge</span>
+          <span class="label">bâclé</span>
+          <span class="label">any-label</span>
+        </span>
+        <div class="detail">
+          <div class="detail-section">
+            <a class="btn" href="#">View complete profile</a>
+            <a class="btn" href="#">Reject all</a>
+          </div>
+          <div class="detail-section">
+            <h1>Profile</h1>
+            <table class="recap">
+              <tr>
+                <td>email</td>
+                <td>{{ applicant.user.email }}</td>
+              </tr>
+              <tr>
+                <td>birthdate</td>
+                <td>10/03/1999</td>
+              </tr>
+              <tr>
+                <td>previous participations</td>
+                <td>none</td>
+              </tr>
+            </table>
+          </div>
+          <div class="detail-section">
+            <h1>Events</h1>
+            <ul style="list-style: decimal;">
+              {% for application in applicant.applications %}
+              <li>
+                <span>{{ application.event.center }} <small>{{ application.event.event_start }}</small></span>
+                <span style="float:right">
+                  <a class="btn btn-little" href="#">accept</a>
+                  <a class="btn btn-little" href="#">reject</a>
+                </span>
+              </li>
+              {% endfor %}
+            </ul>
+          </div>
+          <div class="detail-section">
+            <h1>Comments</h1>
+            Here is a review written by a staff member who already read this application.
+            This could also be implemented like some kind of comment section?
+          </div>
+          <div class="detail-section">
+            <h1>Form</h1>
+            <div class="question">
+              {% for answer in applicant.answers %}
+              <h5>{{ answer.question.question }}</h5>
+              <p>
+                {{ answer.response }}
+              </p>
+              {% endfor %}
+          </div>
+        </div>
+      </li>
+    {% endfor %}
   </ul>
-  </table>
+
+  {% for pk, applicant in applicants.items %}
+    {{ applicant.user.first_name }}
+  {% endfor %}
 </section>
 {% endblock %}
