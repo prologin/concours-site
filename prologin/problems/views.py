@@ -215,15 +215,19 @@ class Problem(PermissionRequiredMixin, CreateView):
         #   case section, a warning is displayed to staff members if there is
         #   one.
         if self.request.user.is_staff:
+            integer_names = []
+
             for test in problem.tests:
                 if test.name.isdigit():
-                    messages.add_message(
-                        self.request, messages.WARNING,
-                        'Some testcase names are integers. This may be an issue'
-                        ' while parsing <em>problem.props</em>, so you should'
-                        ' consider renaming.'
-                    )
-                    break
+                    integer_names.append(test.name)
+
+            if integer_names:
+                messages.add_message(
+                    self.request, messages.WARNING,
+                    'Some testcase names are integers. This may be an issue'
+                    ' while parsing <em>problem.props</em>, so you should'
+                    ' consider renaming <strong>%s</strong>.' % ', '.join(integer_names)
+                )
 
         tackled_by = list(problems.models.Submission.objects.filter(challenge=challenge.name,
                                                                     problem=problem.name))
