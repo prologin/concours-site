@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from django.urls import reverse
@@ -209,6 +210,20 @@ class Problem(PermissionRequiredMixin, CreateView):
         context['languages'] = list(Language)
         context['challenge'] = challenge
         context['templatable_languages'] = list(problem.language_templates.keys())
+
+        # As an integer name can be missinterpreted by the parser in the test
+        #   case section, a warning is displayed to staff members if there is
+        #   one.
+        if self.request.user.is_staff:
+            for test in problem.tests:
+                if test.name.isdigit():
+                    messages.add_message(
+                        self.request, messages.WARNING,
+                        'Some testcase names are integers. This may be an issue'
+                        ' while parsing <em>problem.props</em>, so you should'
+                        ' consider renaming.'
+                    )
+                    break
 
         tackled_by = list(problems.models.Submission.objects.filter(challenge=challenge.name,
                                                                     problem=problem.name))
