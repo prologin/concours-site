@@ -222,11 +222,12 @@ class Problem(PermissionRequiredMixin, CreateView):
                     integer_names.append(test.name)
 
             if integer_names:
+                names_str = ', '.join(integer_names)
                 messages.add_message(
                     self.request, messages.WARNING,
                     'Some testcase names are integers. This may be an issue'
                     ' while parsing <em>problem.props</em>, so you should'
-                    ' consider renaming <strong>%s</strong>.' % ', '.join(integer_names)
+                    ' consider renaming <strong>{}</strong>.'.format(names_str)
                 )
 
         tackled_by = list(problems.models.Submission.objects.filter(challenge=challenge.name,
