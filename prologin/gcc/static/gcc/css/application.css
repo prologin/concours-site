@@ -20,6 +20,10 @@
     margin: 10px 0 10px 0;
 }
 
+.applicant-list .applicant-head {
+    cursor: pointer;
+}
+
 .applicant-list > li:not(.selected) > .detail {
     display: none;
 }
