@@ -63,8 +63,7 @@ class Event(models.Model):
 
 class Trainer(models.Model):
     events = models.ManyToManyField(Event)
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     can_view_applications = models.BooleanField(default=False)
     description = models.TextField()
 
@@ -72,16 +71,37 @@ class Trainer(models.Model):
         return str(self.user)
 
 
-class Application(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    selected = models.BooleanField(default=False)
-    accepted = models.BooleanField(default=False)
-    # Priority defined by the candidate to express his prefered event
-    # The lower the priority is, the more important is the choice
-    priority = models.IntegerField(default=1)
+@ChoiceEnum.labels(str.capitalize)
+class ApplicantStatusTypes(ChoiceEnum):
+    pending = 0  # the candidate hasn't finished her registration yet
+    rejected = 1  # the candidate's application has been rejected
+    selected = 2  # the candidate has been selected for participation
+    accepted = 3  # the candidate has been assigned to an event and emailed
+    confirmed = 4  # the candidate confirmed her participation
 
+
+class Applicant(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
+    status = EnumField(ApplicantStatusTypes)
+
+    def for_user(user):
+        """
+        Get applicant object corresponding to an user for current edition. If no
+        applicant has been created for this edition yet, it will be created.
+        """
+        edition = Edition.objects.latest('year')
+
+        try:
+            return Applicant.objects.get(user=user, edition=edition)
+        except Applicant.DoesNotExist:
+            applicant = Applicant(
+                user = user,
+                edition = edition,
+                status = ApplicantStatusTypes.pending.value
+            )
+            applicant.save()
+            return applicant
 
     class AlreadyLocked(Exception):
         """
@@ -91,20 +111,26 @@ class Application(models.Model):
         pass
 
     class Meta:
-        unique_together = (('user', 'event'), )
+        unique_together = (('user', 'edition'), )
+
+
+class EventChoice(models.Model):
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    # Priority defined by the candidate to express his prefered event
+    # The lower the priority is, the more important is the choice
+    priority = models.IntegerField(default=1)
+    # Wether the candidate is selected for this event
+    selected = models.BooleanField(default=False)
+
+    class Meta:
+        unique_together = (('applicant', 'event'), )
 
     def __str__(self):
-        if self.selected:
-            status = 'selected'
-        elif self.accepted:
-            status = 'accepted'
-        else:
-            status = 'pending'
-
         return '{} for {} ({})'.format(
-            str(self.user),
+            str(self.applicant),
             str(self.event),
-            status
+            str(self.status)
         )
 
 
@@ -153,8 +179,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     response = JSONField(encoder=DjangoJSONEncoder)
 
@@ -162,7 +187,7 @@ class Answer(models.Model):
         return self.response
 
     class Meta:
-        unique_together = (('user', 'question'), )
+        unique_together = (('applicant', 'question'), )
 
 
 class SubscriberEmail(models.Model):

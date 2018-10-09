@@ -1,14 +1,14 @@
 from django.contrib import admin
-from gcc.models import Application, Edition, Event, Trainer, SubscriberEmail
+from gcc.models import Applicant, Edition, Event, Trainer, SubscriberEmail
 from gcc.models import Question, Answer
 
 
 admin.site.register([Edition, SubscriberEmail, Question])
 
 
-@admin.register(Application)
+@admin.register(Applicant)
 class ApplicationAdmin(admin.ModelAdmin):
-    list_display = ('user', 'priority', 'event', 'selected', 'accepted')
+    list_display = ('user', 'edition', 'status')
 
 
 @admin.register(Trainer)
@@ -23,4 +23,4 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'question', 'response')
+    list_display = ('applicant', 'question', 'response')

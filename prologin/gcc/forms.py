@@ -4,7 +4,7 @@ from datetime import date
 
 from django import forms
 
-from gcc.models import Answer, Application, Question, Forms, AnswerTypes, Event, Edition
+from gcc.models import Answer, Applicant, ApplicantStatusTypes, EventChoice, Question, Forms, AnswerTypes, Event, Edition
 
 
 class EmailForm(forms.Form):
@@ -47,7 +47,9 @@ def build_dynamic_form(form, user):
 
                 # Try to load existing configuration
                 try:
-                    answer = Answer.objects.get(question=question, user=user)
+                    answer = Answer.objects.get(
+                        question=question, applicant__user=user
+                    )
                     basic_args['initial'] = answer.response
                 except Answer.DoesNotExist:
                     pass
@@ -68,6 +70,7 @@ def build_dynamic_form(form, user):
             Saves all filled fields for `user`.
             """
             data = self.cleaned_data
+            applicant = Applicant.for_user(user)
 
             for question in self.questions:
                 fieldId = 'field' + str(question.pk)
@@ -75,10 +78,12 @@ def build_dynamic_form(form, user):
                 if data[fieldId] is not None:
                     # Try to modify existing answer, overwise create a new answer
                     try:
-                        answer = Answer.objects.get(user=user, question=question)
+                        answer = Answer.objects.get(
+                            applicant=applicant, question=question
+                        )
                     except Answer.DoesNotExist:
                         answer = Answer(
-                            user = user,
+                            applicant = applicant,
                             question = question
                         )
 
@@ -117,19 +122,17 @@ class ApplicationValidationForm(forms.Form):
         an Application.AlreadyLocked exception.
         """
         data = self.cleaned_data
-        edition = Edition.objects.latest('year')
-        applications = Application.objects.filter(
-            user=user, event__edition=edition)
+        applicant = Applicant.for_user(user)
+        event_choices = EventChoice.objects.filter(applicant=applicant)
 
         # Verify that no application is already accepted or rejected
-        for application in applications:
-            if application.selected or application.accepted:
-                raise Application.AlreadyLocked(
-                    'The user has a processed application'
-                )
+        if applicant.status != ApplicantStatusTypes.pending.value:
+            raise Applicant.AlreadyLocked(
+                'The user has a processed application'
+            )
 
-        # Remove previous applications
-        applications.delete()
+        # Remove previous choices
+        event_choices.delete()
 
         # Collect selected events, remove duplicatas
         events = [ Event.objects.get(pk=data['priority1']) ]
@@ -142,11 +145,9 @@ class ApplicationValidationForm(forms.Form):
 
         # Save applications
         for i in range(len(events)):
-            application = Application(
-                user = user,
+            event_choice = EventChoice(
+                applicant = applicant,
                 event = events[i],
-                selected = False,
-                accepted = False,
                 priority = i + 1
             )
-            application.save()
+            event_choice.save()
