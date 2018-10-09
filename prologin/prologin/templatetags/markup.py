@@ -17,7 +17,8 @@ ALLOWED_TAGS = [
     'div', 'code', 'pre', 'blockquote', 'input',
     'table', 'thead', 'tbody', 'tfoot', 'tr', 'td', 'th',
 ]
-ALLOWED_ATTRS = ['class', 'rel', 'src', 'alt', 'style', 'href', 'id', 'type', 'checked', 'disabled']
+ALLOWED_ATTRS = ['class', 'rel', 'src', 'alt', 'style', 'href', 'id', 'type', 'checked', 'disabled', 'title']
+ALLOWED_STYLES = ['max-width']
 
 
 def _init_flavored_markdown():
@@ -57,7 +58,7 @@ flavored_markdown_converter = _init_flavored_markdown()
 def markdown(value, escape=True):
     rendered = markdown_lib.markdown(value)
     if escape:
-        rendered = bleach.clean(rendered, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRS)
+        rendered = bleach.clean(rendered, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRS, styles=ALLOWED_STYLES)
     return mark_safe(rendered)
 
 
@@ -65,7 +66,7 @@ def markdown(value, escape=True):
 def flavored_markdown(value, escape=True):
     rendered = flavored_markdown_converter.convert(value)
     if escape:
-        rendered = bleach.clean(rendered, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRS)
+        rendered = bleach.clean(rendered, tags=ALLOWED_TAGS, attributes=ALLOWED_ATTRS, styles=ALLOWED_STYLES)
     flavored_markdown_converter.reset()
     return mark_safe(rendered)
 
