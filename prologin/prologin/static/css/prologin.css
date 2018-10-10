@@ -558,6 +558,11 @@ input[type=checkbox].task-list-item-checkbox {
   text-align: left;
 }
 
+.problem-statement img,
+.problem-samples img {
+    max-width: 100%;
+}
+
 .progress-bar-fixed {
   padding: 0 4px;
 }
