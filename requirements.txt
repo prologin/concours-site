@@ -52,7 +52,7 @@ jinja2
 # XML parsing (eg. corrector communication)
 lxml
 # Markdown support
-markdown>=2.4
+markdown>=2.6,<3.0
 # msgpack (camisole results)
 msgpack-python
 # Image manipulation support, previously known as PIL
