@@ -34,7 +34,7 @@ def build_dynamic_form(form, user):
 
             # Add fields to the form
             self.questions = \
-                Question.objects.filter(form=form.value).order_by('order')
+                Question.objects.filter(form=form.value)
 
             for question in self.questions:
                 # set basic fields parameters
@@ -97,22 +97,24 @@ class ApplicationValidationForm(forms.Form):
     """
     Select the top three events a candidate wants to participate in.
     """
-    # Get a list of (primary_key, event name) for the selectors
-    events = Event.objects.filter(
-        signup_start__lt = date.today(),
-        signup_end__gt = date.today()
-    )
-    events_selection = [(None, '')] + [(event.pk, str(event)) for event in events]
 
-    priority1 = forms.TypedChoiceField(
-        label='1er choix', choices=events_selection, required=True
-    )
-    priority2 = forms.TypedChoiceField(
-        label='2nd choix', choices=events_selection, required=False
-    )
-    priority3 = forms.TypedChoiceField(
-        label='3e choix', choices=events_selection, required=False
-    )
+    priority1 = forms.TypedChoiceField(label='1er choix', required=True)
+    priority2 = forms.TypedChoiceField(label='2nd choix', required=False)
+    priority3 = forms.TypedChoiceField(label='3e choix', required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(ApplicationValidationForm, self).__init__(*args, **kwargs)
+
+        # Get a list of (primary_key, event name) for the selectors
+        events = Event.objects.filter(
+            signup_start__lt = date.today(),
+            signup_end__gt = date.today()
+        )
+        events_selection = [(None, '')] + [(event.pk, str(event)) for event in events]
+
+        self.fields['priority1'].choices = events_selection
+        self.fields['priority2'].choices = events_selection
+        self.fields['priority3'].choices = events_selection
 
     def save(self, user):
         """

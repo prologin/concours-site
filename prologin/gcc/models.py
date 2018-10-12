@@ -151,13 +151,6 @@ class AnswerTypes(ChoiceEnum):
 
 class Question(models.Model):
 
-    def default_order():
-        """Default order index will by default go 10 by 10"""
-        max_order = Question.objects.all().aggregate(Max('order'))['order__max']
-        if max_order:
-            return max_order + 10
-        else:
-            return 10
 
     # Formulation of the question
     question = models.TextField()
@@ -171,8 +164,6 @@ class Question(models.Model):
     required = models.BooleanField(default=False)
     # Some extra constraints on the answer
     meta = JSONField(encoder=DjangoJSONEncoder, default=dict, null=True)
-    # An index that will be used to order the questions
-    order = models.IntegerField(default=default_order)
 
     def __str__(self):
         return self.question

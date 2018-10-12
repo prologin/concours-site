@@ -49,7 +49,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('question', models.TextField()),
                 ('form', prologin.models.EnumField(gcc.models.Forms, choices=[(0, 'Application'), (1, 'Profile')])),
-                ('response_type', prologin.models.EnumField(gcc.models.ResponseTypes, choices=[(0, 'Boolean'), (1, 'Integer'), (2, 'Date'), (3, 'String'), (4, 'Text')])),
+                ('response_type', prologin.models.EnumField(gcc.models.AnswerTypes, choices=[(0, 'Boolean'), (1, 'Integer'), (2, 'Date'), (3, 'String'), (4, 'Text')])),
                 ('required', models.BooleanField(default=False)),
                 ('meta', models.TextField()),
             ],
