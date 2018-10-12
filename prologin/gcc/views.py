@@ -165,7 +165,7 @@ class ApplicationIndexView(TemplateView):
 
         # Get the set of users applying for this year
         applicants_list = {
-            app.user.pk: {
+            app: {
                 'user': app.user,
                 'answers': Answer.objects.filter(applicant=app),
                 'applications': EventChoice.objects.filter(applicant=app)

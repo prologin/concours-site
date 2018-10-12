@@ -71,6 +71,14 @@ class Trainer(models.Model):
         return str(self.user)
 
 
+class ApplicantLabel(models.Model):
+    """Labels to comment on an applicant"""
+    display = models.CharField(max_length=10)
+
+    def __str__(self):
+        return self.display
+
+
 @ChoiceEnum.labels(str.capitalize)
 class ApplicantStatusTypes(ChoiceEnum):
     pending = 0  # the candidate hasn't finished her registration yet
@@ -81,9 +89,16 @@ class ApplicantStatusTypes(ChoiceEnum):
 
 
 class Applicant(models.Model):
+    """
+    An applicant for a specific edition and reviews about him.
+
+    Notice that no free writting field has been added yet in order to ensure an
+    RGPD-safe usage of reviews.
+    """
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
     status = EnumField(ApplicantStatusTypes)
+    labels = models.ManyToManyField(ApplicantLabel)
 
     def for_user(user):
         """
@@ -150,8 +165,6 @@ class AnswerTypes(ChoiceEnum):
 
 
 class Question(models.Model):
-
-
     # Formulation of the question
     question = models.TextField()
     # Potential additional indications about the questions

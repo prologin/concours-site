@@ -16,9 +16,9 @@
         <div class="applicant-head">
           <span>{{applicant.user.first_name}} {{applicant.user.last_name}}</span>
           <span class="label-list">
-            <span class="label">âge</span>
-            <span class="label">bâclé</span>
-            <span class="label">any-label</span>
+            {% for label in pk.labels.all %}
+            <span class="label">{{ label.display }}</span>
+            {% endfor %}
           </span>
         </div>
         <div class="detail">
