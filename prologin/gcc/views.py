@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from gcc.models import Answer, Applicant, Edition, Event, EventChoice, SubscriberEmail, Trainer, Forms
+from gcc.models import Answer, Applicant, Edition, Event, EventWish, SubscriberEmail, Trainer, Forms
 from users.models import ProloginUser
 
 from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
@@ -162,15 +162,4 @@ class ApplicationIndexView(TemplateView):
         #TODO: permissions to moderate each event ?
         current_edition = Edition.objects.latest('year')
         applicants = Applicant.objects.filter(edition=current_edition)
-
-        # Get the set of users applying for this year
-        applicants_list = {
-            app: {
-                'user': app.user,
-                'answers': Answer.objects.filter(applicant=app),
-                'applications': EventChoice.objects.filter(applicant=app)
-            }
-            for app in applicants
-        }
-
-        return {'applicants': applicants_list}
+        return {'applicants': applicants}

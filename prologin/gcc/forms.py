@@ -4,7 +4,7 @@ from datetime import date
 
 from django import forms
 
-from gcc.models import Answer, Applicant, ApplicantStatusTypes, EventChoice, Question, Forms, AnswerTypes, Event, Edition
+from gcc.models import Answer, Applicant, ApplicantStatusTypes, EventWish, Question, Forms, AnswerTypes, Event, Edition
 
 
 class EmailForm(forms.Form):
@@ -125,7 +125,7 @@ class ApplicationValidationForm(forms.Form):
         """
         data = self.cleaned_data
         applicant = Applicant.for_user(user)
-        event_choices = EventChoice.objects.filter(applicant=applicant)
+        event_wishes = EventWish.objects.filter(applicant=applicant)
 
         # Verify that no application is already accepted or rejected
         if applicant.status != ApplicantStatusTypes.pending.value:
@@ -134,7 +134,7 @@ class ApplicationValidationForm(forms.Form):
             )
 
         # Remove previous choices
-        event_choices.delete()
+        event_wishes.delete()
 
         # Collect selected events, remove duplicatas
         events = [ Event.objects.get(pk=data['priority1']) ]
@@ -147,9 +147,9 @@ class ApplicationValidationForm(forms.Form):
 
         # Save applications
         for i in range(len(events)):
-            event_choice = EventChoice(
+            event_wish = EventWish(
                 applicant = applicant,
                 event = events[i],
-                priority = i + 1
+                order = i + 1
             )
-            event_choice.save()
+            event_wish.save()

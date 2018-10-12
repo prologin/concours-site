@@ -16,7 +16,7 @@
         <div class="applicant-head">
           <span>{{applicant.user.first_name}} {{applicant.user.last_name}}</span>
           <span class="label-list">
-            {% for label in pk.labels.all %}
+            {% for label in applicant.labels.all %}
             <span class="label">{{ label.display }}</span>
             {% endfor %}
           </span>
@@ -46,9 +46,9 @@
           <div class="detail-section">
             <h1>Events</h1>
             <ul style="list-style: decimal;">
-              {% for application in applicant.applications %}
+              {% for wish in applicant.eventwish_set.all %}
               <li>
-                <span>{{ application.event.center }} <small>{{ application.event.event_start }}</small></span>
+                <span>{{ wish.event.center }} <small>{{ wish.event.event_start }}</small></span>
                 <span style="float:right">
                   <a class="btn btn-little" href="#">accept</a>
                   <a class="btn btn-little" href="#">reject</a>
@@ -65,7 +65,7 @@
           <div class="detail-section">
             <h1>Form</h1>
             <div class="question">
-              {% for answer in applicant.answers %}
+              {% for answer in applicant.answers.all %}
               <h5>{{ answer.question.question }}</h5>
               <p>
                 {{ answer.response }}

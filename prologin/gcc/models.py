@@ -95,9 +95,19 @@ class Applicant(models.Model):
     Notice that no free writting field has been added yet in order to ensure an
     RGPD-safe usage of reviews.
     """
+    # General informations about the application
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
     status = EnumField(ApplicantStatusTypes)
+
+    # Whishes of the candidate
+    assignation_wishes = models.ManyToManyField(
+        Event, through='EventWish', related_name='applicants', blank=True)
+    assignation_event = models.ForeignKey(
+        Event, related_name='assigned_girls', null=True,
+        on_delete=models.SET_NULL)
+
+    # Review of the application
     labels = models.ManyToManyField(ApplicantLabel)
 
     def for_user(user):
@@ -129,16 +139,15 @@ class Applicant(models.Model):
         unique_together = (('user', 'edition'), )
 
 
-class EventChoice(models.Model):
+class EventWish(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     # Priority defined by the candidate to express his prefered event
-    # The lower the priority is, the more important is the choice
-    priority = models.IntegerField(default=1)
-    # Wether the candidate is selected for this event
-    selected = models.BooleanField(default=False)
+    # The lower the order is, the more important is the choice
+    order = models.IntegerField(default=1)
 
     class Meta:
+        ordering = ('order', )
         unique_together = (('applicant', 'event'), )
 
     def __str__(self):
@@ -183,7 +192,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE, null=True)
+    applicant = models.ForeignKey(Applicant, related_name='answers', on_delete=models.CASCADE, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     response = JSONField(encoder=DjangoJSONEncoder)
 
