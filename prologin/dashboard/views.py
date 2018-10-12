@@ -9,8 +9,6 @@ from django.utils import timezone
 from users.models import UserActivation
 from contest.models import Contestant, Edition, Assignation
 
-statusFetchers = defaultdict(lambda: [])
-
 
 class IndexView(PermissionRequiredMixin, TemplateView):
     permission_required = 'dashboard.view'
@@ -18,64 +16,113 @@ class IndexView(PermissionRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context.update({'sections': statusFetchers})
+        sections = defaultdict(list)
+
+        for subclass in Status.__subclasses__():
+            inst = subclass()
+            sections[subclass.category].append(inst)
+
+        sections.default_factory = None
+        context.update({'sections': sections})
         return context
 
 
-class status(object):
-    def __init__(self, category):
-        self.category = category
+class Status():
+    category = None
+    name = None
+    count = None
+    detail = None
 
-    def __call__(self, f):
-        statusFetchers[self.category].append(f)
+    def __init__(self):
+        pass
 
-
-@status("Activations")
-def fetchExpiredUserActivations():
-    objects = UserActivation.objects.filter(expiration_date__lt=timezone.now())
-    return {
-        'name': 'Expired user activations',
-        'count': objects.count(),
-        'detail': objects
-    }
-
-
-@status("Activations")
-def fetchAwaitingUserActivations():
-    objects = UserActivation.objects.filter(
-        expiration_date__gte=timezone.now())
-    return {
-        'name': 'Awaiting user activations',
-        'count': objects.count(),
-        'detail': objects
-    }
+    def docstring(self):
+        """
+        Quickly format the docstring so the <pre> tag does not show the first
+        indent.
+        """
+        output = []
+        for line in self.__doc__.strip().splitlines():
+            output.append(line.strip())
+        return '<br>'.join(output)
 
 
-@status("Contestants")
-def fetchUnassignedContestants():
-    contestants = Contestant.objects.filter(
-        Q(assignation_semifinal=Assignation.not_assigned.value)
-        | Q(assignation_final=Assignation.not_assigned.value))
-    return {
-        'name': 'Unassigned contestants',
-        'count': contestants.count(),
-        'detail': contestants
-    }
+class ExpiredUserActivations(Status):
+    """
+    The list of expired UserActivation objects.
+
+    These objects eat up space without any use.
+
+    To remove them you could use the following django query:
+    UserActivation.objects.filter(expiration_date__lt=timezone.now()).delete()
+    """
+    category = "Activations"
+    name = "Expired user activations"
+
+    def __init__(self):
+        super().__init__()
+        objects = UserActivation.objects.filter(
+            expiration_date__lt=timezone.now())
+        self.count = objects.count()
+        self.detail = objects
 
 
-@status("Contestants")
-def fetchWeirdStates():
-    # accepted in final but not in semi
-    contestants = Contestant.objects.filter(
-        assignation_final=Assignation.assigned.value).exclude(
+class AwaitingUserActivations(Status):
+    """
+    The list of awaiting UserActivation objects.
+
+    These are a sign that users are signing up, yay!
+
+    You shouldn't remove these unless you want to piss of the users.
+    """
+    category = "Activations"
+    name = "Awaiting user activations"
+
+    def __init__(self):
+        super().__init__()
+        objects = UserActivation.objects.filter(
+            expiration_date__gte=timezone.now())
+        self.count = objects.count()
+        self.detail = objects
+
+
+class UnassignedContestants(Status):
+    """
+    The list of unassigned contestants.
+
+    You should fix this by assigning the contestants in the correction admin
+    page.
+    """
+    category = "Contestants"
+    name = "Unassigned contestants"
+
+    def __init__(self):
+        super().__init__()
+        contestants = Contestant.objects.filter(
+            Q(assignation_semifinal=Assignation.not_assigned.value)
+            | Q(assignation_final=Assignation.not_assigned.value))
+        self.count = contestants.count()
+        self.detail = contestants
+
+
+class WeirdContestantStates(Status):
+    """
+    The list of contestants in a weird states.
+
+    These are contestants that are accepted in final, but not assigned in semi.
+
+    You should try to find why this happened before removing them with the
+    following query:
+    Contestant.objects.filter(
+            assignation_final=Assignation.assigned.value).exclude(
             assignation_semifinal=Assignation.assigned.value)
-    return {
-        'name': 'Weird states',
-        'count': contestants.count(),
-        'detail': contestants
-    }
+   """
+    category = "Contestants"
+    name = "Weird contestant states"
 
-
-# We disable the default_factory, otherwise the template engine of django won't
-# iterate over it.
-statusFetchers.default_factory = None
+    def __init__(self):
+        contestants = Contestant.objects.filter(
+            assignation_final=Assignation.assigned.value).exclude(
+                assignation_semifinal=Assignation.assigned.value)
+        self.count = contestants.count()
+        self.detail = contestants

@@ -1,49 +1,41 @@
 {% extends "prologin/base.html" %}
-{% load i18n %}
 {% load django_bootstrap_breadcrumbs bootstrap %}
 
 {% block breadcrumbs %}
   {{ block.super }}
-  {% breadcrumb_for 'dashboard:index' %}{% trans "Dashboard" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'dashboard:index' %}Dashboard{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
-{% block title %}{% trans "Dashboard" %}{% endblock %}
+{% block title %}Dashboard{% endblock %}
 
 {% block content %}
   {% for section,statuses in sections.items %}
-    <h2>{{section}}</h2>
-    <table class="table table-stripped table-hover">
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Detail</th>
-          <th>Count</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for s in statuses %}
+    <div class="col-md-6">
+      <h2>{{section}}</h2>
+      <table class="table">
+        <tbody>
+          {% for s in statuses %}
           {% with sect_i=forloop.parentloop.counter stat_i=forloop.counter %}
           <tr>
-            <td>{{ s.name }}</td>
             <td>
+              <h4><strong>{{ s.name }}</strong></h4>
+              <h4>Count: {{s.count}}</h4>
+              <h4>Description:</h4>
+              <p class="well">{{s.docstring | safe}}</p>
               {% if s.detail %}
-                <button class="btn" type="button" data-toggle="collapse" data-target="#detail_{{sect_i}}_{{stat_i}}" aria-expanded="false" aria-controls="detail_{{sect_i}}_{{stat_i}}">Show</button>
-                <div class="collapse" id="detail_{{sect_i}}_{{stat_i}}">
+              <button class="btn" type="button" data-toggle="collapse" data-target="#detail_{{sect_i}}_{{stat_i}}" aria-expanded="false" aria-controls="detail_{{sect_i}}_{{stat_i}}">Show details</button>
+              <div class="collapse well" id="detail_{{sect_i}}_{{stat_i}}">
                 {% for elm in s.detail %}
-                  {{ elm }}{%if not forloop.last%}, {% endif %}
+                {{ elm }}{%if not forloop.last%}, {% endif %}
                 {% endfor %}
               </div>
-            {% endif %}
+              {% endif %}
             </td>
-            <td>{{ s.count }}</td>
           </tr>
           {% endwith %}
-        {% empty %}
-          <tr>
-            <td colspan="3"><i class="fa fa-fw fa-frown-o"></i><em>No data.</em></td>
-          </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   {% endfor %}
 {% endblock %}
