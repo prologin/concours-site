@@ -1,5 +1,29 @@
 const applicants = document.getElementsByClassName('applicant-head');
 
+function goToApplicant(applicant) {
+    // Unfold an applicant's description, and scroll down toward its position
+    applicant.classList.add('selected');
+
+    // Scroll to get out of the header
+    setTimeout(function() {
+        applicant.scrollIntoView();
+        let scrolledY = window.scrollY;
+        window.scroll(0, scrolledY - 110);
+    }, 1);
+}
+
+/**
+ * If there is an anchor to the page, open corresponding applicant and scroll
+ * to it.
+ */
+const url_parts = document.URL.split('#');
+
+if (url_parts.length > 1) {
+    const focused_id = url_parts[1];
+    const focused_el = document.getElementById(focused_id);
+    goToApplicant(focused_el);
+}
+
 /**
  * Swap the active status when clicking on an applicant
  */
@@ -28,6 +52,8 @@ document.addEventListener('keypress', (event) => {
  */
 document.addEventListener('keypress', (event) => {
     if (event.key === 'ArrowDown') {
+        event.preventDefault();
+
         let last_opened = -1;
 
         for (let i = 0 ; i < applicants.length ; i++)
@@ -36,8 +62,8 @@ document.addEventListener('keypress', (event) => {
 
         if (last_opened != -1)
             applicants[last_opened].parentElement.classList.remove('selected');
-
-        applicants[last_opened + 1].parentElement.classList.add('selected');
+        if (last_opened != applicants.length - 1)
+            goToApplicant(applicants[last_opened + 1].parentElement);
     }
 });
 
@@ -46,6 +72,8 @@ document.addEventListener('keypress', (event) => {
  */
 document.addEventListener('keypress', (event) => {
     if (event.key === 'ArrowUp') {
+        event.preventDefault();
+
         let last_opened = applicants.length;
 
         for (let i = applicants.length-1 ; i >= 0 ; i--)
@@ -54,7 +82,7 @@ document.addEventListener('keypress', (event) => {
 
         if (last_opened != applicants.length)
             applicants[last_opened].parentElement.classList.remove('selected');
-
-        applicants[last_opened - 1].parentElement.classList.add('selected');
+        if (last_opened != 0)
+            goToApplicant(applicants[last_opened - 1].parentElement);
     }
 });

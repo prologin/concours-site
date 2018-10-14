@@ -88,7 +88,23 @@
     font-size: 12px;
     padding: 3px 6px 3px 6px;
     border-radius: 9px;
-    background: var(--color4);
+    background: var(--color1);
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+}
+
+.applicant-list .label:hover::after {
+    content: "🗙";
+    position: absolute;
+    right: 0;
+    width: 100%;
+    margin-right: 5px;
+    font-size: 10px;
+    text-align: right;
+    vertical-align: middle;
+    display: inline-block;
+    background: linear-gradient(0.25turn, rgba(0,0,0,0), var(--color1));
 }
 
 /* Table for generic informations on the candidate */

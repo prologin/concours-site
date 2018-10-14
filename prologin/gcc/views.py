@@ -1,13 +1,13 @@
 from datetime import date
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView
 
-from gcc.models import Answer, Applicant, Edition, Event, EventWish, SubscriberEmail, Trainer, Forms
+from gcc.models import Answer, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Trainer, Forms
 from users.models import ProloginUser
 
 from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
@@ -150,6 +150,9 @@ class ApplicationValidation(FormView):
         return super(ApplicationValidation, self).form_valid(form)
 
 
+# Application moderation
+
+
 #TODO: Check permissions to access this page
 class ApplicationIndexView(TemplateView):
     template_name = "gcc/application_index.html"
@@ -163,3 +166,12 @@ class ApplicationIndexView(TemplateView):
         current_edition = Edition.objects.latest('year')
         applicants = Applicant.objects.filter(edition=current_edition)
         return {'applicants': applicants}
+
+
+# TODO: Check permissions
+def application_remove_label(request, applicant_id, label_id):
+    applicant = get_object_or_404(Applicant, pk=applicant_id)
+    label = get_object_or_404(ApplicantLabel, pk=label_id)
+    applicant.labels.remove(label)
+    return redirect(
+        reverse_lazy('gcc:application_index') + '#applicant-{}'.format(applicant.pk))

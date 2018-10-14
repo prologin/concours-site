@@ -39,25 +39,32 @@ newsletter_patterns = [
     path(
         'confirm_unsubscribe',
         views.NewsletterConfirmUnsubView.as_view(),
-        name='news_confirm_unsub'),
+        name='news_confirm_unsub/'),
 ]
 
 application_patterns = [
-    path('', views.ApplicationIndexView.as_view(), name='application_index'),
     path(
-        'form/<int:user_id>',
+        'review/',
+        views.ApplicationIndexView.as_view(),
+        name='application_index'),
+    path(
+        'form/<int:user_id>/',
         views.ApplicationForm.as_view(),
         name='application_form'),
     path(
-        'validation/<int:user_id>',
+        'validation/<int:user_id>/',
         views.ApplicationValidation.as_view(),
         name='application_validation'),
+    path(
+        'delete/<int:applicant_id>/<int:label_id>/',
+        views.application_remove_label,
+        name='delete_applicant_label'),
 ]
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('about', views.AboutView.as_view(), name='about'),
-    path('posters', views.PostersView.as_view(), name='posters'),
+    path('about/', views.AboutView.as_view(), name='about'),
+    path('posters/', views.PostersView.as_view(), name='posters'),
     path('team/', include(team_patterns)),
     path('photos/', include(photos_patterns)),
     path('newsletter/', include(newsletter_patterns)),
