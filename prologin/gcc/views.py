@@ -164,8 +164,13 @@ class ApplicationIndexView(TemplateView):
         """
         #TODO: permissions to moderate each event ?
         current_edition = Edition.objects.latest('year')
-        applicants = Applicant.objects.filter(edition=current_edition)
-        return {'applicants': applicants}
+
+        context = {
+            'applicants': Applicant.objects.filter(edition=current_edition),
+            'labels': ApplicantLabel.objects.all(),
+        }
+
+        return context
 
 
 # TODO: Check permissions
@@ -173,5 +178,13 @@ def application_remove_label(request, applicant_id, label_id):
     applicant = get_object_or_404(Applicant, pk=applicant_id)
     label = get_object_or_404(ApplicantLabel, pk=label_id)
     applicant.labels.remove(label)
+    return redirect(
+        reverse_lazy('gcc:application_index') + '#applicant-{}'.format(applicant.pk))
+
+# TODO: Check permissions
+def application_add_label(request, applicant_id, label_id):
+    applicant = get_object_or_404(Applicant, pk=applicant_id)
+    label = get_object_or_404(ApplicantLabel, pk=label_id)
+    applicant.labels.add(label)
     return redirect(
         reverse_lazy('gcc:application_index') + '#applicant-{}'.format(applicant.pk))

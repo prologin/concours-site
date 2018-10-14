@@ -12,13 +12,21 @@
   <h2>Liste des candidates pour 2018</h2>
   <ul class="applicant-list">
     {% for applicant in applicants %}
-      <li id="applicant-{{applicant.pk}}" class="selected">
+      <li id="applicant-{{applicant.pk}}">
         <div class="applicant-head">
           <span>{{applicant.user.first_name}} {{applicant.user.last_name}}</span>
+          <div class="labeladd-dropdown">
+            <button class="labeladd-btn">+</button>
+            <div class="labeladd-dropdown-content">
+              {% for label in labels %}
+              <a href="{% url 'gcc:add_applicant_label' applicant_id=applicant.pk label_id=label.pk %}">{{ label }}</a>
+              {% endfor %}
+            </div>
+          </div>
           <span class="label-list">
             {% for label in applicant.labels.all %}
             <a class="label" href="{% url 'gcc:delete_applicant_label' applicant_id=applicant.pk label_id=label.pk %}">
-              {{ label.display }}
+              {{ label }}
             </a>
             {% endfor %}
           </span>

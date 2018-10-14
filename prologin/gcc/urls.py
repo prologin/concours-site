@@ -59,6 +59,10 @@ application_patterns = [
         'delete/<int:applicant_id>/<int:label_id>/',
         views.application_remove_label,
         name='delete_applicant_label'),
+    path(
+        'add/<int:applicant_id>/<int:label_id>/',
+        views.application_add_label,
+        name='add_applicant_label'),
 ]
 
 urlpatterns = [
