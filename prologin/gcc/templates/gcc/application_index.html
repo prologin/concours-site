@@ -11,8 +11,8 @@
 <section>
   <h2>Liste des candidates pour 2018</h2>
   <ul class="applicant-list">
-    {% for pk, applicant in applicants.items %}
-      <li>
+    {% for applicant in applicants %}
+      <li id="applicant-{{applicant.pk}}">
         <div class="applicant-head">
           <span>{{applicant.user.first_name}} {{applicant.user.last_name}}</span>
           <span class="label-list">

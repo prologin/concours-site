@@ -1,6 +1,6 @@
 /* photo collage */
 section#collage {
-	background: center fixed url("../img/collage.jpg");
+	background: center fixed url("../img/collage_greyscale.jpg");
 	background-size: cover;
 	min-height: 70vh;
 }

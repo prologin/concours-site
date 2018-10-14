@@ -3,12 +3,12 @@
 }
 
 body {
-	/* theme colors */
-	--color1: #C40098;
-	--color2: #5F09AD;
-	--color3: #000EC4;
-	--color4: #0974AD;
-	--color5: #0AC496;
+	/* theme colors: https://pbs.twimg.com/media/DqH0Hf6W4AEkNpU.jpg:large */
+	--color1: #1E3360;
+	--color2: #7B98D6;
+	--color3: #01040B; /* --color3: #55835A; */
+	--color4: #435D93;
+	--color5: #0A1632;
 
 	/* default accent color */
 	--accent: var(--color1);
@@ -39,15 +39,16 @@ header {
 	position: sticky;
 	top: 0;
 	width: 100%;
-	background: #282726;
+	background: var(--color5);
 }
 
 header a {
 	text-align: center;
+    margin-top: -10px;
 }
 
 header a img{
-	height: calc(56px - 20px);
+	height: calc(56px);
 }
 
 nav {
@@ -157,6 +158,12 @@ main section:nth-child(5n+4) { --background: var(--color5); --accent: var(--colo
 
 #social div a:hover {
 	color: var(--accent);
+}
+
+aside > img {
+    margin: 30px;
+    max-width: 200px;
+    float: right;
 }
 
 
