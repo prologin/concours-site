@@ -82,7 +82,7 @@ class ContestantAdmin(NonSortableParentAdmin):
                    'is_home_public',)
     list_display = ('contestant', 'user_link', 'edition_link', 'assignation_semifinal', 'assignation_final',
                     'total_score', 'preferred_language', 'shirt_size', 'is_home_public',)
-    search_fields = ('user__username', 'user__first_name', 'user__last_name', 'edition__year',)
+    search_fields = ('user__username', 'user__first_name', 'user__last_name', 'edition__year', 'school__name',)
     readonly_fields = ('user', 'edition',)
     raw_id_fields = ('school',)
     fieldsets = (
