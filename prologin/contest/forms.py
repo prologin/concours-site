@@ -92,7 +92,12 @@ class ContestantUserForm(forms.ModelForm):
 class ContestantForm(forms.ModelForm):
     class Meta:
         model = contest.models.Contestant
-        fields = ('shirt_size', 'preferred_language', 'assignation_semifinal_wishes', 'school')
+        fields = (
+            'shirt_size', 'preferred_language',
+            'assignation_semifinal_wishes', 'school',
+            'learn_about_contest'
+            )
+        optional_fields = ('learn_about_contest')
         field_classes = {'school': SchoolField}
         labels = {'school': _("Your school")}
 
