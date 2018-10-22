@@ -205,10 +205,10 @@ class Assignation(ChoiceEnum):
 class LearnAboutContest(ChoiceEnum):
     doesnt_know = (0, _("I don't remember"))
     other_contest = (1, _("Another programming contest"))
-    social_medias = (2, _("From social media"))
+    social_media = (2, _("From social media"))
     poster = (3, _("From the poster in my school/university"))
-    word_of_mouth = (4, _("From a friend"))
-    svj = (5, _("From a journal"))
+    friend = (4, _("From a friend"))
+    journal = (5, _("From an article on a website or a newspaper"))
     other = (6, _("Some other way"))
 
 
