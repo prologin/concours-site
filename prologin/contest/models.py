@@ -202,14 +202,14 @@ class Assignation(ChoiceEnum):
     ugettext_noop("Assigned")
 
 
-class Learn_about_contest(ChoiceEnum):
-    already_knows = (0, _("I already knew it"))
-    web_site = (1, _("By the website"))
-    social_medias = (2, _("By social medias"))
-    poster = (3, _("By the poster"))
-    word_of_mouth = (4, _("By word of mouth"))
-    svj = (5, _("Magazine science et vie junior"))
-    other = (6, _("Other way"))
+class LearnAboutContest(ChoiceEnum):
+    doesnt_know = (0, _("I don't remember"))
+    other_contest = (1, _("Another programming contest"))
+    social_medias = (2, _("From social media"))
+    poster = (3, _("From the poster in my school/university"))
+    word_of_mouth = (4, _("From a friend"))
+    svj = (5, _("From a journal"))
+    other = (6, _("Some other way"))
 
 
     @classmethod
@@ -230,9 +230,9 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
                                              help_text=_("The programming language you will most likely use during the "
                                                          "regional events."))
     learn_about_contest = EnumField(
-        Learn_about_contest, null=True,
+        LearnAboutContest, null=True,
         blank=True, db_index=True,
-        verbose_name=_("How did you know the contest"),
+        verbose_name=_("How did you learn the contest ?"),
         empty_label=_("Tell us how you discovered the contest"))
     assignation_semifinal = EnumField(Assignation, default=Assignation.not_assigned.value,
                                       verbose_name=_("Regional event assignation status"))
