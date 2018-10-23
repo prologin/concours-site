@@ -38,7 +38,7 @@ class PostersView(TemplateView):
 
 
 class TeamIndexView(TemplateView):
-    template_name = "gcc/team_index.html"
+    template_name = "gcc/team/index.html"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -48,7 +48,7 @@ class TeamIndexView(TemplateView):
 
 
 class TeamEditionView(TemplateView):
-    template_name = "gcc/team_edition.html"
+    template_name = "gcc/team/edition.html"
 
     def get_context_data(self, year):
         context = {
@@ -83,7 +83,7 @@ class IndexView(FormView):
 
 class NewsletterUnsubscribeView(FormView):
     success_url = reverse_lazy("gcc:news_confirm_unsub")
-    template_name = "gcc/news_unsubscribe.html"
+    template_name = "gcc/news/unsubscribe.html"
     form_class = EmailForm
 
     def form_valid(self, form):
@@ -98,11 +98,11 @@ class NewsletterUnsubscribeView(FormView):
 
 
 class NewsletterConfirmSubscribeView(TemplateView):
-    template_name = "gcc/news_confirm_subscribe.html"
+    template_name = "gcc/news/confirm_subscribe.html"
 
 
 class NewsletterConfirmUnsubView(TemplateView):
-    template_name = "gcc/news_confirm_unsub.html"
+    template_name = "gcc/news/confirm_unsub.html"
 
 
 # Application
@@ -110,7 +110,7 @@ class NewsletterConfirmUnsubView(TemplateView):
 
 #TODO: Check if the user is logged in
 class ApplicationForm(FormView):
-    template_name = 'gcc/application_form.html'
+    template_name = 'gcc/application/form.html'
 
     def get_form_class(self):
         """
@@ -134,7 +134,7 @@ class ApplicationForm(FormView):
 #TODO: Check that the user has filled ApplicationForm and isn't registered yet
 class ApplicationValidation(FormView):
     success_url = reverse_lazy("gcc:index")
-    template_name = 'gcc/application_validation.html'
+    template_name = 'gcc/application/validation.html'
     form_class = ApplicationValidationForm
 
     def get_context_data(self, **kwargs):
@@ -155,7 +155,7 @@ class ApplicationValidation(FormView):
 
 #TODO: Check permissions to access this page
 class ApplicationIndexView(TemplateView):
-    template_name = "gcc/application_index.html"
+    template_name = "gcc/application/index.html"
 
     def get_context_data(self, **kwargs):
         """
