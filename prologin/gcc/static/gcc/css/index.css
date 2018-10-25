@@ -1,8 +1,12 @@
 /* photo collage */
 section#collage {
-	background: center fixed url("../img/collage_greyscale.jpg");
+	background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), center url("../img/collage_greyscale.jpg");
 	background-size: cover;
 	min-height: 70vh;
+}
+
+section#collage div {
+	margin: auto;
 }
 
 /* newsletter signup */
@@ -27,4 +31,18 @@ section#newsletter-signup input[type=email] {
 	border-radius: 4px;
 	font-size: 1.2rem;
 	color: var(--foreground);
+}
+
+.faq {
+    list-style: none;
+}
+
+.faq strong {
+    color: var(--color2);
+    font-size: 18px;
+    margin-left: -10px;
+}
+
+.faq p {
+    margin: 10px 0 10px;
 }

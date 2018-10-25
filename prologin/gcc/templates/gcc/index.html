@@ -10,7 +10,13 @@
 {% block content %}
 <section id="collage">
 	<!-- Logo et collage -->
-	<a href="{% url "home" %}">by Prologin</a>
+  <div>
+  	<a href="{% url "home" %}"></a>
+    <img src="{% static "img/logo-squeletton.png" %}" style="float: left; max-width: 150px;" />
+    <p style="font-size: 24px; text-shadow: black 0px 0px 4px;">
+      Les stages Girls Can code! sont des stages gratuits d’initiation à l’informatique pour les collégiennes et lycéennes organisé par l’association Prologin.
+    </p>
+  </div>
 </section>
 
 <section>
@@ -20,10 +26,40 @@
       <img src="{% static "gcc/2018/poster.full.jpg" %}" alt="Affiche GCC!"">
     </aside>
   	<h2>FAQ</h2>
-  	<ul>
+  	<ul class="faq">
   		<!-- nth-child odd/even pour styliser question/reponse -->
-  		<li></li>
-  		<li></li>
+  		<li>
+        <strong>Quel est le niveau requis pour participer ?</strong>
+        <p>
+          Le stage a une difficultée très progressive, pas besoin d'avoir codé avant le stage.
+          Mais c’est toujours mieux avoir essayé avant et tu peux trouver des idées de resources <ref >ic <ref>.
+        </p>
+      </li>
+  		<li>
+        <strong>Le stage m'intéresse, que dois-je faire ?</strong>
+        <p>
+          Les inscriptions ne sont pas encore ouvertes mais tu peux t’inscrire sur la newsletter et nous te préviendrons dès qu’elles seront ouvertes.
+        </p>
+      </li>
+  		<li>
+        <strong>Le stage est-il vraiment gratuit ?</strong>
+        <p>
+          Les inscriptions ne sont pas encore ouvertes mais tu peux t’inscrire sur la newsletter et nous te préviendrons dès qu’elles seront ouvertes.
+        </p>
+      </li>
+  		<li>
+        <strong>Que puis-je faire pour m'entraîner d'ici le stage ?</strong>
+        <p>
+          Les inscriptions ne sont pas encore ouvertes mais tu peux t’inscrire sur la newsletter et nous te préviendrons dès qu’elles seront ouvertes.
+        </p>
+      </li>
+  		<li>
+        <strong>J'ai déjà mon bac, que me suggérez-vous ?</strong>
+        <p>
+          N’hésite pas à découvrir les  <ref>ressources recommandées<ref> malgré tout et si tu es né(e) en 1998 ou après, tu peux participer à la 26e édition du concours Prologin.
+          La première phase de qualifications en ligne sont ouvertes.
+        </p>
+      </li>
   	</ul>
   </div>
 </section>
