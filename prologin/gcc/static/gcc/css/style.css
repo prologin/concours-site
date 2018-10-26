@@ -4,11 +4,11 @@
 
 body {
 	/* theme colors: https://pbs.twimg.com/media/DqH0Hf6W4AEkNpU.jpg:large */
-	--color1: #1E3360;
-	--color2: #7B98D6;
-	--color3: #01040B; /* --color3: #55835A; */
-	--color4: #435D93;
-	--color5: #0A1632;
+	--color1: #B57C4C;
+	--color2: #9C4538;
+    --color3: #83283B;
+	--color4: #6A1A45;
+    --color5: #2E0738;
 
 	/* default accent color */
 	--accent: var(--color1);
@@ -30,6 +30,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
 	font-family: "Cantarell Light", "Roboto Light", "San Francisco Light", "Segoe UI Light", "Noto Sans Light", sans-serif;
+    color: var(--accent);
 }
 
 header {
@@ -39,7 +40,7 @@ header {
 	position: sticky;
 	top: 0;
 	width: 100%;
-	background: var(--color5);
+	background: var(--color4);
 }
 
 header a {
@@ -107,17 +108,19 @@ section>* {
 /* section colors */
 
 main section { background: var(--background ); color: #ffffff; }
-main section:nth-child(5n)   { --background: var(--color1); --accent: var(--color4); }
-main section:nth-child(5n+1) { --background: var(--color2); --accent: var(--color5); }
+main section:nth-child(2n) { --background: var(--color5); --accent: var(--color2); }
+main section:nth-child(2n+1)   { --background: var(--color4); --accent: var(--color1); }
+/* main section:nth-child(5n)   { --background: var(--color1); --accent: var(--color4); }
+main section:nth-child(5n+1) { --background: var(--color1); --accent: var(--color5); }
 main section:nth-child(5n+2) { --background: var(--color3); --accent: var(--color1); }
 main section:nth-child(5n+3) { --background: var(--color4); --accent: var(--color2); }
-main section:nth-child(5n+4) { --background: var(--color5); --accent: var(--color4); }
+main section:nth-child(5n+4) { --background: var(--color5); --accent: var(--color4); } */
 
 /* halo buttons */
 .halo-button {
 	display: block;
 	margin: 1rem auto;
-	padding: 1.2rem 4rem;
+	padding: 1rem 2rem;
 	font-size: 1.4rem;
 	background: var(--accent);
 	color: #ffffff;
