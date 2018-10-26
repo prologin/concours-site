@@ -1,4 +1,5 @@
 {% load static %}
+{% load navigation %} {# defined in prologin app #}
 <!DOCTYPE HTML>
 <html lang="fr">
 	<head>
@@ -17,10 +18,18 @@
 			</section>
 		</header>
 		<nav>
-			<a href="{% url "gcc:about" %}">À Propos</a>
-			<a href="{% url "gcc:team_index" %}">L'Équipe</a>
-			<a href="{% url "gcc:posters"%}">Posters</a>
-			<a href="{% url "gcc:photos_index"%}">Photos</a>
+			<a href="{% url "gcc:about" %}" class="{% active "^/gcc/about/" %}">
+				Les Stages
+			</a>
+			<a href="{% url "gcc:team_index" %}" class="{% active "^/gcc/team/" %}">
+				L'Équipe
+			</a>
+			<a href="{% url "gcc:posters" %}" class="{% active "^/gcc/poster/" %}">
+				Posters
+			</a>
+			<a href="{% url "gcc:photos_index" %}" class="{% active "^/gcc/photos/" %}">
+				Photos
+			</a>
 			<a href="#">Se connecter</a>
 		</nav>
 		<main>

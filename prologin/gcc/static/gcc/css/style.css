@@ -74,6 +74,10 @@ nav a:hover{
 	border-bottom: 3px solid var(--accent);
 }
 
+nav a.active{
+	border-bottom: 3px solid var(--color2);
+}
+
 main {
 	background: var(--color2);
 }
