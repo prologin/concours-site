@@ -4,11 +4,13 @@
 
 body {
 	/* theme colors: https://pbs.twimg.com/media/DqH0Hf6W4AEkNpU.jpg:large */
+    --color0: #CEB762;
 	--color1: #B57C4C;
 	--color2: #9C4538;
     --color3: #83283B;
 	--color4: #6A1A45;
-    --color5: #2E0738;
+    --color5: #510F48;
+    --color6: #2E0738;
 
 	/* default accent color */
 	--accent: var(--color1);
@@ -101,8 +103,8 @@ footer a {
 
 section {
 	display: grid;
-	grid-template-columns: 1fr minmax(auto, 65ch) 1fr;
-	padding: 10px 5px;
+	grid-template-columns: 1fr minmax(auto, 73ch) 1fr;
+	padding: 10px 20px;
 }
 
 section>* {
@@ -154,8 +156,8 @@ section#collage.hold-title h1 {
 /* section colors */
 
 main section { background: var(--background ); color: #ffffff; }
-main section:nth-child(2n) { --background: var(--color5); --accent: var(--color2); }
-main section:nth-child(2n+1)   { --background: var(--color4); --accent: var(--color1); }
+main section:nth-child(2n) { --background: var(--color6); --accent: var(--color1); }
+main section:nth-child(2n+1)   { --background: var(--color5); --accent: var(--color0); }
 /* main section:nth-child(5n)   { --background: var(--color1); --accent: var(--color4); }
 main section:nth-child(5n+1) { --background: var(--color1); --accent: var(--color5); }
 main section:nth-child(5n+2) { --background: var(--color3); --accent: var(--color1); }

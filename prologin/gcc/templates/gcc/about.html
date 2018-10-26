@@ -1,7 +1,7 @@
 {% extends "gcc/base.html" %}
 {% load static %}
 
-{% block title %}GCC! − L'équipe{% endblock %}
+{% block title %}GCC! − Les stages{% endblock %}
 
 {% block content %}
 <section id="collage" class="hold-title" style="background: url('{% static "gcc/img/collage_about_greyscale.jpg" %}')">
@@ -12,11 +12,15 @@
   	<p>
       Le stage Girls Can Code! est l'occasion rêvée pour rencontrer découvrir ou progresser en programmation et rencontrer d'autres filles intéressées par la programmation.
       Cette année, plusieurs stages seront organisés :
-      <ul>
+      <ul style="text-align: center;"> {# TODO: an "important" class for this kind of ul? #}
         <li>du 26 août au 31 août à Paris.</li>
         <li>du 26 août au 31 août à Lyon.</li>
       </ul>
     </p>
+  </div>
+</section>
+<section>
+  <div>
     <p>
       Les stages durent une semaine au cours de laquelle seront proposés des travaux pratiques de programmation sur des sujets divers, quelques conférences données par des femmes travaillant dans l'informatique et la semaine se termine sur la mise en place d’un petit projet qui laisse place à la créativité !
       Les exercices proposés ont une difficulté très progressive, et le but est que chacun avance à son rythme et en s’amusant.
@@ -31,6 +35,10 @@
       L'hébergement et le transport jusqu'au lieu du stage n’est en revanche pas pris en charge par l’association.
       Cependant si la question de l'hébergement est vraiment problématique et vous empêcherait de participer au stage malgré votre motivation, écrivez-nous à info@prologin.org et nous discuterons de l’attribution potentielle d’uned’une potentielle bourse.
     </p>
+  </div>
+</section>
+<section>
+  <div>
     <h2>Modalités</h2>
     <p>
       <ul>
@@ -40,7 +48,6 @@
       </ul>
     </p>
   </div>
-
-	<a class="halo-button" href="{% url "gcc:team_index" %}">Découvrir l'équipe</a>
+	<a class="halo-button" href="#" disabled>S'inscrire</a>
 </section>
 {% endblock %}
