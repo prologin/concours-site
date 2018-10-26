@@ -18,7 +18,6 @@ from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
 class PhotosIndexView(TemplateView):
     template_name = "gcc/photos_index.html"
 
-
 class PhotosEditionView(TemplateView):
     template_name = "gcc/photos_edition.html"
 
@@ -76,6 +75,10 @@ class IndexView(FormView):
         instance, created = SubscriberEmail.objects.get_or_create(
             email=form.cleaned_data['email'])
         return super().form_valid(form)
+
+
+class RessourcesView(TemplateView):
+    template_name = "gcc/ressources.html"
 
 
 # Newsletter

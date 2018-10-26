@@ -8,7 +8,7 @@
 {% endblock %}
 
 {% block content %}
-<section id="collage">
+<section id="collage" style="background: url('{% static "gcc/img/collage_index_greyscale.jpg" %}')">
 	<!-- Logo et collage -->
   <div>
   	<a href="{% url "home" %}"></a>
@@ -32,7 +32,7 @@
         <strong>Quel est le niveau requis pour participer ?</strong>
         <p>
           Le stage a une difficultée très progressive, pas besoin d'avoir codé avant le stage.
-          Mais c’est toujours mieux avoir essayé avant et tu peux trouver des idées de resources <ref >ic <ref>.
+          Mais c’est toujours mieux avoir essayé avant et tu peux trouver des idées de resources <a href="{% url "gcc:ressources" %}">ici</a>.
         </p>
       </li>
   		<li>
@@ -56,7 +56,7 @@
   		<li>
         <strong>J'ai déjà mon bac, que me suggérez-vous ?</strong>
         <p>
-          N’hésite pas à découvrir les  <ref>ressources recommandées<ref> malgré tout et si tu es né(e) en 1998 ou après, tu peux participer à la 26e édition du concours Prologin.
+          N’hésite pas à découvrir les <a href="{% url "gcc:ressources" %}">ressources recommandées</a> malgré tout et si tu es né(e) en 1998 ou après, tu peux participer à la 26e édition du concours Prologin.
           La première phase de qualifications en ligne sont ouvertes.
         </p>
       </li>

@@ -1,32 +1,3 @@
-/* photo collage */
-section#collage {
-	background: center url("../img/collage_greyscale.jpg");
-	background-size: cover;
-	min-height: 70vh;
-}
-
-section#collage div {
-	margin: auto;
-    padding: 20px;
-    background: rgba(0,0,0,0.5);
-    vertical-align: middle;
-}
-
-section#collage div p {
-    font-size: 24px;
-    text-shadow: black 0px 0px 4px;
-    margin: 0px;
-    height: 100%;
-    text-align: center;
-}
-
-section#collage div img {
-    float: left;
-    height: 100%;
-    max-width: 150px;
-    margin-right: 20px;
-}
-
 /* newsletter signup */
 section#newsletter-signup {
 	background: var(--background);

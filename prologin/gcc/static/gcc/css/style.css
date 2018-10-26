@@ -109,6 +109,48 @@ section>* {
 	grid-column: 2/3;
 }
 
+/* collage */
+/* photo collage */
+section#collage {
+    background-position: center !important; /* overrides background params */
+	background-size: cover !important; /* overrides background params */
+	min-height: 70vh;
+}
+
+section#collage div {
+	margin: auto;
+    padding: 20px;
+    background: rgba(0,0,0,0.5);
+    vertical-align: middle;
+}
+
+section#collage div p {
+    font-size: 24px;
+    text-shadow: black 0px 0px 4px;
+    margin: 0px;
+    height: 100%;
+    text-align: center;
+}
+
+section#collage div img {
+    float: left;
+    height: 100%;
+    max-width: 150px;
+    margin-right: 20px;
+}
+
+section#collage.hold-title {
+    min-height: 20vh;
+}
+
+section#collage.hold-title h1 {
+    margin: auto;
+    color: white;
+    text-shadow: black 0 0 2px;
+    font-size: 3em;
+}
+
+
 /* section colors */
 
 main section { background: var(--background ); color: #ffffff; }

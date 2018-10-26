@@ -68,6 +68,7 @@ application_patterns = [
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('about/', views.AboutView.as_view(), name='about'),
+    path('ressources/', views.RessourcesView.as_view(), name='ressources'),
     path('posters/', views.PostersView.as_view(), name='posters'),
     path('team/', include(team_patterns)),
     path('photos/', include(photos_patterns)),

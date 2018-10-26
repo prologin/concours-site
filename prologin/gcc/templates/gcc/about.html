@@ -1,11 +1,14 @@
 {% extends "gcc/base.html" %}
+{% load static %}
 
 {% block title %}GCC! − L'équipe{% endblock %}
 
 {% block content %}
+<section id="collage" class="hold-title" style="background: url('{% static "gcc/img/collage_about_greyscale.jpg" %}')">
+  <h1>Les stages</h1>
+</section>
 <section>
   <div>
-  	<h1>Les stages</h1>
   	<p>
       Le stage Girls Can Code! est l'occasion rêvée pour rencontrer découvrir ou progresser en programmation et rencontrer d'autres filles intéressées par la programmation.
       Cette année, plusieurs stages seront organisés :
@@ -35,11 +38,6 @@
         <li>Remplir le formulaire de candidature</li>
         <li>Habiter dans l'Union européenne ou en Suisse</li>
       </ul>
-    </p>
-    <h2>Une question ?</h2>
-    <p>
-      Vous pouvez contacter notre équipe sur la page Nous contacter.
-      Nous serons ravis de répondre à vos questions et vous aider à organiser au mieux votre participation.
     </p>
   </div>
 
