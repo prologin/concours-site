@@ -1,52 +1,7 @@
+{% extends "gcc/base2.html" %}
 {% load static %}
 
-<!DOCTYPE HTML>
-<!--
-	Escape Velocity by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
--->
-<html>
-	<head>
-		<title>Escape Velocity by HTML5 UP</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="{% static 'gcc/escape-velocity/css/main.css' %}" />
-	</head>
-	<body class="homepage is-preload">
-		<div id="page-wrapper">
-
-			<!-- Header -->
-				<section id="header" class="wrapper" style="background: url({% static 'gcc/img/collage_index_blur.jpg' %}) center center; background-size: cover;">
-
-					<!-- Logo -->
-						<div id="logo">
-							<h1><a href="index.html">
-                <img src="{% static "img/logo-squeletton.png" %}" style="height: 34px; vertical-align: middle;"/>
-                Girls Can Code!
-              </a></h1>
-							<p>Stage d'informatique gratuit pour les filles de collège et lycée.</p>
-						</div>
-
-					<!-- Nav -->
-						<nav id="nav">
-							<ul>
-								<li class="current"><a href="index.html">Accueil</a></li>
-								<li><a href="{% url 'gcc:ressources' %}">Ressources</a></li>
-                <li><a href="right-sidebar.html">Bénévoles</a></li>
-                <li>
-                  <a href="#">Éditions</a>
-                  <ul>
-                    <li><a href="#">Édition 2018</a></li>
-                    <li><a href="#">Édition 2017</a></li>
-                  </ul>
-                </li>
-                <li><a href="right-sidebar.html">Sponsors</a></li>
-							</ul>
-						</nav>
-
-				</section>
-
+{% block content %}
 			<!-- Intro -->
 				<section id="intro" class="wrapper style1">
 					<div class="title">S'entrainer à coder</div>
@@ -166,69 +121,4 @@
             </div>
           </div>
 				</section>
-
-			<!-- Footer -->
-				<section id="footer" class="wrapper">
-					<div class="title">Contact</div>
-          <div class="container">
-            <div class="row">
-							<section class="feature-list small">
-								<div class="row">
-									<div class="col-6 col-12-small">
-										<section>
-											<h3 class="icon fa-home">Addresse</h3>
-											<p>
-												Association Prologin<br />
-												14-15 Rue Voltaire<br />
-												94270 Le Kremlin Bicêtre
-											</p>
-										</section>
-									</div>
-                  <div class="col-6 col-12-small">
-                    <section>
-                      <h3 class="icon fa-comment">Social</h3>
-                      <p>
-                        <a style="font-size: 1.4em; margin-right: 5px;" href="https://www.facebook.com/stagegirlscancode"><i class="icon fa-facebook" style=""></i></a>
-                        <a style="font-size: 1.4em; margin-right: 5px;" href="https://twitter.com/prologin"><i class="icon fa-twitter" style=""></i></a>
-                        <a style="font-size: 1.4em; margin-right: 5px;" href="https://www.flickr.com/photos/prologin"><i class="icon fa-flickr" style=""></i></a>
-                      </p>
-                    </section>
-                  </div>
-									<div class="col-6 col-12-small">
-										<section>
-											<h3 class="icon fa-envelope">Email</h3>
-											<p>
-												<a href="mailto:info@prologin.org">info@prologin.org</a>
-											</p>
-										</section>
-									</div>
-									<div class="col-6 col-12-small">
-										<section>
-											<h3 class="icon fa-phone">Téléphone</h3>
-											<p>
-												+331 44 08 01 90
-											</p>
-										</section>
-									</div>
-								</div>
-							</section>
-						</div>
-						<div id="copyright">
-							<ul>
-								<li>&copy; Girls Can Code!</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-							</ul>
-						</div>
-					</div>
-				</section>
-
-		</div>
-
-		<!-- Scripts -->
-			<script src="{% static 'gcc/escape-velocity/js/jquery.min.js' %}"></script>
-			<script src="{% static 'gcc/escape-velocity/js/jquery.dropotron.min.js' %}"></script>
-			<script src="{% static 'gcc/escape-velocity/js/browser.min.js' %}"></script>
-			<script src="{% static 'gcc/escape-velocity/js/breakpoints.min.js' %}"></script>
-			<script src="{% static 'gcc/escape-velocity/js/util.js' %}"></script>
-			<script src="{% static 'gcc/escape-velocity/js/main.js' %}"></script>
-	</body>
-</html>
+{% endblock %}
