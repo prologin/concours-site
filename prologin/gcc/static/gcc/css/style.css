@@ -30,9 +30,24 @@ body {
 	font-family: "Cantarell", "Roboto", "San Francisco", "Segoe UI", "Noto Sans", sans-serif;
 }
 
+body > * {
+    /* max-width: 100vw; */
+}
+
+p {
+    margin: 0 0 10px;
+}
+
 h1, h2, h3, h4, h5, h6 {
+    margin-top: 20px;
+    margin-bottom: 10px;
 	font-family: "Cantarell Light", "Roboto Light", "San Francisco Light", "Segoe UI Light", "Noto Sans Light", sans-serif;
     color: var(--accent);
+}
+
+ul {
+    margin-top: 0;
+    margin-bottom: 10pxR
 }
 
 header {
@@ -63,6 +78,8 @@ nav {
 	display: flex;
 	justify-content: center;
 	box-shadow: var(--shadow);
+    overflow-x: auto;
+    white-space: nowrap;
 }
 
 nav a {
@@ -103,7 +120,7 @@ footer a {
 
 section {
 	display: grid;
-	grid-template-columns: 1fr minmax(auto, 73ch) 1fr;
+	grid-template-columns: 1fr minmax(auto, 80ch) 1fr;
 	padding: 10px 20px;
 }
 
@@ -126,19 +143,28 @@ section#collage div {
     vertical-align: middle;
 }
 
+section#collage div {
+    text-align: center;
+}
+
 section#collage div p {
     font-size: 24px;
     text-shadow: black 0px 0px 4px;
     margin: 0px;
     height: 100%;
-    text-align: center;
 }
 
 section#collage div img {
-    float: left;
     height: 100%;
-    max-width: 150px;
+    width: 150px;
     margin-right: 20px;
+}
+
+/* The logo takes at most 1/4 of the width */
+@media (min-width:600px) {
+    section#collage div img {
+        float: left;
+    }
 }
 
 section#collage.hold-title {
@@ -211,10 +237,20 @@ main section:nth-child(5n+4) { --background: var(--color5); --accent: var(--colo
 	color: var(--accent);
 }
 
+aside {
+    text-align: center;
+}
+
 aside > img {
-    margin: 30px;
     max-width: 200px;
-    float: right;
+    margin: 30px;
+}
+
+/* The image takes at most 1/3 of the screen */
+@media (min-width:600px) {
+    aside > img {
+        float: right;
+    }
 }
 
 
