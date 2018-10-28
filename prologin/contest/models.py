@@ -203,13 +203,13 @@ class Assignation(ChoiceEnum):
 
 
 class LearnAboutContest(ChoiceEnum):
-    doesnt_know = (0, _("I don't remember"))
-    other_contest = (1, _("Another programming contest"))
-    social_media = (2, _("From social media"))
-    poster = (3, _("From the poster in my school/university"))
-    friend = (4, _("From a friend"))
-    journal = (5, _("From an article on a website or a newspaper"))
-    other = (6, _("Some other way"))
+    other_contest = (0, _("Another programming contest"))
+    social_media = (1, _("From social media"))
+    poster = (2, _("From the poster in my school/university"))
+    friend = (3, _("From a friend"))
+    journal = (4, _("From an article on a website or a newspaper"))
+    other = (5, _("Some other way"))
+    doesnt_know = (6, _("I don't remember"))
 
 
     @classmethod
