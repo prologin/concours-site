@@ -79,6 +79,11 @@ We have to fetch them or generate them using scripts. To do that, run:
     # Generate the static assets
     make assets
 
+If you're being lazy, you may generate these using docker instead.
+
+    :::console
+    ./docker_assets_builder.sh
+
 ### Development setup
 
 * *Django Debug Toolbar* is here to help; you can use it by adding the
