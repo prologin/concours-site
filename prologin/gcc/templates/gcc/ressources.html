@@ -1,51 +1,234 @@
-{% extends "gcc/base.html" %}
 {% load static %}
 
-{% block title %}GCC! − Ressources{% endblock %}
+<!DOCTYPE HTML>
+<!--
+	Escape Velocity by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Escape Velocity by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="{% static 'gcc/escape-velocity/css/main.css' %}" />
+	</head>
+	<body class="homepage is-preload">
+		<div id="page-wrapper">
 
-{% block content %}
-<section id="collage" class="hold-title" style="background: url('{% static "gcc/img/collage_ressources_greyscale.jpg" %}')">
-  <h1>S’entrainer à coder !</h1>
-</section>
-<section>
-  <div>
-    <h1>S’entrainer à coder !</h1>
-    <p>
-      Il y a beaucoup de ressources sur internet qui peuvent te permettre de découvrir l’informatique mais il est parfois difficile de s'orienter dans tous les contenus, nous détaillons quelques ressources particulièrement intéressantes.
-    </p>
-  </div>
-</section>
-<section>
-  <div>
-    <h2><small>Premier point :</small> Quel langage de programmation ?</h2>
-    <p>
-      Coder c’est décrire des opération que la machine exécutera, et pour communiquer avec la machine on doit choisir au préalable dans quel langage on va lui parler.
-      Il existe de très nombreux langages de programmation avec chacun leurs spécificités.
-      Dans les stages nous enseignons principalement le Python, c’est un langage assez facile à prendre en main (comparé à d’autre...) mais qui permet à la fois beaucoup d’utilisations, par exemple il est utilisé pour coder Youtube.
-    </p>
-  </div>
-</section>
-<section>
-  <div>
-    <h2><small>Deuxième point :</small> Commencer à coder</h2>
-    <p>
-      Il y a quelques notions de base d’informatique dont on se sert tout le temps, il faut donc commencer par là, lire quelles explication et faire quelques exercices pour ça tu peux par exemple aller sur :
-      France IOI : ils offrent une plateforme d'apprentissage avec des exercices de tous les niveaux, le tout gratuit et entièrement en français !
-      Codeacademy : si tu parles un peu anglais ça peut être une bonne ressource, sinon c’est plus compliqué...
-    </p>
-  </div>
-</div>
-</section>
-<section>
-  <div>
-    <h2><small>Troisième point :</small> Se lancer dans ce qui nous plait !</h2>
-    <p>
-      L’avantage quand on apprend l'informatique c’est qu'on peut vraiment en faire ce qu’on veut. Il y a beaucoup de sous domaine et d'applications en informatique et pour continuer à coder c’est beaucoup plus motivant de trouver quelque chose qui nous plait. Voilà quelques exemples :
-      <ul>
-        <li>Prologin : C’est le nom de l’association qui organise les stages mais elle organise aussi un concours d’informatique.</li>
-      </ul>
-      Sur le site tu peux trouver les archives des années précédentes, ce sont des petits problèmes qui donnent une entrée et demande une sortie et c’est  à toi d’écrire le code pour obtenir la sortie à partir de l’entrée !
-    </p>
-  </div>
-</section>
-{% endblock %}
+			<!-- Header -->
+				<section id="header" class="wrapper" style="background: url({% static 'gcc/img/collage_index_blur.jpg' %}) center center; background-size: cover;">
+
+					<!-- Logo -->
+						<div id="logo">
+							<h1><a href="index.html">
+                <img src="{% static "img/logo-squeletton.png" %}" style="height: 34px; vertical-align: middle;"/>
+                Girls Can Code!
+              </a></h1>
+							<p>Stage d'informatique gratuit pour les filles de collège et lycée.</p>
+						</div>
+
+					<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li class="current"><a href="index.html">Accueil</a></li>
+								<li><a href="{% url 'gcc:ressources' %}">Ressources</a></li>
+                <li><a href="right-sidebar.html">Bénévoles</a></li>
+                <li>
+                  <a href="#">Éditions</a>
+                  <ul>
+                    <li><a href="#">Édition 2018</a></li>
+                    <li><a href="#">Édition 2017</a></li>
+                  </ul>
+                </li>
+                <li><a href="right-sidebar.html">Sponsors</a></li>
+							</ul>
+						</nav>
+
+				</section>
+
+			<!-- Intro -->
+				<section id="intro" class="wrapper style1">
+					<div class="title">S'entrainer à coder</div>
+
+            <div class="row">
+              <div class="off-2-large col-8-large off-1-medium col-10-medium col-12-small">
+    						<p class="style2" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
+    							Beaucoup de ressources sur internet sont disponible pour te permettre de découvrir  l’informatique mais il est parfois difficile de s'orienter dans tous les contenus, nous détaillons quelques ressources particulièrement intéressantes.
+    						</p>
+              </div>
+            </div>
+				</section>
+
+			<!-- Main -->
+				<section id="main" class="wrapper style2">
+					<div class="title">Quel langage ?</div>
+					<div class="container">
+            <div class="row">
+              <div class="off-2-large col-8-large off-1-medium col-10-medium col-12-small">
+                <p>
+                  Coder c’est décrire des opérations que la machine exécutera, et pour communiquer avec la machine on doit choisir au préalable dans quel langage on va lui parler.
+                  Il existe de très nombreux langages de programmation avec chacun leurs spécificités.
+                </p>
+                <p>
+                  Il est important de savoir le langage dans lequel on souhaite commencer à programmer avant de se lancer, on apprends à programmer dans un langage.
+                  Dans les stages nous enseignons principalement le Python (Python 3), nous le recommandons. C’est un langage assez facile à prendre en main (comparé à d’autre...) et qui a de nombreuses utilisations, par exemple il est utilisé pour coder Youtube.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="main" class="wrapper style3">
+          <div class="title">Commencer</div>
+						<!-- Image -->
+							<!-- <a href="#" class="image featured">
+								<img src="{% static 'gcc/img/collage_index.jpg' %}" alt="" />
+							</a> -->
+
+					<div class="container">
+						<div class="row aln-center">
+							<div class="col-4 col-12-medium">
+								<section class="highlight">
+									<a href="#" class="image featured" style="height: 200px; padding: 20px;">
+                    <img src="{% static 'gcc/img/logo_ioi.png' %}" alt="" style="height: 100%" />
+                  </a>
+
+									<h3><a href="#">France IOI</a></h3>
+									<p>
+                    France IOI offre une plateforme d'apprentissage avec des exercices de tous les niveaux, le tout gratuitement et entièrement en français !
+                  </p>
+									<ul class="actions">
+										<li><a target="_blank"  href="https://www.codecademy.com/fr" class="button style1">Codeacademy</a></li>
+									</ul>
+								</section>
+							</div>
+							<div class="col-4 col-12-medium">
+								<section class="highlight">
+									<a href="#" class="image featured" style="height: 200px; padding: 20px;">
+                    <img src="{% static 'gcc/img/logo_codeac.svg' %}" alt="" style="height: 100%;" />
+                  </a>
+
+									<h3><a href="#">Codeacademy</a></h3>
+									<p>
+                    Si tu parles un peu anglais ça peut être une bonne ressource.
+                  </p>
+									<ul class="actions">
+										<li><a target="_blank"  href="http://www.france-ioi.org/" class="button style1">France IOI</a></li> {# TODO LIEN EDITIONS #}
+									</ul>
+								</section>
+							</div>
+						</div>
+					</div>
+        </section>
+
+			<!-- Highlights -->
+				<section id="highlights" class="wrapper style2">
+					<div class="title">Se lancer</div>
+          <div class="container">
+            <div class="row">
+              <div class="off-2-large col-8-large off-1-medium col-10-medium col-12-small">
+                <p>
+                  L’avantage quand on apprend l'informatique c’est qu'on peut vraiment en faire ce qu’on veut.
+                  Il y a beaucoup de sous domaines et d'applications en informatique et pour continuer à coder c’est beaucoup plus motivant de trouver quelque chose qui nous plait.
+                  Voilà quelques exemples :
+                </p>
+
+                <div class="row feature-list">
+                  <div class="col-2" style="text-align:center">
+                    <img src="https://djangogirls.org/static/img/global/logo.png" style="width: 200px; padding: 30px; margin:auto" />
+                  </div>
+                  <div class="col-10">
+                    <section>
+                      <h3>Django girls</h3>
+                      <p>
+                        Elles ont fait un tutoriel pour la création d’un blog en python avec un framework qui s’appelle django.
+                        Il a été traduit entièrement en français et est très accessible.
+                        Django est un outil qui permet beaucoup de chose, les site de GCC! et Prologin utilisent d’ailleurs ce framework.
+                      </p>
+                    </section>
+                  </div>
+                  <div class="col-2">
+                    <img src="{% static 'img/logo_cube.png' %}" style="height: 100%; padding: 30px;" />
+                  </div>
+                  <div class="col-10">
+                    <section>
+                      <h3>Stage gratuit</h3>
+                      <p>
+                        C’est le nom de l’association qui organise les stages mais elle organise aussi un concours d’informatique.
+                        Sur le site tu peux trouver les archives des années précédentes.
+                        Ce sont des petits problèmes qui donnent une entrée et demandent une sortie et c’est à toi d’écrire le code pour obtenir la sortie à partir de l’entrée !
+                      </p>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+				</section>
+
+			<!-- Footer -->
+				<section id="footer" class="wrapper">
+					<div class="title">Contact</div>
+          <div class="container">
+            <div class="row">
+							<section class="feature-list small">
+								<div class="row">
+									<div class="col-6 col-12-small">
+										<section>
+											<h3 class="icon fa-home">Addresse</h3>
+											<p>
+												Association Prologin<br />
+												14-15 Rue Voltaire<br />
+												94270 Le Kremlin Bicêtre
+											</p>
+										</section>
+									</div>
+                  <div class="col-6 col-12-small">
+                    <section>
+                      <h3 class="icon fa-comment">Social</h3>
+                      <p>
+                        <a style="font-size: 1.4em; margin-right: 5px;" href="https://www.facebook.com/stagegirlscancode"><i class="icon fa-facebook" style=""></i></a>
+                        <a style="font-size: 1.4em; margin-right: 5px;" href="https://twitter.com/prologin"><i class="icon fa-twitter" style=""></i></a>
+                        <a style="font-size: 1.4em; margin-right: 5px;" href="https://www.flickr.com/photos/prologin"><i class="icon fa-flickr" style=""></i></a>
+                      </p>
+                    </section>
+                  </div>
+									<div class="col-6 col-12-small">
+										<section>
+											<h3 class="icon fa-envelope">Email</h3>
+											<p>
+												<a href="mailto:info@prologin.org">info@prologin.org</a>
+											</p>
+										</section>
+									</div>
+									<div class="col-6 col-12-small">
+										<section>
+											<h3 class="icon fa-phone">Téléphone</h3>
+											<p>
+												+331 44 08 01 90
+											</p>
+										</section>
+									</div>
+								</div>
+							</section>
+						</div>
+						<div id="copyright">
+							<ul>
+								<li>&copy; Girls Can Code!</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							</ul>
+						</div>
+					</div>
+				</section>
+
+		</div>
+
+		<!-- Scripts -->
+			<script src="{% static 'gcc/escape-velocity/js/jquery.min.js' %}"></script>
+			<script src="{% static 'gcc/escape-velocity/js/jquery.dropotron.min.js' %}"></script>
+			<script src="{% static 'gcc/escape-velocity/js/browser.min.js' %}"></script>
+			<script src="{% static 'gcc/escape-velocity/js/breakpoints.min.js' %}"></script>
+			<script src="{% static 'gcc/escape-velocity/js/util.js' %}"></script>
+			<script src="{% static 'gcc/escape-velocity/js/main.js' %}"></script>
+	</body>
+</html>

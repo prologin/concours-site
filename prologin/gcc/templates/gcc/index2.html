@@ -8,7 +8,7 @@
 -->
 <html>
 	<head>
-		<title>Escape Velocity by HTML5 UP</title>
+		<title>Girls Can Code!</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 		<link rel="stylesheet" href="{% static 'gcc/escape-velocity/css/main.css' %}" />
@@ -32,8 +32,7 @@
 						<nav id="nav">
 							<ul>
 								<li class="current"><a href="index.html">Acceuil</a></li>
-								<li><a href="left-sidebar.html">Ressources</a></li>
-                <li><a href="right-sidebar.html">Bénévoles</a></li>
+								<li><a href="{% url 'gcc:ressources' %}">Ressources</a></li>
                 <li>
                   <a href="#">Éditions</a>
                   <ul>
@@ -41,7 +40,7 @@
                     <li><a href="#">Édition 2017</a></li>
                   </ul>
                 </li>
-                <li><a href="right-sidebar.html">Sponsors</a></li>
+                <li><a href="{% url 'gcc:sponsors' %}">Sponsors</a></li>
 							</ul>
 						</nav>
 
@@ -191,7 +190,7 @@
                     L'association Prologin, créé en 1991 pour organiser le concours éponyme, organise depuis 2014 les stages Girls Can Code!.
                   </p>
 									<ul class="actions">
-										<li><a target="_blank"  href="#" class="button style1">En Savoir Plus</a></li> {# TODO LIEN EDITIONS #}
+										<li><a target="_blank"  href="{% url 'home' %}" class="button style1">En Savoir Plus</a></li> {# TODO LIEN EDITIONS #}
 									</ul>
 								</section>
 							</div>
@@ -259,7 +258,7 @@
 										<section>
 											<h3 class="icon fa-envelope">Email</h3>
 											<p>
-												<a href="#">info@prologin.org</a>
+												<a href="mailto:info@prologin.org">info@prologin.org</a>
 											</p>
 										</section>
 									</div>

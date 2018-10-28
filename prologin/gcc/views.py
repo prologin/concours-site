@@ -77,6 +77,10 @@ class IndexView(FormView):
         return super().form_valid(form)
 
 
+class SponsorsView(TemplateView):
+    template_name = "gcc/sponsors.html"
+
+
 class RessourcesView(TemplateView):
     template_name = "gcc/ressources.html"
 
