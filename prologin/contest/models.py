@@ -202,6 +202,20 @@ class Assignation(ChoiceEnum):
     ugettext_noop("Assigned")
 
 
+class LearnAboutContest(ChoiceEnum):
+    other_contest = (0, _("Another programming contest"))
+    social_media = (1, _("From social media"))
+    poster = (2, _("From the poster in my school/university"))
+    friend = (3, _("From a friend"))
+    journal = (4, _("From an article on a website or a newspaper"))
+    other = (5, _("Some other way"))
+    doesnt_know = (6, _("I don't remember"))
+
+
+    @classmethod
+    def _get_choices(cls):
+        return tuple(m.value for m in cls)
+
 class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='contestants', on_delete=models.CASCADE)
     edition = models.ForeignKey(Edition, related_name='contestants', on_delete=models.CASCADE)
@@ -215,7 +229,11 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     preferred_language = CodingLanguageField(blank=True, db_index=True,
                                              help_text=_("The programming language you will most likely use during the "
                                                          "regional events."))
-
+    learn_about_contest = EnumField(
+        LearnAboutContest, null=True,
+        blank=True, db_index=True,
+        verbose_name=_("How did you learn the contest ?"),
+        empty_label=_("Tell us how you discovered the contest"))
     assignation_semifinal = EnumField(Assignation, default=Assignation.not_assigned.value,
                                       verbose_name=_("Regional event assignation status"))
     assignation_semifinal_wishes = models.ManyToManyField(Event, through='EventWish',
