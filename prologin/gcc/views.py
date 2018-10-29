@@ -29,8 +29,8 @@ class PhotosEventView(TemplateView):
 # Posters
 
 
-class PostersView(TemplateView):
-    template_name = "gcc/posters.html"
+class EditionsView(TemplateView):
+    template_name = "gcc/editions.html"
 
 
 # Team

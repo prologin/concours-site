@@ -43,11 +43,6 @@
 		<div class="title">Plus d’informations</div>
 		<div class="container">
 
-			<!-- Image -->
-				<!-- <a href="#" class="image featured">
-					<img src="{% static 'gcc/img/collage_index.jpg' %}" alt="" />
-				</a> -->
-
 			<!-- Features -->
 				<section id="features">
 					<header class="style1">
@@ -110,38 +105,40 @@
 			<div class="row aln-center">
 				<div class="col-4 col-12-medium">
 					<section class="highlight">
-						<a href="#" class="image featured">
-							<img src="{% static 'gcc/img/stat_femmes.svg' %}" alt="" /></a>
-
-						<h3><a href="#">Parité en informatique</a></h3>
-						<p>
-							Girls Can Code! a été créé dans le but d’encourager les filles à entrer dans ce domaine majoritairement masculin malgré les stéréotypes.
-						</p>
-						<ul class="actions">
-							<li><a target="_blank"  href="https://www.lemonde.fr/campus/article/2017/12/11/femmes-et-informatique-vingt-ans-de-desamour_5227726_4401467.html" class="button style1">En Savoir Plus</a></li>
-						</ul>
+						{% with url="https://www.lemonde.fr/campus/article/2017/12/11/femmes-et-informatique-vingt-ans-de-desamour_5227726_4401467.html" %}
+							<a href="{{url}}" class="image featured">
+								<img src="{% static 'gcc/img/stat_femmes.svg' %}" alt="" />
+							</a>
+							<h3><a href="{{url}}">Parité en informatique</a></h3>
+							<p>
+								Girls Can Code! a été créé dans le but d’encourager les filles à entrer dans ce domaine majoritairement masculin malgré les stéréotypes.
+							</p>
+							<ul class="actions">
+								<li><a target="_blank"  href="{{url}}" class="button style1">En Savoir Plus</a></li>
+							</ul>
+						{% endwith %}
 					</section>
 				</div>
 				<div class="col-4 col-12-medium">
 					<section class="highlight">
-						<a href="#" class="image featured">
+						<a href="{% url 'gcc:editions' %}" class="image featured">
 							<img src="{% static 'gcc/img/stat_editions.svg' %}" alt="" /></a>
 
-						<h3><a href="#">Les éditions Girls Can Code!</a></h3>
+						<h3><a href="{% url 'gcc:editions' %}">Les éditions Girls Can Code!</a></h3>
 						<p>
 							La première édition des stages Girls Can Code! à eu lieu en 2014, l’édition 2019 sera donc la 6ème
 						</p>
 						<ul class="actions">
-							<li><a target="_blank"  href="#" class="button style1">En Savoir Plus</a></li> {# TODO LIEN EDITIONS #}
+							<li><a target="_blank"  href="{% url 'gcc:editions' %}" class="button style1">En Savoir Plus</a></li>
 						</ul>
 					</section>
 				</div>
 				<div class="col-4 col-12-medium">
 					<section class="highlight">
-						<a href="#" class="image featured">
+						<a href="{% url 'home' %}" class="image featured">
 							<img src="{% static 'gcc/img/stat_prologin.svg' %}" alt="" /></a>
 
-						<h3><a href="#">Prologin une association crée en 1991</a></h3>
+						<h3><a href="{% url 'home' %}">Prologin une association crée en 1991</a></h3>
 						<p>
 							L'association Prologin, créé en 1991 pour organiser le concours éponyme, organise depuis 2014 les stages Girls Can Code!.
 						</p>

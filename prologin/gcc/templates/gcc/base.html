@@ -21,23 +21,26 @@
 
 					<!-- Logo -->
 					<div id="logo">
-						<h1><a href="index.html">
+						<h1>
 							<img src="{% static "img/logo-squeletton.png" %}" style="height: 34px; vertical-align: middle;"/>
 							Girls Can Code!
-						</a></h1>
+						</h1>
 						<p>Stage d'informatique gratuit pour les filles de collège et lycée.</p>
 					</div>
 
 					<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li class="current"><a href="/gcc/">Acceuil</a></li>
+							<li class="current"><a href="{% url 'gcc:index' %}">Accueil</a></li>
 							<li><a href="{% url 'gcc:ressources' %}">Ressources</a></li>
 							<li>
-								<a href="#">Éditions</a>
+								<a href="{% url 'gcc:editions' %}">Éditions</a>
 								<ul>
-									<li><a href="#">Édition 2018</a></li>
-									<li><a href="#">Édition 2017</a></li>
+									{% with years="2018 2017 2016 2015" %}
+										{% for year in years.split %}
+											<li><a href="{% url 'gcc:editions' year=year %}">Édition {{year}}</a></li>
+										{% endfor %}
+									{% endwith %}
 								</ul>
 							</li>
 							<li><a href="{% url 'gcc:sponsors' %}">Sponsors</a></li>

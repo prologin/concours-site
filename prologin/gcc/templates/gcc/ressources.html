@@ -36,41 +36,41 @@
 
 	<section id="main" class="wrapper style3">
 		<div class="title">Commencer</div>
-			<!-- Image -->
-				<!-- <a href="#" class="image featured">
-					<img src="{% static 'gcc/img/collage_index.jpg' %}" alt="" />
-				</a> -->
 
 		<div class="container">
 			<div class="row aln-center">
 				<div class="col-4 col-12-medium">
 					<section class="highlight">
-						<a href="#" class="image featured" style="height: 200px; padding: 20px;">
+						{% with url="http://www.france-ioi.org/" %}
+						<a target="_blank" href="{{url}}" class="image featured" style="height: 200px; padding: 20px;">
 							<img src="{% static 'gcc/img/logo_ioi.png' %}" alt="" style="height: 100%" />
 						</a>
 
-						<h3><a href="#">France IOI</a></h3>
+						<h3><a target="_blank" href="{{url}}">France IOI</a></h3>
 						<p>
 							France IOI offre une plateforme d'apprentissage avec des exercices de tous les niveaux, le tout gratuitement et entièrement en français !
 						</p>
 						<ul class="actions">
-							<li><a target="_blank"  href="https://www.codecademy.com/fr" class="button style1">Codeacademy</a></li>
+							<li><a target="_blank" href="{{url}}" class="button style1">Codeacademy</a></li>
 						</ul>
+						{% endwith %}
 					</section>
 				</div>
 				<div class="col-4 col-12-medium">
 					<section class="highlight">
-						<a href="#" class="image featured" style="height: 200px; padding: 20px;">
+						{% with url="https://www.codecademy.com/fr" %}
+						<a target="_blank" href="{{url}}" class="image featured" style="height: 200px; padding: 20px;">
 							<img src="{% static 'gcc/img/logo_codeac.svg' %}" alt="" style="height: 100%;" />
 						</a>
 
-						<h3><a href="#">Codeacademy</a></h3>
+						<h3><a target="_blank" href="{{url}}">Codeacademy</a></h3>
 						<p>
 							Si tu parles un peu anglais ça peut être une bonne ressource.
 						</p>
 						<ul class="actions">
-							<li><a target="_blank"  href="http://www.france-ioi.org/" class="button style1">France IOI</a></li> {# TODO LIEN EDITIONS #}
+							<li><a target="_blank"  href="{{url}}" class="button style1">France IOI</a></li> {# TODO LIEN EDITIONS #}
 						</ul>
+						{% endwith %}
 					</section>
 				</div>
 			</div>
@@ -90,12 +90,15 @@
 					</p>
 
 					<div class="row feature-list">
+						{% with url="https://djangogirls.org/" %}
 						<div class="col-2" style="text-align:center">
-							<img src="https://djangogirls.org/static/img/global/logo.png" style="width: 200px; padding: 30px; margin:auto" />
+							<a href="{{url}}">
+								<img src="https://djangogirls.org/static/img/global/logo.png" style="width: 200px; padding: 30px; margin:auto" />
+							</a>
 						</div>
 						<div class="col-10">
 							<section>
-								<h3>Django girls</h3>
+								<h3><a href="{{url}}">Django girls</a></h3>
 								<p>
 									Elles ont fait un tutoriel pour la création d’un blog en python avec un framework qui s’appelle django.
 									Il a été traduit entièrement en français et est très accessible.
@@ -103,12 +106,15 @@
 								</p>
 							</section>
 						</div>
+						{% endwith %}
 						<div class="col-2">
-							<img src="{% static 'img/logo_cube.png' %}" style="height: 100%; padding: 30px;" />
+							<a href="{% url 'home' %}">
+								<img src="{% static 'img/logo_cube.png' %}" style="height: 100%; padding: 30px;" />
+							</a>
 						</div>
 						<div class="col-10">
 							<section>
-								<h3>Stage gratuit</h3>
+								<h3><a href="{% url 'home' %}">Stage gratuit</a></h3>
 								<p>
 									C’est le nom de l’association qui organise les stages mais elle organise aussi un concours d’informatique.
 									Sur le site tu peux trouver les archives des années précédentes.
