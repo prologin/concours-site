@@ -31,9 +31,13 @@
 					<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li class="current"><a href="{% url 'gcc:index' %}">Accueil</a></li>
-							<li><a href="{% url 'gcc:ressources' %}">Ressources</a></li>
 							<li>
+								<a href="{% url 'gcc:index' %}">Accueil</a>
+							</li>
+							<li class="{% active '^/gcc/ressources/' %}">
+								<a href="{% url 'gcc:ressources' %}">Ressources</a>
+							</li>
+							<li class="{% active '^/gcc/editions/' %}">
 								<a href="{% url 'gcc:editions' %}">Éditions</a>
 								<ul>
 									{% with years="2018 2017 2016 2015" %}
@@ -43,7 +47,9 @@
 									{% endwith %}
 								</ul>
 							</li>
-							<li><a href="{% url 'gcc:sponsors' %}">Sponsors</a></li>
+							<li class="{% active '^/gcc/sponsors/' %}">
+								<a href="{% url 'gcc:sponsors' %}">Sponsors</a>
+							</li>
 						</ul>
 					</nav>
 

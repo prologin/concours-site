@@ -91,36 +91,32 @@
 
 					<div class="row feature-list">
 						{% with url="https://djangogirls.org/" %}
-						<div class="col-2" style="text-align:center">
+						<div class="col-3 col-4-medium col-12-small" style="margin: auto; text-align: center;">
 							<a href="{{url}}">
-								<img src="https://djangogirls.org/static/img/global/logo.png" style="width: 200px; padding: 30px; margin:auto" />
+								<img src="https://djangogirls.org/static/img/global/logo.png" style="max-width: 100%;" />
 							</a>
 						</div>
-						<div class="col-10">
-							<section>
-								<h3><a href="{{url}}">Django girls</a></h3>
-								<p>
-									Elles ont fait un tutoriel pour la création d’un blog en python avec un framework qui s’appelle django.
-									Il a été traduit entièrement en français et est très accessible.
-									Django est un outil qui permet beaucoup de chose, les site de GCC! et Prologin utilisent d’ailleurs ce framework.
-								</p>
-							</section>
+						<div class="col-9 col-8-medium col-12-small">
+							<h3><a href="{{url}}">Django girls</a></h3>
+							<p>
+								Elles ont fait un tutoriel pour la création d’un blog en python avec un framework qui s’appelle django.
+								Il a été traduit entièrement en français et est très accessible.
+								Django est un outil qui permet beaucoup de chose, les site de GCC! et Prologin utilisent d’ailleurs ce framework.
+							</p>
 						</div>
 						{% endwith %}
-						<div class="col-2">
+						<div class="col-3 col-4-medium col-12-small" style="margin: auto; text-align: center;">
 							<a href="{% url 'home' %}">
-								<img src="{% static 'img/logo_cube.png' %}" style="height: 100%; padding: 30px;" />
+								<img src="{% static 'img/logo_cube.png' %}" style="max-width: 100%;" />
 							</a>
 						</div>
-						<div class="col-10">
-							<section>
-								<h3><a href="{% url 'home' %}">Stage gratuit</a></h3>
-								<p>
-									C’est le nom de l’association qui organise les stages mais elle organise aussi un concours d’informatique.
-									Sur le site tu peux trouver les archives des années précédentes.
-									Ce sont des petits problèmes qui donnent une entrée et demandent une sortie et c’est à toi d’écrire le code pour obtenir la sortie à partir de l’entrée !
-								</p>
-							</section>
+						<div class="col-9 col-8-medium col-12-small">
+							<h3><a href="{% url 'home' %}">Stage gratuit</a></h3>
+							<p>
+								C’est le nom de l’association qui organise les stages mais elle organise aussi un concours d’informatique.
+								Sur le site tu peux trouver les archives des années précédentes.
+								Ce sont des petits problèmes qui donnent une entrée et demandent une sortie et c’est à toi d’écrire le code pour obtenir la sortie à partir de l’entrée !
+							</p>
 						</div>
 					</div>
 				</div>
