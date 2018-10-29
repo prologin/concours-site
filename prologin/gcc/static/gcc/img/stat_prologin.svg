@@ -25,9 +25,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.11313708"
-     inkscape:cx="2274.0615"
-     inkscape:cy="1484.6191"
+     inkscape:zoom="0.15999999"
+     inkscape:cx="874.27136"
+     inkscape:cy="2069.8586"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -44,7 +44,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,64 +56,64 @@
     <g
        transform="matrix(0.33072757,0,0,-0.33072912,64.240161,30.510621)"
        id="g2995"
-       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
       <g
          id="g2997"
-         style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+         style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
         <g
            id="g2999"
-           style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+           style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
           <g
              id="g3001"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3003"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3005"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3007"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3009"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3011"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3013"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3015"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
-               id="path3017"
-               style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 0,297.6415 510.24257,0 V 722.84364 L 0,1020.4851 Z"
-               inkscape:connector-curvature="0" />
+               style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:18.89763832;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 242.79688 1118.7656 L 242.79688 2022.3184 L 880.59766 2394.3711 L 880.59766 1792.0039 L 667.99609 1667.9922 L 667.99609 1366.7988 L 242.79688 1118.7656 z "
+               transform="matrix(0.80000386,0,0,-0.80000011,-194.2389,1915.497)"
+               id="path3017" />
           </g>
           <g
              id="g3019"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
-               id="path3021"
-               style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 510.24257,0 1162.2192,226.77448 V 949.61812 L 510.24257,722.84364 Z"
-               inkscape:connector-curvature="0" />
+               style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:18.89763832;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 1695.5645 1207.3477 L 1152.25 1396.3281 L 1152.25 1697.5215 L 880.59766 1792.0098 L 880.59766 2394.3711 L 1341.2246 2234.1523 L 1341.2246 2093.1875 L 1612.875 1998.7012 L 1695.5645 2046.9336 L 1695.5645 1207.3477 z "
+               transform="matrix(0.80000386,0,0,-0.80000011,-194.2389,1915.497)"
+               id="path3021" />
           </g>
           <g
              id="g3023"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
-               id="path3025"
-               style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 0,1020.4851 510.24257,722.84364 1162.2192,949.61812 651.97662,1247.2596 Z"
-               inkscape:connector-curvature="0" />
+               style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:18.89763832;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+               d="M 1057.7637 835.29688 L 242.79688 1118.7656 L 667.99609 1366.7988 L 939.64258 1272.3125 L 1152.25 1396.3281 L 1695.5645 1207.3477 L 1057.7637 835.29688 z "
+               transform="matrix(0.80000386,0,0,-0.80000011,-194.2389,1915.497)"
+               id="path3025" />
           </g>
           <g
              id="g3027"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3029"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -122,25 +122,20 @@
           </g>
           <g
              id="g3031"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3033"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 0,1020.4851 510.24257,722.84364"
-               inkscape:connector-curvature="0" />
+               d="M 0,1020.4851 340.15651,822.05574"
+               inkscape:connector-curvature="0"
+               sodipodi:nodetypes="cc" />
           </g>
           <g
              id="g3035"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-            <path
-               id="path3037"
-               style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 510.24257,722.84364 V 0"
-               inkscape:connector-curvature="0" />
-          </g>
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3039"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3041"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -149,7 +144,7 @@
           </g>
           <g
              id="g3043"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3045"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -158,7 +153,7 @@
           </g>
           <g
              id="g3047"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3049"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -167,244 +162,227 @@
           </g>
           <g
              id="g3051"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-            <path
-               id="path3053"
-               style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 1162.2192,949.61812 V 226.77448"
-               inkscape:connector-curvature="0" />
-          </g>
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3055"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-            <path
-               id="path3057"
-               style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 1162.2192,226.77448 510.24257,0"
-               inkscape:connector-curvature="0" />
-          </g>
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3059"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3061"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="M 510.24257,722.84364 1162.2192,949.61812"
-               inkscape:connector-curvature="0" />
+               d="M 727.56479,798.43398 1162.2192,949.61812"
+               inkscape:connector-curvature="0"
+               sodipodi:nodetypes="cc" />
           </g>
           <g
              id="g3063"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <g
                transform="translate(-5.165,293.046)"
                id="g3065"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  id="g3067"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    transform="translate(-26.081,-403.013)"
                    id="g3069"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <text
                      id="text3071"
                      transform="matrix(1,0,0,-1,26.081,403.013)"
-                     style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <tspan
                        id="tspan3073"
                        y="0"
                        x="0"
-                       style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                       style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                   </text>
                   <g
                      transform="translate(26.081,403.013)"
                      id="g3075"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                 </g>
               </g>
               <g
                  transform="translate(5.165,-293.046)"
                  id="g3077"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             </g>
           </g>
           <g
              id="g3079"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <g
                transform="translate(-5.165,1015.88)"
                id="g3081"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  id="g3083"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    transform="translate(-26.081,-1125.847)"
                    id="g3085"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <text
                      id="text3087"
                      transform="matrix(1,0,0,-1,26.081,1125.847)"
-                     style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <tspan
                        id="tspan3089"
                        y="0"
                        x="0"
-                       style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                       style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                   </text>
                   <g
                      transform="translate(26.081,1125.847)"
                      id="g3091"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                 </g>
               </g>
               <g
                  transform="translate(5.165,-1015.88)"
                  id="g3093"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             </g>
           </g>
           <g
              id="g3095"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <g
                transform="translate(646.803,1242.652)"
                id="g3097"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  id="g3099"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    transform="translate(-678.049,-1352.619)"
                    id="g3101"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <text
                      id="text3103"
                      transform="matrix(1,0,0,-1,678.049,1352.619)"
-                     style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <tspan
                        id="tspan3105"
                        y="0"
                        x="0"
-                       style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                       style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                   </text>
                   <g
                      transform="translate(678.049,1352.619)"
                      id="g3107"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                 </g>
               </g>
               <g
                  transform="translate(-646.803,-1242.652)"
                  id="g3109"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             </g>
           </g>
           <g
              id="g3111"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <g
                transform="translate(1157.039,945.014)"
                id="g3113"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  id="g3115"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    transform="translate(-1188.285,-1054.981)"
                    id="g3117"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <text
                      id="text3119"
                      transform="matrix(1,0,0,-1,1188.285,1054.981)"
-                     style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <tspan
                        id="tspan3121"
                        y="0"
                        x="0"
-                       style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                       style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                   </text>
                   <g
                      transform="translate(1188.285,1054.981)"
                      id="g3123"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                 </g>
               </g>
               <g
                  transform="translate(-1157.039,-945.014)"
                  id="g3125"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             </g>
           </g>
           <g
              id="g3127"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <g
                transform="translate(505.071,-4.592)"
                id="g3129"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  id="g3131"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    transform="translate(-536.317,-105.375)"
                    id="g3133"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <text
                      id="text3135"
                      transform="matrix(1,0,0,-1,536.317,105.375)"
-                     style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <tspan
                        id="tspan3137"
                        y="0"
                        x="0"
-                       style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                       style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                   </text>
                   <g
                      transform="translate(536.317,105.375)"
                      id="g3139"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                 </g>
               </g>
               <g
                  transform="translate(-505.071,4.592)"
                  id="g3141"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             </g>
           </g>
           <g
              id="g3143"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3145"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3147"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3149"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3151"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3153"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3155"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3157"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-            <path
-               id="path3159"
-               style="fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-               d="m 340.15651,581.1005 170.08606,-99.2121 217.32222,75.59033 V 798.43398 L 557.47873,897.64607 340.15651,822.05574 Z"
-               inkscape:connector-curvature="0" />
-          </g>
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3161"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3163"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -413,7 +391,7 @@
           </g>
           <g
              id="g3165"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3167"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -422,7 +400,7 @@
           </g>
           <g
              id="g3169"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3171"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -431,25 +409,25 @@
           </g>
           <g
              id="g3173"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3175"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3177"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3179"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3181"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3183"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3185"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3187"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -458,7 +436,7 @@
           </g>
           <g
              id="g3189"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3191"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -467,28 +445,28 @@
           </g>
           <g
              id="g3193"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3195"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3197"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3199"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3201"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3203"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3205"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3207"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3209"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -497,7 +475,7 @@
           </g>
           <g
              id="g3211"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3213"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -506,22 +484,22 @@
           </g>
           <g
              id="g3215"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3217"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3219"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3221"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3223"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3225"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3227"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -530,7 +508,7 @@
           </g>
           <g
              id="g3229"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <path
                id="path3231"
                style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -539,67 +517,61 @@
           </g>
           <g
              id="g3233"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3235"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3237"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3239"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3241"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3243"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3245"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
           <g
              id="g3247"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <g
                id="g3249"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <path
                  id="path3251"
-                 style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                 style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                  d="m 878.7459,-0.00908 170.0861,-99.2121 v 240.95522 l -170.0861,99.21211 z"
                  inkscape:connector-curvature="0" />
             </g>
             <g
                id="g3253"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <path
                  id="path3255"
-                 style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                 style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                  d="m 1048.832,-99.22118 217.3222,75.59034 V 217.32437 L 1048.832,141.73404 Z"
                  inkscape:connector-curvature="0" />
             </g>
             <g
                id="g3257"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <path
                  id="path3259"
-                 style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                 style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                  d="M 1266.1542,217.32437 1096.0681,316.53648 878.7459,240.94615 1048.832,141.73404 Z"
                  inkscape:connector-curvature="0" />
             </g>
             <g
                id="g3261"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-              <path
-                 id="path3263"
-                 style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-                 d="m 878.7459,-0.00908 170.0861,-99.2121"
-                 inkscape:connector-curvature="0" />
-            </g>
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             <g
                id="g3265"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <path
                  id="path3267"
                  style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -608,7 +580,7 @@
             </g>
             <g
                id="g3269"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <path
                  id="path3271"
                  style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -617,300 +589,270 @@
             </g>
             <g
                id="g3273"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-              <path
-                 id="path3275"
-                 style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-                 d="m 1096.0681,316.53648 170.0861,-99.21211"
-                 inkscape:connector-curvature="0" />
-            </g>
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             <g
                id="g3277"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-              <path
-                 id="path3279"
-                 style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-                 d="M 1096.0681,316.53648 878.7459,240.94615"
-                 inkscape:connector-curvature="0" />
-            </g>
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             <g
                id="g3281"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-              <path
-                 id="path3283"
-                 style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-                 d="M 878.7459,-0.00908 V 240.94615"
-                 inkscape:connector-curvature="0" />
-            </g>
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             <g
                id="g3285"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-              <path
-                 id="path3287"
-                 style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-                 d="M 1048.832,141.73404 878.7459,240.94615"
-                 inkscape:connector-curvature="0" />
-            </g>
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             <g
                id="g3289"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
-              <path
-                 id="path3291"
-                 style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
-                 d="M 1048.832,141.73404 V -99.22118"
-                 inkscape:connector-curvature="0" />
-            </g>
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             <g
                id="g3293"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <path
                  id="path3295"
-                 style="fill:#ffffff;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+                 style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
                  d="m 1048.832,141.73404 217.3222,75.59033"
                  inkscape:connector-curvature="0" />
             </g>
             <g
                id="g3297"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  transform="translate(873.569,-4.601)"
                  id="g3299"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    id="g3301"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <g
                      transform="translate(-904.815,-105.366)"
                      id="g3303"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <text
                        id="text3305"
                        transform="matrix(1,0,0,-1,904.815,105.366)"
-                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                       <tspan
                          id="tspan3307"
                          y="0"
                          x="0"
-                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                     </text>
                     <g
                        transform="translate(904.815,105.366)"
                        id="g3309"
-                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                   </g>
                 </g>
                 <g
                    transform="translate(-873.569,4.601)"
                    id="g3311"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
               </g>
             </g>
             <g
                id="g3313"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  transform="translate(1043.653,-103.812)"
                  id="g3315"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    id="g3317"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <g
                      transform="translate(-1074.899,-6.155)"
                      id="g3319"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <text
                        id="text3321"
                        transform="matrix(1,0,0,-1,1074.899,6.155)"
-                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                       <tspan
                          id="tspan3323"
                          y="0"
                          x="0"
-                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                     </text>
                     <g
                        transform="translate(1074.899,6.155)"
                        id="g3325"
-                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                   </g>
                 </g>
                 <g
                    transform="translate(-1043.653,103.812)"
                    id="g3327"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
               </g>
             </g>
             <g
                id="g3329"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  transform="translate(1260.972,-28.222)"
                  id="g3331"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    id="g3333"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <g
                      transform="translate(-1292.218,-81.745)"
                      id="g3335"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <text
                        id="text3337"
                        transform="matrix(1,0,0,-1,1292.218,81.745)"
-                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                       <tspan
                          id="tspan3339"
                          y="0"
                          x="0"
-                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                     </text>
                     <g
                        transform="translate(1292.218,81.745)"
                        id="g3341"
-                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                   </g>
                 </g>
                 <g
                    transform="translate(-1260.972,28.222)"
                    id="g3343"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
               </g>
             </g>
             <g
                id="g3345"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  transform="translate(1260.972,212.73)"
                  id="g3347"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    id="g3349"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <g
                      transform="translate(-1292.218,-322.697)"
                      id="g3351"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <text
                        id="text3353"
                        transform="matrix(1,0,0,-1,1292.218,322.697)"
-                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                       <tspan
                          id="tspan3355"
                          y="0"
                          x="0"
-                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                     </text>
                     <g
                        transform="translate(1292.218,322.697)"
                        id="g3357"
-                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                   </g>
                 </g>
                 <g
                    transform="translate(-1260.972,-212.73)"
                    id="g3359"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
               </g>
             </g>
             <g
                id="g3361"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  transform="translate(1090.889,311.941)"
                  id="g3363"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    id="g3365"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <g
                      transform="translate(-1122.135,-421.908)"
                      id="g3367"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <text
                        id="text3369"
                        transform="matrix(1,0,0,-1,1122.135,421.908)"
-                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                       <tspan
                          id="tspan3371"
                          y="0"
                          x="0"
-                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                     </text>
                     <g
                        transform="translate(1122.135,421.908)"
                        id="g3373"
-                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                   </g>
                 </g>
                 <g
                    transform="translate(-1090.889,-311.941)"
                    id="g3375"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
               </g>
             </g>
             <g
                id="g3377"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  transform="translate(873.569,236.351)"
                  id="g3379"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                 <g
                    id="g3381"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                   <g
                      transform="translate(-904.815,-346.318)"
                      id="g3383"
-                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                     style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                     <text
                        id="text3385"
                        transform="matrix(1,0,0,-1,904.815,346.318)"
-                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+                       style="line-height:0%;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
                       <tspan
                          id="tspan3387"
                          y="0"
                          x="0"
-                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:#000000;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
+                         style="font-variant:normal;font-weight:normal;font-size:20.66250038px;font-family:CMSY10;-inkscape-font-specification:CMSY10;writing-mode:lr-tb;fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">•</tspan>
                     </text>
                     <g
                        transform="translate(904.815,346.318)"
                        id="g3389"
-                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                       style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
                   </g>
                 </g>
                 <g
                    transform="translate(-873.569,-236.351)"
                    id="g3391"
-                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                   style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
               </g>
             </g>
           </g>
           <g
              id="g3393"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <g
                id="g3395"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             <g
                transform="translate(633.069,574.012)"
                id="g3397"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  id="g3399"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
               <g
                  transform="translate(-633.069,-574.012)"
                  id="g3401"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             </g>
           </g>
           <g
              id="g3403"
-             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+             style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
             <g
                id="g3405"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <path
                  id="path3407"
                  style="fill:none;stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
@@ -920,14 +862,14 @@
             <g
                transform="translate(633.069,574.012)"
                id="g3409"
-               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1">
+               style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none">
               <g
                  id="g3411"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
               <g
                  transform="translate(-633.069,-574.012)"
                  id="g3413"
-                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" />
+                 style="stroke:#000000;stroke-width:15.11814785;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill:none" />
             </g>
           </g>
         </g>
@@ -943,7 +885,7 @@
            height="1069.499"
            x="3031.7202"
            y="1253.7379" /></flowRegion><flowPara
-         id="flowPara2643"></flowPara></flowRoot>    <text
+         id="flowPara2643" /></flowRoot>    <text
        xml:space="preserve"
        style="font-style:normal;font-weight:normal;font-size:211.66665649px;line-height:1.25;font-family:sans-serif;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.26458332"
        x="782.20477"
@@ -986,5 +928,15 @@
          y="-107.22453"
          style="font-size:105.83333588px;text-align:center;text-anchor:middle;stroke-width:0.26458332"
          id="tspan2667">depuis</tspan></text>
+    <path
+       id="path3259-5"
+       style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 482.99227,-41.36487 -56.25217,-32.81234 -71.87445,24.99993 56.25217,32.81233 z"
+       inkscape:connector-curvature="0" />
+    <path
+       id="path3259-5-5"
+       style="fill:none;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:5;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       d="m 482.99227,-41.364874 -56.25217,-32.81234 -71.87445,24.99993 56.25217,32.812331 z"
+       inkscape:connector-curvature="0" />
   </g>
 </svg>
