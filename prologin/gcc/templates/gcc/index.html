@@ -164,10 +164,11 @@
 			<div class="col-12 col-12-medium">
 				<!-- Contact Form -->
 					<section>
-						<form method="post" action="#">
+						<form method="post">
+							{% csrf_token %}
 							<div class="row gtr-50">
 								<div class="col-8 col-12-small">
-									<input type="text" name="name" id="contact-name" placeholder="Email" style="height: 60px" />
+									<input type="text" name="email" placeholder="Email" style="height: 60px" />
 								</div>
 								<div class="col-4 col-12-small">
 									<ul class="actions">

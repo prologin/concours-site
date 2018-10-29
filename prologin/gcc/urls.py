@@ -39,7 +39,7 @@ newsletter_patterns = [
     path(
         'confirm_unsubscribe',
         views.NewsletterConfirmUnsubView.as_view(),
-        name='news_confirm_unsub/'),
+        name='news_confirm_unsub'),
 ]
 
 application_patterns = [

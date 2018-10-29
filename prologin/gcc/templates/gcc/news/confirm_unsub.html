@@ -3,8 +3,16 @@
 {% block title %}GCC! − Désinscription Validée{% endblock %}
 
 {% block content %}
-<section>
-	<h2>Désinscription réalisée avec succès</h2>
-	<a class="halo-button" href="{% url "gcc:index" %}">Retour à l'acceuil</a>
+<section class="wrapper style1">
+	<div class="container">
+		<div class="title">Désinscription</div>
+
+		<div style="text-align: center;">
+			<p>
+				Votre désinscription a été réalisée avec succès.
+			</p>
+			<a href="{% url 'gcc:index' %}" class="button style3 large">Retour à l'accueil</a>
+		</div>
+	</div>
 </section>
 {% endblock %}
