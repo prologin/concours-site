@@ -1,0 +1,41 @@
+version: "3.5"
+services:
+  prologin_site:
+    build: ./
+    image: prologin_site
+    container_name: prologin_site
+    environment:
+      DJANGO_SETTINGS_MODULE: prologin.settings.docker_dev
+    command: |
+      sh -c '
+      cd prologin
+      python manage.py runserver 0.0.0.0:8000
+      '
+    ports:
+      - "127.0.0.1:8000:8000"
+    volumes:
+      - type: bind
+        source: "${SITE_SOURCE:-./}"
+        target: /var/prologin/site
+        #read_only: true
+      - type: bind
+        source: "${SITE_PROBLEMS:-../problems}"
+        target: /var/prologin/problems
+        read_only: true
+      - type: bind
+        source: "${SITE_DOCUMENTS:-../documents}"
+        target: /var/prologin/documents
+        read_only: true
+    depends_on:
+      - prologin_site_db
+  prologin_site_db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: whocareslol
+      POSTGRES_USER: prologin
+      PGDATA: /var/lib/postgresql/data/prologin
+    volumes:
+      - type: bind
+        source: ${SITE_DB}
+        target: /var/lib/postgresql/data/prologin
