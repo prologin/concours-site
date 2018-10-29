@@ -67,7 +67,7 @@ class AboutView(TemplateView):
 
 
 class IndexView(FormView):
-    template_name = "gcc/index2.html"
+    template_name = "gcc/index.html"
     form_class = EmailForm
     success_url = reverse_lazy("gcc:news_confirm_subscribe")
 
