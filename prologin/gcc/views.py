@@ -30,7 +30,7 @@ class PhotosEventView(TemplateView):
 
 
 class EditionsView(TemplateView):
-    template_name = "gcc/editions.html"
+    template_name = "gcc/editions/index.html"
 
 
 # Team
@@ -75,10 +75,6 @@ class IndexView(FormView):
         instance, created = SubscriberEmail.objects.get_or_create(
             email=form.cleaned_data['email'])
         return super().form_valid(form)
-
-
-class SponsorsView(TemplateView):
-    template_name = "gcc/sponsors.html"
 
 
 class RessourcesView(TemplateView):

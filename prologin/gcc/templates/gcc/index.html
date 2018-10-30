@@ -9,10 +9,10 @@
 		<div class="row">
 			<div class="off-2-large col-8-large off-1 col-10 off-1-medium col-10-medium off-0-small col-12-small">
 				<p class="style3" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
-					Le site est actuellement en phase de rénovation, les inscriptions sont donc pour la connection au site, et donc les inscriptions sont pour l'instant fermés.
+					Le site est actuellement en phase de rénovation, la connection au site et donc les inscriptions sont pour l'instant <strong>fermées</strong>.
 				</p>
 				<p class="style3" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
-					Si vous souhaitez être informé dès que les inscriptions sont ouvertes, n'hésitez pas à vous inscrire à la <a href="#">newsletter</a>.
+					Si vous souhaitez être informé dès que les inscriptions sont ouvertes, n'hésitez pas à vous inscrire à la <a href="#newsletter">newsletter</a>.
 				</p>
 			</div>
 		</div>
@@ -23,7 +23,7 @@
 		<div class="title">Les stages</div>
 		<div class="container">
 			<p class="style1">
-				Les stages Girls Can Code ! c’est une semaine d'initiation à la programmation pour les lycéennes et collégiennes.
+				Les stages Girls Can Code! c’est une semaine d'initiation à la programmation pour les lycéennes et collégiennes.
 			</p>
 			<p class="style1">
 				On y apprend le Python, les bases, de quoi se lancer dans des petit projets de son choix !
@@ -166,10 +166,52 @@
 			</div>
 		</div>
 	</section>
+
+	<section id="main" class="wrapper style2">
+		<div class="container">
+			<div class="title">Nos sponsors</div>
+
+			<div class="row">
+				<div class="off-2-large col-8-large off-1-medium col-10-medium off-0-small col-12-small">
+					<p class="style2" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
+						Nous remercions nos sponsors sans qui les stages ne pourraient pas être possible.
+					</p>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="off-1 col-2 col-4-medium col-6-small">
+					<a Lhref="https://edu.google.com/intl/fr_be/?modal_active=none">
+						<img alt="Google Education" src="{% static 'gcc/img/sponsors/google_edu.png' %}" style="max-width: 100%"/>
+					</a>
+				</div>
+				<div class="col-2 col-4-medium col-6-small">
+					<a Lhref="https://www.fondation-blaise-pascal.org/">
+						<img alt="Fondation Blaise Pascal" src="{% static 'gcc/img/sponsors/logo_fondation_bp.png' %}" style="max-width: 100%"/>
+					</a>
+				</div>
+				<div class="col-2 col-4-medium col-6-small">
+					<a Lhref="http://milyon.universite-lyon.fr/">
+						<img alt="Milyon" src="{% static 'gcc/img/sponsors/milyon.png' %}" style="max-width: 100%"/>
+					</a>
+				</div>
+				<div class="col-2 col-4-medium col-6-small">
+					<a Lhref="http://www.ens-lyon.fr/">
+						<img alt="ENS de Lyon" src="{% static 'gcc/img/sponsors/ens_lyon.png' %}" style="max-width: 100%"/>
+					</a>
+				</div>
+				<div class="col-2 col-4-medium col-6-small">
+					<a Lhref="http://www.epita.fr/">
+						<img alt="EPITA" src="{% static 'gcc/img/sponsors/epita.png' %}" style="max-width: 100%"/>
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
 {% endblock %}
 
 {% block footer %}
-	<div class="container" style="padding-bottom: 60px;">
+	<div id="newsletter" class="container" style="padding-bottom: 60px;">
 		<header class="style1">
 			<h2>Une question ?</h2>
 			<p>
@@ -179,21 +221,21 @@
 		<div class="row">
 			<div class="col-12 col-12-medium">
 				<!-- Contact Form -->
-					<section>
-						<form method="post">
-							{% csrf_token %}
-							<div class="row gtr-50">
-								<div class="col-8 off-0-small col-12-small">
-									<input type="text" name="email" placeholder="Email" style="height: 60px" />
-								</div>
-								<div class="col-4 off-0-small col-12-small">
-									<ul class="actions">
-										<li><input type="submit" class="style1" value="S'inscrire à la newsletter" style="height: 60px" /></li>
-									</ul>
-								</div>
+				<section>
+					<form method="post">
+						{% csrf_token %}
+						<div class="row gtr-50">
+							<div class="col-8 off-0-small col-12-small">
+								<input type="text" name="email" placeholder="Email" style="height: 60px" />
 							</div>
-						</form>
-					</section>
+							<div class="col-4 off-0-small col-12-small">
+								<ul class="actions">
+									<li><input type="submit" class="style1" value="S'inscrire à la newsletter" style="height: 60px" /></li>
+								</ul>
+							</div>
+						</div>
+					</form>
+				</section>
 			</div>
 		</div>
 	</div>

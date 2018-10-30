@@ -41,16 +41,13 @@
 							</li>
 							<li class="{% active '^/gcc/editions/' %}">
 								<a href="{% url 'gcc:editions' %}">Éditions</a>
-								<ul>
-									{% with years="2018 2017 2016 2015" %}
+								<!-- <ul>
+									{% with years="2018 2017 2016 2015 2014" %}
 										{% for year in years.split %}
 											<li><a href="{% url 'gcc:editions' year=year %}">Édition {{year}}</a></li>
 										{% endfor %}
 									{% endwith %}
-								</ul>
-							</li>
-							<li class="{% active '^/gcc/sponsors/' %}">
-								<a href="{% url 'gcc:sponsors' %}">Sponsors</a>
+								</ul> -->
 							</li>
 						</ul>
 					</nav>
@@ -64,7 +61,8 @@
 			<section id="footer" class="wrapper">
 				{% block footer %}{% endblock %}
 
-				<div class="title">Contact</div>
+				<div class="container">
+					<div class="title">Contact</div>
 					<section class="feature-list small">
 						<div class="container">
 							<div class="row">
@@ -109,7 +107,8 @@
 					</section>
 					<div id="copyright">
 						<ul>
-							<li>&copy; Girls Can Code!</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+							<li>&copy; Girls Can Code!</li>
+							<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 						</ul>
 					</div>
 				</div>

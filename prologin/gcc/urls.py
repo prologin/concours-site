@@ -68,7 +68,6 @@ application_patterns = [
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
     path('about/', views.AboutView.as_view(), name='about'),
-    path('sponsors/', views.SponsorsView.as_view(), name='sponsors'),
     path('ressources/', views.RessourcesView.as_view(), name='ressources'),
     path('editions/', views.EditionsView.as_view(), name='editions'),
     path('editions/<int:year>/', views.EditionsView.as_view(), name='editions'),
