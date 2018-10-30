@@ -3,6 +3,22 @@
 
 {% block content %}
 	<!-- Intro -->
+	<section id="intro" class="wrapper style2">
+		<div class="title">Information</div>
+
+		<div class="row">
+			<div class="off-2-large col-8-large off-1 col-10 off-1-medium col-10-medium off-0-small col-12-small">
+				<p class="style3" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
+					Le site est actuellement en phase de rénovation, les inscriptions sont donc pour la connection au site, et donc les inscriptions sont pour l'instant fermés.
+				</p>
+				<p class="style3" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
+					Si vous souhaitez être informé dès que les inscriptions sont ouvertes, n'hésitez pas à vous inscrire à la <a href="#">newsletter</a>.
+				</p>
+			</div>
+		</div>
+	</section>*
+
+	<!-- Intro -->
 	<section id="intro" class="wrapper style1">
 		<div class="title">Les stages</div>
 		<div class="container">
@@ -27,11 +43,11 @@
 
 			<div style="font-size: 1.5em;">
 				<h2 style="font-size: 1.5em; margin: 15px 0 15px;">Conditions pour s’inscrire</h2>
-				<ul style="list-style: none;">
-					<li style="margin: 8px 0 8px;">Être une fille encore non bachelière</li>
-					<li style="margin: 8px 0 8px;">Habiter dans l'Union européenne ou en Suisse</li>
-					<li style="margin: 8px 0 8px;">Remplir le formulaire de candidature</li>
-					<li style="margin: 8px 0 8px;">Être motivée !</li>
+				<ul style="list-style: none; padding-left: 0;">
+					<li style="margin: 8px 0 8px; padding-left: 0;">Être une fille encore non bachelière</li>
+					<li style="margin: 8px 0 8px; padding-left: 0;">Habiter dans l'Union européenne ou en Suisse</li>
+					<li style="margin: 8px 0 8px; padding-left: 0;">Remplir le formulaire de candidature</li>
+					<li style="margin: 8px 0 8px; padding-left: 0;">Être motivée !</li>
 				</ul>
 			</div>
 
@@ -167,10 +183,10 @@
 						<form method="post">
 							{% csrf_token %}
 							<div class="row gtr-50">
-								<div class="col-8 col-12-small">
+								<div class="col-8 off-0-small col-12-small">
 									<input type="text" name="email" placeholder="Email" style="height: 60px" />
 								</div>
-								<div class="col-4 col-12-small">
+								<div class="col-4 off-0-small col-12-small">
 									<ul class="actions">
 										<li><input type="submit" class="style1" value="S'inscrire à la newsletter" style="height: 60px" /></li>
 									</ul>

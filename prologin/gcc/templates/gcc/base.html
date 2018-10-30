@@ -22,8 +22,10 @@
 					<!-- Logo -->
 					<div id="logo">
 						<h1>
-							<img src="{% static "img/logo-squeletton.png" %}" style="height: 34px; vertical-align: middle;"/>
-							Girls Can Code!
+							<a href="{% url 'gcc:index' %}">
+								<img src="{% static "img/logo-squeletton.png" %}" style="height: 34px; vertical-align: middle;"/>
+								Girls Can Code!
+							</a>
 						</h1>
 						<p>Stage d'informatique gratuit pour les filles de collège et lycée.</p>
 					</div>
@@ -60,14 +62,11 @@
 
 			<!-- Footer -->
 			<section id="footer" class="wrapper">
-
-				<div class="title">Contact</div>
-
 				{% block footer %}{% endblock %}
 
-				<div class="container">
-					<div class="row">
-						<section class="feature-list small">
+				<div class="title">Contact</div>
+					<section class="feature-list small">
+						<div class="container">
 							<div class="row">
 								<div class="col-6 col-12-small">
 									<section>
@@ -106,17 +105,15 @@
 									</section>
 								</div>
 							</div>
-						</section>
-					</div>
+						</div>
+					</section>
 					<div id="copyright">
 						<ul>
 							<li>&copy; Girls Can Code!</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 						</ul>
 					</div>
 				</div>
-
 			</section>
-		</div>
 
 		<!-- Scripts -->
 			<script src="{% static 'gcc/escape-velocity/js/jquery.min.js' %}"></script>

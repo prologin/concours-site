@@ -7,9 +7,9 @@
 		<div class="title">S'entrainer à coder</div>
 
 		<div class="row">
-			<div class="off-2-large col-8-large off-1-medium col-10-medium col-12-small">
+			<div class="off-2-large col-8-large off-1 col-10 off-1-medium col-10-medium off-0-small col-12-small">
 				<p class="style2" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
-					Beaucoup de ressources sur internet sont disponible pour te permettre de découvrir  l’informatique mais il est parfois difficile de s'orienter dans tous les contenus, nous détaillons quelques ressources particulièrement intéressantes.
+					Beaucoup de ressources sur internet sont disponible pour te permettre de découvrir l’informatique mais il est parfois difficile de s'orienter dans tous les contenus, nous détaillons quelques ressources particulièrement intéressantes.
 				</p>
 			</div>
 		</div>
@@ -20,7 +20,7 @@
 		<div class="title">Quel langage ?</div>
 		<div class="container">
 			<div class="row">
-				<div class="off-2-large col-8-large off-1-medium col-10-medium col-12-small">
+				<div class="off-2-large col-8-large off-1-medium col-10-medium off-0-small col-12-small">
 					<p>
 						Coder c’est décrire des opérations que la machine exécutera, et pour communiquer avec la machine on doit choisir au préalable dans quel langage on va lui parler.
 						Il existe de très nombreux langages de programmation avec chacun leurs spécificités.
@@ -82,21 +82,21 @@
 		<div class="title">Se lancer</div>
 		<div class="container">
 			<div class="row">
-				<div class="off-2-large col-8-large off-1-medium col-10-medium col-12-small">
+				<div class="off-2-large col-8-large off-1-medium col-10-medium off-0-small col-12-small">
 					<p>
 						L’avantage quand on apprend l'informatique c’est qu'on peut vraiment en faire ce qu’on veut.
 						Il y a beaucoup de sous domaines et d'applications en informatique et pour continuer à coder c’est beaucoup plus motivant de trouver quelque chose qui nous plait.
 						Voilà quelques exemples :
 					</p>
 
-					<div class="row feature-list">
+					<div class="row feature-list" style="margin-left: -30px;">
 						{% with url="https://djangogirls.org/" %}
-						<div class="col-3 col-4-medium col-12-small" style="margin: auto; text-align: center;">
+						<div class="col-3 col-4-medium off-0-small col-12-small" style="margin: auto; text-align: center;">
 							<a href="{{url}}">
 								<img src="https://djangogirls.org/static/img/global/logo.png" style="max-width: 100%;" />
 							</a>
 						</div>
-						<div class="col-9 col-8-medium col-12-small">
+						<div class="col-9 col-8-medium off-0-small col-12-small">
 							<h3><a href="{{url}}">Django girls</a></h3>
 							<p>
 								Elles ont fait un tutoriel pour la création d’un blog en python avec un framework qui s’appelle django.
@@ -105,12 +105,12 @@
 							</p>
 						</div>
 						{% endwith %}
-						<div class="col-3 col-4-medium col-12-small" style="margin: auto; text-align: center;">
+						<div class="col-3 col-4-medium off-0-small col-12-small" style="margin: auto; text-align: center;">
 							<a href="{% url 'home' %}">
 								<img src="{% static 'img/logo_cube.png' %}" style="max-width: 100%;" />
 							</a>
 						</div>
-						<div class="col-9 col-8-medium col-12-small">
+						<div class="col-9 col-8-medium off-0-small col-12-small">
 							<h3><a href="{% url 'home' %}">Stage gratuit</a></h3>
 							<p>
 								C’est le nom de l’association qui organise les stages mais elle organise aussi un concours d’informatique.
