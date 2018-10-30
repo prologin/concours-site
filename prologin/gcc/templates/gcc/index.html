@@ -26,10 +26,10 @@
 				Les stages Girls Can Code! c’est une semaine d'initiation à la programmation pour les lycéennes et collégiennes.
 			</p>
 			<p class="style1">
-				On y apprend le Python, les bases, de quoi se lancer dans des petit projets de son choix !
+				On y apprend le Python, les bases de la programmation, de quoi se lancer dans des petit projets de son choix !
 			</p>
 			<p class="style1">
-				Les stages sont gratuits entièrement organisé par des bénévoles et l’association prologin.
+				Les stages sont gratuits, entièrement organisé par des bénévoles et l’association prologin.
 			</p>
 			<p class="style2">
 				Prochains stages:<br />
@@ -51,7 +51,7 @@
 				</ul>
 			</div>
 
-			<a href="#" class="button style3 large">S'inscrire</a>
+			<!-- <a href="#" class="button style3 large">S'inscrire</a> -->
 	</section>
 
 	<!-- Main -->
@@ -74,7 +74,7 @@
 									<h3 class="icon fa-graduation-cap">Prérequis</h3>
 									<p>
 										Le stage a pour but de s’adapter au niveau de chacune donc pas besoin d’avoir un niveau minimum en informatique avant le stage.
-										Par contre c’est toujours mieux de savoir dans quoi on se lance donc va faire un tour sur les ressources qu’on recommande pour commencer !
+										Par contre c’est toujours mieux de savoir dans quoi on se lance donc va faire un tour sur <a href="{% url 'gcc:ressources' %}">les ressources</a> qu’on recommande pour commencer !
 									</p>
 								</section>
 							</div>
@@ -82,9 +82,9 @@
 								<section>
 									<h3 class="icon fa-euro-sign">Stage gratuit</h3>
 									<p>
-										Les stages sont gratuits, les repas sont offerts aux participantes.
+										Les stages sont gratuits et les repas offerts aux participantes.
 										L'hébergement et le transport jusqu'au lieu du stage n’est pas pris en charge par l’association.
-										Mais si des questions financières t’empêcherais de participer au stage, écris-nous à info@prologin.org et nous discuterons de l’attribution potentielle d’une bourse.
+										Mais si des questions financières t’empêcheraient de participer au stage, écris-nous à <a href="mailto:info@prologin.org">info@prologin.org</a> et nous discuterons de l’attribution éventuelle d’une bourse.
 									</p>
 								</section>
 							</div>
@@ -92,8 +92,8 @@
 								<section>
 									<h3 class="icon fa-frown">Pour celles qui ne peuvent plus participer</h3>
 									<p>
-										L’informatique ne t’es pas pour fermé autant !
-										N’hésite pas à découvrir les <ref>ressources recommandées pour débuter<ref> et si tu as moins de 20 ans, tu peux participer à la 26e édition du concours Prologin.
+										L’informatique ne t’es pas pour fermée autant !
+										N’hésite pas à découvrir les <ref>ressources recommandées pour débuter<ref> et si tu as moins de 20 ans, tu peux participer à la 26<sup>e</sup> édition <a href="{% url 'home' %}">du concours Prologin</a>.
 										La première phase de qualifications en ligne sont ouvertes.
 									</p>
 								</section>
@@ -142,7 +142,7 @@
 
 						<h3><a href="{% url 'gcc:editions' %}">Les éditions Girls Can Code!</a></h3>
 						<p>
-							La première édition des stages Girls Can Code! à eu lieu en 2014, l’édition 2019 sera donc la 6ème
+							La première édition des stages Girls Can Code! a eu lieu en 2014, l’édition 2019 sera donc la 6<sup>ème</sup>.
 						</p>
 						<ul class="actions">
 							<li><a target="_blank"  href="{% url 'gcc:editions' %}" class="button style1">En Savoir Plus</a></li>
@@ -154,7 +154,7 @@
 						<a href="{% url 'home' %}" class="image featured">
 							<img src="{% static 'gcc/img/stat_prologin.svg' %}" alt="" /></a>
 
-						<h3><a href="{% url 'home' %}">Prologin une association crée en 1991</a></h3>
+						<h3><a href="{% url 'home' %}">Prologin, une association crée en 1991</a></h3>
 						<p>
 							L'association Prologin, créé en 1991 pour organiser le concours éponyme, organise depuis 2014 les stages Girls Can Code!.
 						</p>
@@ -174,34 +174,34 @@
 			<div class="row">
 				<div class="off-2-large col-8-large off-1-medium col-10-medium off-0-small col-12-small">
 					<p class="style2" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
-						Nous remercions nos sponsors sans qui les stages ne pourraient pas être possible.
+						Nous remercions nos sponsors sans qui les stages ne pourraient pas avoir lieu.
 					</p>
 				</div>
 			</div>
 
 			<div class="row">
 				<div class="off-1 col-2 col-4-medium col-6-small">
-					<a Lhref="https://edu.google.com/intl/fr_be/?modal_active=none">
+					<a href="https://edu.google.com/intl/fr_be/?modal_active=none">
 						<img alt="Google Education" src="{% static 'gcc/img/sponsors/google_edu.png' %}" style="max-width: 100%"/>
 					</a>
 				</div>
 				<div class="col-2 col-4-medium col-6-small">
-					<a Lhref="https://www.fondation-blaise-pascal.org/">
+					<a href="https://www.fondation-blaise-pascal.org/">
 						<img alt="Fondation Blaise Pascal" src="{% static 'gcc/img/sponsors/logo_fondation_bp.png' %}" style="max-width: 100%"/>
 					</a>
 				</div>
 				<div class="col-2 col-4-medium col-6-small">
-					<a Lhref="http://milyon.universite-lyon.fr/">
+					<a href="http://milyon.universite-lyon.fr/">
 						<img alt="Milyon" src="{% static 'gcc/img/sponsors/milyon.png' %}" style="max-width: 100%"/>
 					</a>
 				</div>
 				<div class="col-2 col-4-medium col-6-small">
-					<a Lhref="http://www.ens-lyon.fr/">
+					<a href="http://www.ens-lyon.fr/">
 						<img alt="ENS de Lyon" src="{% static 'gcc/img/sponsors/ens_lyon.png' %}" style="max-width: 100%"/>
 					</a>
 				</div>
 				<div class="col-2 col-4-medium col-6-small">
-					<a Lhref="http://www.epita.fr/">
+					<a href="http://www.epita.fr/">
 						<img alt="EPITA" src="{% static 'gcc/img/sponsors/epita.png' %}" style="max-width: 100%"/>
 					</a>
 				</div>
