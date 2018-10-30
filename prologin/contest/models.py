@@ -232,7 +232,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     learn_about_contest = EnumField(
         LearnAboutContest, null=True,
         blank=True, db_index=True,
-        verbose_name=_("How did you learn the contest ?"),
+        verbose_name=_("How did you learn about the contest ?"),
         empty_label=_("Tell us how you discovered the contest"))
     assignation_semifinal = EnumField(Assignation, default=Assignation.not_assigned.value,
                                       verbose_name=_("Regional event assignation status"))
