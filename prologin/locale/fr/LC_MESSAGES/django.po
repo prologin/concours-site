@@ -24,8 +24,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-30 23:47+0100\n"
-"PO-Revision-Date: 2018-10-30 22:53+0000\n"
+"POT-Creation-Date: 2018-10-31 11:43+0100\n"
+"PO-Revision-Date: 2018-10-31 10:44+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -4298,8 +4298,8 @@ msgid "Test failed:"
 msgstr "Test échoué :"
 
 #: problems/templates/problems/stub_submission_result.html:26
-msgid "Detailed output is hidden."
-msgstr "Le détail du résultat est caché."
+msgid "The output is incorrect (details of this test are hidden)."
+msgstr "La sortie est incorrecte (les détails de ce test sont cachés)."
 
 #: problems/templates/problems/stub_submission_result.html:29
 msgid "Expected standard output:"
