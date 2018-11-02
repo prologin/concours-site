@@ -49,6 +49,8 @@ class Language(ChoiceEnum):
     """
     c = LanguageDef("C", ['.c'], doc='c',
         camisole='c', memory=lambda m: m + 4096)
+    rust = LanguageDef("Rust", ['.rs'],
+        camisole='rust', memory=lambda m: m + 4096)
     cpp = LanguageDef("C++", ['.cc', '.c++', '.cpp'], doc='cpp',
         camisole='c++', memory=lambda m: m + 4096)
     pascal = LanguageDef("Pascal", ['.pas', '.pascal'], doc='pascal',
@@ -149,6 +151,7 @@ ACE_LEXER_MAPPING = {
     'csharp': 'csharp',
     'python': 'python',
     'js': 'javascript',
+    'rust': 'rust',
 }
 
 PYGMENTS_LEXER_MAPPING = {
@@ -166,4 +169,5 @@ PYGMENTS_LEXER_MAPPING = {
     'perl': 'perl',
     'lua': 'lua',
     'csharp': 'csharp',
+    'rust': 'rust',
 }
