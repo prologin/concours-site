@@ -2877,8 +2877,8 @@ msgstr "Actualités"
 #: pages/templates/pages/about-contest-rules.html:7
 #: pages/templates/pages/about-contest-rules.html:11
 #: pages/templates/pages/about-contest-rules.html:15
-#: prologin/templates/prologin/main-footer.html:11
-#: prologin/templates/prologin/main-footer.html:26
+#: prologin/templates/prologin/main-footer.html:12
+#: prologin/templates/prologin/main-footer.html:27
 msgid "Contest rules"
 msgstr "Règlement"
 
@@ -3350,6 +3350,128 @@ msgid ""
 "courses, and corrections. Of course, please contact us before contributing so we can prevent certain parts\n"
 "being done in duplicate.</p>\n"
 msgstr "<p class=\"text-justify\">Il existe divers moyens de contribuer&nbsp;: promouvoir l'événement, développer le site internet et l'architecture logicielle pour la finale, aider lors des épreuves régionales, participer dans les forums, etc.\nNous apprécions aussi les retours et suggestions.</p>\n\n<p class=\"text-justify\">Nous avons aussi besoin de votre aide pour la section d'entraînement, dans laquelle les utilisateurs peuvent se mesurer à un grand nombre de problèmes.\nSi vous pouvez nous donner un coup de main, n'hésitez pas&nbsp;: nous sommes à la recherche de nouveaux problèmes (originaux ou traduits depuis d'autres sources), cours et corrections. Bien sûr, veuillez nous contacter avant de contribuer afin que nous puissions éviter que certaines choses soient faites en double.</p>\n"
+
+#: pages/templates/pages/about-contribute.html:7
+#: /prologin/templates/prologin/main-footer.html:9
+msgid "Contribute"
+msgstr "Contribuer"
+
+#: pages/templates/pages/about-contribute.html:10
+#: pages/templates/pages/about-contribute.html:13
+msgid "How to contribute to Prologin"
+msgstr "Contribuer à Prologin"
+
+#: pages/templates/pages/about-contribute.html:15
+msgid ""
+"There are many ways to contribute to the organization, on multiple levels:"
+msgstr "Il y a plusieurs manières de contribuer à l'association, à différents niveaux :"
+
+#: pages/templates/pages/about-contribute.html:19
+msgid "Contributor"
+msgstr "Contributeur"
+
+#: pages/templates/pages/about-contribute.html:20
+msgid ""
+"Many former contestants want to contribute to Prologin usually by writing\n"
+"exercises, but without joining the organization (which calls for further time investment). You can read our\n"
+"<a href=\"https://github.com/prologin/ressources-contributeurs\">public resources</a> to understand how we create exercises\n"
+"for our platform."
+msgstr "De nombreux anciens candidats veulent contribuer à Prologin en\n"
+"écrivant des sujets et exercices, mais sans pour autant rejoindre\n"
+"l'association (qui demande un investissement régulier tout au long de\n"
+"l'année). Vous pouvez lire nos\n"
+"<a href=\"https://github.com/prologin/ressources-contributeurs\">ressources\n"
+"contributeurs</a> afin de comprendre comment nous créons des exercices pour\n"
+"la plateforme de Prologin."
+
+#: pages/templates/pages/about-contribute.html:24
+msgid ""
+"If you are interested in helping us creating cool exercises, do not hesitate to\n"
+"send an email at: <a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+msgstr "Si vous avez envie de nous aider parce que vous avez une idée\n"
+"d'exercice sympa, n'hésitez pas à nous envoyer un mail à :\n"
+"<a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+
+#: pages/templates/pages/about-contribute.html:29
+msgid "Member"
+msgstr "Membre"
+
+#: pages/templates/pages/about-contribute.html:30
+msgid ""
+"Becoming a member means an ongoing investment, not only with exercises, but also\n"
+"on our multiple needs (coming to meetings, helping on logistic, internal tools, etc.). As a member, you can help in domains\n"
+"such as:\n"
+"<ul>\n"
+"<li>algorithms: creating written and machine exercises.</li>\n"
+"<li>system administration: maintaining and coding our infrastructure for regional and finals events.</li>\n"
+"<li>web development: for our own websites.</li>\n"
+"</ul>\n"
+"Prologin also has some non-technical necessities including logistics, sponsoring, and communication."
+msgstr "Être membre de l'association demande de s'investir régulièrement, et\n"
+"pas uniquement sur la rédaction d'exercices mais sur divers aspects de\n"
+"l'organisation (assister aux réunions, aider sur la logistique, les outils\n"
+"internes, etc.). D'un point de vue technique il y a plusieurs domaines dans\n"
+"lesquels vous pouvez contribuer :\n"
+"<ul>\n"
+"<li>algorithmique : rédaction de sujets machines et écrits.</li>\n"
+"<li>administration système : maintien et développement des infrastructures des épreuves régionales et de finale.</li>\n"
+"<li>développement web : pour nos sites.</li>\n"
+"</ul>\n"
+"Mais pas besoin d'être un expert en algo ou en système pour nous rejoindre !\n"
+"D'autant plus que les activités de l'association ne sont pas exclusivement \n"
+"techniques : logistique, contact de sponsors, communication et événementiel."
+
+#: pages/templates/pages/about-contribute.html:39
+msgid ""
+"We have a lot to do, hence we need motivated people every year! If you want to\n"
+"join in, or if you have any question, feel free to write to us: <a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+msgstr "Nous avons énormément à faire et avons besoin chaque année de\n"
+"personnes motivées ! Si vous êtes tenté, (ou si vous avez des questions)\n"
+"envoyez nous un mail à :\n"
+"<a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+
+#: pages/templates/pages/about-contribute.html:44
+msgid "Our internal tools"
+msgstr "Nos outils internes"
+
+#: pages/templates/pages/about-contribute.html:45
+msgid ""
+"Whether you are a contributor, member, or simply curious, you can always take a\n"
+"look and contribute to our open source internal tools:\n"
+"<ul>\n"
+"<li><a href=\"https://github.com/prologin/camisole\">camisole</a>:\n"
+"secure online judge.</li>\n"
+"<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a>:\n"
+"AI match maker for the finals.</li>\n"
+"<li><a href=\"https://github.com/prologin/sadm\">sadm</a>:\n"
+"finals technical infrastructure.</li>\n"
+"<li><a href=\"https://github.com/prologin/metalang\">metalang</a>:\n"
+"generate code stubs.</li>\n"
+"</ul>\n"
+"As an example, Haskell and Rust programming languages have been added by Prologin finalists so they could use it during the\n"
+"finals!"
+msgstr "Que vous soyez contributeur, membre ou juste curieux, il est toujours\n"
+"possible de participer au développement des outils internes de Prologin :\n"
+"<ul>\n"
+"<li><a href=\"https://github.com/prologin/camisole\">camisole</a> :\n"
+"juge en ligne sécurisé.</li>\n"
+"<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a> :\n"
+"système de match pour la finale.</li>\n"
+"<li><a href=\"https://github.com/prologin/sadm\">sadm</a> :\n"
+"infrastructure système de la finale.</li>\n"
+"<li><a href=\"https://github.com/prologin/metalang\">metalang</a> :\n"
+"générateur de code à compléter.</li>\n"
+"</ul>\n"
+"Les langages Haskell et Rust ont par exemple été ajoutés par des finalistes\n"
+"Prologin pour qu'ils puissent eux-mêmes les utiliser lors d'une finale !"
+
+#: pages/templates/pages/about-contribute.html:64
+msgid ""
+"However, there is no need to code or join the organization to help us out.\n"
+"Simply talking about Prologin around you, or displaying our posters in your school means a lot!"
+msgstr "Toutefois, vous n'êtes pas obligé de coder ou de rejoindre\n"
+"l'association pour nous aider. Simplement parler de Prologin autour de soi,\n"
+"ou coller nos affiches dans votre école nous aide énormément !"
 
 #: pages/templates/pages/about-qualification.html:8
 #: pages/templates/pages/about-qualification.html:11
@@ -4575,53 +4697,53 @@ msgstr "Dernières actualités"
 msgid "No user matching query"
 msgstr "Aucun utilisateur correspondant"
 
-#: prologin/templates/prologin/main-footer.html:9
+#: prologin/templates/prologin/main-footer.html:10
 msgid "Contact us"
 msgstr "Contactez-nous"
 
-#: prologin/templates/prologin/main-footer.html:12
+#: prologin/templates/prologin/main-footer.html:13
 msgid "Report a bug on the website"
 msgstr "Signaler un problème sur le site"
 
-#: prologin/templates/prologin/main-footer.html:16
+#: prologin/templates/prologin/main-footer.html:17
 msgid "More"
 msgstr "En plus"
 
-#: prologin/templates/prologin/main-footer.html:18
+#: prologin/templates/prologin/main-footer.html:19
 msgid "Press kit"
 msgstr "Kit de presse"
 
-#: prologin/templates/prologin/main-footer.html:24
+#: prologin/templates/prologin/main-footer.html:25
 msgid "Terms"
 msgstr "Conditions"
 
-#: prologin/templates/prologin/main-footer.html:29
+#: prologin/templates/prologin/main-footer.html:30
 msgid "Stay tuned!"
 msgstr "Suivez nous !"
 
-#: prologin/templates/prologin/main-footer.html:30
+#: prologin/templates/prologin/main-footer.html:31
 msgid "Prologin news Atom stream"
 msgstr "Flux Atom des actualités Prologin"
 
-#: prologin/templates/prologin/main-footer.html:37
+#: prologin/templates/prologin/main-footer.html:38
 msgid "Prologin on Facebook"
 msgstr "Prologin sur Facebook"
 
-#: prologin/templates/prologin/main-footer.html:43
+#: prologin/templates/prologin/main-footer.html:44
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: prologin/templates/prologin/main-footer.html:51
+#: prologin/templates/prologin/main-footer.html:52
 #: semifinal/templates/prologin/main-footer.html:12
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: prologin/templates/prologin/main-footer.html:64
+#: prologin/templates/prologin/main-footer.html:65
 #: semifinal/templates/prologin/main-footer.html:25
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prologin/templates/prologin/main-footer.html:67
+#: prologin/templates/prologin/main-footer.html:68
 #: semifinal/templates/prologin/main-footer.html:28
 #, python-format
 msgid ""
