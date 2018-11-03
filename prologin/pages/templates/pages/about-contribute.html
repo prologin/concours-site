@@ -1,0 +1,66 @@
+{% extends "prologin/base.html" %}
+{% load i18n staticfiles %}
+{% load django_bootstrap_breadcrumbs %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "pages:about-contribute" %}{% trans "Contribute" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "How to contribute to Prologin" %}{% endblock %}
+
+{% block content %}
+  <h1>{% trans "How to contribute to Prologin" %}</h1>
+
+  <p>{% blocktrans %}There are many ways to contribute to the organization, on multiple levels:{% endblocktrans %}</p>
+
+  <div class="row">
+    <div class="col-md-4 col-sm-6">
+      <h3>{% trans "Contributor" %}</h3>
+      <p class="text-justify">{% blocktrans %}Many former contestants want to contribute to Prologin usually by writing
+exercises, but without joining the organization (which calls for further time investment). You can read our
+<a href="https://github.com/prologin/ressources-contributeurs">public resources</a> to understand how we create exercises
+for our platform.{% endblocktrans %}</p>
+      <p class="text-justify">{% blocktrans %}If you are interested in helping us creating cool exercises, do not hesitate to
+send an email at: <a href="mailto:info@prologin.org">info@prologin.org</a>.{% endblocktrans %}</p>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <h3>{% trans "Member" %}</h3>
+      <p class="text-justify">{% blocktrans %}Becoming a member means an ongoing investment, not only with exercises, but also
+on our multiple needs (coming to meetings, helping on logistic, internal tools, etc.). As a member, you can help in domains
+such as:
+<ul>
+<li>algorithms: creating written and machine exercises.</li>
+<li>system administration: maintaining and coding our infrastructure for regional and finals events.</li>
+<li>web development: for our own websites.</li>
+</ul>
+Prologin also has some non-technical necessities including logistics, sponsoring, and communication.{% endblocktrans %}</p>
+      <p class="text-justify">{% blocktrans %}We have a lot to do, hence we need motivated people every year! If you want to
+join in, or if you have any question, feel free to write to us: <a href="mailto:info@prologin.org">info@prologin.org</a>.{% endblocktrans %}</p>
+    </div>
+
+    <div class="col-md-4 col-sm-6">
+      <h3>{% trans "Our internal tools" %}</h3>
+      <p class="text-justify">{% blocktrans %}Whether you are a contributor, member, or simply curious, you can always take a
+look and contribute to our open source internal tools:
+<ul>
+<li><a href="https://github.com/prologin/camisole">camisole</a>:
+secure online judge.</li>
+<li><a href="https://github.com/prologin/stechec2">stechec2</a>:
+AI match maker for the finals.</li>
+<li><a href="https://github.com/prologin/sadm">sadm</a>:
+finals technical infrastructure.</li>
+<li><a href="https://github.com/prologin/metalang">metalang</a>:
+generate code stubs.</li>
+</ul>
+As an example, Haskell and Rust programming languages have been added by Prologin finalists so they could use it during the
+finals!{% endblocktrans %}</p>
+    </div>
+  </div>
+
+  <br>
+
+  <p class="text-justify">{% blocktrans %}However, there is no need to code or join the organization to help us out.
+Simply talking about Prologin around you, or displaying our posters in your school means a lot!{% endblocktrans %}</p>
+{% endblock %}

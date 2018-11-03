@@ -67,3 +67,7 @@ class AboutHistoryView(generic.TemplateView):
 
 class AboutContestRulesView(generic.TemplateView):
     template_name = 'pages/about-contest-rules.html'
+
+
+class AboutContributeView(generic.TemplateView):
+    template_name = 'pages/about-contribute.html'
