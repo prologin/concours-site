@@ -2,117 +2,90 @@
 {% load static %}
 
 {% block content %}
-	<!-- Intro -->
-	<section id="intro" class="wrapper style2">
+	<section class="wrapper emph-infos style2">
 		<div class="title">Information</div>
-
-		<div class="row">
-			<div class="off-2-large col-8-large off-1 col-10 off-1-medium col-10-medium off-0-small col-12-small">
-				<p class="style3" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
-					Le site est actuellement en phase de rénovation, la connexion au site et donc les inscriptions sont pour l'instant <strong>fermées</strong>.
-				</p>
-				<p class="style3" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
-					Si vous souhaitez être informé dès que les inscriptions seront ouvertes, n'hésitez pas à vous inscrire à la <a href="#newsletter">newsletter</a>.
-				</p>
-			</div>
+		<div class="container">
+			<p>
+				Le site est actuellement en phase de rénovation, la connexion au site et donc les inscriptions sont pour l'instant <strong>fermées</strong>.
+				<br /><br />
+				Si vous souhaitez être informé dès que les inscriptions seront ouvertes, n'hésitez pas à vous inscrire à la <a href="#newsletter">newsletter</a>.
+			</p>
 		</div>
-	</section>*
+	</section>
 
-	<!-- Intro -->
-	<section id="intro" class="wrapper style1">
+	<section class="wrapper emph-infos style1">
 		<div class="title">Les stages</div>
 		<div class="container">
-			<p class="style1">
+			<p>
 				Les stages Girls Can Code! c’est une semaine d'initiation à la programmation pour les collégiennes et lycéennes.
-			</p>
-			<p class="style1">
+				<br /><br />
 				On y apprend les bases de la programmation avec le langage Python, et de quoi se lancer dans des petits projets de son choix !
-			</p>
-			<p class="style1">
+				<br /><br />
 				Les stages sont gratuits, entièrement organisés par des bénévoles et l’association Prologin.
 			</p>
-			<p class="style2">
-				Prochains stages:<br />
-				<small style="font-size: 0.7em; font-weight: normal; line-height: 1;">
-					Paris, la semaine du <em>23 octobre 2018</em><br />
-					Lyon, la semaine du <em>23 octobre 2018</em>
-				</small>
-			</p>
-
-			<div style="font-size: 1.5em;">
-				<h2 style="font-size: 1.5em; margin: 15px 0 15px;">Conditions pour s’inscrire</h2>
-				<ul style="list-style: none; padding-left: 0;">
-					<li style="margin: 8px 0 8px; padding-left: 0;">Être une fille encore non bachelière</li>
-					<li style="margin: 8px 0 8px; padding-left: 0;">Habiter dans l'Union européenne ou en Suisse</li>
-					<li style="margin: 8px 0 8px; padding-left: 0;">Remplir le formulaire de candidature</li>
-					<li style="margin: 8px 0 8px; padding-left: 0;">Être motivée !</li>
-				</ul>
-			</div>
-
-			<!-- <a href="#" class="button style3 large">S'inscrire</a> -->
-	</section>
-
-	<!-- Main -->
-	<section id="main" class="wrapper style2">
-		<div class="title">Plus d’informations</div>
-		<div class="container">
-
-			<!-- Features -->
-				<section id="features">
-					<header class="style1">
-						<h2>Tout ce qu’il faut savoir sur les stages</h2>
-						<p>Pour toute autre question, contactez-nous</p>
-					</header>
-
-					<div class="feature-list">
-						<div class="row">
-							<div style="display: none"></div>
-							<div class="col-12 col-12-medium">
-								<section>
-									<h3 class="icon fa-graduation-cap">Prérequis</h3>
-									<p>
-										Le stage a pour but de s’adapter au niveau de chacune donc pas besoin d’avoir un niveau minimum en informatique avant le stage.
-										Par contre, c’est toujours mieux de savoir dans quoi on se lance donc va faire un tour sur <a href="{% url 'gcc:ressources' %}">les ressources</a> que nous recommandons pour commencer !
-									</p>
-								</section>
-							</div>
-							<div class="col-12 col-12-medium">
-								<section>
-									<h3 class="icon fa-euro-sign">Stage gratuit</h3>
-									<p>
-										Les stages sont gratuits et les repas offerts aux participantes.
-										L'hébergement et le transport jusqu'au lieu du stage ne sont pas pris en charge par l’association.
-										Mais si des questions financières t’empêcheraient de participer au stage, écris-nous à <a href="mailto:info@prologin.org">info@prologin.org</a> et nous discuterons de l’attribution éventuelle d’une bourse.
-									</p>
-								</section>
-							</div>
-							<div class="col-12 col-12-medium">
-								<section>
-									<h3 class="icon fa-frown">Pour celles qui ne peuvent plus participer</h3>
-									<p>
-										L’informatique ne t’es pas fermé pour autant !
-										N’hésite pas à découvrir les <ref>ressources recommandées pour débuter<ref> et si tu as moins de 21 ans, tu peux participer à la 27<sup>e</sup> édition <a href="{% url 'home' %}">du concours Prologin</a>.
-										La première phase de qualification en ligne est ouverte.
-									</p>
-								</section>
-							</div>
-							<div class="col-12 col-12-medium">
-								<section>
-									<h3 class="icon fa-calendar">Le programme</h3>
-									<p>
-										Les stages durent une semaine, au cours de laquelle sont proposés des travaux pratiques de programmation sur des sujets divers (introduction à Python, réseaux, web), ainsi que des conférences données par des femmes travaillant dans l'informatique.
-										Enfin, la semaine se termine sur la mise en place d’un petit projet qui laisse place à la créativité.
-									</p>
-								</section>
-							</div>
-						</div>
-					</div>
-				</section>
+			<h2>Prochains stages</h2>
+			<ul>
+				<li>Paris, la semaine du <em>23 octobre 2018</em></li>
+				<li>Lyon, la semaine du <em>23 octobre 2018</em></li>
+			</ul>
+			<small style="font-size: 0.7em; font-weight: normal; line-height: 1;">
+			</small>
+			<h2>Conditions pour s’inscrire</h2>
+			<ul>
+				<li>Être une fille encore non bachelière</li>
+				<li>Habiter dans l'Union européenne ou en Suisse</li>
+				<li>Remplir le formulaire de candidature</li>
+				<li>Être motivée !</li>
+			</ul>
+			<a href="#" class="button style3 large">S'inscrire</a>
 		</div>
 	</section>
 
-	<!-- Highlights -->
-	<section id="highlights" class="wrapper style3">
+	<section class="wrapper style2">
+		<div class="title">Plus d’informations</div>
+		<div class="container">
+			<section id="features">
+				<header class="style1">
+					<h2>Tout ce qu’il faut savoir sur les stages</h2>
+					<p>Pour toute autre question, contactez-nous</p>
+				</header>
+				<div class="feature-list">
+					<section>
+						<h3 class="icon fa-graduation-cap">Prérequis</h3>
+						<p>
+							Le stage a pour but de s’adapter au niveau de chacune donc pas besoin d’avoir un niveau minimum en informatique avant le stage.
+							Par contre, c’est toujours mieux de savoir dans quoi on se lance donc va faire un tour sur <a href="{% url 'gcc:ressources' %}">les ressources</a> que nous recommandons pour commencer !
+						</p>
+					</section>
+					<section>
+						<h3 class="icon fa-euro-sign">Stage gratuit</h3>
+						<p>
+							Les stages sont gratuits et les repas offerts aux participantes.
+							L'hébergement et le transport jusqu'au lieu du stage ne sont pas pris en charge par l’association.
+							Mais si des questions financières t’empêcheraient de participer au stage, écris-nous à <a href="mailto:info@prologin.org">info@prologin.org</a> et nous discuterons de l’attribution éventuelle d’une bourse.
+						</p>
+					</section>
+					<section>
+						<h3 class="icon fa-frown">Pour celles qui ne peuvent plus participer</h3>
+						<p>
+							L’informatique ne t’es pas fermé pour autant !
+							N’hésite pas à découvrir les <ref>ressources recommandées pour débuter<ref> et si tu as moins de 21 ans, tu peux participer à la 27<sup>e</sup> édition <a href="{% url 'home' %}">du concours Prologin</a>.
+							La première phase de qualification en ligne est ouverte.
+						</p>
+					</section>
+					<section>
+						<h3 class="icon fa-calendar">Le programme</h3>
+						<p>
+							Les stages durent une semaine, au cours de laquelle sont proposés des travaux pratiques de programmation sur des sujets divers (introduction à Python, réseaux, web), ainsi que des conférences données par des femmes travaillant dans l'informatique.
+							Enfin, la semaine se termine sur la mise en place d’un petit projet qui laisse place à la créativité.
+						</p>
+					</section>
+				</div>
+			</section>
+		</div>
+	</section>
+
+	<section class="wrapper style3">
 		<div class="title">Les chiffres</div>
 		<div class="container">
 			<div class="row aln-center">
@@ -164,20 +137,14 @@
 		</div>
 	</section>
 
-	<section id="main" class="wrapper style2">
+	<section class="wrapper emph-infos style2">
+		<div class="title">Nos sponsors</div>
 		<div class="container">
-			<div class="title">Nos sponsors</div>
-
+			<p>
+				Nous remercions nos sponsors sans lesquels les stages ne pourraient avoir lieu.
+			</p>
 			<div class="row">
-				<div class="off-2-large col-8-large off-1-medium col-10-medium off-0-small col-12-small">
-					<p class="style2" style="font-size: 1.5em; padding: 20px; font-weight: normal;">
-						Nous remercions nos sponsors sans lesquels les stages ne pourraient avoir lieu.
-					</p>
-				</div>
-			</div>
-
-			<div class="row">
-				<div class="off-1 col-2 col-4-medium col-6-small">
+				<div class="col-2 col-4-medium col-6-small">
 					<a href="https://edu.google.com/intl/fr_be/?modal_active=none">
 						<img alt="Google Education" src="{% static 'gcc/img/sponsors/google_edu.png' %}" style="max-width: 100%"/>
 					</a>
@@ -213,15 +180,13 @@
 {% endblock %}
 
 {% block footer %}
-	<div id="newsletter" class="container" style="padding-bottom: 60px;">
+	<div id="newsletter" class="container" style="padding-bottom: 80px;">
 		<header class="style1">
 			<h2>Une question ?</h2>
 			<p>
 				N'hésitez pas à nous contacter.
 			</p>
 		</header>
-		<div class="row">
-			<div class="col-12 col-12-medium">
 				<!-- Contact Form -->
 				<section>
 					<form method="post">
@@ -238,7 +203,5 @@
 						</div>
 					</form>
 				</section>
-			</div>
-		</div>
 	</div>
 {% endblock %}
