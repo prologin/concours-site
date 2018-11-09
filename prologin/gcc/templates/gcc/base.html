@@ -18,16 +18,16 @@
 		<link rel="stylesheet" href="{% static 'gcc/escape-velocity/css/layout.css' %}" />
 		<link rel="stylesheet" href="{% static 'gcc/escape-velocity/css/responsive.css' %}" />
 	</head>
-	<body class="homepage is-preload">
+	<body>
 		<div id="page-wrapper">
 			<!-- Header -->
-				<section id="header" class="wrapper" style="background: url({% static 'gcc/img/collage_index_blur.jpg' %}) center center; background-size: cover;">
+				<section id="header" class="wrapper" style="background: url({% static 'gcc/img/collage_index_blur.jpg' %})">
 
 					<!-- Logo -->
-					<div id="logo">
+					<div class="logo">
 						<h1>
 							<a href="{% url 'gcc:index' %}">
-								<img src="{% static "img/logo-squeletton.png" %}" style="height: 34px; vertical-align: middle;"/>
+								<img src="{% static "img/logo-squeletton.png" %}"/>
 								Girls Can Code!
 							</a>
 						</h1>
@@ -45,13 +45,13 @@
 							</li>
 							<li class="{% active '^/gcc/editions/' %}">
 								<a href="{% url 'gcc:editions' %}">Éditions</a>
-								<!-- <ul>
+								<ul>
 									{% with years="2018 2017 2016 2015 2014" %}
 										{% for year in years.split %}
 											<li><a href="{% url 'gcc:editions' year=year %}">Édition {{year}}</a></li>
 										{% endfor %}
 									{% endwith %}
-								</ul> -->
+								</ul>
 							</li>
 						</ul>
 					</nav>
@@ -68,45 +68,35 @@
 				<div class="container">
 					<div class="title">Contact</div>
 					<section class="feature-list small">
-						<div class="container">
-							<div class="row">
-								<div class="col-6 col-12-small">
-									<section>
-										<h3 class="icon fa-home">Adresse</h3>
-										<p>
-											Association Prologin<br />
-											14-15 Rue Voltaire<br />
-											94270 Le Kremlin Bicêtre
-										</p>
-									</section>
-								</div>
-								<div class="col-6 col-12-small">
-									<section>
-										<h3 class="icon fa-comment">Social</h3>
-										<p>
-											<a style="font-size: 1.4em; margin-right: 5px;" href="https://www.facebook.com/stagegirlscancode"><i class="icon fa-facebook" style=""></i></a>
-											<a style="font-size: 1.4em; margin-right: 5px;" href="https://twitter.com/prologin"><i class="icon fa-twitter" style=""></i></a>
-											<a style="font-size: 1.4em; margin-right: 5px;" href="https://www.flickr.com/photos/prologin"><i class="icon fa-flickr" style=""></i></a>
-										</p>
-									</section>
-								</div>
-								<div class="col-6 col-12-small">
-									<section>
-										<h3 class="icon fa-envelope">Email</h3>
-										<p>
-											<a href="mailto:info@prologin.org">info@prologin.org</a>
-										</p>
-									</section>
-								</div>
-								<div class="col-6 col-12-small">
-									<section>
-										<h3 class="icon fa-phone">Téléphone</h3>
-										<p>
-											+331 44 08 01 90
-										</p>
-									</section>
-								</div>
-							</div>
+						<div class="row">
+							<section class="col-6 col-12-small">
+								<h3 class="icon fa-home">Adresse</h3>
+								<p>
+									Association Prologin<br />
+									14-15 Rue Voltaire<br />
+									94270 Le Kremlin Bicêtre
+								</p>
+							</section>
+							<section class="col-6 col-12-small">
+								<h3 class="icon fa-comment">Social</h3>
+								<p>
+									<a style="font-size: 1.4em; margin-right: 5px;" href="https://www.facebook.com/stagegirlscancode"><i class="icon fa-facebook" style=""></i></a>
+									<a style="font-size: 1.4em; margin-right: 5px;" href="https://twitter.com/prologin"><i class="icon fa-twitter" style=""></i></a>
+									<a style="font-size: 1.4em; margin-right: 5px;" href="https://www.flickr.com/photos/prologin"><i class="icon fa-flickr" style=""></i></a>
+								</p>
+							</section>
+							<section class="col-6 col-12-small">
+								<h3 class="icon fa-envelope">Email</h3>
+								<p>
+									<a href="mailto:info@prologin.org">info@prologin.org</a>
+								</p>
+							</section>
+							<section class="col-6 col-12-small">
+								<h3 class="icon fa-phone">Téléphone</h3>
+								<p>
+									+331 44 08 01 90
+								</p>
+							</section>
 						</div>
 					</section>
 					<div id="copyright">
