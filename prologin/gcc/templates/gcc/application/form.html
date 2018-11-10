@@ -9,12 +9,15 @@
 {% endblock %}
 
 {% block content %}
-<section>
-	<h2>Formulaire de candidature</h2>
-	<form method="post">
-    {% csrf_token %}
-		{{ form.as_p }}
-		<input class="halo-button" type="submit" value="Valider et choisir mon centre de stage">
-	</form>
+<section class="wrapper">
+	<div class="title">Candidature</div>
+	<div class="container">
+		<h2>Formulaire de candidature</h2>
+		<form method="post">
+	    {% csrf_token %}
+			{{ form.as_p }}
+			<input class="halo-button" type="submit" value="Valider et choisir mon centre de stage">
+		</form>
+	</div>
 </section>
 {% endblock %}
