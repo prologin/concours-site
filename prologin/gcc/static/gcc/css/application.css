@@ -4,6 +4,7 @@
     list-style: none;
     display: block;
     padding: 8px;
+    color: #555;
 }
 
 .applicant-list > li:nth-child(odd) {
