@@ -17,6 +17,7 @@
 		<link rel="stylesheet" href="{% static 'gcc/escape-velocity/css/main.css' %}" />
 		<link rel="stylesheet" href="{% static 'gcc/escape-velocity/css/layout.css' %}" />
 		<link rel="stylesheet" href="{% static 'gcc/escape-velocity/css/responsive.css' %}" />
+		{% block head %}{% endblock %}
 	</head>
 	<body>
 		<div id="page-wrapper">
@@ -108,7 +109,7 @@
 				</div>
 			</section>
 
-		<!-- Scripts -->
+			<!-- Scripts -->
 			<script src="{% static 'gcc/escape-velocity/js/jquery.min.js' %}"></script>
 			<script src="{% static 'gcc/escape-velocity/js/jquery.dropotron.min.js' %}"></script>
 			<script src="{% static 'gcc/escape-velocity/js/browser.min.js' %}"></script>

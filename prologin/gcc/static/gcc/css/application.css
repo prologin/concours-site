@@ -1,15 +1,13 @@
+/* review list for applications */
+
 .applicant-list > li {
     list-style: none;
     display: block;
     padding: 8px;
 }
 
-.applicant-list > li:nth-child(even) {
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
 .applicant-list > li:nth-child(odd) {
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.05);
 }
 
 .applicant-list > li:not(.selected) {
@@ -18,10 +16,13 @@
 
 .applicant-list > li.selected {
     margin: 10px 0 10px 0;
+    box-shadow: grey 0px 0px 5px 0px;
 }
 
 .applicant-list .applicant-head {
     cursor: pointer;
+    font-weight: bold;
+    color: #005a5a;
 }
 
 .applicant-list > li:not(.selected) > .detail {
@@ -30,50 +31,44 @@
 
 .applicant-list > li.selected > .detail {
     display: block;
-    margin: 8px -8px -8px -8px;
+    margin: 8px 8px -8px 0;
     padding: 8px;
-    background-color: rgba(255, 255, 255, 0.02);
-    font-size: 12px;
+    font-size: 14px;
 }
 
-.applicant-list .detail > p {
-    display: block;
-}
-
-.applicant-list .detail-section h1 {
-    font-size: 13px;
+.applicant-list .detail-section h3 {
+    font-size: 14px;
     overflow: hidden;
     margin: 8px 0 5px -5px;
-    color: lightgreen;
 }
 
-.applicant-list .detail-section h1:after {
-    content:'';
-    display:inline-block;
-    width:100%;
-    height: 4px;
-    /* padding: 10px 0 10px 0px; */
+.applicant-list .detail-section h3:after {
+    content: '';
+    display: inline-block;
+    width: 100%;
+    margin-right: -100%;
     margin-left: 10px;
-    margin-right:-100%;
-    border-top: 1px solid var(--color5);
+    height: 4px;
+    border-top: 1px solid #005a5a;
 }
 
 .applicant-list .detail-section {
-    margin-left: 5px;
+    margin-left: 10px;
 }
 
 .applicant-list .btn {
     display: inline-block;
-    padding: 5px;
-    margin: 0 5px 0 5px;
+    padding: 8px;
+    margin: 2px 5px 2px 5px;
+    line-height: 1em;
     text-decoration: none;
-    background-color: var(--color5);
+    background-color: #3f434b;
     color: lightgrey;
 }
 
 .applicant-list .btn-little {
     font-size: 8px;
-    padding: 1px;
+    padding: 5px;
     margin: 0 0 0 1px;
     border-radius: 3px;
 }
@@ -82,17 +77,21 @@
 
 .applicant-list .label-list {
     float: right;
+    vertical-align: middle;
 }
 
 .applicant-list .label {
     display: inline-block;
     font-size: 12px;
-    padding: 3px 6px 3px 6px;
     border-radius: 9px;
-    background: var(--color1);
+    padding: 7px;
+    line-height: 1em;
+    background: #005a5a;
+    color: lightgrey;
     text-decoration: none;
     position: relative;
     overflow: hidden;
+    margin: auto;
 }
 
 .applicant-list .label:hover::after {
@@ -105,46 +104,36 @@
     text-align: right;
     vertical-align: middle;
     display: inline-block;
-    background: linear-gradient(0.25turn, rgba(0,0,0,0), var(--color1));
-}
-
-/* Table for generic informations on the candidate */
-
-.applicant-list .recap {
-    width: 100%;
-}
-
-.applicant-list .recap td:first-child {
-    max-width: 90px;
-    color: var(--color5);
+    background: linear-gradient(0.25turn, rgba(0,0,0,0), #005a5a);
 }
 
 /* Form */
 
 .applicant-list h5 {
     font-size: 13px;
-    color: lightblue;
+    color: #005a5a;
     margin: 0 0 5px;
 }
 
 .applicant-list p {
     margin: 5px 5px 5px 10px;
-    /* color: lightgreen; */
 }
 
 /* Dropdown menu to add labels */
 
+.applicant-list li:not(.selected) .labeladd-btn {
+    display: none;
+}
+
 .labeladd-btn {
-    color: var(--color5);
-    font-size: 14px;
-    border: none;
-    background: none;
+    color: #005a5a;
+    font-size: 12px;
     float: right;
-    padding: 0 6px;
     margin-left:  5px;
-    border: 1px dotted var(--color5);
+    line-height: 1em;
+    padding: 6px;
+    border: 1px dotted #005a5a;
     border-radius: 10px;
-    margin-left: 5px;
 }
 
 .labeladd-dropdown {
@@ -155,6 +144,8 @@
 
 .labeladd-dropdown-content {
     position: absolute;
+    z-index: 10;
+    right: 0;
     display: none;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
 }
@@ -166,11 +157,11 @@
     text-decoration: none;
     display: block;
     min-width: 100px;
-    background-color: rgba(0, 0, 0, 0.6);
+    background-color: rgba(0, 90, 90, 0.95);
 }
 
 .labeladd-dropdown-content a:hover {
-    background-color: var(--color5);
+    background-color: black;
 }
 
 .labeladd-dropdown:hover .labeladd-dropdown-content {
