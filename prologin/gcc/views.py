@@ -157,8 +157,8 @@ class ApplicationValidation(FormView):
 
 
 #TODO: Check permissions to access this page
-class ApplicationIndexView(TemplateView):
-    template_name = "gcc/application/index.html"
+class ApplicationReviewView(TemplateView):
+    template_name = "gcc/application/review.html"
 
     def get_context_data(self, **kwargs):
         """
@@ -182,7 +182,7 @@ def application_remove_label(request, applicant_id, label_id):
     label = get_object_or_404(ApplicantLabel, pk=label_id)
     applicant.labels.remove(label)
     return redirect(
-        reverse_lazy('gcc:application_index') + '#applicant-{}'.format(applicant.pk))
+        reverse_lazy('gcc:application_review') + '#applicant-{}'.format(applicant.pk))
 
 # TODO: Check permissions
 def application_add_label(request, applicant_id, label_id):
@@ -190,4 +190,4 @@ def application_add_label(request, applicant_id, label_id):
     label = get_object_or_404(ApplicantLabel, pk=label_id)
     applicant.labels.add(label)
     return redirect(
-        reverse_lazy('gcc:application_index') + '#applicant-{}'.format(applicant.pk))
+        reverse_lazy('gcc:application_review') + '#applicant-{}'.format(applicant.pk))

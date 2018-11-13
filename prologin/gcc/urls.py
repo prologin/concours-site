@@ -45,8 +45,8 @@ newsletter_patterns = [
 application_patterns = [
     path(
         'review/',
-        views.ApplicationIndexView.as_view(),
-        name='application_index'),
+        views.ApplicationReviewView.as_view(),
+        name='application_review'),
     path(
         'form/<int:user_id>/',
         views.ApplicationForm.as_view(),
