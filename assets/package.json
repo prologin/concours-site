@@ -1,0 +1,25 @@
+{
+  "name": "prologin-site",
+  "version": "0.0.1",
+  "description": "Static assets management for prologin-site",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:prologin/site"
+  },
+  "author": "Association Prologin",
+  "license": "GPL-3.0",
+  "private": true,
+  "devDependencies": {
+    "ace-builds": "1.x.x",
+    "bootstrap": "3.x.x",
+    "corejs-typeahead": "1.x.x",
+    "datatables.net": "1.x.x",
+    "datatables.net-bs": "1.x.x",
+    "font-awesome": "4.x.x",
+    "jquery": "3.x.x",
+    "mathjax": "2.x.x",
+    "onesignal-emoji-picker": "1.x.x",
+    "pygments-css": "1.x.x",
+    "select2": "4.x.x"
+  }
+}

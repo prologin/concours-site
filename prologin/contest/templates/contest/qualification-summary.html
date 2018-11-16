@@ -11,7 +11,7 @@
 {% endblock breadcrumbs %}
 
 {% block extra_head %}
-  <link href="{% static 'lib/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
+  <link href="{% static 'vendor/select2/dist/css/select2.min.css' %}" rel="stylesheet" type="text/css"/>
 {% endblock %}
 
 {% block title %}{% blocktrans with request.current_edition.year as year %}Application summary – Prologin {{ year }}{% endblocktrans %}{% endblock %}
@@ -188,9 +188,9 @@ The points you score for solving this year problems will be accounted for your s
 {% endblock %}
 
 {% block extra_script %}
-  <script src="{% static 'lib/js/select2.min.js' %}"></script>
+  <script src="{% static 'vendor/select2/dist/js/select2.min.js' %}"></script>
   {% get_current_language as language %}
-  <script src="{% static 'lib/js/i18n' %}/{{ language }}.js"></script>
+  <script src="{% static 'select2/dist/js/i18n' %}/{{ language }}.js"></script>
   <script type="text/javascript">
     window.i18n = window.i18n || {};
     window.i18n.makeChoice = "{% trans "Make your choice" %}";

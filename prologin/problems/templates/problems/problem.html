@@ -191,10 +191,8 @@
   {% include "stub-mathjax.html" %}
 {% if request.user.is_authenticated %}
   <script type="text/javascript" charset="utf-8" src="{% static 'js/utils.js' %}"></script>
-  {# <script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ace.js' %}"></script> #}
-  <script type="text/javascript" src="{% get_setting 'STATIC_URL' %}/problems/lib/ace/src-min-noconflict/ace.js"></script>
-  {# <script type="text/javascript" charset="utf-8" src="{% static 'problems/lib/ace/src-min-noconflict/ext-themelist.js' %}"></script> #}
-  <script type="text/javascript" src="{% get_setting 'STATIC_URL' %}/problems/lib/ace/src-min-noconflict/ext-themelist.js"></script>
+  <script type="text/javascript" charset="utf-8" src="{% static 'vendor/ace-builds/src-min-noconflict/ace.js' %}"></script>
+  <script type="text/javascript" charset="utf-8" src="{% static 'vendor/ace-builds/src-min-noconflict/ext-themelist.js' %}"></script>
   <script type="text/javascript" charset="utf-8" src="{% static 'problems/js/code-editor.js' %}"></script>
 {% endif %}
   <script type="text/javascript">

@@ -13,3 +13,4 @@ fabfile.py
 *.pdf
 *.bak
 *~
+node_modules

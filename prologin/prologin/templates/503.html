@@ -12,8 +12,8 @@
 
   {# Google font, Boostrap, FontAwesome #}
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:700,700italic,300,300italic"/>
-  <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}"/>
-  <link rel="stylesheet" href="{% static 'lib/css/font-awesome.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"/>
 
   {# Custom #}
   <link rel="stylesheet" type="text/css" href="{% static 'css/prologin.css' %}"/>
@@ -76,8 +76,8 @@
   {% endblock super_content %}
 
   {# Scripts #}
-  <script src="{% static 'lib/js/jquery.min.js' %}"></script>
-  <script src="{% static 'lib/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
   {% block extra_script %}{% endblock %}
   {% get_setting 'GOOGLE_ANALYTICS_ID' as google_analytics_id %}
   {% if google_analytics_id %}<script type="text/javascript">
