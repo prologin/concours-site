@@ -13,7 +13,7 @@
 {% block title %}{% trans "Qualification" %} {{ edition.year }}{% endblock %}
 
 {% block extra_head %}
-  <link rel="stylesheet" type="text/css" href="{% static 'lib/css/datatables.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
 {% endblock %}
 
 {% block content %}
@@ -26,7 +26,8 @@
 {% endblock %}
 
 {% block extra_script %}
-  <script type="text/javascript" charset="utf8" src="{% static 'lib/js/datatables.min.js' %}"></script>
+  <script type="text/javascript" charset="utf8" src="{% static 'vendor/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+  <script type="text/javascript" charset="utf8" src="{% static 'vendor/datatables.net/js/jquery.dataTables.min.js' %}"></script>
   <script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
   <script type="text/javascript" charset="utf8">
     var dt = datatableview.initialize($('.datatable'), {

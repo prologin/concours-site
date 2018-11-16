@@ -10,9 +10,9 @@
 
   <title>{% block super_title %}{% block title %}{% endblock %} – Prologin{% endblock %}</title>
 
-  {# Google font, Boostrap, FontAwesome #}
-  <link rel="stylesheet" href="{% static 'lib/css/bootstrap.min.css' %}"/>
-  <link rel="stylesheet" href="{% static 'lib/css/font-awesome.min.css' %}"/>
+  {# Boostrap, FontAwesome #}
+  <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"/>
 
   {# Custom #}
   <link rel="stylesheet" type="text/css" href="{% static 'css/prologin.css' %}"/>
@@ -76,8 +76,8 @@
   </footer>
 
   {# Scripts #}
-  <script src="{% static 'lib/js/jquery.min.js' %}"></script>
-  <script src="{% static 'lib/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'vendor/jquery/dist/jquery.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/dist/js/bootstrap.min.js' %}"></script>
   {% block extra_script %}{% endblock %}
 </body>
 </html>
