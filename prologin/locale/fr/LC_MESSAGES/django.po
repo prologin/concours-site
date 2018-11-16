@@ -3932,44 +3932,58 @@ msgstr "Bravo, vous avez résolu tous les problèmes&nbsp;!"
 msgid "%(score)s pts"
 msgstr "%(score)s pts"
 
-#: problems/templates/problems/index.html:11
+#: problems/templates/problems/index.html:12
+msgid ""
+"This page contains all the exercises from previous Prologin editions. You can browse through them,\n"
+"and search by difficulty or years. If you need help to get started with algorithmics, you should read our\n"
+"<a href=\"https://prologin.org/forum/entrainement-3/ressources-i-debutants-1114/\">resources</a>."
+msgstr "Voici les annales d'exercices publiés depuis la création du concours Prologin, vous pouvez chercher\n"
+"par difficulté ou encore par année. Si vous avez besoin d'aide pour vous lancer dans l'algorithmique, jetez\n"
+"un œil à nos <a href=\"https://prologin.org/forum/entrainement-3/ressources-i-debutants-1114/\">ressources</a>."
+
+#: problems/templates/problems/index.html:15
+msgid ""
+"Stuck on a problem? Ask for help on the <a href=\"%(forum)s\">forums</a>!"
+msgstr "Coincé sur un problème ? Demandez de l'aide sur le <a href=\"%(forum)s\">forum</a> !"
+
+#: problems/templates/problems/index.html:17
 msgid "Jump to problem index"
 msgstr "Aller aux problèmes"
 
-#: problems/templates/problems/index.html:26
+#: problems/templates/problems/index.html:32
 #, python-format
 msgid "%(count)s&nbsp;problem"
 msgid_plural "%(count)s&nbsp;problems"
 msgstr[0] "%(count)s&nbsp;problème"
 msgstr[1] "%(count)s&nbsp;problèmes"
 
-#: problems/templates/problems/index.html:30
+#: problems/templates/problems/index.html:36
 msgid "Challenge is hidden to regular users"
 msgstr "Le challenge est caché pour les utilisateurs normaux"
 
-#: problems/templates/problems/index.html:45
+#: problems/templates/problems/index.html:51
 msgid "What is this?"
 msgstr "Qu'est-ce que c'est&nbsp;?"
 
-#: problems/templates/problems/index.html:47
+#: problems/templates/problems/index.html:53
 msgid ""
 "Want to find out what the Prologin algorithmic exercises are like?\n"
 "In this section, you can browse and tackle all the problems from the previous Prologin events. These are\n"
 "problems from both the Prologin online qualifications and the on-site regional events."
 msgstr "Vous voulez découvrir à quoi ressemblent les exercices d'algorithmique de Prologin ? Dans cette section, vous pouvez parcourir les précédentes éditions du concours Prologin et vous entraîner sur tous les problèmes correspondants. Ces exercices proviennent des qualifications en ligne et des épreuves régionales."
 
-#: problems/templates/problems/index.html:52
+#: problems/templates/problems/index.html:58
 msgid "How does it work?"
 msgstr "Comment ça marche&nbsp;?"
 
-#: problems/templates/problems/index.html:54
+#: problems/templates/problems/index.html:60
 msgid ""
 "Read the problem statement carefully and submit your solution. The system will check your\n"
 "submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you\n"
 "need to solve the problem."
 msgstr "Prenez le temps de lire l'énoncé du problème attentivement avant de soumettre votre solution. Le système vérifiera votre solution et vous indiquera immédiatement le résultat. Vous pouvez soumettre autant de solutions que nécessaire à la résolution du problème."
 
-#: problems/templates/problems/index.html:58
+#: problems/templates/problems/index.html:64
 #, python-format
 msgid ""
 "If you need any help with the automatic correction\n"

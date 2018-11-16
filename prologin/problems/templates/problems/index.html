@@ -8,6 +8,12 @@
 
   <h1>{% include "problems/stub-module-title.html" %}</h1>
 
+  {% url 'forum:index' as forum_url %}
+<p>{% blocktrans %}This page contains all the exercises from previous Prologin editions. You can browse through them,
+and search by difficulty or years. If you need help to get started with algorithmics, you should read our
+<a href="https://prologin.org/forum/entrainement-3/ressources-i-debutants-1114/">resources</a>.{% endblocktrans %}</p>
+<p>{% blocktrans with forum=forum_url %}Stuck on a problem? Ask for help on the <a href="{{ forum }}">forums</a>!{% endblocktrans %}</p>
+
   <p class="visible-xs"><a href="#problems"><i class="fa fa-angle-double-down"></i> {% trans "Jump to problem index" %}</a></p>
   {% include "problems/stub_search_form.html" %}
 
