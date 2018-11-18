@@ -27,11 +27,6 @@ $(PUBLIC_DIR)/503.%.html:
 
 errortemplates: $(ERRORTEMPLATES)
 
-# Pygments CSS theme
-$(PYGMENTS_CSS):
-	mkdir -p $(dir $(@))
-	pygmentize -S $(PYGMENTS_THEME) -a $(PYGMENTS_PREFIX) -f html >$@
-
 # Debug rule
 print-%:
 	@echo '$*=$($*)'

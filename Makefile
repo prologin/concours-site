@@ -14,7 +14,7 @@ DBDOCKERNAME = prologin-dev-db
 
 # Main rules
 
-all: assets
+all: runserver
 
 # Development servers and workers
 # NOT SUITABLE FOR USE IN PRODUCTION.
