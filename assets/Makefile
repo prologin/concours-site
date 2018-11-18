@@ -19,13 +19,18 @@ include images.mk
 # -- pygments
 PYGMENTS_CSS := $(LIB_DIR)/css/pygments-$(PYGMENTS_THEME).css
 OBJS += $(PYGMENTS_CSS)
+
 # -- error templates
-OBJS += $(addsuffix .html,$(addprefix $(PUBLIC_DIR)/503.,$(ERROR_503_LANGS)))
+ERRORTEMPLATES := $(addprefix $(PUBLIC_DIR)/503.,$(ERROR_503_LANGS))
+ERRORTEMPLATES := $(addsuffix .html,$(ERRORTEMPLATES))
+OBJS += $(ERRORTEMPLATES)
 
 # Error templates
 $(PUBLIC_DIR)/503.%.html:
 	cd $(PROLOGIN_DIR) && python manage.py statictemplate 503.html \
 		--language-code $* -f $@
+
+errortemplates: $(ERRORTEMPLATES)
 
 # Pygments CSS theme
 $(PYGMENTS_CSS):
@@ -51,4 +56,4 @@ clean-libs:
 
 clean: clean-assets clean-libs
 
-.PHONY: all assets libs clean-assets clean-libs clean
+.PHONY: all errortemplates assets libs clean-assets clean-libs clean
