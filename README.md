@@ -2,18 +2,37 @@
 
 ## Requirements
 
+* Git
 * Python 3
-* Every package from requirements.txt (see recommended procedure below)
+* NPM (for Javascript & CSS assets)
 * PostgreSQL
 * Redis (for training & contest)
 * optipng (used for assets generation)
-* jq (used for assets generation)
 * texlive (for latexmk, pdflatex, and a few packages).
+
+### Archlinux
+
+```bash
+sudo pacman -S --needed git python3 npm postgresql redis optipng texlive-core
+```
+
+### Ubuntu / Debian ≥ 10 (buster)
+
+```bash
+sudo apt install git python3 python3-venv postgresql redis optipng texlive
+```
+
+### Debian ≤ 9 (stretch)
+
+```bash
+curl https://deb.nodesource.com/setup_8.x | sudo bash
+sudo apt install git python3 python3-venv postgresql redis optipng texlive \
+                 nodejs
+```
 
 ## Cloning
 
-You obviously need the site source and its submodules, thus you have to clone
-this repository using the `--recursive` flag. You will also need the problem
+You obviously need to clone the website. You will also need the problem
 repository, for training/contest to work. `--depth=1` is a convenient flag to
 reduce the amount of downloaded data by ignoring the git history. Remove this
 flag if you think you will need to work on `problems`.
@@ -24,18 +43,24 @@ git clone git@github.com:prologin/site
 git clone --depth=1 git@github.com:prologin/problems
 ```
 
-## Using a virtualenv
+## Python dependencies
 
 It is recommended to use a virtualenv to isolate Prologin Python environment.
 
 ```bash
 cd site
-# Do this once!
-python3 -m venv .venv
+python3 -m venv .venv # Do this once!
 source .venv/bin/activate
-# Fixes some package conflicts with old pip versions
 pip install --upgrade pip
 pip install -r requirements.txt
+```
+
+## Web dependencies
+
+Download the web dependencies from NPM:
+
+```bash
+( cd assets && npm install )
 ```
 
 ## Configuration
@@ -78,8 +103,8 @@ instructions.
 
 ## Asset generation
 
-Some assets of the website do not live inside the repository to reduce its size.
-We have to fetch them or generate them using scripts. To do that, run:
+Some assets of the website do not live inside the repository to reduce its
+size.  We have to fetch them or generate them using scripts. To do that, run:
 
 ```bash
 # Generate the static assets
