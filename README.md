@@ -2,11 +2,19 @@
 
 ## Table of Contents
 
+* [License](#license)
 * [Table of Contents](#table-of-contents)
 * [Installation](#installation)
 * [Hacking on the website](#hacking-on-the-website)
 * [Deploying the regional event environment](#deploying-the-regional-event-environment)
 * [Troubleshooting](#troubleshooting)
+
+## License
+
+This software is licensed under the [GNU General Public License v2.0 or
+any later version](https://spdx.org/licenses/GPL-2.0-or-later.html).
+
+Copyright © Association Prologin.
 
 ## Installation
 
