@@ -1,4 +1,5 @@
 from .semifinal_common import *
+import os
 
 # You can use $ pwgen -y 64
 SECRET_KEY = 'CHANGEME'
@@ -6,19 +7,21 @@ SECRET_KEY = 'CHANGEME'
 # SECURITY/PERFORMANCE WARNING: don't run with DEBUG turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '::1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', '::1', 'localhost', 'testserver']
+INTERNAL_IPS = ALLOWED_HOSTS
 
 # Set the right hostname, as seen by contestant's machines
 SITE_HOST = "localhost:8000"
 
-# Set the right year here
-PROLOGIN_EDITION = 2018
+# Current edition
+PROLOGIN_EDITION = 2019
 
-# Set the right local corrector ("VM") URL
+# Repository paths
+PROBLEMS_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'problems')
+
+# Camisole url
 PROBLEMS_CORRECTORS = ('http://localhost:42920/run',)
 
-# Set the right path to the problems repository
-PROBLEMS_REPOSITORY_PATH = '/home/prologin/problems'
 
 # These should be OK (assuming no TLS)
 PROBLEMS_CHALLENGE_WHITELIST = ('demi{}'.format(PROLOGIN_EDITION),)

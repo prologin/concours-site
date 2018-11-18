@@ -78,9 +78,13 @@ INSTALLED_APPS = (
     # Django and vendor, at the bottom for template overriding
     'django.contrib.admin',
     'zinnia',
+
+    # Debug Toolbar (will not load if DEBUG = False)
+    'debug_toolbar',
 )
 
 MIDDLEWARE = (
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

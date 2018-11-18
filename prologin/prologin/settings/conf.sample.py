@@ -7,19 +7,21 @@ SECRET_KEY = 'CHANGEME'
 # SECURITY/PERFORMANCE WARNING: don't run with DEBUG turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '::1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1', '::1', 'localhost', 'testserver']
+INTERNAL_IPS = ALLOWED_HOSTS
 
 SITE_HOST = "localhost:8000"
 
-# Mandatory settings:
-# PROLOGIN_EDITION = 2018
-# PROBLEMS_REPOSITORY_PATH = '/path/to/problems'
-# PROBLEMS_CORRECTORS = ()
-# RECAPTCHA_PUBLIC_KEY = ''
-# RECAPTCHA_PRIVATE_KEY = ''
+# Current edition
+PROLOGIN_EDITION = 2019
 
-# Required by the documents module:
-# DOCUMENTS_REPOSITORY_PATH = '/path/to/documents'
+# Repository paths
+PROBLEMS_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'problems')
+DOCUMENTS_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'documents')
+ARCHIVES_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'archives')
+
+# Camisole url
+PROBLEMS_CORRECTORS = ('http://vm.prologin.org/run',)
 
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
@@ -30,7 +32,6 @@ DATABASES = {
         'NAME': 'prologin',
     }
 }
-
 
 # Logging
 # https://docs.djangoproject.com/en/1.7/topics/logging/
@@ -62,3 +63,9 @@ EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = False
+
+
+# Recaptcha
+
+RECAPTCHA_PUBLIC_KEY = ''
+RECAPTCHA_PRIVATE_KEY = ''
