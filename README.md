@@ -7,27 +7,25 @@
 * NPM (for Javascript & CSS assets)
 * PostgreSQL
 * Redis (for training & contest)
-* optipng (used for assets generation)
 * texlive (for latexmk, pdflatex, and a few packages).
 
 ### Archlinux
 
 ```bash
-sudo pacman -S --needed git python3 npm postgresql redis optipng texlive-core
+sudo pacman -S --needed git python3 npm postgresql redis texlive-core
 ```
 
 ### Ubuntu / Debian ≥ 10 (buster)
 
 ```bash
-sudo apt install git python3 python3-venv postgresql redis optipng texlive
+sudo apt install git python3 python3-venv postgresql redis texlive
 ```
 
 ### Debian ≤ 9 (stretch)
 
 ```bash
 curl https://deb.nodesource.com/setup_8.x | sudo bash
-sudo apt install git python3 python3-venv postgresql redis optipng texlive \
-                 nodejs
+sudo apt install git python3 python3-venv postgresql redis texlive nodejs
 ```
 
 ## Cloning
@@ -100,22 +98,6 @@ Then, check the following settings in the file you copied:
 
 Now proceed to the sub-section corresponding to your environment for specific
 instructions.
-
-## Asset generation
-
-Some assets of the website do not live inside the repository to reduce its
-size.  We have to fetch them or generate them using scripts. To do that, run:
-
-```bash
-# Generate the static assets
-make assets
-```
-
-If you're being lazy, you may generate these using docker instead.
-
-```bash
-./docker_assets_builder.sh
-```
 
 ### Development setup
 
@@ -267,3 +249,47 @@ Follow the generic how-to, with the following differences:
   for more tips.
 * Please try to be [PEP8](https://www.python.org/dev/peps/pep-0008/) compliant.
   There are many tools to check and format your code.
+
+
+# Other tasks
+
+## Assets regeneration
+
+You can regenerate some of the assets committed in the repository, if for
+instance you changed the source files or the asset generation process.
+
+### Dependencies
+
+Generating the assets require additional dependencies.
+
+For Debian/Ubuntu:
+
+```bash
+sudo apt install inkscape optipng
+```
+
+For Archlinux:
+
+```bash
+sudo pacman -S inkscape optipng
+```
+
+### Generating the assets
+
+Once you have the required image processing dependencies, you can force a
+regeneration of all the assets using:
+
+```bash
+make -B assets
+```
+
+You can then `git add` the modified files that you want to update in the
+repository.
+
+### Using Docker
+
+You can also generate the assets using docker instead.
+
+```bash
+./docker_assets_builder.sh
+```
