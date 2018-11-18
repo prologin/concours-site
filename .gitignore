@@ -1,11 +1,12 @@
-data/*.csv
-data/*.json
-# we put these two lines here (not in public/.gitignore) because we don't want to expose internal files to the Internet
 public/static
 public/media
+
+prologin/prologin/settings/dev.py
+prologin/prologin/settings/prod.py
+prologin/prologin/settings/semifinal.py
+
 .idea/
 venv/
-fabfile.py
 *.swp
 *.pyc
 *.aux
@@ -13,4 +14,4 @@ fabfile.py
 *.pdf
 *.bak
 *~
-node_modules
+node_modules/
