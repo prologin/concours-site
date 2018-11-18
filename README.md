@@ -40,14 +40,14 @@ You can use the following commands to install those dependencies:
 - For **Ubuntu** and **Debian ≥ 10 (buster)**:
 
   ```bash
-  sudo apt install git python3 python3-venv postgresql redis texlive
+  sudo apt install git python3 python3-venv npm postgresql redis texlive
   ```
 
 - For **Debian ≤ 9 (stretch)**
 
   ```bash
   curl https://deb.nodesource.com/setup_8.x | sudo bash
-  sudo apt install git python3 python3-venv postgresql redis texlive nodejs
+  sudo apt install git python3 python3-venv nodejs postgresql redis texlive
   ```
 
 ### PostgreSQL Setup
