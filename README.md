@@ -1,11 +1,19 @@
 # Prologin website
 
+This repository contains the source of the website of Prologin:
+<https://prologin.org>.
+
+Prologin is a computer science contest in France open to all students under 20,
+introducing students to the world of programming and algorithms with exciting
+challenges.
+
 ## Table of Contents
 
 * [Table of Contents](#table-of-contents)
 * [Installation](#installation)
 * [Hacking on the website](#hacking-on-the-website)
-* [Deploying the regional event environment](#deploying-the-regional-event-environment)
+* [Deploying the regional event environment
+  ](#deploying-the-regional-event-environment)
 * [Troubleshooting](#troubleshooting)
 
 ## Installation
