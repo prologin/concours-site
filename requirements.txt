@@ -38,7 +38,8 @@ django-recaptcha
 # Model history tracking
 django-reversion
 # Generate static templates (for 5xx error pages served by nginx, mainly)
-django-statictemplate
+# TODO: use pypi version when 3.0 is released
+git+https://github.com/ojii/django-statictemplate.git@feature/new_django
 # Model tagging support
 django-tagging
 # Model TimezoneField

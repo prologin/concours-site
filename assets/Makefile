@@ -24,7 +24,8 @@ OBJS += $(addsuffix .html,$(addprefix $(PUBLIC_DIR)/503.,$(ERROR_503_LANGS)))
 
 # Error templates
 $(PUBLIC_DIR)/503.%.html:
-	cd $(PROLOGIN_DIR) && python manage.py statictemplate 503.html $* -f $@
+	cd $(PROLOGIN_DIR) && python manage.py statictemplate 503.html \
+		--language-code $* -f $@
 
 # Pygments CSS theme
 $(PYGMENTS_CSS):
