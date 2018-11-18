@@ -18,6 +18,8 @@
     "font-awesome": "4.x.x",
     "jquery": "3.x.x",
     "mathjax": ">=2.7.4",
+    "nanoscroller": "^0.8.7",
+    "tether": "^1.4.5",
     "onesignal-emoji-picker": "1.x.x",
     "pygments-css": "1.x.x",
     "select2": "4.x.x"

@@ -7,11 +7,14 @@
 
 {% block extra_head %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/forum.css' %}"/>
+  <link rel="stylesheet" href="{% static 'vendor/nanoscroller/bin/css/nanoscroller.css' %}">
   <link rel="stylesheet" href="{% static 'vendor/onesignal-emoji-picker/lib/css/emoji.css' %}">
 {% endblock %}
 
 {% block extra_script %}
   {{ block.super }}
+  <script src="{% static 'vendor/nanoscroller/bin/javascripts/jquery.nanoscroller.js' %}"></script>
+  <script src="{% static 'vendor/tether/dist/js/tether.min.js' %}"></script>
   <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/config.js' %}"></script>
   <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/util.js' %}"></script>
   <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/jquery.emojiarea.js' %}"></script>

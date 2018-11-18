@@ -342,6 +342,8 @@ NPM_FILE_PATTERNS = {
     'jquery': ['dist/*.js'],
     'mathjax': ['MathJax.js', 'jax/*', 'localization/*', 'fonts/*',
                 'extensions/*', 'config/*.js'],
+    'nanoscroller': ['bin/javascripts/*.js', 'bin/css/*.css'],
+    'tether': ['dist/js/*.js', 'dist/css/*.css'],
     'onesignal-emoji-picker': ['lib/js/*.js', 'lib/css/*.css', 'lib/img/*'],
     'pygments-css': ['*.css'],
     'select2': ['dist/css/*.css', 'dist/js/*.js', 'dist/js/i18n/*.js'],
