@@ -135,7 +135,7 @@ Create the `prologin` PostgreSQL database, and run the migrations :
 
 ```bash
 createdb prologin
-./manage.py migrate
+./prologin/manage.py migrate
 ```
 
 ### Creating the minimal context
@@ -150,7 +150,7 @@ website crashes intentionally without theses minimal objects, you can not add
 them using the admin. Use the `edition` command instead:
 
 ```bash
-cd prologin && ./manage.py edition create
+./prologin/manage.py edition create
 # Answer the questions
 ```
 
@@ -225,7 +225,7 @@ Follow the generic installation procedure, with the following differences:
 * import the user data you previously exported:
     ```bash
     # activate venv, export DJANGO_SETTINGS_MODULE
-    ./manage.py semifinal_bootstrap export-semifinal-2016-whatever.json
+    ./prologin/manage.py semifinal_bootstrap export-semifinal-2016-center.json
     ```
 * during the initial setup, you may want to set `DEBUG = True` in the settings.
   Do not forget to **set it to `False` during the contest**.
