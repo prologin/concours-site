@@ -11,7 +11,3 @@ ARCHIVE_PLACEHOLDER_SIZE := 716
 
 # -- error templates
 ERROR_503_LANGS := en fr
-
-# -- pygments
-PYGMENTS_THEME := monokai
-PYGMENTS_PREFIX := .pyg-hl

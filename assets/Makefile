@@ -4,11 +4,10 @@ PROLOGIN_DIR := $(dir $(TOP))prologin
 STATIC_DIR := $(PROLOGIN_DIR)/prologin/static
 PUBLIC_DIR := $(dir $(TOP))public
 IMG_DIR := $(STATIC_DIR)/img
-LIB_DIR := $(STATIC_DIR)/lib
 CSS_DIR := $(STATIC_DIR)/css
 
 # First target must be 'all'
-all: assets libs
+all: assets
 
 include config.mk
 
@@ -16,10 +15,6 @@ include config.mk
 OBJS :=
 # -- images
 include images.mk
-# -- pygments
-PYGMENTS_CSS := $(LIB_DIR)/css/pygments-$(PYGMENTS_THEME).css
-OBJS += $(PYGMENTS_CSS)
-
 # -- error templates
 ERRORTEMPLATES := $(addprefix $(PUBLIC_DIR)/503.,$(ERROR_503_LANGS))
 ERRORTEMPLATES := $(addsuffix .html,$(ERRORTEMPLATES))
@@ -45,15 +40,7 @@ print-%:
 
 assets: $(OBJS)
 
-libs: $(TOP)/libs.sh
-	$<
-
-clean-assets:
+clean:
 	$(RM) -r $(OBJS)
 
-clean-libs:
-	$(RM) -r $(LIB_DIR)/*
-
-clean: clean-assets clean-libs
-
-.PHONY: all errortemplates assets libs clean-assets clean-libs clean
+.PHONY: all errortemplates assets clean
