@@ -22,12 +22,12 @@
 
 ## Recurring tasks
 
-## Assets regeneration
+### Assets regeneration
 
 You can regenerate some of the assets committed in the repository, if for
 instance you changed the source files or the asset generation process.
 
-### Dependencies
+#### Dependencies
 
 Generating the assets require additional dependencies.
 
@@ -43,7 +43,7 @@ For Archlinux:
 sudo pacman -S inkscape optipng
 ```
 
-### Generating the assets
+#### Generating the assets
 
 Once you have the required image processing dependencies, you can force a
 regeneration of all the assets using:
@@ -55,7 +55,7 @@ make -B assets
 You can then `git add` the modified files that you want to update in the
 repository.
 
-### Using Docker
+#### Using Docker
 
 You can also generate the assets using docker instead.
 

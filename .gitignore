@@ -5,6 +5,8 @@ prologin/prologin/settings/dev.py
 prologin/prologin/settings/prod.py
 prologin/prologin/settings/semifinal.py
 
+prologin/locale
+
 .idea/
 venv/
 *.swp
