@@ -1,4 +1,5 @@
 from collections import defaultdict
+from textwrap import dedent
 
 from django.conf import settings
 from django.views.generic import TemplateView
@@ -36,15 +37,12 @@ class Status():
     def __init__(self):
         pass
 
-    def docstring(self):
+    def md(self):
         """
         Quickly format the docstring so the <pre> tag does not show the first
         indent.
         """
-        output = []
-        for line in self.__doc__.strip().splitlines():
-            output.append(line.strip())
-        return '<br>'.join(output)
+        return dedent(self.__doc__)
 
 
 class ExpiredUserActivations(Status):
@@ -54,7 +52,11 @@ class ExpiredUserActivations(Status):
     These objects eat up space without any use.
 
     To remove them you could use the following django query:
-    UserActivation.objects.filter(expiration_date__lt=timezone.now()).delete()
+    
+    ```python
+    UserActivation.objects.filter(
+            expiration_date__lt=timezone.now()).delete()
+    ```
     """
     category = "Activations"
     name = "Expired user activations"
@@ -94,10 +96,13 @@ class WeirdContestantStates(Status):
 
     You should try to find why this happened before removing them with the
     following query:
+    
+    ```python
     Contestant.objects.filter(
             assignation_final=Assignation.assigned.value).exclude(
             assignation_semifinal=Assignation.assigned.value)
-   """
+    ```
+    """
     category = "Contestants"
     name = "Weird contestant states"
 

@@ -1,5 +1,5 @@
 {% extends "prologin/base.html" %}
-{% load django_bootstrap_breadcrumbs bootstrap %}
+{% load django_bootstrap_breadcrumbs bootstrap markup static %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -7,6 +7,10 @@
 {% endblock breadcrumbs %}
 
 {% block title %}Dashboard{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/forum.css' %}"/>
+{% endblock %}
 
 {% block content %}
   {% for section,statuses in sections.items %}
@@ -21,7 +25,7 @@
               <h4><strong>{{ s.name }}</strong></h4>
               <h4>Count: {{s.count}}</h4>
               <h4>Description:</h4>
-              <p class="well">{{s.docstring | safe}}</p>
+              <div class="post-content">{{s.md|flavored_markdown}}</div>
               {% if s.detail %}
               <button class="btn" type="button" data-toggle="collapse" data-target="#detail_{{sect_i}}_{{stat_i}}" aria-expanded="false" aria-controls="detail_{{sect_i}}_{{stat_i}}">Show details</button>
               <div class="collapse well" id="detail_{{sect_i}}_{{stat_i}}">
