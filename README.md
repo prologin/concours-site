@@ -35,6 +35,7 @@ You can use the following commands to install those dependencies:
 
   ```bash
   sudo pacman -S --needed git python3 npm postgresql redis texlive-core
+  systemctl enable --now redis
   ```
 
 - For **Ubuntu** and **Debian ≥ 10 (buster)**:
