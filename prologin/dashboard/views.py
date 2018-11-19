@@ -67,25 +67,6 @@ class ExpiredUserActivations(Status):
         self.detail = objects
 
 
-class AwaitingUserActivations(Status):
-    """
-    The list of awaiting UserActivation objects.
-
-    These are a sign that users are signing up, yay!
-
-    You shouldn't remove these unless you want to piss of the users.
-    """
-    category = "Activations"
-    name = "Awaiting user activations"
-
-    def __init__(self):
-        super().__init__()
-        objects = UserActivation.objects.filter(
-            expiration_date__gte=timezone.now())
-        self.count = objects.count()
-        self.detail = objects
-
-
 class UnassignedContestants(Status):
     """
     The list of unassigned contestants.
