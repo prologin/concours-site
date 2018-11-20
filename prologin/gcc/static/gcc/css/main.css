@@ -1,0 +1,553 @@
+/*
+ * Based on escape Velocity by HTML5 UP
+ * html5up.net | @ajlkn
+ * Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+ */
+
+html, body, div, span, applet, object,
+iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
+pre, a, abbr, acronym, address, big, cite,
+code, del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b,
+u, i, center, dl, dt, dd, ol, ul, li, fieldset,
+form, label, legend, table, caption, tbody,
+tfoot, thead, tr, th, td, article, aside,
+canvas, details, embed, figure, figcaption,
+footer, header, hgroup, menu, nav, output, ruby,
+section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol, ul {
+	list-style: none;
+}
+
+blockquote, q {
+	quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+body {
+	-webkit-text-size-adjust: none;
+}
+
+mark {
+	background-color: transparent;
+	color: inherit;
+}
+
+input::-moz-focus-inner {
+	border: 0;
+	padding: 0;
+}
+
+input, select, textarea {
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+}
+
+/* Basic */
+
+@-ms-viewport {
+	width: device-width;
+}
+
+html {
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+body, input, textarea, select {
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 400;
+	color: #919499;
+	font-size: 14pt;
+	line-height: 1.75em;
+	letter-spacing: 0.025em;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 700;
+	color: #484d55;
+}
+
+h1 a, h2 a, h3 a, h4 a, h5 a, h6 a {
+	color: inherit;
+	text-decoration: none;
+}
+
+a {
+	-moz-transition: color .25s ease-in-out;
+	-webkit-transition: color .25s ease-in-out;
+	-ms-transition: color .25s ease-in-out;
+	transition: color .25s ease-in-out;
+	text-decoration: underline;
+	color: #717479;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+strong, b {
+	font-weight: 700;
+	color: #484d55;
+}
+
+blockquote {
+	border-left: solid 0.5em #ddd;
+	padding: 1em 0 1em 2em;
+	font-style: italic;
+}
+
+em, i {
+	font-style: italic;
+}
+
+hr {
+	border: 0;
+	border-top: solid 1px #ddd;
+	margin: 2em 0 2em 0;
+}
+
+sub {
+	position: relative;
+	top: 0.5em;
+	font-size: 0.8em;
+}
+
+sup {
+	position: relative;
+	top: -0.5em;
+	font-size: 0.8em;
+}
+
+.nobr {
+	white-space: nowrap;
+}
+
+br.clear {
+	clear: both;
+}
+
+p, ul, ol, dl, table, blockquote, form {
+	margin-bottom: 2em;
+}
+
+/* Section/Article */
+
+section,
+article {
+	margin: 0 0 4em 0;
+}
+
+section > :last-child,
+article > :last-child,
+section:last-child,
+article:last-child {
+	margin-bottom: 0;
+}
+
+header.style1 {
+	text-align: center;
+	padding: 3em 0 3em 0;
+}
+
+header.style1 h2 {
+	font-weight: 700;
+	font-size: 2em;
+	letter-spacing: 0.075em;
+	line-height: 1.5em;
+}
+
+header.style1 p {
+	color: #b1b4b9;
+	display: block;
+	margin: 1.15em 0 0 0;
+	font-size: 1.3em;
+	letter-spacing: 0.075em;
+	line-height: 1.5em;
+}
+
+body > section {
+	margin-bottom: 0;
+}
+
+/* Table */
+
+table {
+	width: 100%;
+}
+
+table.default {
+	width: 100%;
+}
+
+table.default tbody tr:nth-child(2n+2) {
+	background: #f4f4f4;
+}
+
+table.default td {
+	padding: 0.5em 1em 0.5em 1em;
+}
+
+table.default th {
+	text-align: left;
+	font-weight: 400;
+	padding: 0.5em 1em 0.5em 1em;
+}
+
+table.default thead {
+	background: #484d55;
+	color: #fff;
+}
+
+table.default tfoot {
+	background: #eee;
+}
+
+/* Form */
+
+form label {
+	display: block;
+	font-weight: 700;
+	color: #484d55;
+	margin: 0.25em 0 0.5em 0;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form select,
+form textarea {
+	-moz-transition: all .25s ease-in-out;
+	-webkit-transition: all .25s ease-in-out;
+	-ms-transition: all .25s ease-in-out;
+	transition: all .25s ease-in-out;
+	-webkit-appearance: none;
+	display: block;
+	border: 0;
+	background: #eee;
+	box-shadow: inset 0px 0px 1px 0px #a0a1a7;
+	border-radius: 0.35em;
+	width: 100%;
+	padding: 0.75em 1em 0.75em 1em;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form select:focus,
+form textarea:focus {
+	background: #f8f8f8;
+}
+
+form input[type="text"],
+form input[type="email"]
+input[type="password"] {
+	line-height: 1em;
+}
+
+form select {
+	line-height: 1em;
+}
+
+form textarea {
+	min-height: 8em;
+}
+
+form ul.actions {
+	margin-top: 0;
+}
+
+form ::-webkit-input-placeholder {
+	color: #555 !important;
+	font-style: italic;
+	line-height: 1.35em;
+}
+
+form :-moz-placeholder {
+	color: #555 !important;
+	font-style: italic;
+}
+
+form ::-moz-placeholder {
+	color: #555 !important;
+	font-style: italic;
+}
+
+form :-ms-input-placeholder {
+	color: #555 !important;
+	font-style: italic;
+}
+
+form ::-moz-focus-inner {
+	border: 0;
+}
+
+/* Image */
+
+.image {
+	display: inline-block;
+}
+
+.image img {
+	display: block;
+	width: 100%;
+}
+
+.image.fit {
+	display: block;
+	width: 100%;
+}
+
+.image.left {
+	float: left;
+	margin: 0 2em 2em 0;
+}
+
+.image.centered {
+	display: block;
+	margin: 0 0 2em 0;
+}
+
+.image.centered img {
+	margin: 0 auto;
+	width: auto;
+}
+
+.image.featured {
+	display: block;
+	width: 100%;
+	margin: 0 0 2em 0;
+}
+
+/* Button */
+
+input[type="button"],
+input[type="submit"],
+input[type="reset"],
+button,
+.button {
+	-moz-transition: all .25s ease-in-out;
+	-webkit-transition: all .25s ease-in-out;
+	-ms-transition: all .25s ease-in-out;
+	transition: all .25s ease-in-out;
+	display: inline-block;
+	background: #444;
+	text-align: center;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: 0.25em;
+	text-decoration: none;
+	border-radius: 0.35em;
+	border: 0;
+	outline: 0;
+	cursor: pointer;
+	padding: 0 2.25em 0 2.25em;
+	font-size: 0.9em;
+	min-width: 12em;
+	height: 4em;
+	line-height: 4em;
+}
+
+input[type="button"]:hover,
+input[type="submit"]:hover,
+input[type="reset"]:hover,
+button:hover,
+.button:hover {
+	background-color: #008080;
+}
+
+input[type="button"].large,
+input[type="submit"].large,
+input[type="reset"].large,
+button.large,
+.button.large {
+	font-size: 1em;
+	min-width: 14em;
+}
+
+input[type="button"].style1,
+input[type="submit"].style1,
+input[type="reset"].style1,
+button.style1,
+.button.style1 {
+	background: #005a5a url("img/overlay.png");
+	color: #fff;
+}
+
+input[type="button"].style1:hover,
+input[type="submit"].style1:hover,
+input[type="reset"].style1:hover,
+button.style1:hover,
+.button.style1:hover {
+	background-color: #008080;
+}
+
+input[type="button"].style1:active,
+input[type="submit"].style1:active,
+input[type="reset"].style1:active,
+button.style1:active,
+.button.style1:active {
+	background-color: #d96760;
+}
+
+input[type="button"].style2,
+input[type="submit"].style2,
+input[type="reset"].style2,
+button.style2,
+.button.style2 {
+	background: none;
+	color: #606167;
+	box-shadow: inset 0px 0px 2px 0px #a0a1a7;
+}
+
+input[type="button"].style2:hover,
+input[type="submit"].style2:hover,
+input[type="reset"].style2:hover,
+button.style2:hover,
+.button.style2:hover {
+	box-shadow: inset 0px 0px 2px 0px #606167;
+}
+
+input[type="button"].style2:active,
+input[type="submit"].style2:active,
+input[type="reset"].style2:active,
+button.style2:active,
+.button.style2:active {
+	box-shadow: inset 0px 0px 2px 0px #202127;
+}
+
+input[type="button"].style3,
+input[type="submit"].style3,
+input[type="reset"].style3,
+button.style3,
+.button.style3 {
+	background: #2f333b url("img/overlay.png");
+	color: #fff;
+}
+
+input[type="button"].style3:hover,
+input[type="submit"].style3:hover,
+input[type="reset"].style3:hover,
+button.style3:hover,
+.button.style3:hover {
+	background-color: #3f434b;
+}
+
+input[type="button"].style3:active,
+input[type="submit"].style3:active,
+input[type="reset"].style3:active,
+button.style3:active,
+.button.style3:active {
+	background-color: #1f232b;
+}
+
+/* List */
+
+ul {
+	list-style: disc;
+	padding-left: 1em;
+}
+
+ul li {
+	padding-left: 0.5em;
+}
+
+ul.style2 {
+	list-style: none;
+	padding-left: 0;
+}
+
+ul.style2 li {
+	border-top: solid 1px #eee;
+	padding: 1.5em 0 0 0;
+	margin: 1.5em 0 0 0;
+}
+
+ul.style2 li:first-child {
+	border-top: 0;
+	padding-top: 0;
+	margin-top: 0;
+}
+
+ul.style3 {
+	list-style: none;
+	padding-left: 0;
+}
+
+ul.style3 li {
+	border-top: solid 1px #eee;
+	padding: 0.5em 0 0 0;
+	margin: 0.5em 0 0 0;
+}
+
+ul.style3 li:first-child {
+	border-top: 0;
+	padding-top: 0;
+	margin-top: 0;
+}
+
+ol {
+	list-style: decimal;
+	padding-left: 1.25em;
+}
+
+ol li {
+	padding-left: 0.25em;
+}
+
+/* Actions */
+
+ul.actions {
+	list-style: none;
+	padding-left: 0;
+	margin: 3em 0 0 0;
+}
+
+ul.actions li {
+	display: inline-block;
+	margin: 0 0.75em 0 0.75em;
+	padding-left: 0;
+}
+
+ul.actions li:first-child {
+	margin-left: 0;
+}
+
+ul.actions li:last-child {
+	margin-right: 0;
+}
+
+ul.actions.special {
+	text-align: center;
+}
