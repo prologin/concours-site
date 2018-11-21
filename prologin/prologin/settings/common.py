@@ -233,7 +233,7 @@ LATEX_GENERATION_PROC_TIMEOUT = 60  # in seconds
 PLAINTEXT_PASSWORD_LENGTH = 8
 PLAINTEXT_PASSWORD_DISAMBIGUATION = str.maketrans("iIl1oO0/+=-_", "aAbcCD9234z5")
 PLAINTEXT_PASSWORD_SALT = "whatever1337leet"
-FINAL_EVENT_DATE_FORMAT = 'l d'
+FINAL_EVENT_DATE_FORMAT = 'l d F'
 GOOGLE_ANALYTICS_ID = ''
 PROLOGIN_UTILITY_REDIS_STORE = dict(host='localhost', port=6379, db=0, socket_connect_timeout=1, socket_timeout=3)
 PROLOGIN_WEBHOOK_BASE_URL = 'https://webhook.prologin.org'
