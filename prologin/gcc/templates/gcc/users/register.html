@@ -1,19 +1,19 @@
 {% extends "gcc/base.html" %}
 {% load static %}
 
-{% block title %}GCC! − Connection{% endblock %}
+{% block title %}GCC! − Inscription{% endblock %}
 
 
 {% block content %}
 <section class="wrapper">
-	<div class="title">Connection</div>
+	<div class="title">Inscription</div>
 	<div class="container">
-		<h2>Se connecter à GCC!</h2>
+		<h2>S'inscrire sur le site de Prologin</h2>
 		<form method="post">
 	    {% csrf_token %}
 			{{ form.as_p }}
 			<input type="hidden" name="next" value="{% url 'gcc:index' %}">
-      <button class="halo-button" type="submit">Se connecter</button>
+      <button class="halo-button" type="submit">S'inscrire</button>
 		</form>
 	</div>
 </section>

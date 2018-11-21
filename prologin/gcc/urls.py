@@ -4,7 +4,8 @@ from gcc import views
 app_name = 'gcc'
 
 user_patterns = [
-    path('login', views.LoginView.as_view(), name='login')
+    path('login', views.LoginView.as_view(), name='login'),
+    path('register', views.RegistrationView.as_view(), name='register'),
 ]
 
 photos_patterns = [

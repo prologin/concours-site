@@ -6,24 +6,31 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
 
 from django.views.generic import TemplateView
-from django.views.generic.edit import FormView
+from django.views.generic.edit import FormView, CreateView
 
 from gcc.models import Answer, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Trainer, Forms
 from users.models import ProloginUser
 
-from gcc.forms import AuthenticationForm, EmailForm, build_dynamic_form, ApplicationValidationForm
+from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
+
+import users.views
 
 
 # Users
 
-class LoginView(auth.views.LoginView):
+class LoginView(users.views.LoginView):
     template_name = 'gcc/users/login.html'
-    authentication_form = AuthenticationForm
+
+
+# TODO : Check that not logged in (AnonymousRequiredMixin)
+class RegistrationView(users.views.RegistrationView):
+    template_name = 'gcc/users/register.html'
 
 # Photos
 
 class PhotosIndexView(TemplateView):
     template_name = "gcc/photos_index.html"
+
 
 class PhotosEditionView(TemplateView):
     template_name = "gcc/photos_edition.html"

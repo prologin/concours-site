@@ -3,15 +3,9 @@ import json
 from datetime import date
 
 from django import forms
-from django.contrib.auth.forms import AuthenticationForm as DjangoAuthenticationForm
 
 from gcc.models import Answer, Applicant, ApplicantStatusTypes, EventWish, Question, Forms, AnswerTypes, Event, Edition
 
-
-# Users
-
-class AuthenticationForm(DjangoAuthenticationForm):
-    pass
 
 # Newsletter
 
