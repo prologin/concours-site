@@ -344,7 +344,7 @@
 	border-top-right-radius: 0;
 }
 
-.dropotron a, .dropotron span {
+.dropotron a, .dropotron span, .dropotron button {
 	transition: all .25s ease-in-out;
 	display: block;
 	color: #eee;
@@ -355,18 +355,34 @@
 	letter-spacing: 0.25em;
 	border-top: solid 1px rgba(255, 255, 255, 0.15);
 	line-height: 3em;
+
+	/* For buttons, override default style */
+	border: none;
+	background: none;
+	text-align: left;
+	font-weight: normal;
+	padding: inherit;
 }
 
 .dropotron li {
 	padding-left: 0;
 }
 
-.dropotron li:first-child a, .dropotron li:first-child span {
+.dropotron form {
+	margin: 0;
+}
+
+.dropotron li:first-child a, .dropotron li:first-child span, .dropotron li:first-child button {
 	border-top: 0;
 }
 
 .dropotron li:hover > a, .dropotron li:hover > span {
 	color: #fff;
+}
+
+.pull-right .dropotron {
+	left: unset !important;
+	right: 0 !important;
 }
 
 /* Important infos sections */

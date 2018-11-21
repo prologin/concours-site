@@ -52,9 +52,23 @@
 						{% endwith %}
 					</ul>
 				</li>
-				<li class="pull-right">
-					<a href="{% url 'gcc:login' %}">Connection</a>
-				</li>
+				{% if not user.is_authenticated %}
+					<li class="pull-right">
+						<a href="{% url 'gcc:login' %}">Connection</a>
+					</li>
+				{% else %}
+					<li class="pull-right">
+						<a>{{ user.username }}</a>
+						<ul style="display:block">
+							<li>
+								<form method="post" action="{% url 'users:logout' %}?next=/gcc">
+									{% csrf_token %}
+									<button type="submit">Sign out</button>
+								</form>
+							</li>
+						</ul>
+					</li>
+				{% endif %}
 			</ul>
 		</nav>
 	</section>
