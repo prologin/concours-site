@@ -3,15 +3,24 @@ import json
 from datetime import date
 
 from django import forms
+from django.contrib.auth.forms import AuthenticationForm as DjangoAuthenticationForm
 
 from gcc.models import Answer, Applicant, ApplicantStatusTypes, EventWish, Question, Forms, AnswerTypes, Event, Edition
 
+
+# Users
+
+class AuthenticationForm(DjangoAuthenticationForm):
+    pass
+
+# Newsletter
 
 class EmailForm(forms.Form):
     # See here for why 254 max
     # http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690
     email = forms.EmailField(label='Adresse électronique', max_length=254)
 
+# Application
 
 def build_dynamic_form(form, user):
     """
@@ -91,7 +100,6 @@ def build_dynamic_form(form, user):
                     answer.save()
 
     return DynamicForm
-
 
 class ApplicationValidationForm(forms.Form):
     """

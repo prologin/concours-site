@@ -3,6 +3,10 @@ from gcc import views
 
 app_name = 'gcc'
 
+user_patterns = [
+    path('login', views.LoginView.as_view(), name='login')
+]
+
 photos_patterns = [
     path('', views.PhotosIndexView.as_view(), name='photos_index'),
     path(
@@ -71,6 +75,7 @@ urlpatterns = [
     path('ressources/', views.RessourcesView.as_view(), name='ressources'),
     path('editions/', views.EditionsView.as_view(), name='editions'),
     path('editions/<int:year>/', views.EditionsView.as_view(), name='editions'),
+    path('user/', include(user_patterns)),
     path('team/', include(team_patterns)),
     path('photos/', include(photos_patterns)),
     path('newsletter/', include(newsletter_patterns)),

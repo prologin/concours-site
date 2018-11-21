@@ -285,6 +285,11 @@
 	padding: 0 1.5em 0 1.5em;
 }
 
+#nav > ul > li.pull-right {
+	position: absolute;
+	right: 40px;
+}
+
 #nav > ul > li > ul {
 	display: none;
 }

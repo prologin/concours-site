@@ -1,5 +1,6 @@
 from datetime import date
 
+from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -10,10 +11,16 @@ from django.views.generic.edit import FormView
 from gcc.models import Answer, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Trainer, Forms
 from users.models import ProloginUser
 
-from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
+from gcc.forms import AuthenticationForm, EmailForm, build_dynamic_form, ApplicationValidationForm
+
+
+# Users
+
+class LoginView(auth.views.LoginView):
+    template_name = 'gcc/users/login.html'
+    authentication_form = AuthenticationForm
 
 # Photos
-
 
 class PhotosIndexView(TemplateView):
     template_name = "gcc/photos_index.html"
