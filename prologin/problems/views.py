@@ -412,7 +412,7 @@ class AjaxSubmissionCorrected(PermissionRequiredMixin, BaseDetailView):
 
     def get_queryset(self):
         return (super().get_queryset().select_related('submission__user')
-                .filter(submission__user=self.request.user))
+                .filter(submission__user__pk=self.request.user.pk))
 
     def render_to_response(self, context):
         has_result = self.object.done()
