@@ -41,14 +41,15 @@ You can use the following commands to install those dependencies:
 - For **Ubuntu** and **Debian ≥ 10 (buster)**:
 
   ```bash
-  sudo apt install git python3 python3-venv npm postgresql redis texlive
+  sudo apt install git python3 python3-venv npm postgresql redis-server texlive
   ```
 
 - For **Debian ≤ 9 (stretch)**
 
   ```bash
   curl https://deb.nodesource.com/setup_8.x | sudo bash
-  sudo apt install git python3 python3-venv nodejs postgresql redis texlive
+  sudo apt install git python3 python3-venv nodejs postgresql redis-server \
+                   texlive
   ```
 
 ### PostgreSQL Setup
@@ -106,7 +107,8 @@ install the Python dependencies of the website:
 ```bash
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -U pip -r requirements.txt
+pip install -U pip
+pip install -r requirements.txt
 ```
 
 ### Web dependencies

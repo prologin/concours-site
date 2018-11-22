@@ -43,6 +43,6 @@ SITE_BASE_URL = 'http://{}'.format(SITE_HOST)
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'prolodemi',
+        'NAME': 'prologin',
     }
 }
