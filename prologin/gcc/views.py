@@ -26,48 +26,12 @@ class LoginView(users.views.LoginView):
 class RegistrationView(users.views.RegistrationView):
     template_name = 'gcc/users/register.html'
 
-# Photos
 
-class PhotosIndexView(TemplateView):
-    template_name = "gcc/photos_index.html"
-
-
-class PhotosEditionView(TemplateView):
-    template_name = "gcc/photos_edition.html"
-
-
-class PhotosEventView(TemplateView):
-    template_name = "gcc/photos_event.html"
-
-
-# Posters
+# Editions
 
 
 class EditionsView(TemplateView):
     template_name = "gcc/editions/index.html"
-
-
-# Team
-
-
-class TeamIndexView(TemplateView):
-    template_name = "gcc/team/index.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context["editions"] = Edition.objects.order_by('-year')
-        context["trainers"] = Trainer.objects.order_by('user__last_name', 'user__first_name')
-        return context
-
-
-class TeamEditionView(TemplateView):
-    template_name = "gcc/team/edition.html"
-
-    def get_context_data(self, year):
-        context = {
-            'edition': get_object_or_404(Edition, year=year)
-        }
-        return context
 
 
 # About
@@ -188,7 +152,6 @@ class ApplicationReviewView(TemplateView):
         }
 
         return context
-
 
 # TODO: Check permissions
 def application_remove_label(request, applicant_id, label_id):

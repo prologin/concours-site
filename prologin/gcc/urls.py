@@ -8,24 +8,6 @@ user_patterns = [
     path('register', views.RegistrationView.as_view(), name='register'),
 ]
 
-photos_patterns = [
-    path('', views.PhotosIndexView.as_view(), name='photos_index'),
-    path(
-        '<int:edition>',
-        views.PhotosEditionView.as_view(),
-        name='photos_edition'),
-    path(
-        '<int:edition>/<int:event>',
-        views.PhotosEventView.as_view(),
-        name='photos_event'),
-]
-
-team_patterns = [
-    path('', views.TeamIndexView.as_view(), name='team_index'),
-    path(
-        '<int:year>', views.TeamEditionView.as_view(), name='team_edition'),
-]
-
 newsletter_patterns = [
     path(
         'unsubscribe',
@@ -77,8 +59,6 @@ urlpatterns = [
     path('editions/', views.EditionsView.as_view(), name='editions'),
     path('editions/<int:year>/', views.EditionsView.as_view(), name='editions'),
     path('user/', include(user_patterns)),
-    path('team/', include(team_patterns)),
-    path('photos/', include(photos_patterns)),
     path('newsletter/', include(newsletter_patterns)),
     path('application/', include(application_patterns))
 ]
