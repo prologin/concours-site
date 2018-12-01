@@ -77,8 +77,8 @@
 	<section class="wrapper">
 		<div class="title">Les chiffres</div>
 		<div class="container">
-			<div class="row aln-center">
-				<div class="col-4 col-12-medium">
+			<div class="row reg_20rem">
+				<div>
 					<section class="highlight">
 						{% with url="https://www.lemonde.fr/campus/article/2017/12/11/femmes-et-informatique-vingt-ans-de-desamour_5227726_4401467.html" %}
 							<a href="{{url}}" class="image featured">
@@ -94,7 +94,7 @@
 						{% endwith %}
 					</section>
 				</div>
-				<div class="col-4 col-12-medium">
+				<div>
 					<section class="highlight">
 						<a href="{% url 'gcc:editions' %}" class="image featured">
 							<img src="{% static 'gcc/img/stat_editions.svg' %}" alt="" /></a>
@@ -108,7 +108,7 @@
 						</ul>
 					</section>
 				</div>
-				<div class="col-4 col-12-medium">
+				<div>
 					<section class="highlight">
 						<a href="{% url 'home' %}" class="image featured">
 							<img src="{% static 'gcc/img/stat_prologin.svg' %}" alt="" /></a>
@@ -132,33 +132,33 @@
 			<p>
 				Nous remercions nos sponsors sans lesquels les stages ne pourraient avoir lieu.
 			</p>
-			<div class="row">
-				<div class="col-2 col-4-medium col-6-small">
+			<div class="row reg_5rem">
+				<div class="cell center">
 					<a href="https://edu.google.com/intl/fr_be/?modal_active=none">
 						<img alt="Google Education" src="{% static 'gcc/img/sponsors/google_edu.png' %}" style="max-width: 100%"/>
 					</a>
 				</div>
-				<div class="col-2 col-4-medium col-6-small">
+				<div class="cell center">
 					<a href="https://www.fondation-blaise-pascal.org/">
 						<img alt="Fondation Blaise Pascal" src="{% static 'gcc/img/sponsors/logo_fondation_bp.png' %}" style="max-width: 100%"/>
 					</a>
 				</div>
-				<div class="col-2 col-4-medium col-6-small">
+				<div class="cell center">
 					<a href="http://milyon.universite-lyon.fr/">
 						<img alt="Milyon" src="{% static 'gcc/img/sponsors/milyon.png' %}" style="max-width: 100%"/>
 					</a>
 				</div>
-				<div class="col-2 col-4-medium col-6-small">
+				<div class="cell center">
 					<a href="http://www.ens-lyon.fr/">
 						<img alt="ENS de Lyon" src="{% static 'gcc/img/sponsors/ens_lyon.png' %}" style="max-width: 100%"/>
 					</a>
 				</div>
-				<div class="col-2 col-4-medium col-6-small">
+				<div class="cell center">
 					<a href="http://www.epita.fr/">
 						<img alt="EPITA" src="{% static 'gcc/img/sponsors/epita.png' %}" style="max-width: 100%"/>
 					</a>
 				</div>
-				<div class="col-2 col-4-medium col-6-small">
+				<div class="cell center">
 					<a href="https://group.bnpparibas/">
 						<img alt="BNP Paribas" src="{% static 'gcc/img/sponsors/bnp_paribas.png' %}" style="max-width: 100%"/>
 					</a>
