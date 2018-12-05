@@ -190,7 +190,7 @@ The points you score for solving this year problems will be accounted for your s
 {% block extra_script %}
   <script src="{% static 'vendor/select2/dist/js/select2.min.js' %}"></script>
   {% get_current_language as language %}
-  <script src="{% static 'select2/dist/js/i18n' %}/{{ language }}.js"></script>
+  <script src="{% static 'vendor/select2/dist/js/i18n' %}/{{ language }}.js"></script>
   <script type="text/javascript">
     window.i18n = window.i18n || {};
     window.i18n.makeChoice = "{% trans "Make your choice" %}";
