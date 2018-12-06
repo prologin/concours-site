@@ -23,6 +23,9 @@
         popupButtonClasses: 'fa fa-smile-o'
       });
       window.emojiPicker.discover();
+
+      // Display newlines in the input area when previewing message
+      $('.emoji-wysiwyg-editor').css("white-space", "pre-wrap");
     });
   </script>
 {% endblock %}
