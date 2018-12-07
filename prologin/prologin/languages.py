@@ -181,4 +181,7 @@ PYGMENTS_LEXER_MAPPING = {
     'lua': 'lua',
     'csharp': 'csharp',
     'rust': 'rust',
+    'go': 'go',
+    'd': 'd',
+    'ruby': 'ruby',
 }
