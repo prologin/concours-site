@@ -399,16 +399,16 @@ footer .legal {
  * Code (pygments)
  */
 
-.pyg-hltable {
+.codehilitetable {
   display: block;
   overflow-x: auto;
 }
 
-.pyg-hltable, .pyg-hltable td.code {
+.codehilitetable, .codehilitetable td.code {
   width: 100%;
 }
 
-.pyg-hltable pre {
+.codehilitetable pre {
   color: inherit;
   background: inherit;
   font-style: inherit;

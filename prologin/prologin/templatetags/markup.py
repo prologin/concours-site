@@ -35,7 +35,7 @@ def _init_flavored_markdown():
         markdown.extensions.tables.TableExtension(),
         markdown.extensions.footnotes.FootnoteExtension(),
         markdown.extensions.smart_strong.SmartEmphasisExtension(),
-        markdown.extensions.codehilite.CodeHiliteExtension(linenums=True, css_class="pyg-hl"),
+        markdown.extensions.codehilite.CodeHiliteExtension(linenums=True, css_class="codehilite"),
         markdown.extensions.toc.TocExtension(slugify=lambda s, _: slugify('bdy-' + s),
                                              permalink=True,
                                              baselevel=1),
@@ -88,5 +88,5 @@ def archive_markdown(value, scoreboard):
 @register.simple_tag
 def pygmentize(code, language, **options):
     lexer = pygments.lexers.get_lexer_by_name(language)
-    formatter = pygments.formatters.HtmlFormatter(linenos=True, cssclass="pyg-hl", **options)
+    formatter = pygments.formatters.HtmlFormatter(linenos=True, cssclass="codehilite", **options)
     return mark_safe(pygments.highlight(code, lexer, formatter))
