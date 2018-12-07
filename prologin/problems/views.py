@@ -465,6 +465,7 @@ class ManualView(TemplateView):
         except Exception:
             logger.exception("Retrieving fresh VM compilers versions failed")
 
+        languages = {k: v for k, v in languages.items() if Language.guess(k)}
         context['languages'] = languages
         return context
 
