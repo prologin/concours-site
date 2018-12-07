@@ -19,7 +19,6 @@
     "jquery": "3.x.x",
     "mathjax": ">=2.7.4",
     "onesignal-emoji-picker": "git+https://github.com/OneSignal/emoji-picker",
-    "pygments-css": "1.x.x",
     "select2": "4.x.x"
   }
 }

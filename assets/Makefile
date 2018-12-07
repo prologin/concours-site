@@ -15,6 +15,9 @@ include config.mk
 OBJS :=
 # -- images
 include images.mk
+# -- pygments
+PYGMENTS_CSS := $(STATIC_DIR)/css/pygments-$(PYGMENTS_THEME).css
+OBJS += $(PYGMENTS_CSS)
 # -- error templates
 ERRORTEMPLATES := $(addprefix $(PUBLIC_DIR)/503.,$(ERROR_503_LANGS))
 ERRORTEMPLATES := $(addsuffix .html,$(ERRORTEMPLATES))
@@ -26,6 +29,11 @@ $(PUBLIC_DIR)/503.%.html:
 		--language-code $* -f $@
 
 errortemplates: $(ERRORTEMPLATES)
+
+# Pygments CSS theme
+$(PYGMENTS_CSS):
+	mkdir -p $(dir $(@))
+	pygmentize -S $(PYGMENTS_THEME) -a $(PYGMENTS_PREFIX) -f html >$@
 
 # Debug rule
 print-%:
