@@ -49,34 +49,36 @@ class Language(ChoiceEnum):
     """
     c = LanguageDef("C", ['.c'], doc='c',
         camisole='c', memory=lambda m: m + 4096)
-    rust = LanguageDef("Rust", ['.rs'],
-        camisole='rust', memory=lambda m: m + 4096)
     cpp = LanguageDef("C++", ['.cc', '.c++', '.cpp'], doc='cpp',
         camisole='c++', memory=lambda m: m + 4096)
-    pascal = LanguageDef("Pascal", ['.pas', '.pascal'], doc='pascal',
-        camisole='pascal', memory=lambda m: m + 4096)
-    ocaml = LanguageDef("OCaml", ['.ml', '.ocaml'], doc='ocaml',
-        camisole='ocaml', memory=lambda m: 2 * m + 15000)
-    scheme = LanguageDef("Scheme", ['.scm'], doc='scheme',
-        camisole='scheme', memory=lambda m: m + 36384, time=lambda t: 3 * t)
+    csharp = LanguageDef("C#", ['.cs'],
+        camisole='c#', memory=lambda m: m + 50000, time=lambda t: t + 0.038)
     haskell = LanguageDef("Haskell", ['.hs'], doc='haskell',
         camisole='haskell', memory=lambda m: 5 * m + 30000, time=lambda t: 4 * t + 0.200)
     java = LanguageDef("Java", ['.java'], doc='java',
         camisole='java', memory=lambda m: 5 * m + 30000, time=lambda t: 4 * t + 0.200)
+    ocaml = LanguageDef("OCaml", ['.ml', '.ocaml'], doc='ocaml',
+        camisole='ocaml', memory=lambda m: 2 * m + 15000)
     python = LanguageDef("Python", ['.py'], doc='python',
         camisole='python', memory=lambda m: 5 * m + 9000, time=lambda t: 15 * t)
-    ada = LanguageDef("Ada", ['.adb'], doc='ada',
-        camisole='ada', memory=lambda m: m + 4096)
     php = LanguageDef("PHP", ['.php'], doc='php',
         camisole='php', memory=lambda m: 5 * m + 36384, time=lambda t: 8 * t)
+    rust = LanguageDef("Rust", ['.rs'],
+        camisole='rust', memory=lambda m: m + 4096)
+
+    ada = LanguageDef("Ada", ['.adb'], doc='ada',
+        camisole='ada', memory=lambda m: m + 4096)
     js = LanguageDef("Javascript", ['.js'],
         camisole='javascript', memory=lambda m: 5 * m + 26000, time=lambda t: 5 * t)
-    perl = LanguageDef("Perl", ['.pl', '.perl'],
-        camisole='perl', memory=lambda m: m + 5000, time=lambda t: 10 * t)
     lua = LanguageDef("Lua", ['.lua'],
         camisole='lua', memory=lambda m: m + 5000, time=lambda t: 10 * t)
-    csharp = LanguageDef("C#", ['.cs'],
-        camisole='c#', memory=lambda m: m + 50000, time=lambda t: t + 0.038)
+    pascal = LanguageDef("Pascal", ['.pas', '.pascal'], doc='pascal',
+        camisole='pascal', memory=lambda m: m + 4096)
+    perl = LanguageDef("Perl", ['.pl', '.perl'],
+        camisole='perl', memory=lambda m: m + 5000, time=lambda t: 10 * t)
+    scheme = LanguageDef("Scheme", ['.scm'], doc='scheme',
+        camisole='scheme', memory=lambda m: m + 36384, time=lambda t: 3 * t)
+
     pseudocode = LanguageDef(_("Pseudocode"), ['.txt'])
 
     def name_display(self):
