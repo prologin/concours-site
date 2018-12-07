@@ -311,7 +311,18 @@ PROLOGIN_HIJACK_NOTIFY = False
 
 PROLOGIN_NEW_SCHOOL_NOTIFY = False
 
+
 # Debug toolbar
+
+def show_toolbar_cb(req):
+    from debug_toolbar.middleware import show_toolbar
+    if not show_toolbar(req):
+        return False
+    # Disable for statictemplate
+    if req.META['SERVER_NAME'] == 'testserver':
+        return False
+    return True
+
 
 DEBUG_TOOLBAR_CONFIG = {
     # Already served
@@ -319,6 +330,8 @@ DEBUG_TOOLBAR_CONFIG = {
     'DISABLE_PANELS': {'debug_toolbar.panels.redirects.RedirectsPanel',
                        # StaticFilesPanel takes *way* too much compute power while being useless
                        'debug_toolbar.panels.staticfiles.StaticFilesPanel'},
+    'SHOW_COLLAPSED': True,
+    'SHOW_TOOLBAR_CALLBACK': show_toolbar_cb
 }
 
 # Content Security Policy
