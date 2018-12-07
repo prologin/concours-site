@@ -68,6 +68,10 @@ class Language(ChoiceEnum):
 
     ada = LanguageDef("Ada", ['.adb'], doc='ada',
         camisole='ada', memory=lambda m: m + 4096)
+    d = LanguageDef("D", ['.d'],
+        camisole='d', memory=lambda m: m + 4096)
+    go = LanguageDef("Go", ['.go'],
+        camisole='go', memory=lambda m: m + 4096, time=lambda t: t + 0.100)
     js = LanguageDef("Javascript", ['.js'],
         camisole='javascript', memory=lambda m: 5 * m + 26000, time=lambda t: 5 * t)
     lua = LanguageDef("Lua", ['.lua'],
@@ -76,6 +80,8 @@ class Language(ChoiceEnum):
         camisole='pascal', memory=lambda m: m + 4096)
     perl = LanguageDef("Perl", ['.pl', '.perl'],
         camisole='perl', memory=lambda m: m + 5000, time=lambda t: 10 * t)
+    ruby = LanguageDef("Ruby", ['.rb'],
+        camisole='ruby', memory=lambda m: 5 * m + 5000, time=lambda t: 10 * t)
     scheme = LanguageDef("Scheme", ['.scm'], doc='scheme',
         camisole='scheme', memory=lambda m: m + 36384, time=lambda t: 3 * t)
 
@@ -139,21 +145,24 @@ class Language(ChoiceEnum):
 
 
 ACE_LEXER_MAPPING = {
+    'ada': 'ada',
     'c': 'c_cpp',
     'cpp': 'c_cpp',
-    'pascal': 'pascal',
-    'ocaml': 'ocaml',
-    'scheme': 'scheme',
+    'csharp': 'csharp',
+    'd': 'd',
+    'go': 'golang',
     'haskell': 'haskell',
     'java': 'java',
-    'ada': 'ada',
-    'php': 'php',
-    'perl': 'perl',
-    'lua': 'lua',
-    'csharp': 'csharp',
-    'python': 'python',
     'js': 'javascript',
+    'lua': 'lua',
+    'ocaml': 'ocaml',
+    'pascal': 'pascal',
+    'perl': 'perl',
+    'php': 'php',
+    'python': 'python',
+    'ruby': 'ruby',
     'rust': 'rust',
+    'scheme': 'scheme',
 }
 
 PYGMENTS_LEXER_MAPPING = {
