@@ -20,7 +20,7 @@ from django.contrib.admin import site
 
 class MergeSchoolForm(forms.ModelForm):
     add_to_merge = forms.ModelChoiceField(School.objects.all(), required=False, label=_("Add to merge"),
-                                          widget=ForeignKeyRawIdWidget(Contestant._meta.get_field('school').related_model, site))
+                                          widget=ForeignKeyRawIdWidget(Contestant._meta.get_field('school').remote_field, site))
 
     class Meta:
         model = School
