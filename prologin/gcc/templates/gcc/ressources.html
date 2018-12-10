@@ -73,50 +73,46 @@
 	<section class="wrapper">
 		<div class="title">Se lancer</div>
 		<div class="container">
-			<div class="row">
-				<div class="off-2-large col-8-large off-1-medium col-10-medium off-0-small col-12-small">
-					<p>
-						L’avantage quand on apprend l'informatique, c’est qu'on peut vraiment en faire ce qu’on veut.
-						Il y a beaucoup de sous domaines et d'applications en informatique, et pour continuer à coder, c’est motivant de trouver quelque chose qui nous plait.
-						Voici quelques exemples :
-					</p>
-				</div>
-			</div>
+			<p>
+				L’avantage quand on apprend l'informatique, c’est qu'on peut vraiment en faire ce qu’on veut.
+				Il y a beaucoup de sous domaines et d'applications en informatique, et pour continuer à coder, c’est motivant de trouver quelque chose qui nous plait.
+				Voici quelques exemples :
+			</p>
 
-					<div class="feature-list">
-						<section class="row irr_10rem_1fr">
-							{% with url="https://djangogirls.org/" %}
-							<div class="img-container col-3 col-4-medium off-0-small col-12-small">
-								<a href="{{url}}">
-									<img src="https://djangogirls.org/static/img/global/logo.png" />
-								</a>
-							</div>
-							<div class="col-9 col-8-medium off-0-small col-12-small">
-								<h3><a href="{{url}}">Django girls</a></h3>
-								<p>
-									Elles ont écrit un tutoriel pour la création d’un blog en Python avec le framework Django.
-									Il a été traduit entièrement en français et est très accessible.
-									Django est un outil très puissant pour le web. Les sites de GCC! et Prologin utilisent d’ailleurs ce framework.
-								</p>
-							</div>
-							{% endwith %}
-						</section>
-						<section class="row irr_10rem_1fr">
-							<div class="img-container col-3 col-4-medium off-0-small col-12-small">
-								<a href="{% url 'home' %}">
-									<img src="{% static 'img/logo_cube.png' %}" />
-								</a>
-							</div>
-							<div class="col-9 col-8-medium off-0-small col-12-small">
-								<h3><a href="{% url 'home' %}">Prologin</a></h3>
-								<p>
-									C’est le nom de l’association qui organise les stages mais aussi un concours d’informatique destiné aux jeunes de moins de 21 ans.
-									Sur son site, tu peux trouver les archives des exercices des années précédentes.
-									Ce sont des petits problèmes qui donnent une entrée et demandent une réponse précise, c’est à toi d’écrire le programme qui trouve la réponse !
-								</p>
-							</div>
-						</section>
+			<div class="feature-list">
+				<section class="row irr_10rem_1fr">
+					{% with url="https://djangogirls.org/" %}
+					<div class="img-container">
+						<a href="{{url}}">
+							<img src="https://djangogirls.org/static/img/global/logo.png" />
+						</a>
 					</div>
-				</div>
+					<div>
+						<h3><a href="{{url}}">Django girls</a></h3>
+						<p>
+							Elles ont écrit un tutoriel pour la création d’un blog en Python avec le framework Django.
+							Il a été traduit entièrement en français et est très accessible.
+							Django est un outil très puissant pour le web. Les sites de GCC! et Prologin utilisent d’ailleurs ce framework.
+						</p>
+					</div>
+					{% endwith %}
+				</section>
+				<section class="row irr_10rem_1fr">
+					<div class="img-container">
+						<a href="{% url 'home' %}">
+							<img src="{% static 'img/logo_cube.png' %}" />
+						</a>
+					</div>
+					<div>
+						<h3><a href="{% url 'home' %}">Prologin</a></h3>
+						<p>
+							C’est le nom de l’association qui organise les stages mais aussi un concours d’informatique destiné aux jeunes de moins de 21 ans.
+							Sur son site, tu peux trouver les archives des exercices des années précédentes.
+							Ce sont des petits problèmes qui donnent une entrée et demandent une réponse précise, c’est à toi d’écrire le programme qui trouve la réponse !
+						</p>
+					</div>
+				</section>
+			</div>
+		</div>
 	</section>
 {% endblock %}
