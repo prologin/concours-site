@@ -1,6 +1,6 @@
 {% load i18n %}
 {% load rules %}
-{% has_perm 'contest.interschool.view_leaderboard' request.user as view_leaderboard %}
+{% has_perm 'contest.interschool.view_leaderboard' request.user request.current_edition as view_leaderboard %}
 {% if view_leaderboard %}
 <h2>{% trans "Inter-school challenge" %}</h2>
 
