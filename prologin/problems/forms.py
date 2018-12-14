@@ -125,6 +125,8 @@ class CodeSubmissionForm(forms.ModelForm):
                 self.cleaned_data['code'] = read_try_hard(self.cleaned_data['sourcefile'], size)
             except ValueError:
                 raise forms.ValidationError(_("Please use the UTF-8 encoding when uploading a source file."))
+            if '\x00' in self.cleaned_data['code']:
+                raise forms.ValidationError(_("Source files cannot contain NUL (0x00) characters."))
             self.cleaned_data['sourcefile'] = None
         elif not self.cleaned_data.get('code'):
             raise forms.ValidationError(_("You need to provide either a source file or a source code."))
