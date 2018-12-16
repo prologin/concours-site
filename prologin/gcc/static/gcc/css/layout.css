@@ -272,37 +272,46 @@
 	text-align: center;
 }
 
-#nav > ul {
+#nav ul {
 	display: inline-block;
 	border-radius: 0.35em;
 	box-shadow: inset 0px 0px 1px 1px rgba(255, 255, 255, 0.25);
 	padding: 0 1.5em 0 1.5em;
 }
 
-#nav > ul > li {
+#nav ul > li {
 	display: inline-block;
 	text-align: center;
 	padding: 0 1.5em 0 1.5em;
 }
 
-#nav > ul > li.pull-right {
+#nav ul > li.pull-right {
 	position: absolute;
 	right: 40px;
 }
 
-#nav > ul > li > ul {
+#nav ul > li.pull-right > a {
+	display: inline-block;
+}
+
+#nav ul > li.pull-right > a:not(:last-child) {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+#nav ul > li > ul {
 	display: none;
 }
 
-#nav > ul > li.active {
+#nav ul > li.active {
 	border-bottom: #005a5a solid 3px;
 }
 
-#nav > ul > li.active > * {
+#nav ul > li.active > * {
 	margin-bottom: -3px;
 }
 
-#nav > ul > li > a, #nav > ul > li > span {
+#nav ul > li > a, #nav ul > li > span {
 	display: block;
 	color: #eee;
 	color: rgba(255, 255, 255, 0.75);
@@ -316,11 +325,11 @@
 	outline: 0;
 }
 
-#nav > ul > li:hover > a {
+#nav ul > li:hover > a {
 	color: #fff;
 }
 
-#nav > ul > li.active > a, #nav > ul > li.active > span {
+#nav ul > li.active > a, #nav ul > li.active > span {
 	color: #fff;
 }
 

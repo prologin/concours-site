@@ -54,6 +54,7 @@
 				</li>
 				{% if not user.is_authenticated %}
 					<li class="pull-right">
+						<a href="{% url 'gcc:register' %}">Inscription</a>
 						<a href="{% url 'gcc:login' %}">Connection</a>
 					</li>
 				{% else %}
