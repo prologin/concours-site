@@ -60,7 +60,7 @@ class QueryForm(forms.ModelForm):
 
 
 class CreateBatchForm(forms.ModelForm):
-    FOOLPROOF_PHRASE = _("i am fine bothering %(n)s people")
+    FOOLPROOF_PHRASE = _("i am fine bothering %(n)s %(p)s")
 
     class Meta:
         model = mailing.models.Batch
@@ -68,7 +68,7 @@ class CreateBatchForm(forms.ModelForm):
 
     @classmethod
     def foolproof_field(cls, count):
-        phrase = cls.FOOLPROOF_PHRASE % {'n': count}
+        phrase = cls.FOOLPROOF_PHRASE % {'n': count, 'p' : 'people' if n > 1 else 'person'}
         field = forms.CharField(label=_("Foolproofing"), widget=forms.TextInput(attrs={'autocomplete': 'off', 'autofocus': True}))
         field.help_text = _("Type “%s” above") % "\ufeff".join(phrase)
         field.validators.append(RegexValidator(re.escape(phrase)))
