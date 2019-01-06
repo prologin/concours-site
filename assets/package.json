@@ -11,7 +11,7 @@
   "private": true,
   "devDependencies": {
     "ace-builds": "1.x.x",
-    "bootstrap": "3.x.x",
+    "bootstrap": "3.4.x",
     "corejs-typeahead": "1.x.x",
     "datatables.net": "1.x.x",
     "datatables.net-bs": "1.x.x",
