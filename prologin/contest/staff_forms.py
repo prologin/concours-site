@@ -12,7 +12,7 @@ class EventWishList(forms.ModelMultipleChoiceField):
     """
 
     class Widget(forms.widgets.SelectMultiple):
-        def render(self, name, value, attrs=None, choices=()):
+        def render(self, name, value, attrs=None, choices=(), renderer=None):
             # reimplemented to use a <ol>
             if value is None:
                 value = []
