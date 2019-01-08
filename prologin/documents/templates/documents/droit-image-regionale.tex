@@ -6,6 +6,12 @@
 
 \begin{document}
 
+{% for date, city in locations %}
+{% if not forloop.first %}
+    \newpage
+    \maketitle
+{% endif %}
+
 Je soussigné(e) \hrulefill
 
 Adresse \hrulefill
@@ -18,9 +24,7 @@ tiendront :
 
 \small
 \begin{itemize}
-{% for date, city in locations %}
     \item le {{ date|date:"l d F Y"|escapetex }} à : {{ city }}{% if not forloop.last %} ;{% else %}.{% endif %}
-{% endfor %}
 \end{itemize}
 \normalsize
 
@@ -44,6 +48,7 @@ ci-dessus, et avoir l'autorité légale de signer ce document en son nom.
 
 \begin{signatureframe}{Date et signature du représentant légal}\end{signatureframe}
 \end{legalrepframe}
+{% endfor %}
 
 \end{document}
 {% endautoescape %}
