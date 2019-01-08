@@ -162,15 +162,16 @@ The points you score for solving this year problems will be accounted for your s
           <div class="col-md-6">
             {% bootstrap_field form.user.first_name layout='horizontal' %}
             {% bootstrap_field form.user.last_name layout='horizontal' %}
+            {% bootstrap_field form.user.gender layout='horizontal' %}
             {% bootstrap_field form.user.birthday layout='horizontal' %}
             {% bootstrap_field form.user.address layout='horizontal' %}
             {% bootstrap_field form.user.postal_code layout='horizontal' %}
             {% bootstrap_field form.user.city layout='horizontal' %}
             {% bootstrap_field form.user.country layout='horizontal' %}
             {% bootstrap_field form.user.phone layout='horizontal' %}
-            {% bootstrap_field form.user.school_stage layout='horizontal' %}
           </div>
           <div class="col-md-6">
+            {% bootstrap_field form.user.school_stage layout='horizontal' %}
             {% bootstrap_field form.contestant.preferred_language layout='horizontal' %}
             {% bootstrap_field form.contestant.shirt_size layout='horizontal' %}
             {% bootstrap_field form.contestant.assignation_semifinal_wishes layout='horizontal' %}

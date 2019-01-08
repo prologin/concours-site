@@ -14,6 +14,7 @@ import contest.models
 import schools.models
 from contest.widgets import EventWishChoiceField
 from prologin import utils
+from prologin.models import Gender
 from prologin.utils.forms import NewableModelChoiceField
 from prologin.utils.multiforms import MultiModelForm
 
@@ -49,10 +50,11 @@ class ContestantUserForm(forms.ModelForm):
     class Meta:
         model = get_user_model()
         fields = ('first_name', 'last_name', 'birthday', 'address', 'postal_code', 'city',
-                  'country', 'phone', 'school_stage')
-        optional_fields = ('phone', 'school_stage')
+                  'country', 'phone', 'gender', 'school_stage')
+        optional_fields = ('phone', 'gender', 'school_stage')
         widgets = {
             'address': forms.Textarea(attrs={'rows': 2}),
+            'gender': forms.RadioSelect(),
         }
 
     epita = forms.BooleanField(required=True, initial=True,
@@ -62,6 +64,12 @@ class ContestantUserForm(forms.ModelForm):
         kwargs.pop('edition')
         kwargs.pop('complete')
         super().__init__(*args, **kwargs)
+        self.fields['gender'].label = _("How do you prefer to be described?")
+        self.fields['gender'].choices = [
+            (Gender.female.value, mark_safe(_("<em>She is writing code for the contest</em>"))),
+            (Gender.male.value, mark_safe(_("<em>He is writing code for the contest</em>"))),
+            ("", _("Other or prefer not to tell")),
+        ]
         # Assigning the help_text there because for some reason reverse_lazy() is not lazy enough in
         # the static field declaration above
         self.fields['epita'].help_text = _('Students from EPITA are <a href="%(url)s">not allowed</a> '
