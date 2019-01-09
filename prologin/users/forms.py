@@ -175,7 +175,10 @@ class ConfirmDeleteUserForm(ConfirmDangerMixin, forms.ModelForm):
         self.helper.form_tag = False
         self.helper.layout = Layout('username_conf', 'password_conf')
         self.fields['username_conf'].widget.attrs['placeholder'] = self.instance.username
-
+        # https://bugs.chromium.org/p/chromium/issues/detail?id=468153
+        self.fields['username_conf'].widget.attrs['autocomplete'] = 'new-username'
+        self.fields['password_conf'].widget.attrs['autocomplete'] = 'new-password'
+			
     def clean_username_conf(self):
         if self.cleaned_data['username_conf'] != self.instance.username:
             raise forms.ValidationError(_("Wrong username."))
