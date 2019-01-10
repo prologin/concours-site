@@ -313,6 +313,25 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         except OSError:
             return 0
 
+    def submissions_for_event(self, event):
+        """Return a querylist of a contestant's submissions for an event."""
+        challenge = Challenge.by_year_and_event_type(event.edition.year,
+            event.type)
+        return problems.models.SubmissionCode.objects.select_related(
+            'submission').filter(
+                submission__challenge=challenge.name,
+                submission__user=self.user,
+                date_submitted__range=(event.date_begin, event.date_end))
+
+    @cached_property
+    def qualification_submissions(self):
+        """Return a querylist of a contestant's submissions for the
+        qualifications.
+        """
+        qualification = Event.objects.get(
+            edition=self.edition, type=Event.Type.qualification)
+        return self.submissions_for_event(qualification)
+
     @cached_property
     def qualification_problems_completion(self):
         import problems.models
@@ -400,6 +419,13 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
                    if field.name.startswith('score_'))
 
     @cached_property
+    def semifinal_submissions(self):
+        """Return a querylist of a contestant's submissions for the semifinals"""
+        semifinal = Event.objects.get(
+            edition=self.edition, type=Event.Type.semifinal)
+        return self.submissions_for_event(semifinal)
+
+    @cached_property
     def semifinal_challenge(self):
         from problems.models import Challenge
         return Challenge.by_year_and_event_type(self.edition.year, Event.Type.semifinal)
@@ -408,17 +434,6 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     def semifinal_explicitly_unlocked_problems(self):
         from problems.models import ExplicitProblemUnlock
         return ExplicitProblemUnlock.objects.filter(challenge=self.semifinal_challenge.name, user=self.user)
-
-    @cached_property
-    def semifinal_submissions(self):
-        semifinal = Event.objects.get(
-            edition=self.edition, type=Event.Type.semifinal)
-        return problems.models.SubmissionCode.objects.select_related(
-            'submission').filter(
-                submission__challenge=self.semifinal_challenge.name,
-                submission__user=self.user,
-                date_submitted__range=(semifinal.date_begin,
-                                       semifinal.date_end))
 
     @cached_property
     def semifinal_lines_of_code(self):
