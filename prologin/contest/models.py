@@ -314,10 +314,12 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
             return 0
 
     def submissions_for_event(self, event):
-        """Return a querylist of a contestant's submissions for an event."""
+        """Return a queryset of a contestant's submissions for an event."""
+        # We can't use a global import because of a cross dependency
+        from problems.models import Challenge, SubmissionCode
         challenge = Challenge.by_year_and_event_type(event.edition.year,
-            event.type)
-        return problems.models.SubmissionCode.objects.select_related(
+            Event.Type(event.type))
+        return SubmissionCode.objects.select_related(
             'submission').filter(
                 submission__challenge=challenge.name,
                 submission__user=self.user,
@@ -325,11 +327,11 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
 
     @cached_property
     def qualification_submissions(self):
-        """Return a querylist of a contestant's submissions for the
+        """Return a queryset of a contestant's submissions for the
         qualifications.
         """
         qualification = Event.objects.get(
-            edition=self.edition, type=Event.Type.qualification)
+            edition=self.edition, type=Event.Type.qualification.value)
         return self.submissions_for_event(qualification)
 
     @cached_property
@@ -420,9 +422,9 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
 
     @cached_property
     def semifinal_submissions(self):
-        """Return a querylist of a contestant's submissions for the semifinals"""
+        """Return a queryset of a contestant's submissions for the semifinals"""
         semifinal = Event.objects.get(
-            edition=self.edition, type=Event.Type.semifinal)
+            edition=self.edition, type=Event.Type.semifinal.value)
         return self.submissions_for_event(semifinal)
 
     @cached_property

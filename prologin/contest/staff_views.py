@@ -212,9 +212,6 @@ class ContestantCorrectionView(CanCorrectPermissionMixin, EventTypeMixin, Editio
     def get_success_url(self):
         return reverse('contest:{}'.format(self.redirect_url_name), args=self.args, kwargs=self.kwargs)
 
-    def submissioncode_date_range(self):
-        raise NotImplementedError()
-
     def form_valid(self, form):
         with transaction.atomic():
             old_contestant = self.model.objects.get(pk=self.object.pk)
@@ -241,12 +238,15 @@ class ContestantCorrectionView(CanCorrectPermissionMixin, EventTypeMixin, Editio
         # The problem submissions (contestant codes)
         try:
             challenge = problems.models.Challenge.by_year_and_event_type(self.edition.year, self.event_type)
-            qs_codes = (problems.models.SubmissionCode.objects
-                        .select_related('submission')
-                        .filter(submission__challenge=challenge.name,
-                                submission__user=contestant.user,
-                                date_submitted__range=self.submissioncode_date_range())
-                        .order_by('-score', '-date_submitted'))
+            # We don't use Contestant.submissions_for_event since it would
+            # prevent caching.
+            qs_codes = None
+            if self.event_type == contest.models.Event.Type.qualification:
+                qs_codes = contestant.qualification_submissions
+            elif self.event_type == contest.models.Event.Type.semifinal:
+                qs_codes = contestant.semifinal_submissions
+            qs_codes = qs_codes.order_by('-score', '-date_submitted')
+
             name_to_problem = {problem.name: problem for problem in challenge.problems}
             codes = {problem: None for problem in challenge.problems}
             # first pass: put best-score code
@@ -273,11 +273,7 @@ class ContestantQualificationView(ContestantCorrectionView):
     event_type = contest.models.Event.Type.qualification
     form_class = contest.staff_forms.ContestantQualificationForm
     redirect_url_name = 'correction:contestant-qualification'
-    
-    def submissioncode_date_range(self):
-        event = contest.models.Event.objects.get(edition=self.edition, type=self.event_type.value)
-        return (event.date_begin, event.date_end)
-        
+
     def get_context_data(self, **kwargs):
         import qcm.forms
         import qcm.models
@@ -302,11 +298,6 @@ class ContestantSemifinalView(EventMixin, ContestantCorrectionView):
     event_type = contest.models.Event.Type.semifinal
     form_class = contest.staff_forms.ContestantSemifinalForm
     redirect_url_name = 'correction:contestant-semifinal'
-
-    def submissioncode_date_range(self):
-        if not self.event:
-            raise Http404()
-        return (self.event.date_begin, self.event.date_end)
 
     @cached_property
     def event(self):
