@@ -410,6 +410,17 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         return ExplicitProblemUnlock.objects.filter(challenge=self.semifinal_challenge.name, user=self.user)
 
     @cached_property
+    def semifinal_submissions(self):
+        semifinal = Event.objects.get(
+            edition=self.edition, type=Event.Type.semifinal)
+        return problems.models.SubmissionCode.objects.select_related(
+            'submission').filter(
+                submission__challenge=self.semifinal_challenge.name,
+                submission__user=self.user,
+                date_submitted__range=(semifinal.date_begin,
+                                       semifinal.date_end))
+
+    @cached_property
     def semifinal_lines_of_code(self):
         from problems.models import SubmissionCode
         return sum(1
