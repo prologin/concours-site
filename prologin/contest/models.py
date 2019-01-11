@@ -339,8 +339,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         import problems.models
         challenge = problems.models.Challenge.by_year_and_event_type(self.edition.year, Event.Type.qualification)
         problem_count = len(challenge.problems)
-        qualif_problem_answers = problems.models.Submission.objects.filter(user=self.user, challenge=challenge.name)
-        completed_problems = qualif_problem_answers.count()
+        completed_problems = self.qualification_submissions().count()
         return 0 if completed_problems == 0 else 2 if completed_problems == problem_count else 1
 
     @cached_property
@@ -441,18 +440,13 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     def semifinal_lines_of_code(self):
         from problems.models import SubmissionCode
         return sum(1
-                   for code in (SubmissionCode.objects
-                                .filter(submission__user=self.user,
-                                        submission__challenge=self.semifinal_challenge.name)
-                                .values_list('code', flat=True))
+                   for code in self.semifinal_submissions().values_list('code', flat=True)
                    for line in code.replace('\r', '\n').split('\n') if line.strip())
 
     @cached_property
     def semifinal_problems_score(self):
         from problems.models import Submission
-        return (Submission.objects
-                .filter(user=self.user, challenge=self.semifinal_challenge.name)
-                .aggregate(score=Sum(Submission.ScoreFunc))['score'])
+        return (self.semifinal_submissions()).aggregate(score=Sum(Submission.ScoreFunc))['score']
 
     @cached_property
     def available_semifinal_problems(self):
