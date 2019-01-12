@@ -3,7 +3,7 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage[francais]{babel}
+\usepackage[french]{babel}
 \usepackage[a4paper,dvips]{geometry}
 \usepackage{longtable}
 \usepackage{graphicx}
@@ -53,7 +53,7 @@
 {% if final %}
   \begin{longtable}[c]{|p{3cm}|p{2.5cm}|p{2cm}|p{5.5cm}|p{5.5cm}|c|c|c|c|c|}
 {% else %}
-  \begin{longtable}[c]{|p{6cm}|p{2.5cm}|p{2cm}|p{5.5cm}|p{5.5cm}|}
+  \begin{longtable}[c]{|p{6cm}|p{2.5cm}|p{2cm}|p{5.5cm}|p{5.5cm}|c|c|}
 {% endif %}
 \hline
 \rowcolor{gray!50}
@@ -63,7 +63,8 @@
     \textbf{Img.} & \textbf{Med.} & \textbf{Dcg.} & \textbf{Min.} & \textbf{Par.}\\
 {% else %}
   \textbf{Nom} & \textbf{Prénom} & \textbf{Né le} & \textbf{Heure d'arrivée \&
-    signature} & \textbf{Heure de départ \& signature}\\
+    signature} & \textbf{Heure de départ \& signature} & \textbf{Convoc.} &
+    \textbf{Img.}\\
 {% endif %}
 \hline
 \endhead
@@ -80,7 +81,8 @@
   {% endfor %}
 {% else %}
   {% for contestant in contestants %}{% with user=contestant.user %}
-  {{ user.last_name|title|escapetex }} & {{ user.first_name|title|escapetex }} & {{ user.birthday|date:"Y-m-d"|escapetex }} & & \\\hline
+    {{ user.last_name|title|escapetex }} & {{ user.first_name|title|escapetex }} &
+    {{ user.birthday|date:"Y-m-d"|escapetex }} & & & $\square$ & $\square$ \\\hline
   {% endwith %}{% endfor %}
 {% endif %}
 
