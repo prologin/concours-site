@@ -104,14 +104,17 @@
               <div class="panel-body">
                 <ul class="nav nav-stacked fa-ul">
                   <li><i class="fa fa-li fa-asterisk"></i> {% trans "Completed the qualification step" %}</li>
-                  {% if contestant.edition.qualification_corrected and contestant.is_assigned_for_semifinal %}
-                    <li class="text-success"><i
-                      class="fa fa-li fa-check"></i> {% trans "Selected for regional events" %}</li>
-                    {% if contestant.completed_semifinal %}
-                      <li><i class="fa fa-li fa-asterisk"></i> {% trans "Competed in the regional events" %}</li>
-                      {% if contestant.edition.semifinal_corrected and contestant.is_assigned_for_final %}
-                        <li class="text-success"><i class="fa fa-li fa-check"></i> {% trans "Selected for the final" %}
-                        </li>
+                  {% if contestant.edition.qualification_corrected %}
+                    {% if contestant.is_assigned_for_semifinal or contestant.has_abandoned_semifinal %}
+                      <li class="text-success"><i class="fa fa-li fa-check"></i> {% trans "Selected for regional events" %}</li>
+                      {% if contestant.has_abandoned_semifinal %}
+                        <li><i class="fa fa-li fa-asterisk"></i> {% trans "Abandoned the regional events" %}</li>
+                      {% endif %}
+                      {% if contestant.completed_semifinal %}
+                        <li><i class="fa fa-li fa-asterisk"></i> {% trans "Competed in the regional events" %}</li>
+                        {% if contestant.edition.semifinal_corrected and contestant.is_assigned_for_final %}
+                          <li class="text-success"><i class="fa fa-li fa-check"></i> {% trans "Selected for the final" %}</li>
+                        {% endif %}
                       {% endif %}
                     {% endif %}
                   {% endif %}
