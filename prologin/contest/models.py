@@ -197,9 +197,11 @@ class Assignation(ChoiceEnum):
     not_assigned = 0
     ruled_out = 1
     assigned = 2
+    abandoned = 3  # was selected but abandoned before the event
     ugettext_noop("Not assigned")
     ugettext_noop("Ruled out")
     ugettext_noop("Assigned")
+    ugettext_noop("Abandoned")
 
 
 class LearnAboutContest(ChoiceEnum):
@@ -357,6 +359,10 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     @property
     def is_assigned_for_semifinal(self):
         return self.assignation_semifinal == Assignation.assigned.value
+
+    @property
+    def has_abandoned_semifinal(self):
+        return self.assignation_semifinal == Assignation.abandoned.value
 
     @property
     def is_ruled_out_for_semifinal(self):
