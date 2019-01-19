@@ -159,7 +159,7 @@
   <h3 id="reply-thread">{% trans "Reply to the thread" %}</h3>
   {% if user.is_authenticated %}
     {% if user_can_post %}
-      <form method="POST">
+      <form method="POST" id="post-form">
         {% csrf_token %}
         {{ form|bootstrap }}
         <button type="submit" class="btn btn-primary"><i class="fa fa-send"></i> {% trans "Add reply" %}</button>
@@ -189,23 +189,28 @@
   <script type="text/javascript">
     /* When clicking permalinks, just scroll to message, don't do the full redirect */
     $(function() {
-      var $post_textarea = $('#id_content');
+      // Select textarea handled by the emojipicker
+      const $post_fake_textarea = $('#post-form .emoji-wysiwyg-editor');
+
       $('.message-permalink').click(function (e) {
         e.preventDefault();
         document.location.hash = $(this).parents('.forum-post').attr('id');
       });
+
       $('a[href="#reply-thread"]').click(function () {
         try {
-          $post_textarea.focus();
+          $post_fake_textarea.focus();
         } catch (e) {
         }
       });
+
       $('.btn-cite').click(function(e) {
         e.preventDefault();
         var cite_url = $(this).attr('href');
+
         $.getJSON(cite_url)
           .done(function(data) {
-            $post_textarea.val($post_textarea.val() + '\n' + data.message).focus();
+            $post_fake_textarea.text($post_fake_textarea.text() + '\n' + data.message).focus();
           })
           .fail(function(err) {
             console.error(err);
