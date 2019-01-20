@@ -1,72 +1,72 @@
 .container {
-	margin: 0 auto;
-	max-width: 100%;
-	width: 68em;
+    margin: 0 auto;
+    max-width: 100%;
+    width: 68em;
 }
 
 @media screen and (max-width: 1680px) {
 
-	.container {
-		width: 70em;
-	}
+    .container {
+        width: 70em;
+    }
 
 }
 
 @media screen and (max-width: 1280px) {
 
-	.container {
-		width: calc(100% - 100px);
-	}
+    .container {
+        width: calc(100% - 100px);
+    }
 
 }
 
 @media screen and (max-width: 980px) {
 
-	.container {
-		width: calc(100% - 100px);
-	}
+    .container {
+        width: calc(100% - 100px);
+    }
 
 }
 
 @media screen and (max-width: 736px) {
 
-	.container {
-		width: calc(100% - 40px);
-	}
+    .container {
+        width: calc(100% - 40px);
+    }
 
 }
 
 .row {
-	display: grid;
+    display: grid;
 }
 
 .row>* {
-	overflow: auto;
-	box-sizing: border-box;
+    overflow: auto;
+    box-sizing: border-box;
 }
 
 .row.reg_20rem {
-	grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
 }
 
 .row.reg_5rem {
-	grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(5rem, 1fr));
 }
 
 .row.irr_10rem_1fr {
-	grid-template-columns: 10rem 1fr;
+    grid-template-columns: 10rem 1fr;
 }
 
 .row.irr_1fr_10rem {
-	grid-template-columns: 1fr 10rem;
+    grid-template-columns: 1fr 10rem;
 }
 
 @media screen and (max-width: 35rem) {
-	.row.irr_10rem_1fr, .row.irr_1fr_10rem {
-		grid-template-columns: 1fr;
-	}
+    .row.irr_10rem_1fr, .row.irr_1fr_10rem {
+        grid-template-columns: 1fr;
+    }
 }
 
 .cell.center {
-	margin: auto;
+    margin: auto;
 }

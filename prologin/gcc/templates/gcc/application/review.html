@@ -1,94 +1,97 @@
 {% extends "gcc/base.html" %}
 {% load static %}
 
+
 {% block title %}GCC! − Applications{% endblock %}
 
+
 {% block head %}
-<link rel="stylesheet" href="{% static "gcc/css/application.css"%}">
+  <link rel="stylesheet" href="{% static "gcc/css/application.css"%}">
 {% endblock %}
 
+
 {% block content %}
-<section class="wrapper">
+  <section class="wrapper">
     <div class="title">Candidates 2018</div>
     <div class="container">
-        <ul class="applicant-list">
-            {% for applicant in applicants %}
-            <li id="applicant-{{applicant.pk}}">
-                <div class="applicant-head">
-                    <span>{{applicant.user.first_name}} {{applicant.user.last_name}}</span>
-                    <div class="labeladd-dropdown">
-                        <div class="labeladd-btn">+</div>
-                        <div class="labeladd-dropdown-content">
-                            {% for label in labels %}
-                            <a href="{% url 'gcc:add_applicant_label' applicant_id=applicant.pk label_id=label.pk %}">{{ label }}</a>
-                            {% endfor %}
-                        </div>
-                    </div>
-                    <span class="label-list">
-                        {% for label in applicant.labels.all %}
-                        <a class="label" href="{% url 'gcc:delete_applicant_label' applicant_id=applicant.pk label_id=label.pk %}">
-                            {{ label }}
-                        </a>
-                        {% endfor %}
-                    </span>
+      <ul class="applicant-list">
+        {% for applicant in applicants %}
+          <li id="applicant-{{applicant.pk}}">
+            <div class="applicant-head">
+              <span>{{applicant.user.first_name}} {{applicant.user.last_name}}</span>
+              <div class="labeladd-dropdown">
+                <div class="labeladd-btn">+</div>
+                <div class="labeladd-dropdown-content">
+                  {% for label in labels %}
+                    <a href="{% url 'gcc:add_applicant_label' applicant_id=applicant.pk label_id=label.pk %}">{{ label }}</a>
+                  {% endfor %}
                 </div>
-                <div class="detail">
-                    <div class="detail-section">
-                        <a class="btn" href="#">View complete profile</a>
-                        <a class="btn" href="#">Reject all</a>
-                    </div>
-                    <div class="detail-section">
-                        <h3>Profile</h3>
-                        <table class="recap">
-                            <tr>
-                                <td>email</td>
-                                <td>{{ applicant.user.email }}</td>
-                            </tr>
-                            <tr>
-                                <td>birthdate</td>
-                                <td>10/03/1999</td>
-                            </tr>
-                            <tr>
-                                <td>previous participations</td>
-                                <td>none</td>
-                            </tr>
-                        </table>
-                    </div>
-                    <div class="detail-section">
-                        <h3>Events</h3>
-                        <ul style="list-style: decimal;">
-                            {% for wish in applicant.eventwish_set.all %}
-                            <li>
-                                <span>{{ wish.event.center }} <small>{{ wish.event.event_start }}</small></span>
-                                <span style="float:right">
-                                    <a class="btn btn-little" href="#">accept</a>
-                                    <a class="btn btn-little" href="#">reject</a>
-                                </span>
-                            </li>
-                            {% endfor %}
-                        </ul>
-                    </div>
-                    <div class="detail-section">
-                        <h3>Comments</h3>
-                        Here is a review written by a staff member who already read this application.
-                        This could also be implemented like some kind of comment section?
-                    </div>
-                    <div class="detail-section">
-                        <h3>Form</h3>
-                        <div class="question">
-                            {% for answer in applicant.answers.all %}
-                            <h5>{{ answer.question.question }}</h5>
-                            <p>
-                            {{ answer.response }}
-                            </p>
-                            {% endfor %}
-                        </div>
-                    </div>
-            </li>
-            {% endfor %}
-        </ul>
+              </div>
+              <span class="label-list">
+                {% for label in applicant.labels.all %}
+                  <a class="label" href="{% url 'gcc:delete_applicant_label' applicant_id=applicant.pk label_id=label.pk %}">
+                    {{ label }}
+                  </a>
+                {% endfor %}
+              </span>
+            </div>
+            <div class="detail">
+              <div class="detail-section">
+                <a class="btn" href="#">View complete profile</a>
+                <a class="btn" href="#">Reject all</a>
+              </div>
+              <div class="detail-section">
+                <h3>Profile</h3>
+                <table class="recap">
+                  <tr>
+                    <td>email</td>
+                    <td>{{ applicant.user.email }}</td>
+                  </tr>
+                  <tr>
+                    <td>birthdate</td>
+                    <td>10/03/1999</td>
+                  </tr>
+                  <tr>
+                    <td>previous participations</td>
+                    <td>none</td>
+                  </tr>
+                </table>
+              </div>
+              <div class="detail-section">
+                <h3>Events</h3>
+                <ul style="list-style: decimal;">
+                  {% for wish in applicant.eventwish_set.all %}
+                    <li>
+                      <span>{{ wish.event.center }} <small>{{ wish.event.event_start }}</small></span>
+                      <span style="float:right">
+                        <a class="btn btn-little" href="#">accept</a>
+                        <a class="btn btn-little" href="#">reject</a>
+                      </span>
+                    </li>
+                  {% endfor %}
+                </ul>
+              </div>
+              <div class="detail-section">
+                <h3>Comments</h3>
+                Here is a review written by a staff member who already read this application.
+                This could also be implemented like some kind of comment section?
+              </div>
+              <div class="detail-section">
+                <h3>Form</h3>
+                <div class="question">
+                  {% for answer in applicant.answers.all %}
+                    <h5>{{ answer.question.question }}</h5>
+                    <p>
+                      {{ answer.response }}
+                    </p>
+                  {% endfor %}
                 </div>
-</section>
+              </div>
+          </li>
+        {% endfor %}
+      </ul>
+          </div>
+  </section>
 
-<script src="{% static "gcc/js/application.js"%}"></script>
+  <script src="{% static "gcc/js/application.js"%}"></script>
 {% endblock %}

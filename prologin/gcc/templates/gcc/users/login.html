@@ -1,22 +1,22 @@
 {% extends "gcc/base.html" %}
 {% load static %}
 
+
 {% block title %}GCC! − Connexion{% endblock %}
 
 
 {% block header-popup %}
-    <div id="header-popup">
-        <h2>Se connecter à GCC!</h2>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
+  <div id="header-popup">
+    <h2>Se connecter à GCC!</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
 
-            <div style="text-align: center">
-                <button type="submit">Se connecter</button>
-            </div>
+      <div style="text-align: center">
+        <button type="submit">Se connecter</button>
+      </div>
 
-            <input type="hidden" name="next" value="/gcc/">
-        </form>
-    </div>
+      <input type="hidden" name="next" value="/gcc/">
+    </form>
+  </div>
 {% endblock %}
-

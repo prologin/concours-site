@@ -8,132 +8,132 @@
     Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
 -->
 <html>
-    <head>
-        <title>{% block title %}Girls Can Code!{% endblock %}</title>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-        <link rel="icon" type="image/png" href="{% static 'gcc/img/favicon.png' %}">
-        <link rel="stylesheet" href="{% static 'lib/css/font-awesome.min.css' %}" />
-        <link rel="stylesheet" href="{% static 'gcc/css/grid.css' %}" />
-        <link rel="stylesheet" href="{% static 'gcc/css/main.css' %}" />
-        <link rel="stylesheet" href="{% static 'gcc/css/layout.css' %}" />
-        <link rel="stylesheet" href="{% static 'gcc/css/responsive.css' %}" />
-        {% block head %}{% endblock %}
-    </head>
-    <body>
-        <!-- Header -->
-        <section id="header" class="wrapper" style="background: url({% static 'gcc/img/collage_index_blur_darker.jpg' %})">
+  <head>
+    <title>{% block title %}Girls Can Code!{% endblock %}</title>
 
-            <!-- Quick access popup-like frame -->
-            {% block header-popup %}{% endblock %}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+    <link rel="icon" type="image/png" href="{% static 'gcc/img/favicon.png' %}">
+    <link rel="stylesheet" href="{% static 'lib/css/font-awesome.min.css' %}" />
+    <link rel="stylesheet" href="{% static 'gcc/css/grid.css' %}" />
+    <link rel="stylesheet" href="{% static 'gcc/css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'gcc/css/layout.css' %}" />
+    <link rel="stylesheet" href="{% static 'gcc/css/responsive.css' %}" />
 
-            <!-- Logo -->
-            <div class="logo">
-                <h1>
-                    <a href="{% url 'gcc:index' %}">
-                        <img src="{% static 'gcc/img/logo.png' %}" />
-                    </a>
-                </h1>
-                <p>Stage d'informatique gratuit pour les filles de collège et lycée.</p>
-            </div>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <!-- Header -->
+    <section id="header" class="wrapper" style="background: url({% static 'gcc/img/collage_index_blur_darker.jpg' %})">
+      <!-- Quick access popup-like frame -->
+      {% block header-popup %}{% endblock %}
 
-            <!-- Nav -->
-            <nav id="nav">
-                <ul>
-                    <li>
-                        <a href="{% url 'gcc:index' %}">Accueil</a>
-                    </li>
-                    <li class="{% active '^/gcc/ressources/' %}">
-                        <a href="{% url 'gcc:ressources' %}">Ressources</a>
-                    </li>
-                    <li class="{% active '^/gcc/editions/' %}">
-                        <a href="{% url 'gcc:editions' %}">Éditions</a>
-                        <ul>
-                            {% with years="2018 2017 2016 2015 2014" %}
-                            {% for year in years.split %}
-                            <li><a href="{% url 'gcc:editions' %}#edition-{{year}}">Édition {{year}}</a></li>
-                            {% endfor %}
-                            {% endwith %}
-                        </ul>
-                    </li>
-                    {% if not user.is_authenticated %}
-                    <li class="pull-right">
-                        <a href="{% url 'gcc:register' %}">Inscription</a>
-                        <a href="{% url 'gcc:login' %}">Connection</a>
-                    </li>
-                    {% else %}
-                    <li class="pull-right">
-                        <a>{{ user.username }}</a>
-                        <ul style="display:block">
-                            <li>
-                                <form method="post" action="{% url 'users:logout' %}?next=/gcc">
-                                    {% csrf_token %}
-                                    <button type="submit">Sign out</button>
-                                </form>
-                            </li>
-                        </ul>
-                    </li>
-                    {% endif %}
-                </ul>
-            </nav>
+      <!-- Logo -->
+      <div class="logo">
+        <h1>
+          <a href="{% url 'gcc:index' %}">
+            <img src="{% static 'gcc/img/logo.png' %}" />
+          </a>
+        </h1>
+        <p>Stage d'informatique gratuit pour les filles de collège et lycée.</p>
+      </div>
+
+      <!-- Nav -->
+      <nav id="nav">
+        <ul>
+          <li>
+            <a href="{% url 'gcc:index' %}">Accueil</a>
+          </li>
+          <li class="{% active '^/gcc/ressources/' %}">
+            <a href="{% url 'gcc:ressources' %}">Ressources</a>
+          </li>
+          <li class="{% active '^/gcc/editions/' %}">
+            <a href="{% url 'gcc:editions' %}">Éditions</a>
+            <ul>
+              {% with years="2018 2017 2016 2015 2014" %}
+                {% for year in years.split %}
+                  <li><a href="{% url 'gcc:editions' %}#edition-{{year}}">Édition {{year}}</a></li>
+                {% endfor %}
+              {% endwith %}
+            </ul>
+          </li>
+          {% if not user.is_authenticated %}
+            <li class="pull-right">
+              <a href="{% url 'gcc:register' %}">Inscription</a>
+              <a href="{% url 'gcc:login' %}">Connection</a>
+            </li>
+          {% else %}
+            <li class="pull-right">
+              <a>{{ user.username }}</a>
+              <ul style="display:block">
+                <li>
+                  <form method="post" action="{% url 'users:logout' %}?next=/gcc">
+                    {% csrf_token %}
+                    <button type="submit">Sign out</button>
+                  </form>
+                </li>
+              </ul>
+            </li>
+          {% endif %}
+        </ul>
+      </nav>
+    </section>
+
+    {% block content %}{% endblock %}
+
+    <!-- Footer -->
+    <section id="footer" class="wrapper">
+      {% block footer %}{% endblock %}
+
+      <div class="container">
+        <div class="title">Contact</div>
+        <section class="feature-list small">
+          <div class="row reg_20rem">
+            <section>
+              <h3 class="icon fa-home">Adresse</h3>
+              <p>
+                Association Prologin<br />
+                14-15 Rue Voltaire<br />
+                94270 Le Kremlin Bicêtre
+              </p>
+            </section>
+            <section>
+              <h3 class="icon fa-comment">Social</h3>
+              <p>
+                <a style="font-size: 1.4em; margin-right: 5px;" href="https://www.facebook.com/stagegirlscancode"><i class="icon fa-facebook" style=""></i></a>
+                <a style="font-size: 1.4em; margin-right: 5px;" href="https://twitter.com/prologin"><i class="icon fa-twitter" style=""></i></a>
+                <a style="font-size: 1.4em; margin-right: 5px;" href="https://www.flickr.com/photos/prologin"><i class="icon fa-flickr" style=""></i></a>
+              </p>
+            </section>
+            <section>
+              <h3 class="icon fa-envelope">Email</h3>
+              <p>
+                <a href="mailto:info@prologin.org">info@prologin.org</a>
+              </p>
+            </section>
+            <section>
+              <h3 class="icon fa-phone">Téléphone</h3>
+              <p>
+                +331 44 08 01 90
+              </p>
+            </section>
+          </div>
         </section>
+        <div id="copyright">
+          <ul>
+            <li>&copy; Girls Can Code!</li>
+            <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+          </ul>
+        </div>
+      </div>
+    </section>
 
-
-        {% block content %}{% endblock %}
-
-        <!-- Footer -->
-        <section id="footer" class="wrapper">
-            {% block footer %}{% endblock %}
-
-            <div class="container">
-                <div class="title">Contact</div>
-                <section class="feature-list small">
-                    <div class="row reg_20rem">
-                        <section>
-                            <h3 class="icon fa-home">Adresse</h3>
-                            <p>
-                            Association Prologin<br />
-                            14-15 Rue Voltaire<br />
-                            94270 Le Kremlin Bicêtre
-                            </p>
-                        </section>
-                        <section>
-                            <h3 class="icon fa-comment">Social</h3>
-                            <p>
-                            <a style="font-size: 1.4em; margin-right: 5px;" href="https://www.facebook.com/stagegirlscancode"><i class="icon fa-facebook" style=""></i></a>
-                            <a style="font-size: 1.4em; margin-right: 5px;" href="https://twitter.com/prologin"><i class="icon fa-twitter" style=""></i></a>
-                            <a style="font-size: 1.4em; margin-right: 5px;" href="https://www.flickr.com/photos/prologin"><i class="icon fa-flickr" style=""></i></a>
-                            </p>
-                        </section>
-                        <section>
-                            <h3 class="icon fa-envelope">Email</h3>
-                            <p>
-                            <a href="mailto:info@prologin.org">info@prologin.org</a>
-                            </p>
-                        </section>
-                        <section>
-                            <h3 class="icon fa-phone">Téléphone</h3>
-                            <p>
-                            +331 44 08 01 90
-                            </p>
-                        </section>
-                    </div>
-                </section>
-                <div id="copyright">
-                    <ul>
-                        <li>&copy; Girls Can Code!</li>
-                        <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Scripts -->
-        <script src="{% static 'gcc/js/jquery.min.js' %}"></script>
-        <script src="{% static 'gcc/js/jquery.dropotron.min.js' %}"></script>
-        <script src="{% static 'gcc/js/browser.min.js' %}"></script>
-        <script src="{% static 'gcc/js/breakpoints.min.js' %}"></script>
-        <script src="{% static 'gcc/js/util.js' %}"></script>
-        <script src="{% static 'gcc/js/main.js' %}"></script>
-    </body>
+    <!-- Scripts -->
+    <script src="{% static 'gcc/js/jquery.min.js' %}"></script>
+    <script src="{% static 'gcc/js/jquery.dropotron.min.js' %}"></script>
+    <script src="{% static 'gcc/js/browser.min.js' %}"></script>
+    <script src="{% static 'gcc/js/breakpoints.min.js' %}"></script>
+    <script src="{% static 'gcc/js/util.js' %}"></script>
+    <script src="{% static 'gcc/js/main.js' %}"></script>
+  </body>
 </html>

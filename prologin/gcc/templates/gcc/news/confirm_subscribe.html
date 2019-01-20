@@ -1,18 +1,20 @@
 {% extends "gcc/base.html" %}
 
+
 {% block title %}GCC! − Inscription Validée{% endblock %}
 
-{% block content %}
-<section class="wrapper style1">
-    <div class="container">
-        <div class="title">Inscription réussie</div>
 
-        <div style="text-align: center;">
-            <p>
-            Votre inscription a été réalisée avec succès.
-            </p>
-            <a href="{% url 'gcc:index' %}" class="button style3 large">Retour à l'accueil</a>
-        </div>
+{% block content %}
+  <section class="wrapper style1">
+    <div class="container">
+      <div class="title">Inscription réussie</div>
+
+      <div style="text-align: center;">
+        <p>
+          Votre inscription a été réalisée avec succès.
+        </p>
+        <a href="{% url 'gcc:index' %}" class="button style3 large">Retour à l'accueil</a>
+      </div>
     </div>
-</section>
+  </section>
 {% endblock %}
