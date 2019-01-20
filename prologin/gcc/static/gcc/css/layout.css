@@ -16,7 +16,7 @@
 
 .feature-list section {
 	border-top: solid 1px #eee;
-	padding-top: 3em;
+	padding-top: 0.9em;
 	margin-top: 1em;
 	margin-bottom: 0;
 	padding-left: 5em;
@@ -30,7 +30,7 @@
 
 .feature-list h3 {
 	color: #005a5a !important;
-	margin: -0.35em 0 0.75em 0;
+	margin: -0.35em 0 0.4em 0;
 	font-size: 1.15em;
 	letter-spacing: 0.05em;
 }
@@ -119,7 +119,7 @@
 
 .wrapper {
 	position: relative;
-	padding: 6em 0 9em 0;
+	padding: 2em 0 5em 0;
 }
 
 .wrapper .title {
@@ -207,11 +207,10 @@
 #header {
 	display: flex;
     flex-direction: column;
-	align-items: center;
 	justify-content: center;
 	position: relative;
-	min-height: 24em;
-	padding: 120px 0 90px 0;
+	min-height: 20em;
+	padding: 6em 0 40px 0;
 
 	/* override background image parameters */
 	/* image url is defined in the template */
@@ -232,16 +231,17 @@
 
 /* Logo */
 
-#header .logo img {
-	height: 60px;
-	vertical-align: middle;
-}
-
 #header .logo {
 	width: 100%;
 	text-align: center;
 	position: relative;
 	top: 1.5em;
+    margin-bottom: 40px;
+}
+
+#header .logo img {
+	height: 60px;
+	vertical-align: middle;
 }
 
 #header .logo h1 {
@@ -264,7 +264,7 @@
 #header-popup {
     background-color: rgba(255,255,255, 0.05);
     max-width: 700px;
-    margin: 0 auto;
+    margin: 30px auto 0 auto;
     padding: 30px;
     border-radius: 5px;
     position: relative;
@@ -514,8 +514,8 @@
 
 /* Features */
 
-#features header.style1 {
-	padding-bottom: 5em;
+#features header {
+	padding-bottom: 1em;
 }
 
 #features ul.actions {
@@ -524,27 +524,57 @@
 
 /* Highlights */
 
+.highlight-row {
+    display: flex;
+    flex-direction: row;
+    margin: 1em 0;
+}
+
 .highlight {
 	text-align: center;
-	height: 100%;
 	display: flex;
 	flex-direction: column;
+    max-width: 350px;
+    flex: 1;
+}
+
+.highlight:first-child {
+    margin-left: auto;
+}
+
+.highlight:last-child {
+    margin-right: auto;
+}
+
+.highlight:not(:last-child) {
+    margin-right: 15px;
+}
+
+.highlight-row-gaped .highlight:not(:last-child) {
+    margin-right: auto;
 }
 
 .highlight h3 {
 	color: #005a5a;
-	margin: 0 0 0.75em 0;
 	font-size: 1.15em;
 	letter-spacing: 0.05em;
+    margin-bottom: 0.5em;
 }
 
 .highlight p {
-	margin-bottom: 1.5em;
-	margin-top: auto;
+	margin: auto 0;
+}
+
+.highlight ul {
+    margin: 0;
 }
 
 .highlight .actions {
 	margin-top: auto;
+}
+
+.highlight .button {
+    margin-top: 1.5em;
 }
 
 /* Footer */
@@ -553,68 +583,41 @@
 	background: #282b34 url("img/overlay.png");
 	color: #eee;
 	color: rgba(255, 255, 255, 0.5);
-	padding-bottom: 6em;
+	padding-bottom: 0;
+    line-height: normal;
+}
+
+#footer section {
+    margin-bottom: 1em;
 }
 
 #footer h1, #footer h2, #footer h3, #footer h4, #footer h5, #footer h6, #footer strong, #footer b, #footer a {
 	color: #fff;
 }
 
-#footer hr {
-	border-top-color: #333;
-	border-top-color: rgba(255, 255, 255, 0.05);
-}
-
-#footer form input[type="text"],
-#footer form input[type="email"],
-#footer form input[type="password"],
-#footer form select,
-#footer form textarea {
+#footer form input[type="text"] {
 	background: #ccc;
 	box-shadow: none;
 }
 
-#footer form input[type="text"]:focus,
-#footer form input[type="email"]:focus,
-#footer form input[type="password"]:focus,
-#footer form select:focus,
-#footer form textarea:focus {
+#footer form input[type="text"]:focus {
 	background: #fff;
 }
 
-#footer input[type="button"],
-#footer input[type="submit"],
-#footer input[type="reset"],
-#footer button,
-#footer .button {
+#footer input[type="submit"] {
 	color: #fff;
 	box-shadow: inset 0px 0px 2px 0px rgba(255, 255, 255, 0.5);
 	white-space: normal;
 	line-height: 1.5;
+    margin-left: 10px;
 }
 
-#footer input[type="button"]:hover,
-#footer input[type="submit"]:hover,
-#footer input[type="reset"]:hover,
-#footer button:hover,
-#footer .button:hover {
+#footer input[type="submit"]:hover {
 	color: #fff;
 	box-shadow: inset 0px 0px 2px 0px rgba(255, 255, 255, 0.65);
 }
 
-#footer input[type="button"]:active,
-#footer input[type="submit"]:active,
-#footer input[type="reset"]:active,
-#footer button:active,
-#footer .button:active {
-	box-shadow: inset 0px 0px 2px 0px rgba(255, 255, 255, 0.75);
-}
-
-#footer input[type="button"].style2:active,
-#footer input[type="submit"].style2:active,
-#footer input[type="reset"].style2:active,
-#footer button.style2:active,
-#footer .button.style2:active {
+#footer input[type="submit"]:active {
 	box-shadow: inset 0px 0px 2px 0px rgba(255, 255, 255, 0.75);
 }
 
@@ -623,27 +626,26 @@
 	color: #eee;
 }
 
-#footer header.style1 {
-	padding-bottom: 6em;
-	margin-bottom: 6em;
+#footer header {
+	padding-bottom: 2em;
+	margin-bottom: 1.5em;
 	border-bottom: solid 1px rgba(255, 255, 255, 0.05);
 }
 
-#footer header.style1 h2 {
+#footer header h2 {
 	color: #fff;
 }
 
-#footer header.style1 .p {
+#footer header .p {
 	color: inherit;
 }
 
 #footer .feature-list {
 	max-width: 100%;
-	padding-left: 50px;
 }
 
 #footer .feature-list section {
-	border-top-color: rgba(255, 255, 255, 0.05);
+    border: none;
 }
 
 #footer .feature-list h3:before {
@@ -654,9 +656,7 @@
 
 #copyright {
 	text-align: center;
-	padding-top: 6em;
-	margin-top: 6em;
-	border-top: solid 1px rgba(255, 255, 255, 0.05);
+	padding-top: 1.5em;
 }
 
 #copyright ul {

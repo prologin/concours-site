@@ -6,28 +6,41 @@
     <div class="title">Les stages</div>
     <div class="container">
         <p>
-        Les stages Girls Can Code! c’est une semaine d'initiation à la programmation pour les collégiennes et lycéennes.
-        <br /><br />
+            Les stages Girls Can Code! c’est une semaine d'initiation à la programmation pour les collégiennes et lycéennes.
+        </p>
+
+        <div class="highlight-row highlight-row-gaped">
+            <div class="highlight">
+            <h2>Prochains stages</h2>
+                <ul>
+                    <li>Lyon, la semaine du <em>23 octobre 2018</em></li>
+                    <li>Paris, la semaine du <em>23 octobre 2018</em></li>
+                    <li>Lyon, la semaine du <em>23 octobre 2018</em></li>
+                    <li>Paris, la semaine du <em>23 octobre 2018</em></li>
+                    <li>Lyon, la semaine du <em>23 octobre 2018</em></li>
+                </ul>
+            </div>
+            <!--<small style="font-size: 0.7em; font-weight: normal; line-height: 1;"<>
+            </small>-->
+
+            <div class="highlight">
+                <h2>Pour s’inscrire</h2>
+                <ul>
+                    <li>Être une fille encore non bachelière</li>
+                    <li>Habiter dans l'Union européenne ou en Suisse</li>
+                    <li>Remplir le formulaire de candidature</li>
+                    <li>Être motivée !</li>
+                </ul>
+                <a href="#" class="button style3 large">S'inscrire</a>
+            </div>
+        </div class="highlight-row">
+    </div>
+
+    <p>
         On y apprend les bases de la programmation avec le langage Python, et de quoi se lancer dans des petits projets de son choix !
         <br /><br />
         Les stages sont gratuits, entièrement organisés par des bénévoles et l’association Prologin.
-        </p>
-        <h2>Prochains stages</h2>
-        <ul>
-            <li>Paris, la semaine du <em>23 octobre 2018</em></li>
-            <li>Lyon, la semaine du <em>23 octobre 2018</em></li>
-        </ul>
-        <small style="font-size: 0.7em; font-weight: normal; line-height: 1;">
-        </small>
-        <h2>Conditions pour s’inscrire</h2>
-        <ul>
-            <li>Être une fille encore non bachelière</li>
-            <li>Habiter dans l'Union européenne ou en Suisse</li>
-            <li>Remplir le formulaire de candidature</li>
-            <li>Être motivée !</li>
-        </ul>
-        <a href="#" class="button style3 large">S'inscrire</a>
-    </div>
+    </p>
 </section>
 
 <section class="wrapper">
@@ -77,50 +90,38 @@
 <section class="wrapper">
     <div class="title">Les chiffres</div>
     <div class="container">
-        <div class="row reg_20rem">
-            <div>
-                <section class="highlight">
-                    {% with url="https://www.lemonde.fr/campus/article/2017/12/11/femmes-et-informatique-vingt-ans-de-desamour_5227726_4401467.html" %}
-                    <a href="{{url}}" class="image featured">
-                        <img src="{% static 'gcc/img/stat_femmes.svg' %}" alt="" />
-                    </a>
-                    <h3><a href="{{url}}">Parité en informatique</a></h3>
-                    <p>
-                    Girls Can Code! a été créé dans le but d’encourager les filles à entrer dans ce domaine majoritairement masculin malgré les stéréotypes.
-                    </p>
-                    <ul class="actions">
-                        <li><a target="_blank"  href="{{url}}" class="button style1">En Savoir Plus</a></li>
-                    </ul>
-                    {% endwith %}
-                </section>
+        <div class="highlight-row">
+            <div class="highlight">
+                {% with url="https://www.lemonde.fr/campus/article/2017/12/11/femmes-et-informatique-vingt-ans-de-desamour_5227726_4401467.html" %}
+                <a href="{{url}}" class="image featured">
+                    <img src="{% static 'gcc/img/stat_femmes.svg' %}" alt="" />
+                </a>
+                <h3><a href="{{url}}">Parité en informatique</a></h3>
+                <p>
+                Girls Can Code! a été créé dans le but d’encourager les filles à entrer dans ce domaine majoritairement masculin malgré les stéréotypes.
+                </p>
+                <a target="_blank"  href="{{url}}" class="button style1">En Savoir Plus</a>
+                {% endwith %}
             </div>
-            <div>
-                <section class="highlight">
-                    <a href="{% url 'gcc:editions' %}" class="image featured">
-                        <img src="{% static 'gcc/img/stat_editions.svg' %}" alt="" /></a>
+            <div class="highlight">
+                <a href="{% url 'gcc:editions' %}" class="image featured">
+                    <img src="{% static 'gcc/img/stat_editions.svg' %}" alt="" /></a>
 
-                    <h3><a href="{% url 'gcc:editions' %}">Les éditions Girls Can Code!</a></h3>
-                    <p>
-                    La première édition des stages Girls Can Code! a eu lieu en 2014, l’édition 2019 sera donc la 6<sup>ème</sup>.
-                    </p>
-                    <ul class="actions">
-                        <li><a target="_blank"  href="{% url 'gcc:editions' %}" class="button style1">En Savoir Plus</a></li>
-                    </ul>
-                </section>
+                <h3><a href="{% url 'gcc:editions' %}">Les éditions Girls Can Code!</a></h3>
+                <p>
+                La première édition des stages Girls Can Code! a eu lieu en 2014, l’édition 2019 sera donc la 6<sup>ème</sup>.
+                </p>
+                <a target="_blank"  href="{% url 'gcc:editions' %}" class="button style1">En Savoir Plus</a>
             </div>
-            <div>
-                <section class="highlight">
-                    <a href="{% url 'home' %}" class="image featured">
-                        <img src="{% static 'gcc/img/stat_prologin.svg' %}" alt="" /></a>
+            <div class="highlight">
+                <a href="{% url 'home' %}" class="image featured">
+                    <img src="{% static 'gcc/img/stat_prologin.svg' %}" alt="" /></a>
 
-                    <h3><a href="{% url 'home' %}">Prologin, une association créée en 1991</a></h3>
-                    <p>
-                    L'association Prologin a été créée en 1991 pour organiser le concours national d'informatique, et se charge depuis 2014 des stages Girls Can Code!.
-                    </p>
-                    <ul class="actions">
-                        <li><a target="_blank"  href="{% url 'home' %}" class="button style1">En Savoir Plus</a></li> {# TODO LIEN EDITIONS #}
-                    </ul>
-                </section>
+                <h3><a href="{% url 'home' %}">Prologin, une association créée en 1991</a></h3>
+                <p>
+                L'association Prologin a été créée en 1991 pour organiser le concours national d'informatique, et se charge depuis 2014 des stages Girls Can Code!.
+                </p>
+                <a target="_blank"  href="{% url 'home' %}" class="button style1">En Savoir Plus</a>
             </div>
         </div>
     </div>
@@ -169,11 +170,11 @@
 {% endblock %}
 
 {% block footer %}
-<div id="newsletter" class="container" style="padding-bottom: 80px;">
-    <header class="style1">
+<div id="newsletter" class="container">
+    <header>
         <h2>Une question ?</h2>
         <p>
-        N'hésitez pas à nous contacter.
+            N'hésitez pas à nous contacter.
         </p>
     </header>
     <!-- Contact Form -->
@@ -181,14 +182,8 @@
         <form method="post">
             {% csrf_token %}
             <div class="row reg_20rem">
-                <div>
-                    <input type="text" name="email" placeholder="Email" style="height: 60px">
-                </div>
-                <div>
-                    <ul class="actions">
-                        <li><input type="submit" class="style1" value="S'inscrire à la newsletter" style="height: 60px" /></li>
-                    </ul>
-                </div>
+                <input type="text" name="email" placeholder="Email" />
+                <input type="submit" value="S'inscrire à la newsletter" />
             </div>
         </form>
     </section>

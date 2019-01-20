@@ -158,10 +158,6 @@ br.clear {
 	clear: both;
 }
 
-p, ul, ol, dl, table, blockquote, form {
-	margin-bottom: 2em;
-}
-
 /* Section/Article */
 
 section,
@@ -176,19 +172,18 @@ article:last-child {
 	margin-bottom: 0;
 }
 
-header.style1 {
+header {
 	text-align: center;
-	padding: 3em 0 3em 0;
 }
 
-header.style1 h2 {
+header h2 {
 	font-weight: 700;
 	font-size: 2em;
 	letter-spacing: 0.075em;
 	line-height: 1.5em;
 }
 
-header.style1 p {
+header p {
 	color: #b1b4b9;
 	display: block;
 	margin: 1.15em 0 0 0;

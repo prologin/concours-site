@@ -31,40 +31,32 @@
     <div class="title">Commencer</div>
 
     <div class="container">
-        <div class="row reg_20rem">
-            <div>
-                <section class="highlight">
-                    {% with url="http://www.france-ioi.org/" %}
-                    <a target="_blank" href="{{url}}" class="image featured">
-                        <img src="{% static 'gcc/img/logo_ioi.png' %}" />
-                    </a>
+        <div class="highlight-row">
+            <div class="highlight">
+                {% with url="http://www.france-ioi.org/" %}
+                <a target="_blank" href="{{url}}" class="image featured">
+                    <img src="{% static 'gcc/img/logo_ioi.png' %}" />
+                </a>
 
-                    <h3><a target="_blank" href="{{url}}">France IOI</a></h3>
-                    <p>
-                    France-IOI offre une plateforme d'apprentissage avec des exercices répartis par niveaux, le tout gratuitement et entièrement en français !
-                    </p>
-                    <ul class="actions">
-                        <li><a target="_blank" href="{{url}}" class="button style1">France IOI</a></li>
-                    </ul>
-                    {% endwith %}
-                </section>
+                <h3><a target="_blank" href="{{url}}">France IOI</a></h3>
+                <p>
+                France-IOI offre une plateforme d'apprentissage avec des exercices répartis par niveaux, le tout gratuitement et entièrement en français !
+                </p>
+                <a target="_blank" href="{{url}}" class="button style1">France IOI</a>
+                {% endwith %}
             </div>
-            <div>
-                <section class="highlight">
-                    {% with url="https://www.codecademy.com/fr" %}
-                    <a target="_blank" href="{{url}}" class="image featured">
-                        <img src="{% static 'gcc/img/logo_codeac.svg' %}" />
-                    </a>
+            <div class="highlight">
+                {% with url="https://www.codecademy.com/fr" %}
+                <a target="_blank" href="{{url}}" class="image featured">
+                    <img src="{% static 'gcc/img/logo_codeac.svg' %}" />
+                </a>
 
-                    <h3><a target="_blank" href="{{url}}">Codeacademy</a></h3>
-                    <p>
-                    Si tu parles un peu anglais, Codeacademy est une bonne ressource pour te lancer dans la programmation.
-                    </p>
-                    <ul class="actions">
-                        <li><a target="_blank"  href="{{url}}" class="button style1">Codeacademy</a></li>
-                    </ul>
-                    {% endwith %}
-                </section>
+                <h3><a target="_blank" href="{{url}}">Codeacademy</a></h3>
+                <p>
+                Si tu parles un peu anglais, Codeacademy est une bonne ressource pour te lancer dans la programmation.
+                </p>
+                <a target="_blank"  href="{{url}}" class="button style1">Codeacademy</a>
+                {% endwith %}
             </div>
         </div>
     </div>
