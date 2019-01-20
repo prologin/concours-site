@@ -4,17 +4,19 @@
 {% block title %}GCC! − Connection{% endblock %}
 
 
-{% block content %}
-<section class="wrapper">
-    <div class="title">Connection</div>
-    <div class="container">
+{% block header-popup %}
+    <div id="header-popup">
         <h2>Se connecter à GCC!</h2>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="hidden" name="next" value="{% url 'gcc:index' %}">
-            <button class="halo-button" type="submit">Se connecter</button>
+
+            <div style="text-align: center">
+                <button type="submit">Se connecter</button>
+            </div>
+
+            <input type="hidden" name="next" value="/gcc/">
         </form>
     </div>
-</section>
 {% endblock %}
+

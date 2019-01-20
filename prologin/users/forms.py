@@ -111,7 +111,8 @@ class RegisterForm(forms.ModelForm):
     captcha = ReCaptchaField(label="",
                              help_text='<small>{}</small>'.format(
                                  _("Please check the box above and complete the additional tasks if any. "
-                                   "This is required to fight spamming bots on the website.")))
+                                   "This is required to fight spamming bots on the website.")),
+                             attrs={'theme' : 'clean'})
 
     class Meta:
         model = User

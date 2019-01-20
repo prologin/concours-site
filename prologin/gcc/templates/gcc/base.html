@@ -22,13 +22,16 @@
     </head>
     <body>
         <!-- Header -->
-        <section id="header" class="wrapper" style="background: url({% static 'gcc/img/collage_index_blur.jpg' %})">
+        <section id="header" class="wrapper" style="background: url({% static 'gcc/img/collage_index_blur_darker.jpg' %})">
+
+            <!-- Quick access popup-like frame -->
+            {% block header-popup %}{% endblock %}
+
             <!-- Logo -->
             <div class="logo">
                 <h1>
                     <a href="{% url 'gcc:index' %}">
-                        <img src="{% static "img/logo-squeletton.png" %}"/>
-                        Girls Can Code!
+                        <img src="{% static 'gcc/img/logo.png' %}" />
                     </a>
                 </h1>
                 <p>Stage d'informatique gratuit pour les filles de collège et lycée.</p>
@@ -76,7 +79,7 @@
         </section>
 
 
-        {% block content %}<section><p>CONTENU NON DÉFINIS</p></section>{% endblock %}
+        {% block content %}{% endblock %}
 
         <!-- Footer -->
         <section id="footer" class="wrapper">

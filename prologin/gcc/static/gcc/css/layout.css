@@ -206,11 +206,12 @@
 
 #header {
 	display: flex;
+    flex-direction: column;
 	align-items: center;
 	justify-content: center;
 	position: relative;
-	height: 24em;
-	padding: 0;
+	min-height: 24em;
+	padding: 120px 0 90px 0;
 
 	/* override background image parameters */
 	/* image url is defined in the template */
@@ -232,7 +233,7 @@
 /* Logo */
 
 #header .logo img {
-	height: 34px;
+	height: 60px;
 	vertical-align: middle;
 }
 
@@ -253,12 +254,61 @@
 
 #header .logo p {
 	color: #eee;
-	color: rgba(255, 255, 255, 0.5);
 	text-transform: uppercase;
 	margin: 1.25em 0 0 0;
 	display: block;
 	letter-spacing: 0.2em;
 	font-size: 0.9em;
+}
+
+#header-popup {
+    background-color: rgba(255,255,255, 0.05);
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 30px;
+    border-radius: 5px;
+    position: relative;
+}
+
+#header-popup h2 {
+    text-align: center;
+    margin-bottom: 1em;
+    color: white;
+    font-size: larger;
+}
+
+#header-popup form {
+    margin: 0;
+    text-align: left;
+}
+
+#header-popup form label {
+    font-size: small;
+    letter-spacing: normal;
+}
+
+#header-popup form input {
+    background: none;
+}
+
+#header-popup form input:focus {
+    border: 1px solid;
+}
+
+#header-popup form .helptext {
+    letter-spacing: normal;
+}
+
+#header-popup form button {
+    margin-bottom: 0;
+    color: white;
+    background: none;
+    height: calc(4em + 2px);
+    border: 2px solid;
+}
+
+#header-popup form button:hover {
+    background-color: rgba(0, 0, 0, 0.2);
 }
 
 /* Nav */

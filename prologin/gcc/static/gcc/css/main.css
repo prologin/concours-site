@@ -271,7 +271,7 @@ form textarea:focus {
 }
 
 form input[type="text"],
-form input[type="email"]
+form input[type="email"],
 input[type="password"] {
 	line-height: 1em;
 }
@@ -348,6 +348,12 @@ form ::-moz-focus-inner {
 	display: block;
 	width: 100%;
 	margin: 0 0 2em 0;
+}
+
+.image.featured > img {
+    margin: auto;
+    max-width: 100%;
+    width: unset;
 }
 
 /* Button */

@@ -4,17 +4,19 @@
 {% block title %}GCC! − Inscription{% endblock %}
 
 
-{% block content %}
-<section class="wrapper">
-    <div class="title">Inscription</div>
-    <div class="container">
-        <h2>S'inscrire sur le site de Prologin</h2>
+{% block header-popup %}
+    <div id="header-popup">
+        <h2>Inscription</h2>
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="hidden" name="next" value="{% url 'gcc:index' %}">
-            <button class="halo-button" type="submit">S'inscrire</button>
+
+            <div style="text-align: center">
+                <button type="submit">S'inscrire</button>
+            </div>
+
+            <input type="hidden" name="next" value="/gcc/">
         </form>
     </div>
-</section>
 {% endblock %}
+
