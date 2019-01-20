@@ -9,22 +9,22 @@
 
 {% block content %}
 <section class="wrapper style1">
-	<div class="container">
-		<div class="title">Désinscription</div>
+    <div class="container">
+        <div class="title">Désinscription</div>
 
-		<div style="text-align: center; max-width: 600px; margin: auto;">
-			<h2>Se désinscrire de la lettre d'information</h2>
-			{% if fail %}
-				<p>
-					Une erreur est survenue lors de la désinscription, veuillez
-					réessayer.
-				</p>
-			{% endif %}
-			<form method="post">{% csrf_token %}
-				{{ form.as_p }}
-				<input class="style3" type="submit" value="Valider">
-			</form>
-		</div>
-	</div>
+        <div style="text-align: center; max-width: 600px; margin: auto;">
+            <h2>Se désinscrire de la lettre d'information</h2>
+            {% if fail %}
+            <p>
+            Une erreur est survenue lors de la désinscription, veuillez
+            réessayer.
+            </p>
+            {% endif %}
+            <form method="post">{% csrf_token %}
+                {{ form.as_p }}
+                <input class="style3" type="submit" value="Valider">
+            </form>
+        </div>
+    </div>
 </section>
 {% endblock %}

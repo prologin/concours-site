@@ -8,25 +8,25 @@
 {% endblock %}
 
 {% block content %}
-  {% if editions %}
-  <!-- Trainers for first edition -->
-  <section>
-  	<h1>Dernière édition ({{ editions.first.year }})</h1>
+{% if editions %}
+<!-- Trainers for first edition -->
+<section>
+    <h1>Dernière édition ({{ editions.first.year }})</h1>
     {% include "gcc/elements/trainer_list.html" with trainers=editions.first.trainers %}
-  </section>
-  <!-- Grille des années (avec le poster en fond) -->
-  <section>
-  	<h1>Historique des équipes GCC</h1>
-  	<div class="grid">
-  		{% for e in editions %}
-  		<a class="edition-container" href="{% url "gcc:team_edition" e.year %}">
-  			<h2>{{ e.year }}</h2>
-        <img src="{{e.poster_url}}" alt="Affiche edition {{e.year}}">
-  		</a>
-  		{% endfor %}
-  	</div>
-  	{% else %}
-  	<p>Pas d'éditions enregistrées</p>
-  	{% endif %}
-  </section>
+</section>
+<!-- Grille des années (avec le poster en fond) -->
+<section>
+    <h1>Historique des équipes GCC</h1>
+    <div class="grid">
+        {% for e in editions %}
+        <a class="edition-container" href="{% url "gcc:team_edition" e.year %}">
+            <h2>{{ e.year }}</h2>
+            <img src="{{e.poster_url}}" alt="Affiche edition {{e.year}}">
+        </a>
+        {% endfor %}
+    </div>
+    {% else %}
+    <p>Pas d'éditions enregistrées</p>
+    {% endif %}
+</section>
 {% endblock %}

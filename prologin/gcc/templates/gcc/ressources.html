@@ -2,117 +2,117 @@
 {% load static %}
 
 {% block content %}
-	<section class="wrapper emph-infos important">
-		<div class="title">S'entraîner à coder</div>
-		<div class="container">
-			<p>
-				Beaucoup de ressources sont disponibles sur Internet pour te permettre de découvrir l’informatique, mais il est parfois difficile de s'orienter face à la quantité d'informations.
-				Nous détaillons ici quelques ressources particulièrement intéressantes pour débuter et s'entraîner.
-			</p>
-		</div>
-	</section>
+<section class="wrapper emph-infos important">
+    <div class="title">S'entraîner à coder</div>
+    <div class="container">
+        <p>
+        Beaucoup de ressources sont disponibles sur Internet pour te permettre de découvrir l’informatique, mais il est parfois difficile de s'orienter face à la quantité d'informations.
+        Nous détaillons ici quelques ressources particulièrement intéressantes pour débuter et s'entraîner.
+        </p>
+    </div>
+</section>
 
-	<section class="wrapper emph-infos">
-		<div class="title">Quel langage ?</div>
-		<div class="container">
-			<p>
-				Coder consiste à décrire des opérations que la machine exécutera, et pour communiquer avec la machine on doit choisir au préalable dans quel langage on va lui parler.
-				Il existe de très nombreux langages de programmation, chacun ayant ses spécificités.
-			</p>
-			<p>
-				Il est important de savoir dans quel langage on souhaite commencer à programmer avant de se lancer. On apprends à programmer dans un langage.
-				Pendant les stages nous enseignons principalement le Python, que nous recommandons pour débuter.
-				C’est un langage assez facile à prendre en main (comparé à d’autres...) et qui a de nombreuses utilisations. Il est par exemple utilisé dans Youtube.
-			</p>
-		</div>
-	</section>
+<section class="wrapper emph-infos">
+    <div class="title">Quel langage ?</div>
+    <div class="container">
+        <p>
+        Coder consiste à décrire des opérations que la machine exécutera, et pour communiquer avec la machine on doit choisir au préalable dans quel langage on va lui parler.
+        Il existe de très nombreux langages de programmation, chacun ayant ses spécificités.
+        </p>
+        <p>
+        Il est important de savoir dans quel langage on souhaite commencer à programmer avant de se lancer. On apprends à programmer dans un langage.
+        Pendant les stages nous enseignons principalement le Python, que nous recommandons pour débuter.
+        C’est un langage assez facile à prendre en main (comparé à d’autres...) et qui a de nombreuses utilisations. Il est par exemple utilisé dans Youtube.
+        </p>
+    </div>
+</section>
 
-	<section class="wrapper">
-		<div class="title">Commencer</div>
+<section class="wrapper">
+    <div class="title">Commencer</div>
 
-		<div class="container">
-			<div class="row reg_20rem">
-				<div>
-					<section class="highlight">
-						{% with url="http://www.france-ioi.org/" %}
-						<a target="_blank" href="{{url}}" class="image featured">
-							<img src="{% static 'gcc/img/logo_ioi.png' %}" />
-						</a>
+    <div class="container">
+        <div class="row reg_20rem">
+            <div>
+                <section class="highlight">
+                    {% with url="http://www.france-ioi.org/" %}
+                    <a target="_blank" href="{{url}}" class="image featured">
+                        <img src="{% static 'gcc/img/logo_ioi.png' %}" />
+                    </a>
 
-						<h3><a target="_blank" href="{{url}}">France IOI</a></h3>
-						<p>
-							France-IOI offre une plateforme d'apprentissage avec des exercices répartis par niveaux, le tout gratuitement et entièrement en français !
-						</p>
-						<ul class="actions">
-							<li><a target="_blank" href="{{url}}" class="button style1">France IOI</a></li>
-						</ul>
-						{% endwith %}
-					</section>
-				</div>
-				<div>
-					<section class="highlight">
-						{% with url="https://www.codecademy.com/fr" %}
-						<a target="_blank" href="{{url}}" class="image featured">
-							<img src="{% static 'gcc/img/logo_codeac.svg' %}" />
-						</a>
+                    <h3><a target="_blank" href="{{url}}">France IOI</a></h3>
+                    <p>
+                    France-IOI offre une plateforme d'apprentissage avec des exercices répartis par niveaux, le tout gratuitement et entièrement en français !
+                    </p>
+                    <ul class="actions">
+                        <li><a target="_blank" href="{{url}}" class="button style1">France IOI</a></li>
+                    </ul>
+                    {% endwith %}
+                </section>
+            </div>
+            <div>
+                <section class="highlight">
+                    {% with url="https://www.codecademy.com/fr" %}
+                    <a target="_blank" href="{{url}}" class="image featured">
+                        <img src="{% static 'gcc/img/logo_codeac.svg' %}" />
+                    </a>
 
-						<h3><a target="_blank" href="{{url}}">Codeacademy</a></h3>
-						<p>
-							Si tu parles un peu anglais, Codeacademy est une bonne ressource pour te lancer dans la programmation.
-						</p>
-						<ul class="actions">
-							<li><a target="_blank"  href="{{url}}" class="button style1">Codeacademy</a></li>
-						</ul>
-						{% endwith %}
-					</section>
-				</div>
-			</div>
-		</div>
-	</section>
+                    <h3><a target="_blank" href="{{url}}">Codeacademy</a></h3>
+                    <p>
+                    Si tu parles un peu anglais, Codeacademy est une bonne ressource pour te lancer dans la programmation.
+                    </p>
+                    <ul class="actions">
+                        <li><a target="_blank"  href="{{url}}" class="button style1">Codeacademy</a></li>
+                    </ul>
+                    {% endwith %}
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
 
-	<section class="wrapper">
-		<div class="title">Se lancer</div>
-		<div class="container">
-			<p>
-				L’avantage quand on apprend l'informatique, c’est qu'on peut vraiment en faire ce qu’on veut.
-				Il y a beaucoup de sous domaines et d'applications en informatique, et pour continuer à coder, c’est motivant de trouver quelque chose qui nous plait.
-				Voici quelques exemples :
-			</p>
+<section class="wrapper">
+    <div class="title">Se lancer</div>
+    <div class="container">
+        <p>
+        L’avantage quand on apprend l'informatique, c’est qu'on peut vraiment en faire ce qu’on veut.
+        Il y a beaucoup de sous domaines et d'applications en informatique, et pour continuer à coder, c’est motivant de trouver quelque chose qui nous plait.
+        Voici quelques exemples :
+        </p>
 
-			<div class="feature-list">
-				<section class="row irr_10rem_1fr">
-					{% with url="https://djangogirls.org/" %}
-					<div class="img-container">
-						<a href="{{url}}">
-							<img src="https://djangogirls.org/static/img/global/logo.png" />
-						</a>
-					</div>
-					<div>
-						<h3><a href="{{url}}">Django girls</a></h3>
-						<p>
-							Elles ont écrit un tutoriel pour la création d’un blog en Python avec le framework Django.
-							Il a été traduit entièrement en français et est très accessible.
-							Django est un outil très puissant pour le web. Les sites de GCC! et Prologin utilisent d’ailleurs ce framework.
-						</p>
-					</div>
-					{% endwith %}
-				</section>
-				<section class="row irr_10rem_1fr">
-					<div class="img-container">
-						<a href="{% url 'home' %}">
-							<img src="{% static 'img/logo_cube.png' %}" />
-						</a>
-					</div>
-					<div>
-						<h3><a href="{% url 'home' %}">Prologin</a></h3>
-						<p>
-							C’est le nom de l’association qui organise les stages mais aussi un concours d’informatique destiné aux jeunes de moins de 21 ans.
-							Sur son site, tu peux trouver les archives des exercices des années précédentes.
-							Ce sont des petits problèmes qui donnent une entrée et demandent une réponse précise, c’est à toi d’écrire le programme qui trouve la réponse !
-						</p>
-					</div>
-				</section>
-			</div>
-		</div>
-	</section>
+        <div class="feature-list">
+            <section class="row irr_10rem_1fr">
+                {% with url="https://djangogirls.org/" %}
+                <div class="img-container">
+                    <a href="{{url}}">
+                        <img src="https://djangogirls.org/static/img/global/logo.png" />
+                    </a>
+                </div>
+                <div>
+                    <h3><a href="{{url}}">Django girls</a></h3>
+                    <p>
+                    Elles ont écrit un tutoriel pour la création d’un blog en Python avec le framework Django.
+                    Il a été traduit entièrement en français et est très accessible.
+                    Django est un outil très puissant pour le web. Les sites de GCC! et Prologin utilisent d’ailleurs ce framework.
+                    </p>
+                </div>
+                {% endwith %}
+            </section>
+            <section class="row irr_10rem_1fr">
+                <div class="img-container">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'img/logo_cube.png' %}" />
+                    </a>
+                </div>
+                <div>
+                    <h3><a href="{% url 'home' %}">Prologin</a></h3>
+                    <p>
+                    C’est le nom de l’association qui organise les stages mais aussi un concours d’informatique destiné aux jeunes de moins de 21 ans.
+                    Sur son site, tu peux trouver les archives des exercices des années précédentes.
+                    Ce sont des petits problèmes qui donnent une entrée et demandent une réponse précise, c’est à toi d’écrire le programme qui trouve la réponse !
+                    </p>
+                </div>
+            </section>
+        </div>
+    </div>
+</section>
 {% endblock %}

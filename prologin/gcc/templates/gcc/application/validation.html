@@ -10,28 +10,28 @@
 
 {% block content %}
 <section class="wrapper">
-	<div class="title">Centre de stage</div>
-	<div class="container">
-		<h2>Choisir mon centre de stage</h2>
-		<form method="post">
-	    {% csrf_token %}
-			{{ form.as_p }}
-			<input class="halo-button" type="submit" value="Valider ma candidature">
-		</form>
-	</div>
+    <div class="title">Centre de stage</div>
+    <div class="container">
+        <h2>Choisir mon centre de stage</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input class="halo-button" type="submit" value="Valider ma candidature">
+        </form>
+    </div>
 </section>
 
 <section class="wrapper">
-	<div class="title">Centre disponibles</div>
-	<div class="container">
-	  {% for event in events %}
-    <a href="{% url "centers:map" %}"><h3>{{ event.center.name }}</h3></a>
-    <p>
-      Du {{event.event_start}} au {{event.event_end}}<br/>
-      {{event.center.address}}, {{event.center.postal_code}} {{event.center.city}}<br/>
-      Fermeture des inscriptions le {{event.signup_end}}
-    </p>
-	  {% endfor %}
-	</div>
+    <div class="title">Centre disponibles</div>
+    <div class="container">
+        {% for event in events %}
+        <a href="{% url "centers:map" %}"><h3>{{ event.center.name }}</h3></a>
+        <p>
+        Du {{event.event_start}} au {{event.event_end}}<br/>
+        {{event.center.address}}, {{event.center.postal_code}} {{event.center.city}}<br/>
+        Fermeture des inscriptions le {{event.signup_end}}
+        </p>
+        {% endfor %}
+    </div>
 </section>
 {% endblock %}
