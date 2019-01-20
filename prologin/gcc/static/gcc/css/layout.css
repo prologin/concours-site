@@ -275,6 +275,10 @@
     position: relative;
 }
 
+#header-popup label {
+    color: white;
+}
+
 #header-popup h2 {
     text-align: center;
     margin-bottom: 1em;
