@@ -440,7 +440,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     def semifinal_lines_of_code(self):
         from problems.models import SubmissionCode
         return sum(1
-                   for code in self.semifinal_submissions().values_list('code', flat=True)
+                   for code in self.semifinal_submissions.values_list('code', flat=True)
                    for line in code.replace('\r', '\n').split('\n') if line.strip())
 
     @cached_property
@@ -468,7 +468,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
             problem = challenge.problem(unlock.problem)
             problem_to_unlock_date[problem] = unlock.date_created
 
-        for submission in Submission.objects.filter(user=self.user, challenge=challenge.name, score_base__gt=0):
+        for submission in self.semifinal_submissions:
             problem = challenge.problem(submission.problem)
             problem_to_solved_date[problem] = submission.first_code_success().date_submitted
             difficulty_to_solved[problem.difficulty].add(problem)
