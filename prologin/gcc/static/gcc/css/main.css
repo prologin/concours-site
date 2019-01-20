@@ -348,7 +348,6 @@ form ::-moz-focus-inner {
 .image.featured > img {
     margin: auto;
     max-width: 100%;
-    width: unset;
 }
 
 /* Button */

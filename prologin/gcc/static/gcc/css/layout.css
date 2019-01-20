@@ -11,16 +11,19 @@
 	margin-left: auto;
 	margin-right: auto;
 	position: relative;
-	top: 0.75em;
+	margin-top: 0.75em;
 }
 
 .feature-list section {
 	border-top: solid 1px #eee;
-	padding-top: 0.9em;
 	margin-top: 1em;
 	margin-bottom: 0;
 	padding-left: 5em;
 	position: relative;
+}
+
+.feature-list section > div {
+    padding-top: 0.5em;
 }
 
 .feature-list section.row {
@@ -59,7 +62,7 @@
 }
 
 .feature-list .img-container {
-	margin: auto;
+	margin: auto 20px auto 0;
 	text-align: center;
 }
 
@@ -237,10 +240,12 @@
 	position: relative;
 	top: 1.5em;
     margin-bottom: 40px;
+    padding: 1em;
 }
 
 #header .logo img {
-	height: 60px;
+	max-height: 60px;
+    max-width: 100%;
 	vertical-align: middle;
 }
 
@@ -263,7 +268,7 @@
 
 #header-popup {
     background-color: rgba(255,255,255, 0.05);
-    max-width: 700px;
+    max-width: 736px;
     margin: 30px auto 0 auto;
     padding: 30px;
     border-radius: 5px;
@@ -305,10 +310,15 @@
     background: none;
     height: calc(4em + 2px);
     border: 2px solid;
+    margin-top : 20px;
 }
 
 #header-popup form button:hover {
     background-color: rgba(0, 0, 0, 0.2);
+}
+
+#header-popup form .g-recaptcha > div {
+    margin: 10px auto;
 }
 
 /* Nav */
@@ -526,32 +536,25 @@
 
 .highlight-row {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     flex-direction: row;
-    margin: 1em 0;
+    margin: 1em;
 }
 
 .highlight {
+    flex: 1;
 	text-align: center;
 	display: flex;
 	flex-direction: column;
-    max-width: 350px;
-    flex: 1;
+    max-width: 400px;
+    min-width: 300px;
+    margin-bottom: 1em;
+    margin: 10px 15px;
 }
 
-.highlight:first-child {
-    margin-left: auto;
-}
-
-.highlight:last-child {
-    margin-right: auto;
-}
-
-.highlight:not(:last-child) {
-    margin-right: 15px;
-}
-
-.highlight-row-gaped .highlight:not(:last-child) {
-    margin-right: auto;
+.highlight-row-gaped {
+    justify-content: space-between;
 }
 
 .highlight h3 {
@@ -595,6 +598,10 @@
 	color: #fff;
 }
 
+#footer form input {
+    min-height: 3.5em;
+}
+
 #footer form input[type="text"] {
 	background: #ccc;
 	box-shadow: none;
@@ -609,7 +616,6 @@
 	box-shadow: inset 0px 0px 2px 0px rgba(255, 255, 255, 0.5);
 	white-space: normal;
 	line-height: 1.5;
-    margin-left: 10px;
 }
 
 #footer input[type="submit"]:hover {
@@ -646,6 +652,8 @@
 
 #footer .feature-list section {
     border: none;
+    margin: 0 0 0.5em 0;
+    padding-top: 1em;
 }
 
 #footer .feature-list h3:before {
@@ -657,6 +665,7 @@
 #copyright {
 	text-align: center;
 	padding-top: 1.5em;
+    padding-bottom: 1em;
 }
 
 #copyright ul {

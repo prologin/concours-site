@@ -57,26 +57,6 @@
 	#intro p.style2 {
 		font-size: 2.25em;
 	}
-
-	/* Footer */
-
-	#footer {
-		padding-bottom: 4em;
-	}
-
-	#footer header.style1 {
-		padding-bottom: 4em;
-		margin-bottom: 4em;
-		border-bottom: solid 1px rgba(255, 255, 255, 0.05);
-	}
-
-	/* Copyright */
-
-	#copyright {
-		padding-top: 4em;
-		margin-top: 4em;
-	}
-
 }
 
 /* Medium */
@@ -105,10 +85,6 @@
 		max-width: 40em;
 	}
 
-	.feature-list section {
-		padding-top: 4em;
-	}
-
 	.feature-list > .row > :first-child > section {
 		border-top: 0;
 		padding-top: 0;
@@ -119,6 +95,13 @@
 	#nav {
 		display: none;
 	}
+
+    /* Header */
+
+    #header {
+        padding-top: 0;
+        min-height: 17em;
+    }
 
 	/* Logo */
 
@@ -139,23 +122,6 @@
 		margin-left: auto;
 		margin-right: auto;
 	}
-
-	/* Footer */
-
-	#footer .feature-list {
-		border-top: solid 1px rgba(255, 255, 255, 0.05);
-		padding-top: 4em;
-	}
-
-}
-
-@media screen and (max-width: 980px) and (min-width: 737px) {
-
-	#footer .feature-list > .row > :nth-child(2) > section {
-		border-top: 0;
-		padding-top: 0;
-	}
-
 }
 
 @media screen and (max-width: 980px) {
@@ -333,6 +299,11 @@
 
 @media screen and (max-width: 736px) {
 
+    #header-popup {
+        margin-top: 0;
+        border-radius: 0;
+    }
+
 	/* Basic */
 
 	body, input, select, textarea {
@@ -441,16 +412,6 @@
 		background-size: 100% 100%;
 	}
 
-	/* Header */
-
-	#header {
-		height: 17em;
-	}
-
-	.homepage #header {
-		height: 20em;
-	}
-
 	/* Content */
 
 	#content {
@@ -461,20 +422,4 @@
 		padding-bottom: 2.5em;
 	}
 
-	/* Footer */
-
-	#footer {
-		padding-bottom: 0;
-	}
-
-	#footer header.style1 {
-		padding-bottom: 0;
-		margin-bottom: 2em;
-		border-bottom: 0;
-	}
-
-	#footer .feature-list {
-		border-top: 0;
-		padding-top: 0;
-	}
 }
