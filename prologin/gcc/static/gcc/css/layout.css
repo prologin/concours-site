@@ -466,7 +466,6 @@
 
 .emph-infos > * {
     max-width: 25cm;
-    margin: 5px auto 5px auto;
 }
 
 .emph-infos h2 {
@@ -482,8 +481,15 @@
 
 .emph-infos ul {
     list-style: disclosure-closed;
+    line-height: normal;
+    font-size: 1.1em;
     margin-bottom: 2em;
 }
+
+.emph-infos ul > li {
+    margin-bottom: 5px;
+}
+
 
 /* Intro */
 
@@ -543,7 +549,7 @@
     flex-wrap: wrap;
     justify-content: center;
     flex-direction: row;
-    margin: 1em;
+    margin: 1em 0;
 }
 
 .highlight {
@@ -574,6 +580,7 @@
 
 .highlight ul {
     margin: 0;
+    padding-left: 0;
 }
 
 .highlight .actions {
