@@ -16,11 +16,6 @@ class Edition(models.Model):
     year = models.PositiveIntegerField(primary_key=True)
 
     @cached_property
-    def trainers(self):
-        """Gets the trainers who participate to this edition"""
-        return Trainer.objects.filter(events__edition=self)
-
-    @cached_property
     def poster_url(self):
         """Gets poster's url if it exists else return None"""
         name = 'poster.full.jpg'
@@ -61,11 +56,9 @@ class Event(models.Model):
         return str(self.event_start) + ' ' + str(self.center)
 
 
-class Trainer(models.Model):
-    events = models.ManyToManyField(Event)
+class Corrector(models.Model):
+    event = models.ForeignKey('Event', on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    can_view_applications = models.BooleanField(default=False)
-    description = models.TextField()
 
     def __str__(self):
         return str(self.user)

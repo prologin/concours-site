@@ -1,5 +1,5 @@
 from django.contrib import admin
-from gcc.models import Applicant, ApplicantLabel, Edition, Event, Trainer, SubscriberEmail
+from gcc.models import Applicant, ApplicantLabel, Edition, Event, Corrector, SubscriberEmail
 from gcc.models import Question, Answer
 
 
@@ -11,9 +11,9 @@ class ApplicationAdmin(admin.ModelAdmin):
     list_display = ('user', 'edition', 'status')
 
 
-@admin.register(Trainer)
-class TrainerAdmin(admin.ModelAdmin):
-    list_display = ('user', 'can_view_applications')
+@admin.register(Corrector)
+class CorrectorAdmin(admin.ModelAdmin):
+    list_display = ('user', 'event')
 
 
 @admin.register(Event)

@@ -8,7 +8,7 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.edit import FormView, CreateView
 
-from gcc.models import Answer, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Trainer, Forms
+from gcc.models import Answer, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Forms
 from users.models import ProloginUser
 
 from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
@@ -89,16 +89,14 @@ class NewsletterConfirmUnsubView(TemplateView):
 # Application
 
 
-#TODO: Check if the user is logged in
-class ApplicationForm(FormView):
+class ApplicationFormView(FormView):
     template_name = 'gcc/application/form.html'
 
     def get_form_class(self):
         """
         Returns the form class to use in this view
         """
-        self.user = get_object_or_404(ProloginUser, pk=self.kwargs['user_id'])
-        return build_dynamic_form(Forms.application, self.user)
+        return build_dynamic_form(Forms.application, self.request.user)
 
     def get_success_url(self):
         return reverse_lazy(
@@ -110,7 +108,6 @@ class ApplicationForm(FormView):
         return super(ApplicationForm, self).form_valid(form)
 
 
-#TODO: Check if the user is logged in
 #TODO: Check if there is an event with opened application
 #TODO: Check that the user has filled ApplicationForm and isn't registered yet
 class ApplicationValidation(FormView):
@@ -126,45 +123,5 @@ class ApplicationValidation(FormView):
         return super(ApplicationValidation, self).get_context_data(**kwargs)
 
     def form_valid(self, form):
-        self.user = get_object_or_404(ProloginUser, pk=self.kwargs['user_id'])
-        form.save(self.user)
+        form.save(self.request.user)
         return super(ApplicationValidation, self).form_valid(form)
-
-
-# Application moderation
-
-
-#TODO: Check permissions to access this page
-class ApplicationReviewView(TemplateView):
-    template_name = "gcc/application/review.html"
-
-    def get_context_data(self, **kwargs):
-        """
-        Extract the list of users who have an application this year and list
-        their applications in the same object.
-        """
-        #TODO: permissions to moderate each event ?
-        current_edition = Edition.objects.latest('year')
-
-        context = {
-            'applicants': Applicant.objects.filter(edition=current_edition),
-            'labels': ApplicantLabel.objects.all(),
-        }
-
-        return context
-
-# TODO: Check permissions
-def application_remove_label(request, applicant_id, label_id):
-    applicant = get_object_or_404(Applicant, pk=applicant_id)
-    label = get_object_or_404(ApplicantLabel, pk=label_id)
-    applicant.labels.remove(label)
-    return redirect(
-        reverse_lazy('gcc:application_review') + '#applicant-{}'.format(applicant.pk))
-
-# TODO: Check permissions
-def application_add_label(request, applicant_id, label_id):
-    applicant = get_object_or_404(Applicant, pk=applicant_id)
-    label = get_object_or_404(ApplicantLabel, pk=label_id)
-    applicant.labels.add(label)
-    return redirect(
-        reverse_lazy('gcc:application_review') + '#applicant-{}'.format(applicant.pk))

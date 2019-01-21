@@ -1,5 +1,5 @@
 from django.urls import include, path
-from gcc import views
+from gcc import views, staff_views
 
 app_name = 'gcc'
 
@@ -31,24 +31,24 @@ newsletter_patterns = [
 
 application_patterns = [
     path(
-        'review/',
-        views.ApplicationReviewView.as_view(),
+        'review/<int:edition>/<int:event>/',
+        staff_views.ApplicationReviewView.as_view(),
         name='application_review'),
     path(
-        'form/<int:user_id>/',
-        views.ApplicationForm.as_view(),
+        'form/',
+        views.ApplicationFormView.as_view(),
         name='application_form'),
     path(
-        'validation/<int:user_id>/',
+        'validation/',
         views.ApplicationValidation.as_view(),
         name='application_validation'),
     path(
         'delete/<int:applicant_id>/<int:label_id>/',
-        views.application_remove_label,
+        staff_views.ApplicationRemoveLabelView.as_view(),
         name='delete_applicant_label'),
     path(
         'add/<int:applicant_id>/<int:label_id>/',
-        views.application_add_label,
+        staff_views.ApplicationAddLabelView.as_view(),
         name='add_applicant_label'),
 ]
 
