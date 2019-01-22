@@ -352,15 +352,13 @@
 #nav ul > li.pull-right {
     position: absolute;
     right: 40px;
+    border-radius: 5px;
+    box-shadow: inset 0px 0px 1px 1px rgba(255, 255, 255, 0.25);
 }
 
 #nav ul > li.pull-right > a {
     display: inline-block;
-}
-
-#nav ul > li.pull-right > a:not(:last-child) {
-    display: inline-block;
-    margin-right: 20px;
+    margin: 0 10px;
 }
 
 #nav ul > li > ul {

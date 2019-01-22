@@ -65,7 +65,7 @@
           {% else %}
             <li class="pull-right">
               <a>{{ user.username }}</a>
-              <ul style="display:block">
+              <ul>
                 <li>
                   <form method="post" action="{% url 'users:logout' %}?next=/gcc">
                     {% csrf_token %}
