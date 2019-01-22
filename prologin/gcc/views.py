@@ -29,6 +29,20 @@ class LoginView(users.views.LoginView):
 class RegistrationView(users.views.RegistrationView):
     template_name = 'gcc/users/register.html'
 
+class ProfileView(users.views.ProfileView):
+    template_name = 'gcc/users/profile.html'
+
+class EditUserView(users.views.EditUserView):
+    template_name = 'gcc/users/edit.html'
+
+class EditPasswordView(users.views.EditPasswordView):
+    template_name = 'gcc/users/edit_password.html'
+
+class DeleteUserView(users.views.DeleteUserView):
+    template_name = 'gcc/users/delete.html'
+
+class TakeoutDownloadUserView(users.views.TakeoutDownloadUserView):
+    pass
 
 # Editions
 

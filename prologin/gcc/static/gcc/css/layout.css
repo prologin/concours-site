@@ -4,6 +4,34 @@
  * Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
  */
 
+ .avatar-container-profile {
+   width: 220px;
+   height: 220px;
+   margin-bottom: 1.5em;
+ }
+
+ .avatar-container {
+   border-radius: 6px;
+   background-image: url('../img/silhouette.png');
+   background-size: cover;
+   background-repeat: no-repeat;
+   position: relative;
+ }
+
+ .avatar-container > .avatar-container {
+   position: absolute;
+   bottom: -16px;
+   right: -16px;
+   border: 5px solid white;
+   box-sizing: content-box;
+   width: 64px;
+   height: 64px;
+ }
+
+ .bootstrap_region .row {
+     display: block;
+ }
+
 /* Feature List */
 
 .feature-list {
