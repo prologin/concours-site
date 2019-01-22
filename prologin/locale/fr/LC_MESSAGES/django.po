@@ -6,7 +6,7 @@
 # Alexandre <artifere@gmail.com>, 2015
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015-2018
 # Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
-# Antoine Pietri <antoine.pietri1@gmail.com>, 2015,2017-2018
+# Antoine Pietri <antoine.pietri1@gmail.com>, 2015,2017-2019
 # cbeausei <clementbeauseigneur@hotmail.fr>, 2016
 # cbeausei <clementbeauseigneur@hotmail.fr>, 2016
 # Dettorer <p.hervot@gmail.com>, 2015
@@ -14,6 +14,7 @@
 # Dettorer <p.hervot@gmail.com>, 2015
 # Prologin <association@prologin.org>, 2016-2017
 # Rémi Audebert <rflah0@gmail.com>, 2015-2016
+# Rémi Dupré <remim.dupre@gmail.com>, 2019
 # Robin Thoni <rob57530@gmail.com>, 2015
 # Stéphane Henriot <shloub@gmail.com>, 2016
 # Théophile Bastian <contact@tobast.fr>, 2017
@@ -24,8 +25,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-10-31 11:43+0100\n"
-"PO-Revision-Date: 2018-10-31 10:44+0000\n"
+"POT-Creation-Date: 2019-01-22 11:51+0100\n"
+"PO-Revision-Date: 2019-01-22 10:52+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -314,7 +315,7 @@ msgstr "Épreuve régionale assignée"
 msgid "Assignation status"
 msgstr "Statut d'assignation"
 
-#: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:255
+#: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:257
 #: documents/templates/documents/semifinal-import-review.html:58
 #: documents/templates/documents/semifinal-import-review.html:77
 #: problems/admin.py:171 problems/templates/problems/manual.html:66
@@ -338,59 +339,75 @@ msgstr "Convocation"
 msgid "Contestant is not assigned"
 msgstr "Le candidat n'est pas assigné"
 
-#: contest/forms.py:59
+#: contest/forms.py:61
 msgid "I am <strong>not</strong> a student at EPITA."
 msgstr "Je ne suis <strong>pas</strong> étudiant à EPITA."
 
-#: contest/forms.py:67
+#: contest/forms.py:67 users/forms.py:46
+msgid "How do you prefer to be described?"
+msgstr "Comment préférez-vous qu'on parle de vous ?"
+
+#: contest/forms.py:69 users/forms.py:63
+msgid "<em>She is writing code for the contest</em>"
+msgstr "<em>Elle écrit du code pour le concours.</em>"
+
+#: contest/forms.py:70 users/forms.py:64
+msgid "<em>He is writing code for the contest</em>"
+msgstr "<em>Il écrit du code pour le concours.</em>"
+
+#: contest/forms.py:71 prologin/models.py:52 users/forms.py:65
+msgid "Other or prefer not to tell"
+msgstr "Autre ou préfère ne pas le dire"
+
+#: contest/forms.py:75
 #, python-format
 msgid ""
 "Students from EPITA are <a href=\"%(url)s\">not allowed</a> to join the "
 "contest."
 msgstr "Les étudiant(e)s de EPITA <a href=\"%(url)s\">ne peuvent pas participer</a> au concours."
 
-#: contest/forms.py:69
+#: contest/forms.py:77
 msgid ""
 "We need your real name and address for legal reasons, as the Prologin staff "
 "engages its responsibility to supervise you during the regional events and "
 "the finale."
 msgstr "Nous avons besoin de votre vrai nom et de votre adresse pour des raisons légales : l'association engage sa responsabilité pour vous encadrer lors des épreuves régionales et de la finale."
 
-#: contest/forms.py:72
+#: contest/forms.py:80
 msgid ""
 "We will send the invitation to the regional events at this address, so make "
 "sure it's valid."
 msgstr "Nous enverrons la convocation aux épreuves régionales à cette adresse, assurez-vous qu'elle soit correcte."
 
-#: contest/forms.py:74
+#: contest/forms.py:82
 #, python-format
 msgid "Format: %(format)s"
 msgstr "Format&nbsp;: %(format)s"
 
-#: contest/forms.py:78
+#: contest/forms.py:86
 #, python-format
 msgid ""
 "You can modify or review all your personal information on your <a "
 "href=\"%(url)s\">profile page</a>."
 msgstr "Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a href=\"%(url)s\">page de profil</a>."
 
-#: contest/forms.py:82
+#: contest/forms.py:90
 msgid "Optional."
 msgstr "Optionnel."
 
-#: contest/forms.py:87
+#: contest/forms.py:95
 msgid "You cannot participate if you are an EPITA student"
 msgstr "Vous ne pouvez pas participer si vous étudiez à EPITA."
 
-#: contest/forms.py:102
+#: contest/forms.py:110
 msgid "Your school"
 msgstr "Votre établissement scolaire"
 
-#: contest/forms.py:116
+#: contest/forms.py:124
 msgid "Regional event center wishes"
 msgstr "Choix de centres d'examen pour les épreuves régionales"
 
-#: contest/forms.py:117
+#: contest/forms.py:125
 msgid ""
 "This is where you would like to seat the regional events if you are "
 "selected. Choose at least one and up to three wishes, in order of "
@@ -410,109 +427,113 @@ msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'�
 msgid "Regional event"
 msgstr "Épreuve régionale"
 
-#: contest/models.py:200
+#: contest/models.py:201
 msgid "Not assigned"
 msgstr "Non assigné"
 
-#: contest/models.py:201
+#: contest/models.py:202
 msgid "Ruled out"
 msgstr "Éliminé"
 
-#: contest/models.py:202
+#: contest/models.py:203
 msgid "Assigned"
 msgstr "Assigné"
 
-#: contest/models.py:206
+#: contest/models.py:204
+msgid "Abandoned"
+msgstr "Désisté"
+
+#: contest/models.py:208
 msgid "Another programming contest"
 msgstr "Par un autre concours de programmation"
 
-#: contest/models.py:207
+#: contest/models.py:209
 msgid "From social media"
 msgstr "Par les réseaux sociaux"
 
-#: contest/models.py:208
+#: contest/models.py:210
 msgid "From the poster in my school/university"
 msgstr "Par l'affiche dans mon école/université"
 
-#: contest/models.py:209
+#: contest/models.py:211
 msgid "From a friend"
 msgstr "Par un ami ou une amie"
 
-#: contest/models.py:210
+#: contest/models.py:212
 msgid "From an article on a website or a newspaper"
 msgstr "Dans un article sur un site ou dans un journal"
 
-#: contest/models.py:211
+#: contest/models.py:213
 msgid "Some other way"
 msgstr "Autre"
 
-#: contest/models.py:212
+#: contest/models.py:214
 msgid "I don't remember"
 msgstr "Je ne m'en souviens plus"
 
-#: contest/models.py:227
+#: contest/models.py:229
 msgid "T-shirt size"
 msgstr "Taille du t-shirt"
 
-#: contest/models.py:227
+#: contest/models.py:229
 msgid "Choose your size"
 msgstr "Choisissez votre taille"
 
-#: contest/models.py:228
+#: contest/models.py:230
 msgid "We usually provide unisex Prologin t-shirts to the finalists."
 msgstr "Nous fournissons le plus souvent des t-shirts unisexe aux finalistes."
 
-#: contest/models.py:230
+#: contest/models.py:232
 msgid ""
 "The programming language you will most likely use during the regional "
 "events."
 msgstr "Le langage de programmation que vous utiliserez le plus probablement pour l'épreuve régionale."
 
-#: contest/models.py:235
+#: contest/models.py:237
 msgid "How did you learn about the contest ?"
 msgstr "Comment avez-vous découvert le concours ?"
 
-#: contest/models.py:236
+#: contest/models.py:238
 msgid "Tell us how you discovered the contest"
 msgstr "Dites nous comment vous avez découvert le concours"
 
-#: contest/models.py:238
+#: contest/models.py:240
 msgid "Regional event assignation status"
 msgstr "Assignation d'épreuve régionale"
 
-#: contest/models.py:241
+#: contest/models.py:243
 msgid "Regional event assignation whishes"
 msgstr "Vœux d'assignation épreuve régionale"
 
-#: contest/models.py:244
+#: contest/models.py:246
 msgid "Regional event assigned event"
 msgstr "Événement assigné pour l'épreuve régionale"
 
-#: contest/models.py:246
+#: contest/models.py:248
 msgid "Final assignation status"
 msgstr "Assignation de finale"
 
-#: contest/models.py:248
+#: contest/models.py:250
 msgid "Quiz score"
 msgstr "Score du quiz"
 
-#: contest/models.py:249
+#: contest/models.py:251
 msgid "Algo exercises score"
 msgstr "Score des exercices d'algo"
 
-#: contest/models.py:250 contest/models.py:254 contest/models.py:256
+#: contest/models.py:252 contest/models.py:256 contest/models.py:258
 msgid "Bonus score"
 msgstr "Score bonus"
 
-#: contest/models.py:251
+#: contest/models.py:253
 msgid "Written exam score"
 msgstr "Score de l'épreuve écrite"
 
-#: contest/models.py:252
+#: contest/models.py:254
 msgid "Interview score"
 msgstr "Score de l'entretien"
 
-#: contest/models.py:253
+#: contest/models.py:255
 msgid "Machine exam score"
 msgstr "Score de l'épreuve machine"
 
@@ -778,19 +799,19 @@ msgstr "Règles & classement"
 msgid "Preparing the next steps"
 msgstr "Préparer les étapes suivantes"
 
-#: contest/templates/contest/qualification-summary.html:180
+#: contest/templates/contest/qualification-summary.html:181
 msgid "Save application"
 msgstr "Enregistrer la participation"
 
-#: contest/templates/contest/qualification-summary.html:196
+#: contest/templates/contest/qualification-summary.html:197
 msgid "Make your choice"
 msgstr "Faites votre choix"
 
-#: contest/templates/contest/qualification-summary.html:197
+#: contest/templates/contest/qualification-summary.html:198
 msgid "Add new school"
 msgstr "Ajouter un établissement"
 
-#: contest/templates/contest/qualification-summary.html:198
+#: contest/templates/contest/qualification-summary.html:199
 msgid "Choose an existing school or add yours"
 msgstr "Choisissez un établissement existant ou ajoutez le vôtre"
 
@@ -2549,40 +2570,16 @@ msgstr "Texte brut"
 msgid "HTML"
 msgstr "HTML"
 
-#: mailing/views.py:80
+#: mailing/views.py:83
 msgid ""
 "The form was modified and saved while you were editing. Please merge with "
 "current version."
 msgstr "Le formulaire a été enregistré pendant vous le modifiez. Veuillez fusionner vos modifications avec la version actuelle."
 
-#: mailing/views.py:225
+#: mailing/views.py:231
 #, python-format
 msgid "Syntax error at position %(pos)s."
 msgstr "Erreur de syntaxe à la position %(pos)s."
-
-#: marauder/models.py:37
-msgid "Task force"
-msgstr "Force opérationnelle"
-
-#: marauder/models.py:38
-msgid "Task forces"
-msgstr "Forces opérationnelles"
-
-#: marauder/models.py:68
-msgid "User profile"
-msgstr "Profil utilisateur"
-
-#: marauder/models.py:69
-msgid "User profiles"
-msgstr "Profils utilisateurs"
-
-#: marauder/models.py:119
-msgid "Event settings"
-msgstr "Paramètres d'événement"
-
-#: marauder/models.py:120
-msgid "Events settings"
-msgstr "Paramètres d'événements"
 
 #: news/templates/zinnia/_entry_detail_base.html:25
 msgctxt "Written by <user> *on* <date>"
@@ -3023,6 +3020,90 @@ msgid ""
 "duration of the final. You only have to handle the cost of transportation."
 msgstr "Durant toute la durée de la finale, les repas sont pris en charge et des salles de repos sont mises à disposition des candidats. Seuls les frais de transport restent à votre charge. "
 
+#: pages/templates/pages/about-contribute.html:7
+#: prologin/templates/prologin/main-footer.html:9
+msgid "Contribute"
+msgstr "Contribuer"
+
+#: pages/templates/pages/about-contribute.html:10
+#: pages/templates/pages/about-contribute.html:13
+msgid "How to contribute to Prologin"
+msgstr "Contribuer à Prologin"
+
+#: pages/templates/pages/about-contribute.html:15
+msgid ""
+"There are many ways to contribute to the organization, on multiple levels:"
+msgstr "Il y a plusieurs manières de contribuer à l'association, à différents niveaux :"
+
+#: pages/templates/pages/about-contribute.html:19
+msgid "Contributor"
+msgstr "Contributeur"
+
+#: pages/templates/pages/about-contribute.html:20
+msgid ""
+"Many former contestants want to contribute to Prologin usually by writing\n"
+"exercises, but without joining the organization (which calls for further time investment). You can read our\n"
+"<a href=\"https://github.com/prologin/ressources-contributeurs\">public resources</a> to understand how we create exercises\n"
+"for our platform."
+msgstr "De nombreux anciens candidats veulent contribuer à Prologin en\nécrivant des sujets et exercices, mais sans pour autant rejoindre\nl'association (qui demande un investissement régulier tout au long de\nl'année). Vous pouvez lire nos\n<a href=\"https://github.com/prologin/ressources-contributeurs\">ressources\ncontributeurs</a> afin de comprendre comment nous créons des exercices pour\nla plateforme de Prologin."
+
+#: pages/templates/pages/about-contribute.html:24
+msgid ""
+"If you are interested in helping us creating cool exercises, do not hesitate to\n"
+"send an email at: <a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+msgstr "Si vous avez envie de nous aider parce que vous avez une idée\nd'exercice sympa, n'hésitez pas à nous envoyer un mail à :\n<a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+
+#: pages/templates/pages/about-contribute.html:29
+msgid "Member"
+msgstr "Membre"
+
+#: pages/templates/pages/about-contribute.html:30
+msgid ""
+"Becoming a member means an ongoing investment, not only with exercises, but also\n"
+"on our multiple needs (coming to meetings, helping on logistic, internal tools, etc.). As a member, you can help in domains\n"
+"such as:\n"
+"<ul>\n"
+"<li>algorithms: creating written and machine exercises.</li>\n"
+"<li>system administration: maintaining and coding our infrastructure for regional and finals events.</li>\n"
+"<li>web development: for our own websites.</li>\n"
+"</ul>\n"
+"Prologin also has some non-technical necessities including logistics, sponsoring, and communication."
+msgstr "Être membre de l'association demande de s'investir régulièrement, et\npas uniquement sur la rédaction d'exercices mais sur divers aspects de\nl'organisation (assister aux réunions, aider sur la logistique, les outils\ninternes, etc.). D'un point de vue technique il y a plusieurs domaines dans\nlesquels vous pouvez contribuer :\n<ul>\n<li>algorithmique : rédaction de sujets machines et écrits.</li>\n<li>administration système : maintien et développement des infrastructures des épreuves régionales et de finale.</li>\n<li>développement web : pour nos sites.</li>\n</ul>\nMais pas besoin d'être un expert en algo ou en système pour nous rejoindre !\nD'autant plus que les activités de l'association ne sont pas exclusivement \ntechniques : logistique, contact de sponsors, communication et événementiel."
+
+#: pages/templates/pages/about-contribute.html:39
+msgid ""
+"We have a lot to do, hence we need motivated people every year! If you want to\n"
+"join in, or if you have any question, feel free to write to us: <a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+msgstr "Nous avons énormément à faire et avons besoin chaque année de\npersonnes motivées ! Si vous êtes tenté, (ou si vous avez des questions)\nenvoyez nous un mail à :\n<a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+
+#: pages/templates/pages/about-contribute.html:44
+msgid "Our internal tools"
+msgstr "Nos outils internes"
+
+#: pages/templates/pages/about-contribute.html:45
+msgid ""
+"Whether you are a contributor, member, or simply curious, you can always take a\n"
+"look and contribute to our open source internal tools:\n"
+"<ul>\n"
+"<li><a href=\"https://github.com/prologin/camisole\">camisole</a>:\n"
+"secure online judge.</li>\n"
+"<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a>:\n"
+"AI match maker for the finals.</li>\n"
+"<li><a href=\"https://github.com/prologin/sadm\">sadm</a>:\n"
+"finals technical infrastructure.</li>\n"
+"<li><a href=\"https://github.com/prologin/metalang\">metalang</a>:\n"
+"generate code stubs.</li>\n"
+"</ul>\n"
+"As an example, Haskell and Rust programming languages have been added by Prologin finalists so they could use it during the\n"
+"finals!"
+msgstr "Que vous soyez contributeur, membre ou juste curieux, il est toujours\npossible de participer au développement des outils internes de Prologin :\n<ul>\n<li><a href=\"https://github.com/prologin/camisole\">camisole</a> :\njuge en ligne sécurisé.</li>\n<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a> :\nsystème de match pour la finale.</li>\n<li><a href=\"https://github.com/prologin/sadm\">sadm</a> :\ninfrastructure système de la finale.</li>\n<li><a href=\"https://github.com/prologin/metalang\">metalang</a> :\ngénérateur de code à compléter.</li>\n</ul>\nLes langages Haskell et Rust ont par exemple été ajoutés par des finalistes\nPrologin pour qu'ils puissent eux-mêmes les utiliser lors d'une finale !"
+
+#: pages/templates/pages/about-contribute.html:64
+msgid ""
+"However, there is no need to code or join the organization to help us out.\n"
+"Simply talking about Prologin around you, or displaying our posters in your school means a lot!"
+msgstr "Toutefois, vous n'êtes pas obligé de coder ou de rejoindre\nl'association pour nous aider. Simplement parler de Prologin autour de soi,\nou coller nos affiches dans votre école nous aide énormément !"
+
 #: pages/templates/pages/about-final.html:8
 #: pages/templates/pages/about-final.html:11
 #: pages/templates/pages/about-final.html:17
@@ -3351,128 +3432,6 @@ msgid ""
 "being done in duplicate.</p>\n"
 msgstr "<p class=\"text-justify\">Il existe divers moyens de contribuer&nbsp;: promouvoir l'événement, développer le site internet et l'architecture logicielle pour la finale, aider lors des épreuves régionales, participer dans les forums, etc.\nNous apprécions aussi les retours et suggestions.</p>\n\n<p class=\"text-justify\">Nous avons aussi besoin de votre aide pour la section d'entraînement, dans laquelle les utilisateurs peuvent se mesurer à un grand nombre de problèmes.\nSi vous pouvez nous donner un coup de main, n'hésitez pas&nbsp;: nous sommes à la recherche de nouveaux problèmes (originaux ou traduits depuis d'autres sources), cours et corrections. Bien sûr, veuillez nous contacter avant de contribuer afin que nous puissions éviter que certaines choses soient faites en double.</p>\n"
 
-#: pages/templates/pages/about-contribute.html:7
-#: /prologin/templates/prologin/main-footer.html:9
-msgid "Contribute"
-msgstr "Contribuer"
-
-#: pages/templates/pages/about-contribute.html:10
-#: pages/templates/pages/about-contribute.html:13
-msgid "How to contribute to Prologin"
-msgstr "Contribuer à Prologin"
-
-#: pages/templates/pages/about-contribute.html:15
-msgid ""
-"There are many ways to contribute to the organization, on multiple levels:"
-msgstr "Il y a plusieurs manières de contribuer à l'association, à différents niveaux :"
-
-#: pages/templates/pages/about-contribute.html:19
-msgid "Contributor"
-msgstr "Contributeur"
-
-#: pages/templates/pages/about-contribute.html:20
-msgid ""
-"Many former contestants want to contribute to Prologin usually by writing\n"
-"exercises, but without joining the organization (which calls for further time investment). You can read our\n"
-"<a href=\"https://github.com/prologin/ressources-contributeurs\">public resources</a> to understand how we create exercises\n"
-"for our platform."
-msgstr "De nombreux anciens candidats veulent contribuer à Prologin en\n"
-"écrivant des sujets et exercices, mais sans pour autant rejoindre\n"
-"l'association (qui demande un investissement régulier tout au long de\n"
-"l'année). Vous pouvez lire nos\n"
-"<a href=\"https://github.com/prologin/ressources-contributeurs\">ressources\n"
-"contributeurs</a> afin de comprendre comment nous créons des exercices pour\n"
-"la plateforme de Prologin."
-
-#: pages/templates/pages/about-contribute.html:24
-msgid ""
-"If you are interested in helping us creating cool exercises, do not hesitate to\n"
-"send an email at: <a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
-msgstr "Si vous avez envie de nous aider parce que vous avez une idée\n"
-"d'exercice sympa, n'hésitez pas à nous envoyer un mail à :\n"
-"<a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
-
-#: pages/templates/pages/about-contribute.html:29
-msgid "Member"
-msgstr "Membre"
-
-#: pages/templates/pages/about-contribute.html:30
-msgid ""
-"Becoming a member means an ongoing investment, not only with exercises, but also\n"
-"on our multiple needs (coming to meetings, helping on logistic, internal tools, etc.). As a member, you can help in domains\n"
-"such as:\n"
-"<ul>\n"
-"<li>algorithms: creating written and machine exercises.</li>\n"
-"<li>system administration: maintaining and coding our infrastructure for regional and finals events.</li>\n"
-"<li>web development: for our own websites.</li>\n"
-"</ul>\n"
-"Prologin also has some non-technical necessities including logistics, sponsoring, and communication."
-msgstr "Être membre de l'association demande de s'investir régulièrement, et\n"
-"pas uniquement sur la rédaction d'exercices mais sur divers aspects de\n"
-"l'organisation (assister aux réunions, aider sur la logistique, les outils\n"
-"internes, etc.). D'un point de vue technique il y a plusieurs domaines dans\n"
-"lesquels vous pouvez contribuer :\n"
-"<ul>\n"
-"<li>algorithmique : rédaction de sujets machines et écrits.</li>\n"
-"<li>administration système : maintien et développement des infrastructures des épreuves régionales et de finale.</li>\n"
-"<li>développement web : pour nos sites.</li>\n"
-"</ul>\n"
-"Mais pas besoin d'être un expert en algo ou en système pour nous rejoindre !\n"
-"D'autant plus que les activités de l'association ne sont pas exclusivement \n"
-"techniques : logistique, contact de sponsors, communication et événementiel."
-
-#: pages/templates/pages/about-contribute.html:39
-msgid ""
-"We have a lot to do, hence we need motivated people every year! If you want to\n"
-"join in, or if you have any question, feel free to write to us: <a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
-msgstr "Nous avons énormément à faire et avons besoin chaque année de\n"
-"personnes motivées ! Si vous êtes tenté, (ou si vous avez des questions)\n"
-"envoyez nous un mail à :\n"
-"<a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
-
-#: pages/templates/pages/about-contribute.html:44
-msgid "Our internal tools"
-msgstr "Nos outils internes"
-
-#: pages/templates/pages/about-contribute.html:45
-msgid ""
-"Whether you are a contributor, member, or simply curious, you can always take a\n"
-"look and contribute to our open source internal tools:\n"
-"<ul>\n"
-"<li><a href=\"https://github.com/prologin/camisole\">camisole</a>:\n"
-"secure online judge.</li>\n"
-"<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a>:\n"
-"AI match maker for the finals.</li>\n"
-"<li><a href=\"https://github.com/prologin/sadm\">sadm</a>:\n"
-"finals technical infrastructure.</li>\n"
-"<li><a href=\"https://github.com/prologin/metalang\">metalang</a>:\n"
-"generate code stubs.</li>\n"
-"</ul>\n"
-"As an example, Haskell and Rust programming languages have been added by Prologin finalists so they could use it during the\n"
-"finals!"
-msgstr "Que vous soyez contributeur, membre ou juste curieux, il est toujours\n"
-"possible de participer au développement des outils internes de Prologin :\n"
-"<ul>\n"
-"<li><a href=\"https://github.com/prologin/camisole\">camisole</a> :\n"
-"juge en ligne sécurisé.</li>\n"
-"<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a> :\n"
-"système de match pour la finale.</li>\n"
-"<li><a href=\"https://github.com/prologin/sadm\">sadm</a> :\n"
-"infrastructure système de la finale.</li>\n"
-"<li><a href=\"https://github.com/prologin/metalang\">metalang</a> :\n"
-"générateur de code à compléter.</li>\n"
-"</ul>\n"
-"Les langages Haskell et Rust ont par exemple été ajoutés par des finalistes\n"
-"Prologin pour qu'ils puissent eux-mêmes les utiliser lors d'une finale !"
-
-#: pages/templates/pages/about-contribute.html:64
-msgid ""
-"However, there is no need to code or join the organization to help us out.\n"
-"Simply talking about Prologin around you, or displaying our posters in your school means a lot!"
-msgstr "Toutefois, vous n'êtes pas obligé de coder ou de rejoindre\n"
-"l'association pour nous aider. Simplement parler de Prologin autour de soi,\n"
-"ou coller nos affiches dans votre école nous aide énormément !"
-
 #: pages/templates/pages/about-qualification.html:8
 #: pages/templates/pages/about-qualification.html:11
 #: pages/templates/pages/about-qualification.html:17
@@ -3784,7 +3743,11 @@ msgstr "Le fichier source que vous avez envoyé est trop lourd. Veuillez rester 
 msgid "Please use the UTF-8 encoding when uploading a source file."
 msgstr "Merci d'utiliser UTF-8 comme encodage de votre fichier source."
 
-#: problems/forms.py:130
+#: problems/forms.py:129
+msgid "Source files cannot contain NUL (0x00) characters."
+msgstr "Les fichiers source ne peuvent pas contenir de caractères NUL (0x00)."
+
+#: problems/forms.py:132
 msgid "You need to provide either a source file or a source code."
 msgstr "Vous devez fournir un fichier source ou un code source."
 
@@ -3937,13 +3900,11 @@ msgid ""
 "This page contains all the exercises from previous Prologin editions. You can browse through them,\n"
 "and search by difficulty or years. If you need help to get started with algorithmics, you should read our\n"
 "<a href=\"https://prologin.org/forum/entrainement-3/ressources-i-debutants-1114/\">resources</a>."
-msgstr "Voici les annales d'exercices publiés depuis la création du concours Prologin, vous pouvez chercher\n"
-"par difficulté ou encore par année. Si vous avez besoin d'aide pour vous lancer dans l'algorithmique, jetez\n"
-"un œil à nos <a href=\"https://prologin.org/forum/entrainement-3/ressources-i-debutants-1114/\">ressources</a>."
+msgstr "Voici les annales d'exercices publiés depuis la création du concours Prologin, vous pouvez chercher\npar difficulté ou encore par année. Si vous avez besoin d'aide pour vous lancer dans l'algorithmique, jetez\nun œil à nos <a href=\"https://prologin.org/forum/entrainement-3/ressources-i-debutants-1114/\">ressources</a>."
 
 #: problems/templates/problems/index.html:15
-msgid ""
-"Stuck on a problem? Ask for help on the <a href=\"%(forum)s\">forums</a>!"
+#, python-format
+msgid "Stuck on a problem? Ask for help on the <a href=\"%(forum)s\">forums</a>!"
 msgstr "Coincé sur un problème ? Demandez de l'aide sur le <a href=\"%(forum)s\">forum</a> !"
 
 #: problems/templates/problems/index.html:17
@@ -4574,7 +4535,7 @@ msgstr "Requête envoyée à camisole"
 msgid "Camisole result"
 msgstr "Résultat reçu de camisole"
 
-#: prologin/languages.py:78
+#: prologin/languages.py:88
 msgid "Pseudocode"
 msgstr "Pseudo-code"
 
@@ -4585,10 +4546,6 @@ msgstr "Homme"
 #: prologin/models.py:13
 msgid "Female"
 msgstr "Femme"
-
-#: prologin/models.py:52 users/forms.py:65
-msgid "Other or prefer not to tell"
-msgstr "Autre ou préfère ne pas le dire"
 
 #: prologin/models.py:52
 msgid "Gender"
@@ -4610,11 +4567,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:129
+#: prologin/settings/common.py:133
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:130
+#: prologin/settings/common.py:134
 msgid "French"
 msgstr "Français"
 
@@ -5384,22 +5341,10 @@ msgstr "Identité publique"
 msgid "Settings"
 msgstr "Préférences"
 
-#: users/forms.py:46
-msgid "How do you prefer to be described?"
-msgstr "Comment préférez-vous qu'on parle de vous ?"
-
 #: users/forms.py:55
 #, python-format
 msgid "%(year)s final home"
 msgstr "“home” de la finale %(year)s "
-
-#: users/forms.py:63
-msgid "<em>She is writing code for the contest</em>"
-msgstr "<em>Elle écrit du code pour le concours.</em>"
-
-#: users/forms.py:64
-msgid "<em>He is writing code for the contest</em>"
-msgstr "<em>Il écrit du code pour le concours.</em>"
 
 #: users/forms.py:72
 msgid ""
@@ -5461,7 +5406,7 @@ msgstr "Votre nom d'utilisateur"
 msgid "Type your username to confirm you know what you are doing."
 msgstr "Saisissez votre nom d'utilisateur pour confirmer que vous réalisez ce que vous allez faire."
 
-#: users/forms.py:181
+#: users/forms.py:184
 msgid "Wrong username."
 msgstr "Nom d'utilisateur incorrect."
 
@@ -5791,47 +5736,51 @@ msgid "Selected for regional events"
 msgstr "Sélectionné pour les épreuves régionales"
 
 #: users/templates/users/profile.html:111
+msgid "Abandoned the regional events"
+msgstr "S'est désisté avant l'épreuve régionale"
+
+#: users/templates/users/profile.html:114
 msgid "Competed in the regional events"
 msgstr "A participé aux épreuves régionales"
 
-#: users/templates/users/profile.html:113
+#: users/templates/users/profile.html:116
 msgid "Selected for the final"
 msgstr "Sélectionné en finale"
 
-#: users/templates/users/profile.html:126
+#: users/templates/users/profile.html:129
 #, python-format
 msgid "Download final home (tar.gz, %(size)s)"
 msgstr "Télécharger la “home” (tar.gz, %(size)s)"
 
-#: users/templates/users/profile.html:136
+#: users/templates/users/profile.html:139
 #, python-format
 msgid "Sadly, %(username)s did not take part in any Prologin edition yet."
 msgstr "Hélas, %(username)s n'a jusqu'ici participé à aucune édition de Prologin."
 
-#: users/templates/users/profile.html:148
+#: users/templates/users/profile.html:151
 msgid "Latest authored news entries"
 msgstr "Dernières actualités publiées"
 
-#: users/templates/users/profile.html:161
+#: users/templates/users/profile.html:164
 msgid "Staff roles"
 msgstr "Rôles dans l'équipe"
 
-#: users/templates/users/profile.html:165
+#: users/templates/users/profile.html:168
 #, python-format
 msgid ""
 "%(year)s ⋅\n"
 "                %(role)s"
 msgstr "%(year)s ⋅ %(role)s"
 
-#: users/templates/users/profile.html:178
+#: users/templates/users/profile.html:181
 msgid "Account management"
 msgstr "Gestion du compte"
 
-#: users/templates/users/profile.html:187
+#: users/templates/users/profile.html:190
 msgid "Export your personal data"
 msgstr "Exporter vos données personnelles"
 
-#: users/templates/users/profile.html:191
+#: users/templates/users/profile.html:194
 msgid ""
 "\n"
 "            You can download an archive containing all your personal data, as\n"
@@ -5839,11 +5788,11 @@ msgid ""
 "            "
 msgstr "\nVous pouvez télécharger une archive contenant toutes vos données personnelles, comme prévu par le Droit à la portabilité (Art. 20 du RGPD)."
 
-#: users/templates/users/profile.html:210
+#: users/templates/users/profile.html:213
 msgid "Delete your account"
 msgstr "Supprimer votre compte"
 
-#: users/templates/users/profile.html:214
+#: users/templates/users/profile.html:217
 msgid ""
 "\n"
 "          You can delete your account and all associated personal data, as\n"
@@ -5851,7 +5800,7 @@ msgid ""
 "          "
 msgstr "\nVous pouvez supprimer votre compte et toutes les données personnelles associées, comme prévu par votre Droit à la suppression (Art. 17 du RGPD)."
 
-#: users/templates/users/profile.html:219
+#: users/templates/users/profile.html:222
 msgid ""
 "\n"
 "              You cannot delete your account while participating to the\n"
