@@ -99,13 +99,11 @@ class ApplicationFormView(FormView):
         return build_dynamic_form(Forms.application, self.request.user)
 
     def get_success_url(self):
-        return reverse_lazy(
-            'gcc:application_validation',
-            kwargs = {'user_id': self.user.pk})
+        return reverse_lazy('gcc:application_validation')
 
     def form_valid(self, form):
         form.save()
-        return super(ApplicationForm, self).form_valid(form)
+        return super(FormView, self).form_valid(form)
 
 
 #TODO: Check if there is an event with opened application

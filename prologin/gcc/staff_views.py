@@ -3,6 +3,7 @@ from rules.contrib.views import PermissionRequiredMixin
 
 from .models import Corrector, Event, Edition, Applicant, ApplicantLabel
 
+
 class CanReviewApplicationPermissionMixin(PermissionRequiredMixin):
     def has_permission(self):
         return len(Corrector.objects.filter(event__id=self.kwargs['event'],
