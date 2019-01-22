@@ -1,0 +1,39 @@
+.edition {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.edition .poster {
+    min-width: 100px;
+    max-width: 250px;
+    margin: 1em;
+}
+
+.edition > * {
+    flex: 1;
+}
+
+.edition p {
+    margin: 1em;
+}
+
+.edition .poster img {
+    max-width: 100%;
+}
+
+.edition .description p {
+    font-size: 1.1em;
+    text-align: left;
+}
+
+.edition .carousel img {
+    display: none;
+    max-height: 250px;
+    margin: 30px auto;
+}
+
+.edition .carousel img:nth-child(1) {
+    display: block;
+}
+

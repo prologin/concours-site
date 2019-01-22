@@ -49,13 +49,6 @@
           </li>
           <li class="{% active '^/gcc/editions/' %}">
             <a href="{% url 'gcc:editions' %}">Éditions</a>
-            <ul>
-              {% with years="2018 2017 2016 2015 2014" %}
-                {% for year in years.split %}
-                  <li><a href="{% url 'gcc:editions' %}#edition-{{year}}">Édition {{year}}</a></li>
-                {% endfor %}
-              {% endwith %}
-            </ul>
           </li>
           {% if not user.is_authenticated %}
             <li class="pull-right">
@@ -64,7 +57,7 @@
             </li>
           {% else %}
             <li class="pull-right">
-              <a>{{ user.username }}</a>
+              <a href="">{{ user.username }}</a>
               <ul>
                 <li>
                   <form method="post" action="{% url 'users:logout' %}?next=/gcc">
