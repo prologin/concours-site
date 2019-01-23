@@ -34,22 +34,24 @@ You can use the following commands to install those dependencies:
 - For **Archlinux**:
 
   ```bash
-  sudo pacman -S --needed git python3 npm postgresql redis texlive-core
+  sudo pacman -S --needed git python3 npm postgresql imagemagick redis \
+                          texlive-core
   sudo systemctl enable --now redis
   ```
 
 - For **Ubuntu** and **Debian ≥ 10 (buster)**:
 
   ```bash
-  sudo apt install git python3 python3-venv npm postgresql redis-server texlive
+  sudo apt install git python3 python3-venv npm postgresql imagemagick \
+                   redis-server texlive
   ```
 
 - For **Debian ≤ 9 (stretch)**
 
   ```bash
   curl https://deb.nodesource.com/setup_8.x | sudo bash
-  sudo apt install git python3 python3-venv nodejs postgresql redis-server \
-                   texlive
+  sudo apt install git python3 python3-venv nodejs postgresql imagemagick \
+                   redis-server texlive
   ```
 
 ### PostgreSQL Setup
