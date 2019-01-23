@@ -26,7 +26,11 @@
             <li>Remplir le formulaire de candidature</li>
             <li>Être motivée !</li>
         </ul>
-        <a href="#" class="button style3 large">S'inscrire</a>
+        {% if user.is_authenticated %}
+        <a href="application/form" class="button style3 large">S'inscrire</a>
+        {% else %}
+        <a href="user/register" class="button style3 large">S'inscrire</a>
+        {% endif %}
       </div>
       <p>
           On y apprend les bases de la programmation avec le langage Python, et de quoi se lancer dans des petits projets de son choix !

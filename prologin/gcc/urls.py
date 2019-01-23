@@ -46,6 +46,10 @@ application_patterns = [
         views.ApplicationValidation.as_view(),
         name='application_validation'),
     path(
+        'summary/<int:pk>/',
+        views.ApplicationSummaryView.as_view(),
+        name='application_summary'),
+    path(
         'delete/<int:applicant_id>/<int:label_id>/',
         staff_views.ApplicationRemoveLabelView.as_view(),
         name='delete_applicant_label'),

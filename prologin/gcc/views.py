@@ -3,12 +3,13 @@ from datetime import date
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse_lazy
+from django.urls import reverse,reverse_lazy
 
 from django.views.generic import TemplateView
+from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, CreateView
 
-from gcc.models import Answer, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Forms
+from gcc.models import Answer, Question, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Forms
 from sponsor.models import Sponsor
 from users.models import ProloginUser
 
@@ -32,11 +33,19 @@ class RegistrationView(users.views.RegistrationView):
 class ProfileView(users.views.ProfileView):
     template_name = 'gcc/users/profile.html'
 
+#FIX ME the message saying that the modifications where registered is not displaying
 class EditUserView(users.views.EditUserView):
     template_name = 'gcc/users/edit.html'
 
+    def get_success_url(self):
+        return reverse('gcc:edit', args=[self.get_object().pk])
+
+#FIX ME the message saying that the modifications where registered is not displaying
 class EditPasswordView(users.views.EditPasswordView):
     template_name = 'gcc/users/edit_password.html'
+
+    def get_success_url(self):
+        return reverse('gcc:profile', args=[self.get_object().pk])
 
 class DeleteUserView(users.views.DeleteUserView):
     template_name = 'gcc/users/delete.html'
@@ -113,6 +122,30 @@ class NewsletterConfirmUnsubView(TemplateView):
 
 # Application
 
+class ApplicationSummaryView(DetailView):
+    model = auth.get_user_model()
+    context_object_name = 'shown_user'
+    template_name = 'gcc/application/summary.html'
+
+    def get_queryset(self):
+        from zinnia.models.author import Author
+        self.author = Author(pk=self.kwargs[self.pk_url_kwarg])
+        return super().get_queryset().prefetch_related('team_memberships')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        shown_user = context[self.context_object_name]
+        context['shown_author'] = self.author
+        context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
+        context['applications'] = Applicant.objects.filter(user=self.author)
+        context['answers'] = [Answer.objects.filter(applicant= applic) for applic in context['applications'] ]
+        return context
+
+    def get(self, request, *args, **kwargs):
+        result = super().get(request, *args, **kwargs)
+        if not self.object.is_active and not self.request.user.is_staff:
+            raise Http404()
+        return result
 
 class ApplicationFormView(FormView):
     template_name = 'gcc/application/form.html'

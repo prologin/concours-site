@@ -1,0 +1,43 @@
+{% extends "gcc/base.html" %}
+{% load static %}
+{% load utils %}
+{% load i18n staticfiles rules %}
+
+{% block title %}GCC! − Résumé{% endblock %}
+
+{% block content %}
+<section class="wrapper">
+    <div class="container">
+        <div class="title">Résumé de candidature</div>
+        <div class="bootstrap_region">
+
+
+              {% if shown_user.id == user.id or see_private %}
+              <a href="{% url 'gcc:application_form'%}" class="btn btn-default pull-right">
+                <i class="fa fa-pencil"></i> {% trans "Edit application" %}</a>
+
+              <h1>{{ shown_user.username }}</h1>
+              <h2>{{ shown_user.first_name }}</h2>
+              <h2>{{ shown_user.last_name }}</h2>
+
+             <div class="row">
+                 {% for applic in applications %}
+                    <h2> Edition {{applic.edition}} </h2>
+                    {% for ed in answers %}
+                        {% for ans in ed %}
+                            {% if applic == ans.applicant %}
+                                <h3> {{ans.question}} </h3>
+                                <p> {{ans}} </p>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+             </div>
+
+              {% endif %}
+
+
+        </div>
+    </div>
+ </section>
+ {% endblock %}
