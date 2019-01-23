@@ -13,11 +13,9 @@
       <div class="highlight">
         <h2>Prochains stages</h2>
         <ul>
-          <li>Lyon, la semaine du <em>23 octobre 2018</em></li>
-          <li>Paris, la semaine du <em>23 octobre 2018</em></li>
-          <li>Lyon, la semaine du <em>23 octobre 2018</em></li>
-          <li>Paris, la semaine du <em>23 octobre 2018</em></li>
-          <li>Lyon, la semaine du <em>23 octobre 2018</em></li>
+          {% for event in events %}
+            <li>{{ event.center }}, la semaine du <em>{{ event.event_start|date:"DATE_FORMAT" }}</em></li>
+          {% endfor %}
         </ul>
       </div>
       <div class="highlight">
@@ -134,36 +132,13 @@
       Nous remercions nos sponsors sans lesquels les stages ne pourraient avoir lieu.
     </p>
     <div class="row reg_5rem">
-      <div class="cell center">
-        <a href="https://edu.google.com/intl/fr_be/?modal_active=none">
-          <img alt="Google Education" src="{% static 'gcc/img/sponsors/google_edu.png' %}" style="max-width: 100%"/>
-        </a>
-      </div>
-      <div class="cell center">
-        <a href="https://www.fondation-blaise-pascal.org/">
-          <img alt="Fondation Blaise Pascal" src="{% static 'gcc/img/sponsors/logo_fondation_bp.png' %}" style="max-width: 100%"/>
-        </a>
-      </div>
-      <div class="cell center">
-        <a href="http://milyon.universite-lyon.fr/">
-          <img alt="Milyon" src="{% static 'gcc/img/sponsors/milyon.png' %}" style="max-width: 100%"/>
-        </a>
-      </div>
-      <div class="cell center">
-        <a href="http://www.ens-lyon.fr/">
-          <img alt="ENS de Lyon" src="{% static 'gcc/img/sponsors/ens_lyon.png' %}" style="max-width: 100%"/>
-        </a>
-      </div>
-      <div class="cell center">
-        <a href="http://www.epita.fr/">
-          <img alt="EPITA" src="{% static 'gcc/img/sponsors/epita.png' %}" style="max-width: 100%"/>
-        </a>
-      </div>
-      <div class="cell center">
-        <a href="https://group.bnpparibas/">
-          <img alt="BNP Paribas" src="{% static 'gcc/img/sponsors/bnp_paribas.png' %}" style="max-width: 100%"/>
-        </a>
-      </div>
+      {% for sponsor in sponsors %}
+        <div class="cell center">
+          <a href="{{ sponsor.site }}">
+            <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width: 100%" />
+          </a>
+        </div>
+      {% endfor %}
     </div>
   </div>
 </section>

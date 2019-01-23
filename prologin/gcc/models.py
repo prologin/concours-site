@@ -47,10 +47,10 @@ class Edition(models.Model):
 class Event(models.Model):
     center = models.ForeignKey(Center, on_delete=models.CASCADE)
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
-    event_start = models.DateField()
-    event_end = models.DateField()
-    signup_start = models.DateField()
-    signup_end = models.DateField()
+    event_start = models.DateTimeField()
+    event_end = models.DateTimeField()
+    signup_start = models.DateTimeField()
+    signup_end = models.DateTimeField()
 
     def __str__(self):
         return str(self.event_start) + ' ' + str(self.center)
@@ -198,6 +198,7 @@ class Answer(models.Model):
 
 class SubscriberEmail(models.Model):
     email = models.EmailField()
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.email

@@ -9,11 +9,14 @@ from django.views.generic import TemplateView
 from django.views.generic.edit import FormView, CreateView
 
 from gcc.models import Answer, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Forms
+from sponsor.models import Sponsor
 from users.models import ProloginUser
 
 from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
 
 import users.views
+
+import random
 
 
 # Users
@@ -53,6 +56,14 @@ class IndexView(FormView):
         instance, created = SubscriberEmail.objects.get_or_create(
             email=form.cleaned_data['email'])
         return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['events'] = Event.objects.filter(event_end__gt = date.today())
+        sponsors = list(Sponsor.active_gcc.all())
+        random.shuffle(sponsors)
+        context['sponsors'] = sponsors
+        return context
 
 
 class RessourcesView(TemplateView):
