@@ -82,7 +82,8 @@
 {% else %}
   {% for contestant in contestants %}{% with user=contestant.user %}
     {{ user.last_name|title|escapetex }} & {{ user.first_name|title|escapetex }} &
-    {{ user.birthday|date:"Y-m-d"|escapetex }} & & & $\square$ & $\square$ \\\hline
+    {{ user.birthday|date:"Y-m-d"|escapetex }} & & & $\square$ Convoc. &
+      $\square$ Img. \\\hline
   {% endwith %}{% endfor %}
 {% endif %}
 
