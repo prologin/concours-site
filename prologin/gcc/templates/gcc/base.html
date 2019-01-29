@@ -12,7 +12,7 @@
     <title>{% block title %}Girls Can Code!{% endblock %}</title>
 
     <link rel="stylesheet" href="{% static 'vendor/font-awesome/css/font-awesome.min.css' %}"/>
-    <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"/>
+    <!-- <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"/> -->
 
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -61,9 +61,9 @@
           {% else %}
             <li class="pull-right">
               <a>{{ user.username }}</a>
-              <ul style="display:block">
+              <ul style="">
                 <li><a href="{% url 'gcc:profile' user.id %}"><i class="fa fa-user"></i>Mon profile</a></li>
-                <li><a href="{% url 'gcc:edit' user.id %}"><i class="fa fa-cog"></i> Profil & options</a></li>
+                <li><a href="{% url 'gcc:edit' user.id %}"><i class="fa fa-cog"></i>Profil & options</a></li>
                 <li>
                   <form method="post" action="{% url 'users:logout' %}?next=/gcc">
                     {% csrf_token %}

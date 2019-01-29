@@ -2,7 +2,18 @@
  * Based on escape Velocity by HTML5 UP
  * html5up.net | @ajlkn
  * Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
- */
+*/
+ 
+/** WARNING: TRYING TO ANNIHILATE CANCER WITH CANCER **/
+.dropotron li {
+    padding: 0 !important;
+    white-space: nowrap;
+}
+
+.dropotron li i {
+    margin-right: 0.5em;
+}
+/** NOT MY CANCER ANYMORE **/
 
 html, body, div, span, applet, object,
 iframe, h1, h2, h3, h4, h5, h6, p, blockquote,
