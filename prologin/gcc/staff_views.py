@@ -18,13 +18,11 @@ class ApplicationReviewView(CanReviewApplicationPermissionMixin, TemplateView):
         Extract the list of users who have an application this year and list
         their applications in the same object.
         """
+        context = super().get_context_data(**kwargs)
         current_edition = Edition.objects.latest('year')
-
-        context = {
-            'applicants': Applicant.objects.filter(edition=current_edition),
-            'labels': ApplicantLabel.objects.all(),
-        }
-
+        context['edition'] = current_edition
+        context['applicants'] = Applicant.objects.filter(edition=current_edition)
+        context['labels'] = ApplicantLabel.objects.all()
         return context
 
 
