@@ -4,7 +4,7 @@ from datetime import date
 
 from django import forms
 
-from gcc.models import Answer, Applicant, ApplicantStatusTypes, EventWish, Question, Forms, AnswerTypes, Event, Edition
+from gcc.models import Answer, Applicant, ApplicantStatusTypes, EventWish, Question, Form, AnswerTypes, Event, Edition
 
 
 # Newsletter
@@ -16,7 +16,7 @@ class EmailForm(forms.Form):
 
 # Application
 
-def build_dynamic_form(form, user):
+def build_dynamic_form(form, user, edition):
     """
     Initialize a django form with fields described in models.Question
     :param form: the form that must be displayed / edited
@@ -36,8 +36,7 @@ def build_dynamic_form(form, user):
             super(DynamicForm, self).__init__(*args, **kwargs)
 
             # Add fields to the form
-            self.questions = \
-                Question.objects.filter(form=form.value)
+            self.questions = self.form.question_list
 
             for question in self.questions:
                 # set basic fields parameters
@@ -51,7 +50,7 @@ def build_dynamic_form(form, user):
                 # Try to load existing configuration
                 try:
                     answer = Answer.objects.get(
-                        question=question, applicant__user=user
+                        question=question, applicant__user=user, edition=edition
                     )
                     basic_args['initial'] = answer.response
                 except Answer.DoesNotExist:

@@ -27,7 +27,7 @@
             <li>Être motivée !</li>
         </ul>
         {% if user.is_authenticated %}
-        <a href="application/form" class="button style3 large">S'inscrire</a>
+        <a href="application/form/{{current_edition}}" class="button style3 large">S'inscrire</a>
         {% else %}
         <a href="user/register" class="button style3 large">S'inscrire</a>
         {% endif %}

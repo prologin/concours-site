@@ -9,7 +9,7 @@ from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, CreateView
 
-from gcc.models import Answer, Question, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Forms
+from gcc.models import Answer, Question, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Form
 from sponsor.models import Sponsor
 from users.models import ProloginUser
 
@@ -83,6 +83,7 @@ class IndexView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['events'] = Event.objects.filter(event_end__gt = date.today())
+        context['current_edition'] = Edition.objects.last()
         sponsors = list(Sponsor.active_gcc.all())
         random.shuffle(sponsors)
         context['sponsors'] = sponsors
@@ -153,11 +154,11 @@ class ApplicationSummaryView(DetailView):
 class ApplicationFormView(FormView):
     template_name = 'gcc/application/form.html'
 
-    def get_form_class(self):
+    def get_form_class(self, **kwargs):
         """
         Returns the form class to use in this view
         """
-        return build_dynamic_form(Forms.application, self.request.user)
+        return build_dynamic_form(self.request.edition.signup_form, self.request.user, self.request.edition)
 
     def get_success_url(self):
         return reverse_lazy('gcc:application_validation')
@@ -197,4 +198,3 @@ class ApplicationValidation(FormView):
     def form_valid(self, form):
         form.save(self.request.user)
         return super(ApplicationValidation, self).form_valid(form)
-

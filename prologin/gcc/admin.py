@@ -1,9 +1,9 @@
 from django.contrib import admin
 from gcc.models import Applicant, ApplicantLabel, Edition, Event, Corrector, SubscriberEmail
-from gcc.models import Question, Answer
+from gcc.models import Question, Form, Answer
 
 
-admin.site.register([ApplicantLabel, Edition, SubscriberEmail, Question])
+admin.site.register([ApplicantLabel, Edition, SubscriberEmail, Question, Form])
 
 
 @admin.register(Applicant)

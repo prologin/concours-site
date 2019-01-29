@@ -14,7 +14,8 @@ from prologin.utils import ChoiceEnum
 
 
 class Edition(models.Model):
-    year = models.PositiveIntegerField(primary_key=True)
+    year = models.PositiveIntegerField(primary_key=True,unique=True)
+    signup_form = models.ForeignKey('Form',on_delete=models.CASCADE)
 
     @cached_property
     def poster_url(self):
@@ -41,6 +42,9 @@ class Edition(models.Model):
             str(self.year), *tail
         )
 
+    def current_edition(self):
+        return self.object.last()
+
     def subscription_is_open(self):
         """Is there still one event open for subscription"""
         current_events = Event.objects.filter(
@@ -54,6 +58,10 @@ class Edition(models.Model):
 
     def __str__(self):
         return str(self.year)
+
+    class Meta:
+        ordering = ['year']
+
 
 
 class Event(models.Model):
@@ -166,10 +174,6 @@ class EventWish(models.Model):
         )
 
 
-@ChoiceEnum.labels(str.capitalize)
-class Forms(ChoiceEnum):
-    application = 0
-    profile = 1
 
 
 @ChoiceEnum.labels(str.capitalize)
@@ -181,13 +185,17 @@ class AnswerTypes(ChoiceEnum):
     text = 4
 
 
+class Form(models.Model):
+    # Name of the form
+    name = models.TextField()
+    # List of question
+    question_list = models.ManyToManyField('Question')
+
 class Question(models.Model):
     # Formulation of the question
     question = models.TextField()
     # Potential additional indications about the questions
     comment = models.TextField(blank=True)
-    # The form this question is part of
-    form = EnumField(Forms)
     # How to represent the answer
     response_type = EnumField(AnswerTypes)
     # Wether the answer is mandatory or not
@@ -200,6 +208,7 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
+    edition = models.ForeignKey(Edition, related_name='answers', on_delete=models.CASCADE, null=True)
     applicant = models.ForeignKey(Applicant, related_name='answers', on_delete=models.CASCADE, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     response = JSONField(encoder=DjangoJSONEncoder)

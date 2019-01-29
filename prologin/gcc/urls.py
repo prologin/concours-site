@@ -38,11 +38,11 @@ application_patterns = [
         staff_views.ApplicationReviewView.as_view(),
         name='application_review'),
     path(
-        'form/',
+        'form/<int:edition>/',
         views.ApplicationFormView.as_view(),
         name='application_form'),
     path(
-        'validation/',
+        'validation/<int:edition>/',
         views.ApplicationValidation.as_view(),
         name='application_validation'),
     path(
