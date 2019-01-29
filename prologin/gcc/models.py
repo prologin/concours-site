@@ -101,7 +101,10 @@ class Applicant(models.Model):
         on_delete=models.SET_NULL)
 
     # Review of the application
-    labels = models.ManyToManyField(ApplicantLabel)
+    labels = models.ManyToManyField(ApplicantLabel, blank=True)
+
+    def __str__(self):
+        return str(self.user) + '@' + str(self.edition)
 
     def for_user(user):
         """
