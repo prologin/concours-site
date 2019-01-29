@@ -1,0 +1,35 @@
+{% extends "prologin/base.html" %}
+{% load i18n staticfiles %}
+{% load django_bootstrap_breadcrumbs utils %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb_for "sponsors:index" %}{% trans "Sponsors" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Sponsors" %}{% endblock %}
+
+{% block content %}
+
+    <h1>{% trans "Sponsors" %}</h1>
+    <p>{% blocktrans %}Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?
+    You can find all the documents and photo albums from past Prologin editions in these pages.{% endblocktrans %}</p>
+
+    {% for sponsor in sponsors %}
+        <div class="row">
+            <div class="col-xs-6 col-md-3">
+                <a href="{{ sponsor.site }}" class="thumbnail" style="height: 10em;">
+                    <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width: 100%; max-height: 9em;position: relative; top: 50%; transform: translateY(-50%);" />
+                </a>
+            </div>
+            <div class="well well-lg" style="height: 10em; display: table-cell; vertical-align: middle; float: none;">
+                Google LLC[5] is an American multinational technology company that specializes
+                in Internet-related services and products, which include online advertising
+                technologies, search engine, cloud computing, software, and hardware. It is
+                considered one of the Big Four technology companies, along with Amazon, Apple
+                and Facebook.
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

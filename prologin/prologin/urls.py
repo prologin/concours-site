@@ -67,6 +67,9 @@ urlpatterns = [
     # Schools
     path('schools/', include('schools.urls', namespace='schools')),
 
+    # Sponsors
+    path('sponsors/', include('sponsor.urls', namespace='sponsors')),
+
     # Crash test
     path('crashtest/', crash_test),
 
