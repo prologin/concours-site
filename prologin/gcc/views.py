@@ -93,8 +93,7 @@ class RessourcesView(TemplateView):
     template_name = "gcc/ressources.html"
 
 
-# Newsletter
-
+# Newsletapplicant=None
 
 class NewsletterUnsubscribeView(FormView):
     success_url = reverse_lazy("gcc:news_confirm_unsub")
@@ -178,6 +177,18 @@ class ApplicationValidation(FormView):
         )
         return super(ApplicationValidation, self).get_context_data(**kwargs)
 
+    def get_initial(self):
+        event_wishes = EventWish.objects.filter(applicant__user=self.request.user)
+        initials = {}
+
+        for wish in event_wishes:
+            assert(wish.order in [1, 2, 3])
+            field_name = 'priority' + str(wish.order)
+            initials[field_name] = wish.event.pk
+
+        return initials
+
     def form_valid(self, form):
         form.save(self.request.user)
         return super(ApplicationValidation, self).form_valid(form)
+
