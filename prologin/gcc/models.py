@@ -1,4 +1,5 @@
 import os
+from datetime import date
 
 from django.db import models
 from django.conf import settings
@@ -39,6 +40,17 @@ class Edition(models.Model):
             settings.STATIC_URL, settings.GCC_REPOSITORY_STATIC_PREFIX,
             str(self.year), *tail
         )
+
+    def subscription_is_open(self):
+        """Is there still one event open for subscription"""
+        current_events = Event.objects.filter(
+            edition = self,
+            signup_start__lt = date.today(),
+            signup_end__gte = date.today()
+        )
+        print("current_events: ",current_events)
+        return len(current_events)>0
+
 
     def __str__(self):
         return str(self.year)

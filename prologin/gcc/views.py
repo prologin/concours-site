@@ -137,6 +137,10 @@ class ApplicationSummaryView(DetailView):
         context['shown_author'] = self.author
         context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
         context['applications'] = Applicant.objects.filter(user=self.author)
+        context['current_events'] = Event.objects.filter(
+            signup_start__lt = date.today(),
+            signup_end__gt = date.today()
+        )
         context['answers'] = [Answer.objects.filter(applicant= applic) for applic in context['applications'] ]
         return context
 
@@ -166,9 +170,11 @@ class ApplicationFormView(FormView):
 #TODO: Check if there is an event with opened application
 #TODO: Check that the user has filled ApplicationForm and isn't registered yet
 class ApplicationValidation(FormView):
-    success_url = reverse_lazy("gcc:index")
     template_name = 'gcc/application/validation.html'
     form_class = ApplicationValidationForm
+
+    def get_success_url(self):
+        return reverse("gcc:application_summary", kwargs={'pk': self.request.user.pk})
 
     def get_context_data(self, **kwargs):
         kwargs['events'] = Event.objects.filter(

@@ -1,5 +1,26 @@
 /* review list for applications */
 
+.event-wish-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.event-wish-list li {
+  display: inline-block;
+  padding: 2px 7px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  position: relative;
+  margin-right: 20px;
+}
+
+.event-wish-list li:not(:last-child):after {
+  position: absolute;
+  right: -17px;
+  content: " > ";
+}
+
 .applicant-list > li {
     list-style: none;
     display: block;

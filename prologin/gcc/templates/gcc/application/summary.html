@@ -8,36 +8,96 @@
 {% block content %}
 <section class="wrapper">
     <div class="container">
-        <div class="title">Résumé de candidature</div>
+        <div class="title">Résumé de candidatures</div>
         <div class="bootstrap_region">
+        {% if shown_user.id == user.id or see_private %}
 
+        <div class="row">
+            <div class="col-sm-4 col-md-3">
+            <ul class="fa-ul text-break-word profile-info" style="margin-bottom: 1em">
+              {% if see_private %}
+                {% if shown_user.get_full_name %}
+                <li title="{% trans "Full name" %}">
+                  <i class="fa fa-li fa-user"></i>
+                  <span class="text-capitalize">{{ shown_user.first_name }}</span>
+                  <span class="text-smallcaps">{{ shown_user.last_name }}</span>
+                </li>
+                {% endif %}
+                {% if shown_user.phone %}
+                <li title="{% trans "Phone number" %}">
+                  <i class="fa fa-li fa-phone"></i>
+                    <a href="tel:{{ shown_user.phone }}">{{ shown_user.phone|phone_number }}</a>
+                </li>
+                {% endif %}
+                {% if shown_user.email %}
+                <li title="{% trans "Email address" %}">
+                  <i class="fa fa-li fa-envelope-o"></i>
+                  <a href="email:{{ shown_user.email }}">{{ shown_user.email }}</a>
+                </li>
+                {% endif %}
+                {% if shown_user.birthday %}
+                <li title="{% trans "Birth day" %}"><i class="fa fa-li fa-birthday-cake"></i>
+                  {{ shown_user.birthday }}<br>
+                    <small class="text-muted">{{ shown_user.birthday|timesince }}</small>
+                </li>
+                {% endif %}
+               {% if user.has_partial_address %}
+                <li title="{% trans "Postal address" %}">
+                  <i class="fa fa-li fa-map-marker"></i>
+                  <address>
+                    {{ shown_user.address|linebreaksbr }}<br>
+                    {{ shown_user.postal_code }} {{ shown_user.city }}<br>
+                    {{ shown_user.country }}
+                  </address>
+                </li>
+                {% endif %}
+              {% endif %}
+              <li title="{% trans "Date joined" %}">
+                <i class="fa fa-li fa-clock-o"></i>
+                {% trans "Member for" %} {{ shown_user.date_joined|timesince }}
+              </li>
+            </ul>
+            </div>
 
-              {% if shown_user.id == user.id or see_private %}
-              <a href="{% url 'gcc:application_form'%}" class="btn btn-default pull-right">
-                <i class="fa fa-pencil"></i> {% trans "Edit application" %}</a>
-
-              <h1>{{ shown_user.username }}</h1>
-              <h2>{{ shown_user.first_name }}</h2>
-              <h2>{{ shown_user.last_name }}</h2>
-
-             <div class="row">
-                 {% for applic in applications %}
-                    <h2> Edition {{applic.edition}} </h2>
+            <div class="col-sm-8 col-md-8 compact-headings">
+            {% for applic in applications %}
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <table class="panel-title"><tbody><tr>
+                  <td width="100%">Edition {{applic.edition}}</td>
+                  {% if applic.edition.subscription_is_open %}
+                  <td class="text-right">
+                    <a  href="{% url 'gcc:application_form'%}"
+                                            class="btn btn-default btn-xs">
+                       <i class="fa fa-pencil"></i> {% trans "Edit application" %}</a>
+                  </td>
+                  {% endif %}
+                </tr></tbody></table>
+              </div>
+              <div class="panel-body">
+                <ul class="nav nav-stacked fa-ul">
                     {% for ed in answers %}
                         {% for ans in ed %}
                             {% if applic == ans.applicant %}
-                                <h3> {{ans.question}} </h3>
-                                <p> {{ans}} </p>
+                                <li> <strong> {{ans.question}} </strong> </li>
+                                <li> {{ans}} </li>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
-                {% endfor %}
-             </div>
+                    <ol class="event-wish-list">
+                        {% for event in event_wish %}
+                            <li> {{event}} </li>
+                        {% endfor %}
+                    </ol>
+                </ul>
+              </div>
+          </div>
+              {% endfor %}
+          </div>
 
-              {% endif %}
 
-
-        </div>
+        {% endif %}
+    </div>
     </div>
  </section>
  {% endblock %}
