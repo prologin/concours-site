@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from prologin.utils import msgpack_loads, msgpack_dumps
 
+import base64
+
 
 class CaseMapping(Case):
     """
@@ -133,12 +135,13 @@ class MsgpackField(models.Field):
         return value
 
     def value_to_string(self, obj):
-        return self.value_from_object(obj)
+        value = self.value_from_object(obj)
+        return self.get_prep_value(value)
 
     def get_prep_value(self, value):
         if value is None:
             return None
-        return msgpack_dumps(value)
+        return str(base64.encodestring(str(value).encode()))
 
     def from_db_value(self, value, expression, connection, context):
         if value is None:
