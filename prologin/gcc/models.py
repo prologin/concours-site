@@ -126,6 +126,9 @@ class Applicant(models.Model):
     def __str__(self):
         return str(self.user) + '@' + str(self.edition)
 
+    def list_of_assignation_wishes(self):
+        return [event for event in self.assignation_wishes.all()]
+
     def for_user_and_edition(user, edition):
         """
         Get applicant object corresponding to an user for given edition. If no
@@ -211,7 +214,7 @@ class Answer(models.Model):
     response = JSONField(encoder=DjangoJSONEncoder)
 
     def __str__(self):
-        return self.response
+        return str(self.response)
 
     class Meta:
         unique_together = (('applicant', 'question'), )
@@ -223,4 +226,3 @@ class SubscriberEmail(models.Model):
 
     def __str__(self):
         return self.email
-

@@ -137,11 +137,7 @@ class ApplicationSummaryView(DetailView):
         shown_user = context[self.context_object_name]
         context['shown_author'] = self.author
         context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
-        context['applications'] = Applicant.objects.filter(user=self.author)
-        context['current_events'] = Event.objects.filter(
-            signup_start__lt = date.today(),
-            signup_end__gt = date.today()
-        )
+        context['applications'] = Applicant.objects.filter(user=shown_user)
         context['answers'] = [Answer.objects.filter(applicant= applic) for applic in context['applications'] ]
         return context
 
@@ -215,4 +211,3 @@ class ApplicationValidation(FormView):
     def form_valid(self, form):
         form.save(self.request.user, self.edition)
         return super(ApplicationValidation, self).form_valid(form)
-

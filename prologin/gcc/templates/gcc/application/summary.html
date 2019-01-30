@@ -3,6 +3,10 @@
 {% load utils %}
 {% load i18n staticfiles rules %}
 
+{% block head %}
+    <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}"/>
+{% endblock %}
+
 {% block title %}GCC! − Résumé{% endblock %}
 
 {% block content %}
@@ -67,7 +71,7 @@
                   <td width="100%">Edition {{applic.edition}}</td>
                   {% if applic.edition.subscription_is_open %}
                   <td class="text-right">
-                    <a  href="{% url 'gcc:application_form'%}"
+                    <a  href="{% url 'gcc:application_form' edition=applic.edition %}"
                                             class="btn btn-default btn-xs">
                        <i class="fa fa-pencil"></i> {% trans "Edit application" %}</a>
                   </td>
@@ -78,14 +82,14 @@
                 <ul class="nav nav-stacked fa-ul">
                     {% for ed in answers %}
                         {% for ans in ed %}
-                            {% if applic == ans.applicant %}
+                            {% if applic.edition == ans.applicant.edition %}
                                 <li> <strong> {{ans.question}} </strong> </li>
                                 <li> {{ans}} </li>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
                     <ol class="event-wish-list">
-                        {% for event in event_wish %}
+                        {% for event in applic.list_of_assignation_wishes %}
                             <li> {{event}} </li>
                         {% endfor %}
                     </ol>
