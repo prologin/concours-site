@@ -35,8 +35,11 @@ def build_dynamic_form(form, user, edition):
         def __init__(self, *args, **kwargs):
             super(DynamicForm, self).__init__(*args, **kwargs)
 
+            self.edition = edition
+            self.form = form
+
             # Add fields to the form
-            self.questions = self.form.question_list
+            self.questions = self.form.question_list.all()
 
             for question in self.questions:
                 # set basic fields parameters
@@ -50,7 +53,9 @@ def build_dynamic_form(form, user, edition):
                 # Try to load existing configuration
                 try:
                     answer = Answer.objects.get(
-                        question=question, applicant__user=user, edition=edition
+                        question=question,
+                        applicant__user=user,
+                        applicant__edition=edition
                     )
                     basic_args['initial'] = answer.response
                 except Answer.DoesNotExist:
@@ -72,7 +77,7 @@ def build_dynamic_form(form, user, edition):
             Saves all filled fields for `user`.
             """
             data = self.cleaned_data
-            applicant = Applicant.for_user(user)
+            applicant = Applicant.for_user_and_edition(user, self.edition)
 
             for question in self.questions:
                 fieldId = 'field' + str(question.pk)
@@ -81,7 +86,8 @@ def build_dynamic_form(form, user, edition):
                     # Try to modify existing answer, overwise create a new answer
                     try:
                         answer = Answer.objects.get(
-                            applicant=applicant, question=question
+                            applicant=applicant,
+                            question=question
                         )
                     except Answer.DoesNotExist:
                         answer = Answer(
@@ -103,13 +109,14 @@ class ApplicationValidationForm(forms.Form):
     priority2 = forms.TypedChoiceField(label='2nd choix', required=False)
     priority3 = forms.TypedChoiceField(label='3e choix', required=False)
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, edition, *args, **kwargs):
         super(ApplicationValidationForm, self).__init__(*args, **kwargs)
 
         # Get a list of (primary_key, event name) for the selectors
         events = Event.objects.filter(
             signup_start__lt = date.today(),
-            signup_end__gt = date.today()
+            signup_end__gt = date.today(),
+            edition = edition
         )
         events_selection = [(None, '')] + [(event.pk, str(event)) for event in events]
 
@@ -117,7 +124,7 @@ class ApplicationValidationForm(forms.Form):
         self.fields['priority2'].choices = events_selection
         self.fields['priority3'].choices = events_selection
 
-    def save(self, user):
+    def save(self, user, edition):
         """
         Saves the new applications.
         If an application was already pending for current year, it will be
@@ -125,7 +132,7 @@ class ApplicationValidationForm(forms.Form):
         an Application.AlreadyLocked exception.
         """
         data = self.cleaned_data
-        applicant = Applicant.for_user(user)
+        applicant = Applicant.for_user_and_edition(user, edition)
         event_wishes = EventWish.objects.filter(applicant=applicant)
 
         # Verify that no application is already accepted or rejected
@@ -154,3 +161,4 @@ class ApplicationValidationForm(forms.Form):
                 order = i + 1
             )
             event_wish.save()
+

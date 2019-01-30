@@ -14,7 +14,7 @@ from prologin.utils import ChoiceEnum
 
 
 class Edition(models.Model):
-    year = models.PositiveIntegerField(primary_key=True,unique=True)
+    year = models.PositiveIntegerField(primary_key=True, unique=True)
     signup_form = models.ForeignKey('Form',on_delete=models.CASCADE)
 
     @cached_property
@@ -126,13 +126,11 @@ class Applicant(models.Model):
     def __str__(self):
         return str(self.user) + '@' + str(self.edition)
 
-    def for_user(user):
+    def for_user_and_edition(user, edition):
         """
-        Get applicant object corresponding to an user for current edition. If no
+        Get applicant object corresponding to an user for given edition. If no
         applicant has been created for this edition yet, it will be created.
         """
-        edition = Edition.objects.latest('year')
-
         try:
             return Applicant.objects.get(user=user, edition=edition)
         except Applicant.DoesNotExist:
@@ -167,13 +165,10 @@ class EventWish(models.Model):
         unique_together = (('applicant', 'event'), )
 
     def __str__(self):
-        return '{} for {} ({})'.format(
+        return '{} for {}'.format(
             str(self.applicant),
-            str(self.event),
-            str(self.status)
+            str(self.event)
         )
-
-
 
 
 @ChoiceEnum.labels(str.capitalize)
@@ -187,9 +182,12 @@ class AnswerTypes(ChoiceEnum):
 
 class Form(models.Model):
     # Name of the form
-    name = models.TextField()
+    name = models.CharField(max_length=64)
     # List of question
     question_list = models.ManyToManyField('Question')
+
+    def __str__(self):
+        return self.name
 
 class Question(models.Model):
     # Formulation of the question
@@ -208,7 +206,6 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    edition = models.ForeignKey(Edition, related_name='answers', on_delete=models.CASCADE, null=True)
     applicant = models.ForeignKey(Applicant, related_name='answers', on_delete=models.CASCADE, null=True)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     response = JSONField(encoder=DjangoJSONEncoder)
@@ -226,3 +223,4 @@ class SubscriberEmail(models.Model):
 
     def __str__(self):
         return self.email
+

@@ -64,10 +64,7 @@
               <ul style="">
                 <li><a href="{% url 'gcc:profile' user.id %}"><i class="fa fa-user"></i>Mon profile</a></li>
                 <li><a href="{% url 'gcc:edit' user.id %}"><i class="fa fa-cog"></i>Profil & options</a></li>
-<<<<<<< HEAD
-=======
                 <li><a href="{% url 'gcc:application_summary' user.id %}"><i class="fa fa-scroll"></i>Mes candidatures</a></li>
->>>>>>> gcc: summary of applications looking nice
                 <li>
                   <form method="post" action="{% url 'users:logout' %}?next=/gcc">
                     {% csrf_token %}

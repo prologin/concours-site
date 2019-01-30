@@ -151,31 +151,45 @@ class ApplicationSummaryView(DetailView):
             raise Http404()
         return result
 
+
 class ApplicationFormView(FormView):
     template_name = 'gcc/application/form.html'
 
     def get_form_class(self, **kwargs):
-        """
-        Returns the form class to use in this view
-        """
-        return build_dynamic_form(self.request.edition.signup_form, self.request.user, self.request.edition)
+        self.edition_year = self.kwargs['edition']
+        self.edition = Edition.objects.get(year=self.edition_year)
+        return build_dynamic_form(
+            self.edition.signup_form,
+            self.request.user,
+            self.edition
+        )
 
     def get_success_url(self):
-        return reverse_lazy('gcc:application_validation')
+        return reverse('gcc:application_validation', kwargs={'edition': self.edition_year})
 
     def form_valid(self, form):
         form.save()
         return super(FormView, self).form_valid(form)
 
 
-#TODO: Check if there is an event with opened application
-#TODO: Check that the user has filled ApplicationForm and isn't registered yet
 class ApplicationValidation(FormView):
     template_name = 'gcc/application/validation.html'
     form_class = ApplicationValidationForm
 
     def get_success_url(self):
-        return reverse("gcc:application_summary", kwargs={'pk': self.request.user.pk})
+        return reverse(
+            "gcc:application_summary",
+            kwargs={'pk': self.request.user.pk}
+        )
+
+    def get_form_kwargs(self):
+        # Specify the edition to the form's constructor
+        self.edition_year = self.kwargs['edition']
+        self.edition = Edition.objects.get(year=self.edition_year)
+
+        kwargs = super(ApplicationValidation, self).get_form_kwargs()
+        kwargs.update({'edition': self.edition})
+        return kwargs
 
     def get_context_data(self, **kwargs):
         kwargs['events'] = Event.objects.filter(
@@ -185,7 +199,10 @@ class ApplicationValidation(FormView):
         return super(ApplicationValidation, self).get_context_data(**kwargs)
 
     def get_initial(self):
-        event_wishes = EventWish.objects.filter(applicant__user=self.request.user)
+        event_wishes = EventWish.objects.filter(
+            applicant__user = self.request.user,
+            applicant__edition = self.edition
+        )
         initials = {}
 
         for wish in event_wishes:
@@ -196,5 +213,6 @@ class ApplicationValidation(FormView):
         return initials
 
     def form_valid(self, form):
-        form.save(self.request.user)
+        form.save(self.request.user, self.edition)
         return super(ApplicationValidation, self).form_valid(form)
+
