@@ -85,63 +85,80 @@
 
             <div class="col-sm-8 col-md-5 compact-headings">
 
-              <h3>{% trans "Contest involvment" %}</h3>
+              <h3>{% trans "Applications" %}</h3>
 
-              {% with shown_user.get_involved_contestants as user_contestants %}
-
-                {% if user_contestants %}
-
-                  {% for contestant in user_contestants %}
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <table class="panel-title"><tbody><tr>
-                          <td width="100%">{{ contestant.edition.year }}</td>
-                          <td class="text-right">
-                            <a href="{% url 'archives:index' %}#prologin-{{ contestant.edition.year }}"
-                                                    class="btn btn-default btn-xs">
-                              <i class="fa fa-book"></i> {% trans "See archives" %}</a>
-                          </td>
-                        </tr></tbody></table>
-                      </div>
-                      <div class="panel-body">
-                        <ul class="nav nav-stacked fa-ul">
-                          <li><i class="fa fa-li fa-asterisk"></i> {% trans "Completed the qualification step" %}</li>
-                          {% if contestant.edition.qualification_corrected and contestant.is_assigned_for_semifinal %}
-                            <li class="text-success"><i
-                              class="fa fa-li fa-check"></i> {% trans "Selected for regional events" %}</li>
-                            {% if contestant.completed_semifinal %}
-                              <li><i class="fa fa-li fa-asterisk"></i> {% trans "Competed in the regional events" %}</li>
-                              {% if contestant.edition.semifinal_corrected and contestant.is_assigned_for_final %}
-                                <li class="text-success"><i class="fa fa-li fa-check"></i> {% trans "Selected for the final" %}
-                                </li>
-                              {% endif %}
-                            {% endif %}
-                          {% endif %}
-                        </ul>
-                      </div>
-                      {% has_perm 'contest.can_download_home' request.user contestant as can_download_home %}
-                      {% if contestant.has_home and can_download_home %}
-                      <div class="panel-footer">
-                         <a href="{% url 'users:download-final-home' shown_user.pk contestant.edition.year %}"
-                            class="btn btn-default btn-xs btn-contestant-home">
-                           <i class="fa fa-cloud-download"></i>
-                           {% blocktrans with size=contestant.home_size|human_file_size %}Download final home (tar.gz, {{ size }}){% endblocktrans %}
-                        </a>
-                      </div>
-                      {% endif %}
-                    </div>
-                  {% endfor %}
-
-                {% else %}
-
-                  <p class="text-muted"><i class="fa fa-fw fa-frown-o"></i>
-                    <em>{% blocktrans with shown_user.username as username %}Sadly, {{ username }} did not take part in any Prologin edition yet.{% endblocktrans %}</em>
-                  </p>
-
-                {% endif %}
-              {% endwith %}
+              {% if has_not_applied_last_edition %}
+              <div class="panel panel-default">
+                <div class="panel-heading">
+                  <table class="panel-title"><tbody><tr>
+                    <td width="100%">Edition {{last_edition}}</td>
+                  </tr></tbody></table>
+                </div>
+                <div class="panel-body">
+                  <table class="panel-title"><tbody><tr>
+                  <td width="100%">
+                  <p> {% trans "Sadly you did not applied yet for the curent edition..." %} </p>
+                  </td>
+                  <td class="text-right">
+                    <a  href="{% url 'gcc:application_form' edition=last_edition %}"
+                                            class="btn btn-default btn-xs">
+                       <i class="fa fa-pencil"></i> {% trans "Apply" %}</a>
+                  </td>
+                </tr></tbody></table>
+                </div>
+              </div>
+              {% endif %}
 
             </div>
+
+            {% for applicant in applications %}
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <table class="panel-title"><tbody><tr>
+                  <td width="100%">Edition {{applicant.edition}}</td>
+                  {% if applicant.edition.subscription_is_open %}
+                  <td class="text-right">
+                    <a  href="{% url 'gcc:application_form' edition=applicant.edition %}"
+                                            class="btn btn-default btn-xs">
+                       <i class="fa fa-pencil"></i> {% trans "Edit application" %}</a>
+                  </td>
+                  {% endif %}
+                </tr></tbody></table>
+              </div>
+              <div class="panel-body">
+                  {% if applicant.status == 0 %}
+                    <span class="badge badge-warning">{% trans "Pending" %} </span>
+                  {% endif %}
+                  {% if applicant.status == 1 %}
+                    <span class="badge badge-danger">{% trans "Rejected" %} </span>
+                  {% endif %}
+                  {% if applicant.status == 2 %}
+                    <span class="badge badge-success">{% trans "Selected" %} </span>
+                    <p> {% trans "You will soon receive your assignation." %} </p>
+                  {% endif %}
+                  {% if applicant.status == 3 %}
+                    <span class="badge badge-warning">{% trans "Accepted" %} </span>
+                    <p> {% trans "You have been assigned to:" %} </p>
+                    <ul>
+                    {% for event in applicant.list_of_assignation_event %}
+                        <li> {{event.short_description}} </li>
+                    {% endfor %}
+                    </ul>
+                    <p> {% trans "Please confirm your venue." %} </p>
+                  {% endif %}
+                  {% if applicant.status == 4 %}
+                    <span class="badge badge-success">{% trans "Confirmed" %} </span>
+                    <p> {% trans "You have been assigned to:" %} </p>
+                    <ul>
+                    {% for event in applicant.list_of_assignation_event %}
+                        <li> {{event.short_description}} </li>
+                    {% endfor %}
+                    </ul>
+                    <p>{% trans "And you confirmed your venue, see you there!" %} </p>
+                  {% endif %}
+              </div>
+          </div>
+          {% endfor %}
 
             <div class="col-sm-12 col-md-4 compact-headings">
 
@@ -228,7 +245,7 @@
             </div>
           </div>
           {% endif %}
-          
+
         </div>
     </div>
  </section>

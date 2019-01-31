@@ -30,7 +30,7 @@
             <li>Complete the application form</li>
         </ul>
         {% if user.is_authenticated %}
-        <a href="application/form/{{current_edition}}" class="button style3 large">{% trans 'Register' %}</a>
+        <a href="application/form/{{last_edition}}" class="button style3 large">{% trans 'Register' %}</a>
         {% else %}
         <a href="user/register" class="button style3 large">{% trans 'Sign in' %}</a>
         {% endif %}
@@ -172,4 +172,3 @@
   </section>
 </div>
 {% endblock %}
-

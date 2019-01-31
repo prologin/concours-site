@@ -72,6 +72,8 @@ class Event(models.Model):
     event_end = models.DateTimeField()
     signup_start = models.DateTimeField()
     signup_end = models.DateTimeField()
+    signup_form = models.ForeignKey('Form',on_delete=models.CASCADE,null=True)
+
 
     def __str__(self):
         return str(self.event_start) + ' ' + str(self.center)
@@ -122,9 +124,8 @@ class Applicant(models.Model):
     # Whishes of the candidate
     assignation_wishes = models.ManyToManyField(
         Event, through='EventWish', related_name='applicants', blank=True)
-    assignation_event = models.ForeignKey(
-        Event, related_name='assigned_girls', null=True,
-        on_delete=models.SET_NULL)
+    assignation_event = models.ManyToManyField(
+        Event, related_name='assigned_girls', blank=True)
 
     # Review of the application
     labels = models.ManyToManyField(ApplicantLabel, blank=True)
@@ -134,6 +135,9 @@ class Applicant(models.Model):
 
     def list_of_assignation_wishes(self):
         return [event for event in self.assignation_wishes.all()]
+
+    def list_of_assignation_event(self):
+        return [event for event in self.assignation_event.all()]
 
     def for_user_and_edition(user, edition):
         """

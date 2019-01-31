@@ -64,14 +64,37 @@
             </div>
 
             <div class="col-sm-8 col-md-8 compact-headings">
-            {% for applic in applications %}
+
+            {% if has_not_applied_last_edition %}
             <div class="panel panel-default">
               <div class="panel-heading">
                 <table class="panel-title"><tbody><tr>
-                  <td width="100%">Edition {{applic.edition}}</td>
-                  {% if applic.edition.subscription_is_open %}
+                  <td width="100%">Edition {{last_edition}}</td>
+                </tr></tbody></table>
+              </div>
+              <div class="panel-body">
+                <table class="panel-title"><tbody><tr>
+                <td width="100%">
+                <p> {% trans "Sadly you did not applied yet for the curent edition..." %} </p>
+                </td>
+                <td class="text-right">
+                  <a  href="{% url 'gcc:application_form' edition=last_edition %}"
+                                          class="btn btn-default btn-xs">
+                     <i class="fa fa-pencil"></i> {% trans "Apply" %}</a>
+                </td>
+              </tr></tbody></table>
+              </div>
+            </div>
+            {% endif %}
+
+            {% for applicant in applications %}
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <table class="panel-title"><tbody><tr>
+                  <td width="100%">Edition {{applicant.edition}}</td>
+                  {% if applicant.edition.subscription_is_open %}
                   <td class="text-right">
-                    <a  href="{% url 'gcc:application_form' edition=applic.edition %}"
+                    <a  href="{% url 'gcc:application_form' edition=applicant.edition %}"
                                             class="btn btn-default btn-xs">
                        <i class="fa fa-pencil"></i> {% trans "Edit application" %}</a>
                   </td>
@@ -82,18 +105,49 @@
                 <ul class="nav nav-stacked fa-ul">
                     {% for ed in answers %}
                         {% for ans in ed %}
-                            {% if applic.edition == ans.applicant.edition %}
+                            {% if applicant.edition == ans.applicant.edition %}
                                 <li> <strong> {{ans.question}} </strong> </li>
                                 <li> {{ans}} </li>
                             {% endif %}
                         {% endfor %}
                     {% endfor %}
                     <ol class="event-wish-list">
-                        {% for event in applic.list_of_assignation_wishes %}
+                        {% for event in applicant.list_of_assignation_wishes %}
                             <li> {{event.short_description}} </li>
                         {% endfor %}
                     </ol>
                 </ul>
+                  <br>
+                  {% if applicant.status == 0 %}
+                    <span class="badge badge-warning">{% trans "Pending" %} </span>
+                  {% endif %}
+                  {% if applicant.status == 1 %}
+                    <span class="badge badge-danger">{% trans "Rejected" %} </span>
+                  {% endif %}
+                  {% if applicant.status == 2 %}
+                    <span class="badge badge-success">{% trans "Selected" %} </span>
+                    <p> {% trans "You will soon receive your assignation." %} </p>
+                  {% endif %}
+                  {% if applicant.status == 3 %}
+                    <span class="badge badge-warning">{% trans "Accepted" %} </span>
+                    <p> {% trans "You have been assigned to:" %} </p>
+                    <ul>
+                    {% for event in applicant.list_of_assignation_event %}
+                        <li> {{event.short_description}} </li>
+                    {% endfor %}
+                    </ul>
+                    <p> {% trans "Please confirm your venue." %} </p>
+                  {% endif %}
+                  {% if applicant.status == 4 %}
+                    <span class="badge badge-success">{% trans "Confirmed" %} </span>
+                    <p> {% trans "You have been assigned to:" %} </p>
+                    <ul>
+                    {% for event in applicant.list_of_assignation_event %}
+                        <li> {{event.short_description}} </li>
+                    {% endfor %}
+                    </ul>
+                    <p>{% trans "And you confirmed your venue, see you there!" %} </p>
+                  {% endif %}
               </div>
           </div>
               {% endfor %}

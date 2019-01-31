@@ -33,6 +33,17 @@ class RegistrationView(users.views.RegistrationView):
 class ProfileView(users.views.ProfileView):
     template_name = 'gcc/users/profile.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        shown_user = context[self.context_object_name]
+        context['shown_author'] = self.author
+        context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
+        context['applications'] = Applicant.objects.filter(user=shown_user)
+        context['answers'] = [Answer.objects.filter(applicant= applicant) for applicant in context['applications'] ]
+        context['last_edition'] = Edition.objects.last()
+        context['has_not_applied_last_edition'] = len([applicant for applicant in context['applications'] if applicant.edition == context['last_edition'] ]) == 0
+        return context
+
 #FIX ME the message saying that the modifications where registered is not displaying
 class EditUserView(users.views.EditUserView):
     template_name = 'gcc/users/edit.html'
@@ -83,7 +94,7 @@ class IndexView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['events'] = Event.objects.filter(event_end__gt = date.today())
-        context['current_edition'] = Edition.objects.last()
+        context['last_edition'] = Edition.objects.last()
         sponsors = list(Sponsor.active_gcc.all())
         random.shuffle(sponsors)
         context['sponsors'] = sponsors
@@ -139,7 +150,9 @@ class ApplicationSummaryView(PermissionRequiredMixin, DetailView):
         context['shown_author'] = self.author
         context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
         context['applications'] = Applicant.objects.filter(user=shown_user)
-        context['answers'] = [Answer.objects.filter(applicant= applic) for applic in context['applications'] ]
+        context['answers'] = [Answer.objects.filter(applicant= applicant) for applicant in context['applications'] ]
+        context['last_edition'] = Edition.objects.last()
+        context['has_not_applied_last_edition'] = len([applicant for applicant in context['applications'] if applicant.edition == context['last_edition'] ]) == 0
         return context
 
     def get(self, request, *args, **kwargs):
