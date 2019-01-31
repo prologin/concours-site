@@ -6,6 +6,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Max
+from django.utils.formats import date_format
 from django.utils.functional import cached_property
 
 from centers.models import Center
@@ -74,6 +75,11 @@ class Event(models.Model):
 
     def __str__(self):
         return str(self.event_start) + ' ' + str(self.center)
+
+    def short_description(self):
+        return "{} – {} – {}".format(self.center.name,
+        date_format(self.event_start, "SHORT_DATE_FORMAT"),
+        date_format(self.event_end, "SHORT_DATE_FORMAT"))
 
 
 class Corrector(models.Model):

@@ -4,10 +4,10 @@ from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse,reverse_lazy
-
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, CreateView
+from rules.contrib.views import PermissionRequiredMixin
 
 from gcc.models import Answer, Question, Applicant, ApplicantLabel, Edition, Event, EventWish, SubscriberEmail, Form
 from sponsor.models import Sponsor
@@ -122,10 +122,11 @@ class NewsletterConfirmUnsubView(TemplateView):
 
 # Application
 
-class ApplicationSummaryView(DetailView):
+class ApplicationSummaryView(PermissionRequiredMixin, DetailView):
     model = auth.get_user_model()
     context_object_name = 'shown_user'
     template_name = 'gcc/application/summary.html'
+    permission_required = 'users.edit'
 
     def get_queryset(self):
         from zinnia.models.author import Author

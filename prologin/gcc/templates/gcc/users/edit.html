@@ -17,7 +17,7 @@
         <div class="bootstrap_region">
             <h1>{% blocktrans with edited_user.username as username %}Editing {{ username }}'s profile{% endblocktrans %}</h1>
 
-            {% include "users/as_staff_warning.html" %}
+            {% include "gcc/users/as_staff_warning.html" %}
 
             <p class="pull-right"><a href="{% url 'gcc:edit_password' edited_user.pk %}" class="btn btn-default"><i class="fa fa-key"></i> {% trans "Change password" %}</a></p>
             <p>{% trans "Don't forget to click “Save” at the bottom when you are done making changes." %}</p>
