@@ -50,11 +50,11 @@ application_patterns = [
         views.ApplicationSummaryView.as_view(),
         name='application_summary'),
     path(
-        'delete/<int:applicant_id>/<int:label_id>/',
+        'label_remove/<int:event_id>/<int:applicant_id>/<int:label_id>/',
         staff_views.ApplicationRemoveLabelView.as_view(),
         name='delete_applicant_label'),
     path(
-        'add/<int:applicant_id>/<int:label_id>/',
+        'label_add/<int:event_id>/<int:applicant_id>/<int:label_id>/',
         staff_views.ApplicationAddLabelView.as_view(),
         name='add_applicant_label'),
 ]
