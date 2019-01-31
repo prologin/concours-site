@@ -14,12 +14,10 @@
     <div class="container">
         <div class="title">Résumé de candidatures</div>
         <div class="bootstrap_region">
-        {% if shown_user.id == user.id or see_private %}
 
         <div class="row">
             <div class="col-sm-4 col-md-3">
             <ul class="fa-ul text-break-word profile-info" style="margin-bottom: 1em">
-              {% if see_private %}
                 {% if shown_user.get_full_name %}
                 <li title="{% trans "Full name" %}">
                   <i class="fa fa-li fa-user"></i>
@@ -55,7 +53,6 @@
                   </address>
                 </li>
                 {% endif %}
-              {% endif %}
               <li title="{% trans "Date joined" %}">
                 <i class="fa fa-li fa-clock-o"></i>
                 {% trans "Member for" %} {{ shown_user.date_joined|timesince }}
@@ -65,11 +62,11 @@
 
             <div class="col-sm-8 col-md-8 compact-headings">
 
-            {% if has_not_applied_last_edition %}
+            {% if not has_applied_to_current %}
             <div class="panel panel-default">
               <div class="panel-heading">
                 <table class="panel-title"><tbody><tr>
-                  <td width="100%">Edition {{last_edition}}</td>
+                  <td width="100%">Edition {{current_edition}}</td>
                 </tr></tbody></table>
               </div>
               <div class="panel-body">
@@ -78,7 +75,7 @@
                 <p> {% trans "Sadly you did not applied yet for the curent edition..." %} </p>
                 </td>
                 <td class="text-right">
-                  <a  href="{% url 'gcc:application_form' edition=last_edition %}"
+                  <a  href="{% url 'gcc:application_form' edition=current_edition %}"
                                           class="btn btn-default btn-xs">
                      <i class="fa fa-pencil"></i> {% trans "Apply" %}</a>
                 </td>
@@ -103,13 +100,11 @@
               </div>
               <div class="panel-body">
                 <ul class="nav nav-stacked fa-ul">
-                    {% for ed in answers %}
-                        {% for ans in ed %}
-                            {% if applicant.edition == ans.applicant.edition %}
-                                <li> <strong> {{ans.question}} </strong> </li>
-                                <li> {{ans}} </li>
-                            {% endif %}
-                        {% endfor %}
+                    {% for answer in applicant.answers.all %}
+                        {% if applicant.edition == answer.applicant.edition %}
+                            <li> <strong> {{answer.question}} </strong> </li>
+                            <li> {{ answer }} </li>
+                        {% endif %}
                     {% endfor %}
                     <ol class="event-wish-list">
                         {% for event in applicant.list_of_assignation_wishes %}
@@ -152,10 +147,7 @@
           </div>
               {% endfor %}
           </div>
-
-
-        {% endif %}
-    </div>
+      </div>
     </div>
  </section>
- {% endblock %}
+{% endblock %}

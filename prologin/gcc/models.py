@@ -43,8 +43,8 @@ class Edition(models.Model):
             str(self.year), *tail
         )
 
-    def current_edition(self):
-        return self.object.last()
+    def current():
+        return Edition.objects.last()
 
     def subscription_is_open(self):
         """Is there still one event open for subscription"""
@@ -56,6 +56,9 @@ class Edition(models.Model):
         print("current_events: ",current_events)
         return len(current_events)>0
 
+    def user_has_applied(self, user):
+        """Check wether a user has applied for this edition"""
+        return bool(Applicant.objects.filter(user=user, edition=self))
 
     def __str__(self):
         return str(self.year)
@@ -219,7 +222,8 @@ class Question(models.Model):
 
 
 class Answer(models.Model):
-    applicant = models.ForeignKey(Applicant, related_name='answers', on_delete=models.CASCADE, null=True)
+    applicant = models.ForeignKey(Applicant, related_name='answers',
+        on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     response = JSONField(encoder=DjangoJSONEncoder)
 

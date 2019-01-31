@@ -1,12 +1,14 @@
 from django.urls import include, path
 from gcc import views, staff_views
 
+
 app_name = 'gcc'
 
 user_patterns = [
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('edit', views.EditUserView.as_view(), name='edit'),
-    path('edit/password', views.EditPasswordView.as_view(), name='edit_password'),
+    path('edit/password', views.EditPasswordView.as_view(),
+        name='edit_password'),
     path('delete', views.DeleteUserView.as_view(), name='delete'),
     path('takeout', views.TakeoutDownloadUserView.as_view(), name='takeout'),
 ]
@@ -21,7 +23,6 @@ newsletter_patterns = [
         views.NewsletterUnsubscribeView.as_view(
             extra_context={'fail':True}),
         name='news_unsubscribe_failed'),
-
     path(
         'confirm_subscribe',
         views.NewsletterConfirmSubscribeView.as_view(),
@@ -61,14 +62,17 @@ application_patterns = [
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
-    path('about/', views.AboutView.as_view(), name='about'),
+
+    path('application/', include(application_patterns)),
+    path('newsletter/', include(newsletter_patterns)),
     path('ressources/', views.RessourcesView.as_view(), name='ressources'),
+
     path('editions/', views.EditionsView.as_view(), name='editions'),
     path('editions/<int:year>/', views.EditionsView.as_view(), name='editions'),
+
     # User profile, view and edit
     path('user/<int:pk>/', include(user_patterns)),
     path('user/login', views.LoginView.as_view(), name='login'),
     path('user/register', views.RegistrationView.as_view(), name='register'),
-    path('newsletter/', include(newsletter_patterns)),
-    path('application/', include(application_patterns))
+
 ]
