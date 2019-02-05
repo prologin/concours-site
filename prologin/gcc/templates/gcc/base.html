@@ -40,7 +40,7 @@
             <img src="{% static 'gcc/img/logo.png' %}" />
           </a>
         </h1>
-        <p>Stage d'informatique gratuit pour les filles de collège et lycée.</p>
+        <p>{% trans 'Free computer science summer camps for girls under 18.' %}</p>
       </div>
 
       <div class="container">
@@ -51,30 +51,30 @@
       <nav id="nav">
         <ul>
           <li>
-            <a href="{% url 'gcc:index' %}">Accueil</a>
+            <a href="{% url 'gcc:index' %}">{% trans 'Home' %}</a>
           </li>
           <li class="{% active '^/gcc/ressources/' %}">
-            <a href="{% url 'gcc:ressources' %}">Ressources</a>
+            <a href="{% url 'gcc:ressources' %}">{% trans 'Ressources' %}</a>
           </li>
           <li class="{% active '^/gcc/editions/' %}">
-            <a href="{% url 'gcc:editions' %}">Éditions</a>
+            <a href="{% url 'gcc:editions' %}">{% trans 'Editions' %}</a>
           </li>
           {% if not user.is_authenticated %}
             <li class="pull-right">
-              <a href="{% url 'gcc:register' %}">Inscription</a>
-              <a href="{% url 'gcc:login' %}">Connexion</a>
+              <a href="{% url 'gcc:register' %}">{% trans 'Register' %}</a>
+              <a href="{% url 'gcc:login' %}">{% trans 'Sign in' %}</a>
             </li>
           {% else %}
             <li class="pull-right">
               <a>{{ user.username }}</a>
               <ul style="">
-                <li><a href="{% url 'gcc:profile' user.id %}"><i class="fa fa-user"></i>Mon profile</a></li>
-                <li><a href="{% url 'gcc:edit' user.id %}"><i class="fa fa-cog"></i>Profil & options</a></li>
-                <li><a href="{% url 'gcc:application_summary' user.id %}"><i class="fa fa-scroll"></i>Mes candidatures</a></li>
+                <li><a href="{% url 'gcc:profile' user.id %}"><i class="fa fa-user"></i>{% trans 'My profile' %}</a></li>
+                <li><a href="{% url 'gcc:edit' user.id %}"><i class="fa fa-cog"></i>{% trans 'Profile & options' %}</a></li>
+                <li><a href="{% url 'gcc:application_summary' user.id %}"><i class="fa fa-pencil-alt"></i>{% trans 'My applications' %}</a></li>
                 <li>
                   <form method="post" action="{% url 'users:logout' %}?next=/gcc">
                     {% csrf_token %}
-                    <button type="submit">Sign out</button>
+                    <button type="submit">{% trans 'Sign out' %}</button>
                   </form>
                 </li>
               </ul>
@@ -92,11 +92,11 @@
       {% block footer %}{% endblock %}
 
       <div class="container">
-        <div class="title">Contact</div>
+        <div class="title">{% trans 'Contact' %}</div>
         <section class="feature-list small">
           <div class="row reg_20rem">
             <section>
-              <h3 class="icon fa-home">Adresse</h3>
+              <h3 class="icon fa-home">{% trans 'Address' %}</h3>
               <p>
                 Association Prologin<br />
                 14-15 Rue Voltaire<br />
@@ -112,13 +112,13 @@
               </p>
             </section>
             <section>
-              <h3 class="icon fa-envelope">Email</h3>
+              <h3 class="icon fa-envelope">{% trans 'Mail' %}</h3>
               <p>
                 <a href="mailto:info@prologin.org">info@prologin.org</a>
               </p>
             </section>
             <section>
-              <h3 class="icon fa-phone">Téléphone</h3>
+              <h3 class="icon fa-phone">{% trans 'Phone' %}</h3>
               <p>
                 +331 44 08 01 90
               </p>

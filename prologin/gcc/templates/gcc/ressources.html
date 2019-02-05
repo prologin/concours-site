@@ -1,5 +1,6 @@
 {% extends "gcc/base.html" %}
 {% load static %}
+{% load i18n %}
 
 
 {% block content %}
@@ -7,30 +8,35 @@
     <div class="title">S'entraîner à coder</div>
     <div class="container">
       <p>
-        Beaucoup de ressources sont disponibles sur Internet pour te permettre de découvrir l’informatique, mais il est parfois difficile de s'orienter face à la quantité d'informations.
-        Nous détaillons ici quelques ressources particulièrement intéressantes pour débuter et s'entraîner.
+        {% blocktrans %}
+        Many ressources are available on the internet to start coding, but it is sometime hard not to get lost in this ocean of informations.
+        We detail here some intresting ressources to start learning.
+        {% endblocktrans %}
       </p>
     </div>
 </section>
 
 <section class="wrapper emph-infos">
-  <div class="title">Quel langage ?</div>
+  <div class="title">{% trans 'Which language ?' %}</div>
     <div class="container">
       <p>
-        Coder consiste à décrire des opérations que la machine exécutera, et pour communiquer avec la machine on doit choisir au préalable dans quel langage on va lui parler.
-        Il existe de très nombreux langages de programmation, chacun ayant ses spécificités.
+        {% blocktrans %}
+        When coding, we describe information that the machine will execute. To be able interact with the machine, we need to choose the language we will write in.
+        There are many existing languages, each with their specificities.
+        {% endblocktrans %}
       </p>
       <p>
-        Il est important de savoir dans quel langage on souhaite commencer à programmer avant de se lancer. On apprends à programmer dans un langage.
-        Pendant les stages nous enseignons principalement le Python, que nous recommandons pour débuter.
-        C’est un langage assez facile à prendre en main (comparé à d’autres...) et qui a de nombreuses utilisations. Il est par exemple utilisé dans Youtube.
+        {% blocktrans %}
+        It's important to know in which language we want to start programming in when starting because we learn to program in a language.
+        During the summer camps we mainly teach Python, which we recommand to start.
+        It's an easy language to start with (compared to other...) and it has many uses. Youtube for example is coded in Python.
+        {% endblocktrans %}
       </p>
     </div>
-  </div>
 </section>
 
 <section class="wrapper">
-    <div class="title">Commencer</div>
+    <div class="title">{% trans 'Starting' %}</div>
 
     <div class="container">
       <div class="highlight-row">
@@ -42,7 +48,9 @@
 
           <h3><a target="_blank" href="{{url}}">France IOI</a></h3>
           <p>
-            France-IOI offre une plateforme d'apprentissage avec des exercices répartis par niveaux, le tout gratuitement et entièrement en français !
+            {% blocktrans %}
+            France-IOI offers a learning platform with exercices organized by level of difficulty, everything accessible completly freely and fully in french !
+            {% endblocktrans %}
           </p>
           <a target="_blank" href="{{url}}" class="button style1">France IOI</a>
           {% endwith %}
@@ -55,7 +63,9 @@
 
           <h3><a target="_blank" href="{{url}}">Codeacademy</a></h3>
           <p>
-            Si tu parles un peu anglais, Codeacademy est une bonne ressource pour te lancer dans la programmation.
+            {% blocktrans %}
+            If you speak a little english, Codeacademy is a good ressource pour te lancer dans la programation.
+            {% endblocktrans %}
           </p>
           <a target="_blank"  href="{{url}}" class="button style1">Codeacademy</a>
           {% endwith %}
