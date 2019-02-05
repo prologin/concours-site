@@ -18,16 +18,16 @@
         <h2>{% trans 'Next Summer Camps' %}</h2>
         <ul>
           {% for event in events %}
-            <li>{{ event.center }}, la semaine du <em>{{ event.event_start|date:"DATE_FORMAT" }}</em></li>
+            <li>{{ event.center }}, {% trans 'the week of' %} <em>{{ event.event_start|date:"DATE_FORMAT" }}</em></li>
           {% endfor %}
         </ul>
       </div>
       <div class="highlight">
-        <h2>Pour s’inscrire</h2>
+        <h2>{% trans 'To register' %}</h2>
         <ul>
-            <li>For girls without an high school diploma</li>
-            <li>For European Union or Swiss inhabitants</li>
-            <li>Complete the application form</li>
+            <li>{% trans 'For girls without an high school diploma' %}</li>
+            <li>{% trans 'For European Union or Swiss inhabitants' %}</li>
+            <li>{% trans 'Complete the application form' %}</li>
         </ul>
         {% if user.is_authenticated %}
         <a href="application/form/{{last_edition}}" class="button style3 large">{% trans 'Register' %}</a>
@@ -36,51 +36,72 @@
         {% endif %}
       </div>
       <p>
-          On y apprend les bases de la programmation avec le langage Python, et de quoi se lancer dans des petits projets de son choix !
-          <br /><br />
-          Les stages sont gratuits, entièrement organisés par des bénévoles et l’association Prologin.
+        {% blocktrans %}
+            We learn the fundamentals of programming with the Python language, and things to start your own small project !
+            <br /><br />
+            Internships are free and organized by volunteers and by the Prologin association.
+        {% endblocktrans %}
       </p>
     </div>
   </div>
 </section>
 
 <section class="wrapper">
-  <div class="title">Plus d’informations</div>
+  <div class="title">{% trans 'More informations' %}</div>
   <div class="container">
     <section id="features">
       <header class="style1">
-        <h2>Tout ce qu’il faut savoir sur les stages</h2>
-        <p>Pour toute autre question, contactez-nous</p>
+        <h2>{% trans 'Everything you have to know about internships' %}</h2>
+        <p>{% trans 'For all other question, contact us' %}</p>
       </header>
       <div class="feature-list">
         <section>
-          <h3 class="icon fa-graduation-cap" aria-hidden="true">Prérequis</h3>
+          <h3 class="icon fa-graduation-cap" aria-hidden="true">{% trans 'Prerequisites' %}</h3>
           <p>
-            Le stage a pour but de s’adapter au niveau de chacune donc pas besoin d’avoir un niveau minimum en informatique avant le stage.
-            Par contre, c’est toujours mieux de savoir dans quoi on se lance donc va faire un tour sur <a href="{% url 'gcc:ressources' %}">les ressources</a> que nous recommandons pour commencer !
+            {% blocktrans %}
+              The internship's goal is to adapt to each of you so you do not have to have a minimal level in IT before the internship.
+              Beside, go take a look to
+            {% endblocktrans %}
+              <a href="{% url 'gcc:ressources' %}">{% trans 'some resources' %}</a>
+            {% blocktrans %}
+              to peek a look at what's coming !
+            {% endblocktrans %}
           </p>
         </section>
         <section>
-          <h3 class="icon fa-euro">Stage gratuit</h3>
+          <h3 class="icon fa-euro">{% trans 'Free internship' %}</h3>
           <p>
-            Les stages sont gratuits et les repas offerts aux participantes.
-            L'hébergement et le transport jusqu'au lieu du stage ne sont pas pris en charge par l’association.
-            Mais si des questions financières t’empêcheraient de participer au stage, écris-nous à <a href="mailto:info@prologin.org">info@prologin.org</a> et nous discuterons de l’attribution éventuelle d’une bourse.
+            {% blocktrans %}
+              Internships are free and meals are provided.
+              The association does not provide any accommodation or transportation to the stage place.
+              But if you have any financial issues, send us a mail to
+            {% endblocktrans %}
+            <a href="mailto:info@prologin.org">info@prologin.org</a>
+            {% blocktrans %}
+              and we will talk about a possible scholarship.
+            {% endblocktrans %}
           </p>
         </section>
         <section>
-          <h3 class="icon fa-frown-o">Pour celles qui ne peuvent plus participer</h3>
+          <h3 class="icon fa-frown-o">{% trans 'For those who cannot apply' %}</h3>
           <p>
-            L’informatique ne t’es pas fermé pour autant !
-            N’hésite pas à découvrir les <ref>ressources recommandées pour débuter<ref> et si tu as moins de 21 ans, tu peux participer à la 27<sup>e</sup> édition <a href="{% url 'home' %}">du concours Prologin</a>.
-            La première phase de qualification en ligne est ouverte.
+            {% blocktrans %}
+              The IT is not closed so far !
+              Do not hesitate to discover the <ref> recommended resources to start<ref> and if you are less than 21 years old, you can take part to the 27<sup>th</sup> edition
+            {% endblocktrans %}
+            <a href="{% url 'home' %}">{% trans 'of the Prologin contest' %}</a>.
+            {% blocktrans %}
+              The first online qualification stage is now open.
+            {% endblocktrans %}
           </p>
         </section>
         <section>
-          <h3 class="icon fa-calendar">Le programme</h3>
+          <h3 class="icon fa-calendar">{% trans 'The program' %}</h3>
           <p>
-            Les stages durent une semaine, au cours de laquelle sont proposés des travaux pratiques de programmation sur des sujets divers (introduction à Python, réseaux, web), ainsi que des conférences données par des femmes travaillant dans l'informatique.
-            Enfin, la semaine se termine sur la mise en place d’un petit projet qui laisse place à la créativité.
+            {% blocktrans %}
+              Internship last one week during which there is some practical courses on diverse subjects(Python introduction, networks, web), and some conferences where the women speakers work in IT.
+              Finally, the week ends with a small project where creativity is inferred
+            {% endblocktrans %}
           </p>
         </section>
       </div>
@@ -89,7 +110,7 @@
 </section>
 
 <section class="wrapper">
-  <div class="title">Les chiffres</div>
+  <div class="title">{% trans 'Figures' %}</div>
   <div class="container">
     <div class="highlight-row">
       <div class="highlight">
@@ -97,11 +118,13 @@
         <a href="{{url}}" class="image featured">
           <img src="{% static 'gcc/img/stat_femmes.svg' %}" alt="" />
         </a>
-        <h3><a href="{{url}}">Parité en informatique</a></h3>
+        <h3><a href="{{url}}">{% trans 'Parity in IT' %}</a></h3>
         <p>
-          Girls Can Code! a été créé dans le but d’encourager les filles à entrer dans ce domaine majoritairement masculin malgré les stéréotypes.
+          {% blocktrans %}
+            Girls Can Code! was created to promote girls to take a place in this masculine field despite stereotypes.
+          {% endblocktrans %}
         </p>
-        <a target="_blank"  href="{{url}}" class="button style1">En Savoir Plus</a>
+        <a target="_blank"  href="{{url}}" class="button style1">{% trans 'More' %}</a>
         {% endwith %}
       </div>
       <div class="highlight">
@@ -109,34 +132,40 @@
           <img src="{% static 'gcc/img/stat_editions.svg' %}" alt="" />
         </a>
         <h3>
-          <a href="{% url 'gcc:editions' %}">Les éditions Girls Can Code!</a>
+          <a href="{% url 'gcc:editions' %}">{% trans 'Previous Girls Can Code editions!' %}</a>
         </h3>
         <p>
-          La première édition des stages Girls Can Code! a eu lieu en 2014, l’édition 2019 sera donc la 6<sup>ème</sup>.
+          {% blocktrans %}
+            The first ever Girls Can Code! edition was in 2014, therefore the 2019<sup>th</sup> edition will be the 6<sup>th</sup>.
+          {% endblocktrans %}
         </p>
-        <a target="_blank"  href="{% url 'gcc:editions' %}" class="button style1">En Savoir Plus</a>
+        <a target="_blank"  href="{% url 'gcc:editions' %}" class="button style1">{% trans 'More' %}</a>
       </div>
       <div class="highlight">
         <a href="{% url 'home' %}" class="image featured">
           <img src="{% static 'gcc/img/stat_prologin.svg' %}" alt="" />
         </a>
         <h3>
-          <a href="{% url 'home' %}">Prologin, une association créée en 1991</a>
+          <a href="{% url 'home' %}">{% trans 'Prologin, an association created in 1991' %}</a>
         </h3>
         <p>
-          L'association Prologin a été créée en 1991 pour organiser le concours national d'informatique, et se charge depuis 2014 des stages Girls Can Code!.
+          {% blocktrans %}
+            The Prologin association was created in 1991 to plan the national computer contest, and run since 2014 the Girls Can Code! internships.
+          {% endblocktrans %}
         </p>
-        <a target="_blank"  href="{% url 'home' %}" class="button style1">En Savoir Plus</a>
+        <a target="_blank"  href="{% url 'home' %}" class="button style1">{% trans 'More' %}</a>
       </div>
     </div>
   </div>
 </section>
 
 <section class="wrapper emph-infos">
-  <div class="title">Nos sponsors</div>
+  <div class="title">{% trans 'Nos sponsors' %}</div>
   <div class="container">
     <p>
-      Nous remercions nos sponsors sans lesquels les stages ne pourraient avoir lieu.
+      {% blocktrans %}
+        We would like to thanks our sponsors without whom internships would not happen.
+      {% endblocktrans %}
     </p>
     <div class="row reg_5rem">
       {% for sponsor in sponsors %}
@@ -155,9 +184,11 @@
 {% block footer %}
 <div id="newsletter" class="container">
   <header>
-    <h2>Une question ?</h2>
+    <h2>{% trans 'Any question ?' %}</h2>
     <p>
-      N'hésitez pas à nous contacter.
+      {% blocktrans %}
+        Do not hesitate to contact us.
+      {% endblocktrans %}
     </p>
   </header>
   <!-- Contact Form -->
