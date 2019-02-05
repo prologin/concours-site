@@ -43,6 +43,10 @@
         <p>Stage d'informatique gratuit pour les filles de collège et lycée.</p>
       </div>
 
+      <div class="container">
+        {% include "prologin/messages.html" %}
+      </div>
+
       <!-- Nav -->
       <nav id="nav">
         <ul>
@@ -79,6 +83,7 @@
         </ul>
       </nav>
     </section>
+
 
     {% block content %}{% endblock %}
 
@@ -161,3 +166,4 @@
     <script src="{% static 'gcc/js/main.js' %}"></script>
   </body>
 </html>
+
