@@ -1,25 +1,16 @@
 {% extends "gcc/base.html" %}
 {% load static %}
-
-
 {% block title %}GCC! − Application{% endblock %}
-
-
 {% block head %}
-  <link rel="stylesheet" href="{% static "gcc/css/form.css"%}">
-{% endblock %}
-
-
-{% block content %}
-<section class="wrapper">
-  <div class="title">Candidature</div>
-  <div class="container">
+<link rel="stylesheet" href="{% static " gcc/css/form.css"%}"> {% endblock %} {% block content %} <section class="wrapper">
+<div class="title">Candidature</div>
+<div class="container">
     <h2>Formulaire de candidature</h2>
     <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <input class="halo-button" type="submit" value="Valider et choisir mon centre de stage">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input class="halo-button" type="submit" value="Valider et choisir mon centre de stage">
     </form>
-  </div>
+</div>
 </section>
 {% endblock %}

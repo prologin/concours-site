@@ -1,37 +1,33 @@
 {% extends "gcc/base.html" %}
 {% load i18n %}
 {% load crispy_forms_tags %}
-
 {% block title %}{% blocktrans with delete_user.username as username %}Delete {{ username }} account{% endblocktrans %}{% endblock %}
-
 {% block content %}
-    <section class="wrapper">
-        <div class="container">
-          <h1>{% blocktrans with delete_user.username as username %}Delete {{ username }} account{% endblocktrans %}</h1>
-
-          <p>{% trans "Are you sure you want to delete your account?" %}</p>
-          <p>{% trans "This will delete all your personal information, including:" %}</p>
-          <ul>
+<section class="wrapper">
+    <div class="container">
+        <h1>{% blocktrans with delete_user.username as username %}Delete {{ username }} account{% endblocktrans %}</h1>
+        <p>{% trans "Are you sure you want to delete your account?" %}</p>
+        <p>{% trans "This will delete all your personal information, including:" %}</p>
+        <ul>
             <li>{% trans "the codes you submitted during training and contest" %}</li>
             <li>{% trans "your forum messages" %}</li>
             <li>{% trans "your participation history in the contest" %}</li>
-          </ul>
-          <p>
+        </ul>
+        <p>
             {% blocktrans %}
             This action <strong>cannot be reverted</strong>, in compliance with GDPR article 17. You will be logged out
             immediately after clicking the button below. To proceed, provide your username and password and confirm.
             {% endblocktrans %}
-          </p>
-
-          <div class="row">
-          <div class="well col-sm-6">
-            <form method="post">
-              {% csrf_token %}
-              {% crispy form %}
-              <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> {% trans "Delete and log out" %}</button>
-            </form>
-          </div>
-          </div>
-      </div>
-  </section>
+        </p>
+        <div class="row">
+            <div class="well col-sm-6">
+                <form method="post">
+                    {% csrf_token %}
+                    {% crispy form %}
+                    <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> {% trans "Delete and log out" %}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}

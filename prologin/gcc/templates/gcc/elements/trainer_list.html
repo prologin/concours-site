@@ -1,12 +1,12 @@
 {# Display a list of of trainers from context variable `trainers` #}
 <ul class="trainer-list">
-  {% for trainer in trainers %}
-  <li class="trainer-item">
-    <img class="media-object pull-left" src="{% if trainer.user.picture_or_avatar %}{{trainer.user.picture_or_avatar.url}}{% endif %}" alt="{{trainer.user.first_name}} {{trainer.user.last_name}}" width="100" height="100">
-    <div class="content">
-      <a class="name" href="{% url 'users:profile' trainer.user.pk %}">{{trainer.user.first_name}} {{trainer.user.last_name}}</a>
-      <p>{{ trainer.description }}</p>
-    </div>
-  </li>
-  {% endfor %}
+    {% for trainer in trainers %}
+    <li class="trainer-item">
+        <img class="media-object pull-left" src="{% if trainer.user.picture_or_avatar %}{{trainer.user.picture_or_avatar.url}}{% endif %}" alt="{{trainer.user.first_name}} {{trainer.user.last_name}}" width="100" height="100">
+        <div class="content">
+            <a class="name" href="{% url 'users:profile' trainer.user.pk %}">{{trainer.user.first_name}} {{trainer.user.last_name}}</a>
+            <p>{{ trainer.description }}</p>
+        </div>
+    </li>
+    {% endfor %}
 </ul>
