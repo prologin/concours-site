@@ -26,7 +26,6 @@ class LoginView(users.views.LoginView):
     template_name = 'gcc/users/login.html'
 
 
-# TODO : Check that not logged in (AnonymousRequiredMixin)
 class RegistrationView(users.views.RegistrationView):
     template_name = 'gcc/users/register.html'
 
@@ -42,13 +41,11 @@ class ProfileView(users.views.ProfileView):
             'applications': Applicant.objects.filter(user=shown_user),
             'last_edition': Edition.objects.last(),
             'has_applied_to_current':
-                Edition.current().user_has_applied(shown_user)
-        })
+                Edition.current().user_has_applied(shown_user)})
 
         return context
 
 
-#FIX ME the message saying that the modifications where registered is not displaying
 class EditUserView(users.views.EditUserView):
     template_name = 'gcc/users/edit.html'
 
@@ -56,7 +53,6 @@ class EditUserView(users.views.EditUserView):
         return reverse('gcc:edit', args=[self.get_object().pk])
 
 
-#FIX ME the message saying that the modifications where registered is not displaying
 class EditPasswordView(users.views.EditPasswordView):
     template_name = 'gcc/users/edit_password.html'
 
@@ -118,12 +114,12 @@ class NewsletterUnsubscribeView(FormView):
     def form_valid(self, form):
         try:
             account = SubscriberEmail.objects.get(
-                    email=form.cleaned_data['email'])
+                email=form.cleaned_data['email'])
             account.delete()
             return super().form_valid(form)
         except SubscriberEmail.DoesNotExist:
             return HttpResponseRedirect(
-                    reverse_lazy("gcc:news_unsubscribe_failed"))
+                reverse_lazy("gcc:news_unsubscribe_failed"))
 
 
 class NewsletterConfirmSubscribeView(TemplateView):
@@ -193,8 +189,7 @@ class ApplicationValidation(FormView):
     def get_success_url(self):
         return reverse(
             'gcc:application_summary',
-            kwargs={'pk': self.request.user.pk}
-        )
+            kwargs={'pk': self.request.user.pk})
 
     def get_form_kwargs(self):
         # Specify the edition to the form's constructor
@@ -208,8 +203,7 @@ class ApplicationValidation(FormView):
     def get_initial(self):
         event_wishes = EventWish.objects.filter(
             applicant__user = self.request.user,
-            applicant__edition = self.edition
-        )
+            applicant__edition = self.edition)
         initials = {}
 
         for wish in event_wishes:

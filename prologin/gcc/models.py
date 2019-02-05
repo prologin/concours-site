@@ -16,7 +16,7 @@ from prologin.utils import ChoiceEnum
 
 class Edition(models.Model):
     year = models.PositiveIntegerField(primary_key=True, unique=True)
-    signup_form = models.ForeignKey('Form',on_delete=models.CASCADE)
+    signup_form = models.ForeignKey('Form', on_delete=models.CASCADE)
 
     @cached_property
     def poster_url(self):
@@ -26,24 +26,19 @@ class Edition(models.Model):
         if os.path.exists(path):
             return self.file_url(name)
 
-
     def file_path(self, *tail):
         """Gets file's absolute path"""
         return os.path.abspath(
-            os.path.join(
-                settings.GCC_REPOSITORY_PATH,
-                str(self.year), *tail
-            )
-        )
+            os.path.join(settings.GCC_REPOSITORY_PATH, str(self.year), *tail))
 
     def file_url(self, *tail):
         """Gets file's url"""
         return os.path.join(
             settings.STATIC_URL, settings.GCC_REPOSITORY_STATIC_PREFIX,
-            str(self.year), *tail
-        )
+            str(self.year), *tail)
 
     def current():
+        """Gets current edition"""
         return Edition.objects.last()
 
     def subscription_is_open(self):
@@ -51,10 +46,8 @@ class Edition(models.Model):
         current_events = Event.objects.filter(
             edition = self,
             signup_start__lt = date.today(),
-            signup_end__gte = date.today()
-        )
-        print("current_events: ",current_events)
-        return len(current_events)>0
+            signup_end__gte = date.today())
+        return len(current_events) > 0
 
     def user_has_applied(self, user):
         """Check wether a user has applied for this edition"""
@@ -75,8 +68,8 @@ class Event(models.Model):
     event_end = models.DateTimeField()
     signup_start = models.DateTimeField()
     signup_end = models.DateTimeField()
-    signup_form = models.ForeignKey('Form',on_delete=models.CASCADE,null=True)
-
+    signup_form = models.ForeignKey('Form', on_delete=models.CASCADE,
+        null=True)
 
     def __str__(self):
         return str(self.event_start) + ' ' + str(self.center)
@@ -88,8 +81,10 @@ class Event(models.Model):
 
 
 class Corrector(models.Model):
-    event = models.ForeignKey('Event', on_delete=models.CASCADE)
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    event = models.ForeignKey('Event', on_delete=models.CASCADE,
+        related_name='correctors')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.user)
@@ -240,3 +235,4 @@ class SubscriberEmail(models.Model):
 
     def __str__(self):
         return self.email
+

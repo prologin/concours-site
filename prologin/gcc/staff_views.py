@@ -6,7 +6,25 @@ from rules.contrib.views import PermissionRequiredMixin
 from .models import Corrector, Event, Edition, Applicant, ApplicantLabel
 
 
+class CanEditLabelsPermissionMixin(PermissionRequiredMixin):
+    """
+    Permission to edit labels for an application.
+    This permission is granted if the corrector is allowed to review for an
+    event the applicant applies to.
+    """
+
+    def has_permission(self):
+        common_events = Event.objects.filter(
+            correctors__user = self.request.user,
+            applicants__id = self.kwargs['applicant_id'])
+        return len(common_events) >= 1
+
+
 class CanReviewApplicationPermissionMixin(PermissionRequiredMixin):
+    """
+    Permission to review for a specific event.
+    """
+
     def has_permission(self):
         return len(Corrector.objects.filter(event__id=self.kwargs['event'],
                 user=self.request.user)) >= 1
@@ -34,9 +52,7 @@ class ApplicationReviewView(CanReviewApplicationPermissionMixin, TemplateView):
         }
 
 
-#TODO: Check some permission, maybe that the person is corrector for at least
-#  one of the events?
-class ApplicationRemoveLabelView(View):
+class ApplicationRemoveLabelView(CanEditLabelsPermissionMixin, View):
     """
     Remove a label attached to an applicant and redirect to specified event's
     review page.
@@ -56,7 +72,7 @@ class ApplicationRemoveLabelView(View):
             }) + '#applicant-{}'.format(applicant.pk))
 
 
-class ApplicationAddLabelView(View):
+class ApplicationAddLabelView(CanEditLabelsPermissionMixin, View):
     """
     Attach a label to an applicant and redirect to specified event's review
     page.
