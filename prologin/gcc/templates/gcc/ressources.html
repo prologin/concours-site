@@ -75,12 +75,14 @@
 </section>
 
 <section class="wrapper">
-  <div class="title">Se lancer</div>
+  <div class="title">{% trans 'Keep coding'%}</div>
   <div class="container">
     <p>
-      L’avantage quand on apprend l'informatique, c’est qu'on peut vraiment en faire ce qu’on veut.
-      Il y a beaucoup de sous domaines et d'applications en informatique, et pour continuer à coder, c’est motivant de trouver quelque chose qui nous plait.
-      Voici quelques exemples :
+        {% blocktrans %}
+        The good thing when learning to program, is that it can be used in many ways, to do plenty of things
+        There are a lot of sub domain or application in computer science, and to keep coding, it's more fun to find somethong we realy like
+        Here are some examples:
+        {% endblocktrans %}
     </p>
 
     <div class="feature-list">
@@ -94,9 +96,11 @@
         <div>
           <h3><a href="{{url}}">Django girls</a></h3>
           <p>
-            Elles ont écrit un tutoriel pour la création d’un blog en Python avec le framework Django.
-            Il a été traduit entièrement en français et est très accessible.
-            Django est un outil très puissant pour le web. Les sites de GCC! et Prologin utilisent d’ailleurs ce framework.
+              {% blocktrans %}
+              They have written a tutorial to create a blog in Python thanks to the django framework.
+              It has been entirely translated in french and is very accessible.
+              Django is a very powefull tool for web platforms. Both the GCC! and Prologin Site use django.
+              {% endblocktrans %}
           </p>
         </div>
         {% endwith %}
@@ -110,10 +114,12 @@
         <div>
           <h3><a href="{% url 'home' %}">Prologin</a></h3>
           <p>
-            C’est le nom de l’association qui organise les stages mais aussi un concours d’informatique destiné aux jeunes de moins de 21 ans.
-            Sur son site, tu peux trouver les archives des exercices des années précédentes.
-            Ce sont des petits problèmes qui donnent une entrée et demandent une réponse précise, c’est à toi d’écrire le programme qui trouve la réponse !
-          </p>
+              {% blocktrans %}
+              It's the name of the organization that organize the Girls Can Code! camps but i's also a computer science contest for people under 21 years old.
+              On the website, you can find archives of the previous years exercises.
+              They are small exercises that give a entry and expect a precise answer, and it's your task to code the program givig the expected answer !
+              {% endblocktrans %}
+         </p>
         </div>
       </section>
     </div>
