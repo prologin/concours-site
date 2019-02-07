@@ -5,11 +5,11 @@
 {% block head %}
 <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
 {% endblock %}
-{% block title %}GCC! − Résumé{% endblock %}
+{% block title %}{% trans "GCC! − Summary" %}{% endblock %}
 {% block content %}
 <section class="wrapper">
     <div class="container">
-        <div class="title">Résumé de candidatures</div>
+        <div class="title">{% trans "Summary of applications" %}</div>
         <div class="bootstrap_region">
             <div class="row">
                 <div class="col-sm-4 col-md-3">
@@ -62,7 +62,7 @@
                             <table class="panel-title">
                                 <tbody>
                                     <tr>
-                                        <td width="100%">Edition {{current_edition}}</td>
+                                        <td width="100%">{% trans "Edition" %} {{current_edition}}</td>
                                     </tr>
                                 </tbody>
                             </table>

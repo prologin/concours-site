@@ -2,7 +2,7 @@
 {% load static %}
 {% load utils %}
 {% load i18n staticfiles rules %}
-{% block title %}GCC! − Inscription{% endblock %}
+{% block title %}{% trans "GCC! - Profile" %}{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
 {% endblock %}
@@ -75,7 +75,7 @@
                             <table class="panel-title">
                                 <tbody>
                                     <tr>
-                                        <td width="100%">Edition {{last_edition}}</td>
+                                        <td width="100%">{% trans "Edition" %} {{last_edition}}</td>
                                     </tr>
                                 </tbody>
                             </table>
