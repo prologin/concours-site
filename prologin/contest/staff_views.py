@@ -238,13 +238,11 @@ class ContestantCorrectionView(CanCorrectPermissionMixin, EventTypeMixin, Editio
         # The problem submissions (contestant codes)
         try:
             challenge = problems.models.Challenge.by_year_and_event_type(self.edition.year, self.event_type)
-            # We don't use Contestant.submissions_for_event since it would
-            # prevent caching.
             qs_codes = None
             if self.event_type == contest.models.Event.Type.qualification:
-                qs_codes = contestant.qualification_submissions
+                qs_codes = contestant.qualification_submissions()
             elif self.event_type == contest.models.Event.Type.semifinal:
-                qs_codes = contestant.semifinal_submissions
+                qs_codes = contestant.semifinal_submissions()
             qs_codes = qs_codes.order_by('-score', '-date_submitted')
 
             name_to_problem = {problem.name: problem for problem in challenge.problems}
