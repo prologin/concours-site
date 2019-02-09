@@ -333,6 +333,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
             edition=self.edition, type=Event.Type.qualification.value)
         return self.submissions_for_event(qualification)
 
+    @cached_property
     def qualification_problems_completion(self):
         import problems.models
         challenge = problems.models.Challenge.by_year_and_event_type(self.edition.year, Event.Type.qualification)
@@ -340,6 +341,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         completed_problems = self.qualification_submissions().count()
         return 0 if completed_problems == 0 else 2 if completed_problems == problem_count else 1
 
+    @cached_property
     def qualification_qcm_completion(self):
         import qcm.models
         current_qcm = (qcm.models.Qcm.objects
@@ -422,10 +424,12 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
             edition=self.edition, type=Event.Type.semifinal.value)
         return self.submissions_for_event(semifinal)
 
+    @cached_property
     def semifinal_challenge(self):
         from problems.models import Challenge
         return Challenge.by_year_and_event_type(self.edition.year, Event.Type.semifinal)
 
+    @cached_property
     def semifinal_explicitly_unlocked_problems(self):
         from problems.models import ExplicitProblemUnlock
         return ExplicitProblemUnlock.objects.filter(challenge=self.semifinal_challenge.name, user=self.user)
@@ -434,7 +438,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
     def semifinal_lines_of_code(self):
         from problems.models import SubmissionCode
         return sum(1
-                   for code in self.semifinal_submissions.values_list('code', flat=True)
+                   for code in (self.semifinal_submissions()).values_list('code', flat=True)
                    for line in code.replace('\r', '\n').split('\n') if line.strip())
 
     @cached_property
@@ -462,7 +466,7 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
             problem = challenge.problem(unlock.problem)
             problem_to_unlock_date[problem] = unlock.date_created
 
-        for submission in self.semifinal_submissions:
+        for submission in self.semifinal_submissions():
             problem = challenge.problem(submission.problem)
             problem_to_solved_date[problem] = submission.first_code_success().date_submitted
             difficulty_to_solved[problem.difficulty].add(problem)
