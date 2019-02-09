@@ -325,7 +325,6 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
                 submission__user=self.user,
                 date_submitted__range=(event.date_begin, event.date_end))
 
-    @cached_property
     def qualification_submissions(self):
         """Return a queryset of a contestant's submissions for the
         qualifications.
@@ -334,7 +333,6 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
             edition=self.edition, type=Event.Type.qualification.value)
         return self.submissions_for_event(qualification)
 
-    @cached_property
     def qualification_problems_completion(self):
         import problems.models
         challenge = problems.models.Challenge.by_year_and_event_type(self.edition.year, Event.Type.qualification)
@@ -342,7 +340,6 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         completed_problems = self.qualification_submissions().count()
         return 0 if completed_problems == 0 else 2 if completed_problems == problem_count else 1
 
-    @cached_property
     def qualification_qcm_completion(self):
         import qcm.models
         current_qcm = (qcm.models.Qcm.objects
@@ -419,19 +416,16 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
                    for field in self._meta.get_fields()
                    if field.name.startswith('score_'))
 
-    @cached_property
     def semifinal_submissions(self):
         """Return a queryset of a contestant's submissions for the semifinals"""
         semifinal = Event.objects.get(
             edition=self.edition, type=Event.Type.semifinal.value)
         return self.submissions_for_event(semifinal)
 
-    @cached_property
     def semifinal_challenge(self):
         from problems.models import Challenge
         return Challenge.by_year_and_event_type(self.edition.year, Event.Type.semifinal)
 
-    @cached_property
     def semifinal_explicitly_unlocked_problems(self):
         from problems.models import ExplicitProblemUnlock
         return ExplicitProblemUnlock.objects.filter(challenge=self.semifinal_challenge.name, user=self.user)
