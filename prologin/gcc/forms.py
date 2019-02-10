@@ -1,34 +1,25 @@
 import json
-
 from datetime import date
-
 from django import forms
+from django.utils.translation import ugettext_lazy as _
 
-from gcc.models import Answer, Applicant, ApplicantStatusTypes, EventWish, Question, Form, AnswerTypes, Event, Edition
+from gcc.models import (Answer, AnswerTypes, Applicant, ApplicantStatusTypes,
+    Edition, Event, EventWish, Form, Question)
 
 
 class EmailForm(forms.Form):
     # See here for why 254 max
     # http://www.rfc-editor.org/errata_search.php?rfc=3696&eid=1690
-    email = forms.EmailField(label='Adresse électronique', max_length=254)
+    email = forms.EmailField(label=_('Email address'), max_length=254)
 
 
 def build_dynamic_form(form, user, edition):
-    """
-    Initialize a django form with fields described in models.Question
-    :type form: models.Form
-    :type user: settings.AUTH_USER_MODEL
-    :type edition: models.Edition
-    """
+    """Build a form with fields described in models.Question"""
 
     class DynamicForm(forms.Form):
-        """
-        A form generated for a specific set of questions, specificly for one
-        user.
 
-        `form` and `user` are the parameters of function
-        gcc.models.build_dynamic_form(form) which generated this class.
-        """
+        def question_field_name(self, id):
+            return 'field_{}'.format(id)
 
         def __init__(self, *args, **kwargs):
             super(DynamicForm, self).__init__(*args, **kwargs)
@@ -46,7 +37,7 @@ def build_dynamic_form(form, user, edition):
                     'required': question.required,
                     'help_text': question.comment
                 }
-                fieldId = 'field' + str(question.pk)
+                fieldId = self.question_field_name(question.pk)
 
                 # Try to load existing configuration
                 try:
@@ -80,7 +71,7 @@ def build_dynamic_form(form, user, edition):
             applicant = Applicant.for_user_and_edition(user, self.edition)
 
             for question in self.questions:
-                fieldId = 'field' + str(question.pk)
+                fieldId = self.question_field_name(question.pk)
 
                 if data[fieldId] is not None:
                     # Try to modify existing answer, create a new answer if it
@@ -99,9 +90,7 @@ def build_dynamic_form(form, user, edition):
 
 
 class ApplicationValidationForm(forms.Form):
-    """
-    Select the top three events a candidate wants to participate in.
-    """
+    """Select the top three events a candidate wants to participate in."""
 
     priority1 = forms.TypedChoiceField(label='1er choix', required=True)
     priority2 = forms.TypedChoiceField(label='2nd choix', required=False)
@@ -117,14 +106,16 @@ class ApplicationValidationForm(forms.Form):
             edition = edition)
         events_selection = \
             [(None, '')] + [(event.pk, str(event)) for event in events]
+        print(events_selection)
 
-        self.fields['priority1'].choices = events_selection
-        self.fields['priority2'].choices = events_selection
-        self.fields['priority3'].choices = events_selection
+        self.fields['priority1'].choices \
+            = self.fields['priority2'].choices \
+            = self.fields['priority3'].choices \
+            = events_selection
 
     def save(self, user, edition):
         """
-        Saves the new applications.
+        Save the new applications.
         If an application was already pending for current year, it will be
         replaced. If an application was rejected or accepted, it will raise
         an Application.AlreadyLocked exception.
