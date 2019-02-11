@@ -21,6 +21,9 @@ urlpatterns = [
     # User profile, view and edit
     path('<int:pk>/', include(user_patterns)),
 
+    # Get personnal infos of local user
+    path('infos', views.GetAccountInfos.as_view(), name='infos'),
+
     # Login and logout
     path('login', views.LoginView.as_view(), name='login'),
     path('logout', views.LogoutView.as_view(), name='logout'),

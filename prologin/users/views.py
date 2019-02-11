@@ -1,3 +1,4 @@
+import json
 from django.conf import settings
 from django.contrib import messages, auth
 from django.http import Http404, HttpResponse
@@ -8,6 +9,7 @@ from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
+from django.views import View
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
@@ -140,6 +142,20 @@ class ProfileView(CanEditProfileMixin, DetailView):
         if not self.object.is_active and not self.request.user.is_staff:
             raise Http404()
         return result
+
+
+class GetAccountInfos(View):
+
+    def get(self, request, *args, **kwargs):
+        if self.request.user.is_anonymous:
+            return HttpResponse('unlogged')
+        else:
+            return HttpResponse(json.dumps({
+                'pk': self.request.user.pk,
+                'username': self.request.user.username,
+                'first_name': self.request.user.first_name,
+                'last_name': self.request.user.last_name
+            }))
 
 
 class DownloadFinalHomeView(PermissionRequiredMixin, DetailView):
