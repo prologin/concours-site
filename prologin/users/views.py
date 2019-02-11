@@ -154,7 +154,9 @@ class GetAccountInfos(View):
                 'pk': self.request.user.pk,
                 'username': self.request.user.username,
                 'first_name': self.request.user.first_name,
-                'last_name': self.request.user.last_name
+                'last_name': self.request.user.last_name,
+                'is_superuser': self.request.user.is_superuser,
+                'is_staff': self.request.user.is_staff
             }))
 
 
