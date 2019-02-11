@@ -1,6 +1,6 @@
 from django.contrib import admin
-from gcc.models import Applicant, ApplicantLabel, Edition, Event, Corrector, SubscriberEmail, EventWish
-from gcc.models import Question, Form, Answer
+from gcc.models import (Answer, Applicant, ApplicantLabel, Corrector, Edition,
+    Event, EventWish, Form, Question, SubscriberEmail)
 
 
 admin.site.register([ApplicantLabel, Edition, SubscriberEmail, Question, Form,
