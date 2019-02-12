@@ -55,7 +55,11 @@ class Command(BaseCommand):
         stream.write("\n")
         serializer.serialize(submissions, stream=stream)
         stream.write("\n")
-        serializer.serialize(codes, stream=stream)
+        serializer.serialize(codes,
+                             fields=('submission', 'language', 'code',
+                                     'summary', 'score', 'date_submitted',
+                                     'date_corrected'),
+                             stream=stream)
         stream.write("\n")
         serializer.serialize(unlocks, stream=stream)
         stream.close()
