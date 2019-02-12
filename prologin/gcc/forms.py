@@ -61,6 +61,13 @@ def build_dynamic_form(form, user, edition):
                 elif question.response_type == AnswerTypes.text.value:
                     self.fields[fieldId] = forms.CharField(
                         widget=forms.Textarea, **basic_args)
+                elif question.response_type == AnswerTypes.multichoice.value:
+                    self.fields[fieldId] = forms.ChoiceField(
+                        choices = [
+                            (str(choice), question.meta['choices'][choice])
+                            for choice in question.meta['choices'].keys()
+                        ], **basic_args)
+
 
         def save(self):
             """
@@ -148,4 +155,3 @@ class ApplicationValidationForm(forms.Form):
                 event = events[i],
                 order = i + 1)
             event_wish.save()
-

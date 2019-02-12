@@ -189,6 +189,7 @@ class AnswerTypes(ChoiceEnum):
     date = 2
     string = 3
     text = 4
+    multichoice = 5
 
 
 class Form(models.Model):
@@ -201,6 +202,19 @@ class Form(models.Model):
         return self.name
 
 class Question(models.Model):
+    """
+    A generic question type, that can be of several type.
+
+    If response_type is multichoice you have to precise the answer in the meta
+    field, respecting the following structure:
+    {
+      "choices":{
+        "0":"first option",
+        "1":"second option"
+      }
+    }
+    with as much options as you wish.
+    """
     # Formulation of the question
     question = models.TextField()
     # Potential additional indications about the questions
@@ -223,7 +237,10 @@ class Answer(models.Model):
     response = JSONField(encoder=DjangoJSONEncoder)
 
     def __str__(self):
-        return str(self.response)
+        if self.question.response_type ==  AnswerTypes.multichoice.value:
+            return self.question.meta['choices'][str(self.response)]
+        else:
+            return str(self.response)
 
     class Meta:
         unique_together = (('applicant', 'question'), )
@@ -235,4 +252,3 @@ class SubscriberEmail(models.Model):
 
     def __str__(self):
         return self.email
-
