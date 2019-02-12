@@ -112,14 +112,14 @@ class Applicant(models.Model):
     An applicant for a specific edition and reviews about him.
 
     Notice that no free writting field has been added yet in order to ensure an
-    RGPD-safe usage of reviews.
+    GDPR-safe usage of reviews.
     """
     # General informations about the application
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
     status = EnumField(ApplicantStatusTypes)
 
-    # Whishes of the candidate
+    # Wishes of the candidate
     assignation_wishes = models.ManyToManyField(
         Event, through='EventWish', related_name='applicants', blank=True)
     assignation_event = models.ManyToManyField(
