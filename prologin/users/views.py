@@ -1,7 +1,6 @@
-import json
 from django.conf import settings
 from django.contrib import messages, auth
-from django.http import Http404, HttpResponse
+from django.http import Http404, HttpResponse, JsonResponse
 from django.http.response import JsonResponse, StreamingHttpResponse, HttpResponseForbidden
 from django.shortcuts import get_object_or_404, render
 from django.template.loader import render_to_string
@@ -9,7 +8,6 @@ from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.utils.http import is_safe_url
 from django.utils.translation import ugettext_lazy as _
-from django.views import View
 from django.views.decorators.cache import never_cache
 from django.views.decorators.csrf import csrf_protect
 from django.views.decorators.http import require_POST
@@ -146,18 +144,20 @@ class ProfileView(CanEditProfileMixin, DetailView):
 
 class GetAccountInfos(View):
 
+    # Enumerate the fields of User accessible through the api
+    shared_fields = ['pk', 'username', 'first_name', 'last_name',
+        'is_superuser', 'is_staff']
+
     def get(self, request, *args, **kwargs):
-        if self.request.user.is_anonymous:
-            return HttpResponse('unlogged')
-        else:
-            return HttpResponse(json.dumps({
-                'pk': self.request.user.pk,
-                'username': self.request.user.username,
-                'first_name': self.request.user.first_name,
-                'last_name': self.request.user.last_name,
-                'is_superuser': self.request.user.is_superuser,
-                'is_staff': self.request.user.is_staff
-            }))
+        data = {'logged': not self.request.user.is_anonymous}
+
+        if not self.request.user.is_anonymous:
+            data['user_infos'] = {
+                field: getattr(self.request.user, field)
+                for field in self.shared_fields
+            }
+
+        return JsonResponse(data)
 
 
 class DownloadFinalHomeView(PermissionRequiredMixin, DetailView):
