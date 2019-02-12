@@ -12,6 +12,9 @@ INTERNAL_IPS = ALLOWED_HOSTS
 
 SITE_HOST = "localhost:8000"
 
+# Allow websites of final events to access authentification cookie
+SESSION_COOKIE_DOMAIN = '.' + SITE_HOST
+
 # Current edition
 PROLOGIN_EDITION = 2019
 
