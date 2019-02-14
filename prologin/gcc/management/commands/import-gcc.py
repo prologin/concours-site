@@ -1,6 +1,7 @@
 import argparse
 import datetime
 import json
+import sys
 from django.contrib.auth import get_user_model
 from django.core.management import BaseCommand
 
@@ -19,6 +20,7 @@ class Command(BaseCommand):
             data = json.loads(options['import_file'].read())
         except:
             print('Please specify a valid json file')
+            sys.exit(1)
 
         #                          _      _   _
         #  _ __   _____      _____| | ___| |_| |_ ___ _ __
@@ -294,9 +296,9 @@ class Command(BaseCommand):
                     event_end    = fields['date_end'],
                     signup_start = fields['date_begin'],
                     signup_end   = fields['date_end'])
-                db_event.save()
+                event.save()
 
-            events[event_data['pk']] = event.pk
+            events[event_data['pk']] = event
 
         #            _     _
         #  __      _(_)___| |__   ___  ___
@@ -345,8 +347,8 @@ class Command(BaseCommand):
                             center__name='EPITA Paris', edition=edition)
                     except models.Event.DoesNotExist:
                         center = models.Center.objects.get(name='EPITA Paris')
-                        start = '{}-01-01'.format(edition.year)
-                        end = '{}-12-31'.format(edition.year)
+                        start = '{}-01-01T'.format(edition.year)
+                        end = '{}-12-31T'.format(edition.year)
 
                         event = models.Event(
                             center=center, edition=edition, event_start=start,
