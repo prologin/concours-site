@@ -20,7 +20,7 @@ class Edition(models.Model):
 
     @cached_property
     def poster_url(self):
-        """Gets poster's url if it exists else return None"""
+        """Gets poster's URL if it exists else return None"""
         name = 'poster.full.jpg'
         path = self.file_path(name)
         if os.path.exists(path):
@@ -32,7 +32,7 @@ class Edition(models.Model):
             os.path.join(settings.GCC_REPOSITORY_PATH, str(self.year), *tail))
 
     def file_url(self, *tail):
-        """Gets file's url"""
+        """Gets file's URL"""
         return os.path.join(
             settings.STATIC_URL, settings.GCC_REPOSITORY_STATIC_PREFIX,
             str(self.year), *tail)
@@ -50,7 +50,7 @@ class Edition(models.Model):
         return len(current_events) > 0
 
     def user_has_applied(self, user):
-        """Check wether a user has applied for this edition"""
+        """Check whether a user has applied for this edition"""
         return bool(Applicant.objects.filter(user=user, edition=self))
 
     def __str__(self):
@@ -111,7 +111,7 @@ class Applicant(models.Model):
     """
     An applicant for a specific edition and reviews about him.
 
-    Notice that no free writting field has been added yet in order to ensure an
+    Notice that no free writing field has been added yet in order to ensure an
     GDPR-safe usage of reviews.
     """
     # General informations about the application
@@ -169,7 +169,7 @@ class Applicant(models.Model):
 class EventWish(models.Model):
     applicant = models.ForeignKey(Applicant, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    # Priority defined by the candidate to express his prefered event
+    # Priority defined by the candidate to express his preferred event
     # The lower the order is, the more important is the choice
     order = models.IntegerField(default=1)
 

@@ -100,7 +100,7 @@ class IndexView(FormView):
 
 
 class RessourcesView(TemplateView):
-    template_name = "gcc/ressources.html"
+    template_name = "gcc/resources.html"
 
 
 # Newsletter

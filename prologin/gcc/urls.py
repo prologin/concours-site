@@ -65,7 +65,7 @@ urlpatterns = [
 
     path('application/', include(application_patterns)),
     path('newsletter/', include(newsletter_patterns)),
-    path('ressources/', views.RessourcesView.as_view(), name='ressources'),
+    path('resources/', views.RessourcesView.as_view(), name='resources'),
 
     path('editions/', views.EditionsView.as_view(), name='editions'),
     path('editions/<int:year>/', views.EditionsView.as_view(), name='editions'),

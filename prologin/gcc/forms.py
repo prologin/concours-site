@@ -99,9 +99,9 @@ def build_dynamic_form(form, user, edition):
 class ApplicationValidationForm(forms.Form):
     """Select the top three events a candidate wants to participate in."""
 
-    priority1 = forms.TypedChoiceField(label='1er choix', required=True)
-    priority2 = forms.TypedChoiceField(label='2nd choix', required=False)
-    priority3 = forms.TypedChoiceField(label='3e choix', required=False)
+    priority1 = forms.TypedChoiceField(label=_('1st choice'), required=True)
+    priority2 = forms.TypedChoiceField(label=_('2nd choice'), required=False)
+    priority3 = forms.TypedChoiceField(label=_('3rd choice'), required=False)
 
     def __init__(self, edition, *args, **kwargs):
         super(ApplicationValidationForm, self).__init__(*args, **kwargs)
@@ -139,7 +139,7 @@ class ApplicationValidationForm(forms.Form):
         # Remove previous choices
         event_wishes.delete()
 
-        # Collect selected events, remove duplicatas
+        # Collect selected events, remove duplicates
         events = [ Event.objects.get(pk=data['priority1']) ]
 
         if data['priority2'] and data['priority2'] != data['priority1']:

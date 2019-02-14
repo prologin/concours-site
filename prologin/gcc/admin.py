@@ -19,9 +19,11 @@ class CorrectorAdmin(admin.ModelAdmin):
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ('edition', 'center', 'event_start', 'event_end', 'signup_start', 'signup_end')
+    list_display = ('edition', 'center', 'event_start', 'event_end',
+        'signup_start', 'signup_end')
 
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ('applicant', 'question', '__str__')
+
