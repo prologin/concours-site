@@ -6,11 +6,11 @@ from prologin.utils import upload_path
 
 class ActiveSponsorProloginManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(is_active=True,is_prologin=True)
+        return super().get_queryset().filter(is_active=True,for_prologin=True)
 
 class ActiveSponsorGccManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(is_active=True,is_gcc=True)
+        return super().get_queryset().filter(is_active=True,for_gcc=True)
 
 class Sponsor(AddressableModel, ContactModel, models.Model):
     def upload_logo_to(self, *args, **kwargs):
@@ -22,8 +22,8 @@ class Sponsor(AddressableModel, ContactModel, models.Model):
     logo = models.ImageField(upload_to=upload_logo_to, blank=True)
     site = models.URLField(blank=True)
     is_active = models.BooleanField(default=True)
-    is_gcc = models.BooleanField(default=True)
-    is_prologin = models.BooleanField(default=True)
+    for_gcc = models.BooleanField(default=True)
+    for_prologin = models.BooleanField(default=True)
 
     objects = models.Manager()
     active_prologin = ActiveSponsorProloginManager()
