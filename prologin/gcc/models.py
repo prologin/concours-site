@@ -122,6 +122,8 @@ class Applicant(models.Model):
     # Wishes of the candidate
     assignation_wishes = models.ManyToManyField(
         Event, through='EventWish', related_name='applicants', blank=True)
+
+    # Wishes she is accepted to
     assignation_event = models.ManyToManyField(
         Event, related_name='assigned_girls', blank=True)
 
@@ -201,19 +203,19 @@ class Form(models.Model):
     def __str__(self):
         return self.name
 
+
 class Question(models.Model):
     """
     A generic question type, that can be of several type.
 
-    If response_type is multichoice you have to precise the answer in the meta
+    If response_type is multichoice you have to specify the answer in the meta
     field, respecting the following structure:
     {
-      "choices":{
-        "0":"first option",
-        "1":"second option"
-      }
+        "choices": {
+            "0": "first option",
+            "1": "second option"
+        }
     }
-    with as much options as you wish.
     """
     # Formulation of the question
     question = models.TextField()
@@ -237,8 +239,11 @@ class Answer(models.Model):
     response = JSONField(encoder=DjangoJSONEncoder)
 
     def __str__(self):
-        if self.question.response_type ==  AnswerTypes.multichoice.value:
-            return self.question.meta['choices'][str(self.response)]
+        if self.question.response_type == AnswerTypes.multichoice.value:
+            if str(self.response) not in self.question.meta['choices']:
+                return ''
+            else:
+                return self.question.meta['choices'][str(self.response)]
         else:
             return str(self.response)
 

@@ -24,4 +24,4 @@ class EventAdmin(admin.ModelAdmin):
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
-    list_display = ('applicant', 'question', 'response')
+    list_display = ('applicant', 'question', '__str__')
