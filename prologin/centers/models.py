@@ -23,6 +23,8 @@ class Center(AddressableModel):
     name = models.CharField(max_length=64)
     type = EnumField(Type)
     is_active = models.BooleanField(default=True)
+    for_prologin = models.BooleanField(default=True)
+    for_gcc = models.BooleanField(default=False)
 
     lat = models.DecimalField(default=0, max_digits=16, decimal_places=6)
     lng = models.DecimalField(default=0, max_digits=16, decimal_places=6)

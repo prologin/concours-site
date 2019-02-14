@@ -258,17 +258,16 @@ class Command(BaseCommand):
             try:
                 center = models.Center.objects.get(name=fields['name'])
             except models.Center.DoesNotExist:
-                center = models.Center(
-                    name = fields['name'],
-                    type = models.Center.Type.center.value)
+                center = models.Center(name=fields['name'], for_prologin=False,
+                    type=models.Center.Type.center.value)
                 shared_fields = ('is_active', 'comments', 'address',
                     'postal_code', 'city', 'country')
 
                 for f in shared_fields:
                     setattr(center, f, fields[f])
 
-                center.save()
-
+            center.for_gcc = True
+            center.save()
             centers[center_data['pk']] = center
 
         #                        _
