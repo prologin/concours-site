@@ -2,6 +2,7 @@ import argparse
 import datetime
 import json
 import sys
+import pytz
 from django.contrib.auth import get_user_model
 from django.core.management import BaseCommand
 
@@ -13,13 +14,13 @@ class Command(BaseCommand):
     help = "Import datas from the old website"
 
     def add_arguments(self, parser):
-        parser.add_argument('import_file', type=argparse.FileType('rb'))
+        parser.add_argument('import_file', type=argparse.FileType('r'))
 
     def handle(self, *args, **options):
         try:
             data = json.loads(options['import_file'].read())
-        except:
-            print('Please specify a valid json file')
+        except Exception as e:
+            print('Please specify a valid json file ({})'.format(e))
             sys.exit(1)
 
         #                          _      _   _
@@ -347,8 +348,10 @@ class Command(BaseCommand):
                             center__name='EPITA Paris', edition=edition)
                     except models.Event.DoesNotExist:
                         center = models.Center.objects.get(name='EPITA Paris')
-                        start = '{}-01-01T'.format(edition.year)
-                        end = '{}-12-31T'.format(edition.year)
+                        start = datetime.datetime(edition.year, 1, 1, 0, 0,
+                            tzinfo=pytz.timezone('Europe/Paris'))
+                        end = datetime.datetime(edition.year, 12, 31, 23, 59,
+                            tzinfo=pytz.timezone('Europe/Paris'))
 
                         event = models.Event(
                             center=center, edition=edition, event_start=start,
