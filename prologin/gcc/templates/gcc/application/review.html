@@ -17,13 +17,13 @@
                     <div class="labeladd-btn">+</div>
                     <div class="labeladd-dropdown-content">
                         {% for label in labels %}
-                        <a href="{% url 'gcc:add_applicant_label' event_id=event.pk applicant_id=applicant.pk label_id=label.pk %}">{{ label }}</a>
+                        <a href="{% url 'gcc:add_applicant_label' event=event.pk applicant=applicant.pk label=label.pk %}">{{ label }}</a>
                         {% endfor %}
                     </div>
                 </div>
                 <span class="label-list">
                 {% for label in applicant.labels.all %}
-                  <a class="label" href="{% url 'gcc:delete_applicant_label' event_id=event.pk applicant_id=applicant.pk label_id=label.pk %}">
+                  <a class="label" href="{% url 'gcc:delete_applicant_label' event=event.pk applicant=applicant.pk label=label.pk %}">
                     {{ label }}
                   </a>
                 {% endfor %}

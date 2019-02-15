@@ -125,7 +125,7 @@ class Applicant(models.Model):
 
     # Wishes she is accepted to
     assignation_event = models.ManyToManyField(
-        Event, related_name='assigned_girls', blank=True)
+        Event, related_name='assigned_applicants', blank=True)
 
     # Review of the application
     labels = models.ManyToManyField(ApplicantLabel, blank=True)

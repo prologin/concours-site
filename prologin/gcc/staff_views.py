@@ -1,39 +1,17 @@
 from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse, reverse_lazy
-from django.views.generic import TemplateView, View
+from django.views.generic import RedirectView, TemplateView
 from rules.contrib.views import PermissionRequiredMixin
 
 from .models import Corrector, Event, Edition, Applicant, ApplicantLabel
 
 
-class CanEditLabelsPermissionMixin(PermissionRequiredMixin):
-    """
-    Permission to edit labels for an application.
-    This permission is granted if the corrector is allowed to review for an
-    event the applicant applies to.
-    """
-
-    def has_permission(self):
-        return Event.objects.filter(
-            correctors__user = self.request.user,
-            applicants__id = self.kwargs['applicant_id']
-        ).exists()
-
-
-class CanReviewApplicationPermissionMixin(PermissionRequiredMixin):
-    """
-    Permission to review for a specific event.
-    """
-
-    def has_permission(self):
-        return Corrector.objects.filter(
-            event__id = self.kwargs['event'],
-            user = self.request.user
-        ).exists()
-
-
-class ApplicationReviewView(CanReviewApplicationPermissionMixin, TemplateView):
+class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
+    permission_required = 'gcc.can_review_event'
     template_name = "gcc/application/review.html"
+
+    def get_permission_object(self):
+        return get_object_or_404(Event, pk=self.kwargs['event'])
 
     def get_context_data(self, **kwargs):
         """
@@ -42,7 +20,7 @@ class ApplicationReviewView(CanReviewApplicationPermissionMixin, TemplateView):
         """
         context = super().get_context_data(**kwargs)
 
-        event = Event.objects.get(pk=kwargs['event'])
+        event = get_object_or_404(Event, pk=kwargs['event'])
         applicants = Applicant.objects.filter(assignation_wishes=event)
 
         assert(event.edition.year == kwargs['edition'])
@@ -54,42 +32,62 @@ class ApplicationReviewView(CanReviewApplicationPermissionMixin, TemplateView):
         }
 
 
-class ApplicationRemoveLabelView(CanEditLabelsPermissionMixin, View):
+class ApplicationRemoveLabelView(PermissionRequiredMixin, RedirectView):
     """
     Remove a label attached to an applicant and redirect to specified event's
     review page.
     """
+    permission_required = 'gcc.can_edit_application_labels'
+
+    def get_permission_object(self):
+        return get_object_or_404(Applicant, pk=self.kwargs['applicant'])
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse(
+            'gcc:application_review',
+            kwargs = {
+                'edition': self.applicant.edition.pk,
+                'event': self.event.pk
+            }
+        ) + '#applicant-{}'.format(self.applicant.pk)
 
     def get(self, request, *args, **kwargs):
-        event = get_object_or_404(Event, pk=kwargs['event_id'])
-        applicant = get_object_or_404(Applicant, pk=kwargs['applicant_id'])
-        label = get_object_or_404(ApplicantLabel, pk=kwargs['label_id'])
+        self.event = get_object_or_404(Event, pk=kwargs['event'])
+        self.applicant = get_object_or_404(Applicant, pk=kwargs['applicant'])
+        self.label = get_object_or_404(ApplicantLabel, pk=kwargs['label'])
 
-        applicant.labels.remove(label)
+        if self.has_permission():
+            self.applicant.labels.remove(self.label)
 
-        return redirect(
-            reverse('gcc:application_review', kwargs = {
-                'edition': event.edition.year,
-                'event': event.pk
-            }) + '#applicant-{}'.format(applicant.pk))
+        return super().get(request, *args, **kwargs)
 
 
-class ApplicationAddLabelView(CanEditLabelsPermissionMixin, View):
+class ApplicationAddLabelView(PermissionRequiredMixin, RedirectView):
     """
     Attach a label to an applicant and redirect to specified event's review
     page.
     """
+    permission_required = 'gcc.can_edit_application_labels'
+
+    def get_permission_object(self):
+        return get_object_or_404(Applicant, pk=self.kwargs['applicant'])
+
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse(
+            'gcc:application_review',
+            kwargs = {
+                'edition': self.applicant.edition.pk,
+                'event': self.event.pk
+            }
+        ) + '#applicant-{}'.format(self.applicant.pk)
 
     def get(self, request, *args, **kwargs):
-        event = get_object_or_404(Event, pk=kwargs['event_id'])
-        applicant = get_object_or_404(Applicant, pk=kwargs['applicant_id'])
-        label = get_object_or_404(ApplicantLabel, pk=kwargs['label_id'])
+        self.event = get_object_or_404(Event, pk=kwargs['event'])
+        self.applicant = get_object_or_404(Applicant, pk=kwargs['applicant'])
+        self.label = get_object_or_404(ApplicantLabel, pk=kwargs['label'])
 
-        applicant.labels.add(label)
+        if self.has_permission():
+            self.applicant.labels.add(self.label)
 
-        return redirect(
-            reverse('gcc:application_review', kwargs = {
-                'edition': event.edition.year,
-                'event': event.pk
-            }) + '#applicant-{}'.format(applicant.pk))
+        return super().get(request, *args, **kwargs)
 

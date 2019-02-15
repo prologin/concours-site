@@ -13,8 +13,8 @@ from rules.contrib.views import PermissionRequiredMixin
 import users.views
 
 from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
-from gcc.models import Answer, Question, Applicant, ApplicantLabel, Edition,\
-    Event, EventWish, SubscriberEmail, Form
+from gcc.models import (Answer, Question, Applicant, Edition, Event, EventWish,
+    SubscriberEmail, Form)
 
 from sponsor.models import Sponsor
 from users.models import ProloginUser
