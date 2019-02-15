@@ -43,11 +43,11 @@
                         </tr>
                         <tr>
                             <td>birthdate</td>
-                            <td>10/03/1999</td>
+                            <td>{{ applicant.user.birthday }}</td>
                         </tr>
                         <tr>
                             <td>previous participations</td>
-                            <td>none</td>
+                            <td>None</td>
                         </tr>
                     </table>
                 </div>
@@ -69,9 +69,9 @@
                     <h3>Form</h3>
                     <div class="question">
                         {% for answer in applicant.answers.all %}
-                        <h5>{{ answer.question.question }}</h5>
+                        <h5>{{ answer.question }}</h5>
                         <p>
-                            {{ answer.response }}
+                            {{ answer }}
                         </p>
                         {% endfor %}
                     </div>
