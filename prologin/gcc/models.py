@@ -100,11 +100,12 @@ class ApplicantLabel(models.Model):
 
 @ChoiceEnum.labels(str.capitalize)
 class ApplicantStatusTypes(ChoiceEnum):
-    pending   = 0  # the candidate hasn't finished her registration yet
-    rejected  = 1  # the candidate's application has been rejected
-    selected  = 2  # the candidate has been selected for participation
-    accepted  = 3  # the candidate has been assigned to an event and emailed
-    confirmed = 4  # the candidate confirmed her participation
+    incomplete  = 0  # the candidate hasn't finished her registration yet
+    pending     = 1  # the candidate finished here registration
+    rejected    = 2  # the candidate's application has been rejected
+    selected    = 3  # the candidate has been selected for participation
+    accepted    = 4  # the candidate has been assigned to an event and emailed
+    confirmed   = 5  # the candidate confirmed her participation
 
 
 class Applicant(models.Model):
@@ -117,7 +118,8 @@ class Applicant(models.Model):
     # General informations about the application
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
-    status = EnumField(ApplicantStatusTypes)
+    status = EnumField(ApplicantStatusTypes,
+        default=ApplicantStatusTypes.incomplete.value)
 
     # Wishes of the candidate
     assignation_wishes = models.ManyToManyField(
@@ -149,8 +151,7 @@ class Applicant(models.Model):
         except Applicant.DoesNotExist:
             applicant = Applicant(
                 user = user,
-                edition = edition,
-                status = ApplicantStatusTypes.pending.value
+                edition = edition
             )
             applicant.save()
             return applicant

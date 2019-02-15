@@ -123,15 +123,15 @@ class ApplicationValidationForm(forms.Form):
     def save(self, user, edition):
         """
         Save the new applications.
-        If an application was already pending for current year, it will be
-        replaced. If an application was rejected or accepted, it will raise
+        If an application was already beeing edited for current year, it will
+        be replaced. If an application was rejected or accepted, it will raise
         an Application.AlreadyLocked exception.
         """
         data = self.cleaned_data
         applicant = Applicant.for_user_and_edition(user, edition)
 
         # Verify that no application is already accepted or rejected
-        if applicant.status != ApplicantStatusTypes.pending.value:
+        if applicant.status != ApplicantStatusTypes.incomplete.value:
             raise Applicant.AlreadyLocked(
                 'The user has a processed application')
 
