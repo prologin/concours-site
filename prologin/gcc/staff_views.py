@@ -14,10 +14,10 @@ class CanEditLabelsPermissionMixin(PermissionRequiredMixin):
     """
 
     def has_permission(self):
-        common_events = Event.objects.filter(
+        return Event.objects.filter(
             correctors__user = self.request.user,
-            applicants__id = self.kwargs['applicant_id'])
-        return len(common_events) >= 1
+            applicants__id = self.kwargs['applicant_id']
+        ).exists()
 
 
 class CanReviewApplicationPermissionMixin(PermissionRequiredMixin):
@@ -26,8 +26,10 @@ class CanReviewApplicationPermissionMixin(PermissionRequiredMixin):
     """
 
     def has_permission(self):
-        return len(Corrector.objects.filter(event__id=self.kwargs['event'],
-                user=self.request.user)) >= 1
+        return Corrector.objects.filter(
+            event__id = self.kwargs['event'],
+            user = self.request.user
+        ).exists()
 
 
 class ApplicationReviewView(CanReviewApplicationPermissionMixin, TemplateView):

@@ -129,7 +129,6 @@ class ApplicationValidationForm(forms.Form):
         """
         data = self.cleaned_data
         applicant = Applicant.for_user_and_edition(user, edition)
-        event_wishes = EventWish.objects.filter(applicant=applicant)
 
         # Verify that no application is already accepted or rejected
         if applicant.status != ApplicantStatusTypes.pending.value:
@@ -137,7 +136,7 @@ class ApplicationValidationForm(forms.Form):
                 'The user has a processed application')
 
         # Remove previous choices
-        event_wishes.delete()
+        EventWish.objects.filter(applicant=applicant).delete()
 
         # Collect selected events, remove duplicates
         events = [ Event.objects.get(pk=data['priority1']) ]
@@ -150,8 +149,8 @@ class ApplicationValidationForm(forms.Form):
 
         # Save applications
         for i in range(len(events)):
-            event_wish = EventWish(
+            EventWish(
                 applicant = applicant,
                 event = events[i],
-                order = i + 1)
-            event_wish.save()
+                order = i + 1
+            ).save()

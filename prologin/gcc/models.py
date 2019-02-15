@@ -100,10 +100,10 @@ class ApplicantLabel(models.Model):
 
 @ChoiceEnum.labels(str.capitalize)
 class ApplicantStatusTypes(ChoiceEnum):
-    pending = 0  # the candidate hasn't finished her registration yet
-    rejected = 1  # the candidate's application has been rejected
-    selected = 2  # the candidate has been selected for participation
-    accepted = 3  # the candidate has been assigned to an event and emailed
+    pending   = 0  # the candidate hasn't finished her registration yet
+    rejected  = 1  # the candidate's application has been rejected
+    selected  = 2  # the candidate has been selected for participation
+    accepted  = 3  # the candidate has been assigned to an event and emailed
     confirmed = 4  # the candidate confirmed her participation
 
 
