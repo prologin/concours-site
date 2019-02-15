@@ -83,13 +83,8 @@ def build_dynamic_form(form, user, edition):
                 if data[fieldId] is not None:
                     # Try to modify existing answer, create a new answer if it
                     # doesn't exist
-                    try:
-                        answer = Answer.objects.get(applicant=applicant,
-                            question=question)
-                    except Answer.DoesNotExist:
-                        answer = Answer(applicant=applicant,
-                            question=question)
-
+                    answer = Answer.objects.get_or_create(
+                        applicant=applicant, question=question)
                     answer.response = data[fieldId]
                     answer.save()
 

@@ -146,15 +146,13 @@ class Applicant(models.Model):
         Get applicant object corresponding to an user for given edition. If no
         applicant has been created for this edition yet, it will be created.
         """
-        try:
-            return Applicant.objects.get(user=user, edition=edition)
-        except Applicant.DoesNotExist:
-            applicant = Applicant(
-                user = user,
-                edition = edition
-            )
+        applicant, created = Applicant.objects.get_or_create(
+            user=user, edition=edition)
+
+        if created:
             applicant.save()
-            return applicant
+
+        return applicant
 
     class AlreadyLocked(Exception):
         """

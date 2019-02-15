@@ -172,11 +172,8 @@ class Command(BaseCommand):
             'fioi_login')
 
         form_name = 'OldWebsiteForm'
-        try:
-            form = models.Form.objects.get(name=form_name)
-        except models.Form.DoesNotExist:
-            form = models.Form(name='OldWebsiteForm')
-            form.save()
+        form, created = models.Form.objects.get_or_create(name=form_name)
+        form.save()
 
         for i in range(len(questions)):
             try:
@@ -200,11 +197,11 @@ class Command(BaseCommand):
         for edition_data in data['applications']['editions']:
             fields = edition_data['fields']
 
-            try:
-                edition = models.Edition.objects.get(year=fields['year'])
-            except models.Edition.DoesNotExist:
-                edition = models.Edition(year=fields['year'], signup_form=form)
-                edition.save()
+            edition, created = models.Edition.objects.get_or_create(
+                year = fields['year'],
+                defaults = {
+                    'signup_form': form
+                })
 
             editions[edition_data['pk']] = edition
 
@@ -234,8 +231,8 @@ class Command(BaseCommand):
                     if questions[i].response_type == models.AnswerTypes.multichoice.value and response not in questions[i].meta['choices']:
                         continue
 
-                    question_exists = bool(models.Answer.objects.filter(
-                        applicant=applicant, question=questions[i]))
+                    question_exists = models.Answer.objects.filter(
+                        applicant=applicant, question=questions[i]).exists()
 
                     if not question_exists:
                         models.Answer(applicant=applicant,
@@ -255,11 +252,14 @@ class Command(BaseCommand):
         for center_data in data['applications']['centers']:
             fields = center_data['fields']
 
-            try:
-                center = models.Center.objects.get(name=fields['name'])
-            except models.Center.DoesNotExist:
-                center = models.Center(name=fields['name'], for_prologin=False,
-                    type=models.Center.Type.center.value)
+            center, created = models.Center.objects.get_or_create(
+                name = fields['name'],
+                defaults = {
+                    'for_prologin': False,
+                    'type': models.Center.Type.center.value
+                })
+
+            if created:
                 shared_fields = ('is_active', 'comments', 'address',
                     'postal_code', 'city', 'country')
 
@@ -268,6 +268,7 @@ class Command(BaseCommand):
 
             center.for_gcc = True
             center.save()
+
             centers[center_data['pk']] = center
 
         #                        _
@@ -283,20 +284,14 @@ class Command(BaseCommand):
         for event_data in data['applications']['events']:
             fields = event_data['fields']
 
-            try:
-                event = models.Event.objects.get(
-                    center      = centers[fields['center']],
-                    edition     = editions[fields['edition']],
-                    event_start = fields['date_begin'])
-            except models.Event.DoesNotExist:
-                event = models.Event(
-                    center       = centers[fields['center']],
-                    edition      = editions[fields['edition']],
-                    event_start  = fields['date_begin'],
-                    event_end    = fields['date_end'],
-                    signup_start = fields['date_begin'],
-                    signup_end   = fields['date_end'])
-                event.save()
+            event, created = models.Event.objects.get_or_create(
+                center       = centers[fields['center']],
+                edition      = editions[fields['edition']],
+                event_start  = fields['date_begin'],
+                event_end    = fields['date_end'],
+                signup_start = fields['date_begin'],
+                signup_end   = fields['date_end'])
+            event.save()
 
             events[event_data['pk']] = event
 
@@ -342,20 +337,22 @@ class Command(BaseCommand):
                 ).first()
 
                 if event_wish is None:
-                    try:
-                        event = models.Event.objects.get(
-                            center__name='EPITA Paris', edition=edition)
-                    except models.Event.DoesNotExist:
-                        center = models.Center.objects.get(name='EPITA Paris')
-                        start = datetime.datetime(edition.year, 1, 1, 0, 0,
-                            tzinfo=pytz.timezone('Europe/Paris'))
-                        end = datetime.datetime(edition.year, 12, 31, 23, 59,
-                            tzinfo=pytz.timezone('Europe/Paris'))
+                    center = models.Center.objects.get(name='EPITA Paris')
+                    start = datetime.datetime(edition.year, 1, 1, 0, 0,
+                        tzinfo=pytz.timezone('Europe/Paris'))
+                    end = datetime.datetime(edition.year, 12, 31, 23, 59,
+                        tzinfo=pytz.timezone('Europe/Paris'))
 
-                        event = models.Event(
-                            center=center, edition=edition, event_start=start,
-                            event_end=end, signup_start=start, signup_end=end)
-                        event.save()
+                    event, created = models.Event.objects.get_or_create(
+                        center  = center,
+                        edition = edition,
+                        defaults = {
+                            'event_start': start,
+                            'event_end': end,
+                            'signup_start': start,
+                            'signup_end': end
+                        })
+                    event.save()
 
                     event_wish = models.EventWish(applicant=applicant,
                         event=event, order=1)
