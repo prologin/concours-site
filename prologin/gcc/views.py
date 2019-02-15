@@ -93,7 +93,7 @@ class IndexView(FormView):
         context.update({
             'events': Event.objects.filter(event_end__gt=date.today()),
             'last_edition': Edition.objects.last(),
-            'sponsors': list(Sponsor.active_gcc.all())
+            'sponsors': list(Sponsor.objects.active_for_gcc())
         })
         random.shuffle(context['sponsors'])
         return context

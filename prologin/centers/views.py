@@ -9,5 +9,5 @@ class CenterListView(ListView):
     context_object_name = 'centers'
 
     def get_queryset(self):
-        return super().get_queryset().filter(type=centers.models.Center.Type.center.value,
-                                             is_active=True, for_prologin=True)
+        return super().get_queryset().active_for_prologin().filter(
+            type=centers.models.Center.Type.center.value)

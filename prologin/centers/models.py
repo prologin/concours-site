@@ -6,6 +6,15 @@ from prologin.models import AddressableModel, ContactModel, EnumField
 from prologin.utils import ChoiceEnum
 
 
+class CenterQuerySet(models.QuerySet):
+    def active(self):
+        return self.filter(is_active=True)
+    def active_for_prologin(self):
+        return self.active().filter(for_prologin=True)
+    def active_for_gcc(self):
+        return self.active().filter(for_gcc=True)
+
+
 class Center(AddressableModel):
     @ChoiceEnum.labels(str.capitalize)
     class Type(ChoiceEnum):
@@ -30,6 +39,8 @@ class Center(AddressableModel):
     lng = models.DecimalField(default=0, max_digits=16, decimal_places=6)
 
     comments = models.TextField(blank=True)
+
+    objects = CenterQuerySet.as_manager()
 
     class Meta:
         ordering = ('type', 'name', 'city',)

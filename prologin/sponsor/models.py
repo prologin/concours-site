@@ -4,13 +4,14 @@ from prologin.models import AddressableModel, ContactModel
 from prologin.utils import upload_path
 
 
-class ActiveSponsorProloginManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(is_active=True,for_prologin=True)
+class SponsorQuerySet(models.QuerySet):
+    def active(self):
+        return self.filter(is_active=True)
+    def active_for_prologin(self):
+        return self.active().filter(for_prologin=True)
+    def active_for_gcc(self):
+        return self.active().filter(for_gcc=True)
 
-class ActiveSponsorGccManager(models.Manager):
-    def get_queryset(self):
-        return super().get_queryset().filter(is_active=True,for_gcc=True)
 
 class Sponsor(AddressableModel, ContactModel, models.Model):
     def upload_logo_to(self, *args, **kwargs):
@@ -25,9 +26,7 @@ class Sponsor(AddressableModel, ContactModel, models.Model):
     for_gcc = models.BooleanField(default=True)
     for_prologin = models.BooleanField(default=True)
 
-    objects = models.Manager()
-    active_prologin = ActiveSponsorProloginManager()
-    active_gcc = ActiveSponsorGccManager()
+    objects = SponsorQuerySet.as_manager()
 
     def __str__(self):
         return self.name
