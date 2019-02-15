@@ -8,7 +8,7 @@ function goToApplicant(applicant) {
     setTimeout(function() {
         applicant.scrollIntoView();
         let scrolledY = window.scrollY;
-        window.scroll(0, scrolledY - 110);
+        window.scroll(0, scrolledY - 10);
     }, 1);
 }
 
@@ -41,7 +41,7 @@ for (let i = 0 ; i < applicants.length ; i++) {
 /**
  * Close all details when hitting escape
  */
-document.addEventListener('keypress', (event) => {
+document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape')
         for (let i = 0 ; i < applicants.length ; i++)
             applicants[i].parentElement.classList.remove('selected');
@@ -50,7 +50,7 @@ document.addEventListener('keypress', (event) => {
 /**
  * Select next item when pressing `down` arrow
  */
-document.addEventListener('keypress', (event) => {
+document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowDown') {
         event.preventDefault();
 
@@ -70,7 +70,7 @@ document.addEventListener('keypress', (event) => {
 /**
  * Select previous item when pressing `up` arrow
  */
-document.addEventListener('keypress', (event) => {
+document.addEventListener('keydown', (event) => {
     if (event.key === 'ArrowUp') {
         event.preventDefault();
 
