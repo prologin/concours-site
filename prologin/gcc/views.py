@@ -90,7 +90,7 @@ class IndexView(FormView):
             messages.add_message(self.request, messages.SUCCESS,
                 _('Subscription succeeded'))
             send_email('gcc/mails/subscribe', instance.email,
-                {'subscriber': instance})
+                {'unsubscribe_url': instance.unsubscribe_url})
         else:
             messages.add_message(self.request, messages.WARNING,
                 _('Subscription failed: already subscribed'))

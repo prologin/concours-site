@@ -1,12 +1,11 @@
+{% spaceless %}
+{% autoescape off %}
 {% load i18n utils %}
 
 {% get_setting 'PROLOGIN_CONTACT_MAIL' as contactmail %}
 {% get_setting 'SITE_BASE_URL' as baseurl %}
 
-{% spaceless %}
-{% autoescape off %}
 {% blocktrans %}
-
 Hi!
 
 Your subscribtion to the mailing list of GCC! has been completed.
@@ -14,7 +13,7 @@ Your subscribtion to the mailing list of GCC! has been completed.
 If you wish to unsubscribe from this mailing list you can use the following
 link:
 
-{{ baseurl }}{{ subscriber.unsubscribe_url }}
+{{ baseurl }}{{ unsubscribe_url }}
 
 Should you have any question, please contact us by sending an email at
 {{ contactmail }}.
