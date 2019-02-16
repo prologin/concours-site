@@ -5,12 +5,12 @@
 {% block title %}{% trans "GCC! − Login" %}{% endblock %}
 {% block header-popup %}
 <div id="header-popup">
-    <h2>Connect to GCC!</h2>
+    <h2>{% trans "Connect to GCC!" %}</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <div style="text-align: center">
-            <button type="submit">{% "Connect" %}</button>
+            <button type="submit">{% trans "Connect" %}</button>
         </div>
         <input type="hidden" name="next" value="/gcc/">
     </form>
