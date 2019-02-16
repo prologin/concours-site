@@ -1,5 +1,5 @@
+import hashlib
 import os
-import secrets
 from datetime import date
 
 from django.db import models
@@ -253,13 +253,14 @@ class Answer(models.Model):
 
 
 class SubscriberEmail(models.Model):
-    def gen_token():
-        return secrets.token_urlsafe(24)
-
     email = models.EmailField()
     date = models.DateTimeField(auto_now_add=True)
-    unsubscribe_token = models.CharField(max_length=32, default=gen_token)
 
+    @property
+    def unsubscribe_token(self):
+        subscriber_id = str(self.id).encode()
+        secret = settings.SECRET_KEY.encode()
+        return hashlib.sha256(subscriber_id + secret).hexdigest()[:32]
 
     @property
     def unsubscribe_url(self):
@@ -268,3 +269,4 @@ class SubscriberEmail(models.Model):
 
     def __str__(self):
         return self.email
+
