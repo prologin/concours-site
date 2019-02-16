@@ -338,9 +338,9 @@ class Command(BaseCommand):
 
                 if event_wish is None:
                     center = models.Center.objects.get(name='EPITA Paris')
-                    start = datetime.datetime(edition.year, 1, 1, 0, 0,
+                    start = datetime.datetime(int(edition.year), 1, 1, 0, 0,
                         tzinfo=pytz.timezone('Europe/Paris'))
-                    end = datetime.datetime(edition.year, 12, 31, 23, 59,
+                    end = datetime.datetime(int(edition.year), 12, 31, 23, 59,
                         tzinfo=pytz.timezone('Europe/Paris'))
 
                     event, created = models.Event.objects.get_or_create(
