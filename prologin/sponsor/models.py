@@ -7,8 +7,10 @@ from prologin.utils import upload_path
 class SponsorQuerySet(models.QuerySet):
     def active(self):
         return self.filter(is_active=True)
+
     def active_for_prologin(self):
         return self.active().filter(for_prologin=True)
+
     def active_for_gcc(self):
         return self.active().filter(for_gcc=True)
 
