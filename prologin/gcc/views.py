@@ -71,7 +71,7 @@ class TakeoutDownloadUserView(users.views.TakeoutDownloadUserView):
 
 
 class EditionsView(TemplateView):
-    template_name = "gcc/editions/index.html"
+    template_name = "gcc/editions.html"
 
 
 # Homepage

@@ -15,4 +15,5 @@ class ArchivesStaticFinder(PatternStaticFinder):
         '/*/finale/confs/*',
         '/*/finale/sujet/*',
         '/*/finale/xdm/*',
+        '/gcc/*/photos/*.jpg',
     )
