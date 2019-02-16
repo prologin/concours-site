@@ -53,7 +53,7 @@ class Edition(models.Model):
 
     def user_has_applied(self, user):
         """Check whether a user has applied for this edition"""
-        return bool(Applicant.objects.filter(user=user, edition=self))
+        return Applicant.objects.filter(user=user, edition=self).exists()
 
     def __str__(self):
         return str(self.year)
