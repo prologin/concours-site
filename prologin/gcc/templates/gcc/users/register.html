@@ -1,6 +1,8 @@
-{% extends "gcc/base.html" %}
+{% load i18n %}
 {% load static %}
-{% block title %}GCC! − Inscription{% endblock %}
+
+{% extends "gcc/base.html" %}
+{% block title %}{% trans "GCC! − Subscription" %}{% endblock %}
 {% block header-popup %}
 <div id="header-popup">
     <h2>Inscription</h2>
@@ -8,7 +10,7 @@
         {% csrf_token %}
         {{ form.as_p }}
         <div style="text-align: center">
-            <button type="submit">S'inscrire</button>
+            <button type="submit">Subscribe</button>
         </div>
         <input type="hidden" name="next" value="/gcc/">
     </form>

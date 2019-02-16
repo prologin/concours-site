@@ -118,7 +118,7 @@ class ApplicationValidationForm(forms.Form):
     def save(self, user, edition):
         """
         Save the new applications.
-        If an application was already beeing edited for current year, it will
+        If an application was already being edited for current year, it will
         be replaced. If an application was rejected or accepted, it will raise
         an Application.AlreadyLocked exception.
         """
