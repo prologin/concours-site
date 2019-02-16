@@ -1,12 +1,16 @@
 {% extends "gcc/base.html" %}
 {% load static %}
-{% block title %}GCC! − Applications{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "GCC! − Applications" %}{% endblock %}
 {% block head %}
-<link rel="stylesheet" href="{% static " gcc/css/application.css"%}"> {% endblock %} {% block content %} <section class="wrapper">
-<div class="title">Review</div>
+<link rel="stylesheet" href="{% static " gcc/css/application.css"%}"> {% endblock %}
+
+{% block content %} <section class="wrapper">
+<div class="title"> {% trans "Review" %} </div>
 <div class="container">
     <h3>
-        Candidates for {{event.short_description}} (edition {{event.edition}})
+        {% trans "Candidates for {{event.short_description}} (edition {{event.edition}})" %}
       </h3>
     <ul class="applicant-list">
         {% for applicant in applicants %}
@@ -38,15 +42,15 @@
                     <h3>Profile</h3>
                     <table class="recap">
                         <tr>
-                            <td>email</td>
+                            <td>{% trans "email" %}</td>
                             <td>{{ applicant.user.email }}</td>
                         </tr>
                         <tr>
-                            <td>birthdate</td>
+                            <td>{% trans "birthdate" %}</td>
                             <td>{{ applicant.user.birthday }}</td>
                         </tr>
                         <tr>
-                            <td>previous participations</td>
+                            <td>{% trans "previous participations" %}</td>
                             <td>None</td>
                         </tr>
                     </table>

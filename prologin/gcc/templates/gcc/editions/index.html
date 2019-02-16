@@ -1,5 +1,7 @@
 {% extends "gcc/base.html" %}
 {% load static %}
+{% load i18n %}
+
 {% block head %}
 <link rel="stylesheet" href="{% static 'gcc/css/editions.css' %}" :>
 {% endblock %}
@@ -7,7 +9,7 @@
 <!-- Intro -->
 <section id="edition-2018" class="wrapper">
     <div class="title">
-        Édition 2018
+        {% trans "Edition 2018" %}
     </div>
     <div class="container edition">
         <a href="{{url}}" class="poster">
@@ -15,8 +17,10 @@
     </a>
         <div class="description">
             <p>
-                Cette année, l'organisation d’un stage Girls Can Code! à <strong>Nantes</strong> est délégué à l’association Adn-ouest Atlantic 2020. Prologin quant à elle organise à nouveau les stages de <strong>Paris</strong> et <strong>Lyon</strong>.<br />
-                Ces stages qui accueillent au total <strong>70 participantes</strong> voient l’arrivée d’un TP sur les <strong>microcontrôleurs microbit</strong> qui, avec le TP jeux vidéo, donnent la possibilité d’exprimer sa créativité.
+                {% blocktrans %}
+                This year, the organization of a Girls Can Code! at <strong>Nantes</strong> was delegated to the organization Adn-ouest Atlantic 2020. Meanwhile, Prologin  organizes the summer camps at <strong>Paris</strong> and <strong>Lyon</strong>.<br />
+                Those summer camps had a total of <strong>70 girls</strong> and a new practice on <strong>microcontrolers microbit</strong> is created. With the video games tutorial and some activities with the Lego robots it's a great way to practice the skils learned during the week with creativity and fun !
+                {% endblocktrans %}
             </p>
             <div class="carousel">
                 <a href="https://flic.kr/s/aHsmi4bcXd">
@@ -31,12 +35,14 @@
 </section>
 <section id="edition-2017" class="wrapper">
     <div class="title">
-        Édition 2017
+        {% trans "Edition 2017" %}
     </div>
     <div class="container edition">
         <div class="description">
             <p>
-                En 2017, Prologin se lance un grand défi, l’organisation de 3 stages Girls Can Code!, un à <strong>Bordeaux</strong> en juillet et deux autres à <strong>Paris</strong> et <strong>Lyon</strong> en parallèle pendant la dernière semaine d'août. Ils ont réuni un total de <strong>52 participantes</strong> !
+                {% blocktrans %}
+                In 2017, Prologin challenges itself to organize 3 Girls Can Code summer camps! One at <strong>Bordeaux</strong> in July and two others at<strong>Paris</strong> and <strong>Lyon</strong> at the same time at the end of august. They received a total of <strong>52 participants</strong> !
+                {% endblocktrans %}
             </p>
             <div class="carousel">
                 <a href="">
@@ -53,13 +59,15 @@
 </section>
 <section id="edition-2016" class="wrapper emph-infos">
     <div class="title">
-        Édition 2016
+        {% trans "Edition 2016" %}
     </div>
     <div class="container edition">
         <div class="description">
             <p>
-                Les <strong>18 participantes</strong> avaient cette année des niveaux très hétéroclytes, le stage s’est donc organisé par groupes de niveaux.
-                Le stage a vu l’arrivée d’un <strong>TP réseau</strong> qui consiste en la création d'un petit client de messagerie.
+                {% blocktrans %}
+                In 2016,the  <strong>18 girls</strong> had very different levels, so the camp was split in small groups.
+                This year a new tutorial was created on <strong>Networks</strong>, where each girls creates it's own chat client !
+                {% endblocktrans %}
             </p>
             <div class="carousel">
                 <a href="https://flic.kr/s/aHskCyYBke">
@@ -72,11 +80,13 @@
 <section id="edition-2015" class="wrapper emph-infos">
     <div class="container edition">
         <div class="title">
-            Édition 2015
+            {% trans "Edition 2015" %}
         </div>
         <div class="description">
             <p>
-                En 2015, c’est <strong>12 filles</strong> qui ont pris part à un stage qui initie pour la première fois à des sujets sur le <strong>web</strong>, la création d’un petit <strong>jeux vidéo</strong> avec la bibliothèque pygame ou encore sur l’os <strong>linux</strong>.
+                {% blocktrans %}
+                In 2015, there was <strong>12 girls</strong> taking part to the summer camps which for the first time as tutorials on <strong>web programming</strong>, and a small tutorial on <strong>video game creation</strong> with the Pygame library and even an introduction to  <strong>Linux</strong>.
+                {% endblocktrans %}
             </p>
             <div class="carousel">
                 <a href="https://flic.kr/s/ahskjafpwt">
@@ -86,16 +96,18 @@
         </div>
     </div>
 </section>
-<section id="edition-2015" class="wrapper emph-infos">
+<section id="edition-2014" class="wrapper emph-infos">
     <div class="container edition">
         <div class="title">
-            Édition 2014
+            {% trans "Edition 2014" %}
         </div>
         <div class="description">
             <p>
-                Ce premier stage a accueilli <strong>10 participantes</strong> pendant 5 jours d'initiation à la programmation.
-                Centré autour de l'algorithmique, on y a appris à manipuler des structures de données abstraites, comme par exemples les <strong>graphes</strong>.
-                Parmi les participantes, deux en particulier ont poursuivi leurs études dans l'informatique et sont devenues organisatrices des stages !
+                {% blocktrans %}
+                This first summer camp hosted <strong>10 participants</strong> for 5 days to introduce to them to programming.
+                Center around algorithmic, we learn to use abstract data structures, for example <strong>graphs</strong>.
+                Among all the participants, two in particular contine to study IT and became organizers as well.
+                {% endblocktrans %}
             </p>
             <div class="carousel">
                 <img src="{% static 'gcc/img/photos/2014.jpg' %}" />

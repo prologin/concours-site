@@ -1,15 +1,17 @@
 {% extends "gcc/base.html" %}
 {% load static %}
-{% block title %}GCC! − Application{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "GCC! − Application" %}{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{% static " gcc/css/form.css"%}"> {% endblock %} {% block content %} <section class="wrapper">
-<div class="title">Candidature</div>
+<div class="title">{% trans "Application" %}</div>
 <div class="container">
-    <h2>Formulaire de candidature</h2>
+    <h2>{% trans "Application Form" %}</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input class="halo-button" type="submit" value="Valider et choisir mon centre de stage">
+        <input class="halo-button" type="submit" value="{%trans "Validate and seclect my wishes" %}">
     </form>
 </div>
 </section>

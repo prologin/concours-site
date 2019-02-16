@@ -1,27 +1,29 @@
 {% extends "gcc/base.html" %}
 {% load static %}
-{% block title %}GCC! − Application{% endblock %}
+{% load i18n %}
+
+{% block title %}{% trans "GCC! − Application" %}{% endblock %}
 {% block head %}
 <link rel="stylesheet" href="{% static " gcc/css/form.css"%}"> {% endblock %} {% block content %} <section class="wrapper">
-<div class="title">Centre de stage</div>
+<div class="title">{% trans "Summer camps locations" %}</div>
 <div class="container">
-    <h2>Choisir mon centre de stage</h2>
+    <h2>{% trans "Chose my location wishes" %}</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input class="halo-button" type="submit" value="Valider ma candidature">
+        <input class="halo-button" type="submit" value="{% trans "Confirm my application" %}">
     </form>
 </div>
 </section>
 <section class="wrapper">
-    <div class="title">Centre disponibles</div>
+    <div class="title">{% trans "Available centers" %}</div>
     <div class="container">
         {% for event in events %}
         <a href="{% url "centers:map" %}"><h3>{{ event.center.name }}</h3></a>
         <p>
-            Du {{event.event_start}} au {{event.event_end}}<br />
+            {% trans "From {{event.event_start}} to {{event.event_end}}" %}<br />
             {{event.center.address}}, {{event.center.postal_code}} {{event.center.city}}<br />
-            Fermeture des inscriptions le {{event.signup_end}}
+            [% trans "Inscription close the {{event.signup_end}}" %}
         </p>
         {% endfor %}
     </div>
