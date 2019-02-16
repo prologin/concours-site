@@ -10,6 +10,7 @@ from django.db.models import Max
 from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.functional import cached_property
+from django.utils.translation import ugettext_lazy as _
 
 from centers.models import Center
 from prologin.models import EnumField
@@ -100,15 +101,17 @@ class ApplicantLabel(models.Model):
         return self.display
 
 
-@ChoiceEnum.labels(str.capitalize)
 class ApplicantStatusTypes(ChoiceEnum):
-    incomplete  = 0  # the candidate hasn't finished her registration yet
-    pending     = 1  # the candidate finished here registration
-    rejected    = 2  # the candidate's application has been rejected
-    selected    = 3  # the candidate has been selected for participation
-    accepted    = 4  # the candidate has been assigned to an event and emailed
-    confirmed   = 5  # the candidate confirmed her participation
+    incomplete  = (0, _("Incomplete"))  # the candidate hasn't finished her registration yet
+    pending     = (1, _("Pending"))  # the candidate finished here registration
+    rejected    = (2, _("Rejected"))  # the candidate's application has been rejected
+    selected    = (3, _("Selected"))  # the candidate has been selected for participation
+    accepted    = (4, _("Accepted"))  # the candidate has been assigned to an event and emailed
+    confirmed   = (5, _("Confirmed"))  # the candidate confirmed her participation
 
+    @classmethod
+    def _get_choices(cls):
+        return tuple(m.value for m in cls)
 
 class Applicant(models.Model):
     """
@@ -269,4 +272,3 @@ class SubscriberEmail(models.Model):
 
     def __str__(self):
         return self.email
-
