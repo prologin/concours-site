@@ -1,4 +1,5 @@
 import os
+import secrets
 from datetime import date
 
 from django.db import models
@@ -6,6 +7,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
 from django.db.models import Max
+from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.functional import cached_property
 
@@ -251,8 +253,18 @@ class Answer(models.Model):
 
 
 class SubscriberEmail(models.Model):
+    def gen_token():
+        return secrets.token_urlsafe(24)
+
     email = models.EmailField()
     date = models.DateTimeField(auto_now_add=True)
+    unsubscribe_token = models.CharField(max_length=32, default=gen_token)
+
+
+    @property
+    def unsubscribe_url(self):
+        return reverse('gcc:news_unsubscribe', kwargs={'email': self.email,
+            'token': self.unsubscribe_token})
 
     def __str__(self):
         return self.email

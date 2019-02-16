@@ -1,21 +1,20 @@
 import random
-
 from datetime import date
-from django.contrib import auth
+from django.contrib import auth, messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse,reverse_lazy
-from django.views.generic import TemplateView
+from django.urls import reverse, reverse_lazy
+from django.utils.translation import ugettext_lazy as _
+from django.views.generic import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import FormView, CreateView
 from rules.contrib.views import PermissionRequiredMixin
 
 import users.views
-
 from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
 from gcc.models import (Answer, Question, Applicant, Edition, Event, EventWish,
     SubscriberEmail, Form)
-
+from prologin.email import send_email
 from sponsor.models import Sponsor
 from users.models import ProloginUser
 
@@ -81,11 +80,21 @@ class EditionsView(TemplateView):
 class IndexView(FormView):
     template_name = "gcc/index.html"
     form_class = EmailForm
-    success_url = reverse_lazy("gcc:news_confirm_subscribe")
+    success_url = reverse_lazy("gcc:index")
 
     def form_valid(self, form):
         instance, created = SubscriberEmail.objects.get_or_create(
             email=form.cleaned_data['email'])
+
+        if created:
+            messages.add_message(self.request, messages.SUCCESS,
+                _('Subscription succeeded'))
+            send_email('gcc/mails/subscribe', instance.email,
+                {'subscriber': instance})
+        else:
+            messages.add_message(self.request, messages.WARNING,
+                _('Subscription failed: already subscribed'))
+
         return super().form_valid(form)
 
     def get_context_data(self, **kwargs):
@@ -106,28 +115,28 @@ class RessourcesView(TemplateView):
 # Newsletter
 
 
-class NewsletterUnsubscribeView(FormView):
-    success_url = reverse_lazy("gcc:news_confirm_unsub")
-    template_name = "gcc/news/unsubscribe.html"
-    form_class = EmailForm
+class NewsletterUnsubscribeView(RedirectView):
 
-    def form_valid(self, form):
+    def get_redirect_url(self, *args, **kwargs):
+        return reverse('gcc:index')
+
+    def get(self, request, *args, **kwargs):
         try:
-            account = SubscriberEmail.objects.get(
-                email=form.cleaned_data['email'])
-            account.delete()
-            return super().form_valid(form)
+            subscriber = SubscriberEmail.objects.get(
+                email=kwargs['email'])
+
+            if subscriber.unsubscribe_token == kwargs['token']:
+                subscriber.delete()
+                messages.add_message(request, messages.SUCCESS,
+                    _('Successfully unsubscribed from newsletter.'))
+            else:
+                messages.add_message(request, messages.ERROR,
+                        _('Failed to unsubscribe: wrong token.'))
         except SubscriberEmail.DoesNotExist:
-            return HttpResponseRedirect(
-                reverse_lazy("gcc:news_unsubscribe_failed"))
+            messages.add_message(request, messages.ERROR,
+                _('Failed to unsubscribe: unregistered address'))
 
-
-class NewsletterConfirmSubscribeView(TemplateView):
-    template_name = "gcc/news/confirm_subscribe.html"
-
-
-class NewsletterConfirmUnsubView(TemplateView):
-    template_name = "gcc/news/confirm_unsub.html"
+        return super().get(request, *args, **kwargs)
 
 
 # Application

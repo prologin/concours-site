@@ -15,22 +15,9 @@ user_patterns = [
 
 newsletter_patterns = [
     path(
-        'unsubscribe',
+        'unsubscribe/<str:email>/<str:token>/',
         views.NewsletterUnsubscribeView.as_view(),
         name='news_unsubscribe'),
-    path(
-        'unsubscribe_failed',
-        views.NewsletterUnsubscribeView.as_view(
-            extra_context={'fail':True}),
-        name='news_unsubscribe_failed'),
-    path(
-        'confirm_subscribe',
-        views.NewsletterConfirmSubscribeView.as_view(),
-        name='news_confirm_subscribe'),
-    path(
-        'confirm_unsubscribe',
-        views.NewsletterConfirmUnsubView.as_view(),
-        name='news_confirm_unsub'),
 ]
 
 application_patterns = [
