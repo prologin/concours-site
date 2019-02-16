@@ -1,11 +1,10 @@
 {% extends "gcc/base.html" %}
 {% load i18n %}
 {% load static %}
-
-{% block title %}{% trans "GCC! − Subscription" %}{% endblock %}
+{% block title %}{% trans "GCC! − Register" %}{% endblock %}
 {% block header-popup %}
 <div id="header-popup">
-    <h2>{% trans "Register "%}</h2>
+    <h2>{% trans "Register" %}</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
