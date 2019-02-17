@@ -12,4 +12,3 @@ class TeamTest(tests.WithOrgaUserMixin, tests.ProloginTestCase):
         self.assertIn(self.orga_user.username, response.content.decode())
         self.assertIn(self.orga_user.get_full_name(), response.content.decode())
         self.assertValidResponse(response)
-        self.assertValidHTML(response.content)
