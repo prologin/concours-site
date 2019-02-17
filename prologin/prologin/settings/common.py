@@ -7,9 +7,8 @@ https://docs.djangoproject.com/en/1.7/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.7/ref/settings/
 """
-
+from typing import NamedTuple
 from django.urls import reverse_lazy
-from django.utils.functional import lazy
 from django.utils.translation import ugettext_lazy as _
 from collections import namedtuple
 import datetime
@@ -210,6 +209,21 @@ LOGOUT_URL = reverse_lazy('users:logout')
 LOGIN_REDIRECT_URL = reverse_lazy('home')
 USER_ACTIVATION_EXPIRATION = datetime.timedelta(days=7)
 
+
+class AuthTokenClient(NamedTuple):
+    secret: str
+    redirect_url: str
+
+
+# TTL of short-lived access codes.
+AUTH_TOKEN_ACCESS_EXPIRATION = datetime.timedelta(minutes=30)
+# TTL of auth tokens before asking for a new login flow.
+AUTH_TOKEN_REFRESH_EXPIRATION = datetime.timedelta(days=14)
+# Registered third-party clients.
+AUTH_TOKEN_CLIENTS = {
+    # 'client_id: AuthTokenClient('client secret', 'https://callback/url'),
+}
+
 # Forum
 
 FORUM_THREADS_PER_PAGE = 25
@@ -380,11 +394,6 @@ ZINNIA_PING_EXTERNAL_URLS = False
 ZINNIA_PROTOCOL = 'https'
 ZINNIA_SAVE_PING_DIRECTORIES = False
 ZINNIA_UPLOAD_TO = 'upload/zinnia'
-
-
-# Marauder
-
-MARAUDER_GCM_KEY = ""
 
 
 # Facebook

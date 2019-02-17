@@ -36,6 +36,7 @@ rules.add_perm('users.edit', rules.is_staff | is_self)
 rules.add_perm('users.edit-during-contest', rules.is_staff)
 rules.add_perm('users.delete', rules.is_superuser | is_self)
 rules.add_perm('users.takeout', rules.is_superuser | is_self)
+rules.add_perm('users.external-auth', rules.is_authenticated)
 
 
 def hijack_authorization_check(hijacker, hijacked):

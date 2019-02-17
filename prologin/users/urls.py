@@ -1,5 +1,5 @@
 from django.urls import path, include
-from users import views
+from users import views, auth_token_views
 
 app_name = 'users'
 
@@ -17,9 +17,19 @@ user_patterns = [
     path('impersonate', views.ImpersonateView.as_view(), name='impersonate'),
 ]
 
+auth_token_patterns = [
+    path('authorize', auth_token_views.AuthorizeView.as_view(), name='token-authorize'),
+    # Internal to Prologin server, access should be restricted to internal IPs by nginx
+    path('token', auth_token_views.AccessTokenView.as_view(), name='token-access'),
+    path('refresh', auth_token_views.RefreshTokenView.as_view(), name='token-refresh'),
+]
+
 urlpatterns = [
     # User profile, view and edit
     path('<int:pk>/', include(user_patterns)),
+
+    # Auth token stuff
+    path('auth/', include(auth_token_patterns)),
 
     # Login and logout
     path('login', views.LoginView.as_view(), name='login'),

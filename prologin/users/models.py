@@ -9,9 +9,11 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser, UserManager
 from django.contrib.auth.signals import user_logged_in
 from django.contrib.sites.models import Site
+from django.db.models import Q
 from django.urls import reverse
 from django.db import models, transaction
 from django.utils import timezone
+from django.utils.crypto import get_random_string
 from django.utils.text import slugify
 from django.utils.translation import LANGUAGE_SESSION_KEY, ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
@@ -248,6 +250,90 @@ class ProloginUser(
 ProloginUser._meta.get_field('email')._unique = True
 ProloginUser._meta.get_field('email').blank = False
 ProloginUser._meta.get_field('email').db_index = True
+
+
+class AuthToken(models.Model):
+    """
+    Auth tokens for implementing OAuth 2 "Authorization code" provider.
+
+    'code' is a short-lived secret sent back to the client through HTTP redirection.
+    'refresh_token' is a long-lived secret sent to the client in token responses, so it can refresh the token.
+    'client' is the whitelisted client id (settings.AUTH_TOKEN_CLIENTS).
+    'created' is the token creation datetime.
+    'user' is the user authenticated by this token.
+
+    Any user can have multiple valid auth tokens at any time.
+    'code' is cleared once used to get the token.
+
+    Tokens should be regularly garbage-collected using garbage_collect().
+    """
+    # null represents invalid code
+    code = models.CharField(max_length=128, db_index=True, null=True)
+    refresh_token = models.CharField(max_length=128, db_index=True)
+    client = models.CharField(max_length=128, db_index=True)
+    created = models.DateTimeField(auto_now_add=True)
+    user = models.ForeignKey(ProloginUser, on_delete=models.CASCADE, related_name='auth_tokens')
+
+    @classmethod
+    def get_user_queryset(cls):
+        """Filter users that can get a token."""
+        return Q(user__is_active=True)
+
+    @classmethod
+    def garbage_collect(cls):
+        """Garbage-collect auth tokens that are past refresh expiration or doesn't conform user queryset."""
+        expired = Q(created__lt=timezone.now() - settings.AUTH_TOKEN_REFRESH_EXPIRATION)
+        cls.objects.select_related('user').filter(~cls.get_user_queryset() | expired).delete()
+
+    @classmethod
+    def generate(cls, client, user):
+        """Generate a new auth token for the given client, authenticating the given user."""
+        return cls(code=get_random_string(32),
+                   refresh_token=get_random_string(64),
+                   client=client,
+                   user=user)
+
+    @classmethod
+    def verify_for_access(cls, client, code):
+        """Verify that there exists a valid token for the given client and access code."""
+        expiration = timezone.now() - settings.AUTH_TOKEN_ACCESS_EXPIRATION
+        return (cls.objects.select_related('user')
+                .filter(cls.get_user_queryset())
+                .get(client=client, created__gt=expiration, code=code))
+
+    @classmethod
+    def verify_for_refresh(cls, client, refresh_token):
+        """Verify that there exists a valid token for the given client and refresh token."""
+        expiration = timezone.now() - settings.AUTH_TOKEN_REFRESH_EXPIRATION
+        return (cls.objects.select_related('user')
+                .filter(cls.get_user_queryset())
+                .get(client=client, created__gt=expiration, refresh_token=refresh_token))
+
+    def mark_code_used(self):
+        """Access by code is a one-time operation. This makes the code unusable."""
+        self.code = None
+
+    def expiration_datetime(self):
+        return self.created + settings.AUTH_TOKEN_REFRESH_EXPIRATION
+
+    def user_dict(self):
+        user = self.user
+        return {
+            "pk": user.pk,
+            "username": user.username,
+            "email": user.email,
+            "last_name": user.last_name,
+            "first_name": user.first_name,
+            "is_staff": user.is_staff,
+            "is_superuser": user.is_superuser,
+        }
+
+    def as_dict(self):
+        return {
+            "refresh_token": self.refresh_token,
+            "expires": self.expiration_datetime(),
+            "user": self.user_dict(),
+        }
 
 
 def search_users(query, qs=None, throw=False):
