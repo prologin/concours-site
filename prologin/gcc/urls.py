@@ -26,13 +26,17 @@ application_patterns = [
         staff_views.ApplicationReviewView.as_view(),
         name='application_review'),
     path(
+        'validation/<int:pk>/<int:edition>/',
+        views.ApplicationValidationView.as_view(),
+        name='application_validation'),
+    path(
         'form/<int:edition>/',
         views.ApplicationFormView.as_view(),
         name='application_form'),
     path(
-        'validation/<int:edition>/',
-        views.ApplicationValidation.as_view(),
-        name='application_validation'),
+        'wishes/<int:edition>/',
+        views.ApplicationWishesView.as_view(),
+        name='application_wishes'),
     path(
         'summary/<int:pk>/',
         views.ApplicationSummaryView.as_view(),

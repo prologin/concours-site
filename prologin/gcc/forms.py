@@ -95,7 +95,7 @@ def build_dynamic_form(form, user, edition):
     return DynamicForm
 
 
-class ApplicationValidationForm(forms.Form):
+class ApplicationWishesForm(forms.Form):
     """Select the top three events a candidate wants to participate in."""
 
     priority1 = forms.TypedChoiceField(label=_('1st choice'), required=True)
@@ -103,7 +103,7 @@ class ApplicationValidationForm(forms.Form):
     priority3 = forms.TypedChoiceField(label=_('3rd choice'), required=False)
 
     def __init__(self, edition, *args, **kwargs):
-        super(ApplicationValidationForm, self).__init__(*args, **kwargs)
+        super(ApplicationWishesForm, self).__init__(*args, **kwargs)
 
         # Get a list of (primary_key, event name) for the selectors
         events = Event.objects.filter(

@@ -3,10 +3,21 @@
 {% load i18n %}
 
 {% block title %}{% trans "GCC! − Application" %}{% endblock %}
+
 {% block head %}
-<link rel="stylesheet" href="{% static " gcc/css/form.css"%}"> {% endblock %} {% block content %} <section class="wrapper">
+<link rel="stylesheet" href="{% static " gcc/css/form.css"%}">
+<link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="wrapper">
 <div class="title">{% trans "Application" %}</div>
 <div class="container">
+    {% if user.has_complete_profile is not True %}
+    <div class="alert alert-warning" role="alert">
+        {% trans "You didn't complete your" %} <a href="{% url 'gcc:edit' user.id %}">{% trans "profile" %}</a>, {% trans "you won't be able to validate your application !" %}
+    </div>
+    {% endif%}
     <h2>{% trans "Application Form" %}</h2>
     <form method="post">
         {% csrf_token %}

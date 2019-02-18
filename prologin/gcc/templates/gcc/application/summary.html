@@ -2,10 +2,13 @@
 {% load static %}
 {% load utils %}
 {% load i18n staticfiles rules %}
+
 {% block head %}
 <link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
 {% endblock %}
+
 {% block title %}{% trans "GCC! − Summary" %}{% endblock %}
+
 {% block content %}
 <section class="wrapper">
     <div class="container">
@@ -92,11 +95,11 @@
                                 <tbody>
                                     <tr>
                                         <td width="100%">Edition {{applicant.edition}}</td>
-                                        {% if applicant.edition.subscription_is_open %}
+                                        {% if applicant.edition.subscription_is_open and applicant.status == 0 %}
                                         <td class="text-right">
-                                            <a  href="{% url 'gcc:application_form' edition=applicant.edition %}"
-                                            class="btn btn-default btn-xs">
-                       <i class="fa fa-pencil"></i> {% trans "Edit application" %}</a>
+                                            <a  href="{% url 'gcc:application_form' edition=applicant.edition %}" class="btn btn-default btn-xs">
+                                                <i class="fa fa-pencil"></i> {% trans "Edit application" %}
+                                            </a>
                                         </td>
                                         {% endif %}
                                     </tr>
@@ -104,6 +107,11 @@
                             </table>
                         </div>
                         <div class="panel-body">
+                            {% if user.has_complete_profile is not True %}
+                            <div class="alert alert-warning" role="alert">
+                                {% trans "You didn't complete your" %} <a href="{% url 'gcc:edit' user.id %}">{% trans "profile" %}</a>, {% trans "you won't be able to validate your application !" %}
+                            </div>
+                            {% endif%}
                             <ul class="nav nav-stacked fa-ul">
                                 {% for answer in applicant.answers.all %}
                                 {% if applicant.edition == answer.applicant.edition %}
@@ -119,16 +127,26 @@
                             </ul>
                             <br>
                             {% if applicant.status == 0 %}
-                            <span class="badge badge-warning">{% trans "Pending" %} </span>
+                            <td width="100%"><span class="badge badge-warning">{% trans "Incomplete" %} </span></td>
+                            {% if applicant.edition.subscription_is_open %}
+                                <td class="text-right">
+                                    <a  href="{% url 'gcc:application_validation' pk=user.id edition=applicant.edition %}" class="btn btn-default btn-xs">
+                                        <i class="fa fa-save"></i> {% trans "Validate application" %}
+                                    </a>
+                                </td>
+                            {% endif %}
                             {% endif %}
                             {% if applicant.status == 1 %}
-                            <span class="badge badge-danger">{% trans "Rejected" %} </span>
+                            <span class="badge badge-warning">{% trans "Pending" %} </span>
                             {% endif %}
                             {% if applicant.status == 2 %}
+                            <span class="badge badge-danger">{% trans "Rejected" %} </span>
+                            {% endif %}
+                            {% if applicant.status == 3 %}
                             <span class="badge badge-success">{% trans "Selected" %} </span>
                             <p> {% trans "You will soon receive your assignation." %} </p>
                             {% endif %}
-                            {% if applicant.status == 3 %}
+                            {% if applicant.status == 4 %}
                             <span class="badge badge-warning">{% trans "Accepted" %} </span>
                             <p> {% trans "You have been assigned to:" %} </p>
                             <ul>
@@ -138,7 +156,7 @@
                             </ul>
                             <p> {% trans "Please confirm your venue." %} </p>
                             {% endif %}
-                            {% if applicant.status == 4 %}
+                            {% if applicant.status == 5 %}
                             <span class="badge badge-success">{% trans "Confirmed" %} </span>
                             <p> {% trans "You have been assigned to:" %} </p>
                             <ul>

@@ -2,30 +2,21 @@
 {% load static %}
 {% load i18n %}
 
-{% block title %}{% trans "GCC! − Application" %}{% endblock %}
+{% block title %}{% trans "GCC! − Validation" %}{% endblock %}
+
 {% block head %}
-<link rel="stylesheet" href="{% static " gcc/css/form.css"%}"> {% endblock %} {% block content %} <section class="wrapper">
-<div class="title">{% trans "Summer camps locations" %}</div>
+<link rel="stylesheet" href="{% static " gcc/css/form.css"%}">
+{% endblock %}
+
+{% block content %}
+<section class="wrapper">
+<div class="title">{% trans "Validate your application" %}</div>
 <div class="container">
-    <h2>{% trans "Chose my location wishes" %}</h2>
+    <h2>{% trans "Be careful after this you won't be able to change your answers or event wishes." %}</h2>
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input class="halo-button" type="submit" value="{% trans "Confirm my application" %}">
+        <center><button class="btn btn-default" type="submit"><i class="fa fa-save"></i> {% trans "Validate application" %}</button></center>
     </form>
 </div>
-</section>
-<section class="wrapper">
-    <div class="title">{% trans "Available centers" %}</div>
-    <div class="container">
-        {% for event in events %}
-        <a href="{% url "centers:map" %}"><h3>{{ event.center.name }}</h3></a>
-        <p>
-            {% trans "From {{event.event_start}} to {{event.event_end}}" %}<br />
-            {{event.center.address}}, {{event.center.postal_code}} {{event.center.city}}<br />
-            [% trans "Inscription close the {{event.signup_end}}" %}
-        </p>
-        {% endfor %}
-    </div>
 </section>
 {% endblock %}

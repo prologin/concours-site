@@ -11,7 +11,7 @@ from django.views.generic.edit import FormView, CreateView
 from rules.contrib.views import PermissionRequiredMixin
 
 import users.views
-from gcc.forms import EmailForm, build_dynamic_form, ApplicationValidationForm
+from gcc.forms import EmailForm, build_dynamic_form, ApplicationWishesForm
 from gcc.models import (Answer, Question, Applicant, Edition, Event, EventWish,
     SubscriberEmail, Form)
 from prologin.email import send_email
@@ -31,18 +31,6 @@ class RegistrationView(users.views.RegistrationView):
 
 class ProfileView(users.views.ProfileView):
     template_name = 'gcc/users/profile.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        shown_user = context[self.context_object_name]
-
-        context.update({
-            'applications': Applicant.objects.filter(user=shown_user),
-            'last_edition': Edition.objects.last(),
-            'has_applied_to_current':
-                Edition.current().user_has_applied(shown_user)})
-
-        return context
 
 
 class EditUserView(users.views.EditUserView):
@@ -147,6 +135,8 @@ class ApplicationSummaryView(PermissionRequiredMixin, DetailView):
     context_object_name = 'shown_user'
     template_name = 'gcc/application/summary.html'
     permission_required = 'users.edit'
+    success_url = reverse_lazy("gcc:summary")
+
 
     def get_queryset(self):
         from zinnia.models.author import Author
@@ -173,6 +163,43 @@ class ApplicationSummaryView(PermissionRequiredMixin, DetailView):
         return result
 
 
+class ApplicationValidationView(PermissionRequiredMixin, DetailView):
+    model = auth.get_user_model()
+    context_object_name = 'shown_user'
+    template_name = 'gcc/application/validation.html'
+    permission_required = 'users.edit'
+
+    def get_queryset(self):
+        from zinnia.models.author import Author
+        self.author = Author(pk=self.kwargs[self.pk_url_kwarg])
+        return super().get_queryset().prefetch_related('team_memberships')
+
+    def get(self, request, *args, **kwargs):
+        result = super().get(request, *args, **kwargs)
+        if not self.object.is_active and not self.request.user.is_staff:
+            raise Http404()
+        return result
+
+    def get_success_url(self):
+        return reverse(
+            'gcc:application_summary',
+            kwargs={'pk': self.request.user.pk})
+
+    def post(self, request, *args, **kwargs):
+        if not self.request.user.has_complete_profile():
+            messages.add_message(request, messages.ERROR,
+                        _('Failed to validate your application, your profile is incomplete.'))
+        else:
+            application = Applicant.objects.get(user = self.request.user, edition = kwargs['edition'])
+            application.status = 1
+            application.save()
+            messages.add_message(request, messages.SUCCESS,
+                _('Successfully validated your application.'))
+        result = super().get(request, *args, **kwargs)
+        if not self.object.is_active and not self.request.user.is_staff:
+            raise Http404()
+        return HttpResponseRedirect( reverse('gcc:application_summary', kwargs={'pk': self.request.user.pk}))
+
 class ApplicationFormView(FormView):
     template_name = 'gcc/application/form.html'
 
@@ -183,7 +210,7 @@ class ApplicationFormView(FormView):
             self.edition)
 
     def get_success_url(self):
-        return reverse('gcc:application_validation',
+        return reverse('gcc:application_wishes',
             kwargs={'edition': self.edition_year})
 
     def form_valid(self, form):
@@ -191,9 +218,10 @@ class ApplicationFormView(FormView):
         return super(FormView, self).form_valid(form)
 
 
-class ApplicationValidation(FormView):
-    template_name = 'gcc/application/validation.html'
-    form_class = ApplicationValidationForm
+
+class ApplicationWishesView(FormView):
+    template_name = 'gcc/application/wishes.html'
+    form_class = ApplicationWishesForm
 
     def get_success_url(self):
         return reverse(
@@ -205,7 +233,7 @@ class ApplicationValidation(FormView):
         self.edition_year = self.kwargs['edition']
         self.edition = get_object_or_404(Edition, year=self.edition_year)
 
-        kwargs = super(ApplicationValidation, self).get_form_kwargs()
+        kwargs = super(ApplicationWishesView, self).get_form_kwargs()
         kwargs.update({'edition': self.edition})
         return kwargs
 
@@ -224,5 +252,4 @@ class ApplicationValidation(FormView):
 
     def form_valid(self, form):
         form.save(self.request.user, self.edition)
-        return super(ApplicationValidation, self).form_valid(form)
-
+        return super(ApplicationWishesForm, self).form_valid(form)
