@@ -136,12 +136,6 @@ class ApplicationSummaryView(PermissionRequiredMixin, DetailView):
     permission_required = 'users.edit'
     success_url = reverse_lazy("gcc:summary")
 
-
-    def get_queryset(self):
-        from zinnia.models.author import Author
-        self.author = Author(pk=self.kwargs[self.pk_url_kwarg])
-        return super().get_queryset().prefetch_related('team_memberships')
-
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         shown_user = context[self.context_object_name]
