@@ -4,7 +4,12 @@
 {% block title %}{% trans "GCC! − Sign in" %}{% endblock %}
 {% block header-popup %}
 <div id="header-popup">
-    <h2>{% trans "Sign in to GCC!" %}</h2>
+    <h2>{% trans "Sign in to your" %} <a href="{% url "home" %}">Prologin</a> {% trans "account" %}</h2>
+    <p>
+      <strong>
+          You are going to login to the <a href="{% url "home" %}">Prologin website</a>, check out the contest organized by our organisation.
+      </strong>
+    </p>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

@@ -303,6 +303,14 @@
     position: relative;
 }
 
+#header-popup p {
+    margin: 10px 0;
+}
+
+#header-popup strong {
+    color: #ccc;
+}
+
 #header-popup label {
     color: white;
 }

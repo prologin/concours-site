@@ -193,6 +193,7 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
             raise Http404()
         return HttpResponseRedirect( reverse('gcc:application_summary', kwargs={'pk': self.request.user.pk}))
 
+
 class ApplicationFormView(FormView):
     template_name = 'gcc/application/form.html'
 
@@ -221,7 +222,6 @@ class ApplicationFormView(FormView):
     def form_valid(self, form):
         form.save()
         return super(FormView, self).form_valid(form)
-
 
 
 class ApplicationWishesView(FormView):
