@@ -13,6 +13,10 @@ from users.models import ProloginUser
 class Command(BaseCommand):
     help = "Import datas from the old website"
 
+    def __init__(self, *args, **kwargs):
+        self.logs = dict()
+        return super().__init__(*args, **kwargs)
+
     def add_arguments(self, parser):
         parser.add_argument('import_file', type=argparse.FileType('r'))
 
@@ -23,6 +27,13 @@ class Command(BaseCommand):
             print('Please specify a valid json file ({})'.format(e))
             sys.exit(1)
 
+        try:
+            self.update_database(data)
+        finally:
+            with open('changes.log', 'w') as f:
+                f.write(json.dumps(self.logs))
+
+    def update_database(self, data):
         #                          _      _   _
         #  _ __   _____      _____| | ___| |_| |_ ___ _ __
         # | '_ \ / _ \ \ /\ / / __| |/ _ \ __| __/ _ \ '__|
@@ -47,6 +58,12 @@ class Command(BaseCommand):
         print('Import Users...')
 
         users = {}
+        self.logs.update({
+            'users': {
+                'added': [],
+                'merged': [],
+                'renamed': []
+            }})
 
         for user_data in data['users']:
             fields = user_data['fields']
@@ -56,11 +73,15 @@ class Command(BaseCommand):
 
             try:
                 user = ProloginUser.objects.get(email=fields['email'])
+                action = 'merged'
             except ProloginUser.DoesNotExist:
                 if ProloginUser.objects.filter(username=fields['username']):
                     print(' - Conflicting username for new user',
                         fields['username'])
                     fields['username'] += '-gcc'
+                    action = 'renamed'
+                else:
+                    action = 'added'
 
                 user = ProloginUser(username=fields['username'],
                     email=fields['email'])
@@ -85,6 +106,7 @@ class Command(BaseCommand):
 
                 user.save()
 
+            self.logs['users'][action].append(user.username)
             users[user_data['pk']] = user
 
         #       _                            __
