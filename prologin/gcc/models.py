@@ -42,7 +42,7 @@ class Edition(models.Model):
 
     def current():
         """Gets current edition"""
-        return Edition.objects.last()
+        return Edition.objects.latest()
 
     def subscription_is_open(self):
         """Is there still one event open for subscription"""
@@ -60,7 +60,8 @@ class Edition(models.Model):
         return str(self.year)
 
     class Meta:
-        ordering = ['year']
+        ordering = ['-year']
+        get_latest_by = ['year']
 
 
 
