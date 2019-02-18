@@ -104,7 +104,6 @@ class RessourcesView(TemplateView):
 
 
 class NewsletterUnsubscribeView(RedirectView):
-
     def get_redirect_url(self, *args, **kwargs):
         return reverse('gcc:index')
 
@@ -202,6 +201,18 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
 
 class ApplicationFormView(FormView):
     template_name = 'gcc/application/form.html'
+
+    def dispatch(self, request, *args, **kwargs):
+    # Redirect if already validated for this year.
+        try:
+            application = Applicant.objects.get(user = self.request.user, edition = kwargs['edition'])
+            if application.status != 0:
+                messages.add_message(request, messages.ERROR,
+                            _('Your application has already been validated, if you realy want to change something contact us by email.'))
+                return HttpResponseRedirect( reverse('gcc:application_summary', kwargs={'pk': self.request.user.pk}))
+        except Applicant.DoesNotExist:
+            pass
+        return super(FormView, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self, **kwargs):
         self.edition_year = self.kwargs['edition']
