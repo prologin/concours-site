@@ -21,9 +21,9 @@
         {% for event in events %}
         <a href="{% url "centers:map" %}"><h3>{{ event.center.name }}</h3></a>
         <p>
-            {% trans "From {{event.event_start}} to {{event.event_end}}" %}<br />
+            {% blocktrans with start=event.event_start end=event.event_end %}From {{start}} to {{end}}{% endblocktrans %}<br />
             {{event.center.address}}, {{event.center.postal_code}} {{event.center.city}}<br />
-            [% trans "Inscription close the {{event.signup_end}}" %}
+            {% blocktrans with signup_end=event.signup_end %}Inscription close the {{signup_end}} {% endblocktrans %}
         </p>
         {% endfor %}
     </div>

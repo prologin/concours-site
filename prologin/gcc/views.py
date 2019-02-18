@@ -261,6 +261,14 @@ class ApplicationWishesView(FormView):
 
         return initials
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['events'] = Event.objects.filter(
+            signup_start__lt = date.today(),
+            signup_end__gt = date.today(),
+            edition = self.kwargs['edition'])
+        return context
+
     def form_valid(self, form):
         form.save(self.request.user, self.edition)
-        return super(ApplicationWishesForm, self).form_valid(form)
+        return super(FormView, self).form_valid(form)

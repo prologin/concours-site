@@ -112,7 +112,6 @@ class ApplicationWishesForm(forms.Form):
             edition = edition)
         events_selection = \
             [(None, '')] + [(event.pk, str(event)) for event in events]
-        print(events_selection)
 
         self.fields['priority1'].choices \
             = self.fields['priority2'].choices \

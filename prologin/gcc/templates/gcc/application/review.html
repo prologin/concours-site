@@ -10,7 +10,7 @@
 <div class="title"> {% trans "Review" %} </div>
 <div class="container">
     <h3>
-        {% trans "Candidates for {{event.short_description}} (edition {{event.edition}})" %}
+        {% blocktrans with edition=event.edition %}Candidates for {{event.short_description}} (edition {{edition}}){% endblocktrans %}
       </h3>
     <ul class="applicant-list">
         {% for applicant in applicants %}
