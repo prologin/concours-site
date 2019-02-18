@@ -144,6 +144,7 @@ class Applicant(models.Model):
     def list_of_assignation_event(self):
         return [event for event in self.assignation_event.all()]
 
+    @staticmethod
     def for_user_and_edition(user, edition):
         """
         Get applicant object corresponding to an user for given edition. If no
