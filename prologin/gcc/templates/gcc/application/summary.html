@@ -107,9 +107,9 @@
                             </table>
                         </div>
                         <div class="panel-body">
-                            {% if user.has_complete_profile is not True %}
+                            {% if user.has_complete_profile_for_application is not True %}
                             <div class="alert alert-warning" role="alert">
-                                {% trans "You didn't complete your" %} <a href="{% url 'gcc:edit' user.id %}">{% trans "profile" %}</a>, {% trans "you won't be able to validate your application !" %}
+                                {% trans "You are missing some key information, you won't be able to validate your application !" %}
                             </div>
                             {% endif%}
                             <ul class="nav nav-stacked fa-ul">

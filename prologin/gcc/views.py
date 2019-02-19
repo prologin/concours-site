@@ -11,7 +11,7 @@ from django.views.generic.edit import FormView, CreateView
 from rules.contrib.views import PermissionRequiredMixin
 
 import users.views
-from gcc.forms import EmailForm, build_dynamic_form, ApplicationWishesForm
+from gcc.forms import EmailForm, CombinedApplicantUserForm, ApplicationWishesForm
 from gcc.models import (Answer, Question, Applicant, Edition, Event, EventWish,
     SubscriberEmail, Form)
 from prologin.email import send_email
@@ -162,11 +162,6 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
     template_name = 'gcc/application/validation.html'
     permission_required = 'users.edit'
 
-    def get_queryset(self):
-        from zinnia.models.author import Author
-        self.author = Author(pk=self.kwargs[self.pk_url_kwarg])
-        return super().get_queryset().prefetch_related('team_memberships')
-
     def get(self, request, *args, **kwargs):
         result = super().get(request, *args, **kwargs)
         if not self.object.is_active and not self.request.user.is_staff:
@@ -179,7 +174,7 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
             kwargs={'pk': self.request.user.pk})
 
     def post(self, request, *args, **kwargs):
-        if not self.request.user.has_complete_profile():
+        if not self.request.user.has_complete_profile_for_application():
             messages.add_message(request, messages.ERROR,
                         _('Failed to validate your application, your profile is incomplete.'))
         else:
@@ -196,6 +191,7 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
 
 class ApplicationFormView(FormView):
     template_name = 'gcc/application/form.html'
+    form_class = CombinedApplicantUserForm
 
     def dispatch(self, request, *args, **kwargs):
     # Redirect if already validated for this year.
@@ -209,15 +205,21 @@ class ApplicationFormView(FormView):
             pass
         return super(FormView, self).dispatch(request, *args, **kwargs)
 
-    def get_form_class(self, **kwargs):
-        self.edition_year = self.kwargs['edition']
-        self.edition = get_object_or_404(Edition, year=self.edition_year)
-        return build_dynamic_form(self.edition.signup_form, self.request.user,
-            self.edition)
+    def get_object(self, queryset=None):
+        # available from prologin.middleware.ContestMiddleware
+        return self.request.user
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['instance'] = self.request.user
+        kwargs['user'] = self.request.user
+        kwargs['edition'] = get_object_or_404(Edition, year=self.kwargs['edition'])
+        self.edition = kwargs['edition']
+        return kwargs
 
     def get_success_url(self):
         return reverse('gcc:application_wishes',
-            kwargs={'edition': self.edition_year})
+            kwargs={'edition': self.edition})
 
     def form_valid(self, form):
         form.save()

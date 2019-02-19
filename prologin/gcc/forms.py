@@ -1,11 +1,19 @@
 import json
+from collections import OrderedDict
 from datetime import date
 from django import forms
+from django.contrib.auth import get_user_model
+from django.utils import formats
+from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+from django.urls import reverse
 
 from gcc.models import (Answer, AnswerTypes, Applicant, ApplicantStatusTypes,
     Edition, Event, EventWish, Form, Question)
 
+from prologin import utils
+from prologin.utils.multiforms import MultiForm
+from prologin.models import Gender
 
 class EmailForm(forms.Form):
     # See here for why 254 max
@@ -22,6 +30,7 @@ def build_dynamic_form(form, user, edition):
             return 'field_{}'.format(id)
 
         def __init__(self, *args, **kwargs):
+            kwargs.pop('instance')
             super(DynamicForm, self).__init__(*args, **kwargs)
 
             self.edition = edition
@@ -94,6 +103,67 @@ def build_dynamic_form(form, user, edition):
 
     return DynamicForm
 
+class ApplicantUserForm(forms.ModelForm):
+    class Meta:
+        model = get_user_model()
+        fields = ('first_name', 'last_name', 'birthday', 'gender', 'address', 'postal_code', 'city',
+                  'country', 'phone', 'school_stage')
+        optional_fields = ('phone', 'school_stage')
+        widgets = {
+            'address': forms.Textarea(attrs={'rows': 2}),
+            'gender': forms.RadioSelect(),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['gender'].label = _("How do you identify?")
+        self.fields['gender'].help_text = _("You have to identify as a girl/woman to apply to the Girls Can Code! summer camps.")
+        self.fields['gender'].choices = [
+            (Gender.female.value, mark_safe(_("<em>I identify as girl/woman.</em>"))),
+            (Gender.male.value, mark_safe(_("<em>I identify as boy/man.</em>"))),
+            ("", _("Other or prefer not to tell")),
+        ]
+        # Assigning the help_text there because for some reason reverse_lazy() is not lazy enough in
+        # the static field declaration above
+        self.fields['last_name'].help_text = _("We need your real name and address for legal reasons, as the Prologin "
+                                               "staff engages its responsibility to supervise you during the summer "
+                                               "camps.")
+        self.fields['country'].help_text = _("We will send the invitation to the summer camps at this address, so "
+                                             "make sure it's valid.")
+        self.fields['birthday'].help_text = _("Format: %(format)s") % {'format': utils.translate_format(formats.get_format('DATE_INPUT_FORMATS')[0])}
+        if self.instance:
+            url = reverse('gcc:index')
+            self.fields[self.Meta.fields[-1]].help_text = ('<i class="fa fa-info-circle"></i> ' +
+                                                           _('You can modify or review all your personal information '
+                                                             'on your <a href="%(url)s">profile page</a>.')
+                                                           % {'url': url})
+        for field in self.Meta.optional_fields:
+            self.fields[field].help_text = _("Optional.")
+
+    def clean_gender(self):
+        gender = self.cleaned_data['gender']
+        if not gender == Gender.female.value:
+            raise forms.ValidationError(_("You cannot participate if you don't identify as a girl/woman."))
+        return gender == Gender.female.value
+
+class CombinedApplicantUserForm(MultiForm):
+
+    def __init__(self, *args, **kwargs):
+        self.edition = kwargs.pop('edition')
+        self.user = kwargs.pop('user')
+        return super().__init__(*args, **kwargs)
+
+    def get_form_classes(self):
+        form_classes = OrderedDict([
+            ('user', ApplicantUserForm),
+            ('editionform',  build_dynamic_form(self.edition.signup_form, self.user,
+                self.edition)),
+        ])
+        return form_classes
+
+    def save(self):
+        self.forms['user'].save()
+        self.forms['editionform'].save()
 
 class ApplicationWishesForm(forms.Form):
     """Select the top three events a candidate wants to participate in."""

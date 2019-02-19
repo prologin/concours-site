@@ -3,15 +3,23 @@
 {% load i18n %}
 
 {% block title %}{% trans "GCC! − Application" %}{% endblock %}
+
 {% block head %}
-<link rel="stylesheet" href="{% static " gcc/css/form.css"%}"> {% endblock %} {% block content %} <section class="wrapper">
+<link rel="stylesheet" href="{% static " gcc/css/form.css"%}">
+<link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
+{% endblock %}
+
+{% block content %}
+<section class="wrapper">
 <div class="title">{% trans "Summer camps locations" %}</div>
 <div class="container">
     <h2>{% trans "Chose my location wishes" %}</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <input class="halo-button" type="submit" value="{% trans "Confirm my application" %}">
+        <center>
+            <input class="halo-button" type="submit" value="{% trans "Confirm my application" %}">
+        </center>
     </form>
 </div>
 </section>

@@ -5,14 +5,19 @@
 {% block title %}{% trans "GCC! − Validation" %}{% endblock %}
 
 {% block head %}
-<link rel="stylesheet" href="{% static " gcc/css/form.css"%}">
+<link rel="stylesheet" href="{% static 'vendor/bootstrap/dist/css/bootstrap.min.css' %}" />
 {% endblock %}
 
 {% block content %}
 <section class="wrapper">
 <div class="title">{% trans "Validate your application" %}</div>
 <div class="container">
-    <h2>{% trans "Be careful after this you won't be able to change your answers or event wishes." %}</h2>
+    {% if user.has_complete_profile_for_application is not True %}
+    <div class="alert alert-warning" role="alert">
+        {% trans "You are missing some key information, you won't be able to validate your application !" %}
+    </div>
+    {% endif%}
+    <center><h2>{% trans "Be careful after this you won't be able to change your answers or event wishes." %}</h2></center>
     <form method="post">
         {% csrf_token %}
         <center><button class="btn btn-default" type="submit"><i class="fa fa-save"></i> {% trans "Validate application" %}</button></center>

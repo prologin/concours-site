@@ -32,9 +32,12 @@ class MultiForm(object):
             self.initials = {}
         self.forms = OrderedDict()
 
-        for key, form_class in self.form_classes.items():
+        for key, form_class in self.get_form_classes().items():
             fargs, fkwargs = self.get_form_args_kwargs(key, args, kwargs)
             self.forms[key] = form_class(*fargs, **fkwargs)
+
+    def get_form_classes(self):
+        return self.form_classes
 
     def get_form_args_kwargs(self, key, args, kwargs):
         """
