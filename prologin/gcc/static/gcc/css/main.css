@@ -319,6 +319,12 @@ form ::-moz-focus-inner {
     border: 0;
 }
 
+form .errorlist {
+    color: red;
+    font-weight: bold;
+    list-style: none;
+}
+
 /* Image */
 
 .image {
