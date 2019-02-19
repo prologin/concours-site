@@ -55,6 +55,7 @@ from django.http import HttpResponseBadRequest, JsonResponse
 from django.utils.crypto import constant_time_compare
 from django.utils.http import urlencode
 from django.views import View
+from django.views.decorators.csrf import csrf_exempt
 from django.views.generic import RedirectView
 from rules.contrib.views import PermissionRequiredMixin
 
@@ -148,6 +149,10 @@ class TokenRetrievalMixin:
 
 
 class AccessTokenView(TokenRetrievalMixin, View):
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
     def get_identifier(self, payload):
         return payload['code']
 
@@ -161,6 +166,10 @@ class AccessTokenView(TokenRetrievalMixin, View):
 
 
 class RefreshTokenView(TokenRetrievalMixin, View):
+    @csrf_exempt
+    def dispatch(self, request, *args, **kwargs):
+        return super().dispatch(request, *args, **kwargs)
+
     def get_identifier(self, payload):
         return payload['refresh_token']
 
