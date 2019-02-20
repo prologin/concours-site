@@ -210,10 +210,7 @@ LOGIN_REDIRECT_URL = reverse_lazy('home')
 USER_ACTIVATION_EXPIRATION = datetime.timedelta(days=7)
 
 
-class AuthTokenClient(NamedTuple):
-    secret: str
-    redirect_url: str
-
+AuthTokenClient = namedtuple('AuthTokenClient', ['secret', 'redirect_url'])
 
 # TTL of short-lived access codes.
 AUTH_TOKEN_ACCESS_EXPIRATION = datetime.timedelta(minutes=30)
