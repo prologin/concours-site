@@ -31,7 +31,7 @@ class TestAuthTokenViews(TestCase):
             email="user@mail",
             first_name="jean",
             last_name="dup")
-        self.client = Client()
+        self.client = Client(enforce_csrf_checks=True)
 
     def json(self, url, data, **kwargs):
         return self.client.post(
