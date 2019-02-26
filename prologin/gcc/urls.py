@@ -4,23 +4,23 @@ from gcc import views, staff_views
 
 app_name = 'gcc'
 
-user_patterns = [
+USER_PATTERNS = [
     path('profile', views.ProfileView.as_view(), name='profile'),
     path('edit', views.EditUserView.as_view(), name='edit'),
     path('edit/password', views.EditPasswordView.as_view(),
-        name='edit_password'),
+         name='edit_password'),
     path('delete', views.DeleteUserView.as_view(), name='delete'),
     path('takeout', views.TakeoutDownloadUserView.as_view(), name='takeout'),
 ]
 
-newsletter_patterns = [
+NEWSLETTER_PATTERNS = [
     path(
         'unsubscribe/<str:email>/<str:token>/',
         views.NewsletterUnsubscribeView.as_view(),
         name='news_unsubscribe'),
 ]
 
-application_patterns = [
+APPLICATION_PATTERNS = [
     path(
         'review/<int:edition>/<int:event>/',
         staff_views.ApplicationReviewView.as_view(),
@@ -54,15 +54,15 @@ application_patterns = [
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
 
-    path('application/', include(application_patterns)),
-    path('newsletter/', include(newsletter_patterns)),
+    path('application/', include(APPLICATION_PATTERNS)),
+    path('newsletter/', include(NEWSLETTER_PATTERNS)),
     path('resources/', views.RessourcesView.as_view(), name='resources'),
 
     path('editions/', views.EditionsView.as_view(), name='editions'),
     path('editions/<int:year>/', views.EditionsView.as_view(), name='editions'),
 
     # User profile, view and edit
-    path('user/<int:pk>/', include(user_patterns)),
+    path('user/<int:pk>/', include(USER_PATTERNS)),
     path('user/login', views.LoginView.as_view(), name='login'),
     path('user/register', views.RegistrationView.as_view(), name='register'),
 

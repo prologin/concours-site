@@ -1,9 +1,9 @@
-from django.shortcuts import get_object_or_404, redirect
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.views.generic import RedirectView, TemplateView
 from rules.contrib.views import PermissionRequiredMixin
 
-from .models import Corrector, Event, Edition, Applicant, ApplicantLabel
+from gcc.models import Event, Applicant, ApplicantLabel
 
 
 class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
@@ -23,13 +23,13 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
         event = get_object_or_404(Event, pk=kwargs['event'])
         applicants = Applicant.objects.filter(assignation_wishes=event)
 
-        assert(event.edition.year == kwargs['edition'])
+        assert event.edition.year == kwargs['edition']
 
-        return {
+        return context.update({
             'applicants': applicants,
             'event': event,
             'labels': ApplicantLabel.objects.all()
-        }
+        })
 
 
 class ApplicationRemoveLabelView(PermissionRequiredMixin, RedirectView):
@@ -39,13 +39,20 @@ class ApplicationRemoveLabelView(PermissionRequiredMixin, RedirectView):
     """
     permission_required = 'gcc.can_edit_application_labels'
 
+
+    def __init__(self, **kwargs):
+        self.event = None
+        self.applicant = None
+        self.label = None
+        super(ApplicationRemoveLabelView, self).__init__(**kwargs)
+
     def get_permission_object(self):
         return get_object_or_404(Applicant, pk=self.kwargs['applicant'])
 
     def get_redirect_url(self, *args, **kwargs):
         return reverse(
             'gcc:application_review',
-            kwargs = {
+            kwargs={
                 'edition': self.applicant.edition.pk,
                 'event': self.event.pk
             }
@@ -69,13 +76,19 @@ class ApplicationAddLabelView(PermissionRequiredMixin, RedirectView):
     """
     permission_required = 'gcc.can_edit_application_labels'
 
+    def __init__(self, **kwargs):
+        self.event = None
+        self.applicant = None
+        self.label = None
+        super(ApplicationAddLabelView, self).__init__(**kwargs)
+
     def get_permission_object(self):
         return get_object_or_404(Applicant, pk=self.kwargs['applicant'])
 
     def get_redirect_url(self, *args, **kwargs):
         return reverse(
             'gcc:application_review',
-            kwargs = {
+            kwargs={
                 'edition': self.applicant.edition.pk,
                 'event': self.event.pk
             }
@@ -90,4 +103,3 @@ class ApplicationAddLabelView(PermissionRequiredMixin, RedirectView):
             self.applicant.labels.add(self.label)
 
         return super().get(request, *args, **kwargs)
-

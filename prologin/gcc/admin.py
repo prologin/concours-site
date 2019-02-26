@@ -1,10 +1,10 @@
 from django.contrib import admin
 from gcc.models import (Answer, Applicant, ApplicantLabel, Corrector, Edition,
-    Event, EventWish, Form, Question, SubscriberEmail)
+                        Event, EventWish, Form, Question, SubscriberEmail)
 
 
 admin.site.register([ApplicantLabel, Edition, SubscriberEmail, Question, Form,
-   EventWish])
+                     EventWish])
 
 
 @admin.register(Applicant)
@@ -20,10 +20,9 @@ class CorrectorAdmin(admin.ModelAdmin):
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ('edition', 'center', 'event_start', 'event_end',
-        'signup_start', 'signup_end')
+                    'signup_start', 'signup_end')
 
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ('applicant', 'question', '__str__')
-

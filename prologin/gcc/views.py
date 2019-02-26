@@ -1,22 +1,21 @@
 import random
 from datetime import date
 from django.contrib import auth, messages
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import get_object_or_404
 from django.urls import reverse, reverse_lazy
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import RedirectView, TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import FormView, CreateView
+from django.views.generic.edit import FormView
 from rules.contrib.views import PermissionRequiredMixin
 
 import users.views
-from gcc.forms import EmailForm, CombinedApplicantUserForm, ApplicationWishesForm
-from gcc.models import (Answer, Question, Applicant, Edition, Event, EventWish,
-    SubscriberEmail, Form)
+from gcc.forms import (EmailForm, CombinedApplicantUserForm,
+                       ApplicationWishesForm)
+from gcc.models import Applicant, Edition, Event, EventWish, SubscriberEmail
 from prologin.email import send_email
 from sponsor.models import Sponsor
-from users.models import ProloginUser
 
 
 # Users
@@ -76,12 +75,12 @@ class IndexView(FormView):
 
         if created:
             messages.add_message(self.request, messages.SUCCESS,
-                _('Subscription succeeded'))
+                                 _('Subscription succeeded'))
             send_email('gcc/mails/subscribe', instance.email,
-                {'unsubscribe_url': instance.unsubscribe_url})
+                       {'unsubscribe_url': instance.unsubscribe_url})
         else:
             messages.add_message(self.request, messages.WARNING,
-                _('Subscription failed: already subscribed'))
+                                 _('Subscription failed: already subscribed'))
 
         return super().form_valid(form)
 
@@ -115,13 +114,13 @@ class NewsletterUnsubscribeView(RedirectView):
             if subscriber.unsubscribe_token == kwargs['token']:
                 subscriber.delete()
                 messages.add_message(request, messages.SUCCESS,
-                    _('Successfully unsubscribed from newsletter.'))
+                                     _('Successfully unsubscribed from newsletter.'))
             else:
                 messages.add_message(request, messages.ERROR,
-                        _('Failed to unsubscribe: wrong token.'))
+                                     _('Failed to unsubscribe: wrong token.'))
         except SubscriberEmail.DoesNotExist:
             messages.add_message(request, messages.ERROR,
-                _('Failed to unsubscribe: unregistered address'))
+                                 _('Failed to unsubscribe: unregistered address'))
 
         return super().get(request, *args, **kwargs)
 
@@ -174,36 +173,53 @@ class ApplicationValidationView(PermissionRequiredMixin, DetailView):
             kwargs={'pk': self.request.user.pk})
 
     def post(self, request, *args, **kwargs):
+        super().get(request, *args, **kwargs)
+
         if not self.request.user.has_complete_profile_for_application():
-            messages.add_message(request, messages.ERROR,
-                        _('Failed to validate your application, your profile is incomplete.'))
+            messages.add_message(
+                request, messages.ERROR,
+                _('Failed to validate your application, your profile is incomplete.'))
         else:
-            application = Applicant.objects.get(user = self.request.user, edition = kwargs['edition'])
+            application = Applicant.objects.get(user=self.request.user,
+                                                edition=kwargs['edition'])
             application.status = 1
             application.save()
             messages.add_message(request, messages.SUCCESS,
-                _('Successfully validated your application.'))
-        result = super().get(request, *args, **kwargs)
+                                 _('Successfully validated your application.'))
+
         if not self.object.is_active and not self.request.user.is_staff:
             raise Http404()
-        return HttpResponseRedirect( reverse('gcc:application_summary', kwargs={'pk': self.request.user.pk}))
+
+        return HttpResponseRedirect(reverse(
+            'gcc:application_summary', kwargs={'pk': self.request.user.pk}))
 
 
 class ApplicationFormView(FormView):
     template_name = 'gcc/application/form.html'
     form_class = CombinedApplicantUserForm
 
+    def __init__(self, **kwargs):
+        self.edition = None
+        super(ApplicationFormView, self).__init__(**kwargs)
+
     def dispatch(self, request, *args, **kwargs):
-    # Redirect if already validated for this year.
+        # redirect if already validated for this year.
         try:
-            application = Applicant.objects.get(user = self.request.user, edition = kwargs['edition'])
+            application = Applicant.objects.get(user=self.request.user,
+                                                edition=kwargs['edition'])
+
             if application.status != 0:
-                messages.add_message(request, messages.ERROR,
-                            _('Your application has already been validated, if you realy want to change something contact us by email.'))
-                return HttpResponseRedirect( reverse('gcc:application_summary', kwargs={'pk': self.request.user.pk}))
+                messages.add_message(
+                    request, messages.ERROR,
+                    _('Your application has already been validated, if you '
+                      'really want to change something contact us by email.'))
+                return HttpResponseRedirect(reverse(
+                    'gcc:application_summary',
+                    kwargs={'pk': self.request.user.pk}))
         except Applicant.DoesNotExist:
             pass
-        return super(FormView, self).dispatch(request, *args, **kwargs)
+
+        return super(ApplicationFormView, self).dispatch(request, *args, **kwargs)
 
     def get_object(self, queryset=None):
         # available from prologin.middleware.ContestMiddleware
@@ -219,16 +235,21 @@ class ApplicationFormView(FormView):
 
     def get_success_url(self):
         return reverse('gcc:application_wishes',
-            kwargs={'edition': self.edition})
+                       kwargs={'edition': self.edition})
 
     def form_valid(self, form):
         form.save()
-        return super(FormView, self).form_valid(form)
+        return super(ApplicationFormView, self).form_valid(form)
 
 
 class ApplicationWishesView(FormView):
     template_name = 'gcc/application/wishes.html'
     form_class = ApplicationWishesForm
+
+    def __init__(self, **kwargs):
+        self.edition_year = None
+        self.edition = None
+        super(ApplicationWishesView, self).__init__(**kwargs)
 
     def get_success_url(self):
         return reverse(
@@ -246,8 +267,7 @@ class ApplicationWishesView(FormView):
 
     def get_initial(self):
         event_wishes = EventWish.objects.filter(
-            applicant__user = self.request.user,
-            applicant__edition = self.edition)
+            applicant__user=self.request.user, applicant__edition=self.edition)
         initials = {}
 
         for wish in event_wishes:
@@ -260,11 +280,10 @@ class ApplicationWishesView(FormView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['events'] = Event.objects.filter(
-            signup_start__lt = date.today(),
-            signup_end__gt = date.today(),
-            edition = self.kwargs['edition'])
+            signup_start__lt=date.today(), signup_end__gt=date.today(),
+            edition=self.kwargs['edition'])
         return context
 
     def form_valid(self, form):
         form.save(self.request.user, self.edition)
-        return super(FormView, self).form_valid(form)
+        return super(ApplicationWishesView, self).form_valid(form)

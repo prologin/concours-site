@@ -6,11 +6,9 @@ from django.db import models
 from django.conf import settings
 from django.contrib.postgres.fields import JSONField
 from django.core.serializers.json import DjangoJSONEncoder
-from django.db.models import Max
 from django.urls import reverse
 from django.utils.formats import date_format
 from django.utils.functional import cached_property
-from django.utils.translation import ugettext_lazy as _
 
 from centers.models import Center
 from prologin.models import EnumField
@@ -26,8 +24,11 @@ class Edition(models.Model):
         """Gets poster's URL if it exists else return None"""
         name = 'poster.full.jpg'
         path = self.file_path(name)
-        if os.path.exists(path):
-            return self.file_url(name)
+
+        if not os.path.exists(path):
+            return None
+
+        return self.file_url(name)
 
     def file_path(self, *tail):
         """Gets file's absolute path"""
@@ -40,16 +41,16 @@ class Edition(models.Model):
             settings.STATIC_URL, settings.GCC_REPOSITORY_STATIC_PREFIX,
             str(self.year), *tail)
 
+    @staticmethod
     def current():
         """Gets current edition"""
         return Edition.objects.latest()
 
     def subscription_is_open(self):
         """Is there still one event open for subscription"""
-        current_events = Event.objects.filter(
-            edition = self,
-            signup_start__lt = date.today(),
-            signup_end__gte = date.today())
+        current_events = Event.objects.filter(edition=self,
+                                              signup_start__lt=date.today(),
+                                              signup_end__gte=date.today())
         return len(current_events) > 0
 
     def user_has_applied(self, user):
@@ -73,22 +74,23 @@ class Event(models.Model):
     signup_start = models.DateTimeField()
     signup_end = models.DateTimeField()
     signup_form = models.ForeignKey('Form', on_delete=models.CASCADE,
-        null=True)
+                                    null=True)
 
     def __str__(self):
         return str(self.event_start) + ' ' + str(self.center)
 
     def short_description(self):
-        return "{} – {} – {}".format(self.center.name,
-        date_format(self.event_start, "SHORT_DATE_FORMAT"),
-        date_format(self.event_end, "SHORT_DATE_FORMAT"))
+        return '{name} – {start} – {end}'.format(
+            name=self.center.name,
+            start=date_format(self.event_start, "SHORT_DATE_FORMAT"),
+            end=date_format(self.event_end, "SHORT_DATE_FORMAT"))
 
 
 class Corrector(models.Model):
     event = models.ForeignKey('Event', on_delete=models.CASCADE,
-        related_name='correctors')
+                              related_name='correctors')
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE)
+                             on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.user)
@@ -122,7 +124,7 @@ class Applicant(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     edition = models.ForeignKey(Edition, on_delete=models.CASCADE)
     status = EnumField(ApplicantStatusTypes, db_index=True, blank=True,
-        default=ApplicantStatusTypes.incomplete.value)
+                       default=ApplicantStatusTypes.incomplete.value)
 
     # Wishes of the candidate
     assignation_wishes = models.ManyToManyField(
@@ -163,7 +165,6 @@ class Applicant(models.Model):
         This exception is raised if a new application is submitted for an user
         who has already been accepted or rejected this year.
         """
-        pass
 
     class Meta:
         unique_together = (('user', 'edition'), )
@@ -237,7 +238,7 @@ class Question(models.Model):
 
 class Answer(models.Model):
     applicant = models.ForeignKey(Applicant, related_name='answers',
-        on_delete=models.CASCADE)
+                                  on_delete=models.CASCADE)
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     response = JSONField(encoder=DjangoJSONEncoder)
 
@@ -245,10 +246,10 @@ class Answer(models.Model):
         if self.question.response_type == AnswerTypes.multichoice.value:
             if str(self.response) not in self.question.meta['choices']:
                 return ''
-            else:
-                return self.question.meta['choices'][str(self.response)]
-        else:
-            return str(self.response)
+
+            return self.question.meta['choices'][str(self.response)]
+
+        return str(self.response)
 
     class Meta:
         unique_together = (('applicant', 'question'), )
@@ -266,8 +267,8 @@ class SubscriberEmail(models.Model):
 
     @property
     def unsubscribe_url(self):
-        return reverse('gcc:news_unsubscribe', kwargs={'email': self.email,
-            'token': self.unsubscribe_token})
+        return reverse('gcc:news_unsubscribe', kwargs={
+            'email': self.email, 'token': self.unsubscribe_token})
 
     def __str__(self):
         return self.email

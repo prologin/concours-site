@@ -3,7 +3,6 @@ import datetime
 import json
 import sys
 import pytz
-from django.contrib.auth import get_user_model
 from django.core.management import BaseCommand
 
 import gcc.models as models
@@ -15,7 +14,7 @@ class Command(BaseCommand):
 
     def __init__(self, *args, **kwargs):
         self.logs = dict()
-        return super().__init__(*args, **kwargs)
+        super().__init__(*args, **kwargs)
 
     def add_arguments(self, parser):
         parser.add_argument('import_file', type=argparse.FileType('r'))
@@ -23,15 +22,15 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             data = json.loads(options['import_file'].read())
-        except Exception as e:
-            print('Please specify a valid json file ({})'.format(e))
+        except Exception as exception:
+            print('Please specify a valid json file ({})'.format(exception))
             sys.exit(1)
 
         try:
             self.update_database(data)
         finally:
-            with open('changes.log', 'w') as f:
-                f.write(json.dumps(self.logs))
+            with open('changes.log', 'w') as file:
+                file.write(json.dumps(self.logs))
 
     def update_database(self, data):
         #                          _      _   _
@@ -77,16 +76,16 @@ class Command(BaseCommand):
             except ProloginUser.DoesNotExist:
                 if ProloginUser.objects.filter(username=fields['username']):
                     print(' - Conflicting username for new user',
-                        fields['username'])
+                          fields['username'])
                     fields['username'] += '-gcc'
                     action = 'renamed'
                 else:
                     action = 'added'
 
                 user = ProloginUser(username=fields['username'],
-                    email=fields['email'])
+                                    email=fields['email'])
                 shared_field = ('password', 'last_login', 'first_name',
-                    'last_name', 'is_active', 'date_joined')
+                                'last_name', 'is_active', 'date_joined')
 
                 for field in shared_field:
                     setattr(user, field, fields[field])
@@ -95,7 +94,7 @@ class Command(BaseCommand):
                     if profile['fields']['user'] == user_data['pk']:
                         profile['fields']['postal_code'] = profile['fields']['zipcode']
                         shared_fields = ('address', 'phone', 'birthday',
-                            'country', 'city', 'postal_code')
+                                         'country', 'city', 'postal_code')
 
                         for f in shared_fields:
                             if f == 'phone' and profile['fields'][f] is not None:
@@ -119,9 +118,9 @@ class Command(BaseCommand):
 
         questions = [
             models.Question(
-                question = 'Sais-tu ce qu\'est un tableau en informatique ?',
-                response_type = models.AnswerTypes.multichoice.value,
-                meta = {
+                question='Sais-tu ce qu\'est un tableau en informatique ?',
+                response_type=models.AnswerTypes.multichoice.value,
+                meta={
                     'choices': {
                         '0': 'pas du tout',
                         '1': 'un peu',
@@ -131,9 +130,9 @@ class Command(BaseCommand):
                 }
             ),
             models.Question(
-                question = 'Sais-tu ce qu\'est une fonction récursive ?',
-                response_type = models.AnswerTypes.multichoice.value,
-                meta = {
+                question='Sais-tu ce qu\'est une fonction récursive ?',
+                response_type=models.AnswerTypes.multichoice.value,
+                meta={
                     'choices': {
                         '0': 'pas du tout',
                         '1': 'un peu',
@@ -143,9 +142,9 @@ class Command(BaseCommand):
                 }
             ),
             models.Question(
-                question = 'Depuis quand programmes-tu ?',
-                response_type = models.AnswerTypes.multichoice.value,
-                meta = {
+                question='Depuis quand programmes-tu ?',
+                response_type=models.AnswerTypes.multichoice.value,
+                meta={
                     'choices': {
                         '0': 'quelques jours',
                         '1': 'quelques semaines',
@@ -156,9 +155,9 @@ class Command(BaseCommand):
                 }
             ),
             models.Question(
-                question = 'Est-ce que tu programmes en moyenne...',
-                response_type = models.AnswerTypes.multichoice.value,
-                meta = {
+                question='Est-ce que tu programmes en moyenne...',
+                response_type=models.AnswerTypes.multichoice.value,
+                meta={
                     'choices': {
                         '0': 'une fois par an',
                         '1': 'une fois par mois',
@@ -168,39 +167,39 @@ class Command(BaseCommand):
                 }
             ),
             models.Question(
-                question = 'Quel(s) outil(s) ou langage(s) de programmation as-tu déjà essayé(s) ?',
-                response_type = models.AnswerTypes.string.value
+                question='Quel(s) outil(s) ou langage(s) de programmation as-tu déjà essayé(s) ?',
+                response_type=models.AnswerTypes.string.value
             ),
             models.Question(
-                question = 'Quel est ton parcours scolaire et as-tu une idée de ce que tu veux faire plus tard ?',
-                response_type = models.AnswerTypes.text.value
+                question='Quel est ton parcours scolaire et as-tu une idée de ce que tu veux faire plus tard ?',
+                response_type=models.AnswerTypes.text.value
             ),
             models.Question(
-                question = 'Qu\'espères-tu apprendre pendant ce stage ?',
-                response_type = models.AnswerTypes.text.value
+                question='Qu\'espères-tu apprendre pendant ce stage ?',
+                response_type=models.AnswerTypes.text.value
             ),
             models.Question(
-                question = 'Aimerais-tu réaliser un projet en rapport avec l\'informatique ? Si oui, lequel ?',
-                response_type = models.AnswerTypes.text.value
+                question='Aimerais-tu réaliser un projet en rapport avec l\'informatique ? Si oui, lequel ?',
+                response_type=models.AnswerTypes.text.value
             ),
             models.Question(
-                question = 'Quel est ton identifiant sur France-ioi ?',
-                response_type = models.AnswerTypes.string.value
+                question='Quel est ton identifiant sur France-ioi ?',
+                response_type=models.AnswerTypes.string.value
             ),
         ]
 
-        questions_extfields = ('knows_array', 'knows_recurs', 'experience',
-            'frequency', 'languages', 'studies', 'expectations', 'projects',
-            'fioi_login')
+        questions_extfields = (
+            'knows_array', 'knows_recurs', 'experience', 'frequency',
+            'languages', 'studies', 'expectations', 'projects', 'fioi_login')
 
         form_name = 'OldWebsiteForm'
         form, created = models.Form.objects.get_or_create(name=form_name)
         form.save()
 
-        for i in range(len(questions)):
+        for i, question in enumerate(questions):
             try:
                 questions[i] = models.Question.objects.get(
-                    question=questions[i].question)
+                    question=question.question)
             except models.Question.DoesNotExist:
                 questions[i].save()
 
@@ -220,10 +219,8 @@ class Command(BaseCommand):
             fields = edition_data['fields']
 
             edition, created = models.Edition.objects.get_or_create(
-                year = fields['year'],
-                defaults = {
-                    'signup_form': form
-                })
+                year=fields['year'],
+                defaults={'signup_form': form})
 
             editions[edition_data['pk']] = edition
 
@@ -245,8 +242,8 @@ class Command(BaseCommand):
             edition = editions[fields['edition']]
             applicant = models.Applicant.for_user_and_edition(user, edition)
 
-            for i in range(len(questions_extfields)):
-                response = str(fields[questions_extfields[i]])
+            for i, extfield in enumerate(questions_extfields):
+                response = str(fields[extfield])
 
                 if response not in [None, '']:
                     # for multichoices, check if the value is valid
@@ -258,8 +255,8 @@ class Command(BaseCommand):
 
                     if not question_exists:
                         models.Answer(applicant=applicant,
-                            question=questions[i], response=response
-                        ).save()
+                                      question=questions[i], response=response
+                                      ).save()
 
         #                  _
         #    ___ ___ _ __ | |_ ___ _ __ ___
@@ -275,15 +272,15 @@ class Command(BaseCommand):
             fields = center_data['fields']
 
             center, created = models.Center.objects.get_or_create(
-                name = fields['name'],
-                defaults = {
+                name=fields['name'],
+                defaults={
                     'for_prologin': False,
                     'type': models.Center.Type.center.value
                 })
 
             if created:
                 shared_fields = ('is_active', 'comments', 'address',
-                    'postal_code', 'city', 'country')
+                                 'postal_code', 'city', 'country')
 
                 for f in shared_fields:
                     setattr(center, f, fields[f])
@@ -336,7 +333,7 @@ class Command(BaseCommand):
             applicant = models.Applicant.for_user_and_edition(user, edition)
 
             field_choices = (fields['event_choice1'], fields['event_choice2'],
-                fields['event_choice3'])
+                             fields['event_choice3'])
 
             for order, choice in enumerate(field_choices):
                 if choice is None:
@@ -360,15 +357,17 @@ class Command(BaseCommand):
 
                 if event_wish is None:
                     center = models.Center.objects.get(name='EPITA Paris')
-                    start = datetime.datetime(int(edition.year), 1, 1, 0, 0,
+                    start = datetime.datetime(
+                        int(edition.year), 1, 1, 0, 0,
                         tzinfo=pytz.timezone('Europe/Paris'))
-                    end = datetime.datetime(int(edition.year), 12, 31, 23, 59,
+                    end = datetime.datetime(
+                        int(edition.year), 12, 31, 23, 59,
                         tzinfo=pytz.timezone('Europe/Paris'))
 
                     event, created = models.Event.objects.get_or_create(
-                        center  = center,
-                        edition = edition,
-                        defaults = {
+                        center=center,
+                        edition=edition,
+                        defaults={
                             'event_start': start,
                             'event_end': end,
                             'signup_start': start,
@@ -377,7 +376,7 @@ class Command(BaseCommand):
                     event.save()
 
                     event_wish = models.EventWish(applicant=applicant,
-                        event=event, order=1)
+                                                  event=event, order=1)
                     event_wish.save()
 
                 applicant.assignation_event.add(event_wish.event)
@@ -409,4 +408,3 @@ class Command(BaseCommand):
                 applicant.status = models.ApplicantStatusTypes.rejected.value
 
             applicant.save()
-
