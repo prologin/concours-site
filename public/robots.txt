@@ -2,3 +2,4 @@ User-agent: *
 Disallow: /admin/
 Disallow: /static/
 Disallow: /media/
+Allow: /static/archives/*.pdf$
