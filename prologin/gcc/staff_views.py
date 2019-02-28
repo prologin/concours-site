@@ -18,18 +18,19 @@ class ApplicationReviewView(PermissionRequiredMixin, TemplateView):
         Extract the list of users who have an application this year and list
         their applications in the same object.
         """
-        context = super().get_context_data(**kwargs)
-
         event = get_object_or_404(Event, pk=kwargs['event'])
         applicants = Applicant.objects.filter(assignation_wishes=event)
 
+        #TODO: remove redundancy
         assert event.edition.year == kwargs['edition']
 
-        return context.update({
+        context = super().get_context_data(**kwargs)
+        context.update({
             'applicants': applicants,
             'event': event,
             'labels': ApplicantLabel.objects.all()
         })
+        return context
 
 
 class ApplicationRemoveLabelView(PermissionRequiredMixin, RedirectView):
