@@ -51,7 +51,7 @@ class Edition(models.Model):
         current_events = Event.objects.filter(edition=self,
                                               signup_start__lt=date.today(),
                                               signup_end__gte=date.today())
-        return len(current_events) > 0
+        return current_events.exists()
 
     def user_has_applied(self, user):
         """Check whether a user has applied for this edition"""
