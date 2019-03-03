@@ -75,9 +75,6 @@ urlpatterns = [
 
     # Monitoring
     path('', include('django_prometheus.urls')),
- 
-    # GCC!
-    path('gcc/', include('gcc.urls', namespace='gcc')),
 ]
 
 if settings.DEBUG:
@@ -87,4 +84,10 @@ if settings.DEBUG:
         path('e/403/', TemplateView.as_view(template_name='403.html')),
         path('e/404/', TemplateView.as_view(template_name='404.html')),
         path('e/500/', TemplateView.as_view(template_name='500.html')),
+    ])
+
+    # In production environments, GCC has its own separate domain and its
+    # urlpatterns is used as the ROOT_URLCONF.
+    urlpatterns.extend([
+        path('gcc/', include('gcc.urls', namespace='gcc')),
     ])
