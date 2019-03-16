@@ -8,7 +8,7 @@
   {% breadcrumb_for 'contest:correction:contestant-semifinal' edition.year contestant.pk %}{{ contestant.user.username }}{% endbreadcrumb_for %}
 {% endblock breadcrumbs %}
 
-{% block correction_title %}{{ contestant.user }} <small>{{ event_type|choiceenum_label }} {{ event.short_description }}</small>{% endblock %}
+{% block correction_title %}{{ contestant.user }} - {{ contestant.user.first_name|title }} {{ contestant.user.last_name|title }} <small>{{ event_type|choiceenum_label }} {{ event.short_description }}</small>{% endblock %}
 
 {% block correction_navigation %}
   {# not needed #}
