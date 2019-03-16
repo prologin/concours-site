@@ -187,7 +187,9 @@ class FinalIndexView(CanCorrectPermissionMixin, EditionMixin, DatatableView):
     def get_queryset(self):
         return (super().get_queryset()
                 .select_related('user', 'assignation_semifinal_event',
-                                'assignation_semifinal_event__center'))
+                                'assignation_semifinal_event__center')
+                .filter(assignation_semifinal=contest.models.Assignation
+                        .assigned.value))
 
 
 class SemifinalIndexView(CanCorrectPermissionMixin, EditionMixin, DatatableView):
