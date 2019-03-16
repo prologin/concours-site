@@ -177,6 +177,19 @@ class SemifinalEventIndexView(CanCorrectPermissionMixin, EditionMixin, EventMixi
                                 'assignation_semifinal_event__center')
                 .filter(assignation_semifinal_event=self.event))
 
+
+class FinalIndexView(CanCorrectPermissionMixin, EditionMixin, DatatableView):
+    template_name = 'correction/final.html'
+    model = contest.models.Contestant
+    context_object_name = 'contestants'
+    datatable_class = contest.datatables.ContestantFinalTable
+
+    def get_queryset(self):
+        return (super().get_queryset()
+                .select_related('user', 'assignation_semifinal_event',
+                                'assignation_semifinal_event__center'))
+
+
 class SemifinalIndexView(CanCorrectPermissionMixin, EditionMixin, DatatableView):
     template_name = 'correction/semifinal.html'
     model = contest.models.Contestant

@@ -39,6 +39,12 @@
         <td><a href="{{ event.absolute_url }}" class="btn btn-default btn-xs"><i class="fa fa-wrench"></i> {% trans "Correct" %}</a></td>
       </tr>
     {% endfor %}
+    <tr>
+      <td>{% trans "Regional event" %}</td>
+      <td>{% trans "All centers" %}</td>
+      <td></td>
+      <td></td>
+      <td><a href="{% url 'contest:correction:final' edition.year %}" class="btn btn-default btn-xs"><i class="fa fa-wrench"></i> {% trans "Correct" %}</a></td>
     </tbody>
   </table>
 

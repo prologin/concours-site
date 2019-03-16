@@ -136,3 +136,46 @@ class ContestantSemifinalTable(AbstractContestantTable):
 
     def get_extra_actions(self, contestant):
         return [self.convocation_link(contestant)]
+
+
+class ContestantFinalTable(AbstractContestantTable):
+    event_type = contest.models.Event.Type.semifinal
+    correction_url_name = 'correction:contestant-semifinal'
+
+    assigned_event = datatableview.TextColumn(_("Assigned regional event"),
+                                              sources=['assignation_semifinal_event__center__name',
+                                                       'assignation_semifinal_event__center__city'],
+                                              processor='get_assignation_semifinal_event')
+    assignation_status = datatableview.TextColumn(_("Assignation status"),
+                                                  sources='assignation_final',
+                                                  processor='get_assignation_final_status')
+    score = datatableview.IntegerColumn(_("Score"), source='score_for_semifinal')
+
+    def get_assignation_semifinal_event(self, contestant, **kwargs):
+        event = contestant.assignation_semifinal_event
+        if not event:
+            return ''
+        return format_html('{} <small class="text-muted">{}</small>',
+                           event.center.name,
+                           date_format(event.date_begin, 'SHORT_DATE_FORMAT'))
+
+    def get_assignation_final_status(self, contestant, **kwargs):
+        count = contestant.corrections.filter(event_type=self.event_type.value).count()
+        corrections = ngettext_lazy("%(count)d correction", "%(count)d corrections", count) % {'count': count}
+        return format_html('{} <small class="text-muted"> - {}</small>',
+                           Assignation.label_for(Assignation(contestant.assignation_final)),
+                           corrections)
+
+    def convocation_link(self, contestant):
+        if contestant.assignation_final == contest.models.Assignation.assigned.value:
+            return format_html('<a href="{}" class="btn btn-default btn-xs"><i class="fa fa-graduation-cap"></i> {}</a>',
+                               reverse('documents:final:contestant-convocation',
+                                       kwargs={'year': contestant.edition.year, 'contestant': contestant.pk}),
+                               _("Convocation"))
+        else:
+            return format_html('<span class="btn btn-default btn-xs disabled" title="{}">'
+                               '<i class="fa fa-graduation-cap"></i> {}</span>',
+                               _("Contestant is not assigned"), _("Convocation"))
+
+    def get_extra_actions(self, contestant):
+        return [self.convocation_link(contestant)]

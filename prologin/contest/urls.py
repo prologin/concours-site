@@ -11,6 +11,7 @@ correction_patterns = [
     path('<int:year>/qualification', contest.staff_views.QualificationIndexView.as_view(), name='qualification'),
     path('<int:year>/semifinal', contest.staff_views.SemifinalIndexView.as_view(), name='semifinal'),
     path('<int:year>/semifinal/<int:event>', contest.staff_views.SemifinalEventIndexView.as_view(), name='semifinal'),
+    path('<int:year>/final', contest.staff_views.FinalIndexView.as_view(), name='final'),
     path('<int:year>/<int:cid>/qualification', contest.staff_views.ContestantQualificationView.as_view(), name='contestant-qualification'),
     path('<int:year>/<int:cid>/semifinal', contest.staff_views.ContestantSemifinalView.as_view(), name='contestant-semifinal'),
     path('<int:year>/<int:cid>/live/<type>', contest.staff_views.ContestantLiveUpdate.as_view(), name='live-update'),

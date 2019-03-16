@@ -1,0 +1,37 @@
+{% extends "prologin/base.html" %}
+{% load i18n staticfiles %}
+{% load django_bootstrap_breadcrumbs markup utils %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for '' %}{% trans "Contest" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction:index' %}{% trans "Correction" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction:year' edition.year %}{{ edition.year }}{% endbreadcrumb_for %}
+  {% breadcrumb_for 'contest:correction:semifinal' edition.year event.pk %}{% trans "Regional event" %} {{ event.short_description }}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% if event.short_description %}{{ event.short_description }}
+– {% endif %}{% trans "All regional event" %} {{ edition.year }}{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" type="text/css" href="{% static 'vendor/datatables.net-bs/css/dataTables.bootstrap.min.css' %}">
+{% endblock %}
+
+{% block content %}
+
+  <h1>{% trans "All regional event" %} {{ event.short_description }} <small>{% blocktrans with year=edition.year %}Prologin {{ year }}{% endblocktrans %}</small></h1>
+
+  {{ datatable }}
+
+{% endblock %}
+
+{% block extra_script %}
+  <script type="text/javascript" charset="utf8" src="{% static 'vendor/datatables.net-bs/js/dataTables.bootstrap.min.js' %}"></script>
+  <script type="text/javascript" charset="utf8" src="{% static 'vendor/datatables.net/js/jquery.dataTables.min.js' %}"></script>
+  <script type="text/javascript" charset="utf8" src="{% static 'js/datatableview.js' %}"></script>
+  <script type="text/javascript" charset="utf8">
+    datatableview.initialize($('.datatable'), {
+      language: { search: "_INPUT_", searchPlaceholder: "Search" },
+    });
+  </script>
+{% endblock %}
