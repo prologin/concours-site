@@ -5,7 +5,7 @@ bleach
 # For async tasks (sending mails, correcting submissions, etc.)
 # TODO: use celery when 5.0 is out (async keyword support)
 # https://github.com/celery/celery/issues/4500
-git+https://github.com/celery/celery.git
+git+https://github.com/celery/celery.git#egg=celery[redis]
 # Django
 django<3
 # For ordered models (QCM questions, semifinal whishes, etc.)
@@ -73,9 +73,6 @@ pyvimeo
 pyyaml
 # HTTP queries
 requests
-# Celery storage & broker for async tasks
-# FIXME: unpin when https://github.com/celery/celery/issues/5175 is fixed
-redis==2.10.6
 # Generic rules/permissions
 rules==1.4
 # Transifex client for translation pull/push
