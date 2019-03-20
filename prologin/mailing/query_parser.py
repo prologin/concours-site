@@ -84,7 +84,7 @@ def parse_query(query: str) -> ParseResult:
         nonlocal func_i
         annotations = {}
         field = tokens.get('field')
-        value = tokens.get('value')
+        value = next(iter(tokens.get('value')))
         negation = tokens.get('negation', False)
         insensitive = isinstance(value, CaseInsensitive)
 

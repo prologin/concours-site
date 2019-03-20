@@ -84,6 +84,8 @@ transifex-client
 typing; python_version < '3.5'
 # ImageMagick wrapper
 wand
+# Python parsing library, for the mailing query language
+pyparsing>=2.3.1
 
 # MySQL database connector (for Drupal legacy) (uncomment if needed)
 # mysqlclient
