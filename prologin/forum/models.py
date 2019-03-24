@@ -259,13 +259,6 @@ class Post(ExportModelOperationsMixin('post'), models.Model):
         # Trigger the thread-level trackers update
         self.thread.update_trackers()
 
-    def delete(self, using=None):
-        if self.is_thread_head:
-            self.thread.delete()
-        else:
-            super().delete(using)
-            self.thread.update_trackers()
-
     def get_absolute_url(self):
         thread = self.thread
         page = (self.position - 1) // settings.FORUM_POSTS_PER_PAGE + 1
