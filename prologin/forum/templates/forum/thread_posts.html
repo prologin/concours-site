@@ -89,8 +89,8 @@
                 </div>
                 <div class="col-sm-12 col-xs-5 post-author-avatar">
                   {% if post.is_visible %}
-                    {% if post.author.avatar %}
-                      <img class="avatar avatar-full" src="{{ post.author.avatar.url }}"
+                    {% if post.author.avatar_or_picture %}
+                      <img class="avatar avatar-full" src="{{ post.author.avatar_or_picture.url }}"
                            alt="{% blocktrans with post.author.username as username %}{{ username }}'s profile picture{% endblocktrans %}"/>
                     {% endif %}
                     {% if post.author.is_staff %}<span class="staff-flare"><i class="fa fa-star-o"></i> {% trans "Staff member" %}</span>{% endif %}

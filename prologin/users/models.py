@@ -215,6 +215,12 @@ class ProloginUser(
         return slugify("{}{}".format(self.first_name[:1], self.last_name))
 
     @property
+    def avatar_or_picture(self):
+        if self.avatar:
+            return self.avatar
+        return self.picture
+
+    @property
     def picture_or_avatar(self):
         if self.picture:
             return self.picture
