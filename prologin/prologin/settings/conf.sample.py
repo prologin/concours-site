@@ -23,6 +23,11 @@ ARCHIVES_REPOSITORY_PATH = os.path.join(PROJECT_ROOT_DIR, '..', 'archives')
 # Camisole url
 PROBLEMS_CORRECTORS = ('http://vm.prologin.org/run',)
 
+# OAuth server
+AUTH_TOKEN_CLIENTS = {
+    'gcc': AuthTokenClient('CHANGEME', '//localhost:8001/user/auth/callback'),
+}
+
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
