@@ -1,6 +1,7 @@
 {% load i18n %}
 
 <h2>{% trans "Sponsors" %}</h2>
+
 <div class="row">
   {% for sponsor in sponsors %}
   <div class="col-xs-6 col-sm-12 text-center">
@@ -14,3 +15,11 @@
   </div>
   {% endfor %}
 </div>
+
+<br/>
+
+<p>
+  <a href="{% url 'sponsors:index' %}" class="btn btn-default btn-block">
+    <i class="fa fa-info"></i> {% trans "More details" %}
+  </a>
+</p>
