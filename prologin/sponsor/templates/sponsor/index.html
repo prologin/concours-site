@@ -2,6 +2,10 @@
 {% load i18n staticfiles %}
 {% load django_bootstrap_breadcrumbs utils %}
 
+{% block extra_head %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/sponsor.css' %}"/>
+{% endblock %}
+
 {% block breadcrumbs %}
     {{ block.super }}
     {% breadcrumb_for "sponsors:index" %}{% trans "Sponsors" %}{% endbreadcrumb_for %}
@@ -11,24 +15,29 @@
 
 {% block content %}
 
-    <h1>{% trans "Sponsors" %}</h1>
-    <p>{% blocktrans %}Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?
-    You can find all the documents and photo albums from past Prologin editions in these pages.{% endblocktrans %}</p>
+    <h1>{% trans "Special thanks to all our sponsors!" %}</h1>
+    <p>
+      {% blocktrans %}
+        Organizing Prologin and GCC! requires significant resources. We welcome
+        companies, institutions, or individuals who would like to join our
+        sponsorship program and sustain Software Heritage.
+      {% endblocktrans %}
+    </p>
 
     {% for sponsor in sponsors %}
-        <hr/>
-        <div class="row">
-            <div class="col-sm-6 col-md-3">
-                <a href="{{ sponsor.site }}" style="width: 100%; display: block; text-align: center">
-                    <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width:100%; max-height: 10em;" />
-                </a>
-            </div>
-            <div class="col-sm-6 col-md-9">
-              <p>
-                {{ sponsor.description }}
-              </p>
-            </div>
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6 col-md-3">
+          <a class="sponsor-logo" href="{{ sponsor.site }}">
+            <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width:100%; max-height: 10em;" />
+          </a>
         </div>
+        <div class="col-sm-6 col-md-9">
+          <p>
+            {{ sponsor.description }}
+          </p>
+        </div>
+      </div>
     {% endfor %}
 
 {% endblock %}

@@ -1,0 +1,10 @@
+.sponsor-logo {
+    display: block;
+    width: 100%;
+    text-align : center;
+}
+
+.sponsor-logo > img {
+    max-width: 100%;
+    max-height: 10em;
+}
