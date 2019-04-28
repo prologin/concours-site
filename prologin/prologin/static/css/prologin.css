@@ -350,25 +350,6 @@ footer .legal {
 }
 
 /*
- * Right column
- */
-
-#sponsors-lst {
-  margin: 0;
-  padding: 10px 0;
-  list-style-type: none;
-}
-
-#sponsors-lst > li {
-  margin: 0;
-  padding: 10px;
-}
-
-.social-bar {
-  margin-bottom: 10px;
-}
-
-/*
  * Team
  */
 
