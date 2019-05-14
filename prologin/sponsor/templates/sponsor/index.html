@@ -1,0 +1,39 @@
+{% extends "prologin/base.html" %}
+{% load i18n staticfiles %}
+{% load django_bootstrap_breadcrumbs utils %}
+
+{% block breadcrumbs %}
+    {{ block.super }}
+    {% breadcrumb_for "sponsors:index" %}{% trans "Sponsors" %}{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Sponsors" %}{% endblock %}
+
+{% block content %}
+
+    <h1>{% trans "Special thanks to all our sponsors!" %}</h1>
+    <p>
+      {% blocktrans %}
+        Organizing Prologin and GCC! requires significant resources. We welcome
+        companies, institutions, or individuals who would like to join our
+        sponsorship program.
+      {% endblocktrans %}
+    </p>
+
+    {% for sponsor in sponsors %}
+      <hr/>
+      <div class="row">
+        <div class="col-sm-6 col-md-3">
+          <a class="sponsor-logo" href="{{ sponsor.site }}">
+            <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width:100%; max-height: 10em;" />
+          </a>
+        </div>
+        <div class="col-sm-6 col-md-9">
+          <p>
+            {{ sponsor.description }}
+          </p>
+        </div>
+      </div>
+    {% endfor %}
+
+{% endblock %}
