@@ -27,7 +27,9 @@
         \begin{picture}(8.2,5.5)
           \includegraphics[width=8.2cm]{logo{{ year }}}
           \put(-8,4){\Huge{\textsf{\textbf{
-            {{ organizer|escapetex }} }}}}
+            {{ organizer.1|title|escapetex }} }}}}
+          \put(-8,3){\makebox[82mm][r]{\Huge{\textsf{\textbf{
+            {{ organizer.0|title|escapetex }} }}}}}
         \end{picture}
         {% cycle '&' '\\\\\\hline' %}
       {% endfor %}

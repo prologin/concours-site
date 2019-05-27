@@ -465,7 +465,10 @@ class FinalCustomBadgesView(BaseFinalDocumentView):
     def get_extra_context(self):
         context = super().get_extra_context()
         try:
-            context['organizers'] = self.request.session.pop('docs_organizers_name')
+            organizers = []
+            for organizer in self.request.session.pop('docs_organizers_name'):
+                organizers.append(organizer.split(';'))
+            context['organizers'] = organizers
         except KeyError:
             raise Http404()
         return context
