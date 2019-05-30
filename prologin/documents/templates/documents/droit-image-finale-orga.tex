@@ -1,0 +1,33 @@
+{% load i18n latex %}{% autoescape off %}
+\documentclass[a4paper,11pt]{prologin}
+{% include "documents/stub-preamble.tex" %}
+
+\title{Formulaire d'autorisation de diffusion d'image}
+
+\begin{document}
+
+Je soussigné(e) \hrulefill
+
+Adresse \hrulefill
+
+Code postal \hrulefill{} Ville \hrulefill\hrulefill\hrulefill{} Pays \hrulefill
+
+autorise l'association Prologin à me photographier et me filmer dans
+le cadre de la finale du Concours National d'Informatique qui se tiendra du
+{{ event.date_begin|date:"l d F"|escapetex }} au
+{{ event.date_end|date:"l d F Y"|escapetex }} à {{ event.center.city|title }}.
+
+J'accepte l'utilisation et l'exploitation non commerciale de mon
+image dans le cadre de la promotion du concours, notamment sur le site internet
+de l'association, ainsi que sa reproduction sur quelque support que ce soit
+(papier, support analogique ou support numérique) actuel ou futur et ce, pour la
+durée de vie des documents réalisés ou de l'association.
+
+En conséquence de quoi, je renonce expressément à me prévaloir d'un
+quelconque droit à l'image et à toute action à l'encontre de Prologin qui
+trouverait son origine dans l'exploitation de mon image dans le cadre précité.
+
+\begin{signatureframe}{Date et signature de l'organisateur}\end{signatureframe}
+
+\end{document}
+{% endautoescape %}

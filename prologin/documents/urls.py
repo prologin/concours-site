@@ -36,6 +36,7 @@ final_patterns = [
     path('passwords', documents.views.FinalPasswordsView.as_view(), name='passwords'),
     path('planning', documents.views.FinalPlanningView.as_view(), name='planning'),
     path('portrayal-agreement', documents.views.FinalPortrayalAgreementView.as_view(), name='portrayal-agreement'),
+    path('portrayal-agreement-orga', documents.views.FinalPortrayalAgreementOrgaView.as_view(), name='portrayal-agreement-orga'),
     path('meal-tickets', documents.views.FinalMealTicketsView.as_view(), name='meal-tickets'),
     path('meal-tickets-input', documents.views.FinalMealTicketsInputView.as_view(), name='meal-tickets-input'),
 ]

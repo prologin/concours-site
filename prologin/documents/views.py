@@ -343,6 +343,11 @@ class FinalPortrayalAgreementView(BaseFinalDocumentView):
     pdf_title = _("Prologin %(year)s: portrayal agreement for the final")
     filename = pgettext_lazy("Document filename", "portrayal-agreement-%(year)s-final")
 
+class FinalPortrayalAgreementOrgaView(BaseFinalDocumentView):
+    template_name = 'documents/droit-image-finale-orga.tex'
+    pdf_title = _("Prologin %(year)s: portrayal agreement for the final")
+    filename = pgettext_lazy("Document filename", "portrayal-agreement-%(year)s-final")
+
 
 class FinalParticipationAuthorizationView(BaseFinalDocumentView):
     template_name = 'documents/autorisation-participation.tex'
