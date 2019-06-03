@@ -1,7 +1,7 @@
 import bleach
 from django import template
 from django.template.defaultfilters import slugify
-from django.utils.text import mark_safe
+from django.utils.safestring import mark_safe
 
 import markdown as markdown_lib
 import pygments
