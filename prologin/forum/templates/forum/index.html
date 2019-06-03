@@ -10,6 +10,8 @@
 {% block title %}{% trans "Forums" %}{% endblock %}
 
 {% block content %}
+  <iframe src="http://webchat.freenode.net?{% if user.is_authenticated %}nick={{ user.username | urlencode }}&{% endif %}channels=%23prologin&uio==OT10cnVlJjEwPXRydWUmMTE9MjM2JjEyPXRydWUfa"
+          style="width: 100%; height: 300px; border: none; border-radius: 4px;"></iframe>
 
   <h1>{% trans "Forums" %}</h1>
 
