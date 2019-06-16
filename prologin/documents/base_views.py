@@ -180,8 +180,11 @@ class BaseSemifinalDocumentView(BaseDocumentView):
         # FIXME: itertools.groupby won't work on Event instances, go figure why
         event_contestants = collections.defaultdict(list)
         for contestant in self.contestants.order_by('assignation_semifinal_event__date_begin', *USER_LIST_ORDERING):
-            event_contestants[contestant.assignation_semifinal_event].append(contestant)
-        return sorted(event_contestants.items(), key=lambda pair: pair[0].date_begin)
+            event = contestant.assignation_semifinal_event
+            contestant.password = contestant.user.plaintext_password(event)
+            event_contestants[event].append(contestant)
+        return sorted(event_contestants.items(),
+                      key=lambda pair: pair[0].date_begin)
 
 
 class BaseFinalDocumentView(BaseDocumentView):
@@ -210,7 +213,11 @@ class BaseFinalDocumentView(BaseDocumentView):
 
     @cached_property
     def grouped_event_contestants(self):
-        return [(self.final_event, self.contestants)]
+        contestants = list(self.contestants)
+        event = self.final_event
+        for contestant in contestants:
+            contestant.password = contestant.user.plaintext_password(event)
+        return [(self.final_event, contestants)]
 
 
 class BaseCompilationView(BaseDocumentView):

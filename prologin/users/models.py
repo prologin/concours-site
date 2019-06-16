@@ -199,12 +199,16 @@ class ProloginUser(
     def preferred_language_enum(self):
         return Language[self.preferred_language]
 
-    @property
-    def plaintext_password(self):
-        return base64.urlsafe_b64encode(
-            hashlib.sha1("{}{}{}".format(self.first_name, self.last_name, settings.PLAINTEXT_PASSWORD_SALT)
-                                 .encode('utf-8')).digest()
-        ).decode('ascii').translate(settings.PLAINTEXT_PASSWORD_DISAMBIGUATION)[:settings.PLAINTEXT_PASSWORD_LENGTH]
+    def plaintext_password(self, event):
+        event_salt = str(event) if event else ''
+        return (base64.urlsafe_b64encode(hashlib.sha1(
+            "{}{}{}{}".format(
+                self.first_name, self.last_name, event_salt,
+                settings.PLAINTEXT_PASSWORD_SALT)
+            .encode('utf-8')).digest())
+            .decode('ascii')
+            .translate(settings.PLAINTEXT_PASSWORD_DISAMBIGUATION)
+            [:settings.PLAINTEXT_PASSWORD_LENGTH])
 
     @property
     def normalized_username(self):

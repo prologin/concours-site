@@ -147,7 +147,7 @@ class SemifinalDataExportView(PermissionRequiredMixin, View):
         def iter_users():
             for contestant in contestants:
                 user = contestant.user
-                user.set_password(user.plaintext_password)
+                user.set_password(user.plaintext_password(event=event.id))
                 user.username = user.normalized_username
                 yield user
 
@@ -420,12 +420,13 @@ class FinalDataExportView(PermissionRequiredMixin, View):
         def iter_users():
             for contestant in contestants:
                 user = contestant.user
+                event = contestant.assignation_final_id
                 yield {
                     'id': user.id,
                     'username': user.normalized_username,
                     'first_name': user.first_name,
                     'last_name': user.last_name,
-                    'password': user.plaintext_password,
+                    'password': user.plaintext_password(event),
                 }
 
         stream = json.dumps(list(iter_users()))
