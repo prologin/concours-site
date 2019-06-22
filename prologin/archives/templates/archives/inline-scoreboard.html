@@ -4,7 +4,7 @@
   <tr>
     <th></th>
     <th>{% trans "Rank" %}</th>
-    <th width="100%">{% trans "Contestant" %}</th>
+    <th>{% trans "Contestant" %}</th>
     <th></th>
   </tr>
   </thead>
@@ -18,7 +18,7 @@
         {% if item.ex_aequo %}
           <small> {% trans "(ex-aequo)" %}</small>{% endif %}</td>
       <td>{{ item.item.name }}</td>
-      <td>{{ item.item.extra|default:'' }}</td>
+      <td class="scoreboard-extra">{{ item.item.extra|default:'' }}</td>
     </tr>
   {% endfor %}
   </tbody>

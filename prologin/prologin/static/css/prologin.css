@@ -1230,3 +1230,11 @@ table.table-align-middle > tbody > tr > td {
     max-width: 100%;
     max-height: 10em;
 }
+
+/*
+ * Scoreboard
+ */
+
+.scoreboard-extra {
+  text-align: right;
+}
