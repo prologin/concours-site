@@ -1,4 +1,5 @@
 from django import template
+from django.http import QueryDict
 from django.urls import reverse, NoReverseMatch
 import re
 
@@ -17,8 +18,13 @@ def active(context, pattern_or_urlname):
     return ''
 
 
-@register.simple_tag(takes_context=True)
-def url_args_replace(context, field, value):
-    get = context['request'].GET.copy()
-    get[field] = value
-    return get.urlencode()
+@register.simple_tag
+def querystring(request=None, **kwargs):
+    if request is None:
+        qs = QueryDict().copy()
+    else:
+        qs = request.GET.copy()
+    # Can't use update() here as it would just append to the querystring
+    for k, v in kwargs.items():
+        qs[k] = v
+    return qs.urlencode()

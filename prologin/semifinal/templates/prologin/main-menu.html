@@ -27,7 +27,7 @@
   </li>
   {% else %}
   <li class="{% active 'users:login' %}">
-    <a href="{% url 'users:login' %}?next={{ request.get_full_path }}">{% trans "Sign in" %}</a>
+    <a href="{% url 'users:login' %}?{% querystring request next=request.path %}">{% trans "Sign in" %}</a>
   </li>
   {% endif %}
 </ul>

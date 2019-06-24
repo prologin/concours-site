@@ -1,6 +1,6 @@
 {% extends "prologin/base.html" %}
 {% load i18n staticfiles %}
-{% load bootstrap django_bootstrap_breadcrumbs %}
+{% load bootstrap navigation django_bootstrap_breadcrumbs %}
 
 {% block breadcrumbs %}
   {{ block.super }}
@@ -15,7 +15,7 @@
 <h1>{% trans "Register" %}</h1>
 <p>{% trans "Please choose a username. You must use a valid email address, as you will receive a message to confirm your registration." %}</p>
 
-<form method="POST" class="form-horizontal" action="{% url 'users:register' %}?next={{ next }}">
+<form method="POST" class="form-horizontal" action="{% url 'users:register' %}?{% querystring request next=next %}">
   {% csrf_token %}
   {{ form|bootstrap_horizontal }}
   <div class="form-group">
