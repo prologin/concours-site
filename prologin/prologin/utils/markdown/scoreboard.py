@@ -1,3 +1,6 @@
+# Copyright (C) <2015> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 import re
 from django.template.loader import get_template
 from markdown import Extension

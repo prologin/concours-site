@@ -1,3 +1,6 @@
+# Copyright (C) <2013> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.utils.html import linebreaks
 from zinnia.markups import markdown
 from zinnia.markups import restructuredtext

@@ -1,3 +1,6 @@
+# Copyright (C) <2016> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.db import models
 from django.db.models import Case, When, Value, Sum, IntegerField
 from django.utils.translation import ugettext_lazy as _

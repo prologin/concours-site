@@ -1,3 +1,6 @@
+# Copyright (C) <2013> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 # from django.contrib import admin
 # from pages.models import Page
 # from users.models import UserProfile

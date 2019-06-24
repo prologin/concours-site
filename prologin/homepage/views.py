@@ -1,3 +1,6 @@
+# Copyright (C) <2015> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 import random
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured

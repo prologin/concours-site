@@ -1,3 +1,6 @@
+# Copyright (C) <2013> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.db import models
 #
 # class Page(models.Model):

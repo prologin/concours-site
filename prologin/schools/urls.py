@@ -1,3 +1,6 @@
+# Copyright (C) <2016> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.urls import path, re_path, include
 
 import schools.views

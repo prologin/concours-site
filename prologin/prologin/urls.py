@@ -1,3 +1,6 @@
+# Copyright (C) <2013> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin

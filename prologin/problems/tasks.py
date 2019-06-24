@@ -1,3 +1,6 @@
+# Copyright (C) <2015> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 import requests
 from celery import shared_task
 from celery.utils.log import get_task_logger

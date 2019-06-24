@@ -1,3 +1,6 @@
+# Copyright (C) <2016> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from collections import namedtuple, defaultdict
 from django import forms
 from django.contrib.auth import get_user_model

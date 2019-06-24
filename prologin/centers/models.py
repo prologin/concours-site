@@ -1,3 +1,6 @@
+# Copyright (C) <2012> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.db import models
 from django.utils.translation import ugettext_noop
 from django.urls import reverse

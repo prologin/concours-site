@@ -1,3 +1,6 @@
+# Copyright (C) <2015> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django import forms
 from django.contrib import admin
 from django.utils.html import strip_tags

@@ -1,3 +1,6 @@
+# Copyright (C) <2012> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.conf import settings
 from django.contrib import messages, auth
 from django.http import Http404, HttpResponse

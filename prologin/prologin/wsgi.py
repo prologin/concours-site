@@ -1,3 +1,6 @@
+# Copyright (C) <2013> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 """
 WSGI config for prologin project.
 

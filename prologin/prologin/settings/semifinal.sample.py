@@ -1,3 +1,6 @@
+# Copyright (C) <2018> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from .semifinal_common import *
 import os
 

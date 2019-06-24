@@ -1,3 +1,6 @@
+# Copyright (C) <2015> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.utils.translation import ugettext_lazy as _
 
 from prologin.utils import ChoiceEnum

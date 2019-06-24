@@ -1,3 +1,6 @@
+# Copyright (C) <2012> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 import centers.models
 import traceback
 from django.contrib import admin

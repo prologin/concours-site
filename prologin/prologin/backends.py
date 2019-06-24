@@ -1,3 +1,6 @@
+# Copyright (C) <2015> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.contrib.auth import get_user_model
 from django.contrib.auth.backends import ModelBackend
 import hashlib

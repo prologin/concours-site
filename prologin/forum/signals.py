@@ -1,3 +1,6 @@
+# Copyright (C) <2019> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.db.models.signals import post_delete
 from django.dispatch import receiver
 from forum.models import Post

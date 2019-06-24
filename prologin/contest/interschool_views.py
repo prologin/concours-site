@@ -1,3 +1,6 @@
+# Copyright (C) <2016> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.conf import settings
 from django.views.generic import ListView
 from rules.contrib.views import PermissionRequiredMixin

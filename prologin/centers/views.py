@@ -1,5 +1,7 @@
-from django.views.generic import ListView, RedirectView
+# Copyright (C) <2012> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
 
+from django.views.generic import ListView, RedirectView
 from django.urls import reverse
 
 import centers.models

@@ -1,3 +1,6 @@
+# Copyright (C) <2013> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.urls import reverse
 from django.views.generic import RedirectView
 from django.views.generic.detail import SingleObjectMixin

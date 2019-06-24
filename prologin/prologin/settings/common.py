@@ -1,3 +1,6 @@
+# Copyright (C) <2012> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 """
 Django common settings for prologin project.
 

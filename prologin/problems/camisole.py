@@ -1,3 +1,6 @@
+# Copyright (C) <2017> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 import logging
 import requests
 from django.utils.encoding import force_text

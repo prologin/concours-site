@@ -1,3 +1,6 @@
+# Copyright (C) <2016> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 import collections
 from django.conf import settings
 from django.http.response import Http404, HttpResponse, HttpResponseServerError

@@ -1,3 +1,6 @@
+# Copyright (C) <2019> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 """
 A bunch of views implementing a bare-bones OAuth2 "Authorization code" provider.
 

@@ -1,3 +1,6 @@
+# Copyright (C) <2012> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from adminsortable.admin import NonSortableParentAdmin, SortableStackedInline
 from django import forms
 from django.contrib import admin

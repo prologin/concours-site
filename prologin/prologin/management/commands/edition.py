@@ -1,3 +1,6 @@
+# Copyright (C) <2015> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.core.management.base import BaseCommand, CommandError
 from django.utils import timezone, dateparse
 import datetime

@@ -1,3 +1,6 @@
+# Copyright (C) <2018> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 """Contains the utilities used to bundle all the personal data of a given user
 into a tarball and export it.
 """

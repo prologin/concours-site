@@ -1,3 +1,6 @@
+# Copyright (C) <2015> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.db import models
 from django.db.models import Case, When, F, Q, Value, Min, Max
 

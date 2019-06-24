@@ -1,3 +1,6 @@
+# Copyright (C) <2017> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 import redis
 from django.conf import settings
 from django.core.management import BaseCommand

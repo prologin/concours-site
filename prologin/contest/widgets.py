@@ -1,3 +1,6 @@
+# Copyright (C) <2015> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django import forms
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe

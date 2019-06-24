@@ -1,3 +1,6 @@
+# Copyright (C) <2017> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from collections.abc import MutableSequence, Mapping
 
 def rec_truncate(obj, maxlen=79):

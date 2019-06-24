@@ -1,3 +1,6 @@
+# Copyright (C) <2016> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django import forms
 from django.contrib.admin import ModelAdmin
 from django.contrib.admin.widgets import ForeignKeyRawIdWidget

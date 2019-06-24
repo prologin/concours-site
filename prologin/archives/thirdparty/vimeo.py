@@ -1,3 +1,6 @@
+# Copyright (C) <2017> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.conf import settings
 from django.utils.html import format_html
 from vimeo import VimeoClient

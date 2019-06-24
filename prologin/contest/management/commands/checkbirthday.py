@@ -1,3 +1,6 @@
+# Copyright (C) <> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 # coding: utf-8
 from django.core.management.base import BaseCommand, CommandError
 from contest.models import Event, Contestant

@@ -1,3 +1,6 @@
+# Copyright (C) <2016> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.contrib.auth import get_user_model
 from django.db.models.aggregates import Sum
 from django.http import JsonResponse

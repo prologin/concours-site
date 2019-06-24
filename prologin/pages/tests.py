@@ -1,3 +1,6 @@
+# Copyright (C) <2012> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 """
 This file demonstrates writing tests using the unittest module. These will pass
 when you run "manage.py test".

@@ -1,3 +1,6 @@
+# Copyright (C) <2012> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from django.http.response import Http404
 from django.utils.functional import cached_property
 from django.views.generic import ListView

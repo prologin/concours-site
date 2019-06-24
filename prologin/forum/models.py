@@ -1,3 +1,6 @@
+# Copyright (C) <2014> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 from adminsortable.models import SortableMixin
 from django.conf import settings
 from django.urls import reverse
