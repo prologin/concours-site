@@ -1,3 +1,6 @@
+// Copyright (C) <2015> Association Prologin <association@prologin.org>
+// SPDX-License-Identifier: GPL-3.0+
+
 $(function () {
     var DEFAULT_ICON_COLLAPSED = 'angle-double-right';
     var DEFAULT_ICON_EXPANDED = 'angle-double-down';

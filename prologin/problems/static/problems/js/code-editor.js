@@ -1,3 +1,6 @@
+// Copyright (C) <2015> Association Prologin <association@prologin.org>
+// SPDX-License-Identifier: GPL-3.0+
+
 (function ($) {
     // some constants for localStorage
     var THEME_STORAGE_KEY = 'prologin.code-editor.theme', THEME_DEFAULT = 'monokai';

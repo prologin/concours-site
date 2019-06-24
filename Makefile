@@ -1,3 +1,6 @@
+# Copyright (C) 2019 Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 TOP = $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
 DIR = $(TOP)/prologin
 LOCALE_DIR = $(DIR)/locale

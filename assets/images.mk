@@ -1,3 +1,6 @@
+# Copyright (C) 2017 Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 # Tools
 SVGRASTERTRIM := inkscape --export-area-drawing
 SVGRASTER := inkscape --export-area-page

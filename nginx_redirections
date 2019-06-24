@@ -1,3 +1,6 @@
+# Copyright (C) 2019 Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
+
 # Pages
 rewrite ^/association$ /about/organization permanent;
 rewrite ^/contest/centers$ /center permanent;

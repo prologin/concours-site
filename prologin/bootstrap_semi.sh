@@ -1,4 +1,6 @@
 #!/bin/sh
+# Copyright (C) <2016> Association Prologin <association@prologin.org>
+# SPDX-License-Identifier: GPL-3.0+
 
 if [ $(id -u) -eq 0 ]; then
   if [ "$#" -ne 1 ]; then
