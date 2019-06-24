@@ -63,6 +63,8 @@ tx-pull:
 	mkdir -p '$(LOCALE_DIR)'
 	find '$(LOCALE_DIR)' -mindepth 1 -maxdepth 1 -type d -exec rm -r "{}" \;
 	$(TX) pull -l fr
+	$(MANAGE) makemessages -l en
+	$(MANAGE) makemessages -a
 	$(MANAGE) compilemessages
 
 # Building/updating assets

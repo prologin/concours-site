@@ -1,7 +1,7 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Translators:
 # Alexandre <artifere@gmail.com>, 2015
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015-2018
@@ -25,14 +25,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-01-22 11:51+0100\n"
-"PO-Revision-Date: 2019-01-22 10:52+0000\n"
+"POT-Creation-Date: 2019-06-25 01:06+0200\n"
+"PO-Revision-Date: 2019-06-24 23:06+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
-"Language-Team: French (http://www.transifex.com/prologin/prologin-site/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
+"language/fr/)\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #: archives/templates/archives/finale-scoreboard.html:7
@@ -70,13 +71,18 @@ msgstr "Classement de la finale de Prologin %(year)s"
 #: archives/templates/archives/index.html:19
 msgid ""
 "Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?\n"
-"    You can find all the documents and photo albums from past Prologin editions in these pages."
-msgstr "Vous recherchez l'affiche du dernier Prologin&nbsp;? L'énoncé de la finale de 1996&nbsp;? Le QCM de 2003&nbsp;? Vous trouverez sur ces pages l'ensemble des documents et albums photo des précédentes éditions de Prologin."
+"    You can find all the documents and photo albums from past Prologin "
+"editions in these pages."
+msgstr ""
+"Vous recherchez l'affiche du dernier Prologin&nbsp;? L'énoncé de la finale "
+"de 1996&nbsp;? Le QCM de 2003&nbsp;? Vous trouverez sur ces pages l'ensemble "
+"des documents et albums photo des précédentes éditions de Prologin."
 
 #: archives/templates/archives/index.html:31
 #: contest/templates/contest/index.html:12
 #: contest/templates/contest/index.html:16
 #: contest/templates/correction/contestant-base.html:17
+#: contest/templates/correction/final.html:22
 #: contest/templates/correction/qualification.html:21
 #: contest/templates/correction/semifinal.html:22
 #, python-format
@@ -235,7 +241,7 @@ msgstr "Hôtel"
 msgid "Pizzeria"
 msgstr "Pizzéria"
 
-#: centers/models.py:21 users/models.py:100
+#: centers/models.py:21 users/models.py:102
 msgid "Other"
 msgstr "Autre"
 
@@ -304,18 +310,20 @@ msgid "Programming language"
 msgstr "Langage de programmation"
 
 #: contest/datatables.py:53 contest/templates/correction/by-year.html:39
+#: contest/templates/correction/by-year.html:47
 msgid "Correct"
 msgstr "Corriger"
 
-#: contest/datatables.py:67
+#: contest/datatables.py:67 contest/datatables.py:145
 msgid "Assigned regional event"
 msgstr "Épreuve régionale assignée"
 
-#: contest/datatables.py:71 contest/datatables.py:114
+#: contest/datatables.py:71 contest/datatables.py:114 contest/datatables.py:149
 msgid "Assignation status"
 msgstr "Statut d'assignation"
 
-#: contest/datatables.py:74 contest/datatables.py:117 contest/models.py:257
+#: contest/datatables.py:74 contest/datatables.py:117 contest/datatables.py:152
+#: contest/models.py:257
 #: documents/templates/documents/semifinal-import-review.html:58
 #: documents/templates/documents/semifinal-import-review.html:77
 #: problems/admin.py:171 problems/templates/problems/manual.html:66
@@ -323,7 +331,7 @@ msgstr "Statut d'assignation"
 msgid "Score"
 msgstr "Score"
 
-#: contest/datatables.py:90 contest/datatables.py:121
+#: contest/datatables.py:90 contest/datatables.py:121 contest/datatables.py:164
 #, python-format
 msgid "%(count)d correction"
 msgid_plural "%(count)d corrections"
@@ -332,10 +340,12 @@ msgstr[1] "%(count)d corrections"
 
 #: contest/datatables.py:100 contest/datatables.py:104
 #: contest/datatables.py:131 contest/datatables.py:135
+#: contest/datatables.py:174 contest/datatables.py:178
 msgid "Convocation"
 msgstr "Convocation"
 
 #: contest/datatables.py:104 contest/datatables.py:135
+#: contest/datatables.py:178
 msgid "Contestant is not assigned"
 msgstr "Le candidat n'est pas assigné"
 
@@ -364,20 +374,27 @@ msgstr "Autre ou préfère ne pas le dire"
 msgid ""
 "Students from EPITA are <a href=\"%(url)s\">not allowed</a> to join the "
 "contest."
-msgstr "Les étudiant(e)s de EPITA <a href=\"%(url)s\">ne peuvent pas participer</a> au concours."
+msgstr ""
+"Les étudiant(e)s de EPITA <a href=\"%(url)s\">ne peuvent pas participer</a> "
+"au concours."
 
 #: contest/forms.py:77
 msgid ""
 "We need your real name and address for legal reasons, as the Prologin staff "
 "engages its responsibility to supervise you during the regional events and "
 "the finale."
-msgstr "Nous avons besoin de votre vrai nom et de votre adresse pour des raisons légales : l'association engage sa responsabilité pour vous encadrer lors des épreuves régionales et de la finale."
+msgstr ""
+"Nous avons besoin de votre vrai nom et de votre adresse pour des raisons "
+"légales : l'association engage sa responsabilité pour vous encadrer lors des "
+"épreuves régionales et de la finale."
 
 #: contest/forms.py:80
 msgid ""
 "We will send the invitation to the regional events at this address, so make "
 "sure it's valid."
-msgstr "Nous enverrons la convocation aux épreuves régionales à cette adresse, assurez-vous qu'elle soit correcte."
+msgstr ""
+"Nous enverrons la convocation aux épreuves régionales à cette adresse, "
+"assurez-vous qu'elle soit correcte."
 
 #: contest/forms.py:82
 #, python-format
@@ -387,9 +404,11 @@ msgstr "Format&nbsp;: %(format)s"
 #: contest/forms.py:86
 #, python-format
 msgid ""
-"You can modify or review all your personal information on your <a "
-"href=\"%(url)s\">profile page</a>."
-msgstr "Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a href=\"%(url)s\">page de profil</a>."
+"You can modify or review all your personal information on your <a href="
+"\"%(url)s\">profile page</a>."
+msgstr ""
+"Vous pouvez modifier ou vérifier vos informations personnelles sur votre <a "
+"href=\"%(url)s\">page de profil</a>."
 
 #: contest/forms.py:90
 msgid "Optional."
@@ -412,10 +431,14 @@ msgid ""
 "This is where you would like to seat the regional events if you are "
 "selected. Choose at least one and up to three wishes, in order of "
 "preference. Most of the time, we are able to satisfy your first choice."
-msgstr "Établissez la liste des vœux des centres où vous souhaitez passer l'épreuve régionale. Faites au moins un vœu et jusqu'à trois vœux. Vous obtiendrez très probablement votre premier vœu."
+msgstr ""
+"Établissez la liste des vœux des centres où vous souhaitez passer l'épreuve "
+"régionale. Faites au moins un vœu et jusqu'à trois vœux. Vous obtiendrez "
+"très probablement votre premier vœu."
 
-#: contest/models.py:103
+#: contest/models.py:103 contest/templates/correction/by-year.html:43
 #: contest/templates/correction/contestant-semifinal.html:7
+#: contest/templates/correction/final.html:10
 #: contest/templates/correction/semifinal.html:10
 #: contest/templates/correction/semifinal.html:14
 #: contest/templates/correction/semifinal.html:22
@@ -485,9 +508,10 @@ msgstr "Nous fournissons le plus souvent des t-shirts unisexe aux finalistes."
 
 #: contest/models.py:232
 msgid ""
-"The programming language you will most likely use during the regional "
-"events."
-msgstr "Le langage de programmation que vous utiliserez le plus probablement pour l'épreuve régionale."
+"The programming language you will most likely use during the regional events."
+msgstr ""
+"Le langage de programmation que vous utiliserez le plus probablement pour "
+"l'épreuve régionale."
 
 #: contest/models.py:237
 msgid "How did you learn about the contest ?"
@@ -539,7 +563,8 @@ msgstr "Score de l'épreuve machine"
 
 #: contest/staff_forms.py:50
 msgid "A reason for your changes and/or a comment about the submission"
-msgstr "Une explication de vos changements et/ou un commentaire sur la soumission"
+msgstr ""
+"Une explication de vos changements et/ou un commentaire sur la soumission"
 
 #: contest/staff_forms.py:53
 msgid "Changelog comment"
@@ -550,14 +575,15 @@ msgid "Unassigned"
 msgstr "Non assigné"
 
 #: contest/staff_forms.py:101
-msgid ""
-"Regional event assignation event is required if contestant is assigned."
-msgstr "L'assignation à une épreuve régionale est requise si le candidat est assigné."
+msgid "Regional event assignation event is required if contestant is assigned."
+msgstr ""
+"L'assignation à une épreuve régionale est requise si le candidat est assigné."
 
 #: contest/templates/contest/index.html:7
 #: contest/templates/contest/qualification-summary.html:7
 #: contest/templates/correction/by-year.html:7
 #: contest/templates/correction/contestant-base.html:7
+#: contest/templates/correction/final.html:7
 #: contest/templates/correction/index.html:7
 #: contest/templates/correction/qualification.html:7
 #: contest/templates/correction/semifinal.html:7
@@ -584,16 +610,23 @@ msgstr "Qu'est-ce que c'est&nbsp;?"
 
 #: contest/templates/contest/interschool-leaderboard.html:20
 msgid ""
-"This is the list of the schools competing in the inter-school challenge for this edition of\n"
-"Prologin. “Final score” is the sum of the scores obtained by the school students."
-msgstr "Voici la liste des établissements (collèges, lycées, universités, écoles, etc.) qui participent au challenge pour cette édition de Prologin. Le score final d'un établissement est la somme des scores obtenus par ses étudiants."
+"This is the list of the schools competing in the inter-school challenge for "
+"this edition of\n"
+"Prologin. “Final score” is the sum of the scores obtained by the school "
+"students."
+msgstr ""
+"Voici la liste des établissements (collèges, lycées, universités, écoles, "
+"etc.) qui participent au challenge pour cette édition de Prologin. Le score "
+"final d'un établissement est la somme des scores obtenus par ses étudiants."
 
 #: contest/templates/contest/interschool-leaderboard.html:23
 #, python-format
 msgid ""
 "Start <a href=\"%(url)s\">solving challenges</a> to score points for your "
 "school!"
-msgstr "Commencez à <a href=\"%(url)s\">résoudre des problèmes</a> pour rapporter des points à votre établissement&nbsp;!"
+msgstr ""
+"Commencez à <a href=\"%(url)s\">résoudre des problèmes</a> pour rapporter "
+"des points à votre établissement&nbsp;!"
 
 #: contest/templates/contest/interschool-leaderboard.html:26
 msgid "The rules"
@@ -601,16 +634,25 @@ msgstr "Les règles"
 
 #: contest/templates/contest/interschool-leaderboard.html:27
 msgid ""
-"We remind you that you are not allowed to share your solution with other contestants,\n"
-"including friends or fellow students. The Prologin staff reviews all code submissions; if we find evidences of\n"
+"We remind you that you are not allowed to share your solution with other "
+"contestants,\n"
+"including friends or fellow students. The Prologin staff reviews all code "
+"submissions; if we find evidences of\n"
 "plagiarism, your school may be disqualified from the challenge."
-msgstr "Nous vous rappelons qu'il est interdit de partager vos solutions avec d'autres candidats, même vos amis et camarades. L'équipe Prologin passe en revue toutes les soumissions de code&nbsp;; si nous venions à trouver des plagiats, votre établissement pourrait en conséquence être disqualifié du challenge."
+msgstr ""
+"Nous vous rappelons qu'il est interdit de partager vos solutions avec "
+"d'autres candidats, même vos amis et camarades. L'équipe Prologin passe en "
+"revue toutes les soumissions de code&nbsp;; si nous venions à trouver des "
+"plagiats, votre établissement pourrait en conséquence être disqualifié du "
+"challenge."
 
 #: contest/templates/contest/interschool-leaderboard.html:30
 msgid ""
 "The outcome of this challenge has no implication on your personal results.\n"
 "Your involvement in the inter-school challenge is optional."
-msgstr "L'issue de ce challenge n'a pas d'incidence sur vos résultats personnels. Votre investissement dans le challenge inter-établissements est optionnel."
+msgstr ""
+"L'issue de ce challenge n'a pas d'incidence sur vos résultats personnels. "
+"Votre investissement dans le challenge inter-établissements est optionnel."
 
 #: contest/templates/contest/interschool-leaderboard.html:35
 #, python-format
@@ -654,9 +696,14 @@ msgstr "Résumé de la candidature pour Prologin %(year)s"
 #: contest/templates/contest/qualification-summary.html:24
 #, python-format
 msgid ""
-"Thanks for joining the Prologin contest this year! This page sums up the requirements you have\n"
-"  to fulfill so you can be selected to participate in the next step: <a href=\"%(about_regional_url)s\">regional events</a>."
-msgstr "Merci de participer à Prologin cette année ! Cette page résume les informations que vous devez fournir pour espérer participer à la prochaine étape : les  <a href=\"%(about_regional_url)s\">épreuves régionales</a>."
+"Thanks for joining the Prologin contest this year! This page sums up the "
+"requirements you have\n"
+"  to fulfill so you can be selected to participate in the next step: <a href="
+"\"%(about_regional_url)s\">regional events</a>."
+msgstr ""
+"Merci de participer à Prologin cette année ! Cette page résume les "
+"informations que vous devez fournir pour espérer participer à la prochaine "
+"étape : les  <a href=\"%(about_regional_url)s\">épreuves régionales</a>."
 
 #: contest/templates/contest/qualification-summary.html:30
 #: contest/templates/contest/qualification-summary.html:36
@@ -669,19 +716,27 @@ msgstr "L'étape de sélection prend fin le <strong>%(end_date)s</strong>."
 msgid ""
 "Your participation is valid. You can still make changes to your answers and "
 "profile information, but be sure to keep all the lights green on this page."
-msgstr "Votre participation est valide. Vous pouvez encore modifier vos réponses et coordonnées, mais assurez-vous que toutes les boîtes de cette page restent vertes."
+msgstr ""
+"Votre participation est valide. Vous pouvez encore modifier vos réponses et "
+"coordonnées, mais assurez-vous que toutes les boîtes de cette page restent "
+"vertes."
 
 #: contest/templates/contest/qualification-summary.html:37
 msgid ""
 "Your participation is valid and will be processed for the next step, but to "
 "improve your odds of being selected, you should complete the missing bits."
-msgstr "Votre participation est valide et sera considérée pour la prochaine étape, mais pour améliorer vos chances d'être sélectionné(e), il serait bon de compléter les challenges manquants."
+msgstr ""
+"Votre participation est valide et sera considérée pour la prochaine étape, "
+"mais pour améliorer vos chances d'être sélectionné(e), il serait bon de "
+"compléter les challenges manquants."
 
 #: contest/templates/contest/qualification-summary.html:44
 msgid ""
 "You are still missing some mandatory information to be able to contest this "
 "year. Please review the missing bits on this page."
-msgstr "Il manque des informations obligatoires pour pouvoir participer cette année. Vérifiez de n'avoir oublié aucun champ ci-dessous."
+msgstr ""
+"Il manque des informations obligatoires pour pouvoir participer cette année. "
+"Vérifiez de n'avoir oublié aucun champ ci-dessous."
 
 #: contest/templates/contest/qualification-summary.html:56
 #: contest/templates/contest/qualification-summary.html:87
@@ -730,7 +785,10 @@ msgstr "Compléter les réponses"
 msgid ""
 "Although you are not required to answer all questions, it is recommended to "
 "answer as many as you can to improve you chances of being selected."
-msgstr "Même si vous n'êtes pas dans l'obligation de répondre à toutes les questions, il est recommandé de répondre à un maximum d'entre elles pour augmenter vos chances."
+msgstr ""
+"Même si vous n'êtes pas dans l'obligation de répondre à toutes les "
+"questions, il est recommandé de répondre à un maximum d'entre elles pour "
+"augmenter vos chances."
 
 #: contest/templates/contest/qualification-summary.html:93
 msgid "The problems"
@@ -765,7 +823,12 @@ msgid ""
 "runtime/memory complexity. You are even free to submit pseudo-code but keep "
 "in mind that you will have to write actual code for the regional events and "
 "the finale."
-msgstr "Vos soumissions n'ont pas à passer tous les tests. Toutefois, le jury privilégiera les codes qui compilent, répondent à l'énoncé et ont une complexité temporelle, et mémoire, minimale. Vous pouvez même soumettre du pseudo-code, mais gardez à l'esprit que vous devrez écrire du vrai code pour les épreuves régionales et la finale."
+msgstr ""
+"Vos soumissions n'ont pas à passer tous les tests. Toutefois, le jury "
+"privilégiera les codes qui compilent, répondent à l'énoncé et ont une "
+"complexité temporelle, et mémoire, minimale. Vous pouvez même soumettre du "
+"pseudo-code, mais gardez à l'esprit que vous devrez écrire du vrai code pour "
+"les épreuves régionales et la finale."
 
 #: contest/templates/contest/qualification-summary.html:118
 msgid "The inter-school challenge"
@@ -775,7 +838,9 @@ msgstr "Le challenge des établissements scolaires"
 msgid ""
 "If your school does not appear in the list, type its full name and choose "
 "the first item: “Add a new school”."
-msgstr "Si votre école n'apparaît pas dans la liste, écrivez son nom complet et choisissez le premier élément: «Ajouter un nouvel établissement»."
+msgstr ""
+"Si votre école n'apparaît pas dans la liste, écrivez son nom complet et "
+"choisissez le premier élément: «Ajouter un nouvel établissement»."
 
 #: contest/templates/contest/qualification-summary.html:126
 msgid "I participate in the #Prologin inter-school challenge!"
@@ -788,8 +853,12 @@ msgstr "Aidez votre établissement scolaire à grimper dans le classement&nbsp;!
 #: contest/templates/contest/qualification-summary.html:134
 msgid ""
 "If you are a student, fill in the name of your high school or university.\n"
-"The points you score for solving this year problems will be accounted for your school total score."
-msgstr "Si vous êtes étudiant, saisissez le nom de votre établissement. Les points que vous gagnerez en résolvant les problèmes de cette année seront pris en compte dans le score de votre école. "
+"The points you score for solving this year problems will be accounted for "
+"your school total score."
+msgstr ""
+"Si vous êtes étudiant, saisissez le nom de votre établissement. Les points "
+"que vous gagnerez en résolvant les problèmes de cette année seront pris en "
+"compte dans le score de votre école. "
 
 #: contest/templates/contest/qualification-summary.html:138
 msgid "Rules & leaderboard"
@@ -818,6 +887,7 @@ msgstr "Choisissez un établissement existant ou ajoutez le vôtre"
 #: contest/templates/correction/by-year.html:8
 #: contest/templates/correction/by-year.html:12
 #: contest/templates/correction/contestant-base.html:8
+#: contest/templates/correction/final.html:8
 #: contest/templates/correction/index.html:8
 #: contest/templates/correction/index.html:11
 #: contest/templates/correction/qualification.html:8
@@ -848,6 +918,11 @@ msgstr "Candidats"
 #: problems/models/submission.py:193
 msgid "Submissions"
 msgstr "Soumissions"
+
+#: contest/templates/correction/by-year.html:44
+#: documents/templates/documents/index.html:40
+msgid "All centers"
+msgstr "Tous les centres"
 
 #: contest/templates/correction/chunk-correction.html:19
 msgid "Unknown corrector"
@@ -944,6 +1019,11 @@ msgstr "Résultats du QCM"
 msgid "Quiz answers"
 msgstr "Réponses du QCM"
 
+#: contest/templates/correction/final.html:14
+#: contest/templates/correction/final.html:22
+msgid "All regional event"
+msgstr ""
+
 #: contest/templates/correction/index.html:15
 msgid "Correction index"
 msgstr "Sommaire de correction"
@@ -980,7 +1060,8 @@ msgstr "Il manque des informations obligatoires."
 
 #: contest/views.py:83
 msgid "You need to specify more wishes for your semifinal center."
-msgstr "Vous devez spécifier davantage de vœux pour votre centre d'épreuve régionale."
+msgstr ""
+"Vous devez spécifier davantage de vœux pour votre centre d'épreuve régionale."
 
 #: contest/views.py:86
 #, python-format
@@ -1020,9 +1101,10 @@ msgstr "Fichier export JSON"
 
 #: documents/forms.py:17
 msgid ""
-"Select the JSON export file obtained from regional event website and "
-"proceed."
-msgstr "Sélectionnez le fichier export JSON obtenu du site d'épreuve régionale et continuez."
+"Select the JSON export file obtained from regional event website and proceed."
+msgstr ""
+"Sélectionnez le fichier export JSON obtenu du site d'épreuve régionale et "
+"continuez."
 
 #: documents/forms.py:24
 #, python-format
@@ -1116,12 +1198,12 @@ msgstr "Documents"
 #: documents/templates/documents/custom-badges-input.html:12
 #: documents/templates/documents/custom-badges-input.html:15
 #: documents/templates/documents/custom-badges-input.html:20
-#: documents/templates/documents/index.html:178
+#: documents/templates/documents/index.html:181
 msgid "Custom Badges"
 msgstr "Badges personnalisés"
 
 #: documents/templates/documents/custom-badges-input.html:25
-#: documents/templates/documents/index.html:168
+#: documents/templates/documents/index.html:171
 #: problems/templates/problems/problem.html:129
 msgid "Submit"
 msgstr "Envoyer"
@@ -1143,10 +1225,6 @@ msgstr "Sommaire des documents"
 #: documents/templates/documents/semifinal-import-base.html:15
 msgid "Data import"
 msgstr "Import de données"
-
-#: documents/templates/documents/index.html:40
-msgid "All centers"
-msgstr "Tous les centres"
 
 #: documents/templates/documents/index.html:43
 #: documents/templates/documents/index.html:67
@@ -1176,54 +1254,58 @@ msgid "Data export"
 msgstr "Export données"
 
 #: documents/templates/documents/index.html:115
+msgid "Portrayal agreement Orga"
+msgstr ""
+
+#: documents/templates/documents/index.html:118
 msgid "Participation Authorization"
 msgstr "Autorisation de participation"
 
-#: documents/templates/documents/index.html:118
+#: documents/templates/documents/index.html:121
 msgid "Equipment Liability Release"
 msgstr "Décharge dégâts matériels"
 
-#: documents/templates/documents/index.html:121
+#: documents/templates/documents/index.html:124
 msgid "Emergency Call List"
 msgstr "Liste numéros d'urgence"
 
-#: documents/templates/documents/index.html:124
+#: documents/templates/documents/index.html:127
 msgid "Planning"
 msgstr "Planning"
 
-#: documents/templates/documents/index.html:127
+#: documents/templates/documents/index.html:130
 msgid "External organizers"
 msgstr "Organisateur externes"
 
-#: documents/templates/documents/index.html:130
+#: documents/templates/documents/index.html:133
 msgid "Diplomas"
 msgstr "Diplômes"
 
-#: documents/templates/documents/index.html:133
+#: documents/templates/documents/index.html:136
 msgid "Badges"
 msgstr "Badges"
 
-#: documents/templates/documents/index.html:142
+#: documents/templates/documents/index.html:145
 msgid "There is no final event for this edition."
 msgstr "Il n'y pas d'événement finale pour cette édition."
 
-#: documents/templates/documents/index.html:146
+#: documents/templates/documents/index.html:149
 msgid "Organization"
 msgstr "Association"
 
-#: documents/templates/documents/index.html:152
+#: documents/templates/documents/index.html:155
 msgid "Enrollment"
 msgstr "Recrutement"
 
-#: documents/templates/documents/index.html:156
+#: documents/templates/documents/index.html:159
 msgid "Enrollment Form"
 msgstr "Formulaire de recrutement"
 
-#: documents/templates/documents/index.html:162
+#: documents/templates/documents/index.html:165
 msgid "Meal tickets"
 msgstr "Tickets repas"
 
-#: documents/templates/documents/index.html:174
+#: documents/templates/documents/index.html:177
 msgid "Misc"
 msgstr "Divers"
 
@@ -1320,7 +1402,8 @@ msgstr "Erreur standard"
 #: documents/views.py:68
 #, python-format
 msgid "Prologin %(year)s: batch invitations to the regional center %(center)s"
-msgstr "Prologin %(year)s : lot de convocations pour le centre régional %(center)s"
+msgstr ""
+"Prologin %(year)s : lot de convocations pour le centre régional %(center)s"
 
 #: documents/views.py:69
 #, python-format
@@ -1331,7 +1414,8 @@ msgstr "invitations-%(year)s-regionale-%(center)s"
 #: documents/views.py:74
 #, python-format
 msgid "Prologin %(year)s: invitation to the regional event for %(fullname)s"
-msgstr "Prologin %(year)s : convocation à l'épreuve régionale pour %(fullname)s"
+msgstr ""
+"Prologin %(year)s : convocation à l'épreuve régionale pour %(fullname)s"
 
 #: documents/views.py:75
 #, python-format
@@ -1375,7 +1459,8 @@ msgstr "mots-de-passe-%(year)s-regionale-%(center)s"
 #: documents/views.py:118
 #, python-format
 msgid "Prologin %(year)s: interview sheets for the regional center %(center)s"
-msgstr "Prologin %(year)s : feuilles d'interview pour le centre régional %(center)s"
+msgstr ""
+"Prologin %(year)s : feuilles d'interview pour le centre régional %(center)s"
 
 #: documents/views.py:119
 #, python-format
@@ -1387,7 +1472,9 @@ msgstr "interviews-%(year)s-regionale-%(center)s"
 #, python-format
 msgid ""
 "Prologin %(year)s: document compilation for regional events for %(fullname)s"
-msgstr "Prologin %(year)s : compilation de documents pour l'épreuve régionale pour %(fullname)s"
+msgstr ""
+"Prologin %(year)s : compilation de documents pour l'épreuve régionale pour "
+"%(fullname)s"
 
 #: documents/views.py:129
 #, python-format
@@ -1478,122 +1565,123 @@ msgctxt "Document filename"
 msgid "external-organizers-%(year)s"
 msgstr "orgas-externes-%(year)s"
 
-#: documents/views.py:343
+#: documents/views.py:343 documents/views.py:348
 #, python-format
 msgid "Prologin %(year)s: portrayal agreement for the final"
 msgstr "Prologin %(year)s : droit à l'imagine pour la finale"
 
-#: documents/views.py:344
+#: documents/views.py:344 documents/views.py:349
 #, python-format
 msgctxt "Document filename"
 msgid "portrayal-agreement-%(year)s-final"
 msgstr "droit-image-%(year)s-finale"
 
-#: documents/views.py:349
+#: documents/views.py:354
 #, python-format
 msgid "Prologin %(year)s: participation authorization for the final"
 msgstr "Prologin %(year)s : autorisation de participation à la finale"
 
-#: documents/views.py:350
+#: documents/views.py:355
 #, python-format
 msgctxt "Document filename"
 msgid "participation-authorization-%(year)s-final"
 msgstr "autorisation-participation-finale-%(year)s"
 
-#: documents/views.py:355
+#: documents/views.py:360
 #, python-format
 msgid "Prologin %(year)s: equipment liability release for the final"
 msgstr "Prologin %(year)s : décharge dégâts matériels pour la finale"
 
-#: documents/views.py:356
+#: documents/views.py:361
 #, python-format
 msgctxt "Document filename"
 msgid "equipment-liability-release-%(year)s-final"
 msgstr "decharge-degats-materiels-finale-%(year)s"
 
-#: documents/views.py:361
+#: documents/views.py:366
 #, python-format
 msgid "Prologin %(year)s: emergency call list for the final"
 msgstr "Prologin %(year)s : numéros d'urgence pour la finale"
 
-#: documents/views.py:362
+#: documents/views.py:367
 #, python-format
 msgctxt "Document filename"
 msgid "emergency-call-list-%(year)s-final"
 msgstr "numeros-urgence-finale-%(year)s"
 
-#: documents/views.py:368
+#: documents/views.py:373
 #, python-format
 msgid "Prologin %(year)s: planning for the final"
 msgstr "Prologin %(year)s : planning de la finale"
 
-#: documents/views.py:369
+#: documents/views.py:374
 #, python-format
 msgctxt "Document filename"
 msgid "planning-%(year)s-final"
 msgstr "planning-finale-%(year)s"
 
-#: documents/views.py:374
+#: documents/views.py:379
 #, python-format
 msgid "Prologin %(year)s: diplomas"
 msgstr "Prologin %(year)s : diplômes"
 
-#: documents/views.py:375
+#: documents/views.py:380
 #, python-format
 msgctxt "Document filename"
 msgid "diplomas-%(year)s-final"
 msgstr "diplomes-finale-%(year)s"
 
-#: documents/views.py:398
+#: documents/views.py:403
 #, python-format
 msgid "Prologin %(year)s: document compilation for final for %(fullname)s"
-msgstr "Prologin %(year)s: compilation de documents pour la finale pour %(fullname)s"
+msgstr ""
+"Prologin %(year)s: compilation de documents pour la finale pour %(fullname)s"
 
-#: documents/views.py:399
+#: documents/views.py:404
 #, python-format
 msgctxt "Document filename"
 msgid "prologin-%(year)s-final-documents-%(fullname)s"
 msgstr "prologin-%(year)s-documents-finale-%(fullname)s"
 
-#: documents/views.py:436
+#: documents/views.py:442
 #, python-format
 msgid "Prologin %(year)s: enrollment form"
 msgstr "Prologin %(year)s : formulaire de recrutement"
 
-#: documents/views.py:437
+#: documents/views.py:443
 #, python-format
 msgctxt "Document filename"
 msgid "enrollment-form-%(year)s"
 msgstr "formulaire-recrutement-%(year)s"
 
-#: documents/views.py:442
+#: documents/views.py:448
 #, python-format
 msgid "Prologin %(year)s: badges"
 msgstr "Prologin %(year)s : badges"
 
-#: documents/views.py:443
+#: documents/views.py:449
 #, python-format
 msgctxt "Document filename"
 msgid "badges-%(year)s-final"
 msgstr "badges-finale-%(year)s"
 
-#: documents/views.py:462
+#: documents/views.py:468
 #, python-format
 msgid "Prologin %(year)s: custom badges"
 msgstr "Prologin %(year)s : badges personnalisés"
 
-#: documents/views.py:463
+#: documents/views.py:469
 #, python-format
 msgctxt "Document filename"
 msgid "custom-badges-%(year)s-final"
 msgstr "badges-personnalises-%(year)s-finale"
 
-#: documents/views.py:491
+#: documents/views.py:500
 #, python-format
 msgid "Prologin %(year)s: Meal tickets"
 msgstr "Prologin %(year)s : tickets repas"
 
-#: documents/views.py:492
+#: documents/views.py:501
 #, python-format
 msgctxt "Document filename"
 msgid "meal-tickets-%(year)s-final"
@@ -1786,8 +1874,7 @@ msgstr "Prévisualisation"
 #: forum/templates/forum/edit_post.html:10
 #: forum/templates/forum/thread_posts.html:115
 #: semifinal/templates/semifinal/monitoring.html:52
-#: users/templates/users/edit.html:9
-#: users/templates/users/edit_password.html:9
+#: users/templates/users/edit.html:9 users/templates/users/edit_password.html:9
 msgid "Edit"
 msgstr "Modifier"
 
@@ -1824,7 +1911,8 @@ msgstr[1] "%(count)s messages"
 #: forum/templates/forum/stub_forum_thread.html:25
 #, python-format
 msgid "Last message by <span class=\"thread-item-author\">%(username)s</span>"
-msgstr "Dernier message par <span class=\"thread-item-author\">%(username)s</span>"
+msgstr ""
+"Dernier message par <span class=\"thread-item-author\">%(username)s</span>"
 
 #: forum/templates/forum/index.html:46
 msgid "There is no forum."
@@ -1843,7 +1931,9 @@ msgstr "Supprimer le message"
 msgid ""
 "Are you sure you want to delete the post in <strong>%(title)s</strong> "
 "written by <strong>%(author)s</strong>?"
-msgstr "Confirmez-vous la suppression du message issu de <strong>%(title)s</strong> rédigé par <strong>%(author)s</strong>&nbsp;?"
+msgstr ""
+"Confirmez-vous la suppression du message issu de <strong>%(title)s</strong> "
+"rédigé par <strong>%(author)s</strong>&nbsp;?"
 
 #: forum/templates/forum/post_confirm_delete.html:21
 #: forum/templates/forum/thread_confirm_delete.html:21
@@ -1866,16 +1956,20 @@ msgstr "Ce sujet est fermé, vous ne pouvez pas y poster de nouveaux messages."
 #: forum/templates/forum/stub_forum_thread.html:15
 #, python-format
 msgid ""
-"By <span class=\"thread-item-author\">%(username)s</span> ⋅ <span "
-"title=\"%(date_full)s\">%(date)s</span>"
-msgstr "Par <span class=\"thread-item-author\">%(username)s</span> ⋅ <span title=\"%(date_full)s\">%(date)s</span>"
+"By <span class=\"thread-item-author\">%(username)s</span> ⋅ <span title="
+"\"%(date_full)s\">%(date)s</span>"
+msgstr ""
+"Par <span class=\"thread-item-author\">%(username)s</span> ⋅ <span title="
+"\"%(date_full)s\">%(date)s</span>"
 
 #: forum/templates/forum/stub_login_required.html:7
 #, python-format
 msgid ""
-"You have to <a href=\"%(register)s\">register</a> or <a "
-"href=\"%(login)s\">log in</a> to post messages."
-msgstr "Vous devez vous <a href=\"%(register)s\">enregistrer</a> ou vous <a href=\"%(login)s\">connecter</a> pour poster des messages."
+"You have to <a href=\"%(register)s\">register</a> or <a href=\"%(login)s"
+"\">log in</a> to post messages."
+msgstr ""
+"Vous devez vous <a href=\"%(register)s\">enregistrer</a> ou vous <a href="
+"\"%(login)s\">connecter</a> pour poster des messages."
 
 #: forum/templates/forum/thread_confirm_delete.html:10
 #: forum/templates/forum/thread_posts.html:66
@@ -1985,16 +2079,19 @@ msgstr "Le sujet a été supprimé avec succès."
 
 #: homepage/templates/homepage/homepage.html:5
 #: homepage/templates/homepage/jumbotron.html:6
-#: prologin/templates/prologin/base.html:31
+#: prologin/templates/prologin/base.html:32
 msgid "Prologin, the French National Computer Science Contest"
 msgstr "Prologin, le concours national d'informatique"
 
 #: homepage/templates/homepage/homepage.html:11
 msgid ""
-"Prologin is a computer science contest. Our goal is to introduce students to"
-" the world of programming and algorithms by subjecting them to several "
+"Prologin is a computer science contest. Our goal is to introduce students to "
+"the world of programming and algorithms by subjecting them to several "
 "conventional problems and exciting challenges."
-msgstr "Prologin est un concours d'informatique. Notre but est de faire découvrir le monde de la programmation et de l'algorithmique aux étudiants et de les confronter à des problèmes classiques et des challenges excitants."
+msgstr ""
+"Prologin est un concours d'informatique. Notre but est de faire découvrir le "
+"monde de la programmation et de l'algorithmique aux étudiants et de les "
+"confronter à des problèmes classiques et des challenges excitants."
 
 #: homepage/templates/homepage/homepage.html:31
 msgid "Latest news"
@@ -2026,9 +2123,11 @@ msgstr "Rédigé le"
 
 #: homepage/templates/homepage/jumbotron-final.html:19
 msgid ""
-"You have one weekend to develop an artificial intelligence for a custom-made"
-" game, in Paris."
-msgstr "Développement d'une intelligence artificielle pour un jeu multi-joueur pendant un week-end, à Paris."
+"You have one weekend to develop an artificial intelligence for a custom-made "
+"game, in Paris."
+msgstr ""
+"Développement d'une intelligence artificielle pour un jeu multi-joueur "
+"pendant un week-end, à Paris."
 
 #: homepage/templates/homepage/jumbotron-final.html:21
 #: homepage/templates/homepage/jumbotron-semifinals.html:26
@@ -2055,20 +2154,26 @@ msgstr "Sujet, résultats & classement"
 
 #: homepage/templates/homepage/jumbotron-final.html:53
 msgid "The final is now finished! Stay tuned for the results."
-msgstr "La finale est maintenant terminée&nbsp;! Restez à l'écoute pour connaître les résultats."
+msgstr ""
+"La finale est maintenant terminée&nbsp;! Restez à l'écoute pour connaître "
+"les résultats."
 
 #: homepage/templates/homepage/jumbotron-semifinals.html:19
 msgid ""
 "Consists of a written exam and some problems to solve on the computer. Exam "
 "centers are distributed accross France large cities."
-msgstr "Une épreuve écrite et des exercices sur machine. Les centres d'examen sont répartis dans les grandes villes de France."
+msgstr ""
+"Une épreuve écrite et des exercices sur machine. Les centres d'examen sont "
+"répartis dans les grandes villes de France."
 
 #: homepage/templates/homepage/jumbotron.html:7
 #, python-format
 msgid ""
 "Born in %(born_year)s or after? Join the Prologin contest! Registration is "
 "free."
-msgstr "Vous êtes né en %(born_year)s ou après&nbsp;? Participez à Prologin&nbsp;! L'inscription est gratuite."
+msgstr ""
+"Vous êtes né en %(born_year)s ou après&nbsp;? Participez à Prologin&nbsp;! "
+"L'inscription est gratuite."
 
 #: homepage/templates/homepage/jumbotron.html:9
 msgid "Unknown date"
@@ -2079,8 +2184,15 @@ msgid "Full leaderboard"
 msgstr "Classement complet"
 
 #: homepage/templates/homepage/sponsors.html:3
+#: prologin/templates/prologin/main-footer.html:12
+#: sponsor/templates/sponsor/index.html:7
+#: sponsor/templates/sponsor/index.html:10
 msgid "Sponsors"
 msgstr "Partenaires"
+
+#: homepage/templates/homepage/sponsors.html:23
+msgid "All about our sponsors"
+msgstr ""
 
 #: homepage/templates/homepage/stub-qualification-active.html:14
 msgid "Quiz completed"
@@ -2105,32 +2217,43 @@ msgstr "S'inscrire !"
 
 #: homepage/templates/homepage/stub-qualification-corrected.html:11
 msgid "Congratulations! You have been selected for the regional events."
-msgstr "Félicitations&nbsp;! Le jury a accepté votre participation pour les épreuves régionales."
+msgstr ""
+"Félicitations&nbsp;! Le jury a accepté votre participation pour les épreuves "
+"régionales."
 
 #: homepage/templates/homepage/stub-qualification-corrected.html:15
 msgid ""
-"Please proceed to download your invitation papers and start training for the"
-" next step!"
-msgstr "Téléchargez dès maintenant les documents de convocation et commencez à vous entraîner pour l'étape suivant&nbsp;!"
+"Please proceed to download your invitation papers and start training for the "
+"next step!"
+msgstr ""
+"Téléchargez dès maintenant les documents de convocation et commencez à vous "
+"entraîner pour l'étape suivant&nbsp;!"
 
 #: homepage/templates/homepage/stub-qualification-corrected.html:22
 msgid ""
 "Sorry, this year your application was not selected for the regional events."
-msgstr "Navré, cette année votre participation n'a pas été retenue pour les épreuves régionales."
+msgstr ""
+"Navré, cette année votre participation n'a pas été retenue pour les épreuves "
+"régionales."
 
 #: homepage/templates/homepage/stub-qualification-corrected.html:24
 #: homepage/templates/homepage/stub-semifinal-result.html:48
 msgid ""
 "Do not lose hope though! Start training right away so you can perfect your "
 "knowledge of algorithms and programming, and try again next year. Best luck!"
-msgstr "Ne perdez pas espoir&nbsp;! Continuez de vous entraîner pour parfaire votre connaissance de l'algorithmique et de la programmation, et recommencez l'an prochain. Bonne chance&nbsp;!"
+msgstr ""
+"Ne perdez pas espoir&nbsp;! Continuez de vous entraîner pour parfaire votre "
+"connaissance de l'algorithmique et de la programmation, et recommencez l'an "
+"prochain. Bonne chance&nbsp;!"
 
 #: homepage/templates/homepage/stub-qualification-corrected.html:29
 #: homepage/templates/homepage/stub-semifinal-result.html:53
 msgid ""
 "There is a problem with your application. Please contact the staff as soon "
 "as possible."
-msgstr "Il y a un problème avec votre participation. Merci de contacter l'équipe dès que possible."
+msgstr ""
+"Il y a un problème avec votre participation. Merci de contacter l'équipe dès "
+"que possible."
 
 #: homepage/templates/homepage/stub-qualification-corrected.html:35
 msgid "You did not apply for the contest this year."
@@ -2160,13 +2283,14 @@ msgstr "%(problems_count)s problèmes à résoudre en ligne."
 
 #: homepage/templates/homepage/stub-qualification-done.html:7
 #: homepage/templates/homepage/stub-semifinal-result.html:27
-msgid ""
-"The jury's decision will soon be announced by email and on the website."
+msgid "The jury's decision will soon be announced by email and on the website."
 msgstr "La décision du jury sera bientôt annoncée par e-mail et sur ce site."
 
 #: homepage/templates/homepage/stub-qualification-done.html:11
 msgid "You can start ahead by training for the regional events."
-msgstr "Vous pouvez dès à présent commencer à vous entraîner pour les épreuves régionales."
+msgstr ""
+"Vous pouvez dès à présent commencer à vous entraîner pour les épreuves "
+"régionales."
 
 #: homepage/templates/homepage/stub-qualification-finished.html:7
 #, python-format
@@ -2177,7 +2301,9 @@ msgstr "Prologin %(year)s est maintenant terminé&nbsp;!"
 msgid ""
 "Stay tuned for next year's edition. We will announce when it starts on this "
 "website and by email."
-msgstr "Restez à l'affût de la prochaine édition. Nous annoncerons le lancement sur ce site et par e-mail."
+msgstr ""
+"Restez à l'affût de la prochaine édition. Nous annoncerons le lancement sur "
+"ce site et par e-mail."
 
 #: homepage/templates/homepage/stub-qualification-finished.html:14
 msgid "Start training!"
@@ -2190,8 +2316,7 @@ msgstr "Les qualifications ouvrent le %(date)s."
 
 #: homepage/templates/homepage/stub-qualification-future.html:13
 msgid ""
-"Qualifications for this year's edition will be announced as soon as "
-"possible."
+"Qualifications for this year's edition will be announced as soon as possible."
 msgstr "Les qualifications pour cette année seront annoncées dès que possible."
 
 #: homepage/templates/homepage/stub-semifinal-result.html:8
@@ -2202,7 +2327,9 @@ msgstr "Votre épreuve régionale se déroulera à&nbsp;:"
 msgid ""
 "The jury did not assign your regional event location. Please contact the "
 "staff as soon as possible."
-msgstr "Le jury n'a pas assigné votre centre d'épreuve régionale. Merci de contacter l'équipe dès que possible."
+msgstr ""
+"Le jury n'a pas assigné votre centre d'épreuve régionale. Merci de contacter "
+"l'équipe dès que possible."
 
 #: homepage/templates/homepage/stub-semifinal-result.html:29
 msgid "You can start ahead by training for the final."
@@ -2210,17 +2337,21 @@ msgstr "Vous pouvez dès à présent commencer à vous entraîner pour la finale
 
 #: homepage/templates/homepage/stub-semifinal-result.html:36
 msgid "Congratulations! You have been selected for the final."
-msgstr "Félicitations&nbsp;! Le jury a accepté votre participation pour la finale."
+msgstr ""
+"Félicitations&nbsp;! Le jury a accepté votre participation pour la finale."
 
 #: homepage/templates/homepage/stub-semifinal-result.html:40
 msgid ""
 "Please proceed to download your invitation papers and start reviewing "
 "previous edition finals."
-msgstr "Téléchargez dès maintenant les documents de convocation et commencez à consulter les archives des précédentes finales."
+msgstr ""
+"Téléchargez dès maintenant les documents de convocation et commencez à "
+"consulter les archives des précédentes finales."
 
 #: homepage/templates/homepage/stub-semifinal-result.html:46
 msgid "Sorry, this year your application was not selected for the final."
-msgstr "Navré, cette année votre participation n'a pas été retenue pour la finale."
+msgstr ""
+"Navré, cette année votre participation n'a pas été retenue pour la finale."
 
 #: homepage/templates/homepage/stub-semifinal-result.html:69
 msgid "See all the dates"
@@ -2311,7 +2442,8 @@ msgstr "Requêtes"
 #: mailing/models.py:175
 #, python-format
 msgid "The root model is not %(model)s. You must provide a `user` alias."
-msgstr "Le modèle racine n'est pas %(model)s. Vous devez fournir un alias `user`."
+msgstr ""
+"Le modèle racine n'est pas %(model)s. Vous devez fournir un alias `user`."
 
 #: mailing/models.py:180
 #, python-format
@@ -2526,10 +2658,15 @@ msgstr "Guide de syntaxe et raccourcis"
 #: mailing/templates/mailing/query/details.html:118
 msgid ""
 "Filters are implicity joined by the <code>and</code> operator.\n"
-"  If you are not querying on the <code>ProloginUser</code> model directly, you must create a\n"
+"  If you are not querying on the <code>ProloginUser</code> model directly, "
+"you must create a\n"
 "  <code>user</code>\n"
 "  alias targeting a field containing the related user."
-msgstr "Les filtres sont implicitement joints par l'opérateur <code>and</code>.\nSi vous ne requêtez pas directement le modèle <code>ProloginUser</code>, vous devez définir un alias <code>user</code> qui cible le champ contenant l'utilisateur lié."
+msgstr ""
+"Les filtres sont implicitement joints par l'opérateur <code>and</code>.\n"
+"Si vous ne requêtez pas directement le modèle <code>ProloginUser</code>, "
+"vous devez définir un alias <code>user</code> qui cible le champ contenant "
+"l'utilisateur lié."
 
 #: mailing/templates/mailing/query/details.html:130
 msgid "Available models"
@@ -2574,7 +2711,9 @@ msgstr "HTML"
 msgid ""
 "The form was modified and saved while you were editing. Please merge with "
 "current version."
-msgstr "Le formulaire a été enregistré pendant vous le modifiez. Veuillez fusionner vos modifications avec la version actuelle."
+msgstr ""
+"Le formulaire a été enregistré pendant vous le modifiez. Veuillez fusionner "
+"vos modifications avec la version actuelle."
 
 #: mailing/views.py:231
 #, python-format
@@ -2874,7 +3013,7 @@ msgstr "Actualités"
 #: pages/templates/pages/about-contest-rules.html:7
 #: pages/templates/pages/about-contest-rules.html:11
 #: pages/templates/pages/about-contest-rules.html:15
-#: prologin/templates/prologin/main-footer.html:12
+#: prologin/templates/prologin/main-footer.html:11
 #: prologin/templates/prologin/main-footer.html:27
 msgid "Contest rules"
 msgstr "Règlement"
@@ -2888,7 +3027,9 @@ msgid ""
 "The contest rules are only available in French, as the\n"
 "    contest is only open to French speakers (\"article 3\").\n"
 "    "
-msgstr "Les règles du concours ne sont disponibles qu'en français, étant donné que le concours n'est ouvert qu'aux francophones (cf. « article 3 »)."
+msgstr ""
+"Les règles du concours ne sont disponibles qu'en français, étant donné que "
+"le concours n'est ouvert qu'aux francophones (cf. « article 3 »)."
 
 #: pages/templates/pages/about-contest.html:7
 #: pages/templates/pages/about-final.html:7
@@ -2909,27 +3050,42 @@ msgstr "À propos du concours Prologin"
 #: pages/templates/pages/about-contest.html:17
 #, python-format
 msgid ""
-"Prologin is a computer science contest open to all students under %(max_age)s,\n"
+"Prologin is a computer science contest open to all students under "
+"%(max_age)s,\n"
 "organized by the <a href=\"%(assoc_url)s\">Prologin organization</a>.\n"
-"Our goal is to introduce young students to the world of programming and algorithms,\n"
-"by subjecting them to several conventional problems and exciting challenges. The contest takes places in\n"
+"Our goal is to introduce young students to the world of programming and "
+"algorithms,\n"
+"by subjecting them to several conventional problems and exciting challenges. "
+"The contest takes places in\n"
 "three stages of successive selection presented in the following sections.\n"
 "Prologin is a nonprofit organization, it is free to enter the contest.\n"
-msgstr "Prologin est un concours d'informatique ouvert à tous les étudiants agés de moins de %(max_age)s, organisé par <a href=\"%(assoc_url)s\">l'association Prologin</a>. Notre but est de faire découvrir le monde de la programmation et de l'algorithmique aux étudiants et de les confronter à des problèmes classiques et des challenges excitants. Le concours se déroule en trois étapes de sélections consécutives présentées dans les sections suivantes. Prologin est une association à but non lucratif, et son concours est totalement gratuit.\n"
+msgstr ""
+"Prologin est un concours d'informatique ouvert à tous les étudiants agés de "
+"moins de %(max_age)s, organisé par <a href=\"%(assoc_url)s\">l'association "
+"Prologin</a>. Notre but est de faire découvrir le monde de la programmation "
+"et de l'algorithmique aux étudiants et de les confronter à des problèmes "
+"classiques et des challenges excitants. Le concours se déroule en trois "
+"étapes de sélections consécutives présentées dans les sections suivantes. "
+"Prologin est une association à but non lucratif, et son concours est "
+"totalement gratuit.\n"
 
 #: pages/templates/pages/about-contest.html:26
 #, python-format
 msgid ""
 "To learn more about the history of the contest, you can\n"
 "  visit the <a href=\"%(history_url)s\">history page</a>."
-msgstr "Pour en apprendre plus sur l'histoire du concours, vous pouvez visiter la <a href=\"%(history_url)s\">page d'historique</a>."
+msgstr ""
+"Pour en apprendre plus sur l'histoire du concours, vous pouvez visiter la <a "
+"href=\"%(history_url)s\">page d'historique</a>."
 
 #: pages/templates/pages/about-contest.html:30
 #, python-format
 msgid ""
-"For an accurate time-line of this year events, please see the <a "
-"href=\"%(home_url)s\">home page</a>."
-msgstr "Pour un planning détaillé des événements de cette année, consultez la <a href=\"%(home_url)s\">page d'accueil</a>."
+"For an accurate time-line of this year events, please see the <a href="
+"\"%(home_url)s\">home page</a>."
+msgstr ""
+"Pour un planning détaillé des événements de cette année, consultez la <a "
+"href=\"%(home_url)s\">page d'accueil</a>."
 
 #: pages/templates/pages/about-contest.html:36
 msgid "1<sup>st</sup> step – Qualification"
@@ -2938,15 +3094,24 @@ msgstr "1<sup>e</sup> étape – Sélection"
 #: pages/templates/pages/about-contest.html:37
 msgid ""
 "The screening questionnaire allows to qualify for regional competitions.\n"
-"It consists of a selection of algorithmic problems of increasing difficulty.\n"
-"It is possible to submit the questionnaire by postal mail or directly on this website.\n"
-msgstr "Le questionnaire de sélection vous permet de vous qualifier pour les épreuves régionales.\nIl s'agit de résoudre une sélection de problèmes d'algorithmique de difficulté croissante. \nLe questionnaire doit être soumis directement sur ce site.\n"
+"It consists of a selection of algorithmic problems of increasing "
+"difficulty.\n"
+"It is possible to submit the questionnaire by postal mail or directly on "
+"this website.\n"
+msgstr ""
+"Le questionnaire de sélection vous permet de vous qualifier pour les "
+"épreuves régionales.\n"
+"Il s'agit de résoudre une sélection de problèmes d'algorithmique de "
+"difficulté croissante. \n"
+"Le questionnaire doit être soumis directement sur ce site.\n"
 
 #: pages/templates/pages/about-contest.html:41
 msgid ""
 "Registration is entirely free, you only need an Internet access to submit "
 "your answers."
-msgstr "Les inscriptions sont totalement gratuites, vous avez uniquement besoin d'un accès à Internet pour envoyer vos réponses."
+msgstr ""
+"Les inscriptions sont totalement gratuites, vous avez uniquement besoin d'un "
+"accès à Internet pour envoyer vos réponses."
 
 #: pages/templates/pages/about-contest.html:43
 msgid "Who can qualify?"
@@ -2957,7 +3122,9 @@ msgstr "Qui peut participer&nbsp;?"
 msgid ""
 "Any student born in or after %(born_year)s, living in Europe, who can "
 "understand and write French. "
-msgstr "Tous les étudiant(e)s francophones nés en %(born_year)s ou après, habitant en Europe."
+msgstr ""
+"Tous les étudiant(e)s francophones nés en %(born_year)s ou après, habitant "
+"en Europe."
 
 #: pages/templates/pages/about-contest.html:45
 msgid "Students from EPITA are not allowed to participate."
@@ -2975,14 +3142,24 @@ msgstr "2<sup>e</sup> étape – Les épreuves régionales"
 
 #: pages/templates/pages/about-contest.html:56
 msgid ""
-"The regional events allow the 100 best contestants to qualify for the final.\n"
-"The event lasts one day and takes place on a Saturday in January or February,\n"
+"The regional events allow the 100 best contestants to qualify for the "
+"final.\n"
+"The event lasts one day and takes place on a Saturday in January or "
+"February,\n"
 "depending on the city. Candidates are divided into various sessions in\n"
 "different examination centers all across France.\n"
 "The evaluation is based on three tests: a written exam on an original\n"
 "algorithmic problem, some unrelated problems to solve on the computer\n"
 "and an interview with one of Prologin's staff members.\n"
-msgstr "Les épreuves régionales permettent aux 100 meilleurs participants de se qualifier pour la finale.\nL'événement dure une journée et se déroule un samedi en janvier ou février,\nen fonction des villes. Les participants sont répartis dans les différents\ncentres d'examens en France.\nLa sélection se base sur trois épreuves : un examen écrit sur un problème\nd'algorithmique original, des exercices à résoudre sur ordinateur\net un entretien avec un membre de l'association Prologin.\n"
+msgstr ""
+"Les épreuves régionales permettent aux 100 meilleurs participants de se "
+"qualifier pour la finale.\n"
+"L'événement dure une journée et se déroule un samedi en janvier ou février,\n"
+"en fonction des villes. Les participants sont répartis dans les différents\n"
+"centres d'examens en France.\n"
+"La sélection se base sur trois épreuves : un examen écrit sur un problème\n"
+"d'algorithmique original, des exercices à résoudre sur ordinateur\n"
+"et un entretien avec un membre de l'association Prologin.\n"
 
 #: pages/templates/pages/about-contest.html:66
 msgid "Where can I sit for the exam?"
@@ -2992,9 +3169,14 @@ msgstr "Où puis-je passer l'épreuve ?"
 #, python-format
 msgid ""
 "\n"
-"We organize the event in major cities across metropolitan France. You can check the nearest location\n"
+"We organize the event in major cities across metropolitan France. You can "
+"check the nearest location\n"
 "using the <a href=\"%(url_centers)s\">map of exam centers</a>."
-msgstr "\nNous organisons l'événement dans plusieurs grandes villes de France métropolitaine. Vous pouvez trouver l'endroit le plus proche en utilisant <a href=\"%(url_centers)s\">la carte des centres</a>."
+msgstr ""
+"\n"
+"Nous organisons l'événement dans plusieurs grandes villes de France "
+"métropolitaine. Vous pouvez trouver l'endroit le plus proche en utilisant <a "
+"href=\"%(url_centers)s\">la carte des centres</a>."
 
 #: pages/templates/pages/about-contest.html:80
 msgid "3<sup>rd</sup> step – The Final"
@@ -3002,13 +3184,22 @@ msgstr "3<sup>e</sup> étape – La finale"
 
 #: pages/templates/pages/about-contest.html:81
 msgid ""
-"The final takes place over three days in Paris, usually at the end of April.\n"
+"The final takes place over three days in Paris, usually at the end of "
+"April.\n"
 "Candidates have to program an artificial intelligence of their own for\n"
 "a custom-made game, in just 36 hours. All the candidate submissions are\n"
-"assessed by competing against each other using an automated match-making system.\n"
-"It is also a unique opportunity to meet other computer enthusiasts, in a cheerful\n"
+"assessed by competing against each other using an automated match-making "
+"system.\n"
+"It is also a unique opportunity to meet other computer enthusiasts, in a "
+"cheerful\n"
 "and relaxed mood!\n"
-msgstr "La finale se déroule sur 3 jours à Paris, habituellement fin avril. Les candidats doivent coder leur propre intelligence artificielle pour un jeu créé pour l'occasion, en seulement 36h. Les programmes des candidats sont ensuite confrontés les uns aux autres dans un tournoi automatisé. C'est aussi une opportunité unique de rencontrer des passionnés d'informatique dans une ambiance sympathique et détendue !\n"
+msgstr ""
+"La finale se déroule sur 3 jours à Paris, habituellement fin avril. Les "
+"candidats doivent coder leur propre intelligence artificielle pour un jeu "
+"créé pour l'occasion, en seulement 36h. Les programmes des candidats sont "
+"ensuite confrontés les uns aux autres dans un tournoi automatisé. C'est "
+"aussi une opportunité unique de rencontrer des passionnés d'informatique "
+"dans une ambiance sympathique et détendue !\n"
 
 #: pages/templates/pages/about-contest.html:89
 msgid "How much does it cost?"
@@ -3016,9 +3207,13 @@ msgstr "Combien ça coûte&nbsp;?"
 
 #: pages/templates/pages/about-contest.html:90
 msgid ""
-"All candidates are provided with free meals and a place to rest and sleep for the\n"
+"All candidates are provided with free meals and a place to rest and sleep "
+"for the\n"
 "duration of the final. You only have to handle the cost of transportation."
-msgstr "Durant toute la durée de la finale, les repas sont pris en charge et des salles de repos sont mises à disposition des candidats. Seuls les frais de transport restent à votre charge. "
+msgstr ""
+"Durant toute la durée de la finale, les repas sont pris en charge et des "
+"salles de repos sont mises à disposition des candidats. Seuls les frais de "
+"transport restent à votre charge. "
 
 #: pages/templates/pages/about-contribute.html:7
 #: prologin/templates/prologin/main-footer.html:9
@@ -3033,7 +3228,9 @@ msgstr "Contribuer à Prologin"
 #: pages/templates/pages/about-contribute.html:15
 msgid ""
 "There are many ways to contribute to the organization, on multiple levels:"
-msgstr "Il y a plusieurs manières de contribuer à l'association, à différents niveaux :"
+msgstr ""
+"Il y a plusieurs manières de contribuer à l'association, à différents "
+"niveaux :"
 
 #: pages/templates/pages/about-contribute.html:19
 msgid "Contributor"
@@ -3042,16 +3239,29 @@ msgstr "Contributeur"
 #: pages/templates/pages/about-contribute.html:20
 msgid ""
 "Many former contestants want to contribute to Prologin usually by writing\n"
-"exercises, but without joining the organization (which calls for further time investment). You can read our\n"
-"<a href=\"https://github.com/prologin/ressources-contributeurs\">public resources</a> to understand how we create exercises\n"
+"exercises, but without joining the organization (which calls for further "
+"time investment). You can read our\n"
+"<a href=\"https://github.com/prologin/ressources-contributeurs\">public "
+"resources</a> to understand how we create exercises\n"
 "for our platform."
-msgstr "De nombreux anciens candidats veulent contribuer à Prologin en\nécrivant des sujets et exercices, mais sans pour autant rejoindre\nl'association (qui demande un investissement régulier tout au long de\nl'année). Vous pouvez lire nos\n<a href=\"https://github.com/prologin/ressources-contributeurs\">ressources\ncontributeurs</a> afin de comprendre comment nous créons des exercices pour\nla plateforme de Prologin."
+msgstr ""
+"De nombreux anciens candidats veulent contribuer à Prologin en\n"
+"écrivant des sujets et exercices, mais sans pour autant rejoindre\n"
+"l'association (qui demande un investissement régulier tout au long de\n"
+"l'année). Vous pouvez lire nos\n"
+"<a href=\"https://github.com/prologin/ressources-contributeurs\">ressources\n"
+"contributeurs</a> afin de comprendre comment nous créons des exercices pour\n"
+"la plateforme de Prologin."
 
 #: pages/templates/pages/about-contribute.html:24
 msgid ""
-"If you are interested in helping us creating cool exercises, do not hesitate to\n"
+"If you are interested in helping us creating cool exercises, do not hesitate "
+"to\n"
 "send an email at: <a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
-msgstr "Si vous avez envie de nous aider parce que vous avez une idée\nd'exercice sympa, n'hésitez pas à nous envoyer un mail à :\n<a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+msgstr ""
+"Si vous avez envie de nous aider parce que vous avez une idée\n"
+"d'exercice sympa, n'hésitez pas à nous envoyer un mail à :\n"
+"<a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
 
 #: pages/templates/pages/about-contribute.html:29
 msgid "Member"
@@ -3059,22 +3269,47 @@ msgstr "Membre"
 
 #: pages/templates/pages/about-contribute.html:30
 msgid ""
-"Becoming a member means an ongoing investment, not only with exercises, but also\n"
-"on our multiple needs (coming to meetings, helping on logistic, internal tools, etc.). As a member, you can help in domains\n"
+"Becoming a member means an ongoing investment, not only with exercises, but "
+"also\n"
+"on our multiple needs (coming to meetings, helping on logistic, internal "
+"tools, etc.). As a member, you can help in domains\n"
 "such as:\n"
 "<ul>\n"
 "<li>algorithms: creating written and machine exercises.</li>\n"
-"<li>system administration: maintaining and coding our infrastructure for regional and finals events.</li>\n"
+"<li>system administration: maintaining and coding our infrastructure for "
+"regional and finals events.</li>\n"
 "<li>web development: for our own websites.</li>\n"
 "</ul>\n"
-"Prologin also has some non-technical necessities including logistics, sponsoring, and communication."
-msgstr "Être membre de l'association demande de s'investir régulièrement, et\npas uniquement sur la rédaction d'exercices mais sur divers aspects de\nl'organisation (assister aux réunions, aider sur la logistique, les outils\ninternes, etc.). D'un point de vue technique il y a plusieurs domaines dans\nlesquels vous pouvez contribuer :\n<ul>\n<li>algorithmique : rédaction de sujets machines et écrits.</li>\n<li>administration système : maintien et développement des infrastructures des épreuves régionales et de finale.</li>\n<li>développement web : pour nos sites.</li>\n</ul>\nMais pas besoin d'être un expert en algo ou en système pour nous rejoindre !\nD'autant plus que les activités de l'association ne sont pas exclusivement \ntechniques : logistique, contact de sponsors, communication et événementiel."
+"Prologin also has some non-technical necessities including logistics, "
+"sponsoring, and communication."
+msgstr ""
+"Être membre de l'association demande de s'investir régulièrement, et\n"
+"pas uniquement sur la rédaction d'exercices mais sur divers aspects de\n"
+"l'organisation (assister aux réunions, aider sur la logistique, les outils\n"
+"internes, etc.). D'un point de vue technique il y a plusieurs domaines dans\n"
+"lesquels vous pouvez contribuer :\n"
+"<ul>\n"
+"<li>algorithmique : rédaction de sujets machines et écrits.</li>\n"
+"<li>administration système : maintien et développement des infrastructures "
+"des épreuves régionales et de finale.</li>\n"
+"<li>développement web : pour nos sites.</li>\n"
+"</ul>\n"
+"Mais pas besoin d'être un expert en algo ou en système pour nous "
+"rejoindre !\n"
+"D'autant plus que les activités de l'association ne sont pas exclusivement \n"
+"techniques : logistique, contact de sponsors, communication et événementiel."
 
 #: pages/templates/pages/about-contribute.html:39
 msgid ""
-"We have a lot to do, hence we need motivated people every year! If you want to\n"
-"join in, or if you have any question, feel free to write to us: <a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
-msgstr "Nous avons énormément à faire et avons besoin chaque année de\npersonnes motivées ! Si vous êtes tenté, (ou si vous avez des questions)\nenvoyez nous un mail à :\n<a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+"We have a lot to do, hence we need motivated people every year! If you want "
+"to\n"
+"join in, or if you have any question, feel free to write to us: <a href="
+"\"mailto:info@prologin.org\">info@prologin.org</a>."
+msgstr ""
+"Nous avons énormément à faire et avons besoin chaque année de\n"
+"personnes motivées ! Si vous êtes tenté, (ou si vous avez des questions)\n"
+"envoyez nous un mail à :\n"
+"<a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
 
 #: pages/templates/pages/about-contribute.html:44
 msgid "Our internal tools"
@@ -3082,7 +3317,8 @@ msgstr "Nos outils internes"
 
 #: pages/templates/pages/about-contribute.html:45
 msgid ""
-"Whether you are a contributor, member, or simply curious, you can always take a\n"
+"Whether you are a contributor, member, or simply curious, you can always "
+"take a\n"
 "look and contribute to our open source internal tools:\n"
 "<ul>\n"
 "<li><a href=\"https://github.com/prologin/camisole\">camisole</a>:\n"
@@ -3094,15 +3330,34 @@ msgid ""
 "<li><a href=\"https://github.com/prologin/metalang\">metalang</a>:\n"
 "generate code stubs.</li>\n"
 "</ul>\n"
-"As an example, Haskell and Rust programming languages have been added by Prologin finalists so they could use it during the\n"
+"As an example, Haskell and Rust programming languages have been added by "
+"Prologin finalists so they could use it during the\n"
 "finals!"
-msgstr "Que vous soyez contributeur, membre ou juste curieux, il est toujours\npossible de participer au développement des outils internes de Prologin :\n<ul>\n<li><a href=\"https://github.com/prologin/camisole\">camisole</a> :\njuge en ligne sécurisé.</li>\n<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a> :\nsystème de match pour la finale.</li>\n<li><a href=\"https://github.com/prologin/sadm\">sadm</a> :\ninfrastructure système de la finale.</li>\n<li><a href=\"https://github.com/prologin/metalang\">metalang</a> :\ngénérateur de code à compléter.</li>\n</ul>\nLes langages Haskell et Rust ont par exemple été ajoutés par des finalistes\nPrologin pour qu'ils puissent eux-mêmes les utiliser lors d'une finale !"
+msgstr ""
+"Que vous soyez contributeur, membre ou juste curieux, il est toujours\n"
+"possible de participer au développement des outils internes de Prologin :\n"
+"<ul>\n"
+"<li><a href=\"https://github.com/prologin/camisole\">camisole</a> :\n"
+"juge en ligne sécurisé.</li>\n"
+"<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a> :\n"
+"système de match pour la finale.</li>\n"
+"<li><a href=\"https://github.com/prologin/sadm\">sadm</a> :\n"
+"infrastructure système de la finale.</li>\n"
+"<li><a href=\"https://github.com/prologin/metalang\">metalang</a> :\n"
+"générateur de code à compléter.</li>\n"
+"</ul>\n"
+"Les langages Haskell et Rust ont par exemple été ajoutés par des finalistes\n"
+"Prologin pour qu'ils puissent eux-mêmes les utiliser lors d'une finale !"
 
 #: pages/templates/pages/about-contribute.html:64
 msgid ""
 "However, there is no need to code or join the organization to help us out.\n"
-"Simply talking about Prologin around you, or displaying our posters in your school means a lot!"
-msgstr "Toutefois, vous n'êtes pas obligé de coder ou de rejoindre\nl'association pour nous aider. Simplement parler de Prologin autour de soi,\nou coller nos affiches dans votre école nous aide énormément !"
+"Simply talking about Prologin around you, or displaying our posters in your "
+"school means a lot!"
+msgstr ""
+"Toutefois, vous n'êtes pas obligé de coder ou de rejoindre\n"
+"l'association pour nous aider. Simplement parler de Prologin autour de soi,\n"
+"ou coller nos affiches dans votre école nous aide énormément !"
 
 #: pages/templates/pages/about-final.html:8
 #: pages/templates/pages/about-final.html:11
@@ -3118,10 +3373,18 @@ msgstr "Une épreuve de programmation de 36 heures non-stop"
 msgid ""
 "The final takes place for three days in the EPITA\n"
 "    school, which is closed for the event. The Prologin team is assisted by\n"
-"    some EPITA students and former contestants. At least ten organizers assist\n"
-"    technically the contestants during the whole contest. The contestants are\n"
+"    some EPITA students and former contestants. At least ten organizers "
+"assist\n"
+"    technically the contestants during the whole contest. The contestants "
+"are\n"
 "    authorized (and invited) to communicate together."
-msgstr "La finale se déroule pendant trois jours dans les locaux de l'EPITA, qui sont réservés au concours durant cette période. L'équipe de Prologin est complétée par des élèves d'EPITA et des anciens candidats, pour réunir un minimum de 30 personnes. Une dizaine d'organisateurs s'occupe d'assister techniquement les candidats tout au long de l'épreuve. Ces derniers sont également autorisés (pour ne pas dire incités) à communiquer entre eux."
+msgstr ""
+"La finale se déroule pendant trois jours dans les locaux de l'EPITA, qui "
+"sont réservés au concours durant cette période. L'équipe de Prologin est "
+"complétée par des élèves d'EPITA et des anciens candidats, pour réunir un "
+"minimum de 30 personnes. Une dizaine d'organisateurs s'occupe d'assister "
+"techniquement les candidats tout au long de l'épreuve. Ces derniers sont "
+"également autorisés (pour ne pas dire incités) à communiquer entre eux."
 
 #: pages/templates/pages/about-final.html:63
 msgid "Day 1"
@@ -3144,16 +3407,25 @@ msgid "Candidates reception"
 msgstr "Accueil des candidats"
 
 #: pages/templates/pages/about-final.html:83
-msgid "<tspan x=\"65\" >Statement</tspan><tspan x=\"65\" dy=\"15\">distribution</tspan>"
-msgstr "<tspan x=\"65\" >Distribution</tspan><tspan x=\"65\" dy=\"15\">du sujet</tspan>"
+msgid ""
+"<tspan x=\"65\" >Statement</tspan><tspan x=\"65\" dy=\"15\">distribution</"
+"tspan>"
+msgstr ""
+"<tspan x=\"65\" >Distribution</tspan><tspan x=\"65\" dy=\"15\">du sujet</"
+"tspan>"
 
 #: pages/templates/pages/about-final.html:89
-msgid "<tspan x=\"390\" >Selection,</tspan><tspan x=\"390\" dy=\"15\">jury</tspan>"
-msgstr "<tspan x=\"390\" >Sélection,</tspan><tspan x=\"390\" dy=\"15\">jury</tspan>"
+msgid ""
+"<tspan x=\"390\" >Selection,</tspan><tspan x=\"390\" dy=\"15\">jury</tspan>"
+msgstr ""
+"<tspan x=\"390\" >Sélection,</tspan><tspan x=\"390\" dy=\"15\">jury</tspan>"
 
 #: pages/templates/pages/about-final.html:93
-msgid "<tspan x=\"470\">Award ceremony,</tspan><tspan x=\"470\" dy=\"15\">banquet</tspan>"
-msgstr "<tspan x=\"470\">Cérémonie,</tspan><tspan x=\"470\" dy=\"15\">banquet</tspan>"
+msgid ""
+"<tspan x=\"470\">Award ceremony,</tspan><tspan x=\"470\" dy=\"15\">banquet</"
+"tspan>"
+msgstr ""
+"<tspan x=\"470\">Cérémonie,</tspan><tspan x=\"470\" dy=\"15\">banquet</tspan>"
 
 #: pages/templates/pages/about-final.html:97
 msgid "Animations"
@@ -3162,19 +3434,32 @@ msgstr "Animations"
 #: pages/templates/pages/about-final.html:104
 msgid ""
 "The main goal of the final is of course to select the\n"
-"    best contestants, but also to allow them to meet together and share their\n"
-"    knowledge and ideas, and to work on a real project that requires them to\n"
-"    give the best of themselves, from a technical perspective but also from a\n"
+"    best contestants, but also to allow them to meet together and share "
+"their\n"
+"    knowledge and ideas, and to work on a real project that requires them "
+"to\n"
+"    give the best of themselves, from a technical perspective but also from "
+"a\n"
 "    time management perspective."
-msgstr "L'objectif principal de la finale est bien sûr de sélectionner les meilleurs candidats, mais aussi de leur permettre de se rencontrer, d'échanger des idées, et de travailler sur un véritable projet qui leur demande de donner le meilleur d'eux-mêmes, d'une part du point de vue informatique, et d'autre part du point de vue de leur organisation et de la gestion du temps."
+msgstr ""
+"L'objectif principal de la finale est bien sûr de sélectionner les meilleurs "
+"candidats, mais aussi de leur permettre de se rencontrer, d'échanger des "
+"idées, et de travailler sur un véritable projet qui leur demande de donner "
+"le meilleur d'eux-mêmes, d'une part du point de vue informatique, et d'autre "
+"part du point de vue de leur organisation et de la gestion du temps."
 
 #: pages/templates/pages/about-final.html:110
 msgid ""
 "The judging system is a client-server architecture\n"
-"    programmed every year by the Prologin team. The contestant being free of\n"
-"    the systems programming part, they can focuse on all the algorithmic aspects\n"
+"    programmed every year by the Prologin team. The contestant being free "
+"of\n"
+"    the systems programming part, they can focuse on all the algorithmic "
+"aspects\n"
 "    of his submission."
-msgstr "L'architecture d'évaluation est un système client-serveur réalisé chaque année par l'équipe Prologin. Le candidat étant affranchi de toute la partie programmation système, il peut se concentrer sur les aspects algorithmiques."
+msgstr ""
+"L'architecture d'évaluation est un système client-serveur réalisé chaque "
+"année par l'équipe Prologin. Le candidat étant affranchi de toute la partie "
+"programmation système, il peut se concentrer sur les aspects algorithmiques."
 
 #: pages/templates/pages/about-final.html:115
 #: pages/templates/pages/about-semifinals.html:129
@@ -3187,13 +3472,19 @@ msgid ""
 "    dinners. As the final is also a party, unlimited (alcohol-free) drinks,\n"
 "    crepes and cotton candy are available, even after the meal hours.\n"
 "    "
-msgstr "Prologin assure un service de restauration matin, midi et soir. Mais parce que la finale est aussi une fête, boissons (sans alcool), crêpes et barbe-à-papa sont à disposition des candidats à volonté, y compris en dehors des heures de repas."
+msgstr ""
+"Prologin assure un service de restauration matin, midi et soir. Mais parce "
+"que la finale est aussi une fête, boissons (sans alcool), crêpes et barbe-à-"
+"papa sont à disposition des candidats à volonté, y compris en dehors des "
+"heures de repas."
 
 #: pages/templates/pages/about-final.html:122
 msgid ""
 "Mattresses are of course available for every contestant,\n"
 "    but they need to bring their own sleeping bags."
-msgstr "Des matelas sont bien sûr disponibles pour chaque candidat, mais chacun doit néanmoins apporter son sac de couchage."
+msgstr ""
+"Des matelas sont bien sûr disponibles pour chaque candidat, mais chacun doit "
+"néanmoins apporter son sac de couchage."
 
 #: pages/templates/pages/about-final.html:125
 msgid "The development environment"
@@ -3202,11 +3493,20 @@ msgstr "L'environnement de développement"
 #: pages/templates/pages/about-final.html:127
 msgid ""
 "Every one of the 100 contestants can work during the\n"
-"    whole contest on a computer running GNU/Linux. It is a good occasion for\n"
-"    them to familiarize with the UNIX environment, unknown for most of them.\n"
-"    Some documentation on the subject is available, and the Prologin team is\n"
+"    whole contest on a computer running GNU/Linux. It is a good occasion "
+"for\n"
+"    them to familiarize with the UNIX environment, unknown for most of "
+"them.\n"
+"    Some documentation on the subject is available, and the Prologin team "
+"is\n"
 "    there to help them if needed."
-msgstr "Chacun des 100 candidats se voit attribuer pour toute la durée du concours un ordinateur tournant sous GNU/Linux. C'est l'occasion pour les candidats de se familiariser avec l'environnement UNIX, méconnu d'une grande partie d'entre eux. Diverses documentations à ce sujet leur sont bien sûr fournies, et tout au long de l'épreuve l'équipe de Prologin est là pour les aider si besoin est."
+msgstr ""
+"Chacun des 100 candidats se voit attribuer pour toute la durée du concours "
+"un ordinateur tournant sous GNU/Linux. C'est l'occasion pour les candidats "
+"de se familiariser avec l'environnement UNIX, méconnu d'une grande partie "
+"d'entre eux. Diverses documentations à ce sujet leur sont bien sûr fournies, "
+"et tout au long de l'épreuve l'équipe de Prologin est là pour les aider si "
+"besoin est."
 
 #: pages/templates/pages/about-final.html:133
 msgid "The statement"
@@ -3216,17 +3516,27 @@ msgstr "Le sujet"
 msgid ""
 "Every year, an original contest statement is created by\n"
 "    the Prologin team. It generally consists of a game whose rules define a\n"
-"    world in which the programs of the contestants have to compete. It has a\n"
-"    playful aspect, while needing a lot of algorithmic and technical skills,\n"
+"    world in which the programs of the contestants have to compete. It has "
+"a\n"
+"    playful aspect, while needing a lot of algorithmic and technical "
+"skills,\n"
 "    generally related to artificial intelligence."
-msgstr "Chaque année, un sujet original est conçu par l'équipe Prologin. Il s'agit généralement d'un jeu dont les règles définissent un monde dans lequel les programmes des candidats doivent s'affronter les uns aux autres. Il présente donc un aspect ludique, tout en faisant appel à de nombreux problèmes algorithmiques, orientés vers l'intelligence artificielle."
+msgstr ""
+"Chaque année, un sujet original est conçu par l'équipe Prologin. Il s'agit "
+"généralement d'un jeu dont les règles définissent un monde dans lequel les "
+"programmes des candidats doivent s'affronter les uns aux autres. Il présente "
+"donc un aspect ludique, tout en faisant appel à de nombreux problèmes "
+"algorithmiques, orientés vers l'intelligence artificielle."
 
 #: pages/templates/pages/about-final.html:141
 msgid ""
 "The complex environment of the subject requires\n"
 "    technical skills, an analytical mind, and good time\n"
 "    management."
-msgstr "L'environnement complexe du sujet leur demande de faire preuve, en plus de leurs compétences techniques, d'un esprit de synthèse, et d'une bonne capacité à gérer leur temps."
+msgstr ""
+"L'environnement complexe du sujet leur demande de faire preuve, en plus de "
+"leurs compétences techniques, d'un esprit de synthèse, et d'une bonne "
+"capacité à gérer leur temps."
 
 #: pages/templates/pages/about-final.html:145
 #: pages/templates/pages/about-semifinals.html:112
@@ -3237,28 +3547,50 @@ msgstr "Méthode d'évaluation"
 msgid ""
 "The first phase of the evaluation consists of a great\n"
 "    tournament during which the programs of all the contestants compete\n"
-"    against one another. As soon as the contest ends, at 1 AM, all the computers are used\n"
-"    by a distributed tournament system, in order to make thousands of matches,\n"
+"    against one another. As soon as the contest ends, at 1 AM, all the "
+"computers are used\n"
+"    by a distributed tournament system, in order to make thousands of "
+"matches,\n"
 "    and get a precise ranking in equitable conditions."
-msgstr "La première phase de l'évaluation consiste en un grand tournoi, au cours duquel les programmes de tous les candidats vont s'affronter les uns aux autres. Dès la fin de l'épreuve, vers 1h du matin, toutes les machines sont exploitées par un système de tournoi réparti, afin de réaliser des dizaines de milliers de matchs, et obtenir ainsi un classement très précis dans les conditions les plus équitables possibles."
+msgstr ""
+"La première phase de l'évaluation consiste en un grand tournoi, au cours "
+"duquel les programmes de tous les candidats vont s'affronter les uns aux "
+"autres. Dès la fin de l'épreuve, vers 1h du matin, toutes les machines sont "
+"exploitées par un système de tournoi réparti, afin de réaliser des dizaines "
+"de milliers de matchs, et obtenir ainsi un classement très précis dans les "
+"conditions les plus équitables possibles."
 
 #: pages/templates/pages/about-final.html:153
 msgid ""
 "The ten best programs of this tournament are then\n"
-"    analyzed in depth: the source code and the documentation provided by the\n"
+"    analyzed in depth: the source code and the documentation provided by "
+"the\n"
 "    contestant are studied to write an evaluation sheet that will be used\n"
 "    during the defense."
-msgstr "Les dix meilleurs projets issus de ce tournoi sont ensuite analysés plus en profondeur : le code source et la documentation fournis par le candidat sont étudiés pour constituer une fiche d'évaluation détaillée qui servira de base au déroulement de la soutenance."
+msgstr ""
+"Les dix meilleurs projets issus de ce tournoi sont ensuite analysés plus en "
+"profondeur : le code source et la documentation fournis par le candidat sont "
+"étudiés pour constituer une fiche d'évaluation détaillée qui servira de base "
+"au déroulement de la soutenance."
 
 #: pages/templates/pages/about-final.html:158
 msgid ""
 "A special jury defines the final ranking after a \n"
-"    twenty-minutes defense with each of the ten best contestants. This ranking, highly\n"
-"    influenced by the results of the tournament, also takes into account the\n"
-"    capacity of the contestant to justify their technical choices, the quality of\n"
-"    the design of his program and the potential improvements they could have\n"
+"    twenty-minutes defense with each of the ten best contestants. This "
+"ranking, highly\n"
+"    influenced by the results of the tournament, also takes into account "
+"the\n"
+"    capacity of the contestant to justify their technical choices, the "
+"quality of\n"
+"    the design of his program and the potential improvements they could "
+"have\n"
 "    worked on."
-msgstr "Un jury définit le classement final après un entretien de vingt minutes avec chacun des dix candidats sélectionnés. Ce classement, fortement influencé par le résultat du tournoi, tient aussi compte entre autres de la capacité de chaque candidat à justifier ses choix techniques, de la qualité de l'architecture de son projet, et des possibilités d'améliorations envisagées."
+msgstr ""
+"Un jury définit le classement final après un entretien de vingt minutes avec "
+"chacun des dix candidats sélectionnés. Ce classement, fortement influencé "
+"par le résultat du tournoi, tient aussi compte entre autres de la capacité "
+"de chaque candidat à justifier ses choix techniques, de la qualité de "
+"l'architecture de son projet, et des possibilités d'améliorations envisagées."
 
 #: pages/templates/pages/about-final.html:165
 msgid "Award ceremony"
@@ -3267,10 +3599,17 @@ msgstr "Remise des prix"
 #: pages/templates/pages/about-final.html:167
 msgid ""
 "The awards are given at noon, after the individual\n"
-"    defenses. The main sponsors are generally here and give prizes and awards\n"
-"    to the winning contestants. Everyone is then invited to a feast that ends\n"
+"    defenses. The main sponsors are generally here and give prizes and "
+"awards\n"
+"    to the winning contestants. Everyone is then invited to a feast that "
+"ends\n"
 "    the contest."
-msgstr "La remise des prix a lieu vers midi, après la fin des soutenances. Les principaux sponsors et un certain nombre de personnalités associées au concours sont généralement présents, et remettent les lots et trophées aux gagnants. Tout le monde est ensuite convié au banquet qui clôture le concours."
+msgstr ""
+"La remise des prix a lieu vers midi, après la fin des soutenances. Les "
+"principaux sponsors et un certain nombre de personnalités associées au "
+"concours sont généralement présents, et remettent les lots et trophées aux "
+"gagnants. Tout le monde est ensuite convié au banquet qui clôture le "
+"concours."
 
 #: pages/templates/pages/about-history.html:8
 #: pages/templates/pages/about-history.html:11
@@ -3286,19 +3625,33 @@ msgstr "La création du concours"
 msgid ""
 "The Prologin organization was created in 1991 by EPITA and\n"
 "École polytechnique students, finding that Computer Science was one of the\n"
-"few fields for which there was no national contest in France gathering young\n"
+"few fields for which there was no national contest in France gathering "
+"young\n"
 "enthusiasts."
-msgstr "L'association Prologin est née en 1991 de l'initiative d'étudiants l'EPITA et de l'École polytechnique, constatant que l'informatique était l'un des rares domaines pour lequel il n'existait en France aucun concours réunissant des jeunes passionnés par cette matière."
+msgstr ""
+"L'association Prologin est née en 1991 de l'initiative d'étudiants l'EPITA "
+"et de l'École polytechnique, constatant que l'informatique était l'un des "
+"rares domaines pour lequel il n'existait en France aucun concours réunissant "
+"des jeunes passionnés par cette matière."
 
 #: pages/templates/pages/about-history.html:22
 msgid ""
 "The first Prologin edition was done in 1992, taking the\n"
-"form of a national individual computer science contest for young people under\n"
+"form of a national individual computer science contest for young people "
+"under\n"
 "20. The success of this experiment confirmed the interest of a contest like\n"
-"this one, which became a model for the next editions : the online selection,\n"
+"this one, which became a model for the next editions : the online "
+"selection,\n"
 "the regional events and the final. The latter, atypical with its 36-hour\n"
 "nonstop contest, is the main specificity of the contest."
-msgstr "La première édition de Prologin eut lieu en 1992, sous la forme d'un concours national individuel d'informatique, destiné aux jeunes de moins de 20 ans. Le succès de cette expérience confirma l'intérêt d'un concours de ce type, qui servit de modèle de base pour les éditions suivantes : une première sélection par questionnaire, des épreuves dans différentes villes et la finale. Cette dernière, se voulant atypique avec son épreuve de programmation de 36h non-stop, a fait l'identité du concours."
+msgstr ""
+"La première édition de Prologin eut lieu en 1992, sous la forme d'un "
+"concours national individuel d'informatique, destiné aux jeunes de moins de "
+"20 ans. Le succès de cette expérience confirma l'intérêt d'un concours de ce "
+"type, qui servit de modèle de base pour les éditions suivantes : une "
+"première sélection par questionnaire, des épreuves dans différentes villes "
+"et la finale. Cette dernière, se voulant atypique avec son épreuve de "
+"programmation de 36h non-stop, a fait l'identité du concours."
 
 #: pages/templates/pages/about-history.html:29
 msgid "The winners of Prologin"
@@ -3307,9 +3660,14 @@ msgstr "Les vainqueurs de Prologin"
 #: pages/templates/pages/about-history.html:31
 msgid ""
 "From its creation, Prologin rewards the contestants that\n"
-"show excellence in a scientific field, despite its absence in most curriculums.\n"
+"show excellence in a scientific field, despite its absence in most "
+"curriculums.\n"
 "This is the list of these students by year.\n"
-msgstr "Depuis sa création, Prologin récompense les candidats qui se distinguent par leur excellence dans une discipline scientifique malgré le fait qu'elle soit absente de la plupart des programmes scolaires. Voici donc la liste de ces étudiants année par année.\n"
+msgstr ""
+"Depuis sa création, Prologin récompense les candidats qui se distinguent par "
+"leur excellence dans une discipline scientifique malgré le fait qu'elle soit "
+"absente de la plupart des programmes scolaires. Voici donc la liste de ces "
+"étudiants année par année.\n"
 
 #: pages/templates/pages/about-history.html:40
 msgid "No edition this year"
@@ -3333,9 +3691,13 @@ msgstr "À propos de l'association Prologin"
 #: pages/templates/pages/about-organization.html:17
 #, python-format
 msgid ""
-"Prologin is a nonprofit organization whose main mission is to develop and organize the\n"
+"Prologin is a nonprofit organization whose main mission is to develop and "
+"organize the\n"
 "<a href=\"%(contest_url)s\">Prologin computing contest</a>."
-msgstr "Prologin est une association de bénévoles dont la mission principale est d'organiser le\n<a href=\"%(contest_url)s\">concours d'informatique Prologin</a>."
+msgstr ""
+"Prologin est une association de bénévoles dont la mission principale est "
+"d'organiser le\n"
+"<a href=\"%(contest_url)s\">concours d'informatique Prologin</a>."
 
 #: pages/templates/pages/about-organization.html:20
 msgid "Jump to description"
@@ -3349,7 +3711,7 @@ msgstr "Informations de contact"
 msgid "Address"
 msgstr "Adresse"
 
-#: pages/templates/pages/about-organization.html:35 users/models.py:127
+#: pages/templates/pages/about-organization.html:35 users/models.py:129
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -3373,9 +3735,12 @@ msgstr "Statut légal"
 
 #: pages/templates/pages/about-organization.html:63
 msgid ""
-"Prologin is a French “law 1901” organization registered under the sub-prefecture of\n"
+"Prologin is a French “law 1901” organization registered under the sub-"
+"prefecture of\n"
 "<em>L'Hay-les-Roses</em> on 2000-08-04."
-msgstr "Prologin est une association loi de 1901, déclarée à la sous-préfecture de <em>L'Hay-les-Roses</em> le 04-08-2000."
+msgstr ""
+"Prologin est une association loi de 1901, déclarée à la sous-préfecture de "
+"<em>L'Hay-les-Roses</em> le 04-08-2000."
 
 #: pages/templates/pages/about-organization.html:65
 msgid "CNIL registration number:"
@@ -3383,11 +3748,18 @@ msgstr "Numéro de déclaration CNIL :"
 
 #: pages/templates/pages/about-organization.html:66
 msgid ""
-"In accordance with Article 34 of the “Informatique et Liberté” law, you have\n"
+"In accordance with Article 34 of the “Informatique et Liberté” law, you "
+"have\n"
 "the right to access, modify and delete data concerning you.\n"
-"To exercise this right, please contact Prologin using one of the methods listed in\n"
+"To exercise this right, please contact Prologin using one of the methods "
+"listed in\n"
 "the “Contact info” box."
-msgstr "Conformément à l'article 34 de la loi « Informatique et Liberté », vous disposez d'un droit d'accès, de rectification et suppression des données à caractère personnel vous concernant.\nPour exercer ce droit, veuillez contacter Prologin en utilisant l'une des méthodes listées dans l'encart « Informations de contact. »"
+msgstr ""
+"Conformément à l'article 34 de la loi « Informatique et Liberté », vous "
+"disposez d'un droit d'accès, de rectification et suppression des données à "
+"caractère personnel vous concernant.\n"
+"Pour exercer ce droit, veuillez contacter Prologin en utilisant l'une des "
+"méthodes listées dans l'encart « Informations de contact. »"
 
 #: pages/templates/pages/about-organization.html:75
 msgid "A computer enthusiasts organization"
@@ -3395,26 +3767,71 @@ msgstr "Une association de passionnés d'informatique"
 
 #: pages/templates/pages/about-organization.html:76
 msgid ""
-"<p class=\"text-justify\">The purpose of Prologin is to enable young computer enthusiasts to meet and compete with one another. Indeed,\n"
-"computer science is still largely under represented in French schools. Therefore, those who practice it are\n"
-"often self-taught and have an individual practice of it. However, any large project requires teamwork. This is\n"
-"why, even though candidates seat the exam individually, the competition should facilitate the exchange of ideas\n"
-"between candidates. To promote these exchanges, the Prologin team tries to design the contest topics so they\n"
-"put forward playful aspects. Meanwhile, everything is done so that participants can and should exchange ideas\n"
-"within a cheerful atmosphere. Combining work and pleasure is therefore a key objective of Prologin.</p>\n"
+"<p class=\"text-justify\">The purpose of Prologin is to enable young "
+"computer enthusiasts to meet and compete with one another. Indeed,\n"
+"computer science is still largely under represented in French schools. "
+"Therefore, those who practice it are\n"
+"often self-taught and have an individual practice of it. However, any large "
+"project requires teamwork. This is\n"
+"why, even though candidates seat the exam individually, the competition "
+"should facilitate the exchange of ideas\n"
+"between candidates. To promote these exchanges, the Prologin team tries to "
+"design the contest topics so they\n"
+"put forward playful aspects. Meanwhile, everything is done so that "
+"participants can and should exchange ideas\n"
+"within a cheerful atmosphere. Combining work and pleasure is therefore a key "
+"objective of Prologin.</p>\n"
 "\n"
-"<p class=\"text-justify\">We want to allow the candidates to take advantage of the competition to enhance their skills. We try to cover as\n"
-"many areas of computer science: artificial intelligence algorithms, general culture, various programming\n"
+"<p class=\"text-justify\">We want to allow the candidates to take advantage "
+"of the competition to enhance their skills. We try to cover as\n"
+"many areas of computer science: artificial intelligence algorithms, general "
+"culture, various programming\n"
 "languages…</p>\n"
 "\n"
-"<p class=\"text-justify\">For the organizers, the competition is an opportunity to manage a team and to organize a event. We must also\n"
-"learn how to communicate effectively in order to make it known to a wider public. Managing relations with\n"
-"sponsors, creating statements and solving both technological and logistic issues are also an enriching\n"
+"<p class=\"text-justify\">For the organizers, the competition is an "
+"opportunity to manage a team and to organize a event. We must also\n"
+"learn how to communicate effectively in order to make it known to a wider "
+"public. Managing relations with\n"
+"sponsors, creating statements and solving both technological and logistic "
+"issues are also an enriching\n"
 "experiences for our staff members.</p>\n"
 "\n"
-"<p class=\"text-justify\">Finally, for all the survivors who reach the final, it is also the opportunity to spend a super crazy weekend\n"
+"<p class=\"text-justify\">Finally, for all the survivors who reach the "
+"final, it is also the opportunity to spend a super crazy weekend\n"
 "with us!</p>\n"
-msgstr "<p class=\"text-justify\">Le but de Prologin est de permettre à de jeunes passionnés d'informatique de se rencontrer et de se mesurer les uns aux autres. En effet, \nl'apprentissage de l'informatique est sous representé dans les écoles françaises. Par conséquent, ceux qui la pratiquent sont\nsouvent autodidactes et en ont une expérience individuelle. Cependant, n'importe quel projet important demande du travail d'équipe. C'est \npourquoi, quand bien même les candidats participent individuellement, la compétition devrait faciliter l'échange des idées\nentre les candidats. Pour faciliter ces échanges, l'équipe de Prologin choisit comme sujet de concours des jeux. En même temps, tout est mis en œuvre pour que les participants puissent échanger des idées\ndans une atmosphère détendue. Mêler travail et plaisir est donc un des objectifs clefs de Prologin.</p>\n\n<p class=\"text-justify\">Nous voulons permettre aux candidats de profiter de la compétition pour s'améliorer. Nous essayons de couvrir \nle plus possible de facettes de l'informatique : algorithmes d'intelligence artificielle, culture générale, plusieurs langages de programmation...</p>\n\n<p class=\"text-justify\">Pour les organisateurs, le concours est l'opportunité de gérer une équipe et organiser un événement. Nous devons également \napprendre comment communiquer efficacement pour toucher un plus grand public. Gérer les relations \navec les sponsors et résoudre des problèmes aussi bien techniques que logistiques sont également une expérience \nenrichissante pour les membres de l'équipe.</p>\n\n<p class=\"text-justify\">Finalement, pour tous les survivants qui atteignent la finale, c'est aussi l'occasion de passer un super weekend avec nous&nbsp;!</p>\n"
+msgstr ""
+"<p class=\"text-justify\">Le but de Prologin est de permettre à de jeunes "
+"passionnés d'informatique de se rencontrer et de se mesurer les uns aux "
+"autres. En effet, \n"
+"l'apprentissage de l'informatique est sous representé dans les écoles "
+"françaises. Par conséquent, ceux qui la pratiquent sont\n"
+"souvent autodidactes et en ont une expérience individuelle. Cependant, "
+"n'importe quel projet important demande du travail d'équipe. C'est \n"
+"pourquoi, quand bien même les candidats participent individuellement, la "
+"compétition devrait faciliter l'échange des idées\n"
+"entre les candidats. Pour faciliter ces échanges, l'équipe de Prologin "
+"choisit comme sujet de concours des jeux. En même temps, tout est mis en "
+"œuvre pour que les participants puissent échanger des idées\n"
+"dans une atmosphère détendue. Mêler travail et plaisir est donc un des "
+"objectifs clefs de Prologin.</p>\n"
+"\n"
+"<p class=\"text-justify\">Nous voulons permettre aux candidats de profiter "
+"de la compétition pour s'améliorer. Nous essayons de couvrir \n"
+"le plus possible de facettes de l'informatique : algorithmes d'intelligence "
+"artificielle, culture générale, plusieurs langages de programmation...</p>\n"
+"\n"
+"<p class=\"text-justify\">Pour les organisateurs, le concours est "
+"l'opportunité de gérer une équipe et organiser un événement. Nous devons "
+"également \n"
+"apprendre comment communiquer efficacement pour toucher un plus grand "
+"public. Gérer les relations \n"
+"avec les sponsors et résoudre des problèmes aussi bien techniques que "
+"logistiques sont également une expérience \n"
+"enrichissante pour les membres de l'équipe.</p>\n"
+"\n"
+"<p class=\"text-justify\">Finalement, pour tous les survivants qui "
+"atteignent la finale, c'est aussi l'occasion de passer un super weekend avec "
+"nous&nbsp;!</p>\n"
 
 #: pages/templates/pages/about-organization.html:97
 msgid "Everyone can contribute to Prologin"
@@ -3422,15 +3839,34 @@ msgstr "Tout le monde peut contribuer à Prologin"
 
 #: pages/templates/pages/about-organization.html:99
 msgid ""
-"<p class=\"text-justify\">Contributing can be done in various ways: promoting the event, developing the website and\n"
-"the software architecture for the final, helping during the regional events, contributing in the forums, and so on.\n"
+"<p class=\"text-justify\">Contributing can be done in various ways: "
+"promoting the event, developing the website and\n"
+"the software architecture for the final, helping during the regional events, "
+"contributing in the forums, and so on.\n"
 "We also appreciate your feedback and your suggestions.</p>\n"
 "\n"
-"<p class=\"text-justify\">We also need your help with the training section, where users can try themselves on a large set of statements.\n"
-"If you can give us a hand, please do: we are looking for new statements (originals or translations of third parties),\n"
-"courses, and corrections. Of course, please contact us before contributing so we can prevent certain parts\n"
+"<p class=\"text-justify\">We also need your help with the training section, "
+"where users can try themselves on a large set of statements.\n"
+"If you can give us a hand, please do: we are looking for new statements "
+"(originals or translations of third parties),\n"
+"courses, and corrections. Of course, please contact us before contributing "
+"so we can prevent certain parts\n"
 "being done in duplicate.</p>\n"
-msgstr "<p class=\"text-justify\">Il existe divers moyens de contribuer&nbsp;: promouvoir l'événement, développer le site internet et l'architecture logicielle pour la finale, aider lors des épreuves régionales, participer dans les forums, etc.\nNous apprécions aussi les retours et suggestions.</p>\n\n<p class=\"text-justify\">Nous avons aussi besoin de votre aide pour la section d'entraînement, dans laquelle les utilisateurs peuvent se mesurer à un grand nombre de problèmes.\nSi vous pouvez nous donner un coup de main, n'hésitez pas&nbsp;: nous sommes à la recherche de nouveaux problèmes (originaux ou traduits depuis d'autres sources), cours et corrections. Bien sûr, veuillez nous contacter avant de contribuer afin que nous puissions éviter que certaines choses soient faites en double.</p>\n"
+msgstr ""
+"<p class=\"text-justify\">Il existe divers moyens de contribuer&nbsp;: "
+"promouvoir l'événement, développer le site internet et l'architecture "
+"logicielle pour la finale, aider lors des épreuves régionales, participer "
+"dans les forums, etc.\n"
+"Nous apprécions aussi les retours et suggestions.</p>\n"
+"\n"
+"<p class=\"text-justify\">Nous avons aussi besoin de votre aide pour la "
+"section d'entraînement, dans laquelle les utilisateurs peuvent se mesurer à "
+"un grand nombre de problèmes.\n"
+"Si vous pouvez nous donner un coup de main, n'hésitez pas&nbsp;: nous sommes "
+"à la recherche de nouveaux problèmes (originaux ou traduits depuis d'autres "
+"sources), cours et corrections. Bien sûr, veuillez nous contacter avant de "
+"contribuer afin que nous puissions éviter que certaines choses soient faites "
+"en double.</p>\n"
 
 #: pages/templates/pages/about-qualification.html:8
 #: pages/templates/pages/about-qualification.html:11
@@ -3440,35 +3876,61 @@ msgstr "L'étape de sélection"
 
 #: pages/templates/pages/about-qualification.html:21
 msgid ""
-"This test typically takes the form of four or five small algorithmic problems of increasing difficulty.\n"
-"This is both to publicize the contest and select candidates with the minimum level required to participate in the\n"
-"next stages. This is also an opportunity to encourage young people, including those who will not participate in\n"
-"the events which will follow, to tackle the various areas about computing that they may not had the opportunity\n"
+"This test typically takes the form of four or five small algorithmic "
+"problems of increasing difficulty.\n"
+"This is both to publicize the contest and select candidates with the minimum "
+"level required to participate in the\n"
+"next stages. This is also an opportunity to encourage young people, "
+"including those who will not participate in\n"
+"the events which will follow, to tackle the various areas about computing "
+"that they may not had the opportunity\n"
 "to address so far."
-msgstr "Cette épreuve prend généralement la forme de quatre ou cinq petits problèmes d'algorithmique de difficulté croissante.\nIl s'agit à la fois de faire connaître le concours à un maximum de monde, et de sélectionner les candidats ayant le niveau minimum requis pour participer à la suite du concours. C'est également l'occasion d'inciter les jeunes, y compris ceux qui ne participeront pas à la suite des épreuves, à s'interroger sur les différents domaines touchant l'informatique qu'ils n'avaient peut-être pas eu l'occasion d'aborder jusque là."
+msgstr ""
+"Cette épreuve prend généralement la forme de quatre ou cinq petits problèmes "
+"d'algorithmique de difficulté croissante.\n"
+"Il s'agit à la fois de faire connaître le concours à un maximum de monde, et "
+"de sélectionner les candidats ayant le niveau minimum requis pour participer "
+"à la suite du concours. C'est également l'occasion d'inciter les jeunes, y "
+"compris ceux qui ne participeront pas à la suite des épreuves, à "
+"s'interroger sur les différents domaines touchant l'informatique qu'ils "
+"n'avaient peut-être pas eu l'occasion d'aborder jusque là."
 
 #: pages/templates/pages/about-qualification.html:26
 msgid ""
-"Posters are sent to various schools all over France (high schools, IUT, colleges, etc.).\n"
-"  There are sent to former candidates as well, who represent the most effective way to publicize the competition.\n"
+"Posters are sent to various schools all over France (high schools, IUT, "
+"colleges, etc.).\n"
+"  There are sent to former candidates as well, who represent the most "
+"effective way to publicize the competition.\n"
 "  "
-msgstr "Des posters sont envoyés dans de nombreux établissements scolaires partout en France (lycées, IUT, universités...), ainsi qu'aux anciens candidats, qui sont le moyen le plus efficace de faire connaître le concours."
+msgstr ""
+"Des posters sont envoyés dans de nombreux établissements scolaires partout "
+"en France (lycées, IUT, universités...), ainsi qu'aux anciens candidats, qui "
+"sont le moyen le plus efficace de faire connaître le concours."
 
 #: pages/templates/pages/about-qualification.html:29
 msgid ""
-"Some years, the questionnaire is also published in various targeted computer magazines. For example,\n"
+"Some years, the questionnaire is also published in various targeted computer "
+"magazines. For example,\n"
 "for the 2004 edition, 120'000 copies of the quiz were distributed on paper."
-msgstr "Certaines années, le questionnaire est également publié dans différents magazines informatiques ciblés. Par exemple pour l'édition 2004, ce sont 120000 exemplaires du QCM qui ont été distribués en version papier."
+msgstr ""
+"Certaines années, le questionnaire est également publié dans différents "
+"magazines informatiques ciblés. Par exemple pour l'édition 2004, ce sont "
+"120000 exemplaires du QCM qui ont été distribués en version papier."
 
 #: pages/templates/pages/about-qualification.html:32
 msgid "Why are students from EPITA not allowed to compete?"
-msgstr "Pourquoi les étudiant(e)s de EPITA n'ont pas le droit de concourir&nbsp;?"
+msgstr ""
+"Pourquoi les étudiant(e)s de EPITA n'ont pas le droit de concourir&nbsp;?"
 
 #: pages/templates/pages/about-qualification.html:33
 msgid ""
-"Prologin is registered as an association that is part of the EPITA engineering school. As such,\n"
+"Prologin is registered as an association that is part of the EPITA "
+"engineering school. As such,\n"
 "  members of the school are not allowed to compete in the Prologin contest."
-msgstr "Prologin est une association qui fait partie de l'école d'ingénieur EPITA. Ainsi, les membres de cette école n'ont pas le droit de participer au concours Prologin."
+msgstr ""
+"Prologin est une association qui fait partie de l'école d'ingénieur EPITA. "
+"Ainsi, les membres de cette école n'ont pas le droit de participer au "
+"concours Prologin."
 
 #: pages/templates/pages/about-semifinals.html:8
 #: pages/templates/pages/about-semifinals.html:11
@@ -3478,18 +3940,34 @@ msgstr "Les épreuves régionales"
 
 #: pages/templates/pages/about-semifinals.html:21
 msgid ""
-"The regional event tests are intended to test the capability of candidates to solve algorithmic\n"
-"problems but also to implement theirs solution on a machine, in the programming language they prefer. This is also an\n"
-"opportunity for candidates to meet other enthusiasts, and for the organizers to relate their experience, to help\n"
+"The regional event tests are intended to test the capability of candidates "
+"to solve algorithmic\n"
+"problems but also to implement theirs solution on a machine, in the "
+"programming language they prefer. This is also an\n"
+"opportunity for candidates to meet other enthusiasts, and for the organizers "
+"to relate their experience, to help\n"
 "them progress."
-msgstr "Les épreuves régionales sont destinées à tester les capacités des candidats d'une part à résoudre des problèmes de manière algorithmique, et d'autre part à mettre en œuvre cette démarche sur une machine, dans le langage de leur choix. Ce doit aussi être l'occasion pour les candidats de rencontrer d'autres passionnés, et pour les organisateurs de leur faire part de leur expérience, pour les aider à progresser."
+msgstr ""
+"Les épreuves régionales sont destinées à tester les capacités des candidats "
+"d'une part à résoudre des problèmes de manière algorithmique, et d'autre "
+"part à mettre en œuvre cette démarche sur une machine, dans le langage de "
+"leur choix. Ce doit aussi être l'occasion pour les candidats de rencontrer "
+"d'autres passionnés, et pour les organisateurs de leur faire part de leur "
+"expérience, pour les aider à progresser."
 
 #: pages/templates/pages/about-semifinals.html:25
 msgid ""
-"The 200 to 300 selected candidates are divided into different regional events, which take place in\n"
-"multiple sessions from mid-January, in the following French cities: Paris, Lyon, Toulouse, Strasbourg, Nantes,\n"
+"The 200 to 300 selected candidates are divided into different regional "
+"events, which take place in\n"
+"multiple sessions from mid-January, in the following French cities: Paris, "
+"Lyon, Toulouse, Strasbourg, Nantes,\n"
 "Lille, Toulon, Louvain-la-Neuve and Bordeaux."
-msgstr "Les 200 à 300 candidats sélectionnés sont répartis dans les différentes épreuves régionales se déroulant en plusieurs sessions à partir de mi-janvier dans les villes françaises suivantes : Paris, Lyon, Toulouse, Strasbourg, Nantes, Lille, Toulon et Bordeaux. Une épreuve est aussi organisée en Belgique à Louvain-la-Neuve."
+msgstr ""
+"Les 200 à 300 candidats sélectionnés sont répartis dans les différentes "
+"épreuves régionales se déroulant en plusieurs sessions à partir de mi-"
+"janvier dans les villes françaises suivantes : Paris, Lyon, Toulouse, "
+"Strasbourg, Nantes, Lille, Toulon et Bordeaux. Une épreuve est aussi "
+"organisée en Belgique à Louvain-la-Neuve."
 
 #: pages/templates/pages/about-semifinals.html:29
 msgid "The three tests"
@@ -3502,13 +3980,26 @@ msgstr "L'examen écrit"
 #: pages/templates/pages/about-semifinals.html:32
 msgid ""
 "The written exam lasts three hours. The test consists of\n"
-"    a series of five or six questions around a common theme. These questions of\n"
-"    increasing difficulty guide the contestant in the stages of resolution of\n"
-"    an algorithmic problem. The first exercices focus on modeling the problem\n"
-"    and are here to check that the candidate masters the basic principles of\n"
-"    algorithms, and the next exercises require the contestant to code effective\n"
+"    a series of five or six questions around a common theme. These questions "
+"of\n"
+"    increasing difficulty guide the contestant in the stages of resolution "
+"of\n"
+"    an algorithmic problem. The first exercices focus on modeling the "
+"problem\n"
+"    and are here to check that the candidate masters the basic principles "
+"of\n"
+"    algorithms, and the next exercises require the contestant to code "
+"effective\n"
 "    algorithms for harder problems."
-msgstr "L'épreuve d'algorithmique sur papier, d'une durée de trois heures, est composée d'une série de cinq ou six questions autour d'un thème commun. Ces questions, de difficulté croissante, guident le candidat dans les étapes de résolution d'un problème d'algorithmique. Les premières portent sur la modélisation du problème et permettent de vérifier que le candidat maîtrise les principes de base de l'algorithmique, et les dernières consistent à rechercher et évaluer des algorithmes efficaces, pour des problèmes plus difficiles."
+msgstr ""
+"L'épreuve d'algorithmique sur papier, d'une durée de trois heures, est "
+"composée d'une série de cinq ou six questions autour d'un thème commun. Ces "
+"questions, de difficulté croissante, guident le candidat dans les étapes de "
+"résolution d'un problème d'algorithmique. Les premières portent sur la "
+"modélisation du problème et permettent de vérifier que le candidat maîtrise "
+"les principes de base de l'algorithmique, et les dernières consistent à "
+"rechercher et évaluer des algorithmes efficaces, pour des problèmes plus "
+"difficiles."
 
 #: pages/templates/pages/about-semifinals.html:40
 msgid "The interview"
@@ -3517,10 +4008,16 @@ msgstr "L'entretien"
 #: pages/templates/pages/about-semifinals.html:41
 msgid ""
 "The interview lasts between ten and twenty minutes. It\n"
-"    is a way for us to meet individually every contestant, test their knowledge,\n"
-"    learn about the personal projects he works on, while giving him advices to\n"
+"    is a way for us to meet individually every contestant, test their "
+"knowledge,\n"
+"    learn about the personal projects he works on, while giving him advices "
+"to\n"
 "    improve."
-msgstr "L'entretien d'une vingtaine de minutes nous permet de faire la connaissance de chaque candidat individuellement, de tester ses connaissances, et de l'écouter présenter les projets informatiques personnels qu'il a pu réaliser, tout en le conseillant éventuellement sur les moyens de progresser."
+msgstr ""
+"L'entretien d'une vingtaine de minutes nous permet de faire la connaissance "
+"de chaque candidat individuellement, de tester ses connaissances, et de "
+"l'écouter présenter les projets informatiques personnels qu'il a pu "
+"réaliser, tout en le conseillant éventuellement sur les moyens de progresser."
 
 #: pages/templates/pages/about-semifinals.html:46
 msgid "The practical test"
@@ -3529,18 +4026,30 @@ msgstr "L'épreuve sur machine"
 #: pages/templates/pages/about-semifinals.html:47
 msgid ""
 "The practical test lasts four hours. Every contestant\n"
-"    works on algorithmic exercises on a computer. A judging program evaluates\n"
-"    the code submissions of the contestant. The goal of this test is to check\n"
+"    works on algorithmic exercises on a computer. A judging program "
+"evaluates\n"
+"    the code submissions of the contestant. The goal of this test is to "
+"check\n"
 "    that the contestant is able to code a program on a computer (choose an\n"
-"    algorithm, implement it in a programming language, test it and debug it).\n"
+"    algorithm, implement it in a programming language, test it and debug "
+"it).\n"
 "    "
-msgstr " L'épreuve pratique, d'une durée de quatre heures, consiste en une série d'exercices de programmation de difficulté croissante. Une machine est mise à disposition de chaque candidat, et un programme de test lui fournit les sujets, et vérifie le fonctionnement des programmes qu'il soumet. Cette épreuve a pour but de vérifier que le candidat est capable de mettre en œuvre ce qu'il sait pour réaliser un programme sur un ordinateur (choix de l'algorithme, implémentation dans le langage choisi, tests et déboguage)."
+msgstr ""
+" L'épreuve pratique, d'une durée de quatre heures, consiste en une série "
+"d'exercices de programmation de difficulté croissante. Une machine est mise "
+"à disposition de chaque candidat, et un programme de test lui fournit les "
+"sujets, et vérifie le fonctionnement des programmes qu'il soumet. Cette "
+"épreuve a pour but de vérifier que le candidat est capable de mettre en "
+"œuvre ce qu'il sait pour réaliser un programme sur un ordinateur (choix de "
+"l'algorithme, implémentation dans le langage choisi, tests et déboguage)."
 
 #: pages/templates/pages/about-semifinals.html:54
 msgid ""
 "All these tests are individual. No other documents than\n"
 "    those given by Prologin are authorized."
-msgstr "Toutes ces épreuves sont individuelles : aucun document autre que ceux fournis par Prologin ne sont autorisés."
+msgstr ""
+"Toutes ces épreuves sont individuelles : aucun document autre que ceux "
+"fournis par Prologin ne sont autorisés."
 
 #: pages/templates/pages/about-semifinals.html:57
 msgid "The typical course of a regional event day"
@@ -3551,14 +4060,20 @@ msgid "Welcoming contestants, free breakfast"
 msgstr "Accueil des candidats, petit déjeuner offert"
 
 #: pages/templates/pages/about-semifinals.html:91
-msgid "<tspan x=\"170\">Written exam</tspan> <tspan x=\"170\" dy=\"20\">(3 hours)</tspan>"
-msgstr "<tspan x=\"170\">Épreuve écrite</tspan> <tspan x=\"170\" dy=\"20\">(3 hours)</tspan>"
+msgid ""
+"<tspan x=\"170\">Written exam</tspan> <tspan x=\"170\" dy=\"20\">(3 hours)</"
+"tspan>"
+msgstr ""
+"<tspan x=\"170\">Épreuve écrite</tspan> <tspan x=\"170\" dy=\"20\">(3 "
+"hours)</tspan>"
 
 #: pages/templates/pages/about-semifinals.html:93
 msgid ""
 "<tspan x=\"375\">Interview</tspan> <tspan x=\"375\" dy=\"20\">(15-20 "
 "minutes)</tspan>"
-msgstr "<tspan x=\"375\">Entretiens</tspan> <tspan x=\"375\" dy=\"20\">(15-20 minutes)</tspan>"
+msgstr ""
+"<tspan x=\"375\">Entretiens</tspan> <tspan x=\"375\" dy=\"20\">(15-20 "
+"minutes)</tspan>"
 
 #: pages/templates/pages/about-semifinals.html:95
 msgid "Free lunch"
@@ -3571,58 +4086,89 @@ msgstr "Épreuve machine (4h)"
 #: pages/templates/pages/about-semifinals.html:100
 msgid ""
 "The contestants are welcomed at 8h30 AM, and meet together\n"
-"    while having a free breakfast provided by Prologin. The written exam takes\n"
-"    place between 9 AM and 12 AM, during which they also have an interview with a\n"
+"    while having a free breakfast provided by Prologin. The written exam "
+"takes\n"
+"    place between 9 AM and 12 AM, during which they also have an interview "
+"with a\n"
 "    Prologin organizer."
-msgstr "Les candidats sont accueillis vers 8h30 le matin, et font connaissance en prenant le petit déjeuner, offert par Prologin. L'épreuve d'algorithmique se déroule de 9h à 12h, et en parallèle les candidats passent chacun à leur tour un entretien avec un organisateur."
+msgstr ""
+"Les candidats sont accueillis vers 8h30 le matin, et font connaissance en "
+"prenant le petit déjeuner, offert par Prologin. L'épreuve d'algorithmique se "
+"déroule de 9h à 12h, et en parallèle les candidats passent chacun à leur "
+"tour un entretien avec un organisateur."
 
 #: pages/templates/pages/about-semifinals.html:105
 msgid ""
 "Before or during the lunch, also provided by Prologin,\n"
-"    the organizers present a quick correction of some of the problems the candidates have\n"
+"    the organizers present a quick correction of some of the problems the "
+"candidates have\n"
 "    just worked on."
-msgstr "Avant ou pendant le repas du midi, également offert par Prologin, les organisateurs présentent une rapide correction des problèmes les plus difficiles de l'épreuve écrite."
+msgstr ""
+"Avant ou pendant le repas du midi, également offert par Prologin, les "
+"organisateurs présentent une rapide correction des problèmes les plus "
+"difficiles de l'épreuve écrite."
 
 #: pages/templates/pages/about-semifinals.html:109
 msgid ""
 "The day continues with the practical test, which lasts\n"
 "    four hours, and ends at 5:30 PM."
-msgstr "La journée se poursuit avec l'épreuve machine, d'une durée de quatre heures, et se termine vers 17h30."
+msgstr ""
+"La journée se poursuit avec l'épreuve machine, d'une durée de quatre heures, "
+"et se termine vers 17h30."
 
 #: pages/templates/pages/about-semifinals.html:113
 msgid ""
 "The exam submissions are marked according to the\n"
-"    validity and the efficiency of the proposed algorithms. The syntax of the\n"
-"    languages used and other similar aspects are not taken in account, as they\n"
+"    validity and the efficiency of the proposed algorithms. The syntax of "
+"the\n"
+"    languages used and other similar aspects are not taken in account, as "
+"they\n"
 "    are already needed for the coding exercises."
-msgstr "Les copies de l'épreuve papier sont notées en fonction de la validité et de l'efficacité des algorithmes proposés. La maîtrise de la syntaxe du langage et autres aspects similaires ne sont pas pris en compte : ils sont sanctionnés par l'épreuve machine."
+msgstr ""
+"Les copies de l'épreuve papier sont notées en fonction de la validité et de "
+"l'efficacité des algorithmes proposés. La maîtrise de la syntaxe du langage "
+"et autres aspects similaires ne sont pas pris en compte : ils sont "
+"sanctionnés par l'épreuve machine."
 
 #: pages/templates/pages/about-semifinals.html:118
 msgid ""
 "After the interview, a grade is also given according to\n"
 "    various criteria."
-msgstr "À l'issue de l'entretien, une note est également attribuée en fonction de différents critères d'évaluation."
+msgstr ""
+"À l'issue de l'entretien, une note est également attribuée en fonction de "
+"différents critères d'évaluation."
 
 #: pages/templates/pages/about-semifinals.html:121
 msgid ""
 "The grade of the practical test is attributed\n"
 "    automatically by the juding system, according to the number of solved\n"
-"    exercises, the number of tries to achieve that, and the time spent on each\n"
+"    exercises, the number of tries to achieve that, and the time spent on "
+"each\n"
 "    exercise before a correct solution was found."
-msgstr "La note de l'épreuve machine est attribuée automatiquement par le système de test, en fonction du nombre d'exercices résolus, du nombre d'essais effectués pour y parvenir, et du temps passé sur chacun avant qu'une solution correcte ne soit obtenue."
+msgstr ""
+"La note de l'épreuve machine est attribuée automatiquement par le système de "
+"test, en fonction du nombre d'exercices résolus, du nombre d'essais "
+"effectués pour y parvenir, et du temps passé sur chacun avant qu'une "
+"solution correcte ne soit obtenue."
 
 #: pages/templates/pages/about-semifinals.html:126
 msgid ""
 "The final ranking, after which a hundred contestants are\n"
 "    selected, is obtained from these three grades."
-msgstr "Le classement final, à l'issue duquel 110 candidats sont sélectionnés, est effectué à partir de ces trois notes."
+msgstr ""
+"Le classement final, à l'issue duquel 110 candidats sont sélectionnés, est "
+"effectué à partir de ces trois notes."
 
 #: pages/templates/pages/about-semifinals.html:131
 msgid ""
 "The regional events are spread over several weekends, during\n"
-"    which between one to three regional events take place in different locations.\n"
+"    which between one to three regional events take place in different "
+"locations.\n"
 "    "
-msgstr "Les épreuves régionales sont réparties en plusieurs week-ends, pendant lesquels se déroulent simultanément une à trois demi-finales, dans des lieux différents."
+msgstr ""
+"Les épreuves régionales sont réparties en plusieurs week-ends, pendant "
+"lesquels se déroulent simultanément une à trois demi-finales, dans des lieux "
+"différents."
 
 #: pages/templates/pages/about-semifinals.html:135
 msgid ""
@@ -3630,14 +4176,23 @@ msgid ""
 "    to the logistics of each event, to prepare the equipment, welcome the\n"
 "    contestants, monitor the tests, take care of the food and assist the\n"
 "    contestants during the practical test."
-msgstr "Une équipe d'au moins trois membres de Prologin est dédiée à l'organisation de chaque événement, pour préparer le matériel, accueillir les candidats, surveiller les épreuves, faire passer les entretiens, fournir les repas, et assister les candidats pendant l'épreuve machine."
+msgstr ""
+"Une équipe d'au moins trois membres de Prologin est dédiée à l'organisation "
+"de chaque événement, pour préparer le matériel, accueillir les candidats, "
+"surveiller les épreuves, faire passer les entretiens, fournir les repas, et "
+"assister les candidats pendant l'épreuve machine."
 
 #: pages/templates/pages/about-semifinals.html:140
 msgid ""
 "All the exam centers where the regional events take place\n"
-"    provide us with the computer equipment and the classrooms needed, and we\n"
+"    provide us with the computer equipment and the classrooms needed, and "
+"we\n"
 "    are very grateful to them for their help."
-msgstr "Chacun des établissements où se déroulent les épreuves régionales met à notre disposition les salles de cours et le matériel informatique nécessaires à leur organisation, ce dont nous leur sommes très reconnaissants."
+msgstr ""
+"Chacun des établissements où se déroulent les épreuves régionales met à "
+"notre disposition les salles de cours et le matériel informatique "
+"nécessaires à leur organisation, ce dont nous leur sommes très "
+"reconnaissants."
 
 #: problems/admin.py:18
 msgid "Yes"
@@ -3727,7 +4282,9 @@ msgstr "Problèmes que je n'ai pas résolus"
 
 #: problems/forms.py:114
 msgid "You can provide either a source file or a source code, but not both."
-msgstr "Vous devez fournir soit un code source soit un fichier source, mais pas les deux."
+msgstr ""
+"Vous devez fournir soit un code source soit un fichier source, mais pas les "
+"deux."
 
 #: problems/forms.py:119
 msgid "Your client did not provide the content length of your source file."
@@ -3737,7 +4294,9 @@ msgstr "Votre client web n'a pas fourni la taille de votre fichier source."
 #, python-format
 msgid ""
 "The source file you uploaded is too large. Please keep it below %(size)s."
-msgstr "Le fichier source que vous avez envoyé est trop lourd. Veuillez rester en-dessous de %(size)s."
+msgstr ""
+"Le fichier source que vous avez envoyé est trop lourd. Veuillez rester en-"
+"dessous de %(size)s."
 
 #: problems/forms.py:127
 msgid "Please use the UTF-8 encoding when uploading a source file."
@@ -3856,7 +4415,9 @@ msgstr "%(type)s %(year)s"
 msgid ""
 "Please note that only the first %(row_count)s results are displayed below, "
 "regardless of the actual number of contestants."
-msgstr "Notez que seuls les %(row_count)s premiers résultats sont affichés ci-après, quel que soit le nombre effectif de participants."
+msgstr ""
+"Notez que seuls les %(row_count)s premiers résultats sont affichés ci-après, "
+"quel que soit le nombre effectif de participants."
 
 #: problems/templates/problems/challenge-scoreboard.html:25
 #: semifinal/templates/semifinal/stub-scoreboard.html:10
@@ -3897,15 +4458,27 @@ msgstr "%(score)s pts"
 
 #: problems/templates/problems/index.html:12
 msgid ""
-"This page contains all the exercises from previous Prologin editions. You can browse through them,\n"
-"and search by difficulty or years. If you need help to get started with algorithmics, you should read our\n"
-"<a href=\"https://prologin.org/forum/entrainement-3/ressources-i-debutants-1114/\">resources</a>."
-msgstr "Voici les annales d'exercices publiés depuis la création du concours Prologin, vous pouvez chercher\npar difficulté ou encore par année. Si vous avez besoin d'aide pour vous lancer dans l'algorithmique, jetez\nun œil à nos <a href=\"https://prologin.org/forum/entrainement-3/ressources-i-debutants-1114/\">ressources</a>."
+"This page contains all the exercises from previous Prologin editions. You "
+"can browse through them,\n"
+"and search by difficulty or years. If you need help to get started with "
+"algorithmics, you should read our\n"
+"<a href=\"https://prologin.org/forum/entrainement-3/ressources-i-"
+"debutants-1114/\">resources</a>."
+msgstr ""
+"Voici les annales d'exercices publiés depuis la création du concours "
+"Prologin, vous pouvez chercher\n"
+"par difficulté ou encore par année. Si vous avez besoin d'aide pour vous "
+"lancer dans l'algorithmique, jetez\n"
+"un œil à nos <a href=\"https://prologin.org/forum/entrainement-3/ressources-"
+"i-debutants-1114/\">ressources</a>."
 
 #: problems/templates/problems/index.html:15
 #, python-format
-msgid "Stuck on a problem? Ask for help on the <a href=\"%(forum)s\">forums</a>!"
-msgstr "Coincé sur un problème ? Demandez de l'aide sur le <a href=\"%(forum)s\">forum</a> !"
+msgid ""
+"Stuck on a problem? Ask for help on the <a href=\"%(forum)s\">forums</a>!"
+msgstr ""
+"Coincé sur un problème ? Demandez de l'aide sur le <a href=\"%(forum)s"
+"\">forum</a> !"
 
 #: problems/templates/problems/index.html:17
 msgid "Jump to problem index"
@@ -3929,9 +4502,16 @@ msgstr "Qu'est-ce que c'est&nbsp;?"
 #: problems/templates/problems/index.html:53
 msgid ""
 "Want to find out what the Prologin algorithmic exercises are like?\n"
-"In this section, you can browse and tackle all the problems from the previous Prologin events. These are\n"
-"problems from both the Prologin online qualifications and the on-site regional events."
-msgstr "Vous voulez découvrir à quoi ressemblent les exercices d'algorithmique de Prologin ? Dans cette section, vous pouvez parcourir les précédentes éditions du concours Prologin et vous entraîner sur tous les problèmes correspondants. Ces exercices proviennent des qualifications en ligne et des épreuves régionales."
+"In this section, you can browse and tackle all the problems from the "
+"previous Prologin events. These are\n"
+"problems from both the Prologin online qualifications and the on-site "
+"regional events."
+msgstr ""
+"Vous voulez découvrir à quoi ressemblent les exercices d'algorithmique de "
+"Prologin ? Dans cette section, vous pouvez parcourir les précédentes "
+"éditions du concours Prologin et vous entraîner sur tous les problèmes "
+"correspondants. Ces exercices proviennent des qualifications en ligne et des "
+"épreuves régionales."
 
 #: problems/templates/problems/index.html:58
 msgid "How does it work?"
@@ -3939,18 +4519,29 @@ msgstr "Comment ça marche&nbsp;?"
 
 #: problems/templates/problems/index.html:60
 msgid ""
-"Read the problem statement carefully and submit your solution. The system will check your\n"
-"submission and instantly tell you whether you got it right or wrong. You can submit as many codes as you\n"
+"Read the problem statement carefully and submit your solution. The system "
+"will check your\n"
+"submission and instantly tell you whether you got it right or wrong. You can "
+"submit as many codes as you\n"
 "need to solve the problem."
-msgstr "Prenez le temps de lire l'énoncé du problème attentivement avant de soumettre votre solution. Le système vérifiera votre solution et vous indiquera immédiatement le résultat. Vous pouvez soumettre autant de solutions que nécessaire à la résolution du problème."
+msgstr ""
+"Prenez le temps de lire l'énoncé du problème attentivement avant de "
+"soumettre votre solution. Le système vérifiera votre solution et vous "
+"indiquera immédiatement le résultat. Vous pouvez soumettre autant de "
+"solutions que nécessaire à la résolution du problème."
 
 #: problems/templates/problems/index.html:64
 #, python-format
 msgid ""
 "If you need any help with the automatic correction\n"
-"      system, you can read the <a href=\"%(manual_url)s\" style=\"white-space: nowrap;\"><i class=\"fa fa-book\"></i> online judge manual</a>.\n"
+"      system, you can read the <a href=\"%(manual_url)s\" style=\"white-"
+"space: nowrap;\"><i class=\"fa fa-book\"></i> online judge manual</a>.\n"
 "      "
-msgstr "Si vous avez besoin d'aide avec le système de correction automatique, vous pouvez lire le <a href=\"%(manual_url)s\" style=\"white-space: nowrap;\"><i class=\"fa fa-book\"></i>manuel du juge en ligne</a>.\n  "
+msgstr ""
+"Si vous avez besoin d'aide avec le système de correction automatique, vous "
+"pouvez lire le <a href=\"%(manual_url)s\" style=\"white-space: nowrap;\"><i "
+"class=\"fa fa-book\"></i>manuel du juge en ligne</a>.\n"
+"  "
 
 #: problems/templates/problems/manual.html:7
 msgid "Manual"
@@ -3966,7 +4557,11 @@ msgid ""
 "The online training system is a tool to help you improve\n"
 "your programing skills. It is open to everyone, and obviously free. What\n"
 "follows is a guide to understand its principles and get the most out of it.\n"
-msgstr "Le système d'entraînement automatique est un outil pour vous aider à améliorer votre niveau en programmation. Il est ouvert à tous, et bien entendu gratuit. Lisez bien ce qui suit pour bien en comprendre le principe, et en profiter un maximum.\n"
+msgstr ""
+"Le système d'entraînement automatique est un outil pour vous aider à "
+"améliorer votre niveau en programmation. Il est ouvert à tous, et bien "
+"entendu gratuit. Lisez bien ce qui suit pour bien en comprendre le principe, "
+"et en profiter un maximum.\n"
 
 #: problems/templates/problems/manual.html:21
 #: semifinal/templates/prologin/main-menu.html:6
@@ -3977,10 +4572,18 @@ msgstr "Problèmes"
 msgid ""
 "\n"
 "The problems given during the previous editions of the Prologin contest are\n"
-"archived and available on this website. You can train with the problems of the\n"
-"qualification and regional event problems of the previous years. They are ordered\n"
+"archived and available on this website. You can train with the problems of "
+"the\n"
+"qualification and regional event problems of the previous years. They are "
+"ordered\n"
 "by year and difficulty: from beginner to advanced.\n"
-msgstr "\nLes problèmes proposés durant les diverses éditions du concours Prologin sont archivés et disponibles sur ce site. Vous pouvez ainsi vous entraîner sur les problèmes des questionnaires et épreuves régionales passés. Ils sont classés par année et par difficulté : depuis le niveau débutant, à des difficultés bien plus élevées.\n"
+msgstr ""
+"\n"
+"Les problèmes proposés durant les diverses éditions du concours Prologin "
+"sont archivés et disponibles sur ce site. Vous pouvez ainsi vous entraîner "
+"sur les problèmes des questionnaires et épreuves régionales passés. Ils sont "
+"classés par année et par difficulté : depuis le niveau débutant, à des "
+"difficultés bien plus élevées.\n"
 
 #: problems/templates/problems/manual.html:30
 msgid "Evaluation"
@@ -3989,9 +4592,14 @@ msgstr "Évaluation"
 #: problems/templates/problems/manual.html:32
 msgid ""
 "\n"
-"The exercises are evaluated by our server: your program is compiled then tested\n"
+"The exercises are evaluated by our server: your program is compiled then "
+"tested\n"
 "automatically. It is executed once per test. The possible errors are:\n"
-msgstr "\nL'évaluation d'un exercice, dans le cas où un source est demandé, est faite par notre serveur : le programme est compilé puis testé automatiquement. Il est exécuté une fois par test. Les erreurs possibles sont : \n"
+msgstr ""
+"\n"
+"L'évaluation d'un exercice, dans le cas où un source est demandé, est faite "
+"par notre serveur : le programme est compilé puis testé automatiquement. Il "
+"est exécuté une fois par test. Les erreurs possibles sont : \n"
 
 #: problems/templates/problems/manual.html:38
 msgid "Your program does not compile;"
@@ -4017,39 +4625,64 @@ msgstr "Votre programme ne se termine pas correctement."
 msgid ""
 "\n"
 "If there is a compilation error, the error output of the compiler is shown.\n"
-msgstr "\nS'il y a une erreur de compilation, la sortie d'erreur du compilateur est affichée.\n"
+msgstr ""
+"\n"
+"S'il y a une erreur de compilation, la sortie d'erreur du compilateur est "
+"affichée.\n"
 
 #: problems/templates/problems/manual.html:49
 msgid ""
 "\n"
-"The output produced by your program has to match exactly with the format given\n"
+"The output produced by your program has to match exactly with the format "
+"given\n"
 "in the subjects. The correction system compares the output with a reference\n"
 "output, character by character.\n"
-msgstr "\nLa sortie produite par votre programme doit correspondre exactement avec le formatage précisé dans chacun des énoncés. Le système de correction compare la sortie de votre programme avec une sortie de référence, caractère par caractère.\n"
+msgstr ""
+"\n"
+"La sortie produite par votre programme doit correspondre exactement avec le "
+"formatage précisé dans chacun des énoncés. Le système de correction compare "
+"la sortie de votre programme avec une sortie de référence, caractère par "
+"caractère.\n"
 
 #: problems/templates/problems/manual.html:55
 msgid ""
 "\n"
-"After the tests have been executed, a summary is shown, indicating which tests\n"
+"After the tests have been executed, a summary is shown, indicating which "
+"tests\n"
 "succeeded and which tests failed. The output of your program and the output\n"
 "given by the correction system is shown only for the first failed test. The\n"
 "exercise will only be considered solved when all the tests succeed.\n"
-msgstr "\nAprès exécution des tests, un récapitulatif vous est affiché, indiquant les tests réussis et les tests ratés. Pour le premier test raté uniquement, la sortie produite par votre programme est affichée, ainsi que la sortie attendue par le système de correction. L'exercice ne sera validé que lorsque tous les tests seront passés avec succès.\n"
+msgstr ""
+"\n"
+"Après exécution des tests, un récapitulatif vous est affiché, indiquant les "
+"tests réussis et les tests ratés. Pour le premier test raté uniquement, la "
+"sortie produite par votre programme est affichée, ainsi que la sortie "
+"attendue par le système de correction. L'exercice ne sera validé que lorsque "
+"tous les tests seront passés avec succès.\n"
 
 #: problems/templates/problems/manual.html:62
 msgid ""
 "\n"
 "The correction can take up to several minutes, so be patient.\n"
-msgstr "\nLa correction peut prendre plusieurs minutes, donc soyez patient.\n"
+msgstr ""
+"\n"
+"La correction peut prendre plusieurs minutes, donc soyez patient.\n"
 
 #: problems/templates/problems/manual.html:68
 msgid ""
 "\n"
-"The training system grades your submissions. Every solved exercise gives you\n"
-"a number of points that depends of the level of the problem and the number of\n"
+"The training system grades your submissions. Every solved exercise gives "
+"you\n"
+"a number of points that depends of the level of the problem and the number "
+"of\n"
 "failed attempts you tried. You should test your program yourself before\n"
 "submitting it.\n"
-msgstr "\nLe système d'entraînement note vos soumissions ! En effet, chaque problème résolu rapporte un certain nombre de points, dépendant du nombre de soumissions que vous avez fait avant de le résoudre avec succès. Pensez donc à bien tester votre programme vous-même, avant de le soumettre.\n"
+msgstr ""
+"\n"
+"Le système d'entraînement note vos soumissions ! En effet, chaque problème "
+"résolu rapporte un certain nombre de points, dépendant du nombre de "
+"soumissions que vous avez fait avant de le résoudre avec succès. Pensez donc "
+"à bien tester votre programme vous-même, avant de le soumettre.\n"
 
 #: problems/templates/problems/manual.html:75
 msgid "Code stubs"
@@ -4058,12 +4691,22 @@ msgstr "Codes à compléter"
 #: problems/templates/problems/manual.html:77
 msgid ""
 "\n"
-"For some languages, we provide code stubs that can \"parse\" correctly the data\n"
-"given in the standard input of the program. You only need to write the content\n"
-"of a stub function that takes these parsed data in parameter. Note that it is\n"
+"For some languages, we provide code stubs that can \"parse\" correctly the "
+"data\n"
+"given in the standard input of the program. You only need to write the "
+"content\n"
+"of a stub function that takes these parsed data in parameter. Note that it "
+"is\n"
 "absolutely not mandatory to use these stubs, although they can be really\n"
 "useful most of the time.\n"
-msgstr "\nNous fournissons, pour certains langages, des codes sources se chargeant de \"découper\" correctement les données fournies sur l'entrée standard du programme. Il ne vous reste alors qu'à écrire le corps d'une fonction prenant ces données en paramètre. Notez qu'il n'est absolument pas obligatoire de les utiliser, mais cela peut se révéler utile dans bien des cas.\n"
+msgstr ""
+"\n"
+"Nous fournissons, pour certains langages, des codes sources se chargeant de "
+"\"découper\" correctement les données fournies sur l'entrée standard du "
+"programme. Il ne vous reste alors qu'à écrire le corps d'une fonction "
+"prenant ces données en paramètre. Notez qu'il n'est absolument pas "
+"obligatoire de les utiliser, mais cela peut se révéler utile dans bien des "
+"cas.\n"
 
 #: problems/templates/problems/manual.html:85
 msgid "Correction system"
@@ -4076,10 +4719,16 @@ msgstr "Limitations de mémoire et de temps"
 #: problems/templates/problems/manual.html:89
 msgid ""
 "\n"
-"Every problem enforces some limits in terms of memory usage and execution time.\n"
+"Every problem enforces some limits in terms of memory usage and execution "
+"time.\n"
 "Some coefficients are applied on some slower or memory greedy languages. No\n"
 "particular limitation is applied on the stack size.\n"
-msgstr "\nChaque sujet impose des limites, autant en terme d'utilisation mémoire que de temps d'exécution. Des coefficients sont néanmoins appliqués sur certains langages plus lents à s'exécuter ou plus gourmand en mémoire. Aucune limitation particulière n'est appliquée sur la taille de la pile.\n"
+msgstr ""
+"\n"
+"Chaque sujet impose des limites, autant en terme d'utilisation mémoire que "
+"de temps d'exécution. Des coefficients sont néanmoins appliqués sur certains "
+"langages plus lents à s'exécuter ou plus gourmand en mémoire. Aucune "
+"limitation particulière n'est appliquée sur la taille de la pile.\n"
 
 #: problems/templates/problems/manual.html:97
 msgid "Hardware architecture"
@@ -4094,7 +4743,14 @@ msgid ""
 "%(hardware_architecture)s architecture. The byte order is\n"
 "%(hardware_byteorder)s. The virtual machine has %(hardware_ncpu)s dedicated\n"
 "vCPU and %(hardware_mem)s Gio of dedicated random access memory.\n"
-msgstr "\nVos programmes sont exécutés dans une machine virtuelle architecturée autour d'un processeur %(hardware_cpu)s\ncadencé à %(hardware_clockrate)s et une architecture\n%(hardware_architecture)s. L'architecture est de type %(hardware_byteorder)s. La machine virtuelle a %(hardware_ncpu)s vCPU dédiés et %(hardware_mem)s Gio de mémoire vive dédiés.\n"
+msgstr ""
+"\n"
+"Vos programmes sont exécutés dans une machine virtuelle architecturée autour "
+"d'un processeur %(hardware_cpu)s\n"
+"cadencé à %(hardware_clockrate)s et une architecture\n"
+"%(hardware_architecture)s. L'architecture est de type "
+"%(hardware_byteorder)s. La machine virtuelle a %(hardware_ncpu)s vCPU dédiés "
+"et %(hardware_mem)s Gio de mémoire vive dédiés.\n"
 
 #: problems/templates/problems/manual.html:111
 msgid "Compilers and interpreters"
@@ -4201,7 +4857,9 @@ msgstr "Proposez votre solution"
 msgid ""
 "You already solved this problem. You won <strong>%(score)s</strong> points "
 "for it, which is %(base)s base points minus %(malus)s malus points."
-msgstr "Vous avez déjà résolu ce problème. Vous avez gagné <strong>%(score)s</strong> points, soit %(base)s points de base moins %(malus)s points de malus."
+msgstr ""
+"Vous avez déjà résolu ce problème. Vous avez gagné <strong>%(score)s</"
+"strong> points, soit %(base)s points de base moins %(malus)s points de malus."
 
 #: problems/templates/problems/problem.html:111
 msgid "You can also upload a file instead:"
@@ -4263,14 +4921,18 @@ msgstr "Vérification en attente"
 msgid ""
 "Base points won by solving this problem. Malus points are not taken into "
 "account."
-msgstr "Points de base gagnés en résolvant ce problème. Les points de malus ne sont pas pris en compte."
+msgstr ""
+"Points de base gagnés en résolvant ce problème. Les points de malus ne sont "
+"pas pris en compte."
 
 #: problems/templates/problems/problem.html:170
 #, python-format
 msgid ""
-"You have to <a href=\"%(register)s\">register</a> or <a "
-"href=\"%(login)s\">log in</a> to be able to submit your solution."
-msgstr "Vous devez vous <a href=\"%(register)s\">inscrire</a> ou <a href=\"%(login)s\">vous connecter</a> pour soumettre votre solution."
+"You have to <a href=\"%(register)s\">register</a> or <a href=\"%(login)s"
+"\">log in</a> to be able to submit your solution."
+msgstr ""
+"Vous devez vous <a href=\"%(register)s\">inscrire</a> ou <a href=\"%(login)s"
+"\">vous connecter</a> pour soumettre votre solution."
 
 #: problems/templates/problems/problem.html:179
 msgid "Statement"
@@ -4325,7 +4987,9 @@ msgstr "Problèmes %(from)s-%(to)s sur %(count)s"
 
 #: problems/templates/problems/search_results.html:37
 msgid "No problem match your query. Try broader criteria."
-msgstr "Aucun problème ne correspond à votre requête. Essayez des critères moins précis."
+msgstr ""
+"Aucun problème ne correspond à votre requête. Essayez des critères moins "
+"précis."
 
 #: problems/templates/problems/stub-module-name.html:3
 msgid "Training"
@@ -4348,7 +5012,9 @@ msgstr "Ce problème a été manuellement rendu disponible par l'équipe"
 msgid ""
 "This problem was automatically made available because you did not complete "
 "any next-level problem"
-msgstr "Ce problème a été automatiquement rendu disponible car vous n'avez pas réussi de problème du niveau supérieur"
+msgstr ""
+"Ce problème a été automatiquement rendu disponible car vous n'avez pas "
+"réussi de problème du niveau supérieur"
 
 #: problems/templates/problems/stub_problem.html:28
 msgid "Failed"
@@ -4464,7 +5130,10 @@ msgid ""
 "Every time you submit a solution that fails (ie. does not compile or does "
 "not pass all the tests), malus points are increased by a value proportional "
 "to the problem level and the number of attempts."
-msgstr "À chaque soumission échouée (qui ne compile pas ou qui ne passe pas tous les tests), les points de malus sont incrémentés d'une valeur proportionnelle au niveau de l'exercice et au nombre d'essais."
+msgstr ""
+"À chaque soumission échouée (qui ne compile pas ou qui ne passe pas tous les "
+"tests), les points de malus sont incrémentés d'une valeur proportionnelle au "
+"niveau de l'exercice et au nombre d'essais."
 
 #: problems/templates/problems/submission.html:60
 msgid "Edit and submit again"
@@ -4503,27 +5172,40 @@ msgstr "Il n'y a aucun test de ce type pour cet exercice."
 
 #: problems/templates/problems/submission.html:131
 msgid ""
-"The submission can not be corrected as it was written in a language that can"
-" not be compiled nor executed."
-msgstr "La soumission ne peut pas être corrigée car elle a été écrite dans un langage qui ne peut pas être compilé ou exécuté."
+"The submission can not be corrected as it was written in a language that can "
+"not be compiled nor executed."
+msgstr ""
+"La soumission ne peut pas être corrigée car elle a été écrite dans un "
+"langage qui ne peut pas être compilé ou exécuté."
 
 #: problems/templates/problems/submission.html:133
 msgid ""
-"Submission results are not available anymore. This is because the code was submitted a long time ago.\n"
-"You can still try to submit your code again using the “Edit and submit again” button."
-msgstr "Les résultats de la soumission ne sont plus disponibles parce que le code a été soumis il y a trop longtemps.\nVous pouvez toujours essayer de soumettre votre solution en utilisant le boutton «&nbsp;Modifier et re-soumettre&nbsp;»."
+"Submission results are not available anymore. This is because the code was "
+"submitted a long time ago.\n"
+"You can still try to submit your code again using the “Edit and submit "
+"again” button."
+msgstr ""
+"Les résultats de la soumission ne sont plus disponibles parce que le code a "
+"été soumis il y a trop longtemps.\n"
+"Vous pouvez toujours essayer de soumettre votre solution en utilisant le "
+"boutton «&nbsp;Modifier et re-soumettre&nbsp;»."
 
 #: problems/templates/problems/submission.html:136
 msgid ""
 "This submission is pending correction. This can take from a few seconds to "
 "some minutes."
-msgstr "La soumission est en cours de correction. Cela peut prendre de quelques secondes à plusieurs minutes."
+msgstr ""
+"La soumission est en cours de correction. Cela peut prendre de quelques "
+"secondes à plusieurs minutes."
 
 #: problems/templates/problems/submission.html:137
 msgid ""
 "Your browser does not support Javascript. You will have to manually reload "
 "this page once in a while to check if results have arrived."
-msgstr "Votre navigateur ne supporte par Javascript. Vous devez manuellement rafraîchir cette page de temps en temps pour vérifier si les résultats sont arrivés."
+msgstr ""
+"Votre navigateur ne supporte par Javascript. Vous devez manuellement "
+"rafraîchir cette page de temps en temps pour vérifier si les résultats sont "
+"arrivés."
 
 #: problems/templates/problems/submission.html:146
 #: problems/templates/problems/submission.html:147
@@ -4567,11 +5249,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:133
+#: prologin/settings/common.py:132
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:134
+#: prologin/settings/common.py:133
 msgid "French"
 msgstr "Français"
 
@@ -4586,24 +5268,31 @@ msgstr "Vous n'avez pas l'autorisation d'accéder à ce contenu."
 #: prologin/templates/403.html:12
 #, python-format
 msgid ""
-"You do not have the permission to access this content. Try to <a "
-"href=\"%(url)s\">sign in</a>."
-msgstr "Vous n'avez pas l'autorisation d'accéder à ce contenu. Essayez de <a href=\"%(url)s\">vous connecter</a>."
+"You do not have the permission to access this content. Try to <a href="
+"\"%(url)s\">sign in</a>."
+msgstr ""
+"Vous n'avez pas l'autorisation d'accéder à ce contenu. Essayez de <a href="
+"\"%(url)s\">vous connecter</a>."
 
 #: prologin/templates/404.html:8
 msgid "The resource you asked for does not longer exist, or never has."
-msgstr "La ressource que vous avez demandée n'existe plus ou n'a jamais existé."
+msgstr ""
+"La ressource que vous avez demandée n'existe plus ou n'a jamais existé."
 
 #: prologin/templates/404.html:10
 msgid ""
 "You could use our search engine to find the content you are looking for."
-msgstr "Vous pouvez utiliser notre moteur de recherche pour trouver le contenu qui vous intéresse."
+msgstr ""
+"Vous pouvez utiliser notre moteur de recherche pour trouver le contenu qui "
+"vous intéresse."
 
 #: prologin/templates/500.html:8
 msgid ""
 "Some internal server error happened. You did nothing wrong, we are to be "
 "blamed! Our team has been notified of the issue."
-msgstr "Une erreur interne au serveur est survenue. Vous n'avez rien fait de mal, c'est de notre faute ! Notre équipe a été prévenue du problème."
+msgstr ""
+"Une erreur interne au serveur est survenue. Vous n'avez rien fait de mal, "
+"c'est de notre faute ! Notre équipe a été prévenue du problème."
 
 #: prologin/templates/500.html:9
 msgid "Please try again later."
@@ -4617,9 +5306,9 @@ msgstr "En cours de maintenance"
 msgid "Prologin, the French computing contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:30
-#: prologin/templates/prologin/base.html:46
-#: prologin/templates/prologin/base.html:89
+#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:31
+#: prologin/templates/prologin/base.html:47
+#: prologin/templates/prologin/base.html:90
 #: prologin/templates/prologin/main-footer.html:6
 #: semifinal/templates/prologin/base.html:58
 #: semifinal/templates/prologin/main-footer.html:6
@@ -4632,18 +5321,21 @@ msgstr "Prologin subit actuellement une courte maintenance"
 
 #: prologin/templates/503.html:69
 msgid ""
-"We are doing internal maintenance operations for which we have to temporally"
-" shut down access to the website."
-msgstr "Nous réalisons des opérations de maintenance internes qui nous obligent à couper temporairement l'accès au site web."
+"We are doing internal maintenance operations for which we have to temporally "
+"shut down access to the website."
+msgstr ""
+"Nous réalisons des opérations de maintenance internes qui nous obligent à "
+"couper temporairement l'accès au site web."
 
 #: prologin/templates/503.html:70
 msgid ""
 "We are sorry for the inconvenience. The operation should last only a few "
 "minutes. Please come visit us in a moment!"
-msgstr "Nous nous excusons pour la gêne occasionnée. Cette opération ne devrait durer que quelques minutes. Revenez nous voir dans un petit moment !"
+msgstr ""
+"Nous nous excusons pour la gêne occasionnée. Cette opération ne devrait "
+"durer que quelques minutes. Revenez nous voir dans un petit moment !"
 
-#: prologin/templates/_error_base.html:8
-#: prologin/templates/_error_base.html:14
+#: prologin/templates/_error_base.html:8 prologin/templates/_error_base.html:14
 #, python-format
 msgid "Error %(number)s"
 msgstr "Erreur %(number)s"
@@ -4653,18 +5345,20 @@ msgstr "Erreur %(number)s"
 msgid "You can go back to the <a href=\"%(url)s\">home page</a>."
 msgstr "Vous pouvez retourner à <a href=\"%(url)s\">l'accueil</a>."
 
-#: prologin/templates/prologin/base.html:28
+#: prologin/templates/prologin/base.html:29
 msgctxt "Twitter message, LESS THAN 140 CHARS"
 msgid ""
-"Prologin is a computer science contest, introducing students to the world of"
-" programming and algorithms with exciting challenges."
-msgstr "Prologin, le concours d'informatique : faire découvrir la programmation et l'algorithmique aux étudiants grâce à des challenges excitants !"
+"Prologin is a computer science contest, introducing students to the world of "
+"programming and algorithms with exciting challenges."
+msgstr ""
+"Prologin, le concours d'informatique : faire découvrir la programmation et "
+"l'algorithmique aux étudiants grâce à des challenges excitants !"
 
-#: prologin/templates/prologin/base.html:52
+#: prologin/templates/prologin/base.html:53
 msgid "Latest blog articles"
 msgstr "Dernières actualités"
 
-#: prologin/templates/prologin/base.html:120
+#: prologin/templates/prologin/base.html:121
 msgid "No user matching query"
 msgstr "Aucun utilisateur correspondant"
 
@@ -4719,8 +5413,11 @@ msgstr "Appliquer"
 #, python-format
 msgid ""
 "Save your\n"
-"preferred locale in your <a href=\"%(url)s#id_preferred_locale\">user settings</a>."
-msgstr "Sauvegardez votre langue préférée dans vos <a href=\"%(url)s#id_preferred_locale\">paramètres</a>."
+"preferred locale in your <a href=\"%(url)s#id_preferred_locale\">user "
+"settings</a>."
+msgstr ""
+"Sauvegardez votre langue préférée dans vos <a href="
+"\"%(url)s#id_preferred_locale\">paramètres</a>."
 
 #: prologin/templates/prologin/main-menu.html:6
 msgid "Participate"
@@ -4744,24 +5441,28 @@ msgstr "Admin"
 msgid "Django administration"
 msgstr "Administration de Django"
 
-#: prologin/templates/prologin/main-menu.html:30
+#: prologin/templates/prologin/main-menu.html:24
+msgid "Documentation"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:31
 msgid "Search users"
 msgstr "Chercher des utilisateurs"
 
-#: prologin/templates/prologin/main-menu.html:42
+#: prologin/templates/prologin/main-menu.html:43
 msgid "My profile"
 msgstr "Mon profil"
 
-#: prologin/templates/prologin/main-menu.html:43
+#: prologin/templates/prologin/main-menu.html:44
 msgid "Profile &amp; settings"
 msgstr "Profil &amp; options"
 
-#: prologin/templates/prologin/main-menu.html:45
+#: prologin/templates/prologin/main-menu.html:46
 #: semifinal/templates/prologin/main-menu.html:25
 msgid "Sign out"
 msgstr "Déconnexion"
 
-#: prologin/templates/prologin/main-menu.html:50
+#: prologin/templates/prologin/main-menu.html:51
 #: semifinal/templates/prologin/main-menu.html:30
 #: semifinal/templates/users/login.html:7
 #: semifinal/templates/users/login.html:10
@@ -4770,9 +5471,8 @@ msgstr "Déconnexion"
 msgid "Sign in"
 msgstr "Connexion"
 
-#: prologin/templates/prologin/main-menu.html:53
-#: users/templates/users/register.html:7
-#: users/templates/users/register.html:10
+#: prologin/templates/prologin/main-menu.html:54
+#: users/templates/users/register.html:7 users/templates/users/register.html:10
 #: users/templates/users/register.html:15
 #: users/templates/users/register.html:23
 msgid "Register"
@@ -4791,7 +5491,9 @@ msgstr "Terminer la session"
 msgid ""
 "You are currently browsing on behalf of <strong>%(user)s</strong>. Keep\n"
 "        focused."
-msgstr "Vous naviguez actuellement sous l'identité de <strong>%(user)s</strong>. Restez alerte."
+msgstr ""
+"Vous naviguez actuellement sous l'identité de <strong>%(user)s</strong>. "
+"Restez alerte."
 
 #: prologin/templates/stub_pagination.html:7
 msgid "First"
@@ -4915,20 +5617,26 @@ msgstr "Questionnaire de qualification – Prologin %(year)s"
 msgid ""
 "Please answer the following questions. There is only one correct answer for "
 "each question."
-msgstr "Veuillez répondre aux questions suivantes. Il n'y qu'une seule bonne réponse à chaque question."
+msgstr ""
+"Veuillez répondre aux questions suivantes. Il n'y qu'une seule bonne réponse "
+"à chaque question."
 
 #: qcm/templates/qcm/display.html:27
 msgid ""
-"Correct answers give one point, wrong ones remove one point. Not answering a"
-" question neither gives nor removes any point."
-msgstr "Une réponse correcte donne un point, une fausse retire un point. Ne pas répondre correspond à zéro point."
+"Correct answers give one point, wrong ones remove one point. Not answering a "
+"question neither gives nor removes any point."
+msgstr ""
+"Une réponse correcte donne un point, une fausse retire un point. Ne pas "
+"répondre correspond à zéro point."
 
 #: qcm/templates/qcm/display.html:33
 #, python-format
 msgid ""
-"You have to <a href=\"%(register)s\">register</a> or <a "
-"href=\"%(login)s\">log in</a> to be able to fill the quiz."
-msgstr "Vous devez <a href=\"%(register)s\">créer un compte</a> ou <a href=\"%(login)s\">vous connecter</a> pour pouvoir compléter le questionnaire."
+"You have to <a href=\"%(register)s\">register</a> or <a href=\"%(login)s"
+"\">log in</a> to be able to fill the quiz."
+msgstr ""
+"Vous devez <a href=\"%(register)s\">créer un compte</a> ou <a href="
+"\"%(login)s\">vous connecter</a> pour pouvoir compléter le questionnaire."
 
 #: qcm/templates/qcm/display.html:55
 msgid "Correct answer:"
@@ -5037,7 +5745,9 @@ msgstr "Modifier l'établissement de fusion"
 msgid ""
 "This merge will delete %(school_count)s schools and update the school for "
 "%(contestant_count)s contestants."
-msgstr "Cette fusion va supprimer %(school_count)s établissements et mettre à jour l'établissement de %(contestant_count)s candidats."
+msgstr ""
+"Cette fusion va supprimer %(school_count)s établissements et mettre à jour "
+"l'établissement de %(contestant_count)s candidats."
 
 #: semifinal/forms.py:14
 msgid "You can select all contestants using Ctrl-A."
@@ -5048,7 +5758,9 @@ msgstr "Vous pouvez sélectionner tous les candidats avec Ctrl-A."
 msgid ""
 "Unlocked <em>{problem}</em> for {created} users; {existing} unlocks were "
 "already set."
-msgstr "Déverrouillage de <em>{problem}</em> pour {created} candidats&nbsp;; {existing} déblocages étaient déjà en place."
+msgstr ""
+"Déverrouillage de <em>{problem}</em> pour {created} candidats&nbsp;; "
+"{existing} déblocages étaient déjà en place."
 
 #: semifinal/templates/problems/stub-module-title.html:3
 msgid "Regional event challenges"
@@ -5087,9 +5799,13 @@ msgstr "Bienvenue"
 #: semifinal/templates/semifinal/homepage.html:22
 #, python-format
 msgid ""
-"Welcome to Prologin regional event! You can start <a href=\"%(url_problems)s\">solving problems</a>\n"
+"Welcome to Prologin regional event! You can start <a href=\"%(url_problems)s"
+"\">solving problems</a>\n"
 "or browse the <a href=\"%(url_scoreboard)s\">live scoreboard</a>."
-msgstr "Bienvenue à votre épreuve régionale Prologin&nbsp;! Vous pouvez commencer à <a href=\"%(url_problems)s\">résoudre des problèmes</a>\nou consulter <a href=\"%(url_scoreboard)s\">le classement temps-réel</a>."
+msgstr ""
+"Bienvenue à votre épreuve régionale Prologin&nbsp;! Vous pouvez commencer à "
+"<a href=\"%(url_problems)s\">résoudre des problèmes</a>\n"
+"ou consulter <a href=\"%(url_scoreboard)s\">le classement temps-réel</a>."
 
 #: semifinal/templates/semifinal/homepage.html:25
 msgid "Good luck, and don't forget to have fun."
@@ -5163,6 +5879,20 @@ msgstr "Connexion"
 #: sponsor/admin.py:19
 msgid "Active"
 msgstr "Actif"
+
+#: sponsor/templates/sponsor/index.html:14
+msgid "Special thanks to all our sponsors!"
+msgstr ""
+
+#: sponsor/templates/sponsor/index.html:16
+msgid ""
+"\n"
+"        Organizing Prologin and GCC! requires significant resources. We "
+"welcome\n"
+"        companies, institutions, or individuals who would like to join our\n"
+"        sponsorship program.\n"
+"      "
+msgstr ""
 
 #: team/admin.py:8 team/admin.py:34 team/models.py:104 tickets/admin.py:8
 #: tickets/admin.py:34 tickets/models.py:103
@@ -5348,9 +6078,11 @@ msgstr "“home” de la finale %(year)s "
 
 #: users/forms.py:72
 msgid ""
-"You can not change your details during the contest. If there is an important"
-" change you want to make, please contact the staff."
-msgstr "Vous ne pouvez pas modifier vos informations pendant le concours. Si vous devez effectuer un changement, veuillez contacter l'équipe."
+"You can not change your details during the contest. If there is an important "
+"change you want to make, please contact the staff."
+msgstr ""
+"Vous ne pouvez pas modifier vos informations pendant le concours. Si vous "
+"devez effectuer un changement, veuillez contacter l'équipe."
 
 #: users/forms.py:84
 msgid "Public homes"
@@ -5358,13 +6090,16 @@ msgstr "“Homes” publiques"
 
 #: users/forms.py:87
 msgid "Checked editions will make the files available for download to anyone."
-msgstr "Les éditions cochées rendront vos fichiers téléchargeables par tout le monde."
+msgstr ""
+"Les éditions cochées rendront vos fichiers téléchargeables par tout le monde."
 
 #: users/forms.py:113
 msgid ""
-"Please check the box above and complete the additional tasks if any. This is"
-" required to fight spamming bots on the website."
-msgstr "Veuillez cocher la case ci-dessus et réaliser les éventuelles opérations supplémentaires. Cela permet de se prémunir des robots."
+"Please check the box above and complete the additional tasks if any. This is "
+"required to fight spamming bots on the website."
+msgstr ""
+"Veuillez cocher la case ci-dessus et réaliser les éventuelles opérations "
+"supplémentaires. Cela permet de se prémunir des robots."
 
 #: users/forms.py:129
 msgid "This username is already in use. Please supply a different username."
@@ -5392,11 +6127,15 @@ msgstr "Nom d'utilisateur ou e-mail"
 msgid ""
 "This field is case insensitive. It means capitals and small letters are "
 "considered to be equal."
-msgstr "Ce champ est insensible à la casse. Cela signifie qu'il n'y a pas de différence entre majuscules et minuscules."
+msgstr ""
+"Ce champ est insensible à la casse. Cela signifie qu'il n'y a pas de "
+"différence entre majuscules et minuscules."
 
 #: users/forms.py:159
 msgid "Please enter a correct username (or email) and password."
-msgstr "Saisissez un nom d'utilisateur (ou adresse e-mail) et un mot de passe corrects."
+msgstr ""
+"Saisissez un nom d'utilisateur (ou adresse e-mail) et un mot de passe "
+"corrects."
 
 #: users/forms.py:164
 msgid "Your username"
@@ -5404,98 +6143,101 @@ msgstr "Votre nom d'utilisateur"
 
 #: users/forms.py:165
 msgid "Type your username to confirm you know what you are doing."
-msgstr "Saisissez votre nom d'utilisateur pour confirmer que vous réalisez ce que vous allez faire."
+msgstr ""
+"Saisissez votre nom d'utilisateur pour confirmer que vous réalisez ce que "
+"vous allez faire."
 
 #: users/forms.py:184
 msgid "Wrong username."
 msgstr "Nom d'utilisateur incorrect."
 
-#: users/models.py:91
+#: users/models.py:93
 msgid "Middle school"
 msgstr "Collège"
 
-#: users/models.py:92
+#: users/models.py:94
 msgid "High school"
 msgstr "Lycée"
 
-#: users/models.py:93
+#: users/models.py:95
 msgid "Bac"
 msgstr "Bac"
 
-#: users/models.py:94
+#: users/models.py:96
 msgid "Bac+1"
 msgstr "Bac+1"
 
-#: users/models.py:95
+#: users/models.py:97
 msgid "Bac+2"
 msgstr "Bac+2"
 
-#: users/models.py:96
+#: users/models.py:98
 msgid "Bac+3"
 msgstr "Bac+3"
 
-#: users/models.py:97
+#: users/models.py:99
 msgid "Bac+4"
 msgstr "Bac+4"
 
-#: users/models.py:98
+#: users/models.py:100
 msgid "Bac+5"
 msgstr "Bac+5"
 
-#: users/models.py:99
+#: users/models.py:101
 msgid "Bac+6 and after"
 msgstr "Bac+6 et au delà"
 
-#: users/models.py:101
+#: users/models.py:103
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: users/models.py:126
+#: users/models.py:128
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:129 users/templates/users/profile.html:60
+#: users/models.py:131 users/templates/users/profile.html:60
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:131
+#: users/models.py:133
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: users/models.py:132
+#: users/models.py:134
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
-msgstr "Nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
+msgstr ""
+"Nous n'envoyons des e-mails que pour vous informer du déroulement du "
+"concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:135
+#: users/models.py:137
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:137
+#: users/models.py:139
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: users/models.py:138
+#: users/models.py:140
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:139
+#: users/models.py:141
 msgid "Locale"
 msgstr "Langue"
 
-#: users/models.py:145
+#: users/models.py:147
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: users/models.py:150
+#: users/models.py:152
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
 #: users/templates/registration/password_reset_confirm.html:7
 #: users/templates/users/delete-confirm.html:7
-#: users/templates/users/edit.html:7
-#: users/templates/users/edit_password.html:7
+#: users/templates/users/edit.html:7 users/templates/users/edit_password.html:7
 #: users/templates/users/profile.html:7
 #: users/templates/users/unsubscribe.html:9
 msgid "Members"
@@ -5521,7 +6263,9 @@ msgstr "Changer mon mot de passe"
 msgid ""
 "Heads up! You are editing another user's information, as a staff member. "
 "Take extra care."
-msgstr "Attention ! Vous modifiez les informations d'un autre membre, en votre qualité de membre d'équipe. Restez concentré."
+msgstr ""
+"Attention ! Vous modifiez les informations d'un autre membre, en votre "
+"qualité de membre d'équipe. Restez concentré."
 
 #: users/templates/users/delete-confirm.html:12
 #: users/templates/users/delete-confirm.html:15
@@ -5535,7 +6279,9 @@ msgstr "Voulez-vous vraiment supprimer votre compte ?"
 
 #: users/templates/users/delete-confirm.html:18
 msgid "This will delete all your personal information, including:"
-msgstr "Cela aura pour effet de supprimer toutes vos données personnelles, notamment&nbsp;:"
+msgstr ""
+"Cela aura pour effet de supprimer toutes vos données personnelles, "
+"notamment&nbsp;:"
 
 #: users/templates/users/delete-confirm.html:20
 msgid "the codes you submitted during training and contest"
@@ -5552,10 +6298,17 @@ msgstr "votre historique de participation au concours"
 #: users/templates/users/delete-confirm.html:25
 msgid ""
 "\n"
-"    This action <strong>cannot be reverted</strong>, in compliance with GDPR article 17. You will be logged out\n"
-"    immediately after clicking the button below. To proceed, provide your username and password and confirm.\n"
+"    This action <strong>cannot be reverted</strong>, in compliance with GDPR "
+"article 17. You will be logged out\n"
+"    immediately after clicking the button below. To proceed, provide your "
+"username and password and confirm.\n"
 "    "
-msgstr "\nCette action <strong>ne peut pas être annulée</strong>, conformément l'article 17 du RGPD. Vous serez immédiatement déconnecté⋅e après avoir cliqué sur le bouton ci-dessous. Pour continuer, fournissez votre nom d'utilisateur, votre mot de passe et confirmez."
+msgstr ""
+"\n"
+"Cette action <strong>ne peut pas être annulée</strong>, conformément "
+"l'article 17 du RGPD. Vous serez immédiatement déconnecté⋅e après avoir "
+"cliqué sur le bouton ci-dessous. Pour continuer, fournissez votre nom "
+"d'utilisateur, votre mot de passe et confirmez."
 
 #: users/templates/users/delete-confirm.html:36
 msgid "Delete and log out"
@@ -5573,7 +6326,9 @@ msgstr "Modifier le mot de passe"
 #: users/templates/users/edit.html:20
 msgid ""
 "Don't forget to click “Save” at the bottom when you are done making changes."
-msgstr "N'oubliez pas de cliquer sur « Enregistrer » en bas lorsque vous avez terminé vos modifications."
+msgstr ""
+"N'oubliez pas de cliquer sur « Enregistrer » en bas lorsque vous avez "
+"terminé vos modifications."
 
 #: users/templates/users/edit.html:25
 #: users/templates/users/edit_password.html:25
@@ -5594,7 +6349,9 @@ msgstr "Vous n'avez pas encore de compte&nbsp;?"
 msgid ""
 "You can create a new account anytime. It's free, you just need an email\n"
 "        address."
-msgstr "Vous pouvez créer un compte à tout moment. C'est gratuit, vous avez uniquement besoin d'une adresse e-mail."
+msgstr ""
+"Vous pouvez créer un compte à tout moment. C'est gratuit, vous avez "
+"uniquement besoin d'une adresse e-mail."
 
 #: users/templates/users/login.html:38
 msgid "Register now"
@@ -5606,7 +6363,9 @@ msgstr "Mot de passe oublié&nbsp;?"
 
 #: users/templates/users/login.html:41
 msgid "No worries. We can send you an email to reset your password."
-msgstr "Pas de souci. Nous pouvons vous envoyer un e-mail pour réinitialiser votre mot de passe."
+msgstr ""
+"Pas de souci. Nous pouvons vous envoyer un e-mail pour réinitialiser votre "
+"mot de passe."
 
 #: users/templates/users/login.html:42
 #: users/templates/users/password_reset.html:20
@@ -5632,7 +6391,25 @@ msgid ""
 "\n"
 "--\n"
 "The Prologin staff\n"
-msgstr "\nBonjour %(username)s !\n\nMerci de votre inscription à Prologin. Pour finaliser l'inscription, vous devez activer votre compte.\n\nVeuillez ouvrir le lien qui suit dans votre navigateur :\n\n%(url)s\n\nSi vous ne pouvez pas cliquer sur le lien, copiez-collez le dans la barre d'adresse de votre navigateur.\n\nSi vous avez une question, n'hésitez pas à nous contacter à l'adresse %(contactmail)s.\n\n-- \nL'équipe Prologin\n"
+msgstr ""
+"\n"
+"Bonjour %(username)s !\n"
+"\n"
+"Merci de votre inscription à Prologin. Pour finaliser l'inscription, vous "
+"devez activer votre compte.\n"
+"\n"
+"Veuillez ouvrir le lien qui suit dans votre navigateur :\n"
+"\n"
+"%(url)s\n"
+"\n"
+"Si vous ne pouvez pas cliquer sur le lien, copiez-collez le dans la barre "
+"d'adresse de votre navigateur.\n"
+"\n"
+"Si vous avez une question, n'hésitez pas à nous contacter à l'adresse "
+"%(contactmail)s.\n"
+"\n"
+"-- \n"
+"L'équipe Prologin\n"
 
 #: users/templates/users/mails/activation.subject.html:3
 msgid "Activate your Prologin account"
@@ -5664,7 +6441,32 @@ msgid ""
 "\n"
 "--\n"
 "The Prologin staff\n"
-msgstr "\nBonjour %(username)s !\n\nQuelqu'un a demandé de réinitialiser votre mot de passe sur le site de Prologin. Si vous avez effectivement formulé cette requête, veuillez ouvrir le lien qui suit dans votre navigateur :\n\n%(url)s\n\nSi vous ne pouvez pas cliquer sur le lien, copiez-collez le dans la barre d'adresse de votre navigateur.\n\nSi vous n'avez pas pas demandé cette réinitialisation, cela signifie qu'un utilisateur malveillant tente d'accéder à votre compte. Ne cliquez pas sur le lien ci-dessus, ignorez cet e-mail voire supprimez-le.\n\nSi vous continuez à recevoir ce genre de demandes non sollicitées, merci d'entrer en contact avec l'équipe Prologin en nous envoyant un e-mail à l'adresse ci-dessous.\n\nSi vous avez une question, n'hésitez pas à nous contacter à l'adresse %(contactmail)s.\n\n-- \nL'équipe Prologin\n"
+msgstr ""
+"\n"
+"Bonjour %(username)s !\n"
+"\n"
+"Quelqu'un a demandé de réinitialiser votre mot de passe sur le site de "
+"Prologin. Si vous avez effectivement formulé cette requête, veuillez ouvrir "
+"le lien qui suit dans votre navigateur :\n"
+"\n"
+"%(url)s\n"
+"\n"
+"Si vous ne pouvez pas cliquer sur le lien, copiez-collez le dans la barre "
+"d'adresse de votre navigateur.\n"
+"\n"
+"Si vous n'avez pas pas demandé cette réinitialisation, cela signifie qu'un "
+"utilisateur malveillant tente d'accéder à votre compte. Ne cliquez pas sur "
+"le lien ci-dessus, ignorez cet e-mail voire supprimez-le.\n"
+"\n"
+"Si vous continuez à recevoir ce genre de demandes non sollicitées, merci "
+"d'entrer en contact avec l'équipe Prologin en nous envoyant un e-mail à "
+"l'adresse ci-dessous.\n"
+"\n"
+"Si vous avez une question, n'hésitez pas à nous contacter à l'adresse "
+"%(contactmail)s.\n"
+"\n"
+"-- \n"
+"L'équipe Prologin\n"
 
 #: users/templates/users/mails/pswd_reset.subject.html:3
 msgid "Your Prologin password reset request"
@@ -5679,7 +6481,9 @@ msgstr "Réinitialisation du mot de passe"
 msgid ""
 "Forgotten your password? Enter your email address below, and we'll email "
 "instructions for setting a new one."
-msgstr "Mot de passe oublié? Entrez votre adresse email ci-dessous, et nous vous enverrons par email la procédure pour en définir un nouveau."
+msgstr ""
+"Mot de passe oublié? Entrez votre adresse email ci-dessous, et nous vous "
+"enverrons par email la procédure pour en définir un nouveau."
 
 #: users/templates/users/profile.html:11
 #, python-format
@@ -5755,7 +6559,8 @@ msgstr "Télécharger la “home” (tar.gz, %(size)s)"
 #: users/templates/users/profile.html:139
 #, python-format
 msgid "Sadly, %(username)s did not take part in any Prologin edition yet."
-msgstr "Hélas, %(username)s n'a jusqu'ici participé à aucune édition de Prologin."
+msgstr ""
+"Hélas, %(username)s n'a jusqu'ici participé à aucune édition de Prologin."
 
 #: users/templates/users/profile.html:151
 msgid "Latest authored news entries"
@@ -5783,10 +6588,14 @@ msgstr "Exporter vos données personnelles"
 #: users/templates/users/profile.html:194
 msgid ""
 "\n"
-"            You can download an archive containing all your personal data, as\n"
+"            You can download an archive containing all your personal data, "
+"as\n"
 "            provided by your Right to data portability (Art. 20 of GDPR).\n"
 "            "
-msgstr "\nVous pouvez télécharger une archive contenant toutes vos données personnelles, comme prévu par le Droit à la portabilité (Art. 20 du RGPD)."
+msgstr ""
+"\n"
+"Vous pouvez télécharger une archive contenant toutes vos données "
+"personnelles, comme prévu par le Droit à la portabilité (Art. 20 du RGPD)."
 
 #: users/templates/users/profile.html:213
 msgid "Delete your account"
@@ -5798,7 +6607,10 @@ msgid ""
 "          You can delete your account and all associated personal data, as\n"
 "          provided by your Right to erasure (Art. 17 of GDPR).\n"
 "          "
-msgstr "\nVous pouvez supprimer votre compte et toutes les données personnelles associées, comme prévu par votre Droit à la suppression (Art. 17 du RGPD)."
+msgstr ""
+"\n"
+"Vous pouvez supprimer votre compte et toutes les données personnelles "
+"associées, comme prévu par votre Droit à la suppression (Art. 17 du RGPD)."
 
 #: users/templates/users/profile.html:222
 msgid ""
@@ -5806,13 +6618,18 @@ msgid ""
 "              You cannot delete your account while participating to the\n"
 "              contest. If needed, contact the staff.\n"
 "            "
-msgstr "\nVous ne pouvez pas supprimer votre compte alors que vous participez au concours. Si besoin, contactez l'équipe."
+msgstr ""
+"\n"
+"Vous ne pouvez pas supprimer votre compte alors que vous participez au "
+"concours. Si besoin, contactez l'équipe."
 
 #: users/templates/users/register.html:16
 msgid ""
 "Please choose a username. You must use a valid email address, as you will "
 "receive a message to confirm your registration."
-msgstr "Choisissez un nom d'utilisateur. Vous devez utiliser une adresse e-mail valide, vous recevrez un message pour confirmer votre inscription."
+msgstr ""
+"Choisissez un nom d'utilisateur. Vous devez utiliser une adresse e-mail "
+"valide, vous recevrez un message pour confirmer votre inscription."
 
 #: users/templates/users/stub-search-result.html:10
 msgid "Edit in admin"
@@ -5838,14 +6655,19 @@ msgstr "Désabonnement newsletter"
 msgid ""
 "If you wish to stop receiving e-mails from Prologin, you\n"
 "  can click on the button below."
-msgstr "Si vous souhaitez ne plus recevoir d'e-mails de Prologin, vous pouvez cliquer sur le bouton ci-dessous."
+msgstr ""
+"Si vous souhaitez ne plus recevoir d'e-mails de Prologin, vous pouvez "
+"cliquer sur le bouton ci-dessous."
 
 #: users/templates/users/unsubscribe.html:20
 msgid ""
 "Remember: we only mail you to provide useful information\n"
 "  during the various stages of the contest. We hate spam as much as you do!\n"
 "  "
-msgstr "Pour rappel, nous n'envoyons des e-mails que pour vous informer du déroulement du concours. Nous détestons autant que vous les courriers indésirables !"
+msgstr ""
+"Pour rappel, nous n'envoyons des e-mails que pour vous informer du "
+"déroulement du concours. Nous détestons autant que vous les courriers "
+"indésirables !"
 
 #: users/templates/users/unsubscribe.html:41
 msgid "Stay subscribed"
@@ -5857,7 +6679,9 @@ msgid ""
 "<code>%(email)s</code> has\n"
 "    already been unsubscribed. You will receive no further e-mails from\n"
 "    Prologin."
-msgstr "<code>%(email)s</code> a déjà été désinscrit. Vous ne recevrez plus d'e-mails de Prologin."
+msgstr ""
+"<code>%(email)s</code> a déjà été désinscrit. Vous ne recevrez plus d'e-"
+"mails de Prologin."
 
 #: users/templates/users/unsubscribe_confirm.html:10
 msgid ""
@@ -5870,7 +6694,9 @@ msgstr "a été désinscrit et ne recevra plus d'e-mails de Prologin."
 msgid ""
 "Your account was created. We sent an email to %(mail)s so you can confirm "
 "your registration."
-msgstr "Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s pour que vous puissiez confirmer votre inscription."
+msgstr ""
+"Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s pour que "
+"vous puissiez confirmer votre inscription."
 
 #: users/views.py:102
 msgid "Your account was activated. Enjoy your visit!"
@@ -5879,10 +6705,13 @@ msgstr "Votre compte est activé. Bonne visite&nbsp;!"
 #: users/views.py:107
 #, python-format
 msgid ""
-"The activation link you provided is invalid or obsolete. If you created your"
-" account earlier than %(days)s days ago, you have to create a new one. You "
+"The activation link you provided is invalid or obsolete. If you created your "
+"account earlier than %(days)s days ago, you have to create a new one. You "
 "may use the same username and email though."
-msgstr "Le lien d'activation que vous avez fourni est invalide ou obsolète. Si vous avez créé votre compte il y a plus de %(days)s jours, vous devez répéter l'opération. Vous pouvez utiliser les mêmes nom d'utilisateur et e-mail."
+msgstr ""
+"Le lien d'activation que vous avez fourni est invalide ou obsolète. Si vous "
+"avez créé votre compte il y a plus de %(days)s jours, vous devez répéter "
+"l'opération. Vous pouvez utiliser les mêmes nom d'utilisateur et e-mail."
 
 #: users/views.py:184
 msgid "Changes saved."
@@ -5895,9 +6724,11 @@ msgstr "Mot de passe modifié."
 #: users/views.py:246
 #, python-format
 msgid ""
-"You should receive an email at %(email)s in a few moments. Please follow the"
-" instructions to complete the password reset."
-msgstr "Vous devriez recevoir un e-mail à %(email)s dans quelques instants. Veuillez suivre les instructions pour finaliser la réinitialisation du mot de passe."
+"You should receive an email at %(email)s in a few moments. Please follow the "
+"instructions to complete the password reset."
+msgstr ""
+"Vous devriez recevoir un e-mail à %(email)s dans quelques instants. Veuillez "
+"suivre les instructions pour finaliser la réinitialisation du mot de passe."
 
 #: users/views.py:279
 msgid "You have been automatically logged in."
