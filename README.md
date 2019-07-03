@@ -85,8 +85,8 @@ sudo -u postgres createuser --createdb $USER
 
 ### Cloning
 
-Clone the website and, optionally, the other Prologin repositories needed for
-the different modules of the website:
+Clone the website and the other Prologin repositories needed for the different
+modules of the website:
 
 ```bash
 git clone git@github.com:prologin/site
