@@ -121,6 +121,7 @@
       }
 
       applyWidth();
+      resetMapWindow();
       mapElement.affix({
         offset: {
           top: mapColElement.offset().top - 20,
@@ -130,10 +131,14 @@
       $(window).resize(applyWidth);
     });
 
+    function resetMapWindow() {
+      map.invalidateSize();
+      map.fitBounds(marker_group.getBounds());
+    }
+
     var map = L.map('map-canvas', {
       center: [47, 32],
-      zoom: 5,
-      trackResize: false
+      zoom: 5
     });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -160,6 +165,8 @@
         {% endif %}
       {% endfor %}
     {% endlocalize %}
+
+    var marker_group = new L.featureGroup(center_markers);
 
   </script>
 {% endblock %}
