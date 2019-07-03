@@ -86,7 +86,7 @@
             </td>
             <td>
               <a href="#center-{{ forloop.counter0 }}"
-                 onclick="center_markers[{{ forloop.counter0 }}].openPopup();">
+                 onclick="showCenter({{ forloop.counter0 }});">
                 <i class="fa fa-map-marker"></i> {% trans "Show" %}</a>
             </td>
             {% localize off %}
@@ -134,6 +134,18 @@
     function resetMapWindow() {
       map.invalidateSize();
       map.fitBounds(marker_group.getBounds());
+    }
+
+    function showCenter(id) {
+      var m = center_markers[id];
+
+      // Note: openning the popup *before* calling panTo is important. panTo
+      // takes about .25 seconds to animate the panning, and opening the popup
+      // right after calling it stops that animation, resulting in a bad map
+      // centering. Alternatively, we can tell panTo not to animate the panning,
+      // but animations are neat.
+      m.openPopup();
+      map.panTo(m.getLatLng());
     }
 
     var map = L.map('map-canvas', {
