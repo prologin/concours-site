@@ -13,13 +13,13 @@ Assumptions:
 
 Protocol for logging in (client has no session):
     1. Client redirects user browser to
-       //prologin.org/user/auth/authorize?client_id=<client id>&state=<state>
+       //prologin.org/user/auth/authorize?client_id=<client id>&state=<state>(&next=<path>)
        with state a random string that is memorized (eg. in a cookie)
 
     2. User logs in on prologin.org (or is already logged in)
 
     3. User browser is redirected to the client callback URL, eg.
-       //gcc.prologin.org/user/auth/callback?code=<random code>?state=<state>
+       //gcc.prologin.org/user/auth/callback?code=<random code>?state=<state>(&next=<path>)
 
     4. Client checks that <state> is the same as its request's and makes an
        internal POST request to
@@ -81,12 +81,12 @@ class AuthorizeView(PermissionRequiredMixin, RedirectView):
 
         # Piggy-back on the view to do garbage collection.
         AuthToken.garbage_collect()
+        redirect_datas = {'code': auth_token.code, 'state': state}
 
-        return client.redirect_url + '?' + urlencode(
-            {
-                'code': auth_token.code,
-                'state': state
-            })
+        if 'next' in self.request.GET:
+            redirect_datas.update({'next': self.request.GET.get('next')})
+
+        return client.redirect_url + '?' + urlencode(redirect_datas)
 
     def get(self, request, *args, **kwargs):
         try:
@@ -137,8 +137,7 @@ class TokenRetrievalMixin:
         except ObjectDoesNotExist:
             return error("token does not exist (may have expired)")
         except Exception as exc:
-            return error(
-                "unexpected error while retrieving token: {}".format(exc))
+            return error("unexpected error while retrieving token: {}".format(exc))
 
         self.on_success(auth_token)
 
