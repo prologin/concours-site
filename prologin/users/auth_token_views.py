@@ -13,13 +13,13 @@ Assumptions:
 
 Protocol for logging in (client has no session):
     1. Client redirects user browser to
-       //prologin.org/user/auth/authorize?client_id=<client id>&state=<state>(&next=<path>)
+       //prologin.org/user/auth/authorize?client_id=<client id>&state=<state>[&next=<path>]
        with state a random string that is memorized (eg. in a cookie)
 
     2. User logs in on prologin.org (or is already logged in)
 
     3. User browser is redirected to the client callback URL, eg.
-       //gcc.prologin.org/user/auth/callback?code=<random code>?state=<state>(&next=<path>)
+       //gcc.prologin.org/user/auth/callback?code=<random code>?state=<state>[&next=<path>]
 
     4. Client checks that <state> is the same as its request's and makes an
        internal POST request to
