@@ -84,7 +84,7 @@ class AuthorizeView(PermissionRequiredMixin, RedirectView):
         redirect_data = {'code': auth_token.code, 'state': state}
 
         if 'next' in self.request.GET:
-            redirect_data.update({'next': self.request.GET.get('next')})
+            redirect_data['next'] = self.request.GET.get('next')
 
         return client.redirect_url + '?' + urlencode(redirect_data)
 
