@@ -81,12 +81,12 @@ class AuthorizeView(PermissionRequiredMixin, RedirectView):
 
         # Piggy-back on the view to do garbage collection.
         AuthToken.garbage_collect()
-        redirect_datas = {'code': auth_token.code, 'state': state}
+        redirect_data = {'code': auth_token.code, 'state': state}
 
         if 'next' in self.request.GET:
-            redirect_datas.update({'next': self.request.GET.get('next')})
+            redirect_data.update({'next': self.request.GET.get('next')})
 
-        return client.redirect_url + '?' + urlencode(redirect_datas)
+        return client.redirect_url + '?' + urlencode(redirect_data)
 
 
 class TokenRetrievalMixin:
