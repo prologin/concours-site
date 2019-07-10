@@ -86,7 +86,11 @@ class AuthorizeView(PermissionRequiredMixin, RedirectView):
         if 'next' in self.request.GET:
             redirect_datas.update({'next': self.request.GET.get('next')})
 
-        return client.redirect_url + '?' + urlencode(redirect_datas)
+        # Django will apply the old format syntax to the url, thus we need to
+        # escape any '%' that appears in the encoded paramers
+        return (client.redirect_url
+                + '?'
+                + urlencode(redirect_datas).replace('%', '%%'))
 
     def get(self, request, *args, **kwargs):
         try:
@@ -137,7 +141,8 @@ class TokenRetrievalMixin:
         except ObjectDoesNotExist:
             return error("token does not exist (may have expired)")
         except Exception as exc:
-            return error("unexpected error while retrieving token: {}".format(exc))
+            return error(
+                "unexpected error while retrieving token: {}".format(exc))
 
         self.on_success(auth_token)
 
