@@ -88,6 +88,13 @@ class AuthorizeView(PermissionRequiredMixin, RedirectView):
 
         return client.redirect_url + '?' + urlencode(redirect_data)
 
+    def get(self, request, *args, **kwargs):
+        if (self.client_id_query not in self.request.GET
+                or self.state_query not in self.request.GET):
+            return HttpResponseBadRequest()
+
+        return super().get(request, *args, **kwargs)
+
 
 class TokenRetrievalMixin:
     client_id_param = 'client_id'
