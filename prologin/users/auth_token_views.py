@@ -67,7 +67,7 @@ class AuthorizeView(PermissionRequiredMixin, RedirectView):
     client_id_query = 'client_id'
     state_query = 'state'
 
-    def get_url(self, *args, **kwargs):
+    def get_redirect_url(self, *args, **kwargs):
         initiator_name = self.request.GET.get(self.client_id_query)
         state = self.request.GET.get(self.state_query)
 
@@ -86,18 +86,7 @@ class AuthorizeView(PermissionRequiredMixin, RedirectView):
         if 'next' in self.request.GET:
             redirect_datas.update({'next': self.request.GET.get('next')})
 
-        # Django will apply the old format syntax to the url, thus we need to
-        # escape any '%' that appears in the encoded paramers
-        return (client.redirect_url
-                + '?'
-                + urlencode(redirect_datas).replace('%', '%%'))
-
-    def get(self, request, *args, **kwargs):
-        try:
-            self.url = self.get_url()
-        except Exception:
-            return HttpResponseBadRequest()
-        return super().get(request, *args, **kwargs)
+        return client.redirect_url + '?' + urlencode(redirect_datas)
 
 
 class TokenRetrievalMixin:
