@@ -16,6 +16,7 @@ from django.utils.formats import date_format
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_noop, ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
+from massmailer import register_enum
 
 from centers.models import Center
 from prologin.models import EnumField, CodingLanguageField
@@ -94,6 +95,7 @@ class EventManager(models.Manager):
 
 
 class Event(ExportModelOperationsMixin('event'), models.Model):
+    @register_enum(namespace='Event')
     @ChoiceEnum.labels(lambda e: "Regional event" if e == "semifinal" else e.capitalize())
     class Type(ChoiceEnum):
         qualification = 0
@@ -182,6 +184,7 @@ class ContestantCompleteSemifinalManager(models.Manager):
                 ))
 
 
+@register_enum(namespace='Contestant')
 @ChoiceEnum.labels(str.upper)
 class ShirtSize(ChoiceEnum):
     xs = 0
@@ -192,6 +195,7 @@ class ShirtSize(ChoiceEnum):
     xxl = 5
 
 
+@register_enum(namespace='Contestant')
 @ChoiceEnum.labels(lambda lbl: lbl.replace('_', ' ').capitalize())
 class Assignation(ChoiceEnum):
     not_assigned = 0
@@ -204,6 +208,7 @@ class Assignation(ChoiceEnum):
     ugettext_noop("Abandoned")
 
 
+@register_enum(namespace='Contestant')
 class LearnAboutContest(ChoiceEnum):
     other_contest = (0, _("Another programming contest"))
     social_media = (1, _("From social media"))

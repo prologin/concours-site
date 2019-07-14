@@ -65,7 +65,6 @@ INSTALLED_APPS = (
     'forum',
     'homepage',
     'qcm',
-    'mailing',
     'news',
     'pages',
     'problems',
@@ -76,6 +75,7 @@ INSTALLED_APPS = (
 
     # Django and vendor, at the bottom for template overriding
     'django.contrib.admin',
+    'massmailer',
     'zinnia',
 
     # Debug Toolbar (will not load if DEBUG = False)
