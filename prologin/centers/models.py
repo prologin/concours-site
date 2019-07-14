@@ -2,12 +2,14 @@ from django.db import models
 from django.utils.translation import ugettext_noop
 from django.urls import reverse
 import geopy.geocoders
+from massmailer import register_enum
 
 from prologin.models import AddressableModel, ContactModel, EnumField
 from prologin.utils import ChoiceEnum
 
 
 class Center(AddressableModel):
+    @register_enum(namespace='Center')
     @ChoiceEnum.labels(str.capitalize)
     class Type(ChoiceEnum):
         center = 0
@@ -81,6 +83,7 @@ class Center(AddressableModel):
 
 
 class Contact(ContactModel):
+    @register_enum(namespace='Center')
     @ChoiceEnum.labels(str.capitalize)
     class Type(ChoiceEnum):
         manager = 0

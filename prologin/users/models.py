@@ -19,6 +19,7 @@ from django.utils.translation import LANGUAGE_SESSION_KEY, ugettext_lazy as _
 from django_prometheus.models import ExportModelOperationsMixin
 from hijack.signals import hijack_started, hijack_ended
 from timezone_field import TimeZoneField
+from massmailer import register_enum
 
 from contest.models import Assignation, Event
 from prologin.languages import Language
@@ -89,6 +90,7 @@ class ProloginUserManager(UserManager):
             return self.get(email__iexact=username)
 
 
+@register_enum(namespace='User')
 class EducationStage(ChoiceEnum):
     middle_school = (0, _("Middle school"))
     high_school = (1, _("High school"))

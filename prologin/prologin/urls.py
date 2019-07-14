@@ -62,7 +62,7 @@ urlpatterns = [
     path('user/', include('users.urls', namespace='users')),
 
     # Mailing
-    path('mailing/', include('mailing.urls', namespace='mailing')),
+    path('mailing/', include('massmailer.urls', namespace='massmailer')),
 
     # Schools
     path('schools/', include('schools.urls', namespace='schools')),

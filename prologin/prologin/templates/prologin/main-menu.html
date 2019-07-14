@@ -19,8 +19,8 @@
       {% if can_correct %}<li><a href="{% url 'contest:correction:index' %}"><i class="fa fa-fw fa-wrench"></i> {% trans "Correction" %}</a></li>{% endif %}
       {% has_perm 'documents.generate_batch_document' request.user as can_correct %}
       {% if can_correct %}<li><a href="{% url 'documents:index' %}"><i class="fa fa-fw fa-archive"></i> {% trans "Documents" %}</a></li>{% endif %}
-      {% has_perm 'mailing.admin' request.user as can_do_mailing %}
-      {% if can_do_mailing %}<li><a href="{% url 'mailing:dashboard' %}"><i class="fa fa-fw fa-envelope-o"></i> {% trans "Mailing" %}</a></li>{% endif %}
+      {% has_perm 'massmailer.admin' request.user as can_do_mailing %}
+      {% if can_do_mailing %}<li><a href="{% url 'massmailer:dashboard' %}"><i class="fa fa-fw fa-envelope-o"></i> {% trans "Mailing" %}</a></li>{% endif %}
       <li><a href="https://docs.prologin.org/index.html"><i class="fa fa-fw fa-support"></i> {% trans "Documentation" %}</a></li>
       {% has_perm 'users.search' request.user as can_search %}
       {% if can_search %}
