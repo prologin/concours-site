@@ -13,13 +13,13 @@ Assumptions:
 
 Protocol for logging in (client has no session):
     1. Client redirects user browser to
-       //prologin.org/user/auth/authorize?client_id=<client id>&state=<state>
+       //prologin.org/user/auth/authorize?client_id=<client id>&state=<state>[&next=<path>]
        with state a random string that is memorized (eg. in a cookie)
 
     2. User logs in on prologin.org (or is already logged in)
 
     3. User browser is redirected to the client callback URL, eg.
-       //gcc.prologin.org/user/auth/callback?code=<random code>?state=<state>
+       //gcc.prologin.org/user/auth/callback?code=<random code>?state=<state>[&next=<path>]
 
     4. Client checks that <state> is the same as its request's and makes an
        internal POST request to
@@ -67,7 +67,7 @@ class AuthorizeView(PermissionRequiredMixin, RedirectView):
     client_id_query = 'client_id'
     state_query = 'state'
 
-    def get_url(self, *args, **kwargs):
+    def get_redirect_url(self, *args, **kwargs):
         initiator_name = self.request.GET.get(self.client_id_query)
         state = self.request.GET.get(self.state_query)
 
@@ -81,18 +81,18 @@ class AuthorizeView(PermissionRequiredMixin, RedirectView):
 
         # Piggy-back on the view to do garbage collection.
         AuthToken.garbage_collect()
+        redirect_data = {'code': auth_token.code, 'state': state}
 
-        return client.redirect_url + '?' + urlencode(
-            {
-                'code': auth_token.code,
-                'state': state
-            })
+        if 'next' in self.request.GET:
+            redirect_data['next'] = self.request.GET.get('next')
+
+        return client.redirect_url + '?' + urlencode(redirect_data)
 
     def get(self, request, *args, **kwargs):
-        try:
-            self.url = self.get_url()
-        except Exception:
+        if (self.client_id_query not in self.request.GET
+                or self.state_query not in self.request.GET):
             return HttpResponseBadRequest()
+
         return super().get(request, *args, **kwargs)
 
 
