@@ -236,7 +236,7 @@ class PasswordResetView(AnonymousRequiredMixin, FormView):
             # a password marked as unusable
             if not user.has_usable_password() and not user.legacy_md5_password:
                 continue
-            uid = urlsafe_base64_encode(force_bytes(user.pk)).decode()
+            uid = urlsafe_base64_encode(force_bytes(user.pk))
             token = default_token_generator.make_token(user)
             url = absolute_site_url(self.request,
                                     reverse('users:password_reset_confirm', kwargs=dict(uidb64=uid, token=token)))
