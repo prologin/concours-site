@@ -61,6 +61,10 @@ class Role(ChoiceEnum):
         pgettext_lazy("male role", "Mascot"),
         pgettext_lazy("female role", "Mascot"),
         None, None, 40, True)
+    contributor = RoleData(
+        pgettext_lazy("male role", "Contributor"),
+        pgettext_lazy("female role", "Contributor"),
+        None, None, 30, True)
     external_organizer = RoleData(
         pgettext_lazy("male role", "External organizer"),
         pgettext_lazy("female role", "External organizer"),
