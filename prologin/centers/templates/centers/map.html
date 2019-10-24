@@ -91,7 +91,7 @@
             </td>
             {% localize off %}
               <td>
-                <a href="https://www.openstreetmap.org/?mlat={{ center.lat }}&mlon={{ center.lng }}#map=16/{{ center.lat }}/{{ center.lng }}">
+                <a href="{{ center.get_absolute_url }}">
                   <i class="fa fa-globe"></i> {% trans "Full map" %}</a></td>
             {% endlocalize %}
           </tr>

@@ -40,6 +40,9 @@ class Center(AddressableModel):
     def has_valid_geolocation(self):
         return self.lat != 0 and self.lng != 0
 
+    def get_absolute_url(self):
+        return "https://www.openstreetmap.org/?mlat={0:.6f}&mlon={1:.6f}#map=16/{0:.6f}/{1:.6f}".format(self.lat, self.lng)
+
     def geocode(self, suffix=', FRANCE', geocoder=None):
         if geocoder is None:
             geocoder = geopy.geocoders.get_geocoder_for_service('google')
