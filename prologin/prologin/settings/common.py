@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     'archives',
     'centers',
     'contest',
+    'conflose',
     'documents',
     'forum',
     'homepage',

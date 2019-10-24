@@ -1,5 +1,5 @@
 {% load i18n staticfiles %}
-{% load django_bootstrap_breadcrumbs rules utils %}
+{% load django_bootstrap_breadcrumbs conflose rules utils %}
 
 {% get_current_language as LANGUAGE_CODE %}
 <!doctype html>
@@ -22,6 +22,9 @@
 
   {# Custom #}
   <link rel="stylesheet" type="text/css" href="{% static 'css/prologin.css' %}"/>
+
+  {# Conflose #}
+  {% conflose_css request.user %}
 
   <meta name="description" content="{% block meta_descr %}{% endblock %}">
 
@@ -82,21 +85,23 @@
   {% include "prologin/stub-impersonate-warning.html" %}
   {% endblock super_header %}
 
+  <div id="content">
   {% block super_content %}
   {# Content #}
-  <div class="container">
-    {% block breadcrumbs %}
-      {% clear_breadcrumbs %}
-      {% breadcrumb_for "home" %}{% trans "Prologin" %}{% endbreadcrumb_for %}
-    {% endblock %}
+    <div class="container">
+        {% block breadcrumbs %}
+        {% clear_breadcrumbs %}
+        {% breadcrumb_for "home" %}{% trans "Prologin" %}{% endbreadcrumb_for %}
+        {% endblock %}
 
-    {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
+        {% render_breadcrumbs "django_bootstrap_breadcrumbs/bootstrap3.html" %}
 
-    {% include "prologin/messages.html" %}
+        {% include "prologin/messages.html" %}
 
-    {% block content %}{% endblock %}
-  </div>
+        {% block content %}{% endblock %}
+    </div>
   {% endblock super_content %}
+  </div>
 
   {# Footer #}
   <footer>
