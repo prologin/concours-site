@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.simple_tag
 def conflose_css(user):
-    if not (user or user.userconflose):
+    if not user or not hasattr(user, 'userconflose'):
         return ''
     userconflose = user.userconflose
     css = userconflose.conflose.css.replace('%%message%%',
