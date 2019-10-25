@@ -60,7 +60,6 @@
 {% endblock %}
 
 {% block content %}
-
   <div class="row">
 
     <div class="col-md-6" id="map-canvas-col">
@@ -85,13 +84,13 @@
               <address>{{ center.address|title }}<br>{{ center.postal_code }} {{ center.city|title }}</address>
             </td>
             <td>
-              <a href="#center-{{ forloop.counter0 }}"
+              <a href="#center-{{ center.id }}"
                  onclick="showCenter({{ forloop.counter0 }});">
                 <i class="fa fa-map-marker"></i> {% trans "Show" %}</a>
             </td>
             {% localize off %}
               <td>
-                <a href="{{ center.get_absolute_url }}">
+                <a href="{{ center.get_full_map_url }}">
                   <i class="fa fa-globe"></i> {% trans "Full map" %}</a></td>
             {% endlocalize %}
           </tr>
@@ -148,6 +147,21 @@
       map.panTo(m.getLatLng());
     }
 
+    function showCenterFromHash()
+    {
+      var hash_id = location.hash.match(/\d+/);
+
+      if (hash_id)
+      {
+        var id = hash_id[0];
+        var on_map_nb = center_ids.findIndex(function isId(el) { return el == id});
+        var m = center_markers[on_map_nb];
+
+        if (m)
+          m.openPopup();
+      }
+    }
+
     var map = L.map('map-canvas', {
       center: [47, 32],
       zoom: 5
@@ -158,12 +172,14 @@
     }).addTo(map);
 
     var center_markers = [];
-    function createMarker(lat, lng, title, description) {
+    var center_ids = [];
+    function createMarker(lat, lng, title, description, id) {
       var marker = L.marker([lat, lng], {
         title: title
       }).addTo(map).bindPopup(description);
 
       center_markers.push(marker);
+      center_ids.push(id);
     };
 
     var body;
@@ -173,12 +189,13 @@
           body = "<strong>{{ center.name|escapejs }}</strong><br>" +
             "{{ center.address|title|escapejs }}" +
             "<br>{{ center.postal_code|escapejs }} {{ center.city|title|escapejs }}";
-          createMarker({{ center.lat }}, {{ center.lng }}, "{{ center.name|escapejs }}", body);
+          createMarker({{ center.lat }}, {{ center.lng }}, "{{ center.name|escapejs }}", body, {{ center.id }});
         {% endif %}
       {% endfor %}
     {% endlocalize %}
 
     var marker_group = new L.featureGroup(center_markers);
 
+    showCenterFromHash();
   </script>
 {% endblock %}
