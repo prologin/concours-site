@@ -90,7 +90,7 @@
             </td>
             {% localize off %}
               <td>
-                <a href="{{ center.get_full_map_url }}">
+                <a href="{{ center.get_osm_url }}">
                   <i class="fa fa-globe"></i> {% trans "Full map" %}</a></td>
             {% endlocalize %}
           </tr>
@@ -128,6 +128,8 @@
         }
       });
       $(window).resize(applyWidth);
+
+      showCenterFromHash();
     });
 
     function resetMapWindow() {
@@ -143,8 +145,11 @@
       // right after calling it stops that animation, resulting in a bad map
       // centering. Alternatively, we can tell panTo not to animate the panning,
       // but animations are neat.
-      m.openPopup();
-      map.panTo(m.getLatLng());
+      if (m)
+      {
+        m.openPopup();
+        map.panTo(m.getLatLng());
+      }
     }
 
     function showCenterFromHash()
@@ -155,10 +160,8 @@
       {
         var id = hash_id[0];
         var on_map_nb = center_ids.findIndex(function isId(el) { return el == id});
-        var m = center_markers[on_map_nb];
 
-        if (m)
-          m.openPopup();
+        showCenter(on_map_nb);
       }
     }
 
@@ -173,7 +176,7 @@
 
     var center_markers = [];
     var center_ids = [];
-    function createMarker(lat, lng, title, description, id) {
+    function createMarker(id, lat, lng, title, description) {
       var marker = L.marker([lat, lng], {
         title: title
       }).addTo(map).bindPopup(description);
@@ -189,13 +192,11 @@
           body = "<strong>{{ center.name|escapejs }}</strong><br>" +
             "{{ center.address|title|escapejs }}" +
             "<br>{{ center.postal_code|escapejs }} {{ center.city|title|escapejs }}";
-          createMarker({{ center.lat }}, {{ center.lng }}, "{{ center.name|escapejs }}", body, {{ center.id }});
+          createMarker({{ center.id }}, {{ center.lat }}, {{ center.lng }}, "{{ center.name|escapejs }}", body);
         {% endif %}
       {% endfor %}
     {% endlocalize %}
 
     var marker_group = new L.featureGroup(center_markers);
-
-    showCenterFromHash();
   </script>
 {% endblock %}
