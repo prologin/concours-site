@@ -59,7 +59,7 @@ class AboutHistoryView(generic.TemplateView):
         try:
             path = os.path.abspath(os.path.join(__file__, '../../prologin/settings/prologin-winners.yaml'))
             with open(path, encoding='utf-8') as f:
-                context['winners'] = [{'year': year, 'name': name} for year, name in yaml.load(f).items()]
+                context['winners'] = [{'year': year, 'name': name} for year, name in yaml.full_load(f).items()]
         except OSError:
             pass
         return context
