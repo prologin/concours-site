@@ -32,6 +32,8 @@ django-debug-toolbar
 django-formtools
 # Impersonation framework
 django-hijack
+# Django conflose
+git+https://github.com/prologin/django-conflose
 # NPM static finder
 django-npm
 # Export metrics for prometheus monitoring
