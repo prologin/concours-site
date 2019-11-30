@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils.translation import ugettext_noop
-from django.conf import settings
 from django.urls import reverse
 import geopy.geocoders
 
@@ -48,7 +47,7 @@ class Center(AddressableModel):
                 f'#map=16/{self.lat:.6f}/{self.lng:.6f}')
 
     def get_absolute_url(self):
-        return f'{settings.SITE_BASE_URL}{reverse("centers:map")}#center-{self.id}'
+        return f'{reverse("centers:map")}#center-{self.id}'
 
     def geocode(self, suffix=', FRANCE', geocoder=None):
         if geocoder is None:
