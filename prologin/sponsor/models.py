@@ -44,7 +44,6 @@ class ActiveSponsorManager(models.Manager):
         return (super().get_queryset().filter(is_active=True)
                 .annotate(rank_significance=rank_significance,
                             rank_public=rank_public))
-                #.order_by('-rank_significance'))
 
 
 class Sponsor(AddressableModel, ContactModel, models.Model):
