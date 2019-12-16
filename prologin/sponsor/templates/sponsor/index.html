@@ -20,20 +20,42 @@
       {% endblocktrans %}
     </p>
 
+    <div class="row row-cols-4">
     {% for sponsor in sponsors %}
-      <hr/>
-      <div class="row">
-        <div class="col-sm-6 col-md-3">
-          <a class="sponsor-logo" href="{{ sponsor.site }}">
-            <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width:100%; max-height: 10em;" />
-          </a>
+      {% if sponsor.rank_significance > 60%}
+        <div class="row panel">
+          <div class="col-sm-6 col-md-3">
+            <a class="sponsor-logo" href="{{ sponsor.site }}">
+              <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width:100%; max-height: 10em;" />
+            </a>
+          </div>
+          <div class="col-sm-6 col-md-9">
+            <p>
+             <a href="{{ sponsor.site }}" class="btn btn-default sponsor-flair staff-flair-president">
+                <strong>{{ sponsor.name }}</strong>
+              </a>
+            </p>
+            <p>{{ sponsor.description }}</p>
+          </div>
         </div>
-        <div class="col-sm-6 col-md-9">
-          <p>
-            {{ sponsor.description }}
-          </p>
+      {% elif sponsor.rank_significance <= 60%}
+      <div class="col-md-4" style="height: 100%">
+        <div class="panel panel-default">
+          <div class="panel-heading" style="margin: auto; text-align: center;">
+              <a href="{{ sponsor.site }}"
+                class="btn btn-default sponsor-flair sponsor-flair-{{ sponsor.rank_name }}">
+                <strong>{{ sponsor.name }}</strong>
+              </a>
+          </div>
+          <div class="panel-body">
+            <a class="sponsor-logo" href="{{ sponsor.site }}">
+              <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width:100%; max-height: 10em;" />
+            </a>
+          </div>
         </div>
       </div>
+      {% endif %}
     {% endfor %}
+    </div>
 
 {% endblock %}
