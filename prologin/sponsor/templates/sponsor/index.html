@@ -19,6 +19,17 @@
         sponsorship program.
       {% endblocktrans %}
     </p>
+    <p>
+      {% if language == "fr" %}
+      <a href="{{ MEDIA_URL }}sponsors/plaquettes/sponsors_fr_2020.pdf">
+      {% else %}
+      <a href="{{ MEDIA_URL }}sponsors/plaquettes/sponsors_en_2020.pdf">
+      {% endif %}
+          {% blocktrans %}
+            Become a sponsor
+          {% endblocktrans %}
+        </a>
+    </p>
 
     {% for sponsor in sponsors_gold %}
       {% if forloop.first %}
