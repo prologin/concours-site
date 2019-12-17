@@ -1231,6 +1231,13 @@ table.table-align-middle > tbody > tr > td {
     max-height: 10em;
 }
 
+@media (min-width: 1000px) {
+  .row.equal {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}
+
 /*
  * Scoreboard
  */
