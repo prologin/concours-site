@@ -791,52 +791,6 @@ input[type=checkbox].task-list-item-checkbox {
   animation-iteration-count: infinite;
 }
 
-.sponsor-flair {
-  margin: auto;
-}
-
-.sponsor-flair-Silver {
-  position: relative;
-  overflow: hidden;
-  background-color: rgb(192, 192, 192);
-}
-
-.sponsor-flair-Silver:after {
-  position: absolute;
-  content: '';
-  top: -33px;
-  height: 100px;
-  width: 50px;
-  transform: rotate(45deg);
-  background: linear-gradient(to right, rgb(185, 185, 185), rgb(61, 61, 61), rgb(204, 204, 204));
-  opacity: 0.3;
-  animation-timing-function: ease-in;
-  animation-name: staff-flair-president;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
-}
-
-.sponsor-flair-Bronze {
-  position: relative;
-  overflow: hidden;
-  background-color: rgb(205, 127, 50);
-}
-
-.sponsor-flair-Bronze:after {
-  position: absolute;
-  content: '';
-  top: -33px;
-  height: 100px;
-  width: 50px;
-  transform: rotate(45deg);
-  background: linear-gradient(to right,rgb(253, 144, 80), rgb(194, 93, 25), rgb(253, 144, 80));
-  opacity: 0.3;
-  animation-timing-function: ease-in;
-  animation-name: staff-flair-president;
-  animation-duration: 4s;
-  animation-iteration-count: infinite;
-}
-
 .submission-history {
   overflow-y: hidden;
   overflow-x: scroll;
