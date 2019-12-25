@@ -1,6 +1,5 @@
 from django.views.generic import ListView, RedirectView
 
-from django.conf import settings
 from django.urls import reverse
 
 import centers.models
@@ -15,7 +14,6 @@ class CenterListView(ListView):
         return super().get_queryset().filter(type=centers.models.Center.Type.center.value,
                                              is_active=True)
 
-
-class CenterSpecificView(RedirectView):
+class CenterDetailView(RedirectView):
     def get_redirect_url(self, *args, **kwargs):
-        return f'{settings.SITE_BASE_URL}{reverse("centers:map")}#center-{self.kwargs["id"]}'
+        return f'{reverse("centers:map")}#center-{self.kwargs["id"]}'
