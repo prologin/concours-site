@@ -47,7 +47,7 @@ class Center(AddressableModel):
                 f'#map=16/{self.lat:.6f}/{self.lng:.6f}')
 
     def get_absolute_url(self):
-        return f'{reverse("centers:map")}{self.id}'
+        return reverse("centers:detailMap", kwargs={'id': self.id})
 
     def geocode(self, suffix=', FRANCE', geocoder=None):
         if geocoder is None:
