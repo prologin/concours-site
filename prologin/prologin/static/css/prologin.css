@@ -1220,13 +1220,13 @@ table.table-align-middle > tbody > tr > td {
  * Sponsors
  */
 
-.partenaire-logo {
+.spons-logo {
     display: block;
     width: 100%;
     text-align : center;
 }
 
-.partenaire-logo > img {
+.spons-logo > img {
     max-width: 100%;
     max-height: 10em;
 }
