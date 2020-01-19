@@ -34,6 +34,8 @@ django-formtools
 django-hijack
 # Django conflose
 git+https://github.com/prologin/django-conflose
+# Django massmailer
+django-massmailer
 # NPM static finder
 django-npm
 # Export metrics for prometheus monitoring
