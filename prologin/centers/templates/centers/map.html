@@ -60,7 +60,6 @@
 {% endblock %}
 
 {% block content %}
-
   <div class="row">
 
     <div class="col-md-6" id="map-canvas-col">
@@ -85,13 +84,13 @@
               <address>{{ center.address|title }}<br>{{ center.postal_code }} {{ center.city|title }}</address>
             </td>
             <td>
-              <a href="#center-{{ forloop.counter0 }}"
+              <a href="#center-{{ center.id }}"
                  onclick="showCenter({{ forloop.counter0 }});">
                 <i class="fa fa-map-marker"></i> {% trans "Show" %}</a>
             </td>
             {% localize off %}
               <td>
-                <a href="https://www.openstreetmap.org/?mlat={{ center.lat }}&mlon={{ center.lng }}#map=16/{{ center.lat }}/{{ center.lng }}">
+                <a href="{{ center.get_osm_url }}">
                   <i class="fa fa-globe"></i> {% trans "Full map" %}</a></td>
             {% endlocalize %}
           </tr>
@@ -129,6 +128,8 @@
         }
       });
       $(window).resize(applyWidth);
+
+      showCenterFromHash();
     });
 
     function resetMapWindow() {
@@ -144,8 +145,25 @@
       // right after calling it stops that animation, resulting in a bad map
       // centering. Alternatively, we can tell panTo not to animate the panning,
       // but animations are neat.
-      m.openPopup();
-      map.panTo(m.getLatLng());
+      if (m)
+      {
+        m.openPopup();
+        map.setZoom(13, {animate: false});
+        map.panTo(m.getLatLng());
+      }
+    }
+
+    function showCenterFromHash()
+    {
+      var hash_id = location.hash.match(/\d+/);
+
+      if (hash_id)
+      {
+        var id = hash_id[0];
+        var on_map_nb = center_ids.findIndex(function isId(el) { return el == id});
+
+        showCenter(on_map_nb);
+      }
     }
 
     var map = L.map('map-canvas', {
@@ -158,12 +176,14 @@
     }).addTo(map);
 
     var center_markers = [];
-    function createMarker(lat, lng, title, description) {
+    var center_ids = [];
+    function createMarker(id, lat, lng, title, description) {
       var marker = L.marker([lat, lng], {
         title: title
       }).addTo(map).bindPopup(description);
 
       center_markers.push(marker);
+      center_ids.push(id);
     };
 
     var body;
@@ -173,12 +193,11 @@
           body = "<strong>{{ center.name|escapejs }}</strong><br>" +
             "{{ center.address|title|escapejs }}" +
             "<br>{{ center.postal_code|escapejs }} {{ center.city|title|escapejs }}";
-          createMarker({{ center.lat }}, {{ center.lng }}, "{{ center.name|escapejs }}", body);
+          createMarker({{ center.id }}, {{ center.lat }}, {{ center.lng }}, "{{ center.name|escapejs }}", body);
         {% endif %}
       {% endfor %}
     {% endlocalize %}
 
     var marker_group = new L.featureGroup(center_markers);
-
   </script>
 {% endblock %}

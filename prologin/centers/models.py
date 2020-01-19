@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_noop
+from django.urls import reverse
 import geopy.geocoders
 
 from prologin.models import AddressableModel, ContactModel, EnumField
@@ -39,6 +40,14 @@ class Center(AddressableModel):
     @property
     def has_valid_geolocation(self):
         return self.lat != 0 and self.lng != 0
+
+    def get_osm_url(self):
+        return ('https://www.openstreetmap.org/'
+                f'?mlat={self.lat:.6f}&mlon={self.lng:.6f}'
+                f'#map=16/{self.lat:.6f}/{self.lng:.6f}')
+
+    def get_absolute_url(self):
+        return reverse("centers:detailMap", kwargs={'id': self.id})
 
     def geocode(self, suffix=', FRANCE', geocoder=None):
         if geocoder is None:
