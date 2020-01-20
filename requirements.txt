@@ -3,9 +3,7 @@ beautifulsoup4
 # HTML sanitizer (Markdown escaping)
 bleach
 # For async tasks (sending mails, correcting submissions, etc.)
-# TODO: use celery when 5.0 is out (async keyword support)
-# https://github.com/celery/celery/issues/4500
-git+https://github.com/celery/celery.git#egg=celery[redis]
+celery>4.4.0[redis]
 # Django
 django<3
 # For ordered models (QCM questions, semifinal whishes, etc.)
