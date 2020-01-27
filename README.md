@@ -185,7 +185,7 @@ Every time you need to work on the website:
     ```bash
     make smtpserver
     ```
-4. *If needed* (training & contest submissions), you can launch a debug celery
+4. *If needed* (mailing, training & contest submissions), you can launch a debug celery
    worker:
     ```bash
     make celeryworker
