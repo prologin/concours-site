@@ -71,3 +71,6 @@ class AboutContestRulesView(generic.TemplateView):
 
 class AboutContributeView(generic.TemplateView):
     template_name = 'pages/about-contribute.html'
+
+class AboutPrivacyPolicyView(generic.TemplateView):
+    template_name = 'pages/about-privacy-policy.html'
