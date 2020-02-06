@@ -147,7 +147,7 @@ class SemifinalDataExportView(PermissionRequiredMixin, View):
         def iter_users():
             for contestant in contestants:
                 user = contestant.user
-                user.password = user.plaintext_password(event)
+                user.set_password(user.plaintext_password(event=event.id))
                 user.username = user.normalized_username
                 yield user
 
