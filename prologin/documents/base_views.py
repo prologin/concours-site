@@ -181,7 +181,7 @@ class BaseSemifinalDocumentView(BaseDocumentView):
         event_contestants = collections.defaultdict(list)
         for contestant in self.contestants.order_by('assignation_semifinal_event__date_begin', *USER_LIST_ORDERING):
             event = contestant.assignation_semifinal_event
-            contestant.password = contestant.user.plaintext_password(event)
+            contestant.password = contestant.user.plaintext_password(event=event.id)
             event_contestants[event].append(contestant)
         return sorted(event_contestants.items(),
                       key=lambda pair: pair[0].date_begin)
@@ -216,7 +216,7 @@ class BaseFinalDocumentView(BaseDocumentView):
         contestants = list(self.contestants)
         event = self.final_event
         for contestant in contestants:
-            contestant.password = contestant.user.plaintext_password(event)
+            contestant.password = contestant.user.plaintext_password(event=event.id)
         return [(self.final_event, contestants)]
 
 
