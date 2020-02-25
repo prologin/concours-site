@@ -25,21 +25,19 @@
       {% else %}
       <a href="{{ MEDIA_URL }}sponsors/plaquettes/sponsors_en_2020.pdf">
       {% endif %}
-          {% blocktrans %}
-            Become a sponsor
-          {% endblocktrans %}
+          {% trans "Become a sponsor" %}
         </a>
     </p>
 
-    {% for sponsor in sponsors_gold %}
-      {% if forloop.first %}
+    {% if sponsors_gold %}
       <h2>{% trans "Gold" %}</h2>
       <div class="row">
-      {% endif %}
+    {% endif %}
+    {% for sponsor in sponsors_gold %}
         <div class="row panel">
           <div class="col-sm-6 col-md-3">
             <a class="spons-logo" href="{{ sponsor.site }}">
-              <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width:100%; max-height: 10em;" />
+              <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}"/>
             </a>
           </div>
           <div class="col-sm-6 col-md-9">
@@ -47,48 +45,47 @@
             <p>{{ sponsor.description }}</p>
           </div>
         </div>
-      {% if forloop.last %}
-      </div>
-      {% endif %}
     {% endfor %}
+    {% if sponsors_gold %}
+      </div>
+    {% endif %}
 
-
-    {% for sponsor in sponsors_silver %}
-      {% if forloop.first %}
+    {% if sponsors_silver %}
       <h2>{% trans "Silver" %}</h2>
       <div class="row equal">
-      {% endif %}
+    {% endif %}
+    {% for sponsor in sponsors_silver %}
         <div class="col-md-4">
           <div class="panel">
             <div class="panel-body">
               <a class="spons-logo" href="{{ sponsor.site }}">
-                <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width:100%; max-height: 10em;" />
+                <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" >
               </a>
             </div>
           </div>
         </div>
-      {% if forloop.last %}
-      </div>
-      {% endif %}
     {% endfor %}
+    {% if sponsors_silver %}
+      </div>
+    {% endif %}
 
-    {% for sponsor in sponsors_bronze %}
-      {% if forloop.first %}
+    {% if sponsors_bronze %}
       <h2>{% trans "Bronze" %}</h2>
       <div class="row equal">
-      {% endif %}
+    {% endif %}
+    {% for sponsor in sponsors_bronze %}
         <div class="col-md-4">
           <div class="panel">
             <div class="panel-body">
               <a class="spons-logo" href="{{ sponsor.site }}">
-                <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width:100%; max-height: 10em;" />
+                <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}">
               </a>
             </div>
           </div>
         </div>
-      {% if forloop.last %}
-      </div>
-      {% endif %}
     {% endfor %}
+    {% if sponsors_bronze %}
+      </div>
+    {% endif %}
 
 {% endblock %}
