@@ -21,12 +21,13 @@
 # Victor Collod <victor.collod@prologin.org>, 2016
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
 # Yves Stadler <mvyonline@gmail.com>, 2015
+# Aurélien Rebourg <aurelien.rebourg@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-06-25 01:06+0200\n"
-"PO-Revision-Date: 2019-06-24 23:06+0000\n"
+"POT-Creation-Date: 2020-03-11 00:00+0100\n"
+"PO-Revision-Date: 2020-03-10 22:59+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
 "language/fr/)\n"
@@ -97,7 +98,7 @@ msgstr "Télécharger l'affiche"
 msgid "Poster not available"
 msgstr "Affiche indisponible"
 
-#: archives/templates/archives/index.html:41 contest/models.py:102
+#: archives/templates/archives/index.html:41 contest/models.py:104
 #: contest/templates/contest/index.html:9
 #: contest/templates/contest/qualification-summary.html:9
 #: contest/templates/correction/contestant-qualification.html:7
@@ -153,7 +154,7 @@ msgstr "Épreuves régionales"
 msgid "Regional events report"
 msgstr "Rapport des épreuves régionales"
 
-#: archives/templates/archives/index.html:76 contest/models.py:104
+#: archives/templates/archives/index.html:76 contest/models.py:106
 #: documents/templates/documents/index.html:87
 #: homepage/templates/homepage/jumbotron-final.html:7
 msgid "Final"
@@ -223,33 +224,33 @@ msgstr "Géolocaliser les centres sélectionnés"
 msgid "Normalize selected center addresses"
 msgstr "Normaliser les adresses des centres sélectionnés"
 
-#: centers/models.py:17 contest/admin.py:75
+#: centers/models.py:20 contest/admin.py:75
 #: contest/templates/correction/by-year.html:22
 #: contest/templates/correction/index.html:23
 msgid "Center"
 msgstr "Centre"
 
-#: centers/models.py:18
+#: centers/models.py:21
 msgid "Restaurant"
 msgstr "Restaurant"
 
-#: centers/models.py:19
+#: centers/models.py:22
 msgid "Hotel"
 msgstr "Hôtel"
 
-#: centers/models.py:20
+#: centers/models.py:23
 msgid "Pizzeria"
 msgstr "Pizzéria"
 
-#: centers/models.py:21 users/models.py:102
+#: centers/models.py:24 users/models.py:104
 msgid "Other"
 msgstr "Autre"
 
-#: centers/models.py:79
+#: centers/models.py:91
 msgid "Manager"
 msgstr "Responsable"
 
-#: centers/models.py:80
+#: centers/models.py:92
 msgid "Contact"
 msgstr "Contact"
 
@@ -261,15 +262,15 @@ msgstr "Les centres d'examen"
 msgid "You need Javascript to display the map."
 msgstr "Vous avez besoin d'activer Javascript pour afficher la carte."
 
-#: centers/templates/centers/map.html:75
+#: centers/templates/centers/map.html:74
 msgid "Center address"
 msgstr "Adresse du centre"
 
-#: centers/templates/centers/map.html:76 centers/templates/centers/map.html:90
+#: centers/templates/centers/map.html:75 centers/templates/centers/map.html:89
 msgid "Show"
 msgstr "Montrer"
 
-#: centers/templates/centers/map.html:77 centers/templates/centers/map.html:95
+#: centers/templates/centers/map.html:76 centers/templates/centers/map.html:94
 msgid "Full map"
 msgstr "Plein format"
 
@@ -301,7 +302,6 @@ msgid "%(user)s in edition %(year)s"
 msgstr "%(user)s pour l'édition %(year)s"
 
 #: contest/admin.py:107 contest/datatables.py:16
-#: mailing/templates/mailing/batch-emails.html:29
 msgid "User"
 msgstr "Utilisateur"
 
@@ -323,7 +323,7 @@ msgid "Assignation status"
 msgstr "Statut d'assignation"
 
 #: contest/datatables.py:74 contest/datatables.py:117 contest/datatables.py:152
-#: contest/models.py:257
+#: contest/models.py:262
 #: documents/templates/documents/semifinal-import-review.html:58
 #: documents/templates/documents/semifinal-import-review.html:77
 #: problems/admin.py:171 problems/templates/problems/manual.html:66
@@ -436,7 +436,7 @@ msgstr ""
 "régionale. Faites au moins un vœu et jusqu'à trois vœux. Vous obtiendrez "
 "très probablement votre premier vœu."
 
-#: contest/models.py:103 contest/templates/correction/by-year.html:43
+#: contest/models.py:105 contest/templates/correction/by-year.html:43
 #: contest/templates/correction/contestant-semifinal.html:7
 #: contest/templates/correction/final.html:10
 #: contest/templates/correction/semifinal.html:10
@@ -450,114 +450,114 @@ msgstr ""
 msgid "Regional event"
 msgstr "Épreuve régionale"
 
-#: contest/models.py:201
+#: contest/models.py:205
 msgid "Not assigned"
 msgstr "Non assigné"
 
-#: contest/models.py:202
+#: contest/models.py:206
 msgid "Ruled out"
 msgstr "Éliminé"
 
-#: contest/models.py:203
+#: contest/models.py:207
 msgid "Assigned"
 msgstr "Assigné"
 
-#: contest/models.py:204
+#: contest/models.py:208
 msgid "Abandoned"
 msgstr "Désisté"
 
-#: contest/models.py:208
+#: contest/models.py:213
 msgid "Another programming contest"
 msgstr "Par un autre concours de programmation"
 
-#: contest/models.py:209
+#: contest/models.py:214
 msgid "From social media"
 msgstr "Par les réseaux sociaux"
 
-#: contest/models.py:210
+#: contest/models.py:215
 msgid "From the poster in my school/university"
 msgstr "Par l'affiche dans mon école/université"
 
-#: contest/models.py:211
+#: contest/models.py:216
 msgid "From a friend"
 msgstr "Par un ami ou une amie"
 
-#: contest/models.py:212
+#: contest/models.py:217
 msgid "From an article on a website or a newspaper"
 msgstr "Dans un article sur un site ou dans un journal"
 
-#: contest/models.py:213
+#: contest/models.py:218
 msgid "Some other way"
 msgstr "Autre"
 
-#: contest/models.py:214
+#: contest/models.py:219
 msgid "I don't remember"
 msgstr "Je ne m'en souviens plus"
 
-#: contest/models.py:229
+#: contest/models.py:234
 msgid "T-shirt size"
 msgstr "Taille du t-shirt"
 
-#: contest/models.py:229
+#: contest/models.py:234
 msgid "Choose your size"
 msgstr "Choisissez votre taille"
 
-#: contest/models.py:230
+#: contest/models.py:235
 msgid "We usually provide unisex Prologin t-shirts to the finalists."
 msgstr "Nous fournissons le plus souvent des t-shirts unisexe aux finalistes."
 
-#: contest/models.py:232
+#: contest/models.py:237
 msgid ""
 "The programming language you will most likely use during the regional events."
 msgstr ""
 "Le langage de programmation que vous utiliserez le plus probablement pour "
 "l'épreuve régionale."
 
-#: contest/models.py:237
+#: contest/models.py:242
 msgid "How did you learn about the contest ?"
 msgstr "Comment avez-vous découvert le concours ?"
 
-#: contest/models.py:238
+#: contest/models.py:243
 msgid "Tell us how you discovered the contest"
 msgstr "Dites nous comment vous avez découvert le concours"
 
-#: contest/models.py:240
+#: contest/models.py:245
 msgid "Regional event assignation status"
 msgstr "Assignation d'épreuve régionale"
 
-#: contest/models.py:243
+#: contest/models.py:248
 msgid "Regional event assignation whishes"
 msgstr "Vœux d'assignation épreuve régionale"
 
-#: contest/models.py:246
+#: contest/models.py:251
 msgid "Regional event assigned event"
 msgstr "Événement assigné pour l'épreuve régionale"
 
-#: contest/models.py:248
+#: contest/models.py:253
 msgid "Final assignation status"
 msgstr "Assignation de finale"
 
-#: contest/models.py:250
+#: contest/models.py:255
 msgid "Quiz score"
 msgstr "Score du quiz"
 
-#: contest/models.py:251
+#: contest/models.py:256
 msgid "Algo exercises score"
 msgstr "Score des exercices d'algo"
 
-#: contest/models.py:252 contest/models.py:256 contest/models.py:258
+#: contest/models.py:257 contest/models.py:261 contest/models.py:263
 msgid "Bonus score"
 msgstr "Score bonus"
 
-#: contest/models.py:253
+#: contest/models.py:258
 msgid "Written exam score"
 msgstr "Score de l'épreuve écrite"
 
-#: contest/models.py:254
+#: contest/models.py:259
 msgid "Interview score"
 msgstr "Score de l'entretien"
 
-#: contest/models.py:255
+#: contest/models.py:260
 msgid "Machine exam score"
 msgstr "Score de l'épreuve machine"
 
@@ -1022,7 +1022,7 @@ msgstr "Réponses du QCM"
 #: contest/templates/correction/final.html:14
 #: contest/templates/correction/final.html:22
 msgid "All regional event"
-msgstr ""
+msgstr "Tous les événements régionaux"
 
 #: contest/templates/correction/index.html:15
 msgid "Correction index"
@@ -1255,7 +1255,7 @@ msgstr "Export données"
 
 #: documents/templates/documents/index.html:115
 msgid "Portrayal agreement Orga"
-msgstr ""
+msgstr "Accord de représentation Orga"
 
 #: documents/templates/documents/index.html:118
 msgid "Participation Authorization"
@@ -1333,8 +1333,6 @@ msgid "# of codes"
 msgstr "# de codes"
 
 #: documents/templates/documents/semifinal-import-review.html:74
-#: mailing/templates/mailing/batch-emails.html:28
-#: mailing/templates/mailing/batch-list.html:23
 msgid "ID"
 msgstr "ID"
 
@@ -1739,14 +1737,13 @@ msgstr "Contenu du message"
 msgid "Choose a short, descriptive title."
 msgstr "Choisissez un titre court et explicite."
 
-#: forum/models.py:22 mailing/models.py:55 mailing/models.py:139
-#: problems/templates/problems/challenge-scoreboard.html:24
+#: forum/models.py:22 problems/templates/problems/challenge-scoreboard.html:24
 #: schools/templates/admin/schools/merge.html:56
 #: semifinal/templates/semifinal/stub-scoreboard.html:9
 msgid "Name"
 msgstr "Nom"
 
-#: forum/models.py:24 mailing/models.py:56 mailing/models.py:140
+#: forum/models.py:24
 msgid "Description"
 msgstr "Description"
 
@@ -2033,9 +2030,6 @@ msgid "Unhide"
 msgstr "Ne plus cacher"
 
 #: forum/templates/forum/thread_posts.html:130
-#: mailing/templates/mailing/batch-list.html:40
-#: mailing/templates/mailing/batch_confirm_delete.html:12
-#: mailing/templates/mailing/batch_confirm_delete.html:24
 msgid "Delete"
 msgstr "Supprimer"
 
@@ -2079,7 +2073,7 @@ msgstr "Le sujet a été supprimé avec succès."
 
 #: homepage/templates/homepage/homepage.html:5
 #: homepage/templates/homepage/jumbotron.html:6
-#: prologin/templates/prologin/base.html:32
+#: prologin/templates/prologin/base.html:35
 msgid "Prologin, the French National Computer Science Contest"
 msgstr "Prologin, le concours national d'informatique"
 
@@ -2184,7 +2178,7 @@ msgid "Full leaderboard"
 msgstr "Classement complet"
 
 #: homepage/templates/homepage/sponsors.html:3
-#: prologin/templates/prologin/main-footer.html:12
+#: prologin/templates/prologin/main-footer.html:13
 #: sponsor/templates/sponsor/index.html:7
 #: sponsor/templates/sponsor/index.html:10
 msgid "Sponsors"
@@ -2192,7 +2186,7 @@ msgstr "Partenaires"
 
 #: homepage/templates/homepage/sponsors.html:23
 msgid "All about our sponsors"
-msgstr ""
+msgstr "Tout sur nos sponsors"
 
 #: homepage/templates/homepage/stub-qualification-active.html:14
 msgid "Quiz completed"
@@ -2356,369 +2350,6 @@ msgstr ""
 #: homepage/templates/homepage/stub-semifinal-result.html:69
 msgid "See all the dates"
 msgstr "Voir toutes les dates"
-
-#: mailing/admin.py:37
-msgid "Email count"
-msgstr "Nombre de mails"
-
-#: mailing/forms.py:18
-msgid "HTML enabled"
-msgstr "HTML activé"
-
-#: mailing/forms.py:19
-msgid "Generate HTML from plaintext"
-msgstr "Générer le HTML depuis le texte brut"
-
-#: mailing/forms.py:20
-msgid "Useful queries"
-msgstr "Requêtes utiles"
-
-#: mailing/forms.py:52
-msgid "You must provide an HTML template if HTML is enabled."
-msgstr "Vous devez fournir un gabarit HTML si vous activez le HTML."
-
-#: mailing/forms.py:63
-#, python-format
-msgid "i am fine bothering %(n)s people"
-msgstr "ok pour ennuyer %(n)s personnes"
-
-#: mailing/forms.py:72
-msgid "Foolproofing"
-msgstr "Anti-stupidité"
-
-#: mailing/forms.py:73
-#, python-format
-msgid "Type “%s” above"
-msgstr "Recopiez “%s” ci-dessus"
-
-#: mailing/forms.py:84
-msgid "Send"
-msgstr "Envoyer"
-
-#: mailing/forms.py:93
-#, python-format
-msgid "Actually send to %(n)s people right now"
-msgstr "Vraiment envoyer à %(n)s personnes, immédiatement"
-
-#: mailing/models.py:57
-msgid "Subject template"
-msgstr "Gabarit du sujet"
-
-#: mailing/models.py:58
-msgid "Plaintext body template"
-msgstr "Gabarit en texte brut"
-
-#: mailing/models.py:59
-msgid "HTML body template"
-msgstr "Gabarit en HTML"
-
-#: mailing/models.py:63 mailing/models.py:221
-#: mailing/templates/mailing/batch-emails.html:20
-#: mailing/templates/mailing/batch-list.html:26
-#: mailing/templates/mailing/template/details.html:45
-msgid "Template"
-msgstr "Gabarit"
-
-#: mailing/models.py:64 mailing/templates/mailing/dashboard.html:27
-#: mailing/templates/mailing/template/details.html:15
-msgid "Templates"
-msgstr "Gabarits"
-
-#: mailing/models.py:141 mailing/models.py:147 mailing/models.py:222
-#: mailing/templates/mailing/batch-emails.html:21
-#: mailing/templates/mailing/batch-list.html:27 problems/forms.py:15
-msgid "Query"
-msgstr "Requête"
-
-#: mailing/models.py:143
-msgid "Useful with templates"
-msgstr "Utile avec les gabarits"
-
-#: mailing/models.py:148 mailing/templates/mailing/dashboard.html:48
-#: mailing/templates/mailing/query/details.html:15
-msgid "Queries"
-msgstr "Requêtes"
-
-#: mailing/models.py:175
-#, python-format
-msgid "The root model is not %(model)s. You must provide a `user` alias."
-msgstr ""
-"Le modèle racine n'est pas %(model)s. Vous devez fournir un alias `user`."
-
-#: mailing/models.py:180
-#, python-format
-msgid "%(label)s.%(field)s is not %(model)s"
-msgstr "%(label)s.%(field)s n'est pas %(model)s"
-
-#: mailing/models.py:183
-#, python-format
-msgid "%(label)s has no field `%(field)s`"
-msgstr "%(label)s n'a pas de champ `%(field)s`"
-
-#: mailing/models.py:220
-msgid "Optional name"
-msgstr "Nom (optionnel)"
-
-#: mailing/models.py:228 mailing/templates/mailing/batch-emails.html:5
-msgid "Batch"
-msgstr "Lot"
-
-#: mailing/models.py:229 mailing/templates/mailing/batch-create.html:10
-#: mailing/templates/mailing/batch-emails.html:10
-#: mailing/templates/mailing/batch-list.html:5
-#: mailing/templates/mailing/batch-list.html:10
-#: mailing/templates/mailing/batch-list.html:15
-#: mailing/templates/mailing/batch_confirm_delete.html:10
-msgid "Batches"
-msgstr "Lots"
-
-#: mailing/models.py:235
-#, python-format
-msgid "Batch %(id)s"
-msgstr "Lot %(id)s"
-
-#: mailing/templates/mailing/batch-create.html:5
-#: mailing/templates/mailing/batch-create.html:16
-#: mailing/templates/mailing/dashboard.html:19
-msgid "Send a new batch"
-msgstr "Envoyer un nouveau lot"
-
-#: mailing/templates/mailing/batch-create.html:5
-#: mailing/templates/mailing/batch-create.html:9
-#: mailing/templates/mailing/batch-emails.html:5
-#: mailing/templates/mailing/batch-emails.html:9
-#: mailing/templates/mailing/batch-list.html:5
-#: mailing/templates/mailing/batch-list.html:9
-#: mailing/templates/mailing/batch_confirm_delete.html:5
-#: mailing/templates/mailing/batch_confirm_delete.html:9
-#: mailing/templates/mailing/dashboard.html:5
-#: mailing/templates/mailing/dashboard.html:9
-#: mailing/templates/mailing/query/details.html:5
-#: mailing/templates/mailing/query/details.html:14
-#: mailing/templates/mailing/template/details.html:5
-#: mailing/templates/mailing/template/details.html:14
-#: prologin/templates/prologin/main-menu.html:23
-msgid "Mailing"
-msgstr "Mailing"
-
-#: mailing/templates/mailing/batch-create.html:11
-#: mailing/templates/mailing/batch-list.html:17
-msgid "New batch"
-msgstr "Nouveau lot"
-
-#: mailing/templates/mailing/batch-emails.html:16
-#, python-format
-msgid "Batch details for %(name)s"
-msgstr "Détail du lot %(name)s"
-
-#: mailing/templates/mailing/batch-emails.html:18
-#, python-format
-msgid "Initiated by <strong>%(initiator)s</strong> on %(date)s."
-msgstr "Initié par <strong>%(initiator)s</strong> le %(date)s."
-
-#: mailing/templates/mailing/batch-emails.html:30
-msgid "Subject"
-msgstr "Sujet"
-
-#: mailing/templates/mailing/batch-emails.html:31
-msgid "State"
-msgstr "État"
-
-#: mailing/templates/mailing/batch-list.html:24
-msgid "Initiator"
-msgstr "Initiateur"
-
-#: mailing/templates/mailing/batch-list.html:25
-msgid "Created"
-msgstr "Créé le"
-
-#: mailing/templates/mailing/batch-list.html:29
-msgid "Progress"
-msgstr "Progressio"
-
-#: mailing/templates/mailing/batch-list.html:42
-msgid "Completed"
-msgstr "Terminé"
-
-#: mailing/templates/mailing/batch-list.html:46
-msgid "Retry pending"
-msgstr "Réessayer ceux en attente"
-
-#: mailing/templates/mailing/batch-list.html:51
-msgid "Total ⋅ Pending ⋅ Sending ⋅ Sent ⋅ Bounced ⋅ Complaints"
-msgstr "Total ⋅ En attente ⋅ En envoi ⋅ Envoyés ⋅ “Bounces” ⋅ Plaintes"
-
-#: mailing/templates/mailing/batch-list.html:70
-msgid "There is no batch yet."
-msgstr "Il n'y a pas encore de lot."
-
-#: mailing/templates/mailing/batch_confirm_delete.html:5
-#: mailing/templates/mailing/batch_confirm_delete.html:17
-msgid "Delete a batch"
-msgstr "Supprimer un lot"
-
-#: mailing/templates/mailing/batch_confirm_delete.html:19
-#, python-format
-msgid "Are you sure you want to delete <em>%(batch)s</em>?"
-msgstr "Voulez-vous vraiment supprimer <em>%(batch)s</em> ?"
-
-#: mailing/templates/mailing/batch_confirm_delete.html:23
-msgid "Cancel"
-msgstr "Annuler"
-
-#: mailing/templates/mailing/dashboard.html:5
-#: mailing/templates/mailing/dashboard.html:10
-msgid "Dashboard"
-msgstr "Tableau de bord"
-
-#: mailing/templates/mailing/dashboard.html:15
-msgid "Mailing dashboard"
-msgstr "Tableau de bord mailing"
-
-#: mailing/templates/mailing/dashboard.html:18
-msgid "All batches"
-msgstr "Tous les lots"
-
-#: mailing/templates/mailing/dashboard.html:25
-msgid "Craft a new template"
-msgstr "Créer un nouveau gabarit"
-
-#: mailing/templates/mailing/dashboard.html:31
-msgid "Related useful queries"
-msgstr "Requêtes utiles liées"
-
-#: mailing/templates/mailing/dashboard.html:32
-msgid "Plaintext + HTML"
-msgstr "Brut + HTML"
-
-#: mailing/templates/mailing/dashboard.html:39
-msgid "There is no template yet."
-msgstr "Il n'y a pas encore de gabarit."
-
-#: mailing/templates/mailing/dashboard.html:46
-msgid "Craft a new query"
-msgstr "Créer une nouvelle requête"
-
-#: mailing/templates/mailing/dashboard.html:52
-msgid "Templates this query is useful for"
-msgstr "Gabarits utiles pour cette requête"
-
-#: mailing/templates/mailing/dashboard.html:61
-msgid "There is no query yet."
-msgstr "Il n'y a pas encore de requête."
-
-#: mailing/templates/mailing/query/details.html:5
-#: mailing/templates/mailing/query/details.html:19
-#: mailing/templates/mailing/query/details.html:28
-msgid "New query"
-msgstr "Nouvelle requête"
-
-#: mailing/templates/mailing/query/details.html:26
-#, python-format
-msgid "Update query %(name)s"
-msgstr "Modifier la requête %(name)s"
-
-#: mailing/templates/mailing/query/details.html:45
-msgid "Details"
-msgstr "Détails"
-
-#: mailing/templates/mailing/query/details.html:50
-msgid "Save query"
-msgstr "Enregistrer la requête"
-
-#: mailing/templates/mailing/query/details.html:54
-#: mailing/templates/mailing/template/details.html:80
-msgid "Preview"
-msgstr "Prévisualiser"
-
-#: mailing/templates/mailing/query/details.html:58
-msgid "<code class=\"result-model\"></code> count"
-msgstr "Nombre de <code class=\"result-model\"></code>"
-
-#: mailing/templates/mailing/query/details.html:62
-msgid "Unique user count"
-msgstr "Nombre d'utilisateurs uniques"
-
-#: mailing/templates/mailing/query/details.html:66
-msgid "<code class=\"result-model\"></code> accessible by"
-msgstr "<code class=\"result-model\"></code> accessible via"
-
-#: mailing/templates/mailing/query/details.html:70
-msgid "Available aliases"
-msgstr "Alias accessibles"
-
-#: mailing/templates/mailing/query/details.html:100
-msgid "Generated SQL query"
-msgstr "Requête SQL générée"
-
-#: mailing/templates/mailing/query/details.html:112
-msgid "Syntax guide & shortcuts"
-msgstr "Guide de syntaxe et raccourcis"
-
-#: mailing/templates/mailing/query/details.html:118
-msgid ""
-"Filters are implicity joined by the <code>and</code> operator.\n"
-"  If you are not querying on the <code>ProloginUser</code> model directly, "
-"you must create a\n"
-"  <code>user</code>\n"
-"  alias targeting a field containing the related user."
-msgstr ""
-"Les filtres sont implicitement joints par l'opérateur <code>and</code>.\n"
-"Si vous ne requêtez pas directement le modèle <code>ProloginUser</code>, "
-"vous devez définir un alias <code>user</code> qui cible le champ contenant "
-"l'utilisateur lié."
-
-#: mailing/templates/mailing/query/details.html:130
-msgid "Available models"
-msgstr "Modèles disponibles"
-
-#: mailing/templates/mailing/query/details.html:139
-msgid "Available enumerations"
-msgstr "Énumérations disponibles"
-
-#: mailing/templates/mailing/query/details.html:154
-msgid "Available functions"
-msgstr "Fonctions disponibles"
-
-#: mailing/templates/mailing/template/details.html:5
-#: mailing/templates/mailing/template/details.html:19
-#: mailing/templates/mailing/template/details.html:28
-msgid "New template"
-msgstr "Nouveau gabarit"
-
-#: mailing/templates/mailing/template/details.html:26
-#, python-format
-msgid "Update template %(name)s"
-msgstr "Modifier le gabarit %(name)s"
-
-#: mailing/templates/mailing/template/details.html:52
-msgid "Preview with query"
-msgstr "Prévisualiser avec la requête"
-
-#: mailing/templates/mailing/template/details.html:76
-msgid "Save template"
-msgstr "Enregistrer le gabarit"
-
-#: mailing/templates/mailing/template/details.html:85
-msgid "Plaintext"
-msgstr "Texte brut"
-
-#: mailing/templates/mailing/template/details.html:88
-msgid "HTML"
-msgstr "HTML"
-
-#: mailing/views.py:83
-msgid ""
-"The form was modified and saved while you were editing. Please merge with "
-"current version."
-msgstr ""
-"Le formulaire a été enregistré pendant vous le modifiez. Veuillez fusionner "
-"vos modifications avec la version actuelle."
-
-#: mailing/views.py:231
-#, python-format
-msgid "Syntax error at position %(pos)s."
-msgstr "Erreur de syntaxe à la position %(pos)s."
 
 #: news/templates/zinnia/_entry_detail_base.html:25
 msgctxt "Written by <user> *on* <date>"
@@ -3014,7 +2645,7 @@ msgstr "Actualités"
 #: pages/templates/pages/about-contest-rules.html:11
 #: pages/templates/pages/about-contest-rules.html:15
 #: prologin/templates/prologin/main-footer.html:11
-#: prologin/templates/prologin/main-footer.html:27
+#: prologin/templates/prologin/main-footer.html:28
 msgid "Contest rules"
 msgstr "Règlement"
 
@@ -3679,7 +3310,7 @@ msgstr "Données indisponibles"
 
 #: pages/templates/pages/about-organization.html:7
 #: prologin/templates/prologin/main-footer.html:8
-#: team/templates/team/index.html:7 tickets/templates/team/index.html:7
+#: team/templates/team/index.html:7
 msgid "The organization"
 msgstr "L'association"
 
@@ -3711,7 +3342,7 @@ msgstr "Informations de contact"
 msgid "Address"
 msgstr "Adresse"
 
-#: pages/templates/pages/about-organization.html:35 users/models.py:129
+#: pages/templates/pages/about-organization.html:35 users/models.py:131
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -3867,6 +3498,402 @@ msgstr ""
 "sources), cours et corrections. Bien sûr, veuillez nous contacter avant de "
 "contribuer afin que nous puissions éviter que certaines choses soient faites "
 "en double.</p>\n"
+
+#: pages/templates/pages/about-privacy-policy.html:7
+#: pages/templates/pages/about-privacy-policy.html:11
+#: pages/templates/pages/about-privacy-policy.html:15
+#: prologin/templates/prologin/main-footer.html:12
+msgid "Privacy policy"
+msgstr "Politique de confidentialité"
+
+#: pages/templates/pages/about-privacy-policy.html:16
+msgid ""
+"\n"
+"<section class=\"privacy\">\n"
+"    <h2>Prologin and your Personal Data</h2>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#processing\" aria-expanded=\"false\" aria-"
+"controls=\"processing\">\n"
+"        <h3>About the Processing</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"processing\">\n"
+"        <h4>Purposes</h4>\n"
+"        <p>The processing goal is to <strong>organize the Prologin contest</"
+"strong>.\n"
+"            <br> It enables the Prologin association to:\n"
+"            <ul>\n"
+"                <li>to process registration requests on the Prologin website;"
+"</li>\n"
+"                <li>providing communication services (forum) and\n"
+"                    code evaluation (online judge) ;</li>\n"
+"                <li>processing applications for participation in the "
+"Prologin\n"
+"                    contest;</li>\n"
+"                <li>tailor the meals taking into account each dieatry "
+"restrictions;</li>\n"
+"                <li>answer questions from the participants;</li>\n"
+"                <li>steer the activity of the association (evaluate "
+"participant satisfaction, produce statistics).</li>\n"
+"            </ul>\n"
+"        </p>\n"
+"\n"
+"        <h4>Lawfulness of Processing</h4>\n"
+"        <p>The data subjects give consent to the processing of their "
+"personal data for the declared purposes (art. 6(1)a of GDPR).</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#processed_data\" aria-expanded=\"false\" aria-"
+"controls=\"processed_data\">\n"
+"        <h3>Processed Data</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"processed_data\">\n"
+"        <h4>Data Categories</h4>\n"
+"        <p>Registration on the site requires the following categories of "
+"data:</p>\n"
+"        <ul>\n"
+"            <li>Identification: pseudonyme, email;</li>\n"
+"            <li>Internet: audience measurement;</li>\n"
+"        </ul>\n"
+"\n"
+"        <p>Participation in the contest requires additional information:</"
+"p>\n"
+"        <ul>\n"
+"            <li>Identification: name, firstname, address...;</li>\n"
+"            <li>School life (also referred to as professional life): current "
+"class level;</li>\n"
+"            <li>Personal life: dietary constraints;</li>\n"
+"            <li>Internet: audience measurement;</li>\n"
+"            <li>Health data: medical treatments and allergies.</li>\n"
+"        </ul>\n"
+"\n"
+"        <h4>Data Source</h4>\n"
+"        <p>These informations are collected directly from the applicant, and/"
+"or from the holder of parental authority when necessary (candidate is less "
+"than 16).</p>\n"
+"\n"
+"        <h4>Mandatory Answers</h4>\n"
+"        <p>Registration to the Prologin website requires (unless specified) "
+"the collection of data necessary to process the registration.</p>\n"
+"        <p>Participating in an edition of the Prologin contest requires "
+"(unless specified) the collection of data necessary to process the "
+"application and the reception on site in good conditions..</p>\n"
+"\n"
+"        <h4>Automated Individual Decision-making</h4>\n"
+"        <p>The processing may include a fully automated decision: "
+"applications for entry into the Prologin contest that are clearly "
+"insufficient (evaluation by the Prologin online judge) are automatically "
+"rejected. Although this automatic decision has no legal effect and no "
+"significant impact, Prologin can be contacted directly.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#data_subjects\" aria-expanded=\"false\" aria-"
+"controls=\"data_subjects\">\n"
+"        <h3>Data Subjects</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"data_subjects\">\n"
+"        <p>This processing involves:\n"
+"            <ul>\n"
+"                <li>natural persons registering to the Prologin website;</"
+"li>\n"
+"                <li>natural persons applying to the Prologin contest;</li>\n"
+"                <li>holder of parental authorities for the above persons if "
+"necessary (applicant is less than 16);</li>\n"
+"                <li>members of Prologin;</li>\n"
+"                <li>natural or legal persons from Prologin partners and/or "
+"sub-processors.</li>\n"
+"            </ul>\n"
+"        </p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#data_recipients\" aria-expanded=\"false\" aria-"
+"controls=\"data_recipients\">\n"
+"        <h3>Data Recipients</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"data_recipients\">\n"
+"        <h4>Categories of Recipients</h4>\n"
+"        <p>Taking into account their respective needs, the following are "
+"recipient of all or any parts of the data:\n"
+"            <ul>\n"
+"                <li>authorized members of Prologin;</li>\n"
+"                <li>authorized members of Prologin partners and/or sub-"
+"contractors;</li>\n"
+"                <li>emergency services if needed.</li>\n"
+"            </ul>\n"
+"        </p>\n"
+"\n"
+"        <h4>Data Transfers Outside of EU</h4>\n"
+"        <p>Data transfers outside the European Union may take place (partner "
+"in Switzerland for the organisation of a regional event). This only concerns "
+"Prologin candidates participating in regional events in Switzerland.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#storage_period\" aria-expanded=\"false\" aria-"
+"controls=\"storage_period\">\n"
+"        <h3>Storage Period</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"storage_period\">\n"
+"        <p>Identification data, school and personal life are stored until "
+"the data subject unsubscribe from Prologin.\n"
+"            <br> Health data are deleted three years after the end of the "
+"final.</p>\n"
+"\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#security\" aria-expanded=\"false\" aria-controls="
+"\"security\">\n"
+"        <h3>Security</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"security\">\n"
+"        <p>Some security measures, aiming to ensure confidentiality, "
+"integrity and availability of the data, have been implemented. They are "
+"extracted from the ISO/IEC27002 standard. It includes, without being limited "
+"to, data encryption in-transit and externalized backups.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#your_rights\" aria-expanded=\"false\" aria-"
+"controls=\"your_rights\">\n"
+"        <h3>Your Rights</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"your_rights\">\n"
+"        <h4>The Essential</h4>\n"
+"        <p>You have (<em>via</em> the holder of parental authorities when "
+"applicable) the right to access and obtain a copy of your personal data, to "
+"object to their processing, to rectify or to erase them. You also have the "
+"right to restrict the processing of your data. Finally, you have the right "
+"to have your application for the contest re-examined by a human being if you "
+"have been the subject of an automated decision. Please refer to the website "
+"of your national Data Protection Authority to learn more about your rights.</"
+"p>\n"
+"\n"
+"        <h4>How to Exercize your Rights</h4>\n"
+"        <p>Any request must be sent by email to <a href=\"mailto:"
+"info@prologin.org\">info@prologin.org</a>.</p>\n"
+"\n"
+"        <h4>Lodging a Complaint</h4>\n"
+"        <p>Should you think your right are not respected, and after having "
+"contacted us, you can lodge a complaint with your national Data Protection "
+"Authority.</p>\n"
+"    </div>\n"
+"</section>\n"
+"    "
+msgstr ""
+"\n"
+"<section class=\"privacy\">\n"
+"    <h2>Prologin et vos données personnelles</h2>\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#processing\" aria-expanded="
+"\"false\"\n"
+"        aria-controls=\"processing\">\n"
+"        <h3>Objet du traitement de données</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"processing\">\n"
+"        <h4>Finalités</h4>\n"
+"        <p>Le traitement a pour objet <strong>l'organisation du concours\n"
+"                Prologin</strong>.<br>\n"
+"            Il permet à l'association Prologin :\n"
+"            <ul>\n"
+"                <li>de traiter les demandes d'inscription sur le site "
+"Prologin ;</li>\n"
+"                <li>de fournir les services de communication (forum) et\n"
+"                    d'évaluation de code (juge en ligne) ;</li>\n"
+"                <li>de traiter les demandes de participation au concours\n"
+"                    Prologin ;</li>\n"
+"                <li>d'adapter les repas aux contraintes alimentaires de "
+"chacun ;</li>\n"
+"                <li>de répondre aux sollicitations de la part des "
+"participants ;</li>\n"
+"                <li>de piloter l'activité de l'association (évaluation de "
+"la\n"
+"                    satisfaction des participants, production de "
+"statistiques).</li>\n"
+"            </ul>\n"
+"        </p>\n"
+"\n"
+"        <h4>Base légale</h4>\n"
+"        <p>Ce traitement repose sur le consentement des inscrits et de leur\n"
+"            responsable légal le cas échéant (mineurs de 16 ans), ce sont "
+"les\n"
+"            articles 6(1)a et 8 du RGPD.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#processed_data\"\n"
+"        aria-expanded=\"false\" aria-controls=\"processed_data\">\n"
+"        <h3>Données traitées</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"processed_data\">\n"
+"        <h4>Catégories de données traitées</h4>\n"
+"        <p>L'inscription sur le site nécessite les catégories de données\n"
+"            suivantes :</p>\n"
+"        <ul>\n"
+"            <li>Données d'identification : pseudonyme, adresse email ;</li>\n"
+"            <li>Internet : mesure d'audience ;</li>\n"
+"        </ul>\n"
+"        <p>La participation au concours requiert des informations\n"
+"            complémentaires :</p>\n"
+"        <ul>\n"
+"            <li>Données d'identification : nom, prénom, adresse postale, "
+"date de\n"
+"                naissance... ;</li>\n"
+"            <li>Vie scolaire (dite professionnelle) : niveau d'étude ;</li>\n"
+"            <li>Vie personnelle : habitudes alimentaires ;</li>\n"
+"            <li>Internet : mesure d'audience ;</li>\n"
+"            <li>Données de santé : éventuels traitements médicaux et "
+"allergies.</li>\n"
+"        </ul>\n"
+"\n"
+"        <h4>Source des données</h4>\n"
+"        <p>Ces informations sont recueillies directement auprès du "
+"participant,\n"
+"            et/ou de son responsable légal le cas échéant (mineurs de 16 "
+"ans).</p>\n"
+"        <h4>Caractère obligatoire des réponses</h4>\n"
+"        <p>L'inscription au site Prologin prévoit, sauf mention contraire, "
+"le\n"
+"            recueil obligatoire de données qui sont nécessaires au "
+"traitement de\n"
+"            l'inscription.</p>\n"
+"        <p>La participation à une édition du concours Prologin prévoit, "
+"sauf\n"
+"            mention contraire, le recueil obligatoire de données qui sont\n"
+"            nécessaires au traitement de l'inscription et l'accueil sur "
+"site\n"
+"            dans de bonnes conditions.</p>\n"
+"\n"
+"        <h4>Prise de décision automatisée</h4>\n"
+"        <p>Le traitement peut inclure une décision entièrement automatisée : "
+"les\n"
+"            demandes de participation au concours Prologin d'un niveau\n"
+"            manifestement insuffisant (évaluation par le juge en ligne "
+"Prologin)\n"
+"            sont automatiquement écartées. Bien que cette décision "
+"automatique\n"
+"            ne produise ni effet juridique ni impact significatif, Prologin "
+"peut\n"
+"            être <a href=\"mailto:info@prologin.org\">contacté directement</"
+"a> pour demander une évaluation manuelle.  </p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#data_subjects\"\n"
+"        aria-expanded=\"false\" aria-controls=\"data_subjects\">\n"
+"        <h3>Personnes concernées</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"data_subjects\">\n"
+"        <p>Le traitement de données concerne :\n"
+"        </p>\n"
+"        <ul>\n"
+"            <li>les personnes physiques souhaitant s'inscrire sur le site\n"
+"                Prologin ;</li>\n"
+"            <li>les personnes physiques souhaitant participer au concours\n"
+"                Prologin ;</li>\n"
+"            <li>les responsables légaux des personnes ci-dessus le cas "
+"échéant\n"
+"                (mineurs de 16 ans) ;</li>\n"
+"            <li>les membres de Prologin ;</li>\n"
+"            <li>les personnes physiques ou morales partenaires ou sous-"
+"traitants\n"
+"                de Prologin.</li>\n"
+"        </ul>\n"
+"\n"
+"        <h3>Destinataires des données</h3>\n"
+"        <h4>Catégories de destinataires</h4>\n"
+"        <p>En fonction de leurs besoins respectifs, sont destinataires de "
+"tout\n"
+"            ou partie des données :\n"
+"        </p>\n"
+"        <ul>\n"
+"            <li>les membres autorisés de Prologin ;</li>\n"
+"            <li>les membres autorisés des partenaires et/ou sous-traitants "
+"de\n"
+"                Prologin ;</li>\n"
+"            <li>les services de secours d'urgence en cas de besoin.</li>\n"
+"        </ul>\n"
+"\n"
+"        <h4>Transfert des données hors UE</h4>\n"
+"        <p>Des transferts de données hors de l'Union européenne peuvent "
+"avoir\n"
+"            lieu (partenaire en Suisse pour l'organisation d'une épreuve\n"
+"            régionale). Cela ne concerne que les candidats au concours "
+"Prologin\n"
+"            participant aux épreuves régionales en Suisse.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#storage_period\"\n"
+"        aria-expanded=\"false\" aria-controls=\"storage_period\">\n"
+"        <h3>Durée de conservation</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"storage_period\">\n"
+"        <p>Les données d’identification, de vie scolaire et personnelle "
+"sont\n"
+"            conservées jusqu'à la désinscription de la personne.<br>\n"
+"            Les données de santé sont conservées jusqu'à 3 ans après la fin "
+"de\n"
+"            la finale .</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#security\" aria-expanded="
+"\"false\"\n"
+"        aria-controls=\"security\">\n"
+"        <h3>Sécurité</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"security\">\n"
+"        <p>Des mesures de sécurité visant à garantir la confidentialité,\n"
+"            l'intégrité et la disponibilité des données collectées, issues "
+"du\n"
+"            référentiel ISO/IEC27002 ont été mises en œuvre. Elles "
+"comprennent,\n"
+"            sans s'y limiter, le chiffrement des données en transit et leur\n"
+"            sauvegarde régulière externalisée.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#your_rights\" aria-expanded="
+"\"false\"\n"
+"        aria-controls=\"your_rights\">\n"
+"        <h3>Vos droits sur vos données</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"your_rights\">\n"
+"        <h4>L'essentiel</h4>\n"
+"        <p>Vous disposez (le cas échéant <em>via</em> le responsable légal) "
+"des\n"
+"            droits d'accéder et d'obtenir copie des données vous concernant, "
+"de\n"
+"            vous opposer au traitement de ces données, de les faire "
+"rectifier ou\n"
+"            les faire effacer. Vous disposez également d'un droit à la\n"
+"            limitation du traitement de vos données. Vous disposez enfin "
+"d'un\n"
+"            droit à un réexamen par un être humain de votre candidature au\n"
+"            concours, si vous avez fait l'objet d'une décision automatisée. "
+"<a\n"
+"                href=\"https://www.cnil.fr/fr/comprendre-vos-droits\">Rendez-"
+"vous\n"
+"                sur le site de la CNIL pour mieux comprendre vos droits.</"
+"a></p>\n"
+"        <h4>Exercer vos droits</h4>\n"
+"        <p>Toute demande d'exercice de vos droits doit être adressée par "
+"voie\n"
+"            électronique à <a href=\"mailto:info@prologin.org"
+"\">info@prologin.org</a>.</p>\n"
+"        <h4>Réclamation auprès de la CNIL</h4>\n"
+"        <p>Si vous estimez, après nous avoir contacté, que vos droits sur "
+"vos\n"
+"            données ne sont pas respectés, vous pouvez alors <a\n"
+"                href=\"https://www.cnil.fr/fr/webform/adresser-une-plainte"
+"\">adresser\n"
+"                une réclamation à la CNIL</a>.\n"
+"        </div>\n"
+"    </section>\n"
 
 #: pages/templates/pages/about-qualification.html:8
 #: pages/templates/pages/about-qualification.html:11
@@ -4255,6 +4282,10 @@ msgstr "Résolu"
 #: problems/forms.py:14
 msgid "Problem name (optional)"
 msgstr "Nom du problème (facultatif)"
+
+#: problems/forms.py:15
+msgid "Query"
+msgstr "Requête"
 
 #: problems/forms.py:16
 msgid "Any event type"
@@ -5249,11 +5280,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/settings/common.py:132
+#: prologin/settings/common.py:133
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/settings/common.py:133
+#: prologin/settings/common.py:134
 msgid "French"
 msgstr "Français"
 
@@ -5306,9 +5337,9 @@ msgstr "En cours de maintenance"
 msgid "Prologin, the French computing contest"
 msgstr "Prologin, le concours national d'informatique"
 
-#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:31
-#: prologin/templates/prologin/base.html:47
-#: prologin/templates/prologin/base.html:90
+#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:34
+#: prologin/templates/prologin/base.html:50
+#: prologin/templates/prologin/base.html:94
 #: prologin/templates/prologin/main-footer.html:6
 #: semifinal/templates/prologin/base.html:58
 #: semifinal/templates/prologin/main-footer.html:6
@@ -5345,7 +5376,12 @@ msgstr "Erreur %(number)s"
 msgid "You can go back to the <a href=\"%(url)s\">home page</a>."
 msgstr "Vous pouvez retourner à <a href=\"%(url)s\">l'accueil</a>."
 
-#: prologin/templates/prologin/base.html:29
+#: prologin/templates/massmailer/base.html:6
+#: prologin/templates/prologin/main-menu.html:23
+msgid "Mailing"
+msgstr "Mailing"
+
+#: prologin/templates/prologin/base.html:32
 msgctxt "Twitter message, LESS THAN 140 CHARS"
 msgid ""
 "Prologin is a computer science contest, introducing students to the world of "
@@ -5354,11 +5390,11 @@ msgstr ""
 "Prologin, le concours d'informatique : faire découvrir la programmation et "
 "l'algorithmique aux étudiants grâce à des challenges excitants !"
 
-#: prologin/templates/prologin/base.html:53
+#: prologin/templates/prologin/base.html:56
 msgid "Latest blog articles"
 msgstr "Dernières actualités"
 
-#: prologin/templates/prologin/base.html:121
+#: prologin/templates/prologin/base.html:126
 msgid "No user matching query"
 msgstr "Aucun utilisateur correspondant"
 
@@ -5366,49 +5402,49 @@ msgstr "Aucun utilisateur correspondant"
 msgid "Contact us"
 msgstr "Contactez-nous"
 
-#: prologin/templates/prologin/main-footer.html:13
+#: prologin/templates/prologin/main-footer.html:14
 msgid "Report a bug on the website"
 msgstr "Signaler un problème sur le site"
 
-#: prologin/templates/prologin/main-footer.html:17
+#: prologin/templates/prologin/main-footer.html:18
 msgid "More"
 msgstr "En plus"
 
-#: prologin/templates/prologin/main-footer.html:19
+#: prologin/templates/prologin/main-footer.html:20
 msgid "Press kit"
 msgstr "Kit de presse"
 
-#: prologin/templates/prologin/main-footer.html:25
+#: prologin/templates/prologin/main-footer.html:26
 msgid "Terms"
 msgstr "Conditions"
 
-#: prologin/templates/prologin/main-footer.html:30
+#: prologin/templates/prologin/main-footer.html:31
 msgid "Stay tuned!"
 msgstr "Suivez nous !"
 
-#: prologin/templates/prologin/main-footer.html:31
+#: prologin/templates/prologin/main-footer.html:32
 msgid "Prologin news Atom stream"
 msgstr "Flux Atom des actualités Prologin"
 
-#: prologin/templates/prologin/main-footer.html:38
+#: prologin/templates/prologin/main-footer.html:39
 msgid "Prologin on Facebook"
 msgstr "Prologin sur Facebook"
 
-#: prologin/templates/prologin/main-footer.html:44
+#: prologin/templates/prologin/main-footer.html:45
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: prologin/templates/prologin/main-footer.html:52
+#: prologin/templates/prologin/main-footer.html:53
 #: semifinal/templates/prologin/main-footer.html:12
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: prologin/templates/prologin/main-footer.html:65
+#: prologin/templates/prologin/main-footer.html:66
 #: semifinal/templates/prologin/main-footer.html:25
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prologin/templates/prologin/main-footer.html:68
+#: prologin/templates/prologin/main-footer.html:69
 #: semifinal/templates/prologin/main-footer.html:28
 #, python-format
 msgid ""
@@ -5443,7 +5479,7 @@ msgstr "Administration de Django"
 
 #: prologin/templates/prologin/main-menu.html:24
 msgid "Documentation"
-msgstr ""
+msgstr "Documentation"
 
 #: prologin/templates/prologin/main-menu.html:31
 msgid "Search users"
@@ -5474,7 +5510,7 @@ msgstr "Connexion"
 #: prologin/templates/prologin/main-menu.html:54
 #: users/templates/users/register.html:7 users/templates/users/register.html:10
 #: users/templates/users/register.html:15
-#: users/templates/users/register.html:23
+#: users/templates/users/register.html:26
 msgid "Register"
 msgstr "S'inscrire"
 
@@ -5882,7 +5918,7 @@ msgstr "Actif"
 
 #: sponsor/templates/sponsor/index.html:14
 msgid "Special thanks to all our sponsors!"
-msgstr ""
+msgstr "Un grand merci à tous nos sponsors !"
 
 #: sponsor/templates/sponsor/index.html:16
 msgid ""
@@ -5893,169 +5929,174 @@ msgid ""
 "        sponsorship program.\n"
 "      "
 msgstr ""
+"\n"
+"        L'organisation de Prologin et de GCC! nécessite des ressources "
+"importantes. Nous félicitons\n"
+"        les entreprises, les institutions ou les particuliers qui souhaitent "
+"rejoindre notre\n"
+"        programme de parrainage."
 
-#: team/admin.py:8 team/admin.py:34 team/models.py:104 tickets/admin.py:8
-#: tickets/admin.py:34 tickets/models.py:103
+#: team/admin.py:8 team/admin.py:34 team/models.py:104
 msgid "Role"
 msgstr "Rôle"
 
-#: team/admin.py:28 tickets/admin.py:28
+#: team/admin.py:28
 msgid "Role significance"
 msgstr "Importance du rôle"
 
-#: team/models.py:21 tickets/models.py:21
+#: team/models.py:21
 msgctxt "male role"
 msgid "President"
 msgstr "Président"
 
-#: team/models.py:22 tickets/models.py:22
+#: team/models.py:22
 msgctxt "female role"
 msgid "President"
 msgstr "Présidente"
 
-#: team/models.py:23 tickets/models.py:23
+#: team/models.py:23
 msgctxt "male title"
 msgid "The President"
 msgstr "Le président"
 
-#: team/models.py:24 tickets/models.py:24
+#: team/models.py:24
 msgctxt "female title"
 msgid "The President"
 msgstr "La présidente"
 
-#: team/models.py:27 tickets/models.py:27
+#: team/models.py:27
 msgctxt "male role"
 msgid "Vice President"
 msgstr "Vice-président"
 
-#: team/models.py:28 tickets/models.py:28
+#: team/models.py:28
 msgctxt "female role"
 msgid "Vice President"
 msgstr "Vice-présidente"
 
-#: team/models.py:29 tickets/models.py:29
+#: team/models.py:29
 msgctxt "male title"
 msgid "The Vice President"
 msgstr "Le vice-président"
 
-#: team/models.py:30 tickets/models.py:30
+#: team/models.py:30
 msgctxt "female title"
 msgid "The Vice President"
 msgstr "La vice-présidente"
 
-#: team/models.py:33 tickets/models.py:33
+#: team/models.py:33
 msgctxt "male role"
 msgid "Treasurer"
 msgstr "Trésorier"
 
-#: team/models.py:34 tickets/models.py:34
+#: team/models.py:34
 msgctxt "female role"
 msgid "Treasurer"
 msgstr "Trésorière"
 
-#: team/models.py:37 tickets/models.py:37
+#: team/models.py:37
 msgctxt "male role"
 msgid "Secretary"
 msgstr "Secrétaire"
 
-#: team/models.py:38 tickets/models.py:38
+#: team/models.py:38
 msgctxt "female role"
 msgid "Secretary"
 msgstr "Secrétaire"
 
-#: team/models.py:41 tickets/models.py:41
+#: team/models.py:41
 msgctxt "male role"
 msgid "Technical Lead"
 msgstr "Responsable technique"
 
-#: team/models.py:42 tickets/models.py:42
+#: team/models.py:42
 msgctxt "female role"
 msgid "Technical Lead"
 msgstr "Responsable technique"
 
-#: team/models.py:45 tickets/models.py:45
+#: team/models.py:45
 msgctxt "male role"
 msgid "Scientific Lead"
 msgstr "Responsable scientifique"
 
-#: team/models.py:46 tickets/models.py:46
+#: team/models.py:46
 msgctxt "female role"
 msgid "Scientific Lead"
 msgstr "Responsable scientifique"
 
-#: team/models.py:49 tickets/models.py:49
+#: team/models.py:49
 msgctxt "male role"
 msgid "Vice Treasurer"
 msgstr "Vice-trésorier"
 
-#: team/models.py:50 tickets/models.py:50
+#: team/models.py:50
 msgctxt "female role"
 msgid "Vice Treasurer"
 msgstr "Vice-trésorière"
 
-#: team/models.py:53 tickets/models.py:53
+#: team/models.py:53
 msgctxt "male role"
 msgid "Member"
 msgstr "Membre"
 
-#: team/models.py:54 tickets/models.py:54
+#: team/models.py:54
 msgctxt "female role"
 msgid "Member"
 msgstr "Membre"
 
-#: team/models.py:57 tickets/models.py:57
+#: team/models.py:57
 msgctxt "male role"
 msgid "Persistent Member"
 msgstr "Membre persistant"
 
-#: team/models.py:58 tickets/models.py:58
+#: team/models.py:58
 msgctxt "female role"
 msgid "Persistent Member"
 msgstr "Membre persistant"
 
-#: team/models.py:61 tickets/models.py:61
+#: team/models.py:61
 msgctxt "male role"
 msgid "Mascot"
 msgstr "Mascotte"
 
-#: team/models.py:62 tickets/models.py:62
+#: team/models.py:62
 msgctxt "female role"
 msgid "Mascot"
 msgstr "Mascotte"
 
-#: team/models.py:65 tickets/models.py:65
+#: team/models.py:65
 msgctxt "male role"
 msgid "External organizer"
 msgstr "Organisateur externe"
 
-#: team/models.py:66 tickets/models.py:66
+#: team/models.py:66
 msgctxt "female role"
 msgid "External organizer"
 msgstr "Organisatrice externe"
 
-#: team/models.py:115 tickets/models.py:114
+#: team/models.py:115
 msgid "Team member"
 msgstr "Membre de l'équipe"
 
-#: team/models.py:116 tickets/models.py:115
+#: team/models.py:116
 msgid "Team members"
 msgstr "Membres de l'équipe"
 
-#: team/templates/team/index.html:8 tickets/templates/team/index.html:8
+#: team/templates/team/index.html:8
 msgid "Teams"
 msgstr "Équipes"
 
-#: team/templates/team/index.html:12 tickets/templates/team/index.html:12
+#: team/templates/team/index.html:12
 #, python-format
 msgid "Staff %(year)s"
 msgstr "Équipe %(year)s"
 
-#: team/templates/team/index.html:22 tickets/templates/team/index.html:22
+#: team/templates/team/index.html:22
 #, python-format
 msgid "Staff %(year)s <small>%(count)s members</small>"
 msgstr "Équipe %(year)s <small>%(count)s membres</small>"
 
-#: team/templates/team/index.html:30 tickets/templates/team/index.html:30
+#: team/templates/team/index.html:30
 msgid "Picture"
 msgstr "Photo"
 
@@ -6151,59 +6192,59 @@ msgstr ""
 msgid "Wrong username."
 msgstr "Nom d'utilisateur incorrect."
 
-#: users/models.py:93
+#: users/models.py:95
 msgid "Middle school"
 msgstr "Collège"
 
-#: users/models.py:94
+#: users/models.py:96
 msgid "High school"
 msgstr "Lycée"
 
-#: users/models.py:95
+#: users/models.py:97
 msgid "Bac"
 msgstr "Bac"
 
-#: users/models.py:96
+#: users/models.py:98
 msgid "Bac+1"
 msgstr "Bac+1"
 
-#: users/models.py:97
+#: users/models.py:99
 msgid "Bac+2"
 msgstr "Bac+2"
 
-#: users/models.py:98
+#: users/models.py:100
 msgid "Bac+3"
 msgstr "Bac+3"
 
-#: users/models.py:99
+#: users/models.py:101
 msgid "Bac+4"
 msgstr "Bac+4"
 
-#: users/models.py:100
+#: users/models.py:102
 msgid "Bac+5"
 msgstr "Bac+5"
 
-#: users/models.py:101
+#: users/models.py:103
 msgid "Bac+6 and after"
 msgstr "Bac+6 et au delà"
 
-#: users/models.py:103
+#: users/models.py:105
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: users/models.py:128
+#: users/models.py:130
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: users/models.py:131 users/templates/users/profile.html:60
+#: users/models.py:133 users/templates/users/profile.html:60
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: users/models.py:133
+#: users/models.py:135
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: users/models.py:134
+#: users/models.py:136
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
@@ -6211,27 +6252,27 @@ msgstr ""
 "Nous n'envoyons des e-mails que pour vous informer du déroulement du "
 "concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: users/models.py:137
+#: users/models.py:139
 msgid "Signature"
 msgstr "Signature"
 
-#: users/models.py:139
+#: users/models.py:141
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: users/models.py:140
+#: users/models.py:142
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: users/models.py:141
+#: users/models.py:143
 msgid "Locale"
 msgstr "Langue"
 
-#: users/models.py:147
+#: users/models.py:149
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: users/models.py:152
+#: users/models.py:154
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
@@ -6330,7 +6371,7 @@ msgstr ""
 "N'oubliez pas de cliquer sur « Enregistrer » en bas lorsque vous avez "
 "terminé vos modifications."
 
-#: users/templates/users/edit.html:25
+#: users/templates/users/edit.html:26
 #: users/templates/users/edit_password.html:25
 msgid "Save"
 msgstr "Enregistrer"
