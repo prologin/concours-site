@@ -4,10 +4,8 @@ from django.db.models import BooleanField, CharField, IntegerField
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
-from prologin.models import TextEnumField
-from prologin.utils import ChoiceEnum
 from prologin.models import AddressableModel, ContactModel
-from prologin.utils import upload_path
+from prologin.utils import upload_path, ChoiceEnum
 from prologin.utils.db import CaseMapping
 
 RANK_CHOICES = (
