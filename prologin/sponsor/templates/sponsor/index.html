@@ -68,19 +68,17 @@
     {% if sponsors_bronze %}
       <h2>{% trans "Bronze" %}</h2>
       <div class="row equal">
-    {% endif %}
-    {% for sponsor in sponsors_bronze %}
-        <div class="col-md-4">
-          <div class="panel">
-            <div class="panel-body">
-              <a class="spons-logo" href="{{ sponsor.site }}">
-                <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}">
-              </a>
+      {% for sponsor in sponsors_bronze %}
+          <div class="col-md-4">
+            <div class="panel">
+              <div class="panel-body">
+                <a class="spons-logo" href="{{ sponsor.site }}">
+                  <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}">
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-    {% endfor %}
-    {% if sponsors_bronze %}
+      {% endfor %}
       </div>
     {% endif %}
 
