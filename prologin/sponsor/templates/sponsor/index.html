@@ -32,40 +32,36 @@
     {% if sponsors_gold %}
       <h2>{% trans "Gold" %}</h2>
       <div class="row">
-    {% endif %}
-    {% for sponsor in sponsors_gold %}
-        <div class="row panel">
-          <div class="col-sm-6 col-md-3">
-            <a class="spons-logo" href="{{ sponsor.site }}">
-              <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}"/>
-            </a>
+      {% for sponsor in sponsors_gold %}
+          <div class="row panel">
+            <div class="col-sm-6 col-md-3">
+              <a class="spons-logo" href="{{ sponsor.site }}">
+                <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}"/>
+              </a>
+            </div>
+            <div class="col-sm-6 col-md-9">
+              <p><strong>{{ sponsor.name }}</strong></p>
+              <p>{{ sponsor.description }}</p>
+            </div>
           </div>
-          <div class="col-sm-6 col-md-9">
-            <p><strong>{{ sponsor.name }}</strong></p>
-            <p>{{ sponsor.description }}</p>
-          </div>
-        </div>
-    {% endfor %}
-    {% if sponsors_gold %}
+      {% endfor %}
       </div>
     {% endif %}
 
     {% if sponsors_silver %}
       <h2>{% trans "Silver" %}</h2>
       <div class="row equal">
-    {% endif %}
-    {% for sponsor in sponsors_silver %}
-        <div class="col-md-4">
-          <div class="panel">
-            <div class="panel-body">
-              <a class="spons-logo" href="{{ sponsor.site }}">
-                <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" >
-              </a>
+      {% for sponsor in sponsors_silver %}
+          <div class="col-md-4">
+            <div class="panel">
+              <div class="panel-body">
+                <a class="spons-logo" href="{{ sponsor.site }}">
+                  <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" >
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-    {% endfor %}
-    {% if sponsors_silver %}
+      {% endfor %}
       </div>
     {% endif %}
 
