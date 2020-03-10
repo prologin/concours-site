@@ -23,6 +23,7 @@
 # Victor Collod <victor.collod@prologin.org>, 2016
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
 # Yves Stadler <mvyonline@gmail.com>, 2015
+# Aurélien Rebourg <aurelien.rebourg@gmail.com>, 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
@@ -2179,7 +2180,7 @@ msgid "Full leaderboard"
 msgstr "Classement complet"
 
 #: homepage/templates/homepage/sponsors.html:3
-#: prologin/templates/prologin/main-footer.html:12
+#: prologin/templates/prologin/main-footer.html:13
 #: sponsor/templates/sponsor/index.html:7
 #: sponsor/templates/sponsor/index.html:10
 msgid "Sponsors"
@@ -2646,7 +2647,7 @@ msgstr "Actualités"
 #: pages/templates/pages/about-contest-rules.html:11
 #: pages/templates/pages/about-contest-rules.html:15
 #: prologin/templates/prologin/main-footer.html:11
-#: prologin/templates/prologin/main-footer.html:27
+#: prologin/templates/prologin/main-footer.html:28
 msgid "Contest rules"
 msgstr "Règlement"
 
@@ -3311,7 +3312,7 @@ msgstr "Données indisponibles"
 
 #: pages/templates/pages/about-organization.html:7
 #: prologin/templates/prologin/main-footer.html:8
-#: team/templates/team/index.html:7 tickets/templates/team/index.html:7
+#: team/templates/team/index.html:7
 msgid "The organization"
 msgstr "L'association"
 
@@ -3499,6 +3500,402 @@ msgstr ""
 "sources), cours et corrections. Bien sûr, veuillez nous contacter avant de "
 "contribuer afin que nous puissions éviter que certaines choses soient faites "
 "en double.</p>\n"
+
+#: pages/templates/pages/about-privacy-policy.html:7
+#: pages/templates/pages/about-privacy-policy.html:11
+#: pages/templates/pages/about-privacy-policy.html:15
+#: prologin/templates/prologin/main-footer.html:12
+msgid "Privacy policy"
+msgstr "Politique de confidentialité"
+
+#: pages/templates/pages/about-privacy-policy.html:16
+msgid ""
+"\n"
+"<section class=\"privacy\">\n"
+"    <h2>Prologin and your Personal Data</h2>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#processing\" aria-expanded=\"false\" aria-"
+"controls=\"processing\">\n"
+"        <h3>About the Processing</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"processing\">\n"
+"        <h4>Purposes</h4>\n"
+"        <p>The processing goal is to <strong>organize the Prologin contest</"
+"strong>.\n"
+"            <br> It enables the Prologin association to:\n"
+"            <ul>\n"
+"                <li>to process registration requests on the Prologin website;"
+"</li>\n"
+"                <li>providing communication services (forum) and\n"
+"                    code evaluation (online judge) ;</li>\n"
+"                <li>processing applications for participation in the "
+"Prologin\n"
+"                    contest;</li>\n"
+"                <li>tailor the meals taking into account each dieatry "
+"restrictions;</li>\n"
+"                <li>answer questions from the participants;</li>\n"
+"                <li>steer the activity of the association (evaluate "
+"participant satisfaction, produce statistics).</li>\n"
+"            </ul>\n"
+"        </p>\n"
+"\n"
+"        <h4>Lawfulness of Processing</h4>\n"
+"        <p>The data subjects give consent to the processing of their "
+"personal data for the declared purposes (art. 6(1)a of GDPR).</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#processed_data\" aria-expanded=\"false\" aria-"
+"controls=\"processed_data\">\n"
+"        <h3>Processed Data</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"processed_data\">\n"
+"        <h4>Data Categories</h4>\n"
+"        <p>Registration on the site requires the following categories of "
+"data:</p>\n"
+"        <ul>\n"
+"            <li>Identification: pseudonyme, email;</li>\n"
+"            <li>Internet: audience measurement;</li>\n"
+"        </ul>\n"
+"\n"
+"        <p>Participation in the contest requires additional information:</"
+"p>\n"
+"        <ul>\n"
+"            <li>Identification: name, firstname, address...;</li>\n"
+"            <li>School life (also referred to as professional life): current "
+"class level;</li>\n"
+"            <li>Personal life: dietary constraints;</li>\n"
+"            <li>Internet: audience measurement;</li>\n"
+"            <li>Health data: medical treatments and allergies.</li>\n"
+"        </ul>\n"
+"\n"
+"        <h4>Data Source</h4>\n"
+"        <p>These informations are collected directly from the applicant, and/"
+"or from the holder of parental authority when necessary (candidate is less "
+"than 16).</p>\n"
+"\n"
+"        <h4>Mandatory Answers</h4>\n"
+"        <p>Registration to the Prologin website requires (unless specified) "
+"the collection of data necessary to process the registration.</p>\n"
+"        <p>Participating in an edition of the Prologin contest requires "
+"(unless specified) the collection of data necessary to process the "
+"application and the reception on site in good conditions..</p>\n"
+"\n"
+"        <h4>Automated Individual Decision-making</h4>\n"
+"        <p>The processing may include a fully automated decision: "
+"applications for entry into the Prologin contest that are clearly "
+"insufficient (evaluation by the Prologin online judge) are automatically "
+"rejected. Although this automatic decision has no legal effect and no "
+"significant impact, Prologin can be contacted directly.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#data_subjects\" aria-expanded=\"false\" aria-"
+"controls=\"data_subjects\">\n"
+"        <h3>Data Subjects</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"data_subjects\">\n"
+"        <p>This processing involves:\n"
+"            <ul>\n"
+"                <li>natural persons registering to the Prologin website;</"
+"li>\n"
+"                <li>natural persons applying to the Prologin contest;</li>\n"
+"                <li>holder of parental authorities for the above persons if "
+"necessary (applicant is less than 16);</li>\n"
+"                <li>members of Prologin;</li>\n"
+"                <li>natural or legal persons from Prologin partners and/or "
+"sub-processors.</li>\n"
+"            </ul>\n"
+"        </p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#data_recipients\" aria-expanded=\"false\" aria-"
+"controls=\"data_recipients\">\n"
+"        <h3>Data Recipients</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"data_recipients\">\n"
+"        <h4>Categories of Recipients</h4>\n"
+"        <p>Taking into account their respective needs, the following are "
+"recipient of all or any parts of the data:\n"
+"            <ul>\n"
+"                <li>authorized members of Prologin;</li>\n"
+"                <li>authorized members of Prologin partners and/or sub-"
+"contractors;</li>\n"
+"                <li>emergency services if needed.</li>\n"
+"            </ul>\n"
+"        </p>\n"
+"\n"
+"        <h4>Data Transfers Outside of EU</h4>\n"
+"        <p>Data transfers outside the European Union may take place (partner "
+"in Switzerland for the organisation of a regional event). This only concerns "
+"Prologin candidates participating in regional events in Switzerland.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#storage_period\" aria-expanded=\"false\" aria-"
+"controls=\"storage_period\">\n"
+"        <h3>Storage Period</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"storage_period\">\n"
+"        <p>Identification data, school and personal life are stored until "
+"the data subject unsubscribe from Prologin.\n"
+"            <br> Health data are deleted three years after the end of the "
+"final.</p>\n"
+"\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#security\" aria-expanded=\"false\" aria-controls="
+"\"security\">\n"
+"        <h3>Security</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"security\">\n"
+"        <p>Some security measures, aiming to ensure confidentiality, "
+"integrity and availability of the data, have been implemented. They are "
+"extracted from the ISO/IEC27002 standard. It includes, without being limited "
+"to, data encryption in-transit and externalized backups.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\" data-toggle="
+"\"collapse\" data-target=\"#your_rights\" aria-expanded=\"false\" aria-"
+"controls=\"your_rights\">\n"
+"        <h3>Your Rights</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"your_rights\">\n"
+"        <h4>The Essential</h4>\n"
+"        <p>You have (<em>via</em> the holder of parental authorities when "
+"applicable) the right to access and obtain a copy of your personal data, to "
+"object to their processing, to rectify or to erase them. You also have the "
+"right to restrict the processing of your data. Finally, you have the right "
+"to have your application for the contest re-examined by a human being if you "
+"have been the subject of an automated decision. Please refer to the website "
+"of your national Data Protection Authority to learn more about your rights.</"
+"p>\n"
+"\n"
+"        <h4>How to Exercize your Rights</h4>\n"
+"        <p>Any request must be sent by email to <a href=\"mailto:"
+"info@prologin.org\">info@prologin.org</a>.</p>\n"
+"\n"
+"        <h4>Lodging a Complaint</h4>\n"
+"        <p>Should you think your right are not respected, and after having "
+"contacted us, you can lodge a complaint with your national Data Protection "
+"Authority.</p>\n"
+"    </div>\n"
+"</section>\n"
+"    "
+msgstr ""
+"\n"
+"<section class=\"privacy\">\n"
+"    <h2>Prologin et vos données personnelles</h2>\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#processing\" aria-expanded="
+"\"false\"\n"
+"        aria-controls=\"processing\">\n"
+"        <h3>Objet du traitement de données</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"processing\">\n"
+"        <h4>Finalités</h4>\n"
+"        <p>Le traitement a pour objet <strong>l'organisation du concours\n"
+"                Prologin</strong>.<br>\n"
+"            Il permet à l'association Prologin :\n"
+"            <ul>\n"
+"                <li>de traiter les demandes d'inscription sur le site "
+"Prologin ;</li>\n"
+"                <li>de fournir les services de communication (forum) et\n"
+"                    d'évaluation de code (juge en ligne) ;</li>\n"
+"                <li>de traiter les demandes de participation au concours\n"
+"                    Prologin ;</li>\n"
+"                <li>d'adapter les repas aux contraintes alimentaires de "
+"chacun ;</li>\n"
+"                <li>de répondre aux sollicitations de la part des "
+"participants ;</li>\n"
+"                <li>de piloter l'activité de l'association (évaluation de "
+"la\n"
+"                    satisfaction des participants, production de "
+"statistiques).</li>\n"
+"            </ul>\n"
+"        </p>\n"
+"\n"
+"        <h4>Base légale</h4>\n"
+"        <p>Ce traitement repose sur le consentement des inscrits et de leur\n"
+"            responsable légal le cas échéant (mineurs de 16 ans), ce sont "
+"les\n"
+"            articles 6(1)a et 8 du RGPD.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#processed_data\"\n"
+"        aria-expanded=\"false\" aria-controls=\"processed_data\">\n"
+"        <h3>Données traitées</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"processed_data\">\n"
+"        <h4>Catégories de données traitées</h4>\n"
+"        <p>L'inscription sur le site nécessite les catégories de données\n"
+"            suivantes :</p>\n"
+"        <ul>\n"
+"            <li>Données d'identification : pseudonyme, adresse email ;</li>\n"
+"            <li>Internet : mesure d'audience ;</li>\n"
+"        </ul>\n"
+"        <p>La participation au concours requiert des informations\n"
+"            complémentaires :</p>\n"
+"        <ul>\n"
+"            <li>Données d'identification : nom, prénom, adresse postale, "
+"date de\n"
+"                naissance... ;</li>\n"
+"            <li>Vie scolaire (dite professionnelle) : niveau d'étude ;</li>\n"
+"            <li>Vie personnelle : habitudes alimentaires ;</li>\n"
+"            <li>Internet : mesure d'audience ;</li>\n"
+"            <li>Données de santé : éventuels traitements médicaux et "
+"allergies.</li>\n"
+"        </ul>\n"
+"\n"
+"        <h4>Source des données</h4>\n"
+"        <p>Ces informations sont recueillies directement auprès du "
+"participant,\n"
+"            et/ou de son responsable légal le cas échéant (mineurs de 16 "
+"ans).</p>\n"
+"        <h4>Caractère obligatoire des réponses</h4>\n"
+"        <p>L'inscription au site Prologin prévoit, sauf mention contraire, "
+"le\n"
+"            recueil obligatoire de données qui sont nécessaires au "
+"traitement de\n"
+"            l'inscription.</p>\n"
+"        <p>La participation à une édition du concours Prologin prévoit, "
+"sauf\n"
+"            mention contraire, le recueil obligatoire de données qui sont\n"
+"            nécessaires au traitement de l'inscription et l'accueil sur "
+"site\n"
+"            dans de bonnes conditions.</p>\n"
+"\n"
+"        <h4>Prise de décision automatisée</h4>\n"
+"        <p>Le traitement peut inclure une décision entièrement automatisée : "
+"les\n"
+"            demandes de participation au concours Prologin d'un niveau\n"
+"            manifestement insuffisant (évaluation par le juge en ligne "
+"Prologin)\n"
+"            sont automatiquement écartées. Bien que cette décision "
+"automatique\n"
+"            ne produise ni effet juridique ni impact significatif, Prologin "
+"peut\n"
+"            être <a href=\"mailto:info@prologin.org\">contacté directement</"
+"a> pour demander une évaluation manuelle.  </p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#data_subjects\"\n"
+"        aria-expanded=\"false\" aria-controls=\"data_subjects\">\n"
+"        <h3>Personnes concernées</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"data_subjects\">\n"
+"        <p>Le traitement de données concerne :\n"
+"        </p>\n"
+"        <ul>\n"
+"            <li>les personnes physiques souhaitant s'inscrire sur le site\n"
+"                Prologin ;</li>\n"
+"            <li>les personnes physiques souhaitant participer au concours\n"
+"                Prologin ;</li>\n"
+"            <li>les responsables légaux des personnes ci-dessus le cas "
+"échéant\n"
+"                (mineurs de 16 ans) ;</li>\n"
+"            <li>les membres de Prologin ;</li>\n"
+"            <li>les personnes physiques ou morales partenaires ou sous-"
+"traitants\n"
+"                de Prologin.</li>\n"
+"        </ul>\n"
+"\n"
+"        <h3>Destinataires des données</h3>\n"
+"        <h4>Catégories de destinataires</h4>\n"
+"        <p>En fonction de leurs besoins respectifs, sont destinataires de "
+"tout\n"
+"            ou partie des données :\n"
+"        </p>\n"
+"        <ul>\n"
+"            <li>les membres autorisés de Prologin ;</li>\n"
+"            <li>les membres autorisés des partenaires et/ou sous-traitants "
+"de\n"
+"                Prologin ;</li>\n"
+"            <li>les services de secours d'urgence en cas de besoin.</li>\n"
+"        </ul>\n"
+"\n"
+"        <h4>Transfert des données hors UE</h4>\n"
+"        <p>Des transferts de données hors de l'Union européenne peuvent "
+"avoir\n"
+"            lieu (partenaire en Suisse pour l'organisation d'une épreuve\n"
+"            régionale). Cela ne concerne que les candidats au concours "
+"Prologin\n"
+"            participant aux épreuves régionales en Suisse.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#storage_period\"\n"
+"        aria-expanded=\"false\" aria-controls=\"storage_period\">\n"
+"        <h3>Durée de conservation</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"storage_period\">\n"
+"        <p>Les données d’identification, de vie scolaire et personnelle "
+"sont\n"
+"            conservées jusqu'à la désinscription de la personne.<br>\n"
+"            Les données de santé sont conservées jusqu'à 3 ans après la fin "
+"de\n"
+"            la finale .</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#security\" aria-expanded="
+"\"false\"\n"
+"        aria-controls=\"security\">\n"
+"        <h3>Sécurité</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"security\">\n"
+"        <p>Des mesures de sécurité visant à garantir la confidentialité,\n"
+"            l'intégrité et la disponibilité des données collectées, issues "
+"du\n"
+"            référentiel ISO/IEC27002 ont été mises en œuvre. Elles "
+"comprennent,\n"
+"            sans s'y limiter, le chiffrement des données en transit et leur\n"
+"            sauvegarde régulière externalisée.</p>\n"
+"    </div>\n"
+"\n"
+"    <button class=\"btn btn-default btn-block\" type=\"button\"\n"
+"        data-toggle=\"collapse\" data-target=\"#your_rights\" aria-expanded="
+"\"false\"\n"
+"        aria-controls=\"your_rights\">\n"
+"        <h3>Vos droits sur vos données</h3>\n"
+"    </button>\n"
+"    <div class=\"collapse\" id=\"your_rights\">\n"
+"        <h4>L'essentiel</h4>\n"
+"        <p>Vous disposez (le cas échéant <em>via</em> le responsable légal) "
+"des\n"
+"            droits d'accéder et d'obtenir copie des données vous concernant, "
+"de\n"
+"            vous opposer au traitement de ces données, de les faire "
+"rectifier ou\n"
+"            les faire effacer. Vous disposez également d'un droit à la\n"
+"            limitation du traitement de vos données. Vous disposez enfin "
+"d'un\n"
+"            droit à un réexamen par un être humain de votre candidature au\n"
+"            concours, si vous avez fait l'objet d'une décision automatisée. "
+"<a\n"
+"                href=\"https://www.cnil.fr/fr/comprendre-vos-droits\">Rendez-"
+"vous\n"
+"                sur le site de la CNIL pour mieux comprendre vos droits.</"
+"a></p>\n"
+"        <h4>Exercer vos droits</h4>\n"
+"        <p>Toute demande d'exercice de vos droits doit être adressée par "
+"voie\n"
+"            électronique à <a href=\"mailto:info@prologin.org"
+"\">info@prologin.org</a>.</p>\n"
+"        <h4>Réclamation auprès de la CNIL</h4>\n"
+"        <p>Si vous estimez, après nous avoir contacté, que vos droits sur "
+"vos\n"
+"            données ne sont pas respectés, vous pouvez alors <a\n"
+"                href=\"https://www.cnil.fr/fr/webform/adresser-une-plainte"
+"\">adresser\n"
+"                une réclamation à la CNIL</a>.\n"
+"        </div>\n"
+"    </section>\n"
 
 #: pages/templates/pages/about-qualification.html:8
 #: pages/templates/pages/about-qualification.html:11
@@ -5007,49 +5404,49 @@ msgstr "Aucun utilisateur correspondant"
 msgid "Contact us"
 msgstr "Contactez-nous"
 
-#: prologin/templates/prologin/main-footer.html:13
+#: prologin/templates/prologin/main-footer.html:14
 msgid "Report a bug on the website"
 msgstr "Signaler un problème sur le site"
 
-#: prologin/templates/prologin/main-footer.html:17
+#: prologin/templates/prologin/main-footer.html:18
 msgid "More"
 msgstr "En plus"
 
-#: prologin/templates/prologin/main-footer.html:19
+#: prologin/templates/prologin/main-footer.html:20
 msgid "Press kit"
 msgstr "Kit de presse"
 
-#: prologin/templates/prologin/main-footer.html:25
+#: prologin/templates/prologin/main-footer.html:26
 msgid "Terms"
 msgstr "Conditions"
 
-#: prologin/templates/prologin/main-footer.html:30
+#: prologin/templates/prologin/main-footer.html:31
 msgid "Stay tuned!"
 msgstr "Suivez nous !"
 
-#: prologin/templates/prologin/main-footer.html:31
+#: prologin/templates/prologin/main-footer.html:32
 msgid "Prologin news Atom stream"
 msgstr "Flux Atom des actualités Prologin"
 
-#: prologin/templates/prologin/main-footer.html:38
+#: prologin/templates/prologin/main-footer.html:39
 msgid "Prologin on Facebook"
 msgstr "Prologin sur Facebook"
 
-#: prologin/templates/prologin/main-footer.html:44
+#: prologin/templates/prologin/main-footer.html:45
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: prologin/templates/prologin/main-footer.html:52
+#: prologin/templates/prologin/main-footer.html:53
 #: semifinal/templates/prologin/main-footer.html:12
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: prologin/templates/prologin/main-footer.html:65
+#: prologin/templates/prologin/main-footer.html:66
 #: semifinal/templates/prologin/main-footer.html:25
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prologin/templates/prologin/main-footer.html:68
+#: prologin/templates/prologin/main-footer.html:69
 #: semifinal/templates/prologin/main-footer.html:28
 #, python-format
 msgid ""
@@ -5115,7 +5512,7 @@ msgstr "Connexion"
 #: prologin/templates/prologin/main-menu.html:54
 #: users/templates/users/register.html:7 users/templates/users/register.html:10
 #: users/templates/users/register.html:15
-#: users/templates/users/register.html:23
+#: users/templates/users/register.html:26
 msgid "Register"
 msgstr "S'inscrire"
 
@@ -5541,168 +5938,167 @@ msgstr ""
 "rejoindre notre\n"
 "        programme de parrainage"
 
-#: team/admin.py:8 team/admin.py:34 team/models.py:104 tickets/admin.py:8
-#: tickets/admin.py:34 tickets/models.py:103
+#: team/admin.py:8 team/admin.py:34 team/models.py:104
 msgid "Role"
 msgstr "Rôle"
 
-#: team/admin.py:28 tickets/admin.py:28
+#: team/admin.py:28
 msgid "Role significance"
 msgstr "Importance du rôle"
 
-#: team/models.py:21 tickets/models.py:21
+#: team/models.py:21
 msgctxt "male role"
 msgid "President"
 msgstr "Président"
 
-#: team/models.py:22 tickets/models.py:22
+#: team/models.py:22
 msgctxt "female role"
 msgid "President"
 msgstr "Présidente"
 
-#: team/models.py:23 tickets/models.py:23
+#: team/models.py:23
 msgctxt "male title"
 msgid "The President"
 msgstr "Le président"
 
-#: team/models.py:24 tickets/models.py:24
+#: team/models.py:24
 msgctxt "female title"
 msgid "The President"
 msgstr "La présidente"
 
-#: team/models.py:27 tickets/models.py:27
+#: team/models.py:27
 msgctxt "male role"
 msgid "Vice President"
 msgstr "Vice-président"
 
-#: team/models.py:28 tickets/models.py:28
+#: team/models.py:28
 msgctxt "female role"
 msgid "Vice President"
 msgstr "Vice-présidente"
 
-#: team/models.py:29 tickets/models.py:29
+#: team/models.py:29
 msgctxt "male title"
 msgid "The Vice President"
 msgstr "Le vice-président"
 
-#: team/models.py:30 tickets/models.py:30
+#: team/models.py:30
 msgctxt "female title"
 msgid "The Vice President"
 msgstr "La vice-présidente"
 
-#: team/models.py:33 tickets/models.py:33
+#: team/models.py:33
 msgctxt "male role"
 msgid "Treasurer"
 msgstr "Trésorier"
 
-#: team/models.py:34 tickets/models.py:34
+#: team/models.py:34
 msgctxt "female role"
 msgid "Treasurer"
 msgstr "Trésorière"
 
-#: team/models.py:37 tickets/models.py:37
+#: team/models.py:37
 msgctxt "male role"
 msgid "Secretary"
 msgstr "Secrétaire"
 
-#: team/models.py:38 tickets/models.py:38
+#: team/models.py:38
 msgctxt "female role"
 msgid "Secretary"
 msgstr "Secrétaire"
 
-#: team/models.py:41 tickets/models.py:41
+#: team/models.py:41
 msgctxt "male role"
 msgid "Technical Lead"
 msgstr "Responsable technique"
 
-#: team/models.py:42 tickets/models.py:42
+#: team/models.py:42
 msgctxt "female role"
 msgid "Technical Lead"
 msgstr "Responsable technique"
 
-#: team/models.py:45 tickets/models.py:45
+#: team/models.py:45
 msgctxt "male role"
 msgid "Scientific Lead"
 msgstr "Responsable scientifique"
 
-#: team/models.py:46 tickets/models.py:46
+#: team/models.py:46
 msgctxt "female role"
 msgid "Scientific Lead"
 msgstr "Responsable scientifique"
 
-#: team/models.py:49 tickets/models.py:49
+#: team/models.py:49
 msgctxt "male role"
 msgid "Vice Treasurer"
 msgstr "Vice-trésorier"
 
-#: team/models.py:50 tickets/models.py:50
+#: team/models.py:50
 msgctxt "female role"
 msgid "Vice Treasurer"
 msgstr "Vice-trésorière"
 
-#: team/models.py:53 tickets/models.py:53
+#: team/models.py:53
 msgctxt "male role"
 msgid "Member"
 msgstr "Membre"
 
-#: team/models.py:54 tickets/models.py:54
+#: team/models.py:54
 msgctxt "female role"
 msgid "Member"
 msgstr "Membre"
 
-#: team/models.py:57 tickets/models.py:57
+#: team/models.py:57
 msgctxt "male role"
 msgid "Persistent Member"
 msgstr "Membre persistant"
 
-#: team/models.py:58 tickets/models.py:58
+#: team/models.py:58
 msgctxt "female role"
 msgid "Persistent Member"
 msgstr "Membre persistant"
 
-#: team/models.py:61 tickets/models.py:61
+#: team/models.py:61
 msgctxt "male role"
 msgid "Mascot"
 msgstr "Mascotte"
 
-#: team/models.py:62 tickets/models.py:62
+#: team/models.py:62
 msgctxt "female role"
 msgid "Mascot"
 msgstr "Mascotte"
 
-#: team/models.py:65 tickets/models.py:65
+#: team/models.py:65
 msgctxt "male role"
 msgid "External organizer"
 msgstr "Organisateur externe"
 
-#: team/models.py:66 tickets/models.py:66
+#: team/models.py:66
 msgctxt "female role"
 msgid "External organizer"
 msgstr "Organisatrice externe"
 
-#: team/models.py:115 tickets/models.py:114
+#: team/models.py:115
 msgid "Team member"
 msgstr "Membre de l'équipe"
 
-#: team/models.py:116 tickets/models.py:115
+#: team/models.py:116
 msgid "Team members"
 msgstr "Membres de l'équipe"
 
-#: team/templates/team/index.html:8 tickets/templates/team/index.html:8
+#: team/templates/team/index.html:8
 msgid "Teams"
 msgstr "Équipes"
 
-#: team/templates/team/index.html:12 tickets/templates/team/index.html:12
+#: team/templates/team/index.html:12
 #, python-format
 msgid "Staff %(year)s"
 msgstr "Équipe %(year)s"
 
-#: team/templates/team/index.html:22 tickets/templates/team/index.html:22
+#: team/templates/team/index.html:22
 #, python-format
 msgid "Staff %(year)s <small>%(count)s members</small>"
 msgstr "Équipe %(year)s <small>%(count)s membres</small>"
 
-#: team/templates/team/index.html:30 tickets/templates/team/index.html:30
+#: team/templates/team/index.html:30
 msgid "Picture"
 msgstr "Photo"
 
@@ -5977,7 +6373,7 @@ msgstr ""
 "N'oubliez pas de cliquer sur « Enregistrer » en bas lorsque vous avez "
 "terminé vos modifications."
 
-#: users/templates/users/edit.html:25
+#: users/templates/users/edit.html:26
 #: users/templates/users/edit_password.html:25
 msgid "Save"
 msgstr "Enregistrer"
