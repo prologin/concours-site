@@ -9,7 +9,6 @@ prologin/locale
 
 .idea/
 venv/
-.venv/
 *.swp
 *.pyc
 *.aux
@@ -18,5 +17,3 @@ venv/
 *.bak
 *~
 node_modules/
-
-.vscode/
