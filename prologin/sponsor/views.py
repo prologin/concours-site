@@ -1,6 +1,5 @@
 import random
 from django.views.generic import TemplateView
-from django.utils import translation
 
 from sponsor.models import Sponsor
 

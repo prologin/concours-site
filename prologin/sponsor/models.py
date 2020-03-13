@@ -1,12 +1,7 @@
-from collections import namedtuple
 from django.db import models
-from django.db.models import BooleanField, CharField, IntegerField
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
 
 from prologin.models import AddressableModel, ContactModel
-from prologin.utils import upload_path, ChoiceEnum
-from prologin.utils.db import CaseMapping
+from prologin.utils import upload_path
 
 RANK_CHOICES = (
     ("gold", "Gold"),
