@@ -22,12 +22,14 @@
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   {% crispy form %}
-  <small>Je consens au traitement de mes données personnelles ci-dessus par Prologin.</small> 
+  <small>{% trans "I consent to the processing of my personal data above by Prologin." %}</small> 
   <button class="btn btn-primary btn-block" type="submit"><i class="fa fa-save"></i> {% trans "Save" %}</button>
     <p class="help-block ">
-      Prologin est organisés par l'association Prologin, qui agit en tant que contrôleur de données. Les réponses collectées dans ce formulaire nous permettent de fournir les services (communication et juge en ligne) et préparer le concours : sélections, restrictions alimentaires, etc...
-Pour en apprendre plus à propos de notre gestion des données et de vos droits, consultez 
-      <a href="{% url 'pages:about-privacy-policy' %}">notre page dédiée.</a>
+      {% blocktrans %}
+        Prologin is organised by the Prologin Association, which acts as the data controller. The answers collected in this form allow us to provide the services (communication and online judging) and to prepare the competition: selections, dietary restrictions, etc...
+        To learn more about our data management and your rights, please visit 
+      {% endblocktrans %}
+      <a href="{% url 'pages:about-privacy-policy' %}">{% trans "our dedicated page." %}</a>
     </p>
 </form>
 
