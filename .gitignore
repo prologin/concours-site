@@ -9,7 +9,6 @@ prologin/locale
 
 .idea/
 venv/
-.venv/
 *.swp
 *.pyc
 *.aux
