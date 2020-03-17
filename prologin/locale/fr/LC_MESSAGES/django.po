@@ -1872,8 +1872,9 @@ msgstr "Prévisualisation"
 
 #: forum/templates/forum/edit_post.html:10
 #: forum/templates/forum/thread_posts.html:115
-#: semifinal/templates/semifinal/monitoring.html:52
-#: users/templates/users/edit.html:9 users/templates/users/edit_password.html:9
+#: semifinal/templates/semifinal/monitoring.html:52 users/templates/users/edit
+#: copy.html:9 users/templates/users/edit.html:9
+#: users/templates/users/edit_password.html:9
 msgid "Edit"
 msgstr "Modifier"
 
@@ -6279,8 +6280,9 @@ msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
 #: users/templates/registration/password_reset_confirm.html:7
-#: users/templates/users/delete-confirm.html:7
-#: users/templates/users/edit.html:7 users/templates/users/edit_password.html:7
+#: users/templates/users/delete-confirm.html:7 users/templates/users/edit
+#: copy.html:7 users/templates/users/edit.html:7
+#: users/templates/users/edit_password.html:7
 #: users/templates/users/profile.html:7
 #: users/templates/users/unsubscribe.html:9
 msgid "Members"
@@ -6357,26 +6359,55 @@ msgstr ""
 msgid "Delete and log out"
 msgstr "Supprimer et déconnecter"
 
+#: users/templates/users/edit copy.html:12 copy.html:15
 #: users/templates/users/edit.html:12 users/templates/users/edit.html:15
 #, python-format
 msgid "Editing %(username)s's profile"
 msgstr "Modification du profil de %(username)s"
 
-#: users/templates/users/edit.html:19
+#: users/templates/users/edit copy.html:19 users/templates/users/edit.html:19
 msgid "Change password"
 msgstr "Modifier le mot de passe"
 
-#: users/templates/users/edit.html:20
+#: users/templates/users/edit copy.html:20 users/templates/users/edit.html:20
 msgid ""
 "Don't forget to click “Save” at the bottom when you are done making changes."
 msgstr ""
 "N'oubliez pas de cliquer sur « Enregistrer » en bas lorsque vous avez "
 "terminé vos modifications."
 
-#: users/templates/users/edit.html:26
+#: users/templates/users/edit copy.html:26 users/templates/users/edit.html:26
 #: users/templates/users/edit_password.html:25
 msgid "Save"
 msgstr "Enregistrer"
+
+#: users/templates/users/edit.html:25 users/templates/users/register.html:22
+msgid "I consent to the processing of my personal data above by Prologin."
+msgstr ""
+"Je consens au traitement de mes données personnelles ci-dessus par Prologin."
+
+#: users/templates/users/edit.html:28 users/templates/users/register.html:31
+msgid ""
+"\n"
+"        Prologin is organised by the Prologin Association, which acts as the "
+"data controller. The answers collected in this form allow us to provide the "
+"services (communication and online judging) and to prepare the competition: "
+"selections, dietary restrictions, etc...\n"
+"        To learn more about our data management and your rights, please "
+"visit \n"
+"      "
+msgstr ""
+"\n"
+"        Prologin est organisé par l'association Prologin, qui agit en tant "
+"que contrôleur de données. Les réponses collectées dans ce formulaire nous "
+"permettent de fournir les services (communication et juge en ligne) et "
+"préparer le concours : sélections, restrictions alimentaires, etc...\n"
+"        Pour en apprendre plus à propos de notre gestion des données et de "
+"vos droits, consultez\n"
+
+#: users/templates/users/edit.html:32 users/templates/users/register.html:35
+msgid "our dedicated page."
+msgstr "notre page dédiée."
 
 #: users/templates/users/edit_password.html:13
 #: users/templates/users/edit_password.html:16
