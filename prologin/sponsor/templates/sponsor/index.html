@@ -29,57 +29,34 @@
         </a>
     </p>
 
-    {% if sponsors_gold %}
-      <h2>{% trans "Gold" %}</h2>
-      <div class="row">
-      {% for sponsor in sponsors_gold %}
-          <div class="row panel">
-            <div class="col-sm-6 col-md-3">
-              <a class="spons-logo" href="{{ sponsor.site }}">
-                <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}"/>
-              </a>
-            </div>
-            <div class="col-sm-6 col-md-9">
-              <p><strong>{{ sponsor.name }}</strong></p>
-              <p>{{ sponsor.description }}</p>
-            </div>
-          </div>
-      {% endfor %}
-      </div>
-    {% endif %}
-
-    {% if sponsors_silver %}
-      <h2>{% trans "Silver" %}</h2>
-      <div class="row equal">
-      {% for sponsor in sponsors_silver %}
-          <div class="col-md-4">
-            <div class="panel">
+    {% for type,typed_sponsors in sponsors.items %}
+      {% if typed_sponsors %}
+        <h2>{% trans type %}</h2>
+        <div class="row">
+        {% for sponsor in typed_sponsors %}
+          {% if type == "Gold" %}
+            <div class="row panel">
+              <div class="col-sm-6 col-md-3">
+          {% else %}
+            <div class="col-md-4">
+              <div class="panel">
+          {% endif %}
               <div class="panel-body">
                 <a class="spons-logo" href="{{ sponsor.site }}">
                   <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" >
                 </a>
               </div>
             </div>
-          </div>
-      {% endfor %}
-      </div>
-    {% endif %}
-
-    {% if sponsors_bronze %}
-      <h2>{% trans "Bronze" %}</h2>
-      <div class="row equal">
-      {% for sponsor in sponsors_bronze %}
-          <div class="col-md-4">
-            <div class="panel">
-              <div class="panel-body">
-                <a class="spons-logo" href="{{ sponsor.site }}">
-                  <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}">
-                </a>
+            {% if type == "Gold" %}
+              <div class="col-sm-6 col-md-9">
+                <p><strong>{{ sponsor.name }}</strong></p>
+                <p>{{ sponsor.description }}</p>
               </div>
-            </div>
+            {% endif %}
           </div>
-      {% endfor %}
-      </div>
-    {% endif %}
+        {% endfor %}
+        </div>
+      {% endif %}
+    {% endfor %}
 
 {% endblock %}
