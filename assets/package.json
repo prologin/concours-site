@@ -16,7 +16,7 @@
     "datatables.net": "1.x.x",
     "datatables.net-bs": "1.x.x",
     "font-awesome": "4.x.x",
-    "jquery": "3.x.x",
+    "jquery": ">=3.4.0",
     "mathjax": ">=2.7.4",
     "onesignal-emoji-picker": "git+https://github.com/OneSignal/emoji-picker",
     "select2": "4.x.x"
