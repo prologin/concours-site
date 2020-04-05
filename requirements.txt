@@ -3,7 +3,7 @@ beautifulsoup4
 # HTML sanitizer (Markdown escaping)
 bleach
 # For async tasks (sending mails, correcting submissions, etc.)
-celery>4.4.0[redis]
+celery[redis]>4.4.0
 # Django
 django<3
 # For ordered models (QCM questions, semifinal whishes, etc.)
