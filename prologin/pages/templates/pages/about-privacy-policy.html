@@ -1,0 +1,156 @@
+{% extends "prologin/base.html" %}
+{% load i18n staticfiles %}
+{% load django_bootstrap_breadcrumbs markup %}
+
+{% block breadcrumbs %}
+{{ block.super }}
+{% breadcrumb_for "pages:about-privacy-policy" %}{% trans "Privacy policy" %}
+{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}{% trans "Privacy policy" %}{% endblock %}
+
+{% block content %}
+
+<h1>{% trans "Privacy policy" %}</h1>
+<section class="privacy">
+    <h2>{% trans "Prologin and your Personal Data" %}</h2> 
+    <button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#processing" aria-expanded="false" aria-controls="processing">
+        <h3>{% trans "About the Processing" %}</h3>
+    </button>
+    <div class="collapse" id="processing">
+        {% blocktrans asvar about_processing %}
+#### Purposes
+
+The processing goal is to **organize the Prologin contest**.  
+It enables the Prologin association to:
+
+*   process registration requests on the Prologin website;
+*   provide communication services (forum) and code evaluation (online judge) ;
+*   process applications for participation in the Prologin contest;
+*   tailor the meals taking into account each dietary restrictions;
+*   answer questions from the participants;
+*   steer the activity of the association (evaluate participant satisfaction, produce statistics).
+
+#### Lawfulness of Processing
+
+The data subjects give consent to the processing of their personal data for the declared purposes (art. 6(1)a of GDPR).
+        {% endblocktrans %}
+        {{ about_processing|flavored_markdown:0 }}
+    </div>
+
+    <button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#processed_data" aria-expanded="false" aria-controls="processed_data">
+        <h3>{% trans "Processed Data" %}</h3>
+    </button>
+    <div class="collapse" id="processed_data">
+        {% blocktrans asvar processed_data %}
+#### Data Categories
+
+Registration on the site requires the following categories of data:
+
+*   Identification: pseudonym, email;
+*   Internet: audience measurement;
+
+Entering the contest requires additional information:
+
+*   Identification: name, first name, address...;
+*   School life (also referred to as professional life): current class level;
+*   Personal life: dietary constraints;
+*   Internet: audience measurement;
+*   Health data: medical treatments and allergies.
+
+#### Data Source
+
+These data are collected directly from the applicant, and/or from the holder of parental authority when necessary (the candidate is less than 16).
+
+#### Mandatory Answers
+
+Registration to the Prologin website requires (unless specified otherwise) the collection of data necessary to process the registration.
+
+Entering the Prologin contest requires (unless specified otherwise) the collection of data necessary to process the application and ensure on-site events are correctly held.
+
+#### Automated Individual Decision-making
+
+The processing may include a fully automated decision: applications for entry into the Prologin contest that are clearly insufficient (evaluation by the Prologin online judge) are automatically rejected. Although this automatic decision has no legal effect and no significant impact, Prologin can be contacted directly.
+        {% endblocktrans %}
+        {{ processed_data|flavored_markdown:0 }}
+    </div>
+
+    <button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#data_subjects" aria-expanded="false" aria-controls="data_subjects">
+        <h3>{% trans "Data Subjects" %}</h3>
+    </button>
+    <div class="collapse" id="data_subjects">
+        {% blocktrans asvar data_subjects %}
+This processing involves:
+
+*   natural persons registering to the Prologin website;
+*   natural persons applying to the Prologin contest;
+*   holder of parental authorities for the above persons if necessary (applicant is less than 16);
+*   members of Prologin;
+*   natural or legal persons from Prologin partners and/or sub-processors.
+        {% endblocktrans %}
+        {{ data_subjects|flavored_markdown:0 }}
+    </div>
+
+    <button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#data_recipients" aria-expanded="false" aria-controls="data_recipients">
+        <h3>{% trans "Data Recipients" %}</h3>
+    </button>
+    <div class="collapse" id="data_recipients">
+        {% blocktrans asvar data_recipients %}
+#### Categories of Recipients
+
+Taking into account their respective needs, the following are a recipient of all or any parts of the data:
+
+*   authorized members of Prologin;
+*   authorized members of Prologin partners and/or sub-contractors;
+*   emergency services if needed.)
+
+#### Data Transfers Outside of EU
+
+Data transfers outside the European Union may take place (partner in Switzerland for the organization of a regional event). This is only applicable for Prologin candidates participating in regional events in Switzerland.
+        {% endblocktrans %}
+        {{ data_recipients|flavored_markdown:0 }}
+    </div>
+
+    <button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#storage_period" aria-expanded="false" aria-controls="storage_period">
+        <h3>{% trans "Storage Period" %}</h3>
+    </button>
+    <div class="collapse" id="storage_period">
+        {% blocktrans asvar storage_period %}
+Identification data, school, and personal life are stored until the data subject unsubscribes from Prologin.  
+Health data are deleted three years after the end of the final.
+        {% endblocktrans %}
+        {{ storage_period|flavored_markdown:0 }}
+    </div>
+
+    <button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#security" aria-expanded="false" aria-controls="security">
+        <h3>{% trans "Security" %}</h3>
+    </button>
+    <div class="collapse" id="security">
+        {% blocktrans asvar security %}
+Some security measures, aiming to ensure confidentiality, integrity, and availability of the data, have been implemented. They are extracted from the ISO/IEC27002 standard. It includes, without being limited to, data encryption in-transit and externalized backups.
+        {% endblocktrans %}
+        {{ security|flavored_markdown:0 }}
+    </div>
+
+    <button class="btn btn-default btn-block" type="button" data-toggle="collapse" data-target="#your_rights" aria-expanded="false" aria-controls="your_rights">
+        <h3>{% trans "Your Rights" %}</h3>
+    </button>
+    <div class="collapse" id="your_rights">
+        {% blocktrans asvar your_rights %}
+#### The Essential
+
+You have (_via_ the holder of parental authorities when applicable) the right to access and obtain a copy of your personal data, to object to their processing, to rectify, or to erase them. You also have the right to restrict the processing of your data. Finally, you have the right to have your application for the contest re-examined by a human being if you have been the subject of an automated decision. Please refer to the website of your national Data Protection Authority to learn more about your rights.
+
+#### How to Exercise your Rights
+
+Any request must be sent by email to [info@prologin.org](mailto:info@prologin.org).
+
+#### Lodging a Complaint
+
+Should you think your rights are not respected, and after having contacted us, you can lodge a complaint with your national Data Protection Authority.
+        {% endblocktrans %}
+        {{ your_rights|flavored_markdown:0 }}
+    </div>
+</section>
+{% endblock %}

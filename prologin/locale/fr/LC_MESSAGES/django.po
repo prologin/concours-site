@@ -27,7 +27,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-05 16:08+0200\n"
+"POT-Creation-Date: 2020-04-05 17:01+0200\n"
 "PO-Revision-Date: 2020-04-05 14:08+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
@@ -2179,7 +2179,7 @@ msgid "Full leaderboard"
 msgstr "Classement complet"
 
 #: homepage/templates/homepage/sponsors.html:3
-#: prologin/templates/prologin/main-footer.html:12
+#: prologin/templates/prologin/main-footer.html:13
 #: sponsor/templates/sponsor/index.html:7
 #: sponsor/templates/sponsor/index.html:10
 msgid "Sponsors"
@@ -2646,7 +2646,7 @@ msgstr "Actualités"
 #: pages/templates/pages/about-contest-rules.html:11
 #: pages/templates/pages/about-contest-rules.html:15
 #: prologin/templates/prologin/main-footer.html:11
-#: prologin/templates/prologin/main-footer.html:27
+#: prologin/templates/prologin/main-footer.html:28
 msgid "Contest rules"
 msgstr "Règlement"
 
@@ -3311,7 +3311,7 @@ msgstr "Données indisponibles"
 
 #: pages/templates/pages/about-organization.html:7
 #: prologin/templates/prologin/main-footer.html:8
-#: team/templates/team/index.html:7 tickets/templates/team/index.html:7
+#: team/templates/team/index.html:7
 msgid "The organization"
 msgstr "L'association"
 
@@ -3499,6 +3499,199 @@ msgstr ""
 "sources), cours et corrections. Bien sûr, veuillez nous contacter avant de "
 "contribuer afin que nous puissions éviter que certaines choses soient faites "
 "en double.</p>\n"
+
+#: pages/templates/pages/about-privacy-policy.html:7
+#: pages/templates/pages/about-privacy-policy.html:11
+#: pages/templates/pages/about-privacy-policy.html:15
+#: prologin/templates/prologin/main-footer.html:12
+msgid "Privacy policy"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:17
+#, fuzzy
+#| msgid "Export your personal data"
+msgid "Prologin and your Personal Data"
+msgstr "Exporter vos données personnelles"
+
+#: pages/templates/pages/about-privacy-policy.html:19
+#, fuzzy
+#| msgid "About the contest"
+msgid "About the Processing"
+msgstr "À propos du concours"
+
+#: pages/templates/pages/about-privacy-policy.html:22
+msgid ""
+"\n"
+"#### Purposes\n"
+"\n"
+"The processing goal is to **organize the Prologin contest**.  \n"
+"It enables the Prologin association to:\n"
+"\n"
+"*   process registration requests on the Prologin website;\n"
+"*   provide communication services (forum) and code evaluation (online "
+"judge) ;\n"
+"*   process applications for participation in the Prologin contest;\n"
+"*   tailor the meals taking into account each dietary restrictions;\n"
+"*   answer questions from the participants;\n"
+"*   steer the activity of the association (evaluate participant "
+"satisfaction, produce statistics).\n"
+"\n"
+"#### Lawfulness of Processing\n"
+"\n"
+"The data subjects give consent to the processing of their personal data for "
+"the declared purposes (art. 6(1)a of GDPR).\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:43
+#, fuzzy
+#| msgid "Proceed"
+msgid "Processed Data"
+msgstr "Continuer"
+
+#: pages/templates/pages/about-privacy-policy.html:46
+msgid ""
+"\n"
+"#### Data Categories\n"
+"\n"
+"Registration on the site requires the following categories of data:\n"
+"\n"
+"*   Identification: pseudonym, email;\n"
+"*   Internet: audience measurement;\n"
+"\n"
+"Entering the contest requires additional information:\n"
+"\n"
+"*   Identification: name, first name, address...;\n"
+"*   School life (also referred to as professional life): current class "
+"level;\n"
+"*   Personal life: dietary constraints;\n"
+"*   Internet: audience measurement;\n"
+"*   Health data: medical treatments and allergies.\n"
+"\n"
+"#### Data Source\n"
+"\n"
+"These data are collected directly from the applicant, and/or from the holder "
+"of parental authority when necessary (the candidate is less than 16).\n"
+"\n"
+"#### Mandatory Answers\n"
+"\n"
+"Registration to the Prologin website requires (unless specified otherwise) "
+"the collection of data necessary to process the registration.\n"
+"\n"
+"Entering the Prologin contest requires (unless specified otherwise) the "
+"collection of data necessary to process the application and ensure on-site "
+"events are correctly held.\n"
+"\n"
+"#### Automated Individual Decision-making\n"
+"\n"
+"The processing may include a fully automated decision: applications for "
+"entry into the Prologin contest that are clearly insufficient (evaluation by "
+"the Prologin online judge) are automatically rejected. Although this "
+"automatic decision has no legal effect and no significant impact, Prologin "
+"can be contacted directly.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:80
+msgid "Data Subjects"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:83
+msgid ""
+"\n"
+"This processing involves:\n"
+"\n"
+"*   natural persons registering to the Prologin website;\n"
+"*   natural persons applying to the Prologin contest;\n"
+"*   holder of parental authorities for the above persons if necessary "
+"(applicant is less than 16);\n"
+"*   members of Prologin;\n"
+"*   natural or legal persons from Prologin partners and/or sub-processors.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:96
+#, fuzzy
+#| msgid "Data import"
+msgid "Data Recipients"
+msgstr "Import de données"
+
+#: pages/templates/pages/about-privacy-policy.html:99
+msgid ""
+"\n"
+"#### Categories of Recipients\n"
+"\n"
+"Taking into account their respective needs, the following are a recipient of "
+"all or any parts of the data:\n"
+"\n"
+"*   authorized members of Prologin;\n"
+"*   authorized members of Prologin partners and/or sub-contractors;\n"
+"*   emergency services if needed.)\n"
+"\n"
+"#### Data Transfers Outside of EU\n"
+"\n"
+"Data transfers outside the European Union may take place (partner in "
+"Switzerland for the organization of a regional event). This is only "
+"applicable for Prologin candidates participating in regional events in "
+"Switzerland.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:116
+msgid "Storage Period"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:119
+msgid ""
+"\n"
+"Identification data, school, and personal life are stored until the data "
+"subject unsubscribes from Prologin.  \n"
+"Health data are deleted three years after the end of the final.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:127
+msgid "Security"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:130
+msgid ""
+"\n"
+"Some security measures, aiming to ensure confidentiality, integrity, and "
+"availability of the data, have been implemented. They are extracted from the "
+"ISO/IEC27002 standard. It includes, without being limited to, data "
+"encryption in-transit and externalized backups.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:137
+msgid "Your Rights"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:140
+msgid ""
+"\n"
+"#### The Essential\n"
+"\n"
+"You have (_via_ the holder of parental authorities when applicable) the "
+"right to access and obtain a copy of your personal data, to object to their "
+"processing, to rectify, or to erase them. You also have the right to "
+"restrict the processing of your data. Finally, you have the right to have "
+"your application for the contest re-examined by a human being if you have "
+"been the subject of an automated decision. Please refer to the website of "
+"your national Data Protection Authority to learn more about your rights.\n"
+"\n"
+"#### How to Exercise your Rights\n"
+"\n"
+"Any request must be sent by email to [info@prologin.org](mailto:"
+"info@prologin.org).\n"
+"\n"
+"#### Lodging a Complaint\n"
+"\n"
+"Should you think your rights are not respected, and after having contacted "
+"us, you can lodge a complaint with your national Data Protection Authority.\n"
+"        "
+msgstr ""
 
 #: pages/templates/pages/about-qualification.html:8
 #: pages/templates/pages/about-qualification.html:11
@@ -5007,49 +5200,49 @@ msgstr "Aucun utilisateur correspondant"
 msgid "Contact us"
 msgstr "Contactez-nous"
 
-#: prologin/templates/prologin/main-footer.html:13
+#: prologin/templates/prologin/main-footer.html:14
 msgid "Report a bug on the website"
 msgstr "Signaler un problème sur le site"
 
-#: prologin/templates/prologin/main-footer.html:17
+#: prologin/templates/prologin/main-footer.html:18
 msgid "More"
 msgstr "En plus"
 
-#: prologin/templates/prologin/main-footer.html:19
+#: prologin/templates/prologin/main-footer.html:20
 msgid "Press kit"
 msgstr "Kit de presse"
 
-#: prologin/templates/prologin/main-footer.html:25
+#: prologin/templates/prologin/main-footer.html:26
 msgid "Terms"
 msgstr "Conditions"
 
-#: prologin/templates/prologin/main-footer.html:30
+#: prologin/templates/prologin/main-footer.html:31
 msgid "Stay tuned!"
 msgstr "Suivez nous !"
 
-#: prologin/templates/prologin/main-footer.html:31
+#: prologin/templates/prologin/main-footer.html:32
 msgid "Prologin news Atom stream"
 msgstr "Flux Atom des actualités Prologin"
 
-#: prologin/templates/prologin/main-footer.html:38
+#: prologin/templates/prologin/main-footer.html:39
 msgid "Prologin on Facebook"
 msgstr "Prologin sur Facebook"
 
-#: prologin/templates/prologin/main-footer.html:44
+#: prologin/templates/prologin/main-footer.html:45
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: prologin/templates/prologin/main-footer.html:52
+#: prologin/templates/prologin/main-footer.html:53
 #: semifinal/templates/prologin/main-footer.html:12
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: prologin/templates/prologin/main-footer.html:65
+#: prologin/templates/prologin/main-footer.html:66
 #: semifinal/templates/prologin/main-footer.html:25
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prologin/templates/prologin/main-footer.html:68
+#: prologin/templates/prologin/main-footer.html:69
 #: semifinal/templates/prologin/main-footer.html:28
 #, python-format
 msgid ""
@@ -5115,7 +5308,7 @@ msgstr "Connexion"
 #: prologin/templates/prologin/main-menu.html:54
 #: users/templates/users/register.html:7 users/templates/users/register.html:10
 #: users/templates/users/register.html:15
-#: users/templates/users/register.html:23
+#: users/templates/users/register.html:26
 msgid "Register"
 msgstr "S'inscrire"
 
@@ -5541,168 +5734,167 @@ msgstr ""
 "rejoindre notre\n"
 "        programme de parrainage"
 
-#: team/admin.py:8 team/admin.py:34 team/models.py:104 tickets/admin.py:8
-#: tickets/admin.py:34 tickets/models.py:103
+#: team/admin.py:8 team/admin.py:34 team/models.py:104
 msgid "Role"
 msgstr "Rôle"
 
-#: team/admin.py:28 tickets/admin.py:28
+#: team/admin.py:28
 msgid "Role significance"
 msgstr "Importance du rôle"
 
-#: team/models.py:21 tickets/models.py:21
+#: team/models.py:21
 msgctxt "male role"
 msgid "President"
 msgstr "Président"
 
-#: team/models.py:22 tickets/models.py:22
+#: team/models.py:22
 msgctxt "female role"
 msgid "President"
 msgstr "Présidente"
 
-#: team/models.py:23 tickets/models.py:23
+#: team/models.py:23
 msgctxt "male title"
 msgid "The President"
 msgstr "Le président"
 
-#: team/models.py:24 tickets/models.py:24
+#: team/models.py:24
 msgctxt "female title"
 msgid "The President"
 msgstr "La présidente"
 
-#: team/models.py:27 tickets/models.py:27
+#: team/models.py:27
 msgctxt "male role"
 msgid "Vice President"
 msgstr "Vice-président"
 
-#: team/models.py:28 tickets/models.py:28
+#: team/models.py:28
 msgctxt "female role"
 msgid "Vice President"
 msgstr "Vice-présidente"
 
-#: team/models.py:29 tickets/models.py:29
+#: team/models.py:29
 msgctxt "male title"
 msgid "The Vice President"
 msgstr "Le vice-président"
 
-#: team/models.py:30 tickets/models.py:30
+#: team/models.py:30
 msgctxt "female title"
 msgid "The Vice President"
 msgstr "La vice-présidente"
 
-#: team/models.py:33 tickets/models.py:33
+#: team/models.py:33
 msgctxt "male role"
 msgid "Treasurer"
 msgstr "Trésorier"
 
-#: team/models.py:34 tickets/models.py:34
+#: team/models.py:34
 msgctxt "female role"
 msgid "Treasurer"
 msgstr "Trésorière"
 
-#: team/models.py:37 tickets/models.py:37
+#: team/models.py:37
 msgctxt "male role"
 msgid "Secretary"
 msgstr "Secrétaire"
 
-#: team/models.py:38 tickets/models.py:38
+#: team/models.py:38
 msgctxt "female role"
 msgid "Secretary"
 msgstr "Secrétaire"
 
-#: team/models.py:41 tickets/models.py:41
+#: team/models.py:41
 msgctxt "male role"
 msgid "Technical Lead"
 msgstr "Responsable technique"
 
-#: team/models.py:42 tickets/models.py:42
+#: team/models.py:42
 msgctxt "female role"
 msgid "Technical Lead"
 msgstr "Responsable technique"
 
-#: team/models.py:45 tickets/models.py:45
+#: team/models.py:45
 msgctxt "male role"
 msgid "Scientific Lead"
 msgstr "Responsable scientifique"
 
-#: team/models.py:46 tickets/models.py:46
+#: team/models.py:46
 msgctxt "female role"
 msgid "Scientific Lead"
 msgstr "Responsable scientifique"
 
-#: team/models.py:49 tickets/models.py:49
+#: team/models.py:49
 msgctxt "male role"
 msgid "Vice Treasurer"
 msgstr "Vice-trésorier"
 
-#: team/models.py:50 tickets/models.py:50
+#: team/models.py:50
 msgctxt "female role"
 msgid "Vice Treasurer"
 msgstr "Vice-trésorière"
 
-#: team/models.py:53 tickets/models.py:53
+#: team/models.py:53
 msgctxt "male role"
 msgid "Member"
 msgstr "Membre"
 
-#: team/models.py:54 tickets/models.py:54
+#: team/models.py:54
 msgctxt "female role"
 msgid "Member"
 msgstr "Membre"
 
-#: team/models.py:57 tickets/models.py:57
+#: team/models.py:57
 msgctxt "male role"
 msgid "Persistent Member"
 msgstr "Membre persistant"
 
-#: team/models.py:58 tickets/models.py:58
+#: team/models.py:58
 msgctxt "female role"
 msgid "Persistent Member"
 msgstr "Membre persistant"
 
-#: team/models.py:61 tickets/models.py:61
+#: team/models.py:61
 msgctxt "male role"
 msgid "Mascot"
 msgstr "Mascotte"
 
-#: team/models.py:62 tickets/models.py:62
+#: team/models.py:62
 msgctxt "female role"
 msgid "Mascot"
 msgstr "Mascotte"
 
-#: team/models.py:65 tickets/models.py:65
+#: team/models.py:65
 msgctxt "male role"
 msgid "External organizer"
 msgstr "Organisateur externe"
 
-#: team/models.py:66 tickets/models.py:66
+#: team/models.py:66
 msgctxt "female role"
 msgid "External organizer"
 msgstr "Organisatrice externe"
 
-#: team/models.py:115 tickets/models.py:114
+#: team/models.py:115
 msgid "Team member"
 msgstr "Membre de l'équipe"
 
-#: team/models.py:116 tickets/models.py:115
+#: team/models.py:116
 msgid "Team members"
 msgstr "Membres de l'équipe"
 
-#: team/templates/team/index.html:8 tickets/templates/team/index.html:8
+#: team/templates/team/index.html:8
 msgid "Teams"
 msgstr "Équipes"
 
-#: team/templates/team/index.html:12 tickets/templates/team/index.html:12
+#: team/templates/team/index.html:12
 #, python-format
 msgid "Staff %(year)s"
 msgstr "Équipe %(year)s"
 
-#: team/templates/team/index.html:22 tickets/templates/team/index.html:22
+#: team/templates/team/index.html:22
 #, python-format
 msgid "Staff %(year)s <small>%(count)s members</small>"
 msgstr "Équipe %(year)s <small>%(count)s membres</small>"
 
-#: team/templates/team/index.html:30 tickets/templates/team/index.html:30
+#: team/templates/team/index.html:30
 msgid "Picture"
 msgstr "Photo"
 
@@ -5977,10 +6169,30 @@ msgstr ""
 "N'oubliez pas de cliquer sur « Enregistrer » en bas lorsque vous avez "
 "terminé vos modifications."
 
-#: users/templates/users/edit.html:25
+#: users/templates/users/edit.html:25 users/templates/users/register.html:22
+msgid "I consent to the processing of my personal data above by Prologin."
+msgstr ""
+
+#: users/templates/users/edit.html:26
 #: users/templates/users/edit_password.html:25
 msgid "Save"
 msgstr "Enregistrer"
+
+#: users/templates/users/edit.html:28 users/templates/users/register.html:31
+msgid ""
+"\n"
+"        Prologin is organised by the Prologin Association, which acts as the "
+"data controller. The answers collected in this form allow us to provide the "
+"services (communication and online judging) and to prepare the competition: "
+"selections, dietary restrictions, etc...\n"
+"        To learn more about our data management and your rights, please "
+"visit \n"
+"      "
+msgstr ""
+
+#: users/templates/users/edit.html:32 users/templates/users/register.html:35
+msgid "our dedicated page."
+msgstr ""
 
 #: users/templates/users/edit_password.html:13
 #: users/templates/users/edit_password.html:16
