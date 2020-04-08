@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - master
-  pull_request:
+  pull_request: {}
 
 jobs:
   test:
@@ -26,11 +26,17 @@ jobs:
 
       - name: Install requirements
         run: |
-            python -m pip install --upgrade pip setuptools wheel flake8
-            pip install -r requirements.txt
+          python -m pip install --upgrade pip setuptools wheel
+          pip install flake8 coverage
+          pip install -r requirements.txt
 
       - name: Test
-        run: make test
+        working-directory: ./prologin
+        env:
+          DJANGO_SETTINGS_MODULE: prologin.settings.test
+        run: |
+          python3 -m coverage run --source='.' manage.py test -v2
+          python3 -m coverage xml
 
       # Re-enable when site can be linted properly.
       #
@@ -38,3 +44,10 @@ jobs:
       #   working-directory: ./tools/generator
       #   run: |
       #     flake8 . --count --show-source --statistics
+
+      - name: Coverage upload to Codecov
+        uses: codecov/codecov-action@v1.0.6
+        with:
+          file: ./prologin/coverage.xml
+          name: site
+          fail_ci_if_error: true
