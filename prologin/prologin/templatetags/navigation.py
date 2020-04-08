@@ -8,6 +8,8 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def active(context, pattern_or_urlname):
+    if 'request' not in context:
+        return ''
     try:
         pattern = '^' + reverse(pattern_or_urlname)
     except NoReverseMatch:
@@ -20,7 +22,7 @@ def active(context, pattern_or_urlname):
 
 @register.simple_tag
 def querystring(request=None, **kwargs):
-    if request is None:
+    if not request:
         qs = QueryDict().copy()
     else:
         qs = request.GET.copy()
