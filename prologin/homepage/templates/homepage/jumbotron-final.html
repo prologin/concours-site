@@ -1,4 +1,5 @@
 {% load i18n %}
+{% load rules %}
 
 <div class="col-sm-4">
   <div class="tl-block last {% if phase_event == 'semifinal' and phase_type == 'corrected' or phase_event == 'final' or phase_type == 'finished' %}active{% endif %}">
@@ -19,7 +20,8 @@
           <p>{% trans "You have one weekend to develop an artificial intelligence for a custom-made game, in Paris." %}</p>
           <p class="hide-no-active"><a href="{% url 'archives:index' %}" class="btn btn-default btn-block"><i
             class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
-          {% if request.user.is_authenticated and not final.is_finished and edition.qualification_corrected and edition.semifinal_corrected and contestant.is_assigned_for_semifinal and contestant.is_assigned_for_final %}
+          {% has_perm 'documents.generate_final_contestant_document' request.user contestant as user_can_download_final %}
+          {% if request.user.is_authenticated and user_can_download_final and not final.is_finished and edition.qualification_corrected and edition.semifinal_corrected and contestant.is_assigned_for_semifinal and contestant.is_assigned_for_final %}
             {% with event=contestant.assignation_final_event %}
               <p>{% trans "The final will take place at:" %}</p>
               <ul class="list-unstyled checklist" style="margin-bottom: .5em">

@@ -22,7 +22,7 @@ from centers.models import Center
 from prologin.models import EnumField, CodingLanguageField
 from prologin.utils import ChoiceEnum, save_random_state
 from schools.models import School
-
+import contest.models
 
 class Edition(ExportModelOperationsMixin('edition'), models.Model):
     year = models.PositiveIntegerField(primary_key=True)
@@ -375,6 +375,10 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
 
     @property
     def is_assigned_for_final(self):
+        try:
+            contest.models.Event.final_for_edition(self.edition.year)
+        except ObjectDoesNotExist:
+            return False
         return self.assignation_final == Assignation.assigned.value
 
     @property
