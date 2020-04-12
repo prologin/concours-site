@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib import messages, auth
 from django.http import Http404, HttpResponse
 from django.http.response import JsonResponse, StreamingHttpResponse, HttpResponseForbidden
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 from django.template.loader import render_to_string
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
@@ -71,6 +71,12 @@ class RegistrationView(AnonymousRequiredMixin, CreateView):
     form_class = users.forms.RegisterForm
     template_name = 'users/register.html'
     success_url = reverse_lazy('home')
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect(self.success_url)
+        return super().dispatch(request, *args, **kwargs)
+
 
     def form_valid(self, form):
         response = super().form_valid(form)
