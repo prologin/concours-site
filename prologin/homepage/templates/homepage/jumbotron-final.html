@@ -20,40 +20,42 @@
           <p>{% trans "You have one weekend to develop an artificial intelligence for a custom-made game, in Paris." %}</p>
           <p class="hide-no-active"><a href="{% url 'archives:index' %}" class="btn btn-default btn-block"><i
             class="fa fa-tachometer"></i> {% trans "Train now" %}</a></p>
-          {% has_perm 'documents.generate_final_contestant_document' request.user contestant as user_can_download_final %}
-          {% if request.user.is_authenticated and user_can_download_final and not final.is_finished and edition.qualification_corrected and edition.semifinal_corrected and contestant.is_assigned_for_semifinal and contestant.is_assigned_for_final %}
-            {% with event=contestant.assignation_final_event %}
-              <p>{% trans "The final will take place at:" %}</p>
-              <ul class="list-unstyled checklist" style="margin-bottom: .5em">
-                <li><i class="fa fa-map-marker fa-fw"></i> <a
-                  href="{% url 'centers:map' %}">{{ event.center.name }}</a></li>
-                <li><i class="fa fa-calendar-check-o fa-fw"></i>
-                  {{ event.date_begin|date:"l d b" }} → {{ event.date_end|date:"l d b Y" }}
-                </li>
-              </ul>
+          {% if request.user.is_authenticated and not final.is_finished and edition.qualification_corrected and edition.semifinal_corrected and contestant.is_assigned_for_semifinal and contestant.is_assigned_for_final %}
+            {% has_perm 'documents.generate_final_contestant_document' request.user contestant as user_can_download_final %}
+            {% if user_can_download_final %}
+              {% with event=contestant.assignation_final_event %}
+                <p>{% trans "The final will take place at:" %}</p>
+                <ul class="list-unstyled checklist" style="margin-bottom: .5em">
+                  <li><i class="fa fa-map-marker fa-fw"></i> <a
+                    href="{% url 'centers:map' %}">{{ event.center.name }}</a></li>
+                  <li><i class="fa fa-calendar-check-o fa-fw"></i>
+                    {{ event.date_begin|date:"l d b" }} → {{ event.date_end|date:"l d b Y" }}
+                  </li>
+                </ul>
+                <p>
+                  <a href="{% url 'documents:final:contestant-compilation' edition.year contestant.pk %}" class="btn btn-primary btn-block">
+                    <i class="fa fa-download"></i> {% trans "Download paperwork" %}
+                  </a>
+                </p>
+              {% endwith %}
+            {% elif phase_type == 'finished' %}
+              {# final finished #}
               <p>
-                <a href="{% url 'documents:final:contestant-compilation' edition.year contestant.pk %}" class="btn btn-primary btn-block">
-                  <i class="fa fa-download"></i> {% trans "Download paperwork" %}
+                <i class="fa fa-calendar-check-o"></i>
+                <strong>{% trans "The final is now finished!" %}</strong>
+              </p>
+              <p>
+                <a href="{% url 'archives:index' %}" class="btn btn-default btn-block">
+                  <i class="fa fa-trophy"></i>
+                  {% trans "Statement, results & scoreboard" %}
                 </a>
               </p>
-            {% endwith %}
-          {% elif phase_type == 'finished' %}
-            {# final finished #}
-            <p>
-              <i class="fa fa-calendar-check-o"></i>
-              <strong>{% trans "The final is now finished!" %}</strong>
-            </p>
-            <p>
-              <a href="{% url 'archives:index' %}" class="btn btn-default btn-block">
-                <i class="fa fa-trophy"></i>
-                {% trans "Statement, results & scoreboard" %}
-              </a>
-            </p>
-          {% elif phase_event == 'final' and phase_type == 'done' %}
-            <p>
-              <i class="fa fa-clock-o"></i>
-              <strong>{% trans "The final is now finished! Stay tuned for the results." %}</strong>
-            </p>
+            {% elif phase_event == 'final' and phase_type == 'done' %}
+              <p>
+                <i class="fa fa-clock-o"></i>
+                <strong>{% trans "The final is now finished! Stay tuned for the results." %}</strong>
+              </p>
+            {% endif %}
           {% endif %}
         </div>
       </div>
