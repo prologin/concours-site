@@ -40,8 +40,14 @@ class Qcm(ExportModelOperationsMixin('qcm'), models.Model):
     def completed_question_count_for(self, contestant):
         return contestant.qcm_answers.filter(proposition__question__qcm=self).count()
 
+    def mandatory_question_count_for(self):
+        return Question.objects.filter(qcm=self, is_optional=False).count()
+
+    def completed_mandatory_question_count_for(self, contestant):
+        return contestant.qcm_answers.filter(proposition__question__qcm=self, proposition__question__is_optional=False).count()
+
     def is_completed_for(self, contestant):
-        return self.completed_question_count_for(contestant) == self.question_count
+        return self.completed_mandatory_question_count_for(contestant) == self.mandatory_question_count_for()
 
     def score_for_contestant(self, contestant):
         contestant_qcm_consistency_check(contestant, self)
@@ -94,6 +100,9 @@ class Question(ExportModelOperationsMixin('question'), SortableMixin):
     # Open ended questions have only one correct proposition.
     # The user only sees a text input and has to give his or her answer.
     is_open_ended = models.BooleanField(default=False)
+    # optional questions are the CTF questions
+    # it is here to display correctly the homepage when a question is not mandatory
+    is_optional = models.BooleanField(default=False)
 
     objects = QuestionManager()
 
