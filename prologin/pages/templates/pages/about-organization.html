@@ -94,6 +94,24 @@ experiences for our staff members.</p>
 with us!</p>
 {% endblocktrans %}
 
+{% url 'pages:about-organization' as about_organization %}
+
+<h2 id="gcc">{% trans "Girls Can Code!" %}</h2>
+{% blocktrans %}<p class="text-justify">Prologin started to organize in 2014 the Girls Can Code! summer camps.
+These training camps are the perfect occasion for young girls who are still in middle school or in high school 
+to discover multiple computer science subjects throughout the week. They will learn how to solve problems with 
+algorithms, explore numerous material such as network, web development, robotics, microcontrollers, video games 
+and more through practical exercises.</p>
+
+<p class="text-justify">Conferences from exterior speakers are organized for every camp. It enables the attendees 
+to exchange with women working in the computer science industry or in research fields. The young girls are sometimes, 
+unsure as to what they want to do, this is a golden occasion for them to discuss with the speaker their educational 
+backgrounds, thus helping them for their orientation.</p>
+
+<p class="text-justify">Prologin's members are present during the camp to accompany them and to help them debug their 
+programs. More information can be found on Girls Can Code! <a href="https://gcc.prologin.org">website</a>.<br />For any 
+inquiries, please contact us <a href="{{ about_organization }}#contact">here</a>.</p>{% endblocktrans %}
+
   <h2 id="contribute">{% trans "Everyone can contribute to Prologin" %}</h2>
   {# TODO: link to forums; link to how to promote (posters) #}
   {% blocktrans %}<p class="text-justify">Contributing can be done in various ways: promoting the event, developing the website and
