@@ -7,11 +7,8 @@
         <h4>{% trans "Final" %}</h4>
         <p class="date">
           {% if final.date_begin or final.date_end %}
-          {% comment %}
           {{ final.date_begin|date:"d b Y"|default:no_such_date }}
           →&nbsp;{{ final.date_end|date:"d b Y"|default:no_such_date }}
-          {% endcomment %}
-            {% trans 'Due to the sanitary crisis, the final date will be announced later.' %}
           {% else %}
             {{ no_such_date }}
           {% endif %}
