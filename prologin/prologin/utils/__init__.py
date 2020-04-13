@@ -14,7 +14,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.files import File
 from django.urls import reverse
-from django.utils.html import conditional_escape
+from django.utils.html import conditional_escape, format_html
 from django.utils.translation import ugettext_lazy as _
 
 
@@ -177,8 +177,13 @@ def cached(func, cache_setting_name, **kwargs):
 def admin_url_for(model_admin, obj, method='change', label=lambda e: str(e)):
     if obj is None:
         return model_admin.get_empty_value_display()
-    return '<a href="{}">{}</a>'.format(reverse('admin:{}_{}_{}'.format(obj._meta.app_label, obj._meta.model_name, method),
-                                                args=[obj.pk]), conditional_escape(label(obj)))
+    return format_html("<a href=\"{}\">{}</a>",
+        reverse('admin:{}_{}_{}'
+            .format(obj._meta.app_label, obj._meta.model_name, method),
+            args=[obj.pk]
+            ),
+        label(obj)
+    )
 
 
 ENCODINGS = ('utf-8-sig', 'utf-8', 'latin1')
