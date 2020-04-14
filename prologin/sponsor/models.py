@@ -3,6 +3,12 @@ from django.db import models
 from prologin.models import AddressableModel, ContactModel
 from prologin.utils import upload_path
 
+RANK_CHOICES = (
+    ("gold", "Gold"),
+    ("silver", "Silver"),
+    ("bronze", "Bronze")
+)
+
 
 class ActiveSponsorManager(models.Manager):
     def get_queryset(self):
@@ -19,7 +25,11 @@ class Sponsor(AddressableModel, ContactModel, models.Model):
     logo = models.ImageField(upload_to=upload_logo_to, blank=True)
     site = models.URLField(blank=True)
     is_active = models.BooleanField(default=True)
-
+    rank = models.CharField(
+            choices=RANK_CHOICES,
+            max_length=20,
+            blank=True
+    )
     objects = models.Manager()
     active = ActiveSponsorManager()
 

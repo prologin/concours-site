@@ -19,21 +19,44 @@
         sponsorship program.
       {% endblocktrans %}
     </p>
+    <p>
+      {% if language == "fr" %}
+      <a href="{{ MEDIA_URL }}sponsors/plaquettes/sponsors_fr_2020.pdf">
+      {% else %}
+      <a href="{{ MEDIA_URL }}sponsors/plaquettes/sponsors_en_2020.pdf">
+      {% endif %}
+          {% trans "Become a sponsor" %}
+        </a>
+    </p>
 
-    {% for sponsor in sponsors %}
-      <hr/>
-      <div class="row">
-        <div class="col-sm-6 col-md-3">
-          <a class="sponsor-logo" href="{{ sponsor.site }}">
-            <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" style="max-width:100%; max-height: 10em;" />
-          </a>
+    {% for type,typed_sponsors in sponsors.items %}
+      {% if typed_sponsors %}
+        <h2>{% trans type %}</h2>
+        <div class="row">
+        {% for sponsor in typed_sponsors %}
+          {% if type == "Gold" %}
+            <div class="row panel">
+              <div class="col-sm-6 col-md-3">
+          {% else %}
+            <div class="col-md-4">
+              <div class="panel">
+          {% endif %}
+              <div class="panel-body">
+                <a class="spons-logo" href="{{ sponsor.site }}">
+                  <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" >
+                </a>
+              </div>
+            </div>
+            {% if type == "Gold" %}
+              <div class="col-sm-6 col-md-9">
+                <p><strong>{{ sponsor.name }}</strong></p>
+                <p>{{ sponsor.description }}</p>
+              </div>
+            {% endif %}
+          </div>
+        {% endfor %}
         </div>
-        <div class="col-sm-6 col-md-9">
-          <p>
-            {{ sponsor.description }}
-          </p>
-        </div>
-      </div>
+      {% endif %}
     {% endfor %}
 
 {% endblock %}
