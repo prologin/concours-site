@@ -3,7 +3,7 @@ from django.db import migrations, models
 def update_qcm(apps, schema_editor):
     Question = apps.get_model('qcm', 'Question')
     alias = schema_editor.connection.alias
-    Question.objects.using(alias).filter(body__icontains='%(BONUS)%').update(is_optional='true')
+    Question.objects.using(alias).filter(body__icontains='%(BONUS)%').update(is_optional=True)
 
 class Migration(migrations.Migration):
 
