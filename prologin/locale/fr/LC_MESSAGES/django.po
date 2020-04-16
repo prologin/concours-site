@@ -27,8 +27,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-05 17:01+0200\n"
-"PO-Revision-Date: 2020-04-05 14:08+0000\n"
+"POT-Creation-Date: 2020-04-16 18:43+0200\n"
+"PO-Revision-Date: 2020-04-16 18:41+0200\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
 "language/fr/)\n"
@@ -37,6 +37,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: archives/templates/archives/finale-scoreboard.html:7
 #: archives/templates/archives/index.html:7
@@ -3505,7 +3506,7 @@ msgstr ""
 #: pages/templates/pages/about-privacy-policy.html:15
 #: prologin/templates/prologin/main-footer.html:12
 msgid "Privacy policy"
-msgstr ""
+msgstr "Politique de Confidentialité"
 
 #: pages/templates/pages/about-privacy-policy.html:17
 #, fuzzy
@@ -3513,15 +3514,10 @@ msgstr ""
 msgid "Prologin and your Personal Data"
 msgstr "Exporter vos données personnelles"
 
-#: pages/templates/pages/about-privacy-policy.html:19
-#, fuzzy
-#| msgid "About the contest"
-msgid "About the Processing"
-msgstr "À propos du concours"
-
-#: pages/templates/pages/about-privacy-policy.html:22
+#: pages/templates/pages/about-privacy-policy.html:18
 msgid ""
 "\n"
+"### About the Processing\n"
 "#### Purposes\n"
 "\n"
 "The processing goal is to **organize the Prologin contest**.  \n"
@@ -3540,18 +3536,8 @@ msgid ""
 "\n"
 "The data subjects give consent to the processing of their personal data for "
 "the declared purposes (art. 6(1)a of GDPR).\n"
-"        "
-msgstr ""
-
-#: pages/templates/pages/about-privacy-policy.html:43
-#, fuzzy
-#| msgid "Proceed"
-msgid "Processed Data"
-msgstr "Continuer"
-
-#: pages/templates/pages/about-privacy-policy.html:46
-msgid ""
 "\n"
+"### Processed Data\n"
 "#### Data Categories\n"
 "\n"
 "Registration on the site requires the following categories of data:\n"
@@ -3589,16 +3575,8 @@ msgid ""
 "the Prologin online judge) are automatically rejected. Although this "
 "automatic decision has no legal effect and no significant impact, Prologin "
 "can be contacted directly.\n"
-"        "
-msgstr ""
-
-#: pages/templates/pages/about-privacy-policy.html:80
-msgid "Data Subjects"
-msgstr ""
-
-#: pages/templates/pages/about-privacy-policy.html:83
-msgid ""
 "\n"
+"### Data Subjects\n"
 "This processing involves:\n"
 "\n"
 "*   natural persons registering to the Prologin website;\n"
@@ -3607,18 +3585,8 @@ msgid ""
 "(applicant is less than 16);\n"
 "*   members of Prologin;\n"
 "*   natural or legal persons from Prologin partners and/or sub-processors.\n"
-"        "
-msgstr ""
-
-#: pages/templates/pages/about-privacy-policy.html:96
-#, fuzzy
-#| msgid "Data import"
-msgid "Data Recipients"
-msgstr "Import de données"
-
-#: pages/templates/pages/about-privacy-policy.html:99
-msgid ""
 "\n"
+"### Data Recipients\n"
 "#### Categories of Recipients\n"
 "\n"
 "Taking into account their respective needs, the following are a recipient of "
@@ -3634,43 +3602,19 @@ msgid ""
 "Switzerland for the organization of a regional event). This is only "
 "applicable for Prologin candidates participating in regional events in "
 "Switzerland.\n"
-"        "
-msgstr ""
-
-#: pages/templates/pages/about-privacy-policy.html:116
-msgid "Storage Period"
-msgstr ""
-
-#: pages/templates/pages/about-privacy-policy.html:119
-msgid ""
 "\n"
+"### Storage Period\n"
 "Identification data, school, and personal life are stored until the data "
 "subject unsubscribes from Prologin.  \n"
 "Health data are deleted three years after the end of the final.\n"
-"        "
-msgstr ""
-
-#: pages/templates/pages/about-privacy-policy.html:127
-msgid "Security"
-msgstr ""
-
-#: pages/templates/pages/about-privacy-policy.html:130
-msgid ""
 "\n"
+"### Security\n"
 "Some security measures, aiming to ensure confidentiality, integrity, and "
 "availability of the data, have been implemented. They are extracted from the "
 "ISO/IEC27002 standard. It includes, without being limited to, data "
 "encryption in-transit and externalized backups.\n"
-"        "
-msgstr ""
-
-#: pages/templates/pages/about-privacy-policy.html:137
-msgid "Your Rights"
-msgstr ""
-
-#: pages/templates/pages/about-privacy-policy.html:140
-msgid ""
 "\n"
+"### Your Rights\n"
 "#### The Essential\n"
 "\n"
 "You have (_via_ the holder of parental authorities when applicable) the "
@@ -3690,8 +3634,125 @@ msgid ""
 "\n"
 "Should you think your rights are not respected, and after having contacted "
 "us, you can lodge a complaint with your national Data Protection Authority.\n"
-"        "
+"    "
 msgstr ""
+"\n"
+"### Objet du traitement de données\n"
+"#### Finalités\n"
+"\n"
+"Le traitement a pour objet **l'organisation du concours Prologin**.  \n"
+"Il permet à l'association Prologin :\n"
+"\n"
+"*   de traiter les demandes d'inscription sur le site Prologin ;\n"
+"*   de fournir les services de communication (forum) et d'évaluation de code "
+"(juge en ligne) ;\n"
+"*   de traiter les demandes de participation au concours Prologin ;\n"
+"*   d'adapter les repas aux contraintes alimentaires de chacun ;\n"
+"*   de répondre aux sollicitations de la part des participants ;\n"
+"*   de piloter l'activité de l'association (évaluation de la satisfaction "
+"des participants, production de statistiques).\n"
+"\n"
+"#### Base légale\n"
+"\n"
+"Ce traitement repose sur le consentement des inscrits et de leur responsable "
+"légal le cas échéant (mineurs de 16 ans), ce sont les articles 6(1)a et 8 du "
+"RGPD.\n"
+"\n"
+"### Données Traitées\n"
+"#### Catégories de données traitées\n"
+"\n"
+"L'inscription sur le site nécessite les catégories de données suivantes :\n"
+"\n"
+"*   Données d'identification : pseudonyme, adresse email ;\n"
+"*   Internet : mesure d'audience ;\n"
+"\n"
+"La participation au concours requiert des informations complémentaires :\n"
+"\n"
+"*   Données d'identification : nom, prénom, adresse postale, date de "
+"naissance... ;\n"
+"*   Vie scolaire (dite professionnelle) : niveau d'étude ;\n"
+"*   Vie personnelle : habitudes alimentaires ;\n"
+"*   Internet : mesure d'audience ;\n"
+"*   Données de santé : éventuels traitements médicaux et allergies.\n"
+"\n"
+"#### Source des données\n"
+"\n"
+"Ces informations sont recueillies directement auprès du participant, et/ou "
+"de son responsable légal le cas échéant (mineurs de 16 ans).\n"
+"\n"
+"#### Caractère obligatoire des réponses\n"
+"\n"
+"L'inscription au site Prologin prévoit, sauf mention contraire, le recueil "
+"obligatoire de données qui sont nécessaires au traitement de l'inscription.\n"
+"\n"
+"La participation à une édition du concours Prologin prévoit, sauf mention "
+"contraire, le recueil obligatoire de données qui sont nécessaires au "
+"traitement de l'inscription et l'accueil sur site dans de bonnes "
+"conditions.\n"
+"\n"
+"#### Prise de décision automatisée\n"
+"\n"
+"Le traitement peut inclure une décision entièrement automatisée : les "
+"demandes de participation au concours Prologin d'un niveau manifestement "
+"insuffisant (évaluation par le juge en ligne Prologin) sont automatiquement "
+"écartées. Bien que cette décision automatique ne produise ni effet juridique "
+"ni impact significatif, Prologin peut être [contacté directement](mailto:"
+"info@prologin.org) pour demander une évaluation manuelle.\n"
+"\n"
+"### Personnes Concernées\n"
+"#### Catégories de destinataires\n"
+"\n"
+"En fonction de leurs besoins respectifs, sont destinataires de tout ou "
+"partie des données :\n"
+"\n"
+"*   les membres autorisés de Prologin ;\n"
+"*   les membres autorisés des partenaires et/ou sous-traitants de "
+"Prologin ;\n"
+"*   les services de secours d'urgence en cas de besoin.\n"
+"\n"
+"#### Transfert des données hors UE\n"
+"\n"
+"Des transferts de données hors de l'Union européenne peuvent avoir lieu "
+"(partenaire en Suisse pour l'organisation d'une épreuve régionale). Cela ne "
+"concerne que les candidats au concours Prologin participant aux épreuves "
+"régionales en Suisse.\n"
+"\n"
+"### Durée de Conservation\n"
+"Les données d’identification, de vie scolaire et personnelle sont conservées "
+"jusqu'à la désinscription de la personne.  \n"
+"Les données de santé sont conservées jusqu'à 3 ans après la fin de la "
+"finale .\n"
+"\n"
+"### Securité\n"
+"Des mesures de sécurité visant à garantir la confidentialité, l'intégrité et "
+"la disponibilité des données collectées, issues du référentiel ISO/IEC27002 "
+"ont été mises en œuvre. Elles comprennent, sans s'y limiter, le chiffrement "
+"des données en transit et leur sauvegarde régulière externalisée.\n"
+"\n"
+"### Vos droits sur vos données\n"
+"#### L'essentiel\n"
+"\n"
+"Vous disposez (le cas échéant _via_ le responsable légal) des droits "
+"d'accéder et d'obtenir copie des données vous concernant, de vous opposer au "
+"traitement de ces données, de les faire rectifier ou les faire effacer. Vous "
+"disposez également d'un droit à la limitation du traitement de vos données. "
+"Vous disposez enfin d'un droit à un réexamen par un être humain de votre "
+"candidature au concours, si vous avez fait l'objet d'une décision "
+"automatisée. [Rendez-vous sur le site de la CNIL pour mieux comprendre vos "
+"droits.](https://www.cnil.fr/fr/comprendre-vos-droits)\n"
+"\n"
+"#### Exercer vos droits\n"
+"\n"
+"Toute demande d'exercice de vos droits doit être adressée par voie "
+"électronique à [info@prologin.org](mailto:info@prologin.org).\n"
+"\n"
+"#### Réclamation auprès de la CNIL\n"
+"\n"
+"Si vous estimez, après nous avoir contacté, que vos droits sur vos données "
+"ne sont pas respectés, vous pouvez alors [adresser une réclamation à la CNIL]"
+"(https://www.cnil.fr/fr/webform/adresser-une-plainte).\n"
+"\n"
+"    "
 
 #: pages/templates/pages/about-qualification.html:8
 #: pages/templates/pages/about-qualification.html:11
@@ -5734,6 +5795,10 @@ msgstr ""
 "rejoindre notre\n"
 "        programme de parrainage"
 
+#: sponsor/templates/sponsor/index.html:28
+msgid "Become a sponsor"
+msgstr ""
+
 #: team/admin.py:8 team/admin.py:34 team/models.py:104
 msgid "Role"
 msgstr "Rôle"
@@ -6172,6 +6237,7 @@ msgstr ""
 #: users/templates/users/edit.html:25 users/templates/users/register.html:22
 msgid "I consent to the processing of my personal data above by Prologin."
 msgstr ""
+"Je consens au traitement de mes données personnelles ci-dessus par Prologin."
 
 #: users/templates/users/edit.html:26
 #: users/templates/users/edit_password.html:25
@@ -6189,10 +6255,17 @@ msgid ""
 "visit \n"
 "      "
 msgstr ""
+"\n"
+"        Prologin est organisé par l'association Prologin, qui agit en tant "
+"que contrôleur de données. Les réponses collectées dans ce formulaire nous "
+"permettent de fournir les services (communication et juge en ligne) et "
+"préparer le concours : sélections, restrictions alimentaires, etc...\n"
+"        Pour en apprendre plus à propos de notre gestion des données et de "
+"vos droits, consultez"
 
 #: users/templates/users/edit.html:32 users/templates/users/register.html:35
 msgid "our dedicated page."
-msgstr ""
+msgstr "notre page dédiée."
 
 #: users/templates/users/edit_password.html:13
 #: users/templates/users/edit_password.html:16
@@ -6548,7 +6621,7 @@ msgid ""
 "  from Prologin."
 msgstr "a été désinscrit et ne recevra plus d'e-mails de Prologin."
 
-#: users/views.py:79
+#: users/views.py:85
 #, python-format
 msgid ""
 "Your account was created. We sent an email to %(mail)s so you can confirm "
@@ -6557,11 +6630,11 @@ msgstr ""
 "Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s pour que "
 "vous puissiez confirmer votre inscription."
 
-#: users/views.py:102
+#: users/views.py:108
 msgid "Your account was activated. Enjoy your visit!"
 msgstr "Votre compte est activé. Bonne visite&nbsp;!"
 
-#: users/views.py:107
+#: users/views.py:113
 #, python-format
 msgid ""
 "The activation link you provided is invalid or obsolete. If you created your "
@@ -6572,15 +6645,15 @@ msgstr ""
 "avez créé votre compte il y a plus de %(days)s jours, vous devez répéter "
 "l'opération. Vous pouvez utiliser les mêmes nom d'utilisateur et e-mail."
 
-#: users/views.py:184
+#: users/views.py:190
 msgid "Changes saved."
 msgstr "Modifications enregistrées."
 
-#: users/views.py:217 users/views.py:277
+#: users/views.py:223 users/views.py:283
 msgid "New password saved."
 msgstr "Mot de passe modifié."
 
-#: users/views.py:246
+#: users/views.py:252
 #, python-format
 msgid ""
 "You should receive an email at %(email)s in a few moments. Please follow the "
@@ -6589,11 +6662,11 @@ msgstr ""
 "Vous devriez recevoir un e-mail à %(email)s dans quelques instants. Veuillez "
 "suivre les instructions pour finaliser la réinitialisation du mot de passe."
 
-#: users/views.py:279
+#: users/views.py:285
 msgid "You have been automatically logged in."
 msgstr "Vous avez été connecté automatiquement."
 
-#: users/views.py:372
+#: users/views.py:378
 #, python-format
 msgid "Account %(username)s was deleted successfully."
 msgstr "Le compte %(username)s a été supprimé avec succès."
@@ -6601,3 +6674,387 @@ msgstr "Le compte %(username)s a été supprimé avec succès."
 #: users/widgets.py:8
 msgid "Upload new image"
 msgstr "Envoyer une nouvelle image"
+
+#, fuzzy
+#~| msgid "Message content"
+#~ msgid "Messages"
+#~ msgstr "Contenu du message"
+
+#, fuzzy
+#~| msgid "Animations"
+#~ msgid "Syndication"
+#~ msgstr "Animations"
+
+#, fuzzy
+#~| msgid "Your email address"
+#~ msgid "Enter a valid email address."
+#~ msgstr "Votre adresse e-mail"
+
+#, fuzzy
+#~| msgid "Phone number"
+#~ msgid "Enter a number."
+#~ msgstr "Téléphone"
+
+#, fuzzy
+#~| msgid "Compilers and interpreters"
+#~ msgid "Comma-separated integers"
+#~ msgstr "Compilateurs et interpréteurs"
+
+#, fuzzy
+#~| msgid "Phone number"
+#~ msgid "Decimal number"
+#~ msgstr "Téléphone"
+
+#, fuzzy
+#~| msgid "Evaluation"
+#~ msgid "Duration"
+#~ msgstr "Évaluation"
+
+#, fuzzy
+#~| msgid "Postal address"
+#~ msgid "IPv4 address"
+#~ msgstr "Adresse postale"
+
+#, fuzzy
+#~| msgid "Postal address"
+#~ msgid "IP address"
+#~ msgstr "Adresse postale"
+
+#, fuzzy
+#~| msgid "Time zone"
+#~ msgid "Time"
+#~ msgstr "Fuseau horaire"
+
+#, fuzzy
+#~| msgid "Phone number"
+#~ msgid "Enter a whole number."
+#~ msgstr "Téléphone"
+
+#, fuzzy
+#~| msgid "Invalid solution"
+#~ msgid "Enter a valid duration."
+#~ msgstr "Solution incorrecte"
+
+#, fuzzy
+#~| msgid "Not submitted"
+#~ msgid "No file was submitted."
+#~ msgstr "Non soumis"
+
+#, fuzzy
+#~| msgid "This forum is empty."
+#~ msgid "The submitted file is empty."
+#~ msgstr "Ce forum est vide."
+
+#, fuzzy
+#~| msgid "Currently correcting"
+#~ msgid "Currently"
+#~ msgstr "En train de corriger"
+
+#, fuzzy
+#~| msgid "Change locale"
+#~ msgid "Change"
+#~ msgstr "Changer la langue"
+
+#, fuzzy
+#~| msgid "unknown"
+#~ msgid "Unknown"
+#~ msgstr "inconnu"
+
+#, fuzzy
+#~| msgid "on"
+#~ msgid "Mon"
+#~ msgstr "le"
+
+#, fuzzy
+#~| msgid "Tuesday"
+#~ msgid "Tue"
+#~ msgstr "Mardi"
+
+#, fuzzy
+#~| msgid "Friday"
+#~ msgid "Fri"
+#~ msgstr "Vendredi"
+
+#, fuzzy
+#~| msgid "Lat"
+#~ msgid "Sat"
+#~ msgstr "Lat"
+
+#, fuzzy
+#~| msgid "Sunday"
+#~ msgid "Sun"
+#~ msgstr "Dimanche"
+
+#, fuzzy
+#~| msgid "Manual"
+#~ msgid "January"
+#~ msgstr "Manuel"
+
+#, fuzzy
+#~| msgid "Search"
+#~ msgid "March"
+#~ msgstr "Rechercher"
+
+#, fuzzy
+#~| msgid "Day"
+#~ msgid "May"
+#~ msgstr "Jour"
+
+#, fuzzy
+#~| msgid "Staff member"
+#~ msgid "September"
+#~ msgstr "Membre de l'équipe"
+
+#, fuzzy
+#~| msgid "Member"
+#~ msgid "November"
+#~ msgstr "Membre"
+
+#, fuzzy
+#~| msgid "Member"
+#~ msgid "December"
+#~ msgstr "Membre"
+
+#, fuzzy
+#~| msgid "Day"
+#~ msgid "may"
+#~ msgstr "Jour"
+
+#, fuzzy
+#~| msgid "Contact"
+#~ msgid "oct"
+#~ msgstr "Contact"
+
+#, fuzzy
+#~| msgid "Search"
+#~ msgctxt "abbrev. month"
+#~ msgid "March"
+#~ msgstr "Rechercher"
+
+#, fuzzy
+#~| msgid "Day"
+#~ msgctxt "abbrev. month"
+#~ msgid "May"
+#~ msgstr "Jour"
+
+#, fuzzy
+#~| msgid "Manual"
+#~ msgctxt "alt. month"
+#~ msgid "January"
+#~ msgstr "Manuel"
+
+#, fuzzy
+#~| msgid "Search"
+#~ msgctxt "alt. month"
+#~ msgid "March"
+#~ msgstr "Rechercher"
+
+#, fuzzy
+#~| msgid "Day"
+#~ msgctxt "alt. month"
+#~ msgid "May"
+#~ msgstr "Jour"
+
+#, fuzzy
+#~| msgid "Staff member"
+#~ msgctxt "alt. month"
+#~ msgid "September"
+#~ msgstr "Membre de l'équipe"
+
+#, fuzzy
+#~| msgid "Member"
+#~ msgctxt "alt. month"
+#~ msgid "November"
+#~ msgstr "Membre"
+
+#, fuzzy
+#~| msgid "Member"
+#~ msgctxt "alt. month"
+#~ msgid "December"
+#~ msgstr "Membre"
+
+#, fuzzy
+#~| msgid "year"
+#~ msgid "%d year"
+#~ msgid_plural "%d years"
+#~ msgstr[0] "année"
+#~ msgstr[1] "année"
+
+#, fuzzy
+#~| msgid "month"
+#~ msgid "%d month"
+#~ msgid_plural "%d months"
+#~ msgstr[0] "mois"
+#~ msgstr[1] "mois"
+
+#, fuzzy
+#~| msgid "No user matching query"
+#~ msgid "No %(verbose_name)s found matching the query"
+#~ msgstr "Aucun utilisateur correspondant"
+
+#, fuzzy
+#~| msgid "Documentation"
+#~ msgid "Django Documentation"
+#~ msgstr "Documentation"
+
+#, fuzzy
+#~| msgid "Email"
+#~ msgid "Email count"
+#~ msgstr "E-mail"
+
+#, fuzzy
+#~| msgctxt "manual language table"
+#~| msgid "Language"
+#~ msgid "Language"
+#~ msgstr "Langage"
+
+#, fuzzy
+#~| msgid "Query"
+#~ msgid "Queries"
+#~ msgstr "Requête"
+
+#, fuzzy
+#~| msgid "Optional."
+#~ msgid "Optional name"
+#~ msgstr "Optionnel."
+
+#, fuzzy
+#~| msgid "Code %(id)s"
+#~ msgid "Batch %(id)s"
+#~ msgstr "Code %(id)s"
+
+#, fuzzy
+#~| msgid "New thread"
+#~ msgid "New batch"
+#~ msgstr "Nouveau sujet"
+
+#, fuzzy
+#~| msgid "Submitted by <strong>%(username)s</strong>"
+#~ msgid "Initiated by <strong>%(initiator)s</strong> on %(date)s."
+#~ msgstr "Soumise par <strong>%(username)s</strong>"
+
+#, fuzzy
+#~| msgid "Status"
+#~ msgid "State"
+#~ msgstr "Statut"
+
+#, fuzzy
+#~| msgid "Complete"
+#~ msgid "Completed"
+#~ msgstr "Complet"
+
+#, fuzzy
+#~| msgid "descending"
+#~ msgid "Retry pending"
+#~ msgstr "décroissant"
+
+#, fuzzy
+#~| msgid "There is no forum."
+#~ msgid "There is no batch yet."
+#~ msgstr "Il n'y a aucun forum."
+
+#, fuzzy
+#~| msgid "Delete thread"
+#~ msgid "Delete a batch"
+#~ msgstr "Supprimer le sujet"
+
+#, fuzzy
+#~| msgid "Are you sure you want to delete <strong>%(title)s</strong>?"
+#~ msgid "Are you sure you want to delete <em>%(batch)s</em>?"
+#~ msgstr "Confirmez-vous la suppression de <strong>%(title)s</strong>&nbsp;?"
+
+#, fuzzy
+#~| msgid "Leaderboard"
+#~ msgid "Dashboard"
+#~ msgstr "Classement"
+
+#, fuzzy
+#~| msgid "Monitoring board"
+#~ msgid "Mailing dashboard"
+#~ msgstr "Tableau de bord"
+
+#, fuzzy
+#~| msgid "All centers"
+#~ msgid "All batches"
+#~ msgstr "Tous les centres"
+
+#, fuzzy
+#~| msgid "Create a new thread"
+#~ msgid "Craft a new template"
+#~ msgstr "Créer un nouveau sujet"
+
+#, fuzzy
+#~| msgid "Related entries"
+#~ msgid "Related useful queries"
+#~ msgstr "Articles liés"
+
+#, fuzzy
+#~| msgid "There is no forum."
+#~ msgid "There is no template yet."
+#~ msgstr "Il n'y a aucun forum."
+
+#, fuzzy
+#~| msgid "Create a new thread"
+#~ msgid "Craft a new query"
+#~ msgstr "Créer un nouveau sujet"
+
+#, fuzzy
+#~| msgid "There is no forum."
+#~ msgid "There is no query yet."
+#~ msgstr "Il n'y a aucun forum."
+
+#, fuzzy
+#~| msgctxt "Preview, the action (button)"
+#~| msgid "Preview"
+#~ msgid "Preview"
+#~ msgstr "Prévisualiser"
+
+#, fuzzy
+#~| msgid "New thread"
+#~ msgid "New template"
+#~ msgstr "Nouveau sujet"
+
+#, fuzzy
+#~| msgid "Save application"
+#~ msgid "Save template"
+#~ msgstr "Enregistrer la participation"
+
+#, fuzzy
+#~| msgid "You do not have the permission to access this content."
+#~ msgid "You don't have the permission to view query results."
+#~ msgstr "Vous n'avez pas l'autorisation d'accéder à ce contenu."
+
+#, fuzzy
+#~| msgid "Nickname"
+#~ msgid "name"
+#~ msgstr "Pseudonyme"
+
+#, fuzzy
+#~| msgid "No tags"
+#~ msgid "tag"
+#~ msgstr "Pas de tag"
+
+#, fuzzy
+#~| msgid "No tags"
+#~ msgid "tags"
+#~ msgstr "Pas de tag"
+
+#, fuzzy
+#~| msgid "Event type"
+#~ msgid "content type"
+#~ msgstr "Type d'évènement"
+
+#, fuzzy
+#~| msgid "About the contest"
+#~ msgid "About the Processing"
+#~ msgstr "À propos du concours"
+
+#, fuzzy
+#~| msgid "Proceed"
+#~ msgid "Processed Data"
+#~ msgstr "Continuer"
+
+#, fuzzy
+#~| msgid "Data import"
+#~ msgid "Data Recipients"
+#~ msgstr "Import de données"
