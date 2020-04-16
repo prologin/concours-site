@@ -1,5 +1,9 @@
 from django.db import migrations, models
 
+def update_qcm(apps, schema_editor):
+    Question = apps.get_model('qcm', 'Question')
+    alias = schema_editor.connection.alias
+    Question.objects.using(alias).filter(body__icontains='%(BONUS)%').update(is_optional='true')
 
 class Migration(migrations.Migration):
 
@@ -8,9 +12,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
-        migrations.RunSQL('''
-            UPDATE qcm_question
-            SET is_optional = true
-            WHERE body LIKE '%(BONUS)%'
-        ''')
+        migrations.RunPython(update_qcm)
     ]
