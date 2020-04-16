@@ -51,7 +51,6 @@ urlpatterns = [
     path('archives/', include('archives.urls', namespace='archives')),
 
     # Contest
-    path('contest/<int:year>/qualification/problems/', include('problems.urls', namespace='qcm-problems')),
     path('contest/<int:year>/qualification/quiz/', include('qcm.urls', namespace='qcm')),
     path('contest/', include('contest.urls', namespace='contest')),
 
