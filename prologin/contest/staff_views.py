@@ -376,7 +376,7 @@ class ContestantLiveUpdate(CanCorrectPermissionMixin, EditionMixin, DetailView):
             key = settings.CORRECTION_LIVE_UPDATE_REDIS_KEY.format(key=contestant.pk)
             client = StrictRedis(**settings.PROLOGIN_UTILITY_REDIS_STORE)
             client.expire(key, timeout * 2)  # garbage collect the whole set after a bit if no further updates
-            client.zadd(key, now, self_pk)  # add self to the set
+            client.zadd(key, {self_pk: now})  # add self to the set
             members = client.zrangebyscore(key, moments_ago, '+inf')  # list people that are recent enough
             members = set(int(pk) for pk in members) - {self_pk}  # exclude self
             online_users.extend(User.objects.filter(pk__in=members).order_by('pk'))
