@@ -203,7 +203,7 @@
             }
             setTimeout(poll_update, delay);
           })
-          .error(function (e) {
+          .fail(function (e) {
             var delay = 1000 * Math.pow(2, ++failures);
             console.warn("Polling failed, waiting", delay);
             setTimeout(poll_update, delay);
