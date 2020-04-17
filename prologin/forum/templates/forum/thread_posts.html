@@ -203,6 +203,7 @@
       $('.btn-cite').click(function(e) {
         e.preventDefault();
         var cite_url = $(this).attr('href');
+        console.log(cite_url);
         $.getJSON(cite_url)
           .done(function(data) {
             $post_textarea.val($post_textarea.val() + '\n' + data.message).focus();
