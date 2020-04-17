@@ -300,7 +300,10 @@ class DeletePostView(PermissionRequiredMixin, DeleteView):
     context_object_name = 'post'
 
     def get_success_url(self):
-        return self.object.thread.forum.get_absolute_url()
+        # there is only one post remaining or it's the thread head
+        if self.object.thread.post_count == 1 or self.object.is_thread_head:
+            return self.object.thread.forum.get_absolute_url()
+        return self.object.thread.get_absolute_url()
 
     def delete(self, request, *args, **kwargs):
         messages.success(request, _("The post was deleted successfully."))
