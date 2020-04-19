@@ -14,6 +14,10 @@
   border-radius: 0 3px 3px 0;
 }
 
+.post-content.tex2jax_process {
+  overflow-wrap: break-word;
+}
+
 .post-content .codehilitetable .linenos {
   background: #272822;
   color: #f8f8f2;
