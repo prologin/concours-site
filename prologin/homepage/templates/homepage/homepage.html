@@ -14,7 +14,17 @@
 
 {% include "homepage/jumbotron.html" %}
 
+
 <div class="container">
+
+<div class="alert alert-dismissable alert-warning">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <i class="fa fa-exclamation-triangle"></i>
+  <div>
+      <strong>{% blocktrans %}Due to the sanitary crisis, the final date will be announced later. Please read this <a href="https://prologin.org/news/A9S/">news</a> for more information.{% endblocktrans %}</strong>
+  </div>
+</div>
+
 
   {% include "prologin/messages.html" %}
 

@@ -23,12 +23,13 @@
 # Victor Collod <victor.collod@prologin.org>, 2016
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
 # Yves Stadler <mvyonline@gmail.com>, 2015
+# Valentin Seux <elfikur@prologin.org> 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-05 17:01+0200\n"
-"PO-Revision-Date: 2020-04-05 14:08+0000\n"
+"POT-Creation-Date: 2020-04-15 18:16+0200\n"
+"PO-Revision-Date: 2020-04-15 18:17+0200\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
 "language/fr/)\n"
@@ -37,6 +38,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Generator: Poedit 2.3\n"
 
 #: archives/templates/archives/finale-scoreboard.html:7
 #: archives/templates/archives/index.html:7
@@ -2088,31 +2090,41 @@ msgstr ""
 "monde de la programmation et de l'algorithmique aux étudiants et de les "
 "confronter à des problèmes classiques et des challenges excitants."
 
-#: homepage/templates/homepage/homepage.html:31
+#: homepage/templates/homepage/homepage.html:24
+msgid ""
+"Due to the sanitary crisis, the final date will be announced later. Please "
+"read this <a href=\"https://prologin.org/news/A9S/\">news</a> for more "
+"information."
+msgstr ""
+"A cause de la crise sanitaire, la date de la finale sera annoncée "
+"ultérieurement. Nous vous invitons à lire cet <a href=\"https://prologin.org/"
+"news/A9S/\">article</a> pour plus d'informations."
+
+#: homepage/templates/homepage/homepage.html:41
 msgid "Latest news"
 msgstr "Dernières actualités"
 
-#: homepage/templates/homepage/homepage.html:33
-#: homepage/templates/homepage/homepage.html:72
+#: homepage/templates/homepage/homepage.html:43
+#: homepage/templates/homepage/homepage.html:82
 msgid "Browse all news"
 msgstr "Consulter toutes les actualités"
 
-#: homepage/templates/homepage/homepage.html:43
+#: homepage/templates/homepage/homepage.html:53
 #: news/templates/zinnia/_entry_detail_base.html:19
 msgid "Written by"
 msgstr "Rédigé par"
 
-#: homepage/templates/homepage/homepage.html:47
+#: homepage/templates/homepage/homepage.html:57
 #: news/templates/zinnia/_entry_detail_base.html:23
 #, python-format
 msgid "Show all %(author)s's entries"
 msgstr "Tous les articles de %(author)s"
 
-#: homepage/templates/homepage/homepage.html:49
+#: homepage/templates/homepage/homepage.html:59
 msgid "on"
 msgstr "le"
 
-#: homepage/templates/homepage/homepage.html:51
+#: homepage/templates/homepage/homepage.html:61
 msgid "Written on"
 msgstr "Rédigé le"
 
