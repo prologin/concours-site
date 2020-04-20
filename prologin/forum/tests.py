@@ -41,8 +41,7 @@ class ForumAnonymousTestCase(ForumSetupMixin, TestCase):
 
     def testWrongSlugRedirect(self):
         page = self.client.get(f"/forum/forum-wrong-slug-1/thread-wrong-slug-{self.t11.pk}/")
-        self.assertEqual(page.status_code, 302)
-        self.assertEqual(page.get("Location"), f"/forum/test-forum-1/tout-est-casse-{self.t11.pk}/")
+        self.assertRedirects(page, f"/forum/test-forum-1/tout-est-casse-{self.t11.pk}/")
 
     def testListThreads(self):
         page = self.client.get("/forum/test-forum-1")
@@ -106,8 +105,7 @@ class ForumStaffTestCase(ForumSetupMixin, TestCase):
         self.assertContains(page, "Tout est cassé")
         self.assertContains(page, "marchand")
         page = self.client.post(f"/forum/post/tout-est-casse/{self.p112.pk}/delete")
-        self.assertEqual(page.status_code, 302)
-        self.assertEqual(page.get("Location"), f"/forum/test-forum-1/tout-est-casse-{self.t11.pk}/")
+        self.assertRedirects(page, f"/forum/test-forum-1/tout-est-casse-{self.t11.pk}/")
 
     def testDeleteHeadPost(self):
         page = self.client.get(f"/forum/post/tout-est-casse/{self.p111.pk}/delete")
@@ -117,7 +115,6 @@ class ForumStaffTestCase(ForumSetupMixin, TestCase):
         page = self.client.post(f"/forum/post/tout-est-casse/{self.p111.pk}/delete")
         self.assertEqual(page.status_code, 302)
         url = f"/forum/test-forum-1/tout-est-casse-{self.t11.pk}/"
-        self.assertEqual(page.get("Location"), url)
-        # FIXME: should redirect to the forum instead of the deleted thread!
+        self.assertRedirects(page, "/forum/test-forum-1")
         page = self.client.get(url)
         self.assertEqual(page.status_code, 404)
