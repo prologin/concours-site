@@ -1231,6 +1231,7 @@ table.table-align-middle > tbody > tr > td {
     max-height: 10em;
 }
 
+/* md breakpoint in bootstrap */
 @media (min-width: 992px) {
   .row.equal {
     display: flex;
