@@ -114,7 +114,6 @@ class ForumStaffTestCase(ForumSetupMixin, TestCase):
         self.assertContains(page, "joseph")
         page = self.client.post(f"/forum/post/tout-est-casse/{self.p111.pk}/delete")
         self.assertEqual(page.status_code, 302)
-        url = f"/forum/test-forum-1/tout-est-casse-{self.t11.pk}/"
         self.assertRedirects(page, "/forum/test-forum-1")
-        page = self.client.get(url)
+        page = self.client.get(f"/forum/test-forum-1/tout-est-casse-{self.t11.pk}/")
         self.assertEqual(page.status_code, 404)
