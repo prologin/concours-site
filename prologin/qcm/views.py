@@ -50,13 +50,6 @@ class DisplayQCMView(PermissionRequiredMixin, UpdateView):
         except self.model.DoesNotExist:
             raise Http404()
 
-    def post(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        if self.can_view_correction:
-            # just display the form so we can show right/wrong answers
-            return self.form_invalid(self.get_form())
-        return super().post(request, *args, **kwargs)
-
     def form_valid(self, form):
         if not self.can_save_answers:
             # bypasses form.save(), just redirects
