@@ -205,7 +205,9 @@
         var cite_url = $(this).attr('href');
         $.getJSON(cite_url)
           .done(function(data) {
-            $post_textarea.val($post_textarea.val() + '\n' + data.message).focus();
+            $post_textarea.val($post_textarea.val() + '\n' + data.message);
+            var $editor = $('.emoji-wysiwyg-editor');
+            $editor[0].innerHTML = $post_textarea.val()
           })
           .fail(function(err) {
             console.error(err);
