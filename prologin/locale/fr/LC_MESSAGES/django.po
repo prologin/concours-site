@@ -6,7 +6,7 @@
 # Alexandre <artifere@gmail.com>, 2015
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015-2018
 # Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
-# Antoine Pietri <antoine.pietri1@gmail.com>, 2015,2017-2019
+# Antoine Pietri <antoine.pietri1@gmail.com>, 2015,2017-2020
 # AurelReb <aurelien.rebourg@gmail.com>, 2020
 # AurelReb <aurelien.rebourg@gmail.com>, 2020
 # cbeausei <clementbeauseigneur@hotmail.fr>, 2016
@@ -23,13 +23,12 @@
 # Victor Collod <victor.collod@prologin.org>, 2016
 # Alexandre Macabies <web+transifex@zopieux.com>, 2015
 # Yves Stadler <mvyonline@gmail.com>, 2015
-# Valentin Seux <elfikur@prologin.org> 2020
 msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-15 18:16+0200\n"
-"PO-Revision-Date: 2020-04-15 18:17+0200\n"
+"POT-Creation-Date: 2020-04-27 11:09+0200\n"
+"PO-Revision-Date: 2020-04-27 09:09+0000\n"
 "Last-Translator: Antoine Pietri <antoine.pietri1@gmail.com>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
 "language/fr/)\n"
@@ -38,7 +37,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 2.3\n"
 
 #: archives/templates/archives/finale-scoreboard.html:7
 #: archives/templates/archives/index.html:7
@@ -3520,16 +3518,12 @@ msgid "Privacy policy"
 msgstr ""
 
 #: pages/templates/pages/about-privacy-policy.html:17
-#, fuzzy
-#| msgid "Export your personal data"
 msgid "Prologin and your Personal Data"
-msgstr "Exporter vos données personnelles"
+msgstr ""
 
 #: pages/templates/pages/about-privacy-policy.html:19
-#, fuzzy
-#| msgid "About the contest"
 msgid "About the Processing"
-msgstr "À propos du concours"
+msgstr ""
 
 #: pages/templates/pages/about-privacy-policy.html:22
 msgid ""
@@ -3556,10 +3550,8 @@ msgid ""
 msgstr ""
 
 #: pages/templates/pages/about-privacy-policy.html:43
-#, fuzzy
-#| msgid "Proceed"
 msgid "Processed Data"
-msgstr "Continuer"
+msgstr ""
 
 #: pages/templates/pages/about-privacy-policy.html:46
 msgid ""
@@ -3623,10 +3615,8 @@ msgid ""
 msgstr ""
 
 #: pages/templates/pages/about-privacy-policy.html:96
-#, fuzzy
-#| msgid "Data import"
 msgid "Data Recipients"
-msgstr "Import de données"
+msgstr ""
 
 #: pages/templates/pages/about-privacy-policy.html:99
 msgid ""
@@ -5418,7 +5408,7 @@ msgstr "Réponse %(id)s: %(answer)s"
 msgid "Answer %(id)s"
 msgstr "Réponse %(id)s"
 
-#: qcm/admin.py:97 qcm/models.py:114
+#: qcm/admin.py:97 qcm/models.py:123
 msgid "Question"
 msgstr "Question"
 
@@ -5434,19 +5424,19 @@ msgstr "Écrivez votre réponse ici"
 msgid "I don't know"
 msgstr "Je ne sais pas"
 
-#: qcm/models.py:89
+#: qcm/models.py:95
 msgid "Question body"
 msgstr "Corps de la question"
 
-#: qcm/models.py:90
+#: qcm/models.py:96
 msgid "Verbose description"
 msgstr "Description supplémentaire"
 
-#: qcm/models.py:132
+#: qcm/models.py:141
 msgid "Answer"
 msgstr "Réponse"
 
-#: qcm/models.py:135
+#: qcm/models.py:144
 msgid "Textual answer"
 msgstr "Réponse texte"
 
@@ -5745,6 +5735,10 @@ msgstr ""
 "        les entreprises, les institutions ou les particuliers qui souhaitent "
 "rejoindre notre\n"
 "        programme de parrainage"
+
+#: sponsor/templates/sponsor/index.html:28
+msgid "Become a sponsor"
+msgstr "Devenir sponsor"
 
 #: team/admin.py:8 team/admin.py:34 team/models.py:104
 msgid "Role"
@@ -6204,7 +6198,7 @@ msgstr ""
 
 #: users/templates/users/edit.html:32 users/templates/users/register.html:35
 msgid "our dedicated page."
-msgstr ""
+msgstr "notre page dédiée"
 
 #: users/templates/users/edit_password.html:13
 #: users/templates/users/edit_password.html:16
@@ -6448,15 +6442,15 @@ msgid ""
 "                %(role)s"
 msgstr "%(year)s ⋅ %(role)s"
 
-#: users/templates/users/profile.html:181
+#: users/templates/users/profile.html:182
 msgid "Account management"
 msgstr "Gestion du compte"
 
-#: users/templates/users/profile.html:190
+#: users/templates/users/profile.html:191
 msgid "Export your personal data"
 msgstr "Exporter vos données personnelles"
 
-#: users/templates/users/profile.html:194
+#: users/templates/users/profile.html:195
 msgid ""
 "\n"
 "            You can download an archive containing all your personal data, "
@@ -6468,11 +6462,11 @@ msgstr ""
 "Vous pouvez télécharger une archive contenant toutes vos données "
 "personnelles, comme prévu par le Droit à la portabilité (Art. 20 du RGPD)."
 
-#: users/templates/users/profile.html:213
+#: users/templates/users/profile.html:214
 msgid "Delete your account"
 msgstr "Supprimer votre compte"
 
-#: users/templates/users/profile.html:217
+#: users/templates/users/profile.html:218
 msgid ""
 "\n"
 "          You can delete your account and all associated personal data, as\n"
@@ -6483,7 +6477,7 @@ msgstr ""
 "Vous pouvez supprimer votre compte et toutes les données personnelles "
 "associées, comme prévu par votre Droit à la suppression (Art. 17 du RGPD)."
 
-#: users/templates/users/profile.html:222
+#: users/templates/users/profile.html:223
 msgid ""
 "\n"
 "              You cannot delete your account while participating to the\n"
@@ -6560,7 +6554,7 @@ msgid ""
 "  from Prologin."
 msgstr "a été désinscrit et ne recevra plus d'e-mails de Prologin."
 
-#: users/views.py:79
+#: users/views.py:85
 #, python-format
 msgid ""
 "Your account was created. We sent an email to %(mail)s so you can confirm "
@@ -6569,11 +6563,11 @@ msgstr ""
 "Votre compte a été créé. Nous avons envoyé un e-mail à %(mail)s pour que "
 "vous puissiez confirmer votre inscription."
 
-#: users/views.py:102
+#: users/views.py:108
 msgid "Your account was activated. Enjoy your visit!"
 msgstr "Votre compte est activé. Bonne visite&nbsp;!"
 
-#: users/views.py:107
+#: users/views.py:113
 #, python-format
 msgid ""
 "The activation link you provided is invalid or obsolete. If you created your "
@@ -6584,15 +6578,15 @@ msgstr ""
 "avez créé votre compte il y a plus de %(days)s jours, vous devez répéter "
 "l'opération. Vous pouvez utiliser les mêmes nom d'utilisateur et e-mail."
 
-#: users/views.py:184
+#: users/views.py:190
 msgid "Changes saved."
 msgstr "Modifications enregistrées."
 
-#: users/views.py:217 users/views.py:277
+#: users/views.py:223 users/views.py:283
 msgid "New password saved."
 msgstr "Mot de passe modifié."
 
-#: users/views.py:246
+#: users/views.py:252
 #, python-format
 msgid ""
 "You should receive an email at %(email)s in a few moments. Please follow the "
@@ -6601,11 +6595,11 @@ msgstr ""
 "Vous devriez recevoir un e-mail à %(email)s dans quelques instants. Veuillez "
 "suivre les instructions pour finaliser la réinitialisation du mot de passe."
 
-#: users/views.py:279
+#: users/views.py:285
 msgid "You have been automatically logged in."
 msgstr "Vous avez été connecté automatiquement."
 
-#: users/views.py:372
+#: users/views.py:378
 #, python-format
 msgid "Account %(username)s was deleted successfully."
 msgstr "Le compte %(username)s a été supprimé avec succès."
