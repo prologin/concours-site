@@ -278,7 +278,7 @@ class SubmissionCode(ExportModelOperationsMixin('submission_code'), models.Model
             'compile': {'mem': int(1e7),
                         'time': 20,
                         'wall-time': 60,
-                        'fsize': 4000},
+                        'fsize': 20000},
             'tests': list(build_tests()),
         }
         return request
