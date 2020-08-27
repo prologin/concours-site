@@ -66,7 +66,7 @@ pillow>=2.4
 # Postgres database connector
 psycopg2-binary>=2.5
 # Github-flavored Markdown
-py-gfm
+py-gfm==0.1.4
 # Code highlighting
 pygments>=2.0.2
 # Vimeo API
