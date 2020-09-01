@@ -2089,41 +2089,31 @@ msgstr ""
 "monde de la programmation et de l'algorithmique aux étudiants et de les "
 "confronter à des problèmes classiques et des challenges excitants."
 
-#: homepage/templates/homepage/homepage.html:24
-msgid ""
-"Due to the sanitary crisis, the final date will be announced later. Please "
-"read this <a href=\"https://prologin.org/news/A9S/\">news</a> for more "
-"information."
-msgstr ""
-"A cause de la crise sanitaire, la date de la finale sera annoncée "
-"ultérieurement. Nous vous invitons à lire cet <a href=\"https://prologin.org/"
-"news/A9S/\">article</a> pour plus d'informations."
-
-#: homepage/templates/homepage/homepage.html:41
+#: homepage/templates/homepage/homepage.html:31
 msgid "Latest news"
 msgstr "Dernières actualités"
 
-#: homepage/templates/homepage/homepage.html:43
-#: homepage/templates/homepage/homepage.html:82
+#: homepage/templates/homepage/homepage.html:33
+#: homepage/templates/homepage/homepage.html:72
 msgid "Browse all news"
 msgstr "Consulter toutes les actualités"
 
-#: homepage/templates/homepage/homepage.html:53
+#: homepage/templates/homepage/homepage.html:43
 #: news/templates/zinnia/_entry_detail_base.html:19
 msgid "Written by"
 msgstr "Rédigé par"
 
-#: homepage/templates/homepage/homepage.html:57
+#: homepage/templates/homepage/homepage.html:47
 #: news/templates/zinnia/_entry_detail_base.html:23
 #, python-format
 msgid "Show all %(author)s's entries"
 msgstr "Tous les articles de %(author)s"
 
-#: homepage/templates/homepage/homepage.html:59
+#: homepage/templates/homepage/homepage.html:49
 msgid "on"
 msgstr "le"
 
-#: homepage/templates/homepage/homepage.html:61
+#: homepage/templates/homepage/homepage.html:51
 msgid "Written on"
 msgstr "Rédigé le"
 
