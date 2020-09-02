@@ -29,13 +29,12 @@ services:
     depends_on:
       - prologin_site_db
   prologin_site_db:
-    image: postgres
+    image: postgres:alpine
     restart: always
     environment:
       POSTGRES_PASSWORD: whocareslol
       POSTGRES_USER: prologin
       PGDATA: /var/lib/postgresql/data/prologin
     volumes:
-      - type: bind
-        source: ${SITE_DB}
-        target: /var/lib/postgresql/data/prologin
+      - ./postgres-data:/var/lib/postgresql/data
+
