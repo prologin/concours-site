@@ -1231,6 +1231,14 @@ table.table-align-middle > tbody > tr > td {
     max-height: 10em;
 }
 
+.sponsor-gold {
+    display: flex;
+}
+
+.sponsor-gold > div {
+    margin: auto;
+}
+
 /* md breakpoint in bootstrap */
 @media (min-width: 992px) {
   .row.equal {
