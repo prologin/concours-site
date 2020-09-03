@@ -32,10 +32,14 @@
     {% for type,typed_sponsors in sponsors.items %}
       {% if typed_sponsors %}
         <h2>{% trans type %}</h2>
-        <div class="row">
+        {% if type == "Gold" %}
+          <div class="row">
+        {% else %}
+          <div class="row equal">
+        {% endif %}
         {% for sponsor in typed_sponsors %}
           {% if type == "Gold" %}
-            <div class="row panel">
+            <div class="row panel sponsor-gold">
               <div class="col-sm-6 col-md-3">
           {% else %}
             <div class="col-md-4">
