@@ -177,12 +177,13 @@ def cached(func, cache_setting_name, **kwargs):
 def admin_url_for(model_admin, obj, method='change', label=lambda e: str(e)):
     if obj is None:
         return model_admin.get_empty_value_display()
-    return format_html("<a href=\"{}\">{}</a>",
-        reverse('admin:{}_{}_{}'
-            .format(obj._meta.app_label, obj._meta.model_name, method),
-            args=[obj.pk]
-            ),
-        label(obj)
+    return format_html(
+        '<a href="{}">{}</a>',
+        reverse(
+            f'admin:{obj._meta.app_label}_{obj._meta.model_name}_{method}',
+            args=[obj.pk],
+        ),
+        label(obj),
     )
 
 
