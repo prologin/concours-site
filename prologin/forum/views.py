@@ -300,6 +300,9 @@ class DeletePostView(PermissionRequiredMixin, DeleteView):
     context_object_name = 'post'
 
     def get_success_url(self):
+        # it's the thread head, so when deleted, we redirect to the forum URL
+        if self.object.is_thread_head:
+            return self.object.thread.forum.get_absolute_url()
         return self.object.thread.get_absolute_url()
 
     def delete(self, request, *args, **kwargs):

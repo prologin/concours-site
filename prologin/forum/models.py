@@ -270,6 +270,13 @@ class Post(ExportModelOperationsMixin('post'), models.Model):
     def get_permalink(self):
         return reverse('forum:post', kwargs={'thread_slug': self.thread.slug, 'pk': self.pk})
 
+    def delete(self, **kwargs):
+        if self.is_thread_head:
+            # A thread with its original first post deleted makes no sense, so delete
+            # the thread itself when its first (head) post is deleted.
+            return self.thread.delete(**kwargs)
+        return super().delete(**kwargs)
+
 
 class ReadState(models.Model):
     thread = models.ForeignKey(Thread, related_name='read_states',
