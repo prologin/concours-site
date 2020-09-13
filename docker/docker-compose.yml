@@ -12,18 +12,18 @@ services:
       python manage.py runserver 0.0.0.0:8000
       '
     ports:
-      - "127.0.0.1:8000:8000"
+      - "127.0.0.1:8001:8000"
     volumes:
       - type: bind
-        source: "${SITE_SOURCE:-./}"
+        source: "${SITE_SOURCE:-../}"
         target: /var/prologin/site
         #read_only: true
       - type: bind
-        source: "${SITE_PROBLEMS:-../problems}"
+        source: "${SITE_PROBLEMS:-../../problems}"
         target: /var/prologin/problems
         read_only: true
       - type: bind
-        source: "${SITE_DOCUMENTS:-../documents}"
+        source: "${SITE_DOCUMENTS:-../../documents}"
         target: /var/prologin/documents
         read_only: true
     depends_on:

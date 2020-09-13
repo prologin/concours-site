@@ -1,8 +1,11 @@
 #!/bin/sh
 
 docker exec -it prologin_site sh -c '
-cd prologin
+cd prologin/assets
+npm install
+cd ..
 python manage.py migrate
+python manage.py collectstatic
 python manage.py createsuperuser
 python manage.py edition create
 '
