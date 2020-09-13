@@ -1,13 +1,12 @@
 #!/bin/sh
 
-docker-compose build
-docker-compose up -d
+docker-compose build && \
+docker-compose up -d && \
 docker exec -it prologin_site sh -c '
-cd prologin/assets
+cd assets
 npm install
-cd ..
-python manage.py migrate
-python manage.py collectstatic
-python manage.py createsuperuser
-python manage.py edition create
-'
+' && \
+docker exec -it prologin_site python prologin/manage.py migrate && \
+docker exec -it prologin_site python prologin/manage.py collectstatic && \
+docker exec -it prologin_site python prologin/manage.py createsuperuser && \
+docker exec -it prologin_site python prologin/manage.py edition create

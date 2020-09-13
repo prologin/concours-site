@@ -7,7 +7,7 @@ RUN apt install -y python3 python3-venv python3-pip npm imagemagick \
 
 RUN mkdir -p /var/prologin/site
 
-COPY ../requirements.txt requirements.txt
+COPY requirements.txt requirements.txt
 RUN pip3 install -r requirements.txt
 
 

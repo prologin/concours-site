@@ -1,7 +1,9 @@
 version: "3.5"
 services:
   prologin_site:
-    build: ./
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
     image: prologin_site
     container_name: prologin_site
     environment:
@@ -12,7 +14,7 @@ services:
       python manage.py runserver 0.0.0.0:8000
       '
     ports:
-      - "127.0.0.1:8001:8000"
+      - "127.0.0.1:8000:8000"
     volumes:
       - type: bind
         source: "${SITE_SOURCE:-../}"
@@ -31,6 +33,7 @@ services:
   prologin_site_db:
     image: postgres:alpine
     restart: always
+    container_name: prologin_site_db
     environment:
       POSTGRES_PASSWORD: whocareslol
       POSTGRES_USER: prologin
