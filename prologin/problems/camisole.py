@@ -1,5 +1,7 @@
 import logging
 import requests
+import contextlib
+from contextlib import ExitStack
 from django.utils.encoding import force_text
 
 from problems.models import SubmissionCode
@@ -9,7 +11,48 @@ from prologin.utils import msgpack_dumps, msgpack_loads
 logger = logging.getLogger(__name__)
 
 
-def test_passes(reference: Test, test: dict):
+
+def is_custom_check_valid(test: Test, output, custom_check, **kwargs) -> bool:
+    """
+    Check if a given `test` passes against `output` using the custom
+    checker.
+    **kwargs are passed verbatim to subprocess.check_call().
+
+    May raise FileNotFoundError if checker program is not available.
+    May raise other I/O errors if checker program fails at runtime.
+    """
+
+    @contextlib.contextmanager
+    def filename_for(data):
+        # already a file-like object: return its name
+        if hasattr(data, 'read') and hasattr(data, 'name'):
+            data.seek(0)
+            yield data.name
+            return
+        # source string: store it in a temporary file
+        f = tempfile.NamedTemporaryFile(mode='w')
+        f.write(data)
+        f.flush()
+        yield f.name
+        # this will delete the temp file
+        f.close()
+
+    with ExitStack() as stack:
+        # the checker program needs file paths as inputs;
+        # create them using temporary files
+        their_out_f, our_in_f, our_out_f = (
+            stack.enter_context(filename_for(data))
+            for data in (output, test.input, test.output))
+        cmd = [str(custom_check), their_out_f, our_in_f, our_out_f]
+        try:
+            subprocess.check_call(
+                cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                **kwargs)
+            return True
+        except subprocess.SubprocessError:
+            return False
+
+def test_passes(reference: Test, test: dict, custom_check = None ):
     """
     Defines what is a successful test:
 
@@ -19,6 +62,8 @@ def test_passes(reference: Test, test: dict):
     """
     # assume UnicodeDecode errors as contestant's garbage output
     stdout = force_text(test['stdout'], strings_only=False, errors='replace').strip()
+    if custom_check is not None:
+        return is_custom_check_valid(reference, stdout, custom_check)
     return (test['exitcode'] == 0 and
             test['meta']['status'] == 'OK' and
             stdout == reference.stdout.strip())
