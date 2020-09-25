@@ -1,6 +1,8 @@
+import contextlib
 import logging
 import requests
-import contextlib
+import subprocess
+import tempfile
 from contextlib import ExitStack
 from django.utils.encoding import force_text
 
@@ -42,8 +44,8 @@ def is_custom_check_valid(test: Test, output, custom_check, **kwargs) -> bool:
         # create them using temporary files
         their_out_f, our_in_f, our_out_f = (
             stack.enter_context(filename_for(data))
-            for data in (output, test.input, test.output))
-        cmd = [str(custom_check), their_out_f, our_in_f, our_out_f]
+            for data in (output, test.stdin, test.stdout))
+        cmd = [custom_check, their_out_f, our_in_f, our_out_f]
         try:
             subprocess.check_call(
                 cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
@@ -52,7 +54,7 @@ def is_custom_check_valid(test: Test, output, custom_check, **kwargs) -> bool:
         except subprocess.SubprocessError:
             return False
 
-def test_passes(reference: Test, test: dict, custom_check = None ):
+def test_passes(reference: Test, test: dict, custom_check = None):
     """
     Defines what is a successful test:
 
@@ -62,6 +64,7 @@ def test_passes(reference: Test, test: dict, custom_check = None ):
     """
     # assume UnicodeDecode errors as contestant's garbage output
     stdout = force_text(test['stdout'], strings_only=False, errors='replace').strip()
+
     if custom_check is not None:
         return is_custom_check_valid(reference, stdout, custom_check)
     return (test['exitcode'] == 0 and
@@ -88,6 +91,8 @@ def get_score(problem: Problem, result: dict):
         # no tests
         return 0
 
+    custom_check = problem.custom_check
+
     total_correction = total_performance = passed_correction = passed_performance = 0
     for test in result['tests']:
         if not test:
@@ -95,11 +100,11 @@ def get_score(problem: Problem, result: dict):
         ref = reference_tests[test['name']]
         if ref.type is TestType.performance:
             total_performance += 1
-            if test_passes(ref, test):
+            if test_passes(ref, test, custom_check):
                 passed_performance += 1
         elif ref.type is TestType.correction:
             total_correction += 1
-            if test_passes(ref, test):
+            if test_passes(ref, test, custom_check):
                 passed_correction += 1
 
     if not total_correction:

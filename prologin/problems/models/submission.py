@@ -123,6 +123,7 @@ class Result:
             references = problem.tests
             ref_dict = {ref.name: ref for ref in references}
             test_dict = {test['name']: test for test in tests if test}
+            custom_check = problem.custom_check
 
             for ref in references:
                 is_corr = ref.type is TestType.correction
@@ -133,7 +134,7 @@ class Result:
                     storage.append(Result.SkippedTest(ref.name))
                     continue
 
-                test_ok = test_passes(ref_dict[test['name']], test)
+                test_ok = test_passes(ref_dict[test['name']], test, custom_check)
                 storage.append(Result.Test(data=test, reference=ref, test_passes=test_ok))
                 if not test_ok and problem.stop_early:
                     skipped = True

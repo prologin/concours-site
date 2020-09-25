@@ -390,3 +390,9 @@ class Problem:
                 pass
         return samples
     samples = lazy_attr('_samples_', _get_samples)
+
+    @property
+    def custom_check(self) -> str:
+        if self.properties.get('custom-check') is not None:
+            return self.file_path(self.properties.get('custom-check'))
+        return None
