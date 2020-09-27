@@ -32,12 +32,10 @@ def is_custom_check_valid(test: Test, output, custom_check, **kwargs) -> bool:
             yield data.name
             return
         # source string: store it in a temporary file
-        f = tempfile.NamedTemporaryFile(mode='w')
-        f.write(data)
-        f.flush()
-        yield f.name
-        # this will delete the temp file
-        f.close()
+        with tempfile.NamedTemporaryFile(mode='w') as f:
+            f.write(data)
+            f.flush()
+            yield f.name
 
     with ExitStack() as stack:
         # the checker program needs file paths as inputs;
