@@ -21,8 +21,8 @@ RECAPTCHA_PRIVATE_KEY = ''
 
 
 # Celery
-CELERY_BROKER_URL = "redis://prologin_redis:6379/0"
-CELERY_RESULT_BACKEND = "redis://prologin_redis:6379/0"
+BROKER_URL = "redis://prologin_redis:6379/0"
+CELERY_RESULT_BACKEND = BROKER_URL
 
 # Required by the documents module:
 DOCUMENTS_REPOSITORY_PATH = '/var/prologin/documents'
