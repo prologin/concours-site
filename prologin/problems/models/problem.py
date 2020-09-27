@@ -4,6 +4,7 @@ import re
 from collections import namedtuple
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist
+from typing import Optional
 
 from contest.models import Event
 from prologin.languages import Language
@@ -390,3 +391,9 @@ class Problem:
                 pass
         return samples
     samples = lazy_attr('_samples_', _get_samples)
+
+    @property
+    def custom_check(self) -> Optional[str]:
+        if self.properties.get('custom-check') is not None:
+            return self.file_path(self.properties.get('custom-check'))
+        return None
