@@ -13,11 +13,16 @@ ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '::1', 'localhost']
 SITE_HOST = "localhost:8000"
 
 # Mandatory settings:
-PROLOGIN_EDITION = (datetime.now().year + 1)
+PROLOGIN_EDITION = 2021
 PROBLEMS_REPOSITORY_PATH = '/var/prologin/problems'
-PROBLEMS_CORRECTORS = ()
+PROBLEMS_CORRECTORS = ("http://vm.prologin.org/run",)
 RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
+
+
+# Celery
+CELERY_BROKER_URL = "redis://prologin_redis:6379/0"
+CELERY_RESULT_BACKEND = "redis://prologin_redis:6379/0"
 
 # Required by the documents module:
 DOCUMENTS_REPOSITORY_PATH = '/var/prologin/documents'

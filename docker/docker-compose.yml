@@ -40,4 +40,36 @@ services:
       PGDATA: /var/lib/postgresql/data/prologin
     volumes:
       - ./postgres-data:/var/lib/postgresql/data
-
+  prologin_celery_worker:
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    image: prologin_site
+    environment:
+      DJANGO_SETTINGS_MODULE: prologin.settings.docker_dev
+      C_FORCE_ROOT: 1
+    container_name: prologin_celery_worker
+    command: |
+      sh -c '
+      cd prologin
+      celery -l debug -A prologin worker -Q prolosite
+      '
+    volumes:
+      - type: bind
+        source: "${SITE_SOURCE:-../}"
+        target: /var/prologin/site
+        #read_only: true
+      - type: bind
+        source: "${SITE_PROBLEMS:-../../problems}"
+        target: /var/prologin/problems
+        read_only: true
+      - type: bind
+        source: "${SITE_DOCUMENTS:-../../documents}"
+        target: /var/prologin/documents
+        read_only: true
+    depends_on:
+      - prologin_site_db
+      - prologin_redis
+  prologin_redis:
+    image: redis:alpine
+    container_name: prologin_redis
