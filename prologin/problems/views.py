@@ -233,6 +233,7 @@ class Problem(PermissionRequiredMixin, CreateView):
                                    .order_by('date_submitted')
                                    .last())
         context['user_submission'] = user_submission
+
         context['previous_submission'] = previous_submission
 
         # load forked submission if wanted, and if everything is fine (right user)

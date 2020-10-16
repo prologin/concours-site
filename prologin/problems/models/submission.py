@@ -16,6 +16,7 @@ from prologin.languages import Language
 from prologin.models import CodingLanguageField
 from prologin.utils.db import MsgpackField
 from prologin.utils.rec_truncate import rec_truncate
+from contest.models import Event
 
 
 class Result:
@@ -178,12 +179,16 @@ class Submission(ExportModelOperationsMixin('submission'), models.Model):
         return self.codes.filter(score__gt=0).earliest()
 
     def score(self):
+        if (self.challenge_model().event_type == Event.Type.qualification):
+            return self.score_base
         return max(0, self.score_base - self.malus)
 
     def succeeded(self):
         return self.score_base > 0
 
     def has_malus(self):
+        if (self.challenge_model().event_type == Event.Type.qualification):
+            return False
         return self.malus > 0
 
     def __str__(self):

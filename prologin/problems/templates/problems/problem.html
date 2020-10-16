@@ -75,7 +75,11 @@
         {% if request.user.is_authenticated %}
           {% if user_submission.succeeded %}
             <div class="alert alert-success"><i class="fa fa-check"></i>
+            {% if user_submission.has_malus %}
               <div>{% blocktrans with score=user_submission.score base=user_submission.score_base malus=user_submission.malus %}You already solved this problem. You won <strong>{{ score }}</strong> points for it, which is {{ base }} base points minus {{ malus }} malus points.{% endblocktrans %}</div></div>
+            {% else %}
+              <div>{% blocktrans with score=user_submission.score %}You already solved this problem. You won <strong>{{ score }}</strong> points for it.{% endblocktrans %}</div></div>
+            {% endif %}
           {% endif %}
 
           {% if form.errors %}<p class="text-danger" style="padding: 0 15px;">
