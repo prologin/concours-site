@@ -46,7 +46,7 @@ def is_custom_check_valid(test: Test, output, custom_check, **kwargs) -> bool:
         cmd = [custom_check, their_out_f, our_in_f, our_out_f]
         try:
             subprocess.check_call(
-                cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                cmd, #stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
                 **kwargs)
             return True
         except subprocess.SubprocessError:
@@ -64,7 +64,9 @@ def test_passes(reference: Test, test: dict, custom_check = None):
     stdout = force_text(test['stdout'], strings_only=False, errors='replace').strip()
 
     if custom_check is not None:
-        return is_custom_check_valid(reference, stdout, custom_check)
+        return (test['exitcode'] == 0 and
+            test['meta']['status'] == 'OK' and
+            is_custom_check_valid(reference, stdout, custom_check))
     return (test['exitcode'] == 0 and
             test['meta']['status'] == 'OK' and
             stdout == reference.stdout.strip())
