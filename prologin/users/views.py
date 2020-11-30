@@ -289,17 +289,12 @@ class PasswordResetConfirmView(AnonymousRequiredMixin, PasswordFormMixin, Update
 class UnsubscribeView(View):
     def get_user_token(self, req_params):
         try:
-            user_id = req_params['uid']
+            user_id = int(req_params['uid'])
             token = req_params['token']
-        except KeyError:
+        except (KeyError, ValueError):
             raise Http404()
-        User = auth.get_user_model()
-        
-        try:
-            int(user_id)
-        except ValueError:
-            raise Http404('Invalid user id')
 
+        User = auth.get_user_model()
         u = get_object_or_404(User, pk=user_id)
         if not compare_digest(token, u.unsubscribe_token):
             raise Http404()
