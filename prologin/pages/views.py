@@ -68,6 +68,13 @@ class AboutHistoryView(generic.TemplateView):
 class AboutContestRulesView(generic.TemplateView):
     template_name = 'pages/about-contest-rules.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['edition'] = settings.PROLOGIN_EDITION
+        context['born_year'] = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
+        return context
+
+
 
 class AboutContributeView(generic.TemplateView):
     template_name = 'pages/about-contribute.html'
