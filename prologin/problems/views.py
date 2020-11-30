@@ -211,7 +211,8 @@ class Problem(PermissionRequiredMixin, CreateView):
         context['templatable_languages'] = list(problem.language_templates.keys())
 
         tackled_by = list(problems.models.Submission.objects.filter(challenge=challenge.name,
-                                                                    problem=problem.name))
+                                                                    problem=problem.name,
+                                                                    user__is_staff=False))
         context['meta_tackled_by'] = len(tackled_by)
         # Could also be written tackled_by.filter(score__gt=0).count() but
         # 1. would do two queries 2. would fail if succeeded() impl changes
