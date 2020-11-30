@@ -294,6 +294,12 @@ class UnsubscribeView(View):
         except KeyError:
             raise Http404()
         User = auth.get_user_model()
+        
+        try:
+            int(user_id)
+        except ValueError:
+            raise Http404('Invalid user id')
+
         u = get_object_or_404(User, pk=user_id)
         if not compare_digest(token, u.unsubscribe_token):
             raise Http404()
