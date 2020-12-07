@@ -62,7 +62,7 @@
             </dd>
             {% if sample.comment %}
               <dt>{% trans "Note" %}</dt>
-              <dd class="tex2jax_process">{{ sample.comment|flavored_markdown }}</dd>
+              <dd class="tex2jax_process">{{ sample.comment|flavored_markdown:False }}</dd>
             {% endif %}
           </dl>
         {% endfor %}
