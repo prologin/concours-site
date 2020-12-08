@@ -7,6 +7,8 @@ prologin/prologin/settings/semifinal.py
 
 prologin/locale
 
+docker/postgres-data
+
 .idea/
 venv/
 *.swp
