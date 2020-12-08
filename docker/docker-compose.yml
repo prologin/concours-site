@@ -52,7 +52,7 @@ services:
     command: |
       sh -c '
       cd prologin
-      celery -l debug -A prologin worker -Q prolosite
+      celery -A prologin worker -l DEBUG -Q prolosite
       '
     volumes:
       - type: bind
