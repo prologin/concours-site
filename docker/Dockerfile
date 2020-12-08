@@ -1,9 +1,12 @@
 FROM python:3.8-slim-buster
 
-# requirements.txt
 RUN apt update
-RUN apt install -y python3 python3-venv python3-pip npm imagemagick \
-    redis-server texlive git
+RUN apt install -y python3 python3-venv python3-pip \
+    npm imagemagick \
+    redis-server \
+    texlive \
+    git \
+    gettext
 
 RUN mkdir -p /var/prologin/site
 
