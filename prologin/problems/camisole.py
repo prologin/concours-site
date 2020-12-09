@@ -94,14 +94,17 @@ def get_score(problem: Problem, result: dict):
     custom_check = problem.custom_check
 
     total_correction = total_performance = passed_correction = passed_performance = 0
+    failed_perf = False
     for test in result['tests']:
         if not test:
             continue
         ref = reference_tests[test['name']]
         if ref.type is TestType.performance:
             total_performance += 1
-            if test_passes(ref, test, custom_check):
+            if test_passes(ref, test, custom_check) and not failed_perf:
                 passed_performance += 1
+            else:
+                failed_perf = True
         elif ref.type is TestType.correction:
             total_correction += 1
             if test_passes(ref, test, custom_check):
