@@ -32,7 +32,7 @@ services:
       - prologin_site_db
   prologin_site_db:
     image: postgres:alpine
-    restart: always
+    restart: on-failure
     container_name: prologin_site_db
     environment:
       POSTGRES_PASSWORD: whocareslol
