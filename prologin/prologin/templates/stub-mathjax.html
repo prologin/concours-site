@@ -1,23 +1,27 @@
 {% load staticfiles i18n utils %}{% get_current_language as langcode %}
-<script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    extensions: ["tex2jax.js"],
-    jax: ["input/TeX", "output/HTML-CSS", "output/PlainSource"],
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      displayMath: [ ['$$','$$'], ["\\[","\\]"] ],
-      processEscapes: true
-    },
-    "HTML-CSS": { availableFonts: ["TeX"], scale: 85 },
-    showMathMenu: true,
-    MathMenu: {
-      showLocale: false,
-      showRenderer: false,
-      showFontMenu: false,
-    },
-    menuSettings: {
-      locale: '{{ langcode }}',
-    },
-  });
+<script>
+    window.MathJax = {
+        tex: {
+            inlineMath: [['$', '$'], ["\\(", "\\)"]],
+            displayMath: [['$$', '$$'], ["\\[", "\\]"]],
+            processEscapes: true,
+            autoload: {
+                color: [],
+                colorv2: ['color']
+            },
+            packages: { '[+]': ['noerrors'] }
+        },
+        chtml: {
+            scale: 0.85
+        },
+        options: {
+            enableMenu: true,
+            ignoreHtmlClass: 'tex2jax_ignore',
+            processHtmlClass: 'tex2jax_process'
+        },
+        loader: {
+            load: ['[tex]/noerrors']
+        }
+    };
 </script>
-<script type="text/javascript" src="{% static 'vendor/mathjax/MathJax.js' %}?config=TeX-AMS-MML_HTMLorMML"></script>
+<script type="text/javascript" src="{% static 'vendor/mathjax/es5/tex-mml-chtml.js' %}" id="MathJax-script"></script>
