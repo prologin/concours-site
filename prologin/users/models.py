@@ -6,9 +6,10 @@ import os
 import requests
 from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractUser, UserManager
+from django.contrib.auth.models import AbstractUser, UserManager, Group
 from django.contrib.auth.signals import user_logged_in
 from django.contrib.sites.models import Site
+from django.core.exceptions import ObjectDoesNotExist
 from django.db.models import Q
 from django.urls import reverse
 from django.db import models, transaction
@@ -21,7 +22,7 @@ from hijack.signals import hijack_started, hijack_ended
 from timezone_field import TimeZoneField
 from massmailer import register_enum
 
-from contest.models import Assignation, Event
+from contest.models import Assignation, Contestant, Event
 from prologin.languages import Language
 from prologin.models import (AddressableModel, GenderField,
                              CodingLanguageField, EnumField, ChoiceEnum)
@@ -346,6 +347,67 @@ class AuthToken(models.Model):
             "expires": self.expiration_datetime(),
             "user": self.user_dict(),
         }
+
+class OpenIDClientPolicy(models.Model):
+    openid_client = models.OneToOneField(to='oidc_provider.Client', on_delete=models.CASCADE, primary_key=True)
+    allow_groups = models.ManyToManyField(
+        to=Group, 
+        blank=True,
+        help_text='If not blank, represents the groups allowed to login through this client.')
+    allow_staff = models.BooleanField(help_text='Allow staff users to login through this client.', default=False)
+    allow_assigned_semifinal = models.BooleanField(
+        help_text='Allow contestants of the current edition assigned to semifinal to login through this client.',
+        default=False,
+    )
+    allow_assigned_semifinal_event = models.ForeignKey(
+        to='contest.Event',
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        help_text='Allow contestants of the current edition assigned to the selected semifinal event to login through this client.',
+        limit_choices_to={'type': 1, 'edition': settings.PROLOGIN_EDITION},
+    )
+    allow_assigned_final = models.BooleanField(
+        help_text='Allow contestants of the current edition assigned to final to login through this client.',
+        default=False,
+    )
+
+    class Meta:
+        verbose_name = 'OpenID Client Policy'
+        verbose_name_plural = 'OpenID Client Policies'
+
+    def __str__(self):
+        return self.openid_client.name
+    
+    def is_user_allowed(self, user):
+        """
+        this function takes an instance of ProloginUser as argument
+        and returns True if user is allowed to use the client or
+        False if the user is not allowed to use the client
+        """
+        if (
+                user.is_superuser or 
+                (self.allow_staff and user.is_staff) or 
+                user.groups.filter(pk__in=self.allow_groups.all())
+            ):
+            return True
+        
+        contestant = None
+        try:
+            contestant = Contestant.objects.get(edition=settings.PROLOGIN_EDITION, user=user)
+        except ObjectDoesNotExist:
+            return False
+        
+        if (
+                (self.allow_assigned_semifinal and contestant.assignation_semifinal == 2) or
+                (self.allow_assigned_final and contestant.assignation_final == 2) or
+                (self.allow_assigned_semifinal_event == contestant.assignation_semifinal_event != None)
+            ):
+            return True
+                
+        return False
+
+
 
 
 def search_users(query, qs=None, throw=False):

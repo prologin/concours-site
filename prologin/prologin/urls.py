@@ -77,6 +77,9 @@ urlpatterns = [
 
     # Monitoring
     path('', include('django_prometheus.urls')),
+
+    # OpenID Connect Provider
+    path('openid/', include('oidc_provider.urls', namespace='oidc_provider')),
 ]
 
 if settings.DEBUG:

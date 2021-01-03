@@ -78,6 +78,7 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'massmailer',
     'zinnia',
+    'oidc_provider',
 
     # Debug Toolbar (will not load if DEBUG = False)
     'debug_toolbar',
@@ -399,3 +400,7 @@ ZINNIA_UPLOAD_TO = 'upload/zinnia'
 # Facebook
 
 FACEBOOK_GRAPH_API_ACCESS_TOKEN = ""
+
+# Django OpenID Connect Provider
+OIDC_EXTRA_SCOPE_CLAIMS = 'users.oidc_scopes.ProloginScopeClaims'
+OIDC_AFTER_USERLOGIN_HOOK = 'users.oidc_authz.authorize'

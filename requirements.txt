@@ -88,3 +88,6 @@ pyparsing>=2.3.1
 
 # MySQL database connector (for Drupal legacy) (uncomment if needed)
 # mysqlclient
+
+# Django OpenID Connect Provider
+django-oidc-provider
