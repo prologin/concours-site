@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 19:38+0200\n"
-"PO-Revision-Date: 2020-04-30 06:54+0000\n"
+"POT-Creation-Date: 2021-01-08 20:09+0100\n"
+"PO-Revision-Date: 2020-05-10 18:14+0000\n"
 "Last-Translator: Valentin Seux <valentin.seux@prologin.org>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
 "language/fr/)\n"
@@ -3458,7 +3458,7 @@ msgstr ""
 "<p class=\"text-justify\">Le but de Prologin est de permettre à de jeunes "
 "passionnés d'informatique de se rencontrer et de se mesurer les uns aux "
 "autres. En effet, \n"
-"l'apprentissage de l'informatique est sous representé dans les écoles "
+"l'apprentissage de l'informatique est sous représenté dans les écoles "
 "françaises. Par conséquent, ceux qui la pratiquent sont\n"
 "souvent autodidactes et en ont une expérience individuelle. Cependant, "
 "n'importe quel projet important demande du travail d'équipe. C'est \n"
@@ -3744,6 +3744,25 @@ msgid "Data Recipients"
 msgstr "Destinataires des données"
 
 #: prologin/pages/templates/pages/about-privacy-policy.html:99
+#, fuzzy
+#| msgid ""
+#| "\n"
+#| "#### Categories of Recipients\n"
+#| "\n"
+#| "Taking into account their respective needs, the following are a recipient "
+#| "of all or any parts of the data:\n"
+#| "\n"
+#| "*   authorized members of Prologin;\n"
+#| "*   authorized members of Prologin partners and/or sub-contractors;\n"
+#| "*   emergency services if needed.)\n"
+#| "\n"
+#| "#### Data Transfers Outside of EU\n"
+#| "\n"
+#| "Data transfers outside the European Union may take place (partner in "
+#| "Switzerland for the organization of a regional event). This is only "
+#| "applicable for Prologin candidates participating in regional events in "
+#| "Switzerland.\n"
+#| "        "
 msgid ""
 "\n"
 "#### Categories of Recipients\n"
@@ -3753,14 +3772,15 @@ msgid ""
 "\n"
 "*   authorized members of Prologin;\n"
 "*   authorized members of Prologin partners and/or sub-contractors;\n"
-"*   emergency services if needed.)\n"
+"*   emergency services if needed.\n"
 "\n"
 "#### Data Transfers Outside of EU\n"
 "\n"
-"Data transfers outside the European Union may take place (partner in "
-"Switzerland for the organization of a regional event). This is only "
-"applicable for Prologin candidates participating in regional events in "
-"Switzerland.\n"
+"Des transferts de données en dehors de l'Union Européenne peuvent avoir lieu "
+"(vers un partenaire en Suisse pour l'organisation de l'épreuve régionale "
+"correspondante le cas échéant, et vers Google dans le monde entier). Google "
+"et Prologin se reposent sur les clauses contractuelles type prévues par la "
+"Commission Européenne et disponibles sur son site internet.\n"
 "        "
 msgstr ""
 "\n"
@@ -5425,17 +5445,23 @@ msgstr "Prologin sur Facebook"
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: prologin/prologin/templates/prologin/main-footer.html:53
+#: prologin/prologin/templates/prologin/main-footer.html:51
+#, fuzzy
+#| msgid "Prologin on Twitter"
+msgid "Prologin on LinkedIn"
+msgstr "Prologin sur Twitter"
+
+#: prologin/prologin/templates/prologin/main-footer.html:59
 #: prologin/semifinal/templates/prologin/main-footer.html:12
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: prologin/prologin/templates/prologin/main-footer.html:66
+#: prologin/prologin/templates/prologin/main-footer.html:72
 #: prologin/semifinal/templates/prologin/main-footer.html:25
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prologin/prologin/templates/prologin/main-footer.html:69
+#: prologin/prologin/templates/prologin/main-footer.html:75
 #: prologin/semifinal/templates/prologin/main-footer.html:28
 #, python-format
 msgid ""
@@ -6809,7 +6835,7 @@ msgstr ""
 msgid "You have been automatically logged in."
 msgstr "Vous avez été connecté automatiquement."
 
-#: prologin/users/views.py:378
+#: prologin/users/views.py:379
 #, python-format
 msgid "Account %(username)s was deleted successfully."
 msgstr "Le compte %(username)s a été supprimé avec succès."
@@ -6817,3 +6843,12 @@ msgstr "Le compte %(username)s a été supprimé avec succès."
 #: prologin/users/widgets.py:8
 msgid "Upload new image"
 msgstr "Envoyer une nouvelle image"
+
+#~ msgid ""
+#~ "Due to the sanitary crisis, the final date will be announced later. "
+#~ "Please read this <a href=\"https://prologin.org/news/A9S/\">news</a> for "
+#~ "more information."
+#~ msgstr ""
+#~ "A cause de la crise sanitaire, la date de la finale sera annoncée "
+#~ "ultérieurement. Nous vous invitons à lire cet <a href=\"https://prologin."
+#~ "org/news/A9S/\">article</a> pour plus d'informations."
