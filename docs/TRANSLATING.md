@@ -30,7 +30,7 @@ En développant le site, vous allez naturellement créer de nouveaux textes qu'i
 ### Préliminaires
 
 1.  Vous devez tout d'abord demander à un `MANAGER` (Zopieux) l'accès `MAINTAINER` sur Transifex afin d'avoir le droit d'update les fichiers sources.
-2.  Créez `~/.transifexrc` contenant :  
+2.  Créez `~/.transifexrc` contenant :
 
         [https://www.transifex.com]
         hostname = https://www.transifex.com
@@ -47,12 +47,10 @@ Une fois cela fait, vu que Zopieux est génial et que vous possédez make(1), la
 Vous avez écrit/modifié des `{% trans "foo" %}` ou des `_("bar")`.
 
 1.  Relisez-vous pour éviter de faire traduire des cochonneries par les autres, c'est du temps perdu.
-2.  Dans la racine de prologin-site :  
+2.  Régénérez les fichiers .po (`django-admin makemessages`)
+3.  Commit -> push -> pull request
+4.  Traduisez sur Transifex
 
-        $ make tx-push
+### Cas de figure : les traductions ont avancé, je les veux en local ou en production
 
-### Cas de figure : les traductions ont avancé, je les veux en local
-
-1.  Dans la racine de prologin-site :  
-
-        $ make tx-pull
+`make tx-pull` (à la racine du projet)

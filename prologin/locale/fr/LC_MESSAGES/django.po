@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-27 19:38+0200\n"
-"PO-Revision-Date: 2020-04-30 06:54+0000\n"
+"POT-Creation-Date: 2021-01-08 20:09+0100\n"
+"PO-Revision-Date: 2020-05-10 18:14+0000\n"
 "Last-Translator: Valentin Seux <valentin.seux@prologin.org>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
 "language/fr/)\n"
@@ -3458,7 +3458,7 @@ msgstr ""
 "<p class=\"text-justify\">Le but de Prologin est de permettre à de jeunes "
 "passionnés d'informatique de se rencontrer et de se mesurer les uns aux "
 "autres. En effet, \n"
-"l'apprentissage de l'informatique est sous representé dans les écoles "
+"l'apprentissage de l'informatique est sous représenté dans les écoles "
 "françaises. Par conséquent, ceux qui la pratiquent sont\n"
 "souvent autodidactes et en ont une expérience individuelle. Cependant, "
 "n'importe quel projet important demande du travail d'équipe. C'est \n"
@@ -3753,14 +3753,15 @@ msgid ""
 "\n"
 "*   authorized members of Prologin;\n"
 "*   authorized members of Prologin partners and/or sub-contractors;\n"
-"*   emergency services if needed.)\n"
+"*   emergency services if needed.\n"
 "\n"
 "#### Data Transfers Outside of EU\n"
 "\n"
-"Data transfers outside the European Union may take place (partner in "
-"Switzerland for the organization of a regional event). This is only "
-"applicable for Prologin candidates participating in regional events in "
-"Switzerland.\n"
+"Des transferts de données en dehors de l'Union Européenne peuvent avoir lieu "
+"(vers un partenaire en Suisse pour l'organisation de l'épreuve régionale "
+"correspondante le cas échéant, et vers Google dans le monde entier). Google "
+"et Prologin se reposent sur les clauses contractuelles type prévues par la "
+"Commission Européenne et disponibles sur son site internet.\n"
 "        "
 msgstr ""
 "\n"
@@ -4019,18 +4020,6 @@ msgid "The practical test"
 msgstr "L'épreuve sur machine"
 
 #: prologin/pages/templates/pages/about-semifinals.html:47
-#, fuzzy
-#| msgid ""
-#| "The practical test lasts four hours. Every contestant\n"
-#| "    works on algorithmic exercises on a computer. A judging program "
-#| "evaluates\n"
-#| "    the code submissions of the contestant. The goal of this test is to "
-#| "check\n"
-#| "    that the contestant is able to code a program on a computer (choose "
-#| "an\n"
-#| "    algorithm, implement it in a programming language, test it and debug "
-#| "it).\n"
-#| "    "
 msgid ""
 "The practical test lasts three and a half hours. Every\n"
 "    contestant works on algorithmic exercises on a computer. A judging "
@@ -4088,8 +4077,6 @@ msgid "Free lunch"
 msgstr "Repas offert"
 
 #: prologin/pages/templates/pages/about-semifinals.html:96
-#, fuzzy
-#| msgid "Algorithmic exercises on computer (4h)"
 msgid "Algorithmic exercises on computer (3h30)"
 msgstr "Épreuve machine (4h)"
 
@@ -4119,10 +4106,6 @@ msgstr ""
 "difficiles de l'épreuve écrite."
 
 #: prologin/pages/templates/pages/about-semifinals.html:109
-#, fuzzy
-#| msgid ""
-#| "The day continues with the practical test, which lasts\n"
-#| "    four hours, and ends at 5:30 PM."
 msgid ""
 "The day continues with the practical test, which lasts\n"
 "    three and a half hours, and ends at 5:30 PM."
@@ -5425,17 +5408,21 @@ msgstr "Prologin sur Facebook"
 msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
-#: prologin/prologin/templates/prologin/main-footer.html:53
+#: prologin/prologin/templates/prologin/main-footer.html:51
+msgid "Prologin on LinkedIn"
+msgstr "Prologin sur Twitter"
+
+#: prologin/prologin/templates/prologin/main-footer.html:59
 #: prologin/semifinal/templates/prologin/main-footer.html:12
 msgid "Change locale"
 msgstr "Changer la langue"
 
-#: prologin/prologin/templates/prologin/main-footer.html:66
+#: prologin/prologin/templates/prologin/main-footer.html:72
 #: prologin/semifinal/templates/prologin/main-footer.html:25
 msgid "Apply"
 msgstr "Appliquer"
 
-#: prologin/prologin/templates/prologin/main-footer.html:69
+#: prologin/prologin/templates/prologin/main-footer.html:75
 #: prologin/semifinal/templates/prologin/main-footer.html:28
 #, python-format
 msgid ""
@@ -6809,7 +6796,7 @@ msgstr ""
 msgid "You have been automatically logged in."
 msgstr "Vous avez été connecté automatiquement."
 
-#: prologin/users/views.py:378
+#: prologin/users/views.py:379
 #, python-format
 msgid "Account %(username)s was deleted successfully."
 msgstr "Le compte %(username)s a été supprimé avec succès."
