@@ -3744,25 +3744,6 @@ msgid "Data Recipients"
 msgstr "Destinataires des données"
 
 #: prologin/pages/templates/pages/about-privacy-policy.html:99
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "#### Categories of Recipients\n"
-#| "\n"
-#| "Taking into account their respective needs, the following are a recipient "
-#| "of all or any parts of the data:\n"
-#| "\n"
-#| "*   authorized members of Prologin;\n"
-#| "*   authorized members of Prologin partners and/or sub-contractors;\n"
-#| "*   emergency services if needed.)\n"
-#| "\n"
-#| "#### Data Transfers Outside of EU\n"
-#| "\n"
-#| "Data transfers outside the European Union may take place (partner in "
-#| "Switzerland for the organization of a regional event). This is only "
-#| "applicable for Prologin candidates participating in regional events in "
-#| "Switzerland.\n"
-#| "        "
 msgid ""
 "\n"
 "#### Categories of Recipients\n"
@@ -5446,8 +5427,6 @@ msgid "Prologin on Twitter"
 msgstr "Prologin sur Twitter"
 
 #: prologin/prologin/templates/prologin/main-footer.html:51
-#, fuzzy
-#| msgid "Prologin on Twitter"
 msgid "Prologin on LinkedIn"
 msgstr "Prologin sur Twitter"
 
@@ -6843,12 +6822,3 @@ msgstr "Le compte %(username)s a été supprimé avec succès."
 #: prologin/users/widgets.py:8
 msgid "Upload new image"
 msgstr "Envoyer une nouvelle image"
-
-#~ msgid ""
-#~ "Due to the sanitary crisis, the final date will be announced later. "
-#~ "Please read this <a href=\"https://prologin.org/news/A9S/\">news</a> for "
-#~ "more information."
-#~ msgstr ""
-#~ "A cause de la crise sanitaire, la date de la finale sera annoncée "
-#~ "ultérieurement. Nous vous invitons à lire cet <a href=\"https://prologin."
-#~ "org/news/A9S/\">article</a> pour plus d'informations."

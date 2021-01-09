@@ -51,6 +51,6 @@ Vous avez écrit/modifié des `{% trans "foo" %}` ou des `_("bar")`.
 3.  Commit -> push -> pull request
 4.  Traduisez sur Transifex
 
-### Cas de figure : les traductions ont avancé, je les veux en local
+### Cas de figure : les traductions ont avancé, je les veux en local ou en production
 
 `make tx-pull` (à la racine du projet)
