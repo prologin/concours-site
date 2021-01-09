@@ -4020,18 +4020,6 @@ msgid "The practical test"
 msgstr "L'épreuve sur machine"
 
 #: prologin/pages/templates/pages/about-semifinals.html:47
-#, fuzzy
-#| msgid ""
-#| "The practical test lasts four hours. Every contestant\n"
-#| "    works on algorithmic exercises on a computer. A judging program "
-#| "evaluates\n"
-#| "    the code submissions of the contestant. The goal of this test is to "
-#| "check\n"
-#| "    that the contestant is able to code a program on a computer (choose "
-#| "an\n"
-#| "    algorithm, implement it in a programming language, test it and debug "
-#| "it).\n"
-#| "    "
 msgid ""
 "The practical test lasts three and a half hours. Every\n"
 "    contestant works on algorithmic exercises on a computer. A judging "
@@ -4089,8 +4077,6 @@ msgid "Free lunch"
 msgstr "Repas offert"
 
 #: prologin/pages/templates/pages/about-semifinals.html:96
-#, fuzzy
-#| msgid "Algorithmic exercises on computer (4h)"
 msgid "Algorithmic exercises on computer (3h30)"
 msgstr "Épreuve machine (4h)"
 
@@ -4120,10 +4106,6 @@ msgstr ""
 "difficiles de l'épreuve écrite."
 
 #: prologin/pages/templates/pages/about-semifinals.html:109
-#, fuzzy
-#| msgid ""
-#| "The day continues with the practical test, which lasts\n"
-#| "    four hours, and ends at 5:30 PM."
 msgid ""
 "The day continues with the practical test, which lasts\n"
 "    three and a half hours, and ends at 5:30 PM."
