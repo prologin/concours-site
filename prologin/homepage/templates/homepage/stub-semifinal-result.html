@@ -55,6 +55,14 @@
     {% endif %}
   {% endif %}
 {% else %}
+  {# ER2021 PLEASE DELETE AFTER #}
+  {% if wish_override.allowed %}
+      <div class="alert alert-warning">
+        <p>{% blocktrans with date_end=wish_override.allowed_until %}You can select your semifinal event until {{ date_end }}.{% endblocktrans %}</p>
+        <p><strong>{% blocktrans with wish=wish_override.first_wish %}You've selected {{ wish }}.{% endblocktrans %}</strong></p>
+        <p><a href="{% url 'contest:semifinal-event-selection' %}" class="btn btn-primary btn-block">{% trans "Choose my semifinal event" %}</a></p>
+      </div>
+  {% endif %}
   <p class="text-center dates-link">
     <strong>
       <a class="semifinal-dates"
