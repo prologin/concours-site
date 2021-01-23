@@ -25,4 +25,5 @@ urlpatterns = [
     path('<int:year>/qualification', contest.views.QualificationSummary.as_view(), name='qualification-summary'),
     path('inter-school-challenge/', include((interschool_patterns, app_name), namespace='interschool')),
     path('correct/', include((correction_patterns, app_name), namespace='correction')),
+    path('semifinal/event-selection/', contest.views.ContestantSemifinalEventSelection.as_view(), name='semifinal-event-selection'),
 ]

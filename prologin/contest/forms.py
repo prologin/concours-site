@@ -148,3 +148,10 @@ class CombinedContestantUserForm(MultiModelForm):
         ('user', ContestantUserForm),
         ('contestant', ContestantForm),
     ])
+
+class ContestantSemifinalEventForm(forms.Form):
+
+    def __init__(self, *args, **kwargs):
+        possible_events = kwargs.pop('possible_events')
+        super().__init__(*args, **kwargs)
+        self.fields['selected_event'] = forms.ChoiceField(choices=possible_events, required=True, label=_('Selected event'))
