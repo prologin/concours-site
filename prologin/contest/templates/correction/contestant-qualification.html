@@ -33,7 +33,14 @@
             <ul class="propositions">
               {% for proposition in field %}
                 <li class="
-                  {% if correction %}{% if proposition.instance.is_correct %}correct{% endif %}{% if proposition.is_checked and not proposition.instance.is_correct %}incorrect{% endif %}{% endif %}">
+                    {% with answer=field.field.answer %}
+                      {% if answer.is_correct and '<p>'|add:answer.proposition.text|add:'</p>' == proposition.data.label %}
+                        correct
+                      {% elif proposition.data.selected %}
+                        incorrect
+                      {% endif %}
+                    {% endwith %}
+                  ">
                   {{ proposition }}
                 </li>
               {% endfor %}
