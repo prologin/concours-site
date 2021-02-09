@@ -95,3 +95,7 @@ ol.mainlist > li:after {
   line-height: 0;
   height: 0;
 }
+
+.optional::before {
+  color: orange !important;
+}

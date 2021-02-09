@@ -23,7 +23,11 @@
     <ol class="mainlist qcm">
       {% for field in quiz_form %}
         {% with question=field.field.question %}
-          <li class="question">
+          <li class="question
+            {% if question.is_optional %}
+              optional
+            {% endif %}
+          ">
             <div class="body">
               <div class="main">{{ question.body|markdown:0 }}</div>
               {% if question.verbose %}
