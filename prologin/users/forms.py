@@ -7,6 +7,7 @@ from django.contrib.auth.forms import AuthenticationForm as DjangoAuthentication
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from captcha.fields import ReCaptchaField
+from datetime import datetime
 
 from prologin.models import Gender
 from prologin.utils import _
@@ -104,7 +105,14 @@ class UserProfileForm(forms.ModelForm):
         if not self.can_edit_profile:
             for field in self.readonly_during_contest:
                 self.cleaned_data.pop(field, None)
-        return super().clean()
+        
+        super().clean()
+
+        birthday = self.cleaned_data.get('birthday')
+        if birthday and birthday > datetime.today().date():
+            self._errors['birthday'] = self.error_class(["You cannot be born in the future."])
+
+        return self.cleaned_data
 
 
 class RegisterForm(forms.ModelForm):
