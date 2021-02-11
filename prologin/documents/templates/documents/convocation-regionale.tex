@@ -22,40 +22,22 @@ Bonjour {{ user.first_name|title|escapetex }},
 
 Nous avons le plaisir de vous informer que vous êtes
 sélectionné{{ user|genderize }}
-pour la phase des épreuves régionales du concours Prologin {{ year|escapetex|nonempty }}.
-Comme vous nous l'avez demandé, votre épreuve aura lieu à:
-
-{\par\smallskip\noindent\centering
-\begin{minipage}{0.5\textwidth}
-\begin{center}
-\textbf{%
-{{ center.name|escapetex|nonempty }}%
-}\\
-\textbf{%
-{{ center.address|escapetex|nonempty }}%
-}\\
-\textbf{%
-{{ center.postal_code|escapetex|nonempty }} {{ center.city|escapetex|nonempty }}%
-}
-\end{center}
-\end{minipage}
-\par\smallskip}
+pour la phase des demi-finales du concours Prologin {{ year|escapetex|nonempty }}.
 
 L'équipe de Prologin vous donne donc rendez-vous le {{ event.date_begin|date:"l d F Y"|escapetex }}
-à partir de 8~h~45 (début des épreuves à 9~heures). Nous vous demandons
-de bien vouloir vous munir d'\textbf{une pièce d'identité et de cette
-convocation} ainsi que de votre \textbf{fiche de droit à l'image complétée}.
+à partir de 8~h~45 (début des épreuves à 9~heures).
 
-Après un petit déjeuner offert par Prologin, la journée commencera par une
-épreuve écrite d'algorithmique d'une durée de 3~heures et un entretien de
-10~minutes. Le repas du midi sera offert par l'association. Les épreuves
-sur machine (3~h~30) se dérouleront l'après-midi. Vous serez libérés vers
-18~h~00 environ.
+La journée commencera par une épreuve écrite d'algorithmique
+d'une durée de 3~heures. Les épreuves machine (3~h~30) se dérouleront
+l'après-midi à partir de 14~h. La journée se terminera vers 18~h~00 environ.
 
 Pour vous préparer à l'épreuve, nous vous invitons à utiliser le site
 d'entraînement de Prologin~: \url{%
   {{ site_url }}%
 }.
+
+Important : afin de vous tenir informé.e.s d'éventuels changement d'organisation, nous vous
+conseillons de consulter régulièrement vos e-mails.
 
 Nous restons à votre disposition pour toutes questions, n'hésitez pas
 à nous contacter.
