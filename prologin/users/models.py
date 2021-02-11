@@ -9,7 +9,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractUser, UserManager, Group
 from django.contrib.auth.signals import user_logged_in
 from django.contrib.sites.models import Site
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db.models import Q
 from django.urls import reverse
 from django.db import models, transaction
@@ -110,6 +110,11 @@ class EducationStage(ChoiceEnum):
         return tuple(m.value for m in cls)
 
 
+def validate_birthday(birthday):
+    if birthday and birthday > timezone.now().date():
+        raise ValidationError(_("You cannot be born in the future"))
+
+
 class ProloginUser(
         ExportModelOperationsMixin('user'), AbstractUser, AddressableModel):
 
@@ -131,7 +136,7 @@ class ProloginUser(
                              blank=True, verbose_name=_("Educational stage"))
     phone = models.CharField(max_length=16, blank=True, verbose_name=_("Phone"))
     birthday = models.DateField(blank=True, null=True,
-                                verbose_name=_("Birth day"))
+                                verbose_name=_("Birth day"), validators=[validate_birthday])
     allow_mailing = models.BooleanField(default=True, blank=True, db_index=True,
                                         verbose_name=_("Allow Prologin to send me emails"),
                                         help_text=_("We only mail you to provide useful information "
@@ -179,7 +184,8 @@ class ProloginUser(
         if event is None:
             # future or finished, allow
             return True
-        assigned_semifinal = self.contestants.filter(edition=edition, assignation_semifinal=Assignation.assigned.value).exists()
+        assigned_semifinal = self.contestants.filter(
+            edition=edition, assignation_semifinal=Assignation.assigned.value).exists()
         if event == Event.Type.qualification and type == 'corrected' and assigned_semifinal:
             return False
         if not assigned_semifinal:
@@ -348,10 +354,11 @@ class AuthToken(models.Model):
             "user": self.user_dict(),
         }
 
+
 class OpenIDClientPolicy(models.Model):
     openid_client = models.OneToOneField(to='oidc_provider.Client', on_delete=models.CASCADE, primary_key=True)
     allow_groups = models.ManyToManyField(
-        to=Group, 
+        to=Group,
         blank=True,
         help_text='If not blank, represents the groups allowed to login through this client.')
     allow_staff = models.BooleanField(help_text='Allow staff users to login through this client.', default=False)
@@ -378,7 +385,7 @@ class OpenIDClientPolicy(models.Model):
 
     def __str__(self):
         return self.openid_client.name
-    
+
     def is_user_allowed(self, user):
         """
         this function takes an instance of ProloginUser as argument
@@ -386,28 +393,26 @@ class OpenIDClientPolicy(models.Model):
         False if the user is not allowed to use the client
         """
         if (
-                user.is_superuser or 
-                (self.allow_staff and user.is_staff) or 
-                user.groups.filter(pk__in=self.allow_groups.all())
-            ):
+            user.is_superuser or
+            (self.allow_staff and user.is_staff) or
+            user.groups.filter(pk__in=self.allow_groups.all())
+        ):
             return True
-        
+
         contestant = None
         try:
             contestant = Contestant.objects.get(edition=settings.PROLOGIN_EDITION, user=user)
         except ObjectDoesNotExist:
             return False
-        
+
         if (
-                (self.allow_assigned_semifinal and contestant.assignation_semifinal == 2) or
-                (self.allow_assigned_final and contestant.assignation_final == 2) or
-                (self.allow_assigned_semifinal_event == contestant.assignation_semifinal_event != None)
-            ):
+            (self.allow_assigned_semifinal and contestant.assignation_semifinal == 2) or
+            (self.allow_assigned_final and contestant.assignation_final == 2) or
+            (self.allow_assigned_semifinal_event == contestant.assignation_semifinal_event != None)
+        ):
             return True
-                
+
         return False
-
-
 
 
 def search_users(query, qs=None, throw=False):
@@ -452,6 +457,7 @@ def search_users(query, qs=None, throw=False):
 def assign_preferred_language(sender, user, request, **kwargs):
     if hasattr(request, 'user') and request.user.is_authenticated:
         request.session[LANGUAGE_SESSION_KEY] = request.user.preferred_locale
+
 
 user_logged_in.connect(assign_preferred_language)
 
