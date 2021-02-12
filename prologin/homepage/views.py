@@ -4,9 +4,6 @@ from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
 from django.views.generic import TemplateView
 from zinnia.models import Entry
 
-# PROLOGIN 2021 delete the next line when semifinals are done
-from contest import event_wishes_override
-
 import contest.models
 import qcm.models
 import problems.models
@@ -58,9 +55,4 @@ class HomepageView(TemplateView):
         leaderboard.kwargs = {}
         leaderboard.get(self.request)
         context['inter_school_leaderboard'] = leaderboard.get_queryset()
-
-        # ADDED FOR PROLOGIN2021 SEMIFINALS WISH OVERRIDES - DELETE IT LATER
-        if self.request.user.is_authenticated:
-            context['wish_override'] = event_wishes_override.get_wish_override_context(self.request.current_data.current_contestant)
-
         return context
