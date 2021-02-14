@@ -108,8 +108,9 @@ class UserProfileForm(forms.ModelForm):
         
         super().clean()
 
+        user_timezone = self.cleaned_data.get('timezone')
         birthday = self.cleaned_data.get('birthday')
-        if birthday and birthday > datetime.today().date():
+        if birthday and user_timezone and birthday > datetime.now(user_timezone).date():
             self.add_error('birthday', "You cannot be born in the future.")
 
 class RegisterForm(forms.ModelForm):
