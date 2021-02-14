@@ -4,22 +4,14 @@ from django.core.exceptions import SuspiciousOperation
 
 @rules.predicate
 def can_impersonate(hijacker, hijacked):
-    # Nobody can impersonate superusers
-    if hijacked.is_superuser:
-        return False
     # Inactive users cannot be hijacked
     if not hijacked.is_active:
         return False
     # Superusers can impersonate staff & members
     if hijacker.is_superuser:
         return True
-    # Have to be staff
-    if not hijacker.is_staff:
-        return False
-    # Staff can not impersonate staff
-    if hijacked.is_staff:
-        return False
-    return True
+    # Inactive users cannot be hijacked
+    return hijacked.is_active and hijacker.is_superuser
 
 
 @rules.predicate
@@ -30,9 +22,8 @@ def is_self(user, edited_user):
 # A *rule* so we can use check_rule, because check_perm always returns True for
 # superusers, defeating the checks in can_impersonate
 rules.add_rule('users.can-impersonate', can_impersonate)
-rules.add_perm('users.may-impersonate', rules.is_staff)
 rules.add_perm('users.search', rules.is_staff)
-rules.add_perm('users.edit', rules.is_staff | is_self)
+rules.add_perm('users.edit', rules.is_superuser | is_self)
 rules.add_perm('users.edit-during-contest', rules.is_staff)
 rules.add_perm('users.delete', rules.is_superuser | is_self)
 rules.add_perm('users.takeout', rules.is_superuser | is_self)
