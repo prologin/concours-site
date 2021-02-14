@@ -11,7 +11,7 @@ from prologin.utils import save_random_state
 
 class RandomOrderingModelChoiceField(forms.ModelChoiceField):
     class Meta:
-        answer = None # Answer object
+        valid_props = [] # List of Proposition Object
 
     """
     Implementation of ModelChoiceField that shuffle the field choices according
@@ -20,7 +20,7 @@ class RandomOrderingModelChoiceField(forms.ModelChoiceField):
     """
     def __init__(self, *args, **kwargs):
         self.ordering_seed = kwargs.pop('ordering_seed')
-        self.answer = kwargs.pop('answer')
+        self.valid_props = kwargs.pop('valid_props')
         super().__init__(*args, **kwargs)
 
         # choices = list(self.queryset)
@@ -45,11 +45,11 @@ class QcmForm(forms.ModelForm):
         ordering_seed = kwargs.pop('ordering_seed', 0)
         super().__init__(*args, **kwargs)
 
-        answers_ = []
         if self.contestant:
-            answers_ = qcm.models.Answer.objects.prefetch_related('proposition', 'proposition__question').filter(contestant=self.contestant, proposition__question__qcm=self.instance)
             answers = {e.proposition.question.pk: e.textual_answer if e.proposition.question.is_open_ended else e.proposition
-                       for e in answers_}
+                       for e in
+                       qcm.models.Answer.objects.prefetch_related('proposition', 'proposition__question')
+                                                 .filter(contestant=self.contestant, proposition__question__qcm=self.instance)}
 
         # The form is either text box (open ended question) or a list of
         # choices (otherwise).
@@ -60,14 +60,10 @@ class QcmForm(forms.ModelForm):
                                                    'placeholder': _("Put your answer here")})
                 field = self.fields[field_key] = forms.CharField(widget=textinput, required=False)
             else:
-                # Get the answer of the question
+                # Get answers of the question (Supporting multiple correct answer in a question)
                 # In order to make accessible the info if the answer is correct or not
                 # in the correction
-                q_answer = ()
-                for ans in answers_:
-                    if ans.proposition.question.pk == question.pk:
-                        q_answer = ans
-                        break
+                correct_q_proposition = [prop.id for prop in qcm.models.Proposition.objects.filter(question__pk=question.pk) if prop.is_correct]
 
                 field = self.fields[field_key] = RandomOrderingModelChoiceField(
                     required=False,
@@ -75,7 +71,7 @@ class QcmForm(forms.ModelForm):
                     widget=RadioSelect,
                     empty_label=_("I don't know"),
                     ordering_seed=ordering_seed,
-                    answer=q_answer
+                    valid_props=correct_q_proposition
                 )
             if self.readonly:
                 field.widget.attrs['disabled'] = 'disabled'

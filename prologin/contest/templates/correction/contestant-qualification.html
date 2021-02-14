@@ -32,22 +32,22 @@
             </div>
             <ul class="propositions">
               {% for proposition in field %}
-                <li class="
-                    {% with answer=field.field.answer %}
-                      {% if not question.is_open_ended %}
-                        {% if answer.is_correct and '<p>'|add:answer.proposition.text|add:'</p>' == proposition.data.label %}
-                          correct
-                        {% elif proposition.data.selected %}
-                          incorrect
-                        {% endif %}
-                      {% endif %}
-                    {% endwith %}
-                ">
-                  {{ proposition }}
-                  {% if question.is_open_ended %}
+                {% if not question.is_open_ended%}
+                  <li class="
+                    {% if proposition.data.value in field.field.valid_props %}
+                      correct
+                    {% elif proposition.data.selected %}
+                      incorrect
+                    {% endif %}
+                  ">
+                    {{ proposition }}
+                  </li>
+                {% else %}
+                  <li>
+                    {{ proposition }}
                     <p>{% trans "Correct answer:" %} <code class="text-success">{{ question.correct_answer.text }}</code></p>
-                  {% endif %}
-                </li>
+                  </li>
+                {% endif %}
               {% endfor %}
             </ul>
           </li>
