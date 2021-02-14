@@ -110,10 +110,7 @@ class UserProfileForm(forms.ModelForm):
 
         birthday = self.cleaned_data.get('birthday')
         if birthday and birthday > datetime.today().date():
-            self._errors['birthday'] = self.error_class(["You cannot be born in the future."])
-
-        return self.cleaned_data
-
+            self.add_error('birthday', "You cannot be born in the future.")
 
 class RegisterForm(forms.ModelForm):
     captcha = ReCaptchaField(label="",
