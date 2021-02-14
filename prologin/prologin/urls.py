@@ -77,10 +77,12 @@ urlpatterns = [
 
     # Monitoring
     path('', include('django_prometheus.urls')),
-
-    # OpenID Connect Provider
-    path('openid/', include('oidc_provider.urls', namespace='oidc_provider')),
 ]
+
+if 'oidc_provider' in settings.INSTALLED_APPS and 'oidc_policy' in settings.INSTALLED_APPS:
+    # OpenID Connect Provider
+    urlpatterns.extend([path('openid/', include('oidc_provider.urls', namespace='oidc_provider')),])
+
 
 if settings.DEBUG:
     urlpatterns.extend(static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT))
