@@ -303,8 +303,6 @@ class ContestantQualificationView(ContestantCorrectionView):
         try:
             quiz = qcm.models.Qcm.full_objects.get(event__edition=self.edition)
             context['quiz'] = quiz
-            context['user_can_view_correction'] = True  # for qcm template
-            context['correction_mode'] = True  # for qcm template
             context['quiz_form'] = qcm.forms.QcmForm(instance=quiz, contestant=contestant, readonly=True)
         except qcm.models.Qcm.DoesNotExist:
             pass
