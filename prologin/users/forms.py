@@ -113,6 +113,13 @@ class UserProfileForm(forms.ModelForm):
         if birthday and user_timezone and birthday > datetime.now(user_timezone).date():
             self.add_error('birthday', "You cannot be born in the future.")
 
+        if not self.is_valid():
+            raise forms.ValidationError(
+                _("Some errors occured. Changes are not saved."),
+            )
+        
+        return self.cleaned_data
+
 class RegisterForm(forms.ModelForm):
     captcha = ReCaptchaField(label="",
                              help_text='<small>{}</small>'.format(
