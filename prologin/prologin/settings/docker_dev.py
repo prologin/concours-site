@@ -8,7 +8,7 @@ SECRET_KEY = 'CHANGEME'
 # SECURITY/PERFORMANCE WARNING: don't run with DEBUG turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0', '127.0.0.1', '::1', 'localhost']
+ALLOWED_HOSTS = ['*']
 
 SITE_HOST = "localhost:8000"
 
@@ -74,3 +74,8 @@ EMAIL_HOST = "localhost"
 EMAIL_PORT = 1025
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = False
+
+# Register GCC! as OAuth client
+AUTH_TOKEN_CLIENTS = {
+    'gcc': AuthTokenClient('GCC!', '//172.20.0.7:8001/user/auth/callback'),
+}
