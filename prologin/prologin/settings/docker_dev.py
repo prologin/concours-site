@@ -27,6 +27,9 @@ CELERY_RESULT_BACKEND = BROKER_URL
 # Required by the documents module:
 DOCUMENTS_REPOSITORY_PATH = '/var/prologin/documents'
 
+# Required by the archives module:
+ARCHIVES_REPOSITORY_PATH = '/var/prologin/archives'
+
 # Database
 # https://docs.djangoproject.com/en/1.7/ref/settings/#databases
 
