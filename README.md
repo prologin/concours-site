@@ -191,6 +191,9 @@ Every time you need to work on the website:
     make celeryworker
     ```
 
+Alternatively you can use Docker to run the website in a container. For more
+information, see [README](docker/README.md).
+
 ### Translations
 
 The website user-facing strings are internationalized through Django's internal
