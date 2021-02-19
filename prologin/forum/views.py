@@ -9,6 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import ListView, RedirectView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import ModelFormMixin, FormMixin
+from django.template.loader import render_to_string
 from rules.contrib.views import PermissionRequiredMixin
 
 import forum.forms
@@ -375,3 +376,44 @@ class DeleteThreadView(PermissionRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, _("The thread was deleted successfully."))
         return super().delete(request, *args, **kwargs)
+
+from forum.models import Thread, search_threads
+
+class ForumSearchSuggestView(PermissionRequiredMixin, ListView):
+    model = Thread
+    paginate_by = 10
+    permission_required = ''
+    
+    def get_queryset(self):
+        query = self.request.GET.get('q', '').strip()
+        return search_threads(query, "general").order_by("-type", "-date_last_post")[:self.paginate_by]
+
+    def get_queryset_response(self, forum_name):
+        query = self.request.GET.get('q', '').strip()
+        return search_threads(query, forum_name).order_by("-type", "-date_last_post")[:self.paginate_by]
+
+    def getURL(self):
+        return self.request.get_full_path()
+    
+    def getForumSlugAndIDString(self):
+        return self.getURL().split("?")[0].replace("/forum/search/", "")
+
+    def getForumSlugAndID(self):
+        base = self.getForumSlugAndIDString()
+        spl = base.split("-")
+        return {
+            "id":int(spl.pop(-1)),
+            "slug":"-".join(spl)
+        }
+
+    def render_to_response(self, context, **response_kwargs):
+        slgAndID = self.getForumSlugAndID()
+        results = [{
+            'name': thread.title,
+            'url':"/forum/" + str(self.getForumSlugAndIDString()) + "/" + str(thread.slug) + "-" + str(thread.id),
+            "html":render_to_string(
+                'forum/stub-search-result.html',
+                {'thread': thread, 'request': self.request},
+                self.request)
+        } for thread in self.get_queryset_response(slgAndID["slug"])]
+        return JsonResponse(results, safe=False)

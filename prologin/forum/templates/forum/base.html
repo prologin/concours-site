@@ -17,6 +17,20 @@
   <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/jquery.emojiarea.js' %}"></script>
   <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/emoji-picker.js' %}"></script>
   <script type="application/javascript">
+    function urlSplitFromLocation() {
+      return document.location.toString()
+        .replace("http://", "")
+        .replace("https://", "")
+        .split("/")
+    }
+    function urlWithoutHost() {
+      url = urlSplitFromLocation()
+      url.splice(0, 1)
+      return url.join("/")
+    }
+    const SEARCH_THREAD_URL = urlWithoutHost().replace("forum/","/forum/search/")
+    const SEARCH_THREAD_EMPTY = "{% trans "No user matching query"|escapejs %}"
+
     $(function() {
       window.emojiPicker = new EmojiPicker({
       assetsPath: '{% static 'vendor/onesignal-emoji-picker/lib/img/' %}',
@@ -28,4 +42,5 @@
       $('.emoji-wysiwyg-editor').css("white-space", "pre-wrap");
     });
   </script>
+  <script src="{% static 'js/thread-search.js' %}"></script>
 {% endblock %}

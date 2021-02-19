@@ -916,6 +916,29 @@ input[type=checkbox].task-list-item-checkbox {
   z-index: 1; /* because typehead appears after */
 }
 
+.form-thread-search {
+  position: relative;
+  padding: 0 20px;
+  margin: 0;
+}
+
+.form-thread-search input, .form-thread-search input:focus {
+  border: none;
+  box-shadow: none;
+  outline: none;
+  color: inherit;
+  margin: 0;
+  padding-left: 1.6em; /* wtf */
+  height: 36px; /* don't ask, don't tell */
+  width: 100% !important;
+}
+
+.form-thread-search > i.fa {
+  position: absolute;
+  top: calc(50% - .5em);
+  z-index: 1; /* because typehead appears after */
+}
+
 .panel.panel-form {
   margin-bottom: 0;
 }

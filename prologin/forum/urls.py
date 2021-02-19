@@ -27,6 +27,7 @@ thread_patterns = [
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('search/<forum_name>', views.ForumSearchSuggestView.as_view(), name='search-thread'),
     re_path(r'^post/(?P<thread_slug>[\w-]+)/(?P<pk>[0-9]+)/', include(short_post_patterns)),
     re_path(r'^(?:(?P<slug>[\w-]+)-)?(?P<pk>[0-9]+)$', views.ForumView.as_view(), name='forum'),
     re_path(r'^(?:(?P<forum_slug>[\w-]+)-)?(?P<forum_pk>[0-9]+)/', include(thread_patterns)),

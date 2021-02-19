@@ -310,3 +310,57 @@ def thread_save_handler(sender, **kwargs):
         notify_new_thread.apply_async(args=[data])
     except Exception:
         pass
+
+def search_threads(query, forum_name, qs=None, throw=False):
+    """
+    Token-based search of threads.
+    If there are threads whose fields *starts with* query tokens, they are returned immediately.
+    If there is no result, we try harder by searching fields that *contains* tokens.
+    :type query: query string to search for
+    :type qs: base query string
+    :type throw: if False, returns an empty queryset if query is invalid; if True, raises ValueError
+    :return a Queryset of matching threads (can be empty)
+    """
+    from django.db.models import Q
+    from itertools import product, combinations, permutations
+
+
+    if qs is None:
+        qs = Thread.objects
+    
+    ## We get the forums with the slug requested
+    forum = None
+    forums = Forum.objects.filter(slug=forum_name)
+    print(forums)
+    ## If there are more than 0
+    if len(forums) > 0:
+        ## We get the first
+        forum = forums[0]
+    else:
+        ## We throw an exception or return a none query set
+        if throw:
+            raise ValueError("No forums found")
+        return qs.none()
+
+    # limit to 4 tokens, as the combinatorics are explosive (24 clauses for 4 tokens, 60 for 5)
+    tokens = [token for token in query.split() if len(token) >= 2][:4]
+    if not tokens:
+        if throw:
+            raise ValueError("Not enough tokens")
+        return qs.none()
+    print(tokens)
+    fields = ['title']
+    r = min(len(tokens), len(fields))
+
+    def build(operator):
+        q = Q()
+        for keys, values in product(combinations(fields, r=r), permutations(tokens, r=r)):
+            q |= Q(**{'{}__{}'.format(key, operator): value for key, value in zip(keys, values)})
+        return q
+
+    res = qs.filter(build('istartswith'), forum=forum)
+    print(res)
+    if res.exists():
+        return res
+
+    return qs.filter(build('icontains'), forum=forum)
