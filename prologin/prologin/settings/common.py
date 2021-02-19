@@ -73,6 +73,7 @@ INSTALLED_APPS = (
     'sponsor',
     'team',
     'users',
+    'oidc_policy',
 
     # Django and vendor, at the bottom for template overriding
     'django.contrib.admin',
@@ -402,5 +403,5 @@ ZINNIA_UPLOAD_TO = 'upload/zinnia'
 FACEBOOK_GRAPH_API_ACCESS_TOKEN = ""
 
 # Django OpenID Connect Provider
-OIDC_EXTRA_SCOPE_CLAIMS = 'users.oidc_scopes.ProloginScopeClaims'
-OIDC_AFTER_USERLOGIN_HOOK = 'users.oidc_authz.authorize'
+OIDC_EXTRA_SCOPE_CLAIMS = 'oidc_policy.oidc_scopes.ProloginScopeClaims'
+OIDC_AFTER_USERLOGIN_HOOK = 'oidc_policy.oidc_authz.authorize'
