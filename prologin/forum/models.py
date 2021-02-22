@@ -105,6 +105,10 @@ class Thread(ExportModelOperationsMixin('thread'), models.Model):
         verbose_name = _("Thread")
         verbose_name_plural = _("Threads")
 
+        indexes = [
+            models.Index(fields=['title', 'forum']),
+        ]
+
     def __str__(self):
         return self.title
 

@@ -17,26 +17,6 @@
   <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/jquery.emojiarea.js' %}"></script>
   <script src="{% static 'vendor/onesignal-emoji-picker/lib/js/emoji-picker.js' %}"></script>
   <script type="application/javascript">
-    function urlSplitFromLocation() {
-      return document.location.toString()
-        .replace("http://", "")
-        .replace("https://", "")
-        .split("?")[0]
-        .split("/")
-    }
-    function urlWithoutHost() {
-      url = urlSplitFromLocation()
-      url.splice(0, 1)
-      return url.join("/")
-    }
-    const SEARCH_THREAD_URL = urlWithoutHost().replace("forum/","/forum/search/").replace("search/search/","search/")
-    const SEARCH_THREAD_EMPTY = "{% trans "No user matching query"|escapejs %}"
-    {% if query %}
-      {% if queryrendertype %}
-        let thread = document.getElementById("search-thread-name");
-        thread.value = "{{ query }}"
-      {% endif %}
-    {% endif %}
 
     $(function() {
       window.emojiPicker = new EmojiPicker({
@@ -49,5 +29,4 @@
       $('.emoji-wysiwyg-editor').css("white-space", "pre-wrap");
     });
   </script>
-  <script src="{% static 'js/thread-search.js' %}"></script>
 {% endblock %}

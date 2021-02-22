@@ -9,7 +9,6 @@ from django.utils.translation import ugettext_lazy as _
 from django.views.generic import ListView, RedirectView, CreateView, UpdateView, DeleteView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import ModelFormMixin, FormMixin
-from django.template.loader import render_to_string
 from rules.contrib.views import PermissionRequiredMixin
 
 import forum.forms
@@ -111,6 +110,7 @@ class ForumView(PermissionRequiredMixin, ListView):
         context['sticky_threads'] = [thread for thread in threads if thread.is_sticky]
         context['normal_threads'] = threads[len(context['sticky_threads']):]
         context['announces'] = self.get_forum.threads.filter(type=forum.models.Thread.Type.announce.value)
+        context['url_search'] = "/forum/search/" + self.kwargs['slug'] + "-" + self.kwargs["pk"]
         return context
 
     def get(self, request, *args, **kwargs):
@@ -388,24 +388,8 @@ class ForumSearchSuggestView(PermissionRequiredMixin, ListView):
     context_query_render_type = True
     
     def get_queryset(self):
-        slgAndID = self.getForumSlugAndID()
         query = self.request.GET.get('q', '').strip()
-        return (search_threads(query, slgAndID["slug"], slgAndID["id"], self.request.user)[:self.paginate_by])
-
-    def getURL(self):
-        return self.request.get_full_path()
-    
-    def getForumSlugAndIDString(self):
-        return self.getURL().split("?")[0].replace("/forum/search/", "")
-
-    def getForumSlugAndID(self):
-        base = self.getForumSlugAndIDString()
-        spl = base.split("-")
-        return {
-            "id":int(spl.pop(-1)),
-            "slug":"-".join(spl)
-        }
-
+        return (search_threads(query, self.kwargs['slug'], self.kwargs['pk'], self.request.user)[:self.paginate_by])
 
     def paginate_queryset(self, queryset, page_size):
         paginator, page, page.object_list, page.has_other_pages = super().paginate_queryset(queryset, page_size)
@@ -434,11 +418,10 @@ class ForumSearchSuggestView(PermissionRequiredMixin, ListView):
 
     @cached_property
     def get_forum(self):
-        slgAndID = self.getForumSlugAndID()
-        return get_object_or_404(forum.models.Forum, slug=slgAndID["slug"], id=slgAndID["id"])
+        return get_object_or_404(forum.models.Forum, pk=self.kwargs['pk'])
 
-    def get_context_data(self, **response_kwargs):
-        context = super().get_context_data(**response_kwargs)
+    def get_context_data(self, **res_kwargs):
+        context = super().get_context_data(**res_kwargs)
         context['forum'] = self.get_forum
         # The announces will be displayed on each page of the forum
         threads = context['threads']
@@ -447,16 +430,16 @@ class ForumSearchSuggestView(PermissionRequiredMixin, ListView):
         context['announces'] = self.get_forum.threads.filter(type=forum.models.Thread.Type.announce.value)
         context['is_search'] = True
         context['query'] = self.request.GET.get('q', '').strip()
-        ## Rendering Type for the query in Client
-        ## True equals the value is in the textbox
-        ## False equals the value is in a field
-        context['queryrendertype'] = self.context_query_render_type
+        context['url_search'] = "/forum/search/" + self.kwargs['slug'] + "-" + self.kwargs["pk"]
         return context
 
+    ## Security Checks before getting the response
     def get(self, request, *args, **kwargs):
         # Check if slug is valid, redirect if not
-        slgAndID = self.getForumSlugAndID()
+        # Check if query exists, redirect if not
         forum = self.get_forum
-        if forum.slug != slgAndID['slug']:
+        if forum.slug != self.kwargs['slug']:
+            return redirect('forum:forum', slug=forum.slug, pk=forum.pk)
+        if not request.GET['q']:
             return redirect('forum:forum', slug=forum.slug, pk=forum.pk)
         return super().get(request, *args, **kwargs)

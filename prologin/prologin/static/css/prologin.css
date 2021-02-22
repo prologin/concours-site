@@ -930,7 +930,7 @@ input[type=checkbox].task-list-item-checkbox {
   margin: 0;
   padding-left: 1.6em; /* wtf */
   height: 36px; /* don't ask, don't tell */
-  width: 100% !important;
+  width: 100%;
 }
 
 .form-thread-search > i.fa {
