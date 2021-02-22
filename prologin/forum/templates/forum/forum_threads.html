@@ -23,12 +23,19 @@
   <div class="text-muted forum-description">{{ forum.description|markdown }}</div>
 
 
-  <form class="form-inline form-user-search">
+  <div class="form-inline form-user-search">
     <i class="fa fa-fw fa-search"></i>
     <input type="hidden" id="search-user-id" name="user">
     <input id="search-thread-name" name="username" type="text" autocomplete="off" class="form-control" placeholder="{% trans "Search thread" %}">
-  </form>
+  </div>
 
+  {% if query %}
+    {% if not queryrendertype %}
+      <h5>
+        {% trans "The result of the query " %}{{query}}
+      </h5>
+    {% endif %}
+  {% endif %}
 
   {% if sticky_threads %}
     <ul class="forum-listing forum-sticky-threads" id="sticky_threads">
@@ -47,9 +54,15 @@
       {% endfor %}
     </ul>
   {% else %}
-    <p class="empty-list-item">
-      <i class="fa fa-frown-o"></i> {% trans "This forum is empty." %}
-    </p>
+    {% if is_search %}
+      <p class="empty-list-item">
+        <i class="fa fa-frown-o"></i> {% trans "No result found." %}
+      </p>
+    {% else %}
+      <p class="empty-list-item">
+        <i class="fa fa-frown-o"></i> {% trans "This forum is empty." %}
+      </p>
+    {% endif %}
   {% endif %}
 
   {% include "stub_pagination.html" %}

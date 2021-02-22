@@ -311,7 +311,7 @@ def thread_save_handler(sender, **kwargs):
     except Exception:
         pass
 
-def search_threads(query, forum_name, qs=None, throw=False):
+def search_threads(query, forum_name, forum_id, user, qs=None, throw=False):
     """
     Token-based search of threads.
     If there are threads whose fields *starts with* query tokens, they are returned immediately.
@@ -330,8 +330,7 @@ def search_threads(query, forum_name, qs=None, throw=False):
     
     ## We get the forums with the slug requested
     forum = None
-    forums = Forum.objects.filter(slug=forum_name)
-    print(forums)
+    forums = Forum.objects.filter(slug=forum_name, id=forum_id)
     ## If there are more than 0
     if len(forums) > 0:
         ## We get the first
@@ -348,7 +347,6 @@ def search_threads(query, forum_name, qs=None, throw=False):
         if throw:
             raise ValueError("Not enough tokens")
         return qs.none()
-    print(tokens)
     fields = ['title']
     r = min(len(tokens), len(fields))
 
@@ -358,9 +356,16 @@ def search_threads(query, forum_name, qs=None, throw=False):
             q |= Q(**{'{}__{}'.format(key, operator): value for key, value in zip(keys, values)})
         return q
 
-    res = qs.filter(build('istartswith'), forum=forum)
-    print(res)
+    res = (qs
+                .with_readstate_of(user)
+                .select_related('forum')
+                .filter(build('istartswith'), forum=forum)
+                .order_by("-type", "-date_last_post"))
     if res.exists():
         return res
 
-    return qs.filter(build('icontains'), forum=forum)
+    return (qs
+                .with_readstate_of(user)
+                .select_related('forum')
+                .filter(build('icontains'), forum=forum)
+                .order_by("-type", "-date_last_post"))

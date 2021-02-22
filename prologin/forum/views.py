@@ -380,17 +380,17 @@ class DeleteThreadView(PermissionRequiredMixin, DeleteView):
 from forum.models import Thread, search_threads
 
 class ForumSearchSuggestView(PermissionRequiredMixin, ListView):
-    model = Thread
-    paginate_by = 10
-    permission_required = ''
+    template_name = 'forum/forum_threads.html'
+    model = forum.models.Thread
+    context_object_name = 'threads'
+    paginate_by = settings.FORUM_THREADS_PER_PAGE
+    permission_required = 'forum.view_forum'
+    context_query_render_type = True
     
     def get_queryset(self):
+        slgAndID = self.getForumSlugAndID()
         query = self.request.GET.get('q', '').strip()
-        return search_threads(query, "general").order_by("-type", "-date_last_post")[:self.paginate_by]
-
-    def get_queryset_response(self, forum_name):
-        query = self.request.GET.get('q', '').strip()
-        return search_threads(query, forum_name).order_by("-type", "-date_last_post")[:self.paginate_by]
+        return (search_threads(query, slgAndID["slug"], slgAndID["id"], self.request.user)[:self.paginate_by])
 
     def getURL(self):
         return self.request.get_full_path()
@@ -406,14 +406,57 @@ class ForumSearchSuggestView(PermissionRequiredMixin, ListView):
             "slug":"-".join(spl)
         }
 
-    def render_to_response(self, context, **response_kwargs):
+
+    def paginate_queryset(self, queryset, page_size):
+        paginator, page, page.object_list, page.has_other_pages = super().paginate_queryset(queryset, page_size)
+        first_post_ids = set()
+        last_post_ids = set()
+        for thread in page.object_list:
+            assert thread.first_post_id is not None
+            assert thread.last_post_id is not None
+            first_post_ids.add(thread.first_post_id)
+            last_post_ids.add(thread.last_post_id)
+
+        # Map threads to their first and last post
+        # If we don't include 'thread' in select_related, Django is stupid enough to trigger a new query for thread.pk
+        # even though it is available as thread_id.
+        thread_to_posts = {}
+        for post in forum.models.Post.objects.filter(pk__in=first_post_ids).select_related('author', 'thread'):
+            thread_to_posts[post.thread.pk] = [post, None]
+        for post in forum.models.Post.objects.filter(pk__in=last_post_ids).select_related('author', 'thread'):
+            thread_to_posts[post.thread.pk][1] = post
+
+        # Hydrate the threads
+        for thread in page.object_list:
+            thread._first_post, thread._last_post = thread_to_posts[thread.pk]
+
+        return paginator, page, page.object_list, page.has_other_pages
+
+    @cached_property
+    def get_forum(self):
         slgAndID = self.getForumSlugAndID()
-        results = [{
-            'name': thread.title,
-            'url':"/forum/" + str(self.getForumSlugAndIDString()) + "/" + str(thread.slug) + "-" + str(thread.id),
-            "html":render_to_string(
-                'forum/stub-search-result.html',
-                {'thread': thread, 'request': self.request},
-                self.request)
-        } for thread in self.get_queryset_response(slgAndID["slug"])]
-        return JsonResponse(results, safe=False)
+        return get_object_or_404(forum.models.Forum, slug=slgAndID["slug"], id=slgAndID["id"])
+
+    def get_context_data(self, **response_kwargs):
+        context = super().get_context_data(**response_kwargs)
+        context['forum'] = self.get_forum
+        # The announces will be displayed on each page of the forum
+        threads = context['threads']
+        context['sticky_threads'] = [thread for thread in threads if thread.is_sticky]
+        context['normal_threads'] = threads[len(context['sticky_threads']):]
+        context['announces'] = self.get_forum.threads.filter(type=forum.models.Thread.Type.announce.value)
+        context['is_search'] = True
+        context['query'] = self.request.GET.get('q', '').strip()
+        ## Rendering Type for the query in Client
+        ## True equals the value is in the textbox
+        ## False equals the value is in a field
+        context['queryrendertype'] = self.context_query_render_type
+        return context
+
+    def get(self, request, *args, **kwargs):
+        # Check if slug is valid, redirect if not
+        slgAndID = self.getForumSlugAndID()
+        forum = self.get_forum
+        if forum.slug != slgAndID['slug']:
+            return redirect('forum:forum', slug=forum.slug, pk=forum.pk)
+        return super().get(request, *args, **kwargs)
