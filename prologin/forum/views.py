@@ -111,6 +111,7 @@ class ForumView(PermissionRequiredMixin, ListView):
         context['normal_threads'] = threads[len(context['sticky_threads']):]
         context['announces'] = self.get_forum.threads.filter(type=forum.models.Thread.Type.announce.value)
         context['url_search'] = "/forum/search/" + self.kwargs['slug'] + "-" + self.kwargs["pk"]
+        context['kwargs'] = self.kwargs
         return context
 
     def get(self, request, *args, **kwargs):
@@ -388,7 +389,7 @@ class ForumSearchSuggestView(PermissionRequiredMixin, ListView):
     context_query_render_type = True
     
     def get_queryset(self):
-        query = self.request.GET.get('q', '').strip()
+        query = self.request.GET['q']
         return (search_threads(query, self.kwargs['slug'], self.kwargs['pk'], self.request.user)[:self.paginate_by])
 
     def paginate_queryset(self, queryset, page_size):
@@ -429,8 +430,8 @@ class ForumSearchSuggestView(PermissionRequiredMixin, ListView):
         context['normal_threads'] = threads[len(context['sticky_threads']):]
         context['announces'] = self.get_forum.threads.filter(type=forum.models.Thread.Type.announce.value)
         context['is_search'] = True
-        context['query'] = self.request.GET.get('q', '').strip()
-        context['url_search'] = "/forum/search/" + self.kwargs['slug'] + "-" + self.kwargs["pk"]
+        context['query'] = self.request.GET['q']
+        context['kwargs'] = self.kwargs
         return context
 
     ## Security Checks before getting the response
@@ -438,8 +439,6 @@ class ForumSearchSuggestView(PermissionRequiredMixin, ListView):
         # Check if slug is valid, redirect if not
         # Check if query exists, redirect if not
         forum = self.get_forum
-        if forum.slug != self.kwargs['slug']:
-            return redirect('forum:forum', slug=forum.slug, pk=forum.pk)
-        if not request.GET['q']:
+        if forum.slug != self.kwargs['slug'] or not request.GET['q']:
             return redirect('forum:forum', slug=forum.slug, pk=forum.pk)
         return super().get(request, *args, **kwargs)

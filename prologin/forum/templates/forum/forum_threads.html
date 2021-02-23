@@ -23,13 +23,9 @@
   <div class="text-muted forum-description">{{ forum.description|markdown }}</div>
 
 
-  <form class="form-inline form-user-search" action="{{ url_search }}">
+  <form class="form-inline form-user-search" action="{% url 'forum:search-thread' kwargs.slug kwargs.pk %}">
     <i class="fa fa-fw fa-search"></i>
-    {% if not query %}
-      <input id="search-thread-name" name="q" type="text" autocomplete="off" class="form-control" placeholder="{% trans "Search thread" %}">
-    {% else %}
-      <input value="{{ query }}" id="search-thread-name" name="q" type="text" autocomplete="off" class="form-control" placeholder="{% trans "Search thread" %}">
-    {% endif %}
+    <input value="{{ query }}" id="search-thread-name" name="q" type="text" autocomplete="off" class="form-control" placeholder="{% trans "Search thread" %}">
   </form>
 
   {% if sticky_threads %}
