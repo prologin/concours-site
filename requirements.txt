@@ -29,7 +29,7 @@ django-debug-toolbar
 # Form wizards (they were a Django builtin, but split as of 1.8)
 django-formtools
 # Impersonation framework
-django-hijack
+django-hijack<3,>=2.3.0
 # Django conflose
 git+https://github.com/prologin/django-conflose
 # Django massmailer

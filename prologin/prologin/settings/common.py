@@ -42,7 +42,7 @@ INSTALLED_APPS = (
     'bootstrapform',
     'bootstrap3',
     'captcha',
-    'compat',
+    #'compat',
     'crispy_forms',
     'datatableview',
     'django_bootstrap_breadcrumbs',
