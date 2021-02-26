@@ -138,7 +138,7 @@ class ProfileView(CanEditProfileMixin, DetailView):
         context = super().get_context_data(**kwargs)
         shown_user = context[self.context_object_name]
         context['shown_author'] = self.author
-        context['see_private'] = self.request.user == shown_user or self.request.user.is_staff
+        context['see_private'] = self.request.user == shown_user or self.request.user.is_superuser
         return context
 
     def get(self, request, *args, **kwargs):
