@@ -278,7 +278,16 @@ class Post(ExportModelOperationsMixin('post'), models.Model):
         return super().delete(**kwargs)
 
 
-class ReadState(models.Model):
+class ReadState(ExportModelOperationsMixin('readstate'), models.Model):
+    @ChoiceEnum.labels(str.capitalize)
+    class SubscribeType(ChoiceEnum):
+        nothing = 0
+        notification = 1
+        mail = 2
+        ugettext_noop("Nothing")
+        ugettext_noop("Notification")
+        ugettext_noop("Mail")
+    
     thread = models.ForeignKey(Thread, related_name='read_states',
                                on_delete=models.CASCADE)
 
@@ -288,9 +297,39 @@ class ReadState(models.Model):
 
     post = models.ForeignKey(Post, related_name='read_states',
                              on_delete=models.CASCADE)
+    
+    subtype = EnumField(SubscribeType, db_index=True, verbose_name=_("Subscribe type"), default=SubscribeType.nothing.value)
+    def set_subtype(self, type):
+        self.subtype = type
+        self.save()
 
     class Meta:
         unique_together = ("thread", "user")
+
+class NotificationList(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name='notification_list',
+                             on_delete=models.CASCADE)
+    
+    last_post = models.ForeignKey(Post, related_name='notification_list',
+                             on_delete=models.CASCADE) 
+
+class Notification(models.Model):
+
+    notification_list = models.ForeignKey(NotificationList, related_name='notification',
+                               on_delete=models.CASCADE, default=None)
+    
+    thread = models.ForeignKey(Thread, related_name='notification', on_delete=models.CASCADE, default=None)
+
+    last_author = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             related_name='notification',
+                             on_delete=models.CASCADE)
+
+    last_post = models.ForeignKey(Post, related_name='notification',
+                             on_delete=models.CASCADE) 
+    
+    new_post_count = models.PositiveIntegerField(verbose_name=_("Number of posts"), editable=False, blank=True, default=0)
+    
 
 
 @receiver(post_save, sender=Post)
@@ -310,3 +349,65 @@ def thread_save_handler(sender, **kwargs):
         notify_new_thread.apply_async(args=[data])
     except Exception:
         pass
+
+def last_post_all_forums():
+    return Post.visible.all().latest()
+
+def build_notification_list(user):
+
+    notification = None
+    notification_to_build = None
+    notifications = NotificationList.objects.filter(user=user)
+    print(notifications)
+    if len(notifications) > 0:
+        notification = notifications[0]
+        
+        if notification.last_post != last_post_all_forums():
+            notification_to_build = notification
+            notification = None
+    
+    if notification == None or True:
+
+        last_post_cache = None
+        last_post_isoformat_cache = ""
+
+        if notification_to_build == None and False:
+            notification_to_build = NotificationList.objects.create(user=user, last_post=last_post_all_forums())
+        else:
+            last_post_cache = notification_to_build.last_post
+            last_post_isoformat_cache = last_post_cache.date_created.isoformat()
+            notification_to_build.last_post = last_post_all_forums()
+            notification_to_build.save()
+
+            ## Build every Notification
+            subscribed = ReadState.objects.filter(user=user, subtype=ReadState.SubscribeType.notification.value)
+            post_map = {}
+            notfications_existing = Notification.objects.filter(notification_list=notification_to_build)
+
+            def get_notification_or_create(thread):
+                qs = notfications_existing.filter(thread=thread)
+                if len(qs) > 0:
+                    return qs[0]
+                return Notification.objects.create(notification_list=notification_to_build, thread=thread, last_author=thread.last_post.author, last_post=thread.last_post)
+            def get_thread(readstate):
+                post_map[readstate.thread] = {'posts':[], "notif":get_notification_or_create(readstate.thread)}
+                return readstate.thread
+            threads_subscribed = list(map(get_thread, subscribed))
+
+            for post in Post.objects.filter(thread__in=threads_subscribed):
+                if post.date_created.isoformat() > last_post_isoformat_cache:
+                    post_map[post.thread]['posts'].append(post)
+
+            for thread in threads_subscribed:
+                th_info = post_map[thread]
+                print(th_info)
+                th_info["notif"].last_post = thread.last_post
+                th_info["notif"].last_author = th_info["notif"].last_post.author
+                th_info["notif"].new_post_count = len(th_info["posts"])
+                th_info["notif"].save()
+
+            return (notification_to_build, True, post_map)
+
+
+    return (notification, False)
+
