@@ -2,8 +2,10 @@ from django.conf import settings
 from django.contrib import messages
 from django.urls import reverse
 from django.db import transaction
+from django.db.models import Q
 from django.http.response import HttpResponseForbidden, JsonResponse, Http404
 from django.shortcuts import get_object_or_404, redirect
+from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from django.views.generic import ListView, RedirectView, CreateView, UpdateView, DeleteView
@@ -13,6 +15,7 @@ from rules.contrib.views import PermissionRequiredMixin
 
 import forum.forms
 import forum.models
+from forum.models import ReadState,build_notification_list,Notification,NotificationList,Thread
 
 
 class PreviewMixin:
@@ -202,7 +205,8 @@ class ThreadView(PermissionRequiredMixin, PreviewMixin, FormMixin, ListView):
         # query by calling paginate_queryset().
         if ((self.request.user.is_authenticated
              and not context['page_obj'].has_next())):
-            thread.mark_read_by(self.request.user)
+            robj = thread.mark_read_by(self.request.user)
+            context["subscribed"] = (robj.subtype == 1)
 
         return context
 
@@ -222,6 +226,10 @@ class ThreadView(PermissionRequiredMixin, PreviewMixin, FormMixin, ListView):
         post.author = self.request.user
         post.thread = self.get_thread
         post.save()
+
+        ## Notification Subsystem
+        notify_post_on_thread_subscribed(self.get_thread, post)
+
         self.success_url = post.get_absolute_url()
         return super().form_valid(form)
 
@@ -375,3 +383,68 @@ class DeleteThreadView(PermissionRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(request, _("The thread was deleted successfully."))
         return super().delete(request, *args, **kwargs)
+
+class SubscribeThreadView(PermissionRequiredMixin, ListView):
+    model = forum.models.Thread
+    permission_required = 'forum.view_thread'
+    context_object_name = 'thread'
+
+    def get_success_url(self):
+        return reverse("forum:thread", kwargs=self.kwargs)
+
+    def post(self, request, *args, **kwargs):
+        thread = Thread.objects.filter(slug=self.kwargs['slug'], pk=self.kwargs['pk'])[0]
+        rs = ReadState.objects.filter(user=request.user, thread=thread)[0]
+        rs.subtype = (rs.subtype + 1) % 2
+        rs.save()
+        if rs.subtype == 1:
+            messages.success(request, _("You subscribed to the thread successfully."))
+        else:
+            if rs.notification != None:
+                rs.notification.new_post_count = 0
+                rs.notification.save()
+            messages.success(request, _("You unsubscribed to the thread successfully."))
+        return redirect(self.get_success_url())
+
+
+class NotificationView(PermissionRequiredMixin, ListView):
+    template_name = 'forum/notification.html'
+    permission_required = 'forum.view_thread'
+    
+    @cached_property
+    def get_queryset_cache(self):
+        notification = None
+        notifications = NotificationList.objects.filter(user=self.request.user)
+        if len(notifications) > 0:
+            notification = notifications[0]
+        else:
+            notification = build_notification_list(self.request.user)[0]
+        
+        return Notification.objects.filter(notification_list=notification).filter(~Q(new_post_count=0))
+
+    def get_queryset(self):
+        return self.get_queryset_cache
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context["notifications"] = self.get_queryset_cache
+
+        return context
+
+    def get(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('/')
+        return super().get(request, *args, **kwargs)
+
+def notify_post_on_thread_subscribed(thread, post):
+
+    rs_query = ReadState.objects.filter(thread=thread, subtype=1)
+
+    for rs in rs_query:
+        rs.notification.last_post = post
+        rs.notification.last_author = post.author
+        rs.notification.new_post_count += 1
+        rs.notification.save()
+    
+    return rs_query

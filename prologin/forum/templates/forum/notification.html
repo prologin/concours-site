@@ -1,0 +1,47 @@
+{% extends "forum/base.html" %}
+{% load i18n %}
+{% load django_bootstrap_breadcrumbs markup rules %}
+
+{% block breadcrumbs %}
+  {{ block.super }}
+  {% breadcrumb_for "forum:index" %}{% trans "Forums" %}{% endbreadcrumb_for %}
+  {% breadcrumb_for "forum:notifications"%}Notifications{% endbreadcrumb_for %}
+{% endblock breadcrumbs %}
+
+{% block title %}Notifications{% endblock %}
+
+{% block content %}
+
+{% if notifications %}
+<section class="forum-listing">
+    {% for notif in notifications %}
+        <li class="{% if notif.thread.is_sticky %}notif.thread-sticky {% endif %}{% if notif.thread.is_closed %}notif.thread-closed {% endif %}{% if notif.thread.is_moved %}notif.thread-moved {% endif %}">
+            <div class="row row-vmiddle">{% spaceless %}
+            <div class="col-sm-7 col-xs-8 notif.thread-item-main">
+                <a href="{{ notif.thread.get_absolute_url }}">
+                <h3{% if not notif.thread.seen %} class="thread-unread"{% endif %}>{{ notif.thread.title }}</h3>
+                <span class="text-muted forum-meta">
+                    {% blocktrans with username=notif.thread.author.username date_full=notif.thread.date_created|date:"c" date=notif.thread.date_created|date:"DATETIME_FORMAT" %}By <span class="notif.thread-item-author">{{ username }}</span> ⋅ <span title="{{ date_full }}">{{ date }}</span>{% endblocktrans %}
+                </span>
+                </a>
+            </div>
+            <div class="col-sm-5 hidden-xs forum-meta text-center">
+                {% trans "A new message from" %} {{ notif.last_author.username }}
+                <br>
+                {% if not notif.new_post_count == 1 %}
+                    {% blocktrans count notif.sub_post_count as count %}
+                        and {{ count }} new message{% plural %}and {{ count }} new messages
+                    {% endblocktrans %}
+                {% endif %}
+            </div>
+            {% endspaceless %}</div>
+        </li>
+    {% endfor %}
+</section>
+{% else %}
+  <p class="empty-list-item">
+    <i class="fa fa-frown-o"></i> {% trans "You don't have any notifications." %}
+  </p>
+{% endif %}
+
+{% endblock %}

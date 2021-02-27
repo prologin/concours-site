@@ -10,6 +10,7 @@ post_patterns = [
     path('edit/pin', views.EditThreadPinView.as_view(), name='edit-thread-pin'),
     path('edit/move', views.MoveThreadView.as_view(), name='move-thread'),
     path('delete', views.DeleteThreadView.as_view(), name='delete-thread'),
+    path('subscribe', views.SubscribeThreadView.as_view(), name='toggle-subscribe-post'),
 ]
 
 short_post_patterns = [
@@ -27,6 +28,7 @@ thread_patterns = [
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('notifications', views.NotificationView.as_view(), name='notifications'),
     re_path(r'^post/(?P<thread_slug>[\w-]+)/(?P<pk>[0-9]+)/', include(short_post_patterns)),
     re_path(r'^(?:(?P<slug>[\w-]+)-)?(?P<pk>[0-9]+)$', views.ForumView.as_view(), name='forum'),
     re_path(r'^(?:(?P<forum_slug>[\w-]+)-)?(?P<forum_pk>[0-9]+)/', include(thread_patterns)),
