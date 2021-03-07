@@ -30,16 +30,11 @@ class SchoolContestantsInline(admin.TabularInline):
         return reverse('users:profile', args=[obj.user.pk])
 
 
-class SchoolAdmin(AdminOrderFieldsMixin, admin.ModelAdmin):
-    def current_edition_count(request):
-        return schools.models.School.func_current_edition_contestants_count(request.current_edition.year)
-
+class SchoolAdmin(admin.ModelAdmin):
     list_filter = ('approved', 'imported', 'type', 'academy')
     search_fields = ('name', 'acronym', 'uai', 'city')
     list_display = ('name', 'acronym', 'city', 'approved',
-                    'tcc', 'cecc')
-    annotations = [('tcc', schools.models.School.func_total_contestants_count, _("Total contestant count")),
-                   ('cecc', current_edition_count, _("Current edition contestant count"))]
+                    'total_contestants_count', 'current_edition_contestants_count')
     inlines = [SchoolContestantsInline]
     actions = ['merge']
 
