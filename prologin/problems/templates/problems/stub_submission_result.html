@@ -22,7 +22,7 @@
     <i class="fa fa-smile-o"></i> <strong>{% trans "Test passed!" %}</strong>
   {% else %}
     <i class="fa fa-frown-o"></i> <strong>{% trans "Test failed:" %} {{ result.human_status|lower }}</strong>
-    {% if not user.is_staff or result.hidden %}
+    {% if result.hidden and not user.is_staff %}
       <br><em>{% trans "The output is incorrect (details of this test are hidden)." %}</em>
     {% elif result.status == 'OK' or result.status == 'RUNTIME_ERROR' %}
       {% if result.expected_stdout or result.stdout or result.stderr %}
