@@ -43,6 +43,11 @@ class ConditionalSum(Sum):
             for field, value in mapping.items()
         ])
 
+class AOFMNameContainer:
+    def __init__(self, name):
+        self.name = name
+    def __call__(self, obj):
+        return getattr(obj, self.name)
 
 class AdminOrderFieldsMixin:
     """
@@ -72,8 +77,7 @@ class AdminOrderFieldsMixin:
             except ValueError:
                 name, func, text = annotation
 
-            def method(obj):
-                return getattr(obj, name)
+            method = AOFMNameContainer(name)
             method.__qualname__ = name
             method.admin_order_field = name
             method.short_description = text
