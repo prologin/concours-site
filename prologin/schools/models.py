@@ -79,6 +79,11 @@ class School(AddressableModel):
         verbose_name = _("school")
         verbose_name_plural = _("schools")
 
+    func_total_contestants_count = Count('contestants')
+    func_current_edition_contestants_count = lambda edition: \
+        Sum(Case(When(contestants__edition__year=edition, then=Value(1)), default=Value(0),
+                 output_field=IntegerField()))
+
 
 class Facebook:
     params = {'access_token': settings.FACEBOOK_GRAPH_API_ACCESS_TOKEN,
