@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-08 20:09+0100\n"
+"POT-Creation-Date: 2021-03-15 12:19+0100\n"
 "PO-Revision-Date: 2020-05-10 18:14+0000\n"
 "Last-Translator: Valentin Seux <valentin.seux@prologin.org>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
@@ -247,7 +247,7 @@ msgstr "Hôtel"
 msgid "Pizzeria"
 msgstr "Pizzéria"
 
-#: prologin/centers/models.py:24 prologin/users/models.py:104
+#: prologin/centers/models.py:24 prologin/users/models.py:105
 msgid "Other"
 msgstr "Autre"
 
@@ -2663,6 +2663,34 @@ msgstr "Articles antérieurs"
 msgid "News"
 msgstr "Actualités"
 
+#: prologin/oidc_policy/templates/oidc_provider/authorize.html:4
+#, fuzzy
+#| msgid "The organization"
+msgid "Authorization"
+msgstr "L'association"
+
+#: prologin/oidc_policy/templates/oidc_provider/authorize.html:7
+msgid "Request for authorization"
+msgstr ""
+
+#: prologin/oidc_policy/templates/oidc_provider/authorize.html:9
+#, python-format
+msgid ""
+"\n"
+"<p>Client <strong>%(client.name)s</strong> would like to access the "
+"following information about you.</p>\n"
+msgstr ""
+
+#: prologin/oidc_policy/templates/oidc_provider/authorize.html:25
+msgid "Decline"
+msgstr ""
+
+#: prologin/oidc_policy/templates/oidc_provider/authorize.html:26
+#, fuzzy
+#| msgid "Author"
+msgid "Authorize"
+msgstr "Auteur"
+
 #: prologin/pages/templates/pages/about-contest-rules.html:7
 #: prologin/pages/templates/pages/about-contest-rules.html:11
 #: prologin/pages/templates/pages/about-contest-rules.html:15
@@ -3366,7 +3394,7 @@ msgid "Address"
 msgstr "Adresse"
 
 #: prologin/pages/templates/pages/about-organization.html:35
-#: prologin/users/models.py:131
+#: prologin/users/models.py:132
 msgid "Phone"
 msgstr "Téléphone"
 
@@ -3401,7 +3429,17 @@ msgstr ""
 msgid "CNIL registration number:"
 msgstr "Numéro de déclaration CNIL :"
 
-#: prologin/pages/templates/pages/about-organization.html:66
+#: prologin/pages/templates/pages/about-organization.html:67
+#, python-format
+msgid "The website's publication director is <b>%(pres_f)s</b>."
+msgstr ""
+
+#: prologin/pages/templates/pages/about-organization.html:69
+#, python-format
+msgid "The website's publication director is <b>%(pres_m)s</b>."
+msgstr ""
+
+#: prologin/pages/templates/pages/about-organization.html:71
 msgid ""
 "In accordance with Article 34 of the “Informatique et Liberté” law, you "
 "have\n"
@@ -3416,11 +3454,11 @@ msgstr ""
 "Pour exercer ce droit, veuillez contacter Prologin en utilisant l'une des "
 "méthodes listées dans l'encart « Informations de contact. »"
 
-#: prologin/pages/templates/pages/about-organization.html:75
+#: prologin/pages/templates/pages/about-organization.html:80
 msgid "A computer enthusiasts organization"
 msgstr "Une association de passionnés d'informatique"
 
-#: prologin/pages/templates/pages/about-organization.html:76
+#: prologin/pages/templates/pages/about-organization.html:81
 msgid ""
 "<p class=\"text-justify\">The purpose of Prologin is to enable young "
 "computer enthusiasts to meet and compete with one another. Indeed,\n"
@@ -3488,11 +3526,11 @@ msgstr ""
 "atteignent la finale, c'est aussi l'occasion de passer un super weekend avec "
 "nous&nbsp;!</p>\n"
 
-#: prologin/pages/templates/pages/about-organization.html:99
+#: prologin/pages/templates/pages/about-organization.html:104
 msgid "Girls Can Code!"
 msgstr ""
 
-#: prologin/pages/templates/pages/about-organization.html:100
+#: prologin/pages/templates/pages/about-organization.html:105
 msgid ""
 "In 2014, Prologin started to organize the Girls Can Code! summer camps.\n"
 "These training camps are the perfect occasion for young girls who are still "
@@ -3504,7 +3542,7 @@ msgid ""
 "and more through practical exercises."
 msgstr ""
 
-#: prologin/pages/templates/pages/about-organization.html:106
+#: prologin/pages/templates/pages/about-organization.html:111
 msgid ""
 "Conferences from exterior speakers are organized for every camp. It enables "
 "the attendees\n"
@@ -3515,14 +3553,14 @@ msgid ""
 "thus helping them for future orientation choices."
 msgstr ""
 
-#: prologin/pages/templates/pages/about-organization.html:111
+#: prologin/pages/templates/pages/about-organization.html:116
 msgid ""
 "Prologin staff is present during the camp to help them debug their programs "
 "and pass on\n"
 "knowledge in computer science and programming."
 msgstr ""
 
-#: prologin/pages/templates/pages/about-organization.html:114
+#: prologin/pages/templates/pages/about-organization.html:119
 #, python-format
 msgid ""
 "More information can be found on <a href=\"https://gcc.prologin.org\">Girls "
@@ -3530,11 +3568,11 @@ msgid ""
 "inquiries, please <a href=\"%(about_organization)s#contact\">contact us</a>."
 msgstr ""
 
-#: prologin/pages/templates/pages/about-organization.html:117
+#: prologin/pages/templates/pages/about-organization.html:122
 msgid "Everyone can contribute to Prologin"
 msgstr "Tout le monde peut contribuer à Prologin"
 
-#: prologin/pages/templates/pages/about-organization.html:119
+#: prologin/pages/templates/pages/about-organization.html:124
 msgid ""
 "<p class=\"text-justify\">Contributing can be done in various ways: "
 "promoting the event, developing the website and\n"
@@ -5250,11 +5288,11 @@ msgstr "Ville"
 msgid "Country"
 msgstr "Pays"
 
-#: prologin/prologin/settings/common.py:133
+#: prologin/prologin/settings/common.py:134
 msgid "English"
 msgstr "Anglais"
 
-#: prologin/prologin/settings/common.py:134
+#: prologin/prologin/settings/common.py:135
 msgid "French"
 msgstr "Français"
 
@@ -6180,59 +6218,59 @@ msgstr ""
 msgid "Wrong username."
 msgstr "Nom d'utilisateur incorrect."
 
-#: prologin/users/models.py:95
+#: prologin/users/models.py:96
 msgid "Middle school"
 msgstr "Collège"
 
-#: prologin/users/models.py:96
+#: prologin/users/models.py:97
 msgid "High school"
 msgstr "Lycée"
 
-#: prologin/users/models.py:97
+#: prologin/users/models.py:98
 msgid "Bac"
 msgstr "Bac"
 
-#: prologin/users/models.py:98
+#: prologin/users/models.py:99
 msgid "Bac+1"
 msgstr "Bac+1"
 
-#: prologin/users/models.py:99
+#: prologin/users/models.py:100
 msgid "Bac+2"
 msgstr "Bac+2"
 
-#: prologin/users/models.py:100
+#: prologin/users/models.py:101
 msgid "Bac+3"
 msgstr "Bac+3"
 
-#: prologin/users/models.py:101
+#: prologin/users/models.py:102
 msgid "Bac+4"
 msgstr "Bac+4"
 
-#: prologin/users/models.py:102
+#: prologin/users/models.py:103
 msgid "Bac+5"
 msgstr "Bac+5"
 
-#: prologin/users/models.py:103
+#: prologin/users/models.py:104
 msgid "Bac+6 and after"
 msgstr "Bac+6 et au delà"
 
-#: prologin/users/models.py:105
+#: prologin/users/models.py:106
 msgid "Former student"
 msgstr "Ancien étudiant"
 
-#: prologin/users/models.py:130
+#: prologin/users/models.py:131
 msgid "Educational stage"
 msgstr "Niveau scolaire"
 
-#: prologin/users/models.py:133 prologin/users/templates/users/profile.html:60
+#: prologin/users/models.py:134 prologin/users/templates/users/profile.html:60
 msgid "Birth day"
 msgstr "Date de naissance"
 
-#: prologin/users/models.py:135
+#: prologin/users/models.py:136
 msgid "Allow Prologin to send me emails"
 msgstr "Autoriser Prologin à m'envoyer des e-mails"
 
-#: prologin/users/models.py:136
+#: prologin/users/models.py:137
 msgid ""
 "We only mail you to provide useful information during the various stages of "
 "the contest. We hate spam as much as you do!"
@@ -6240,27 +6278,27 @@ msgstr ""
 "Nous n'envoyons des e-mails que pour vous informer du déroulement du "
 "concours. Nous détestons autant que vous les courriers indésirables !"
 
-#: prologin/users/models.py:139
+#: prologin/users/models.py:140
 msgid "Signature"
 msgstr "Signature"
 
-#: prologin/users/models.py:141
+#: prologin/users/models.py:142
 msgid "Preferred coding language"
 msgstr "Langage de programmation préféré"
 
-#: prologin/users/models.py:142
+#: prologin/users/models.py:143
 msgid "Time zone"
 msgstr "Fuseau horaire"
 
-#: prologin/users/models.py:143
+#: prologin/users/models.py:144
 msgid "Locale"
 msgstr "Langue"
 
-#: prologin/users/models.py:149
+#: prologin/users/models.py:150
 msgid "Profile picture"
 msgstr "Photo de profil"
 
-#: prologin/users/models.py:154
+#: prologin/users/models.py:155
 msgid "Official member picture"
 msgstr "Photo de profil officielle"
 
