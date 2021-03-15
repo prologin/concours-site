@@ -63,6 +63,11 @@
           <p>{% blocktrans %}Prologin is a French “law 1901” organization registered under the sub-prefecture of
 <em>L'Hay-les-Roses</em> on 2000-08-04.{% endblocktrans %}</p>
           <p>{% trans "CNIL registration number:" %} <code>830039</code>.</p>
+          {% if team_pres.user.gender == 1 %}
+          <p>{% blocktrans with pres_f=team_pres.user.get_full_name %}The website's publication director is <b>{{pres_f}}</b>.{% endblocktrans %}</p>
+          {% else %}
+          <p>{% blocktrans with pres_m=team_pres.user.get_full_name %}The website's publication director is <b>{{pres_m}}</b>.{% endblocktrans %}</p>
+          {% endif %}
           <p><small>{% blocktrans %}In accordance with Article 34 of the “Informatique et Liberté” law, you have
 the right to access, modify and delete data concerning you.
 To exercise this right, please contact Prologin using one of the methods listed in
