@@ -8,15 +8,13 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
-from django.views.generic import ListView, RedirectView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, RedirectView, CreateView, UpdateView, DeleteView, View
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import ModelFormMixin, FormMixin
 from rules.contrib.views import PermissionRequiredMixin
 
 import forum.forms
 import forum.models
-from forum.models import ReadState,build_notification_list,Notification,NotificationList,Thread
-
 
 class PreviewMixin:
     preview_name = 'preview'
@@ -206,7 +204,7 @@ class ThreadView(PermissionRequiredMixin, PreviewMixin, FormMixin, ListView):
         if ((self.request.user.is_authenticated
              and not context['page_obj'].has_next())):
             robj = thread.mark_read_by(self.request.user)
-            context["subscribed"] = (robj.subtype == 1)
+            context["subscribed"] = (robj.subtype == ReadState.SubscribeType.notification)
 
         return context
 
@@ -384,7 +382,7 @@ class DeleteThreadView(PermissionRequiredMixin, DeleteView):
         messages.success(request, _("The thread was deleted successfully."))
         return super().delete(request, *args, **kwargs)
 
-class SubscribeThreadView(PermissionRequiredMixin, ListView):
+class SubscribeThreadView(PermissionRequiredMixin, View):
     model = forum.models.Thread
     permission_required = 'forum.view_thread'
     context_object_name = 'thread'
@@ -393,37 +391,32 @@ class SubscribeThreadView(PermissionRequiredMixin, ListView):
         return reverse("forum:thread", kwargs=self.kwargs)
 
     def post(self, request, *args, **kwargs):
-        thread = Thread.objects.filter(slug=self.kwargs['slug'], pk=self.kwargs['pk'])[0]
-        rs = ReadState.objects.filter(user=request.user, thread=thread)[0]
-        rs.subtype = (rs.subtype + 1) % 2
-        rs.save()
-        if rs.subtype == 1:
+        thread = get_object_or_404(forum.models.Thread, slug=self.kwargs['slug'], pk=self.kwargs['pk'])
+        rs = get_object_or_404(forum.models.ReadState, user=request.user, thread=thread)
+        if rs.subtype == forum.models.ReadState.SubscribeType.nothing:
+            rs.subtype = forum.models.ReadState.SubscribeType.notification
             messages.success(request, _("You subscribed to the thread successfully."))
         else:
+            rs.subtype = forum.models.ReadState.SubscribeType.nothing
             if rs.notification != None:
                 rs.notification.new_post_count = 0
                 rs.notification.save()
             messages.success(request, _("You unsubscribed to the thread successfully."))
+        rs.save()
         return redirect(self.get_success_url())
+    
+    def get(self, request, *args, **kwargs):
+        if request.method == "POST":
+            return self.post(request, *args, **kwargs)
+        raise Http404()
 
 
 class NotificationView(PermissionRequiredMixin, ListView):
     template_name = 'forum/notification.html'
     permission_required = 'forum.view_thread'
     
-    @cached_property
-    def get_queryset_cache(self):
-        notification = None
-        notifications = NotificationList.objects.filter(user=self.request.user)
-        if len(notifications) > 0:
-            notification = notifications[0]
-        else:
-            notification = build_notification_list(self.request.user)[0]
-        
-        return Notification.objects.filter(notification_list=notification).filter(~Q(new_post_count=0))
-
     def get_queryset(self):
-        return self.get_queryset_cache
+        return forum.models.Notification.objects.filter(user=self.request.user).filter(~Q(new_post_count=0))
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -439,7 +432,7 @@ class NotificationView(PermissionRequiredMixin, ListView):
 
 def notify_post_on_thread_subscribed(thread, post):
 
-    rs_query = ReadState.objects.filter(thread=thread, subtype=1)
+    rs_query = forum.models.ReadState.objects.filter(thread=thread, subtype=1)
 
     for rs in rs_query:
         rs.notification.last_post = post

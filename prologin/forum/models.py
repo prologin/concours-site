@@ -163,22 +163,16 @@ class Thread(ExportModelOperationsMixin('thread'), models.Model):
             return None
 
     def mark_read_by(self, user):
-        robj = ReadState.objects.update_or_create(user=user,
+        robj, robj_created = ReadState.objects.update_or_create(user=user,
                                            thread=self,
-                                           defaults={'post': self.last_post})[0]
+                                           defaults={'post': self.last_post})
         
-        if robj.subtype == 1:
-            notif_list = NotificationList.objects.filter(user=user)
-            if len(notif_list) > 0:
-                notif_list = notif_list[0]
-            else:
-                notif_list = NotificationList.objects.create(user=user)
-            
-            notif = Notification.objects.update_or_create(notification_list=notif_list,
+        if robj.subtype == ReadState.SubscribeType.notification:
+            notif, notif_created = Notification.objects.update_or_create(user=user,
                                                             thread=self,
                                                             defaults={'new_post_count':0,
                                                                     'last_post':self.last_post,
-                                                                    'last_author':self.last_post.author})[0]
+                                                                    'last_author':self.last_post.author})
             
             robj.notification = notif
             robj.save()
@@ -295,18 +289,9 @@ class Post(ExportModelOperationsMixin('post'), models.Model):
             return self.thread.delete(**kwargs)
         return super().delete(**kwargs)
 
-
-class NotificationList(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,
-                             related_name='notification_list',
-                             on_delete=models.CASCADE)
-
-    notification_count = models.PositiveIntegerField(verbose_name=_("Number of notifications"), editable=False, blank=True, default=0)
-    
-
 class Notification(models.Model):
 
-    notification_list = models.ForeignKey(NotificationList, related_name='notification',
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='notification_user',
                                on_delete=models.CASCADE, default=None)
     
     thread = models.ForeignKey(Thread, related_name='notification', on_delete=models.CASCADE, default=None)
@@ -347,13 +332,6 @@ class ReadState(ExportModelOperationsMixin('readstate'), models.Model):
                              on_delete=models.CASCADE, null=True)
 
     subtype = EnumField(SubscribeType, db_index=True, verbose_name=_("Subscribe type"), default=SubscribeType.nothing.value)
-    def set_subtype(self, type):
-        self.subtype = type
-        self.save()
-
-    def set_notification(self, notif):
-        self.notification = notif
-        self.notification.save()
 
     class Meta:
         unique_together = ("thread", "user")
@@ -380,24 +358,6 @@ def thread_save_handler(sender, **kwargs):
 def last_post_all_forums():
     return Post.visible.all().latest()
 
-def build_notification_list(user):
-
-    notification = None
-    notification_to_build = None
-    notifications = NotificationList.objects.filter(user=user)
-    print(notifications)
-    if len(notifications) > 0:
-        notification = notifications[0]
-        
-        if notification.last_post != last_post_all_forums():
-            notification_to_build = notification
-            notification = None
-    
-    if notification == None or True:
-
-        if notification_to_build == None and False:
-            notification_to_build = NotificationList.objects.create(user=user, notification_count=0)
-        notification = notification_to_build
-
-    return (notification, False)
+def get_notifications(user):
+    return Notification.objects.filter(user=user)
 

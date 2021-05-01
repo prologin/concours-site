@@ -21,7 +21,15 @@
                 <a href="{{ notif.thread.get_absolute_url }}">
                 <h3{% if not notif.thread.seen %} class="thread-unread"{% endif %}>{{ notif.thread.title }}</h3>
                 <span class="text-muted forum-meta">
-                    {% blocktrans with username=notif.thread.author.username date_full=notif.thread.date_created|date:"c" date=notif.thread.date_created|date:"DATETIME_FORMAT" %}By <span class="notif.thread-item-author">{{ username }}</span> ⋅ <span title="{{ date_full }}">{{ date }}</span>{% endblocktrans %}
+                    {% with username=notif.thread.author.username %}
+                        {% with date_full=notif.thread.date_created|date:"c" %}
+                            {% date=notif.thread.date_created|date:"DATETIME_FORMAT" %}
+                                {% blocktrans %}
+                                    By <span class="notif.thread-item-author">{{ username }}</span> ⋅ <span title="{{ date_full }}">{{ date }}</span>
+                                {% endblocktrans %}
+                            {% endwith %}
+                        {% endwith %}
+                    {% endwith %}
                 </span>
                 </a>
             </div>
