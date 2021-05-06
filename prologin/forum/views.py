@@ -204,7 +204,7 @@ class ThreadView(PermissionRequiredMixin, PreviewMixin, FormMixin, ListView):
         if ((self.request.user.is_authenticated
              and not context['page_obj'].has_next())):
             robj = thread.mark_read_by(self.request.user)
-            context["subscribed"] = (robj.subtype == ReadState.SubscribeType.notification)
+            context["subscribed"] = (robj.subtype == forum.models.ReadState.SubscribeType.notification.value)
 
         return context
 
@@ -393,11 +393,11 @@ class SubscribeThreadView(PermissionRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         thread = get_object_or_404(forum.models.Thread, slug=self.kwargs['slug'], pk=self.kwargs['pk'])
         rs = get_object_or_404(forum.models.ReadState, user=request.user, thread=thread)
-        if rs.subtype == forum.models.ReadState.SubscribeType.nothing:
-            rs.subtype = forum.models.ReadState.SubscribeType.notification
+        if rs.subtype == forum.models.ReadState.SubscribeType.nothing.value:
+            rs.subtype = forum.models.ReadState.SubscribeType.notification.value
             messages.success(request, _("You subscribed to the thread successfully."))
         else:
-            rs.subtype = forum.models.ReadState.SubscribeType.nothing
+            rs.subtype = forum.models.ReadState.SubscribeType.nothing.value
             if rs.notification != None:
                 rs.notification.new_post_count = 0
                 rs.notification.save()
@@ -421,7 +421,7 @@ class NotificationView(PermissionRequiredMixin, ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
-        context["notifications"] = self.get_queryset_cache
+        context["notifications"] = self.get_queryset()
 
         return context
 

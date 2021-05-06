@@ -23,7 +23,7 @@
                 <span class="text-muted forum-meta">
                     {% with username=notif.thread.author.username %}
                         {% with date_full=notif.thread.date_created|date:"c" %}
-                            {% date=notif.thread.date_created|date:"DATETIME_FORMAT" %}
+                            {% with date=notif.thread.date_created|date:"DATETIME_FORMAT" %}
                                 {% blocktrans %}
                                     By <span class="notif.thread-item-author">{{ username }}</span> ⋅ <span title="{{ date_full }}">{{ date }}</span>
                                 {% endblocktrans %}

@@ -167,7 +167,7 @@ class Thread(ExportModelOperationsMixin('thread'), models.Model):
                                            thread=self,
                                            defaults={'post': self.last_post})
         
-        if robj.subtype == ReadState.SubscribeType.notification:
+        if robj.subtype == ReadState.SubscribeType.notification.value:
             notif, notif_created = Notification.objects.update_or_create(user=user,
                                                             thread=self,
                                                             defaults={'new_post_count':0,
