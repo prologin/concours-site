@@ -64,7 +64,7 @@ msgpack-python
 # Image manipulation support, previously known as PIL
 pillow>=2.4
 # Postgres database connector
-psycopg2-binary>=2.5
+psycopg2-binary==2.8.6
 # Github-flavored Markdown
 py-gfm==0.1.4
 # Code highlighting
