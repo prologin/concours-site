@@ -33,7 +33,7 @@ django-hijack<3,>=2.3.0
 # Django conflose
 git+https://github.com/prologin/django-conflose
 # Django massmailer
-django-massmailer
+django-massmailer==0.5
 # NPM static finder
 django-npm
 # Export metrics for prometheus monitoring
