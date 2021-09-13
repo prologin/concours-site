@@ -21,6 +21,7 @@ class TeamMemberAdmin(admin.ModelAdmin):
     list_filter = (RoleFilter, 'year', )
     list_display = ('user', 'year', 'role_significance', 'role_name', )
     raw_id_fields = ('user', )
+    search_fields = ('user__first_name', 'user__last_name', 'user__username')
 
     def role_significance(self, member):
         return member.role_significance
