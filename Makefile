@@ -29,7 +29,7 @@ smtpserver:
 	python $(TOP)/smtp_debug.py --host $(SMTP_HOST) --port $(SMTP_PORT) --lag $(SMTP_LAG)
 
 celeryworker:
-	$(CELERY) -l debug -A prologin worker -Q prolosite
+	$(CELERY) -A prologin worker -l debug -Q prolosite
 
 shell:
 	$(MANAGE) shell
