@@ -29,6 +29,7 @@ smtpserver:
 	python $(TOP)/smtp_debug.py --host $(SMTP_HOST) --port $(SMTP_PORT) --lag $(SMTP_LAG)
 
 celeryworker:
+	export DJANGO_SETTINGS_MODULE="prologin.settings.dev"
 	$(CELERY) -A prologin worker -l debug -Q prolosite
 
 shell:
