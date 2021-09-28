@@ -1,0 +1,56 @@
+{% load i18n %}
+
+<ul class="row countdown">
+  <li class="col-sm-3"><span id="countdown-days">1</span> {% trans "days" %}</li>
+  <li class="col-sm-3"><span id="countdown-hours">1</span> {% trans "hours" %}</li>
+  <li class="col-sm-3"><span id="countdown-minutes">1</span> {% trans "minutes" %}</li>
+  <li class="col-sm-3"><span id="countdown-seconds">1</span> {% trans "seconds" %}</li>
+</ul>
+
+<style>
+.countdown {
+  text-align: center;
+  display: none;
+}
+
+.countdown li {
+  display: inline-block;
+  font-size: 1.5em;
+  list-style-type: none;
+  padding: 1em;
+  text-transform: uppercase;
+}
+
+.countdown li span {
+  display: block;
+  font-size: 4.5rem;
+}
+</style>
+
+<script>
+const second = 1000,
+      minute = second * 60,
+      hour = minute * 60,
+      day = hour * 24;
+
+let countDown = Date.UTC(2021, 10, 15, 14, 42, 00),
+    x = setInterval(function() {    
+      let now = new Date().getTime(),
+          distance = countDown - now;
+
+      if (distance < 0) {
+        for (let countdown of document.querySelectorAll(".countdown")) {
+          countdown.style.display = "none";
+        }
+        clearInterval(x);
+      } else {
+        for (let countdown of document.querySelectorAll(".countdown")) {
+          countdown.style.display = "block";
+        }
+        document.getElementById("countdown-days").innerText = Math.floor(distance / (day));
+        document.getElementById("countdown-hours").innerText = Math.floor((distance % (day)) / (hour));
+        document.getElementById("countdown-minutes").innerText = Math.floor((distance % (hour)) / (minute));
+        document.getElementById("countdown-seconds").innerText = Math.floor((distance % (minute)) / second);
+      }
+  }, 1000)
+</script>
