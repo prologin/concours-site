@@ -33,7 +33,7 @@ const second = 1000,
       hour = minute * 60,
       day = hour * 24;
 
-let countDown = Date.UTC(2021, 10, 15, 14, 42, 00),
+let countDown = Date.UTC(2021, 9 /* 9 is october */, 15, 14, 42, 00),
     x = setInterval(function() {    
       let now = new Date().getTime(),
           distance = countDown - now;
@@ -54,3 +54,4 @@ let countDown = Date.UTC(2021, 10, 15, 14, 42, 00),
       }
   }, 1000)
 </script>
+

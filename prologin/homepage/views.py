@@ -45,6 +45,7 @@ class HomepageView(TemplateView):
         context['problems_count'] = problems_count
         context['problems_completed'] = problems_completed
         context['born_year'] = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
+        context['countdown_enabled'] = settings.COUNTDOWN_ENABLED
         context['articles'] = articles
         sponsors = list(sponsor.models.Sponsor.active.all())
         random.shuffle(sponsors)
