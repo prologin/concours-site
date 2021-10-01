@@ -10,7 +10,6 @@
 <style>
 .countdown {
   text-align: center;
-  display: none;
 }
 
 .countdown li {
@@ -28,30 +27,40 @@
 </style>
 
 <script>
-const second = 1000,
-      minute = second * 60,
-      hour = minute * 60,
-      day = hour * 24;
+(() => {
+  const second = 1000,
+        minute = second * 60,
+        hour = minute * 60,
+        day = hour * 24;
 
-let countDown = Date.UTC(2021, 9 /* 9 is october */, 15, 14, 42, 00),
-    x = setInterval(function() {    
-      let now = new Date().getTime(),
-          distance = countDown - now;
+  let target_date = Date.UTC(2021, 9 /* 9 is october */, 15, 14, 42, 00),
+      countdown_container = document.querySelector(".countdown"),
+      days_span = document.getElementById("countdown-days"),
+      hours_span = document.getElementById("countdown-hours"),
+      minutes_span = document.getElementById("countdown-minutes"),
+      seconds_span = document.getElementById("countdown-seconds");
 
-      if (distance < 0) {
-        for (let countdown of document.querySelectorAll(".countdown")) {
-          countdown.style.display = "none";
-        }
-        clearInterval(x);
-      } else {
-        for (let countdown of document.querySelectorAll(".countdown")) {
-          countdown.style.display = "block";
-        }
-        document.getElementById("countdown-days").innerText = Math.floor(distance / (day));
-        document.getElementById("countdown-hours").innerText = Math.floor((distance % (day)) / (hour));
-        document.getElementById("countdown-minutes").innerText = Math.floor((distance % (hour)) / (minute));
-        document.getElementById("countdown-seconds").innerText = Math.floor((distance % (minute)) / second);
-      }
-  }, 1000)
+  let update_countdown = (callback) => {
+    let now = new Date().getTime(),
+        distance = target_date - now;
+
+    if (distance < 0) {
+      countdown_container.style.display = "none";
+      if (callback) callback();
+    } else {
+      days_span.innerText = Math.floor(distance / (day));
+      hours_span.innerText = Math.floor((distance % (day)) / (hour));
+      minutes_span.innerText = Math.floor((distance % (hour)) / (minute));
+      seconds_span.innerText = Math.floor((distance % (minute)) / second);
+    }
+  }
+
+  update_countdown();
+  let intervalId = setInterval(() => {
+    update_countdown(
+      () => clearInterval(intervalId)
+    );
+  }, 1000);
+})();
 </script>
 
