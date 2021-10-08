@@ -13,7 +13,7 @@ ALLOWED_HOSTS = ['*']
 SITE_HOST = "localhost:8000"
 
 # Mandatory settings:
-PROLOGIN_EDITION = 2021
+PROLOGIN_EDITION = 2022
 PROBLEMS_REPOSITORY_PATH = '/var/prologin/problems'
 PROBLEMS_CORRECTORS = ("http://vm.prologin.org/run",)
 RECAPTCHA_PUBLIC_KEY = ''
@@ -77,5 +77,5 @@ EMAIL_USE_SSL = False
 
 # Register GCC! as OAuth client
 AUTH_TOKEN_CLIENTS = {
-    'gcc': AuthTokenClient('GCC!', '//172.20.0.7:8001/user/auth/callback'),
+    'gcc': AuthTokenClient('GCC!', '//172.18.0.7:8001/user/auth/callback'),
 }
