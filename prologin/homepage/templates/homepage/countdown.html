@@ -1,20 +1,21 @@
 {% load i18n %}
 
 <ul class="row countdown">
-  <li class="col-sm-3"><span id="countdown-days">1</span> {% trans "days" %}</li>
-  <li class="col-sm-3"><span id="countdown-hours">1</span> {% trans "hours" %}</li>
-  <li class="col-sm-3"><span id="countdown-minutes">1</span> {% trans "minutes" %}</li>
-  <li class="col-sm-3"><span id="countdown-seconds">1</span> {% trans "seconds" %}</li>
+  <li class="col-xs-3 col-sm-3"><span id="countdown-days">1</span> {% trans "days" %}</li>
+  <li class="col-xs-3 col-sm-3"><span id="countdown-hours">1</span> {% trans "hours" %}</li>
+  <li class="col-xs-3 col-sm-3"><span id="countdown-minutes">1</span> {% trans "minutes" %}</li>
+  <li class="col-xs-3 col-sm-3"><span id="countdown-seconds">1</span> {% trans "seconds" %}</li>
 </ul>
 
 <style>
 .countdown {
   text-align: center;
+  padding-left: 0px;
 }
 
 .countdown li {
   display: inline-block;
-  font-size: 1.5em;
+  font-size: 1rem;
   list-style-type: none;
   padding: 1em;
   text-transform: uppercase;
@@ -22,7 +23,17 @@
 
 .countdown li span {
   display: block;
-  font-size: 4.5rem;
+  font-size: 3rem;
+}
+
+@media (min-width: 768px) {
+  .countdown li {
+    font-size: 1.5em;
+  }
+
+  .countdown li span {
+    font-size: 4.5rem;
+  }
 }
 </style>
 
@@ -58,7 +69,10 @@
   update_countdown();
   let intervalId = setInterval(() => {
     update_countdown(
-      () => clearInterval(intervalId)
+        () => {
+            document.location.reload();
+            clearInterval(intervalId);
+        }
     );
   }, 1000);
 })();
