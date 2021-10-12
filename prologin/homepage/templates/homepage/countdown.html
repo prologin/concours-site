@@ -33,7 +33,7 @@
         hour = minute * 60,
         day = hour * 24;
 
-  let target_date = Date.UTC(2021, 9 /* 9 is october */, 15, 14, 42, 00),
+    let target_date = new Date({{ countdown_timestamp }}),
       countdown_container = document.querySelector(".countdown"),
       days_span = document.getElementById("countdown-days"),
       hours_span = document.getElementById("countdown-hours"),

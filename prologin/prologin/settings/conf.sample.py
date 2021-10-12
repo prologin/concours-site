@@ -75,6 +75,3 @@ EMAIL_USE_SSL = False
 RECAPTCHA_PUBLIC_KEY = ''
 RECAPTCHA_PRIVATE_KEY = ''
 
-# Enable / disable the countdown
-COUNTDOWN_ENABLED = True
-
