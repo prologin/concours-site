@@ -28,7 +28,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Prologin website\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-13 12:31+0200\n"
+"POT-Creation-Date: 2021-10-13 12:33+0200\n"
 "PO-Revision-Date: 2020-05-10 18:14+0000\n"
 "Last-Translator: Valentin Seux <valentin.seux@prologin.org>\n"
 "Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
@@ -2073,6 +2073,22 @@ msgstr "Le sujet a été déplacé avec succès."
 msgid "The thread was deleted successfully."
 msgstr "Le sujet a été supprimé avec succès."
 
+#: homepage/templates/homepage/countdown.html:4
+msgid "days"
+msgstr ""
+
+#: homepage/templates/homepage/countdown.html:5
+msgid "hours"
+msgstr ""
+
+#: homepage/templates/homepage/countdown.html:6
+msgid "minutes"
+msgstr ""
+
+#: homepage/templates/homepage/countdown.html:7
+msgid "seconds"
+msgstr ""
+
 #: homepage/templates/homepage/homepage.html:5
 #: homepage/templates/homepage/jumbotron.html:6
 #: prologin/templates/prologin/base.html:35
@@ -2171,7 +2187,7 @@ msgstr ""
 "Vous êtes né en %(born_year)s ou après&nbsp;? Participez à Prologin&nbsp;! "
 "L'inscription est gratuite."
 
-#: homepage/templates/homepage/jumbotron.html:9
+#: homepage/templates/homepage/jumbotron.html:13
 msgid "Unknown date"
 msgstr "Date inconnue"
 
