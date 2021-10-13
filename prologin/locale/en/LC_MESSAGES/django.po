@@ -1,0 +1,6019 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-10-13 14:37+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: archives/templates/archives/finale-scoreboard.html:7
+#: archives/templates/archives/index.html:7
+#: archives/templates/archives/index.html:14
+#: archives/templates/archives/index.html:18
+#: archives/templates/archives/report.html:7
+#: news/templates/zinnia/entry_archive_day.html:5
+#: news/templates/zinnia/entry_archive_day.html:7
+#: news/templates/zinnia/entry_archive_day.html:12
+#: news/templates/zinnia/entry_archive_day.html:29
+#: news/templates/zinnia/entry_archive_month.html:4
+#: news/templates/zinnia/entry_archive_month.html:6
+#: news/templates/zinnia/entry_archive_month.html:11
+#: news/templates/zinnia/entry_archive_month.html:39
+#: news/templates/zinnia/entry_archive_today.html:23
+#: news/templates/zinnia/entry_archive_week.html:45
+#: news/templates/zinnia/entry_archive_year.html:4
+#: news/templates/zinnia/entry_archive_year.html:6
+#: news/templates/zinnia/entry_archive_year.html:11
+#: prologin/templates/prologin/main-menu.html:10
+msgid "Archives"
+msgstr ""
+
+#: archives/templates/archives/finale-scoreboard.html:9
+msgid "Final scoreboard"
+msgstr ""
+
+#: archives/templates/archives/finale-scoreboard.html:16
+#: archives/templates/archives/finale-scoreboard.html:19
+#, python-format
+msgid "Final scoreboard for Prologin %(year)s final"
+msgstr ""
+
+#: archives/templates/archives/index.html:19
+msgid ""
+"Looking for Prologin's last year poster? 1996 final's statement? 2003 quiz?\n"
+"    You can find all the documents and photo albums from past Prologin "
+"editions in these pages."
+msgstr ""
+
+#: archives/templates/archives/index.html:31
+#: contest/templates/contest/index.html:12
+#: contest/templates/contest/index.html:16
+#: contest/templates/correction/contestant-base.html:17
+#: contest/templates/correction/final.html:22
+#: contest/templates/correction/qualification.html:21
+#: contest/templates/correction/semifinal.html:22
+#, python-format
+msgid "Prologin %(year)s"
+msgstr ""
+
+#: archives/templates/archives/index.html:34
+msgid "Download poster"
+msgstr ""
+
+#: archives/templates/archives/index.html:37
+msgid "Poster not available"
+msgstr ""
+
+#: archives/templates/archives/index.html:41 contest/models.py:104
+#: contest/templates/contest/index.html:9
+#: contest/templates/contest/qualification-summary.html:9
+#: contest/templates/correction/contestant-qualification.html:7
+#: contest/templates/correction/qualification.html:10
+#: contest/templates/correction/qualification.html:13
+#: contest/templates/correction/qualification.html:21
+#: homepage/templates/homepage/jumbotron-qualification.html:7
+#: qcm/templates/qcm/display.html:9
+msgid "Qualification"
+msgstr ""
+
+#: archives/templates/archives/index.html:45
+#, python-format
+msgid "%(count)s-question quiz"
+msgid_plural "%(count)s-question quiz"
+msgstr[0] ""
+msgstr[1] ""
+
+#: archives/templates/archives/index.html:48
+#: archives/templates/archives/index.html:70
+#, python-format
+msgid "%(count)s problem"
+msgid_plural "%(count)s problems"
+msgstr[0] ""
+msgstr[1] ""
+
+#: archives/templates/archives/index.html:51
+msgid "Test statement (PDF)"
+msgstr ""
+
+#: archives/templates/archives/index.html:54
+msgid "Test correction (PDF)"
+msgstr ""
+
+#: archives/templates/archives/index.html:57
+msgid "Test Challenge correction (PDF)"
+msgstr ""
+
+#: archives/templates/archives/index.html:61
+#: archives/templates/archives/index.html:74
+#: archives/templates/archives/index.html:87
+msgid "Sorry, no resource available."
+msgstr ""
+
+#: archives/templates/archives/index.html:63
+#: documents/templates/documents/index.html:35
+#: homepage/templates/homepage/jumbotron-semifinals.html:7
+#: problems/models/__init__.py:8
+msgid "Regional events"
+msgstr ""
+
+#: archives/templates/archives/index.html:67
+msgid "Regional events report"
+msgstr ""
+
+#: archives/templates/archives/index.html:76 contest/models.py:106
+#: documents/templates/documents/index.html:87
+#: homepage/templates/homepage/jumbotron-final.html:7
+msgid "Final"
+msgstr ""
+
+#: archives/templates/archives/index.html:80
+msgid "Final report"
+msgstr ""
+
+#: archives/templates/archives/index.html:83
+#: problems/templates/problems/challenge-scoreboard.html:8
+#: problems/templates/problems/challenge-scoreboard.html:11
+#: problems/templates/problems/challenge-scoreboard.html:14
+#: problems/templates/problems/challenge.html:14
+#: semifinal/templates/prologin/main-menu.html:8
+msgid "Scoreboard"
+msgstr ""
+
+#: archives/templates/archives/index.html:95
+msgid "Video"
+msgstr ""
+
+#: archives/templates/archives/index.html:96
+msgid "Watch the video"
+msgstr ""
+
+#: archives/templates/archives/index.html:103
+msgid "Cover photo"
+msgstr ""
+
+#: archives/templates/archives/index.html:105
+#, python-format
+msgid "Browse the %(count)s photos"
+msgstr ""
+
+#: archives/templates/archives/inline-scoreboard.html:6
+#: contest/templates/contest/interschool-leaderboard.html:43
+#: problems/templates/problems/challenge-scoreboard.html:23
+#: semifinal/templates/semifinal/stub-scoreboard.html:7
+msgid "Rank"
+msgstr ""
+
+#: archives/templates/archives/inline-scoreboard.html:7 qcm/admin.py:110
+#: semifinal/templates/semifinal/monitoring.html:29
+msgid "Contestant"
+msgstr ""
+
+#: archives/templates/archives/inline-scoreboard.html:19
+#: contest/templates/contest/interschool-leaderboard.html:59
+#: problems/templates/problems/challenge-scoreboard.html:35
+#: semifinal/templates/semifinal/stub-scoreboard-item.html:13
+msgid "(ex-aequo)"
+msgstr ""
+
+#: archives/templates/archives/report.html:8
+#: archives/templates/archives/report.html:15
+#: archives/templates/archives/report.html:18
+#, python-format
+msgid "Report for %(event)s %(year)s"
+msgstr ""
+
+#: centers/admin.py:33
+msgid "Geocode selected centers"
+msgstr ""
+
+#: centers/admin.py:48
+msgid "Normalize selected center addresses"
+msgstr ""
+
+#: centers/models.py:20 contest/admin.py:75
+#: contest/templates/correction/by-year.html:22
+#: contest/templates/correction/index.html:23
+msgid "Center"
+msgstr ""
+
+#: centers/models.py:21
+msgid "Restaurant"
+msgstr ""
+
+#: centers/models.py:22
+msgid "Hotel"
+msgstr ""
+
+#: centers/models.py:23
+msgid "Pizzeria"
+msgstr ""
+
+#: centers/models.py:24 users/models.py:105
+msgid "Other"
+msgstr ""
+
+#: centers/models.py:91
+msgid "Manager"
+msgstr ""
+
+#: centers/models.py:92
+msgid "Contact"
+msgstr ""
+
+#: centers/templates/centers/map.html:7 centers/templates/centers/map.html:10
+msgid "The exam centers"
+msgstr ""
+
+#: centers/templates/centers/map.html:56
+msgid "You need Javascript to display the map."
+msgstr ""
+
+#: centers/templates/centers/map.html:74
+msgid "Center address"
+msgstr ""
+
+#: centers/templates/centers/map.html:75 centers/templates/centers/map.html:89
+msgid "Show"
+msgstr ""
+
+#: centers/templates/centers/map.html:76 centers/templates/centers/map.html:94
+msgid "Full map"
+msgstr ""
+
+#: contest/admin.py:65
+msgid "Generate convocations"
+msgstr ""
+
+#: contest/admin.py:69 contest/admin.py:113
+#: documents/templates/documents/semifinal-import-review.html:44
+#: qcm/admin.py:58 qcm/admin.py:91
+msgid "Edition"
+msgstr ""
+
+#: contest/admin.py:90
+msgid "Qualification scores"
+msgstr ""
+
+#: contest/admin.py:93
+msgid "Regionale scores"
+msgstr ""
+
+#: contest/admin.py:96
+msgid "Finale scores"
+msgstr ""
+
+#: contest/admin.py:103
+#, python-format
+msgid "%(user)s in edition %(year)s"
+msgstr ""
+
+#: contest/admin.py:107 contest/datatables.py:16
+msgid "User"
+msgstr ""
+
+#: contest/datatables.py:19
+msgid "Programming language"
+msgstr ""
+
+#: contest/datatables.py:53 contest/templates/correction/by-year.html:39
+#: contest/templates/correction/by-year.html:47
+msgid "Correct"
+msgstr ""
+
+#: contest/datatables.py:67 contest/datatables.py:145
+msgid "Assigned regional event"
+msgstr ""
+
+#: contest/datatables.py:71 contest/datatables.py:114 contest/datatables.py:149
+msgid "Assignation status"
+msgstr ""
+
+#: contest/datatables.py:74 contest/datatables.py:117 contest/datatables.py:152
+#: contest/models.py:262
+#: documents/templates/documents/semifinal-import-review.html:58
+#: documents/templates/documents/semifinal-import-review.html:77
+#: problems/admin.py:171 problems/templates/problems/manual.html:66
+#: semifinal/templates/semifinal/monitoring.html:30
+msgid "Score"
+msgstr ""
+
+#: contest/datatables.py:90 contest/datatables.py:121 contest/datatables.py:164
+#, python-format
+msgid "%(count)d correction"
+msgid_plural "%(count)d corrections"
+msgstr[0] ""
+msgstr[1] ""
+
+#: contest/datatables.py:100 contest/datatables.py:104
+#: contest/datatables.py:131 contest/datatables.py:135
+#: contest/datatables.py:174 contest/datatables.py:178
+msgid "Convocation"
+msgstr ""
+
+#: contest/datatables.py:104 contest/datatables.py:135
+#: contest/datatables.py:178
+msgid "Contestant is not assigned"
+msgstr ""
+
+#: contest/forms.py:61
+msgid "I am <strong>not</strong> a student at EPITA."
+msgstr ""
+
+#: contest/forms.py:67 users/forms.py:46
+msgid "How do you prefer to be described?"
+msgstr ""
+
+#: contest/forms.py:69 users/forms.py:63
+msgid "<em>She is writing code for the contest</em>"
+msgstr ""
+
+#: contest/forms.py:70 users/forms.py:64
+msgid "<em>He is writing code for the contest</em>"
+msgstr ""
+
+#: contest/forms.py:71 prologin/models.py:52 users/forms.py:65
+msgid "Other or prefer not to tell"
+msgstr ""
+
+#: contest/forms.py:75
+#, python-format
+msgid ""
+"Students from EPITA are <a href=\"%(url)s\">not allowed</a> to join the "
+"contest."
+msgstr ""
+
+#: contest/forms.py:77
+msgid ""
+"We need your real name and address for legal reasons, as the Prologin staff "
+"engages its responsibility to supervise you during the regional events and "
+"the finale."
+msgstr ""
+
+#: contest/forms.py:80
+msgid ""
+"We will send the invitation to the regional events at this address, so make "
+"sure it's valid."
+msgstr ""
+
+#: contest/forms.py:82
+#, python-format
+msgid "Format: %(format)s"
+msgstr ""
+
+#: contest/forms.py:86
+#, python-format
+msgid ""
+"You can modify or review all your personal information on your <a href="
+"\"%(url)s\">profile page</a>."
+msgstr ""
+
+#: contest/forms.py:90
+msgid "Optional."
+msgstr ""
+
+#: contest/forms.py:95
+msgid "You cannot participate if you are an EPITA student"
+msgstr ""
+
+#: contest/forms.py:110
+msgid "Your school"
+msgstr ""
+
+#: contest/forms.py:124
+msgid "Regional event center wishes"
+msgstr ""
+
+#: contest/forms.py:125
+msgid ""
+"This is where you would like to seat the regional events if you are "
+"selected. Choose at least one and up to three wishes, in order of "
+"preference. Most of the time, we are able to satisfy your first choice."
+msgstr ""
+
+#: contest/models.py:105 contest/templates/correction/by-year.html:43
+#: contest/templates/correction/contestant-semifinal.html:7
+#: contest/templates/correction/final.html:10
+#: contest/templates/correction/semifinal.html:10
+#: contest/templates/correction/semifinal.html:14
+#: contest/templates/correction/semifinal.html:22
+#: semifinal/templates/problems/stub-module-name.html:3
+#: semifinal/templates/semifinal/explicit-unlock.html:7
+#: semifinal/templates/semifinal/homepage.html:7
+#: semifinal/templates/semifinal/monitoring.html:7
+#: semifinal/templates/semifinal/scoreboard.html:7
+msgid "Regional event"
+msgstr ""
+
+#: contest/models.py:205
+msgid "Not assigned"
+msgstr ""
+
+#: contest/models.py:206
+msgid "Ruled out"
+msgstr ""
+
+#: contest/models.py:207
+msgid "Assigned"
+msgstr ""
+
+#: contest/models.py:208
+msgid "Abandoned"
+msgstr ""
+
+#: contest/models.py:213
+msgid "Another programming contest"
+msgstr ""
+
+#: contest/models.py:214
+msgid "From social media"
+msgstr ""
+
+#: contest/models.py:215
+msgid "From the poster in my school/university"
+msgstr ""
+
+#: contest/models.py:216
+msgid "From a friend"
+msgstr ""
+
+#: contest/models.py:217
+msgid "From an article on a website or a newspaper"
+msgstr ""
+
+#: contest/models.py:218
+msgid "Some other way"
+msgstr ""
+
+#: contest/models.py:219
+msgid "I don't remember"
+msgstr ""
+
+#: contest/models.py:234
+msgid "T-shirt size"
+msgstr ""
+
+#: contest/models.py:234
+msgid "Choose your size"
+msgstr ""
+
+#: contest/models.py:235
+msgid "We usually provide unisex Prologin t-shirts to the finalists."
+msgstr ""
+
+#: contest/models.py:237
+msgid ""
+"The programming language you will most likely use during the regional events."
+msgstr ""
+
+#: contest/models.py:242
+msgid "How did you learn about the contest ?"
+msgstr ""
+
+#: contest/models.py:243
+msgid "Tell us how you discovered the contest"
+msgstr ""
+
+#: contest/models.py:245
+msgid "Regional event assignation status"
+msgstr ""
+
+#: contest/models.py:248
+msgid "Regional event assignation whishes"
+msgstr ""
+
+#: contest/models.py:251
+msgid "Regional event assigned event"
+msgstr ""
+
+#: contest/models.py:253
+msgid "Final assignation status"
+msgstr ""
+
+#: contest/models.py:255
+msgid "Quiz score"
+msgstr ""
+
+#: contest/models.py:256
+msgid "Algo exercises score"
+msgstr ""
+
+#: contest/models.py:257 contest/models.py:261 contest/models.py:263
+msgid "Bonus score"
+msgstr ""
+
+#: contest/models.py:258
+msgid "Written exam score"
+msgstr ""
+
+#: contest/models.py:259
+msgid "Interview score"
+msgstr ""
+
+#: contest/models.py:260
+msgid "Machine exam score"
+msgstr ""
+
+#: contest/staff_forms.py:50
+msgid "A reason for your changes and/or a comment about the submission"
+msgstr ""
+
+#: contest/staff_forms.py:53
+msgid "Changelog comment"
+msgstr ""
+
+#: contest/staff_forms.py:80
+msgid "Unassigned"
+msgstr ""
+
+#: contest/staff_forms.py:101
+msgid "Regional event assignation event is required if contestant is assigned."
+msgstr ""
+
+#: contest/templates/contest/index.html:7
+#: contest/templates/contest/qualification-summary.html:7
+#: contest/templates/correction/by-year.html:7
+#: contest/templates/correction/contestant-base.html:7
+#: contest/templates/correction/final.html:7
+#: contest/templates/correction/index.html:7
+#: contest/templates/correction/qualification.html:7
+#: contest/templates/correction/semifinal.html:7
+#: pages/templates/pages/about-final.html:80 qcm/templates/qcm/display.html:7
+msgid "Contest"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:5
+#: contest/templates/contest/interschool-leaderboard.html:10
+#: contest/templates/contest/interschool-leaderboard.html:35
+msgid "Leaderboard"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:5
+#: contest/templates/contest/interschool-leaderboard.html:9
+#: contest/templates/contest/interschool-leaderboard.html:15
+#: homepage/templates/homepage/school-challenge-leaderboard.html:5
+msgid "Inter-school challenge"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:19
+msgid "What is this about?"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:20
+msgid ""
+"This is the list of the schools competing in the inter-school challenge for "
+"this edition of\n"
+"Prologin. “Final score” is the sum of the scores obtained by the school "
+"students."
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:23
+#, python-format
+msgid ""
+"Start <a href=\"%(url)s\">solving challenges</a> to score points for your "
+"school!"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:26
+msgid "The rules"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:27
+msgid ""
+"We remind you that you are not allowed to share your solution with other "
+"contestants,\n"
+"including friends or fellow students. The Prologin staff reviews all code "
+"submissions; if we find evidences of\n"
+"plagiarism, your school may be disqualified from the challenge."
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:30
+msgid ""
+"The outcome of this challenge has no implication on your personal results.\n"
+"Your involvement in the inter-school challenge is optional."
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:35
+#, python-format
+msgid "%(count)s schools"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:44
+msgid "School name"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:45
+msgid "Student count"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:46
+msgid "Problems solved"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:47
+msgid "Final score"
+msgstr ""
+
+#: contest/templates/contest/interschool-leaderboard.html:89
+msgid "No school is competing yet."
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:10
+msgid "Application summary"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:17
+#, python-format
+msgid "Application summary – Prologin %(year)s"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:21
+#, python-format
+msgid "Application summary for Prologin %(year)s"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:24
+#, python-format
+msgid ""
+"Thanks for joining the Prologin contest this year! This page sums up the "
+"requirements you have\n"
+"  to fulfill so you can be selected to participate in the next step: <a href="
+"\"%(about_regional_url)s\">regional events</a>."
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:30
+#: contest/templates/contest/qualification-summary.html:36
+#: contest/templates/contest/qualification-summary.html:43
+#, python-format
+msgid "The qualification step ends <strong>%(end_date)s</strong>."
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:31
+msgid ""
+"Your participation is valid. You can still make changes to your answers and "
+"profile information, but be sure to keep all the lights green on this page."
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:37
+msgid ""
+"Your participation is valid and will be processed for the next step, but to "
+"improve your odds of being selected, you should complete the missing bits."
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:44
+msgid ""
+"You are still missing some mandatory information to be able to contest this "
+"year. Please review the missing bits on this page."
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:56
+#: contest/templates/contest/qualification-summary.html:87
+#: contest/templates/contest/qualification-summary.html:148
+msgid "Complete"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:58
+#: contest/templates/contest/qualification-summary.html:89
+#: contest/templates/contest/qualification-summary.html:149
+msgid "Incomplete"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:60
+#: contest/templates/contest/qualification-summary.html:91
+msgid "Not tackled"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:62
+msgid "The quiz"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:66
+#, python-format
+msgid "There is %(count)s quiz question this year."
+msgid_plural "There are %(count)s quiz questions this year."
+msgstr[0] ""
+msgstr[1] ""
+
+#: contest/templates/contest/qualification-summary.html:67
+#, python-format
+msgid "You completed %(count)s question."
+msgid_plural "You completed %(count)s questions."
+msgstr[0] ""
+msgstr[1] ""
+
+#: contest/templates/contest/qualification-summary.html:72
+msgid "Review answers"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:74
+msgid "Complete answers"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:77
+msgid ""
+"Although you are not required to answer all questions, it is recommended to "
+"answer as many as you can to improve you chances of being selected."
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:93
+msgid "The problems"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:97
+#, python-format
+msgid "There is %(count)s problem this year."
+msgid_plural "There are %(count)s problems this year."
+msgstr[0] ""
+msgstr[1] ""
+
+#: contest/templates/contest/qualification-summary.html:98
+#, python-format
+msgid "You tackled %(count)s problem."
+msgid_plural "You tackled %(count)s problems."
+msgstr[0] ""
+msgstr[1] ""
+
+#: contest/templates/contest/qualification-summary.html:103
+msgid "Review submissions"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:105
+msgid "Complete submissions"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:108
+msgid ""
+"Your submissions do not have to pass all the tests. Nevertheless, the jury "
+"will favor codes that both compile, answer the statement and have a minimal "
+"runtime/memory complexity. You are even free to submit pseudo-code but keep "
+"in mind that you will have to write actual code for the regional events and "
+"the finale."
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:118
+msgid "The inter-school challenge"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:124
+msgid ""
+"If your school does not appear in the list, type its full name and choose "
+"the first item: “Add a new school”."
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:126
+msgid "I participate in the #Prologin inter-school challenge!"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:133
+msgid "Help your school go up in the inter-school rankings!"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:134
+msgid ""
+"If you are a student, fill in the name of your high school or university.\n"
+"The points you score for solving this year problems will be accounted for "
+"your school total score."
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:138
+msgid "Rules & leaderboard"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:150
+msgid "Preparing the next steps"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:181
+msgid "Save application"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:197
+msgid "Make your choice"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:198
+msgid "Add new school"
+msgstr ""
+
+#: contest/templates/contest/qualification-summary.html:199
+msgid "Choose an existing school or add yours"
+msgstr ""
+
+#: contest/templates/correction/by-year.html:8
+#: contest/templates/correction/by-year.html:12
+#: contest/templates/correction/contestant-base.html:8
+#: contest/templates/correction/final.html:8
+#: contest/templates/correction/index.html:8
+#: contest/templates/correction/index.html:11
+#: contest/templates/correction/qualification.html:8
+#: contest/templates/correction/semifinal.html:8
+#: prologin/templates/prologin/main-menu.html:19
+msgid "Correction"
+msgstr ""
+
+#: contest/templates/correction/by-year.html:16
+#, python-format
+msgid "Events for Prologin %(year)s"
+msgstr ""
+
+#: contest/templates/correction/by-year.html:21 problems/forms.py:22
+msgid "Event type"
+msgstr ""
+
+#: contest/templates/correction/by-year.html:23
+#: documents/templates/documents/index.html:46
+#: documents/templates/documents/index.html:70
+#: documents/templates/documents/index.html:106
+#: schools/templates/admin/schools/merge.html:65 semifinal/forms.py:13
+msgid "Contestants"
+msgstr ""
+
+#: contest/templates/correction/by-year.html:24
+#: documents/templates/documents/semifinal-import-review.html:78
+#: problems/models/submission.py:194
+msgid "Submissions"
+msgstr ""
+
+#: contest/templates/correction/by-year.html:44
+#: documents/templates/documents/index.html:40
+msgid "All centers"
+msgstr ""
+
+#: contest/templates/correction/chunk-correction.html:19
+msgid "Unknown corrector"
+msgstr ""
+
+#: contest/templates/correction/chunk-correction.html:32
+msgid "No comment."
+msgstr ""
+
+#: contest/templates/correction/chunk-correction.html:42
+msgctxt "As in nullified"
+msgid "Set to none"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:34
+#: forum/templates/forum/edit_post.html:28
+msgid "Save changes"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:39
+#: contest/templates/correction/contestant-base.html:72
+msgid "Problem submissions"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:42
+#: problems/templates/problems/problem.html:21
+#: problems/templates/problems/stub_problem.html:6
+#, python-format
+msgid "Level %(level)s"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:44
+msgid "Open fullpage and submit again"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:44
+msgid "Open fullpage"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:49
+msgid "No submission for this problem."
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:54
+msgid "Code score:"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:54
+msgid "n/a"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:55
+msgid "Final score:"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:56
+msgid "tests passed"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:57
+msgid "unsuccessful"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:70
+msgid "Correction form"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:75
+msgid "Currently correcting"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:76
+msgid "The presence service is down!"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:79
+msgid "Correction history"
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:84
+msgid "Not corrected yet."
+msgstr ""
+
+#: contest/templates/correction/contestant-base.html:120
+#, python-format
+msgid "In the meantime, value changed to %%s"
+msgstr ""
+
+#: contest/templates/correction/contestant-qualification.html:17
+msgid "Quiz results"
+msgstr ""
+
+#: contest/templates/correction/contestant-qualification.html:22
+msgid "Quiz answers"
+msgstr ""
+
+#: contest/templates/correction/final.html:14
+#: contest/templates/correction/final.html:22
+msgid "All regional event"
+msgstr ""
+
+#: contest/templates/correction/index.html:15
+msgid "Correction index"
+msgstr ""
+
+#: contest/templates/correction/index.html:23
+#: documents/templates/documents/semifinal-import-review.html:46
+msgid "Event"
+msgstr ""
+
+#: contest/templates/correction/index.html:31
+#: contest/templates/correction/index.html:38
+msgid "Browse"
+msgstr ""
+
+#: contest/templates/correction/qualification.html:23
+msgid "Show:"
+msgstr ""
+
+#: contest/templates/correction/qualification.html:23
+msgid "everything"
+msgstr ""
+
+#: contest/templates/correction/qualification.html:23
+msgid "complete only"
+msgstr ""
+
+#: contest/views.py:59
+msgid "Changes saved successfully."
+msgstr ""
+
+#: contest/views.py:81
+msgid "You are missing some mandatory information."
+msgstr ""
+
+#: contest/views.py:83
+msgid "You need to specify more wishes for your semifinal center."
+msgstr ""
+
+#: contest/views.py:86
+#, python-format
+msgid "You cannot participate if you are born before %(year)s."
+msgstr ""
+
+#: contest/widgets.py:12
+msgid "First choice"
+msgstr ""
+
+#: contest/widgets.py:12
+msgid "Second choice"
+msgstr ""
+
+#: contest/widgets.py:12
+msgid "Third choice"
+msgstr ""
+
+#: contest/widgets.py:31
+msgid "Choice"
+msgstr ""
+
+#: contest/widgets.py:71
+#, python-format
+msgid "You must provide at least %(count)d choice."
+msgid_plural "You must provide at least %(count)d choices."
+msgstr[0] ""
+msgstr[1] ""
+
+#: documents/base_views.py:174
+msgid "all-centers"
+msgstr ""
+
+#: documents/forms.py:15
+msgid "JSON export file"
+msgstr ""
+
+#: documents/forms.py:17
+msgid ""
+"Select the JSON export file obtained from regional event website and proceed."
+msgstr ""
+
+#: documents/forms.py:24
+#, python-format
+msgid "Invalid format: could not read or deserialize %(type)s"
+msgstr ""
+
+#: documents/forms.py:33
+msgid "Imported edition is invalid."
+msgstr ""
+
+#: documents/forms.py:42
+msgid "Imported center is invalid."
+msgstr ""
+
+#: documents/forms.py:51
+msgid "Imported event is invalid."
+msgstr ""
+
+#: documents/forms.py:54
+msgid "Imported event edition or center mismatches with known event."
+msgstr ""
+
+#: documents/forms.py:62
+msgid "Imported users mismatch."
+msgstr ""
+
+#: documents/forms.py:112
+msgid "Monday"
+msgstr ""
+
+#: documents/forms.py:113
+msgid "Tuesday"
+msgstr ""
+
+#: documents/forms.py:114
+msgid "Wednesday"
+msgstr ""
+
+#: documents/forms.py:115
+msgid "Thursday"
+msgstr ""
+
+#: documents/forms.py:116
+msgid "Friday"
+msgstr ""
+
+#: documents/forms.py:117
+msgid "Saturday"
+msgstr ""
+
+#: documents/forms.py:118
+msgid "Sunday"
+msgstr ""
+
+#: documents/forms.py:122
+msgid "Morning"
+msgstr ""
+
+#: documents/forms.py:123
+msgid "Noon"
+msgstr ""
+
+#: documents/forms.py:124
+msgid "Evening"
+msgstr ""
+
+#: documents/forms.py:129
+msgid "Day"
+msgstr ""
+
+#: documents/forms.py:132
+msgid "Starting ID"
+msgstr ""
+
+#: documents/forms.py:141
+msgid "Names"
+msgstr ""
+
+#: documents/forms.py:141
+msgid "One name per line"
+msgstr ""
+
+#: documents/templates/documents/custom-badges-input.html:8
+#: documents/templates/documents/index.html:7
+#: documents/templates/documents/semifinal-import-base.html:7
+#: documents/templates/documents/tex-error-debug.html:7
+#: prologin/templates/prologin/main-menu.html:21
+msgid "Documents"
+msgstr ""
+
+#: documents/templates/documents/custom-badges-input.html:12
+#: documents/templates/documents/custom-badges-input.html:15
+#: documents/templates/documents/custom-badges-input.html:20
+#: documents/templates/documents/index.html:181
+msgid "Custom Badges"
+msgstr ""
+
+#: documents/templates/documents/custom-badges-input.html:25
+#: documents/templates/documents/index.html:171
+#: problems/templates/problems/problem.html:129
+msgid "Submit"
+msgstr ""
+
+#: documents/templates/documents/index.html:13
+#: documents/templates/documents/index.html:23
+#, python-format
+msgid "%(year)s documents"
+msgstr ""
+
+#: documents/templates/documents/index.html:13
+#: documents/templates/documents/index.html:23
+msgid "Document index"
+msgstr ""
+
+#: documents/templates/documents/index.html:19
+#: documents/templates/documents/semifinal-import-base.html:8
+#: documents/templates/documents/semifinal-import-base.html:11
+#: documents/templates/documents/semifinal-import-base.html:15
+msgid "Data import"
+msgstr ""
+
+#: documents/templates/documents/index.html:43
+#: documents/templates/documents/index.html:67
+#: documents/templates/documents/index.html:103
+msgid "Convocations"
+msgstr ""
+
+#: documents/templates/documents/index.html:49
+#: documents/templates/documents/index.html:73
+msgid "Interviews"
+msgstr ""
+
+#: documents/templates/documents/index.html:52
+#: documents/templates/documents/index.html:76
+#: documents/templates/documents/index.html:109
+msgid "Passwords"
+msgstr ""
+
+#: documents/templates/documents/index.html:55
+#: documents/templates/documents/index.html:112
+msgid "Portrayal agreement"
+msgstr ""
+
+#: documents/templates/documents/index.html:64
+#: documents/templates/documents/index.html:100
+msgid "Data export"
+msgstr ""
+
+#: documents/templates/documents/index.html:115
+msgid "Portrayal agreement Orga"
+msgstr ""
+
+#: documents/templates/documents/index.html:118
+msgid "Participation Authorization"
+msgstr ""
+
+#: documents/templates/documents/index.html:121
+msgid "Equipment Liability Release"
+msgstr ""
+
+#: documents/templates/documents/index.html:124
+msgid "Emergency Call List"
+msgstr ""
+
+#: documents/templates/documents/index.html:127
+msgid "Planning"
+msgstr ""
+
+#: documents/templates/documents/index.html:130
+msgid "External organizers"
+msgstr ""
+
+#: documents/templates/documents/index.html:133
+msgid "Diplomas"
+msgstr ""
+
+#: documents/templates/documents/index.html:136
+msgid "Badges"
+msgstr ""
+
+#: documents/templates/documents/index.html:145
+msgid "There is no final event for this edition."
+msgstr ""
+
+#: documents/templates/documents/index.html:149
+msgid "Organization"
+msgstr ""
+
+#: documents/templates/documents/index.html:155
+msgid "Enrollment"
+msgstr ""
+
+#: documents/templates/documents/index.html:159
+msgid "Enrollment Form"
+msgstr ""
+
+#: documents/templates/documents/index.html:165
+msgid "Meal tickets"
+msgstr ""
+
+#: documents/templates/documents/index.html:177
+msgid "Misc"
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-base.html:17
+#, python-format
+msgid "Step %(step)s of %(total)s"
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:53
+msgctxt "Legend"
+msgid "Key"
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:56
+#: problems/templates/problems/stub_search_form.html:9
+msgid "Difficulty"
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:57
+msgid "Problem name"
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:59
+msgid "# of codes"
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:74
+msgid "ID"
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:75
+#: semifinal/templates/semifinal/stub-scoreboard.html:8
+msgid "Nickname"
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:76
+#: users/templates/users/profile.html:41
+msgid "Full name"
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:98
+#, python-format
+msgid "%(count)s code"
+msgid_plural "%(count)s codes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: documents/templates/documents/semifinal-import-review.html:99
+msgid "Manually unlocked"
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:104
+msgid "No contestant found."
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:110
+msgid "Contestant will <strong>not</strong> be imported."
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:112
+msgid "Contestant will be imported."
+msgstr ""
+
+#: documents/templates/documents/semifinal-import-review.html:126
+#: documents/templates/documents/semifinal-import-upload.html:9
+msgid "Proceed"
+msgstr ""
+
+#: documents/templates/documents/tex-error-debug.html:8
+#: documents/templates/documents/tex-error-debug.html:11
+msgid "TeX generation failed"
+msgstr ""
+
+#: documents/templates/documents/tex-error-debug.html:16
+#, python-format
+msgid "The TeX generation failed with error <code>%(message)s</code>."
+msgstr ""
+
+#: documents/templates/documents/tex-error-debug.html:17
+#, python-format
+msgid "The program exited with return code <code>%(code)s</code>."
+msgstr ""
+
+#: documents/templates/documents/tex-error-debug.html:20
+msgid "Standard output"
+msgstr ""
+
+#: documents/templates/documents/tex-error-debug.html:23
+msgid "Standard error"
+msgstr ""
+
+#: documents/views.py:68
+#, python-format
+msgid "Prologin %(year)s: batch invitations to the regional center %(center)s"
+msgstr ""
+
+#: documents/views.py:69
+#, python-format
+msgctxt "Document filename"
+msgid "invitations-%(year)s-regional-%(center)s"
+msgstr ""
+
+#: documents/views.py:74
+#, python-format
+msgid "Prologin %(year)s: invitation to the regional event for %(fullname)s"
+msgstr ""
+
+#: documents/views.py:75
+#, python-format
+msgctxt "Document filename"
+msgid "invitation-%(year)s-regional-%(fullname)s"
+msgstr ""
+
+#: documents/views.py:80
+#, python-format
+msgid "Prologin %(year)s: call list for the regional center %(center)s"
+msgstr ""
+
+#: documents/views.py:81
+#, python-format
+msgctxt "Document filename"
+msgid "call-list-%(year)s-regional-%(center)s"
+msgstr ""
+
+#: documents/views.py:91
+#, python-format
+msgid "Prologin %(year)s: portrayal agreement for the regional events"
+msgstr ""
+
+#: documents/views.py:92
+#, python-format
+msgctxt "Document filename"
+msgid "portrayal-agreement-%(year)s-regional"
+msgstr ""
+
+#: documents/views.py:107
+#, python-format
+msgid "Prologin %(year)s: password sheets for the regional center %(center)s"
+msgstr ""
+
+#: documents/views.py:108
+#, python-format
+msgctxt "Document filename"
+msgid "password-list-%(year)s-regional-%(center)s"
+msgstr ""
+
+#: documents/views.py:118
+#, python-format
+msgid "Prologin %(year)s: interview sheets for the regional center %(center)s"
+msgstr ""
+
+#: documents/views.py:119
+#, python-format
+msgctxt "Document filename"
+msgid "interviews-%(year)s-regional-%(center)s"
+msgstr ""
+
+#: documents/views.py:128
+#, python-format
+msgid ""
+"Prologin %(year)s: document compilation for regional events for %(fullname)s"
+msgstr ""
+
+#: documents/views.py:129
+#, python-format
+msgctxt "Document filename"
+msgid "prologin-%(year)s-regional-documents-%(fullname)s"
+msgstr ""
+
+#: documents/views.py:187
+msgid "Upload result file"
+msgstr ""
+
+#: documents/views.py:188
+msgid "Review the imported data"
+msgstr ""
+
+#: documents/views.py:215
+msgid "Contestant not found in local database."
+msgstr ""
+
+#: documents/views.py:218
+msgid "Contestant not assigned to this regional event."
+msgstr ""
+
+#: documents/views.py:220
+msgid "User is inactive."
+msgstr ""
+
+#: documents/views.py:224
+msgid "Contestant not found in imported data."
+msgstr ""
+
+#: documents/views.py:293
+msgid "Successfully imported regional event results."
+msgstr ""
+
+#: documents/views.py:299
+#, python-format
+msgid "Prologin %(year)s: batch invitations to the final"
+msgstr ""
+
+#: documents/views.py:300
+#, python-format
+msgctxt "Document filename"
+msgid "invitations-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:305
+#, python-format
+msgid "Prologin %(year)s: invitation to the final for %(fullname)s"
+msgstr ""
+
+#: documents/views.py:306
+#, python-format
+msgctxt "Document filename"
+msgid "invitation-%(year)s-final-%(fullname)s"
+msgstr ""
+
+#: documents/views.py:311
+#, python-format
+msgid "Prologin %(year)s: call list for the final"
+msgstr ""
+
+#: documents/views.py:312
+#, python-format
+msgctxt "Document filename"
+msgid "call-list-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:326
+#, python-format
+msgid "Prologin %(year)s: password sheets for the final"
+msgstr ""
+
+#: documents/views.py:327
+#, python-format
+msgctxt "Document filename"
+msgid "password-list-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:337
+#, python-format
+msgid "Prologin %(year)s: external organizers"
+msgstr ""
+
+#: documents/views.py:338
+#, python-format
+msgctxt "Document filename"
+msgid "external-organizers-%(year)s"
+msgstr ""
+
+#: documents/views.py:343 documents/views.py:348
+#, python-format
+msgid "Prologin %(year)s: portrayal agreement for the final"
+msgstr ""
+
+#: documents/views.py:344 documents/views.py:349
+#, python-format
+msgctxt "Document filename"
+msgid "portrayal-agreement-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:354
+#, python-format
+msgid "Prologin %(year)s: participation authorization for the final"
+msgstr ""
+
+#: documents/views.py:355
+#, python-format
+msgctxt "Document filename"
+msgid "participation-authorization-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:360
+#, python-format
+msgid "Prologin %(year)s: equipment liability release for the final"
+msgstr ""
+
+#: documents/views.py:361
+#, python-format
+msgctxt "Document filename"
+msgid "equipment-liability-release-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:366
+#, python-format
+msgid "Prologin %(year)s: emergency call list for the final"
+msgstr ""
+
+#: documents/views.py:367
+#, python-format
+msgctxt "Document filename"
+msgid "emergency-call-list-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:373
+#, python-format
+msgid "Prologin %(year)s: planning for the final"
+msgstr ""
+
+#: documents/views.py:374
+#, python-format
+msgctxt "Document filename"
+msgid "planning-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:379
+#, python-format
+msgid "Prologin %(year)s: diplomas"
+msgstr ""
+
+#: documents/views.py:380
+#, python-format
+msgctxt "Document filename"
+msgid "diplomas-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:403
+#, python-format
+msgid "Prologin %(year)s: document compilation for final for %(fullname)s"
+msgstr ""
+
+#: documents/views.py:404
+#, python-format
+msgctxt "Document filename"
+msgid "prologin-%(year)s-final-documents-%(fullname)s"
+msgstr ""
+
+#: documents/views.py:442
+#, python-format
+msgid "Prologin %(year)s: enrollment form"
+msgstr ""
+
+#: documents/views.py:443
+#, python-format
+msgctxt "Document filename"
+msgid "enrollment-form-%(year)s"
+msgstr ""
+
+#: documents/views.py:448
+#, python-format
+msgid "Prologin %(year)s: badges"
+msgstr ""
+
+#: documents/views.py:449
+#, python-format
+msgctxt "Document filename"
+msgid "badges-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:468
+#, python-format
+msgid "Prologin %(year)s: custom badges"
+msgstr ""
+
+#: documents/views.py:469
+#, python-format
+msgctxt "Document filename"
+msgid "custom-badges-%(year)s-final"
+msgstr ""
+
+#: documents/views.py:500
+#, python-format
+msgid "Prologin %(year)s: Meal tickets"
+msgstr ""
+
+#: documents/views.py:501
+#, python-format
+msgctxt "Document filename"
+msgid "meal-tickets-%(year)s-final"
+msgstr ""
+
+#: forum/admin.py:21
+msgid "Close selected threads"
+msgstr ""
+
+#: forum/admin.py:25
+msgid "Open (un-close) selected threads"
+msgstr ""
+
+#: forum/admin.py:29
+msgid "Make selected threads sticky"
+msgstr ""
+
+#: forum/admin.py:33
+msgid "Make selected threads non-sticky"
+msgstr ""
+
+#: forum/admin.py:38
+msgid "Is open"
+msgstr ""
+
+#: forum/admin.py:46
+msgid "Author"
+msgstr ""
+
+#: forum/forms.py:9
+msgid "Compose your message here. You can use the Markdown syntax."
+msgstr ""
+
+#: forum/forms.py:37
+msgid "Optional explanation"
+msgstr ""
+
+#: forum/forms.py:45
+msgid "This explanation will be shown above the message."
+msgstr ""
+
+#: forum/forms.py:58
+msgid "Thread title"
+msgstr ""
+
+#: forum/forms.py:70
+msgid "Post is visible"
+msgstr ""
+
+#: forum/forms.py:79
+msgid "Message content"
+msgstr ""
+
+#: forum/forms.py:85
+msgid "Choose a short, descriptive title."
+msgstr ""
+
+#: forum/models.py:22 problems/templates/problems/challenge-scoreboard.html:24
+#: schools/templates/admin/schools/merge.html:56
+#: semifinal/templates/semifinal/stub-scoreboard.html:9
+msgid "Name"
+msgstr ""
+
+#: forum/models.py:24
+msgid "Description"
+msgstr ""
+
+#: forum/models.py:27
+msgid "Number of threads"
+msgstr ""
+
+#: forum/models.py:28 forum/models.py:95
+msgid "Number of posts"
+msgstr ""
+
+#: forum/models.py:32
+msgid "Forum"
+msgstr ""
+
+#: forum/models.py:33 forum/templates/forum/create_thread.html:7
+#: forum/templates/forum/edit_post.html:7
+#: forum/templates/forum/forum_threads.html:7
+#: forum/templates/forum/index.html:7 forum/templates/forum/index.html:10
+#: forum/templates/forum/index.html:14
+#: forum/templates/forum/post_confirm_delete.html:7
+#: forum/templates/forum/thread_confirm_delete.html:7
+#: forum/templates/forum/thread_posts.html:7
+#: prologin/templates/prologin/main-menu.html:11
+msgid "Forums"
+msgstr ""
+
+#: forum/models.py:69 forum/models.py:78
+msgid "Normal"
+msgstr ""
+
+#: forum/models.py:70
+msgid "Sticky"
+msgstr ""
+
+#: forum/models.py:71
+msgid "Announce"
+msgstr ""
+
+#: forum/models.py:79
+msgid "Closed"
+msgstr ""
+
+#: forum/models.py:80
+msgid "Moved"
+msgstr ""
+
+#: forum/models.py:84
+msgid "Title"
+msgstr ""
+
+#: forum/models.py:87
+msgid "Thread type"
+msgstr ""
+
+#: forum/models.py:88
+msgid "Thread status"
+msgstr ""
+
+#: forum/models.py:89
+msgid "Visible"
+msgstr ""
+
+#: forum/models.py:96
+msgid "Last post added on"
+msgstr ""
+
+#: forum/models.py:105
+msgid "Thread"
+msgstr ""
+
+#: forum/models.py:106
+msgid "Threads"
+msgstr ""
+
+#: forum/models.py:206
+msgid "Content"
+msgstr ""
+
+#: forum/models.py:212
+msgid "Edit reason"
+msgstr ""
+
+#: forum/models.py:223
+msgid "Post"
+msgstr ""
+
+#: forum/models.py:224
+msgid "Posts"
+msgstr ""
+
+#: forum/templates/forum/create_thread.html:9
+#: forum/templates/forum/create_thread.html:12
+msgid "New thread"
+msgstr ""
+
+#: forum/templates/forum/create_thread.html:16
+#: forum/templates/forum/forum_threads.html:18
+msgid "Create a new thread"
+msgstr ""
+
+#: forum/templates/forum/create_thread.html:17
+#, python-format
+msgid "in %(name)s"
+msgstr ""
+
+#: forum/templates/forum/create_thread.html:25
+msgid "Create the new thread"
+msgstr ""
+
+#: forum/templates/forum/create_thread.html:26
+#: forum/templates/forum/edit_post.html:29
+#: forum/templates/forum/thread_posts.html:166
+msgctxt "Preview, the action (button)"
+msgid "Preview"
+msgstr ""
+
+#: forum/templates/forum/create_thread.html:31
+#: forum/templates/forum/edit_post.html:32
+#: forum/templates/forum/thread_posts.html:169
+msgctxt "Preview, the noun (title)"
+msgid "Preview"
+msgstr ""
+
+#: forum/templates/forum/edit_post.html:10
+#: forum/templates/forum/thread_posts.html:115
+#: semifinal/templates/semifinal/monitoring.html:52
+#: users/templates/users/edit.html:9 users/templates/users/edit_password.html:9
+msgid "Edit"
+msgstr ""
+
+#: forum/templates/forum/edit_post.html:18
+#: forum/templates/forum/edit_post.html:21
+msgid "Edit post"
+msgstr ""
+
+#: forum/templates/forum/edit_post.html:22
+#, python-format
+msgid "in %(title)s"
+msgstr ""
+
+#: forum/templates/forum/forum_threads.html:42
+msgid "This forum is empty."
+msgstr ""
+
+#: forum/templates/forum/index.html:29
+#, python-format
+msgid "%(count)s thread"
+msgid_plural "%(count)s threads"
+msgstr[0] ""
+msgstr[1] ""
+
+#: forum/templates/forum/index.html:30
+#: forum/templates/forum/stub_forum_thread.html:20
+#, python-format
+msgid "%(count)s message"
+msgid_plural "%(count)s messages"
+msgstr[0] ""
+msgstr[1] ""
+
+#: forum/templates/forum/index.html:35
+#: forum/templates/forum/stub_forum_thread.html:25
+#, python-format
+msgid "Last message by <span class=\"thread-item-author\">%(username)s</span>"
+msgstr ""
+
+#: forum/templates/forum/index.html:46
+msgid "There is no forum."
+msgstr ""
+
+#: forum/templates/forum/post_confirm_delete.html:10
+msgid "Delete post"
+msgstr ""
+
+#: forum/templates/forum/post_confirm_delete.html:16
+msgid "Delete the post"
+msgstr ""
+
+#: forum/templates/forum/post_confirm_delete.html:20
+#, python-format
+msgid ""
+"Are you sure you want to delete the post in <strong>%(title)s</strong> "
+"written by <strong>%(author)s</strong>?"
+msgstr ""
+
+#: forum/templates/forum/post_confirm_delete.html:21
+#: forum/templates/forum/thread_confirm_delete.html:21
+msgid "Yes, delete"
+msgstr ""
+
+#: forum/templates/forum/post_confirm_delete.html:22
+#: forum/templates/forum/thread_confirm_delete.html:22
+msgid "No, back to the thread"
+msgstr ""
+
+#: forum/templates/forum/stub_forum_thread.html:7
+msgid "This thread is sticky, it will always show up at the top of the forum."
+msgstr ""
+
+#: forum/templates/forum/stub_forum_thread.html:8
+msgid "This thread is closed, you cannot post new messages in it."
+msgstr ""
+
+#: forum/templates/forum/stub_forum_thread.html:15
+#, python-format
+msgid ""
+"By <span class=\"thread-item-author\">%(username)s</span> ⋅ <span title="
+"\"%(date_full)s\">%(date)s</span>"
+msgstr ""
+
+#: forum/templates/forum/stub_login_required.html:7
+#, python-format
+msgid ""
+"You have to <a href=\"%(register)s\">register</a> or <a href=\"%(login)s"
+"\">log in</a> to post messages."
+msgstr ""
+
+#: forum/templates/forum/thread_confirm_delete.html:10
+#: forum/templates/forum/thread_posts.html:66
+msgid "Delete thread"
+msgstr ""
+
+#: forum/templates/forum/thread_confirm_delete.html:16
+msgid "Delete the thread"
+msgstr ""
+
+#: forum/templates/forum/thread_confirm_delete.html:20
+#, python-format
+msgid "Are you sure you want to delete <strong>%(title)s</strong>?"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:32
+msgid "Move the thread to"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:44
+msgid "Unstick the thread"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:45
+msgid "Stick the thread"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:56
+msgid "Open the thread"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:57
+msgid "Close the thread"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:75
+#: forum/templates/forum/thread_posts.html:159
+msgid "Reply to the thread"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:94
+#: users/templates/users/profile.html:29
+#, python-format
+msgid "%(username)s's profile picture"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:96
+msgid "Staff member"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:111
+msgid "Cite"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:125
+msgid "Hide"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:125
+msgid "Unhide"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:130
+msgid "Delete"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:137
+#, python-format
+msgid "Edited on <span title=\"%(date_iso)s\">%(date)s</span>"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:138
+#, python-format
+msgid "by %(username)s"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:144
+msgid "Message is deleted."
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:156
+msgid "Back to top"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:165
+msgid "Add reply"
+msgstr ""
+
+#: forum/templates/forum/thread_posts.html:176
+msgid "Sorry, you are not allowed to post new messages in this thread."
+msgstr ""
+
+#: forum/views.py:309
+msgid "The post was deleted successfully."
+msgstr ""
+
+#: forum/views.py:363
+msgid "The thread was moved successfully."
+msgstr ""
+
+#: forum/views.py:376
+msgid "The thread was deleted successfully."
+msgstr ""
+
+#: homepage/templates/homepage/countdown.html:4
+msgid "days"
+msgstr ""
+
+#: homepage/templates/homepage/countdown.html:5
+msgid "hours"
+msgstr ""
+
+#: homepage/templates/homepage/countdown.html:6
+msgid "minutes"
+msgstr ""
+
+#: homepage/templates/homepage/countdown.html:7
+msgid "seconds"
+msgstr ""
+
+#: homepage/templates/homepage/homepage.html:5
+#: homepage/templates/homepage/jumbotron.html:6
+#: prologin/templates/prologin/base.html:35
+msgid "Prologin, the French National Computer Science Contest"
+msgstr ""
+
+#: homepage/templates/homepage/homepage.html:11
+msgid ""
+"Prologin is a computer science contest. Our goal is to introduce students to "
+"the world of programming and algorithms by subjecting them to several "
+"conventional problems and exciting challenges."
+msgstr ""
+
+#: homepage/templates/homepage/homepage.html:31
+msgid "Latest news"
+msgstr ""
+
+#: homepage/templates/homepage/homepage.html:33
+#: homepage/templates/homepage/homepage.html:72
+msgid "Browse all news"
+msgstr ""
+
+#: homepage/templates/homepage/homepage.html:43
+#: news/templates/zinnia/_entry_detail_base.html:19
+msgid "Written by"
+msgstr ""
+
+#: homepage/templates/homepage/homepage.html:47
+#: news/templates/zinnia/_entry_detail_base.html:23
+#, python-format
+msgid "Show all %(author)s's entries"
+msgstr ""
+
+#: homepage/templates/homepage/homepage.html:49
+msgid "on"
+msgstr ""
+
+#: homepage/templates/homepage/homepage.html:51
+msgid "Written on"
+msgstr ""
+
+#: homepage/templates/homepage/jumbotron-final.html:19
+msgid ""
+"You have one weekend to develop an artificial intelligence for a custom-made "
+"game, in Paris."
+msgstr ""
+
+#: homepage/templates/homepage/jumbotron-final.html:21
+#: homepage/templates/homepage/jumbotron-semifinals.html:26
+#: homepage/templates/homepage/stub-qualification-future.html:19
+msgid "Train now"
+msgstr ""
+
+#: homepage/templates/homepage/jumbotron-final.html:24
+msgid "The final will take place at:"
+msgstr ""
+
+#: homepage/templates/homepage/jumbotron-final.html:34
+#: homepage/templates/homepage/stub-semifinal-result.html:16
+msgid "Download paperwork"
+msgstr ""
+
+#: homepage/templates/homepage/jumbotron-final.html:42
+msgid "The final is now finished!"
+msgstr ""
+
+#: homepage/templates/homepage/jumbotron-final.html:47
+msgid "Statement, results & scoreboard"
+msgstr ""
+
+#: homepage/templates/homepage/jumbotron-final.html:53
+msgid "The final is now finished! Stay tuned for the results."
+msgstr ""
+
+#: homepage/templates/homepage/jumbotron-semifinals.html:19
+msgid ""
+"Consists of a written exam and some problems to solve on the computer. Exam "
+"centers are distributed accross France large cities."
+msgstr ""
+
+#: homepage/templates/homepage/jumbotron.html:7
+#, python-format
+msgid ""
+"Born in %(born_year)s or after? Join the Prologin contest! Registration is "
+"free."
+msgstr ""
+
+#: homepage/templates/homepage/jumbotron.html:13
+msgid "Unknown date"
+msgstr ""
+
+#: homepage/templates/homepage/school-challenge-leaderboard.html:8
+msgid "Full leaderboard"
+msgstr ""
+
+#: homepage/templates/homepage/sponsors.html:3
+#: prologin/templates/prologin/main-footer.html:13
+#: sponsor/templates/sponsor/index.html:7
+#: sponsor/templates/sponsor/index.html:10
+msgid "Sponsors"
+msgstr ""
+
+#: homepage/templates/homepage/sponsors.html:23
+msgid "All about our sponsors"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-active.html:14
+msgid "Quiz completed"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-active.html:21
+msgid "Complete the quiz"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-active.html:31
+#, python-format
+msgid "%(problems_completed)s/%(problems_count)s problems tackled"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-active.html:39
+msgid "Review the extra details"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-active.html:49
+msgid "Register now!"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:11
+msgid "Congratulations! You have been selected for the regional events."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:15
+msgid ""
+"Please proceed to download your invitation papers and start training for the "
+"next step!"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:22
+msgid ""
+"Sorry, this year your application was not selected for the regional events."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:24
+#: homepage/templates/homepage/stub-semifinal-result.html:48
+msgid ""
+"Do not lose hope though! Start training right away so you can perfect your "
+"knowledge of algorithms and programming, and try again next year. Best luck!"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:29
+#: homepage/templates/homepage/stub-semifinal-result.html:53
+msgid ""
+"There is a problem with your application. Please contact the staff as soon "
+"as possible."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:35
+msgid "You did not apply for the contest this year."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:37
+msgid "Come back for the next edition!"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:42
+msgid "Log in to check if you were selected for the regional events."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-corrected.html:44
+msgid "Login"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-desc.html:4
+#, python-format
+msgid "A quiz and %(problems_count)s problems to solve online."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-desc.html:6
+#, python-format
+msgid "%(problems_count)s problems to solve online."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-done.html:7
+#: homepage/templates/homepage/stub-semifinal-result.html:27
+msgid "The jury's decision will soon be announced by email and on the website."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-done.html:11
+msgid "You can start ahead by training for the regional events."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-finished.html:7
+#, python-format
+msgid "Prologin %(year)s is now finished!"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-finished.html:11
+msgid ""
+"Stay tuned for next year's edition. We will announce when it starts on this "
+"website and by email."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-finished.html:14
+msgid "Start training!"
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-future.html:8
+#, python-format
+msgid "Qualifications will open %(date)s."
+msgstr ""
+
+#: homepage/templates/homepage/stub-qualification-future.html:13
+msgid ""
+"Qualifications for this year's edition will be announced as soon as possible."
+msgstr ""
+
+#: homepage/templates/homepage/stub-semifinal-result.html:8
+msgid "Your regional event will take place at:"
+msgstr ""
+
+#: homepage/templates/homepage/stub-semifinal-result.html:20
+msgid ""
+"The jury did not assign your regional event location. Please contact the "
+"staff as soon as possible."
+msgstr ""
+
+#: homepage/templates/homepage/stub-semifinal-result.html:29
+msgid "You can start ahead by training for the final."
+msgstr ""
+
+#: homepage/templates/homepage/stub-semifinal-result.html:36
+msgid "Congratulations! You have been selected for the final."
+msgstr ""
+
+#: homepage/templates/homepage/stub-semifinal-result.html:40
+msgid ""
+"Please proceed to download your invitation papers and start reviewing "
+"previous edition finals."
+msgstr ""
+
+#: homepage/templates/homepage/stub-semifinal-result.html:46
+msgid "Sorry, this year your application was not selected for the final."
+msgstr ""
+
+#: homepage/templates/homepage/stub-semifinal-result.html:69
+msgid "See all the dates"
+msgstr ""
+
+#: news/templates/zinnia/_entry_detail_base.html:25
+msgctxt "Written by <user> *on* <date>"
+msgid "on"
+msgstr ""
+
+#: news/templates/zinnia/_entry_detail_base.html:27
+msgctxt "*Written on* <date>"
+msgid "Written on"
+msgstr ""
+
+#: news/templates/zinnia/_entry_detail_base.html:37
+msgid "Last update on"
+msgstr ""
+
+#: news/templates/zinnia/_entry_detail_base.html:86
+#, python-format
+msgid "%(percent)s%% of %(object)s still remains to read."
+msgstr ""
+
+#: news/templates/zinnia/_entry_detail_base.html:88
+msgid "Continue reading"
+msgstr ""
+
+#: news/templates/zinnia/_entry_detail_base.html:100
+msgid "Tags:"
+msgstr ""
+
+#: news/templates/zinnia/_entry_detail_base.html:103
+#, python-format
+msgid "Show all entries tagged by %(tag)s"
+msgstr ""
+
+#: news/templates/zinnia/_entry_detail_base.html:106
+msgid "No tags"
+msgstr ""
+
+#: news/templates/zinnia/_entry_detail_base.html:112
+msgid "Persistent URL:"
+msgstr ""
+
+#: news/templates/zinnia/_entry_detail_base.html:114
+#, python-format
+msgid "Short URL to %(object)s"
+msgstr ""
+
+#: news/templates/zinnia/base.html:13
+msgid "RSS feed of last entries"
+msgstr ""
+
+#: news/templates/zinnia/base.html:14
+msgid "RSS feed of last discussions"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive.html:5
+#: news/templates/zinnia/entry_archive.html:7
+msgid "Latest entries"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive.html:17
+msgid "Yearly archives"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_day.html:19
+#: news/templates/zinnia/entry_archive_today.html:18
+msgid "Previous day"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_day.html:24
+msgid "Next day"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_day.html:36
+#: news/templates/zinnia/entry_archive_week.html:31
+#: news/templates/zinnia/entry_archive_week.html:38
+#, python-format
+msgid "Week %(week_number)s of %(year)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_month.html:16
+#: news/templates/zinnia/entry_archive_week.html:18
+msgid "Daily archives"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_month.html:29
+msgid "Previous month"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_month.html:34
+msgid "Next month"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_today.html:4
+#: news/templates/zinnia/entry_archive_today.html:6
+#: news/templates/zinnia/entry_archive_today.html:11
+msgid "Today archives"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_week.html:5
+#: news/templates/zinnia/entry_archive_week.html:7
+#: news/templates/zinnia/entry_archive_week.html:12
+#, python-format
+msgid "Archives week %(week_number)s of %(year)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_year.html:15
+msgid "Monthly archives"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_year.html:27
+msgid "Previous year"
+msgstr ""
+
+#: news/templates/zinnia/entry_archive_year.html:32
+msgid "Next year"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:22
+msgid "RSS feed of discussions on"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:24
+msgid "RSS feed of comments on"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:26
+msgid "RSS feed of pingbacks on"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:28
+msgid "RSS feed of trackbacks on"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:52
+msgid "Next entry"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:66
+msgid "Previous entry"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:80
+msgid "Related entries"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:94
+msgid "Similar entries"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:103
+msgid "Pingbacks"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:114
+#: news/templates/zinnia/entry_detail_base.html:158
+msgctxt "on date"
+msgid "on"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:120
+msgid "Direct link to this pingback"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:136
+msgid "Pingbacks are open."
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:138
+msgid "Pingbacks are closed."
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:147
+msgid "Trackbacks"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:164
+msgid "Direct link to this trackback"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:182
+msgid "Trackback URL"
+msgstr ""
+
+#: news/templates/zinnia/entry_detail_base.html:206
+#: news/templates/zinnia/entry_detail_base.html:207
+msgid "Edit the entry"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:10
+#, python-format
+msgid "The latest entries categorized under %(object)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:15
+#, python-format
+msgid "The latest entries tagged with %(object)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:19
+#, python-format
+msgid "The latest entries by %(object)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:24
+#, python-format
+msgid "page %(object)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:28
+#, python-format
+msgid "Category %(object)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:32
+#, python-format
+msgid "Tag %(object)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:36
+#, python-format
+msgid "Author %(object)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:41
+#, python-format
+msgid "Page %(object)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:46
+#: news/templates/zinnia/entry_list.html:49
+#: news/templates/zinnia/entry_list.html:52
+#: news/templates/zinnia/entry_list.html:67
+#: news/templates/zinnia/entry_list.html:68
+#: news/templates/zinnia/entry_list.html:76
+#: news/templates/zinnia/entry_list.html:77
+#, python-format
+msgid "RSS feed of %(object)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:62
+#, python-format
+msgid "Category archives: %(category)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:74
+#, python-format
+msgid "Tag archives: %(tag)s"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:100
+msgid "No entries yet."
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:119
+#: news/templates/zinnia/entry_list.html:120
+msgid "Edit the category"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:126
+#: news/templates/zinnia/entry_list.html:127
+msgid "Edit the tag"
+msgstr ""
+
+#: news/templates/zinnia/entry_list.html:133
+#: news/templates/zinnia/entry_list.html:134
+msgid "Edit the author"
+msgstr ""
+
+#: news/templates/zinnia/tags/pagination.html:7
+#, python-format
+msgid "Page %(current_page)s of %(total_page)s"
+msgstr ""
+
+#: news/templates/zinnia/tags/pagination.html:15
+msgid "More recent entries"
+msgstr ""
+
+#: news/templates/zinnia/tags/pagination.html:25
+#: news/templates/zinnia/tags/pagination.html:38
+#: news/templates/zinnia/tags/pagination.html:52
+msgid "Entries page"
+msgstr ""
+
+#: news/templates/zinnia/tags/pagination.html:61
+msgid "Older entries"
+msgstr ""
+
+#: news/templatetags/news_tags.py:10
+msgid "News"
+msgstr ""
+
+#: oidc_policy/templates/oidc_provider/authorize.html:4
+msgid "Authorization"
+msgstr ""
+
+#: oidc_policy/templates/oidc_provider/authorize.html:7
+msgid "Request for authorization"
+msgstr ""
+
+#: oidc_policy/templates/oidc_provider/authorize.html:9
+#, python-format
+msgid ""
+"\n"
+"<p>Client <strong>%(client.name)s</strong> would like to access the "
+"following information about you.</p>\n"
+msgstr ""
+
+#: oidc_policy/templates/oidc_provider/authorize.html:25
+msgid "Decline"
+msgstr ""
+
+#: oidc_policy/templates/oidc_provider/authorize.html:26
+msgid "Authorize"
+msgstr ""
+
+#: pages/templates/pages/about-contest-rules.html:7
+#: pages/templates/pages/about-contest-rules.html:11
+#: pages/templates/pages/about-contest-rules.html:15
+#: prologin/templates/prologin/main-footer.html:11
+#: prologin/templates/prologin/main-footer.html:28
+msgid "Contest rules"
+msgstr ""
+
+#: pages/templates/pages/about-contest-rules.html:19
+msgid "Important notice"
+msgstr ""
+
+#: pages/templates/pages/about-contest-rules.html:20
+msgid ""
+"The contest rules are only available in French, as the\n"
+"    contest is only open to French speakers (\"article 3\").\n"
+"    "
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:7
+#: pages/templates/pages/about-final.html:7
+#: pages/templates/pages/about-history.html:7
+#: pages/templates/pages/about-qualification.html:7
+#: pages/templates/pages/about-semifinals.html:7
+msgid "About the contest"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:10
+msgid "Discover the Prologin contest"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:16
+msgid "About the Prologin contest"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:17
+#, python-format
+msgid ""
+"Prologin is a computer science contest open to all students under "
+"%(max_age)s,\n"
+"organized by the <a href=\"%(assoc_url)s\">Prologin organization</a>.\n"
+"Our goal is to introduce young students to the world of programming and "
+"algorithms,\n"
+"by subjecting them to several conventional problems and exciting challenges. "
+"The contest takes places in\n"
+"three stages of successive selection presented in the following sections.\n"
+"Prologin is a nonprofit organization, it is free to enter the contest.\n"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:26
+#, python-format
+msgid ""
+"To learn more about the history of the contest, you can\n"
+"  visit the <a href=\"%(history_url)s\">history page</a>."
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:30
+#, python-format
+msgid ""
+"For an accurate time-line of this year events, please see the <a href="
+"\"%(home_url)s\">home page</a>."
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:36
+msgid "1<sup>st</sup> step – Qualification"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:37
+msgid ""
+"The screening questionnaire allows to qualify for regional competitions.\n"
+"It consists of a selection of algorithmic problems of increasing "
+"difficulty.\n"
+"It is possible to submit the questionnaire by postal mail or directly on "
+"this website.\n"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:41
+msgid ""
+"Registration is entirely free, you only need an Internet access to submit "
+"your answers."
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:43
+msgid "Who can qualify?"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:44
+#, python-format
+msgid ""
+"Any student born in or after %(born_year)s, living in Europe, who can "
+"understand and write French. "
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:45
+msgid "Students from EPITA are not allowed to participate."
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:46
+#: pages/templates/pages/about-contest.html:71
+#: pages/templates/pages/about-contest.html:92
+msgid "Learn more"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:55
+msgid "2<sup>nd</sup> step – Regional events"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:56
+msgid ""
+"The regional events allow the 100 best contestants to qualify for the "
+"final.\n"
+"The event lasts one day and takes place on a Saturday in January or "
+"February,\n"
+"depending on the city. Candidates are divided into various sessions in\n"
+"different examination centers all across France.\n"
+"The evaluation is based on three tests: a written exam on an original\n"
+"algorithmic problem, some unrelated problems to solve on the computer\n"
+"and an interview with one of Prologin's staff members.\n"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:66
+msgid "Where can I sit for the exam?"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:68
+#, python-format
+msgid ""
+"\n"
+"We organize the event in major cities across metropolitan France. You can "
+"check the nearest location\n"
+"using the <a href=\"%(url_centers)s\">map of exam centers</a>."
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:80
+msgid "3<sup>rd</sup> step – The Final"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:81
+msgid ""
+"The final takes place over three days in Paris, usually at the end of "
+"April.\n"
+"Candidates have to program an artificial intelligence of their own for\n"
+"a custom-made game, in just 36 hours. All the candidate submissions are\n"
+"assessed by competing against each other using an automated match-making "
+"system.\n"
+"It is also a unique opportunity to meet other computer enthusiasts, in a "
+"cheerful\n"
+"and relaxed mood!\n"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:89
+msgid "How much does it cost?"
+msgstr ""
+
+#: pages/templates/pages/about-contest.html:90
+msgid ""
+"All candidates are provided with free meals and a place to rest and sleep "
+"for the\n"
+"duration of the final. You only have to handle the cost of transportation."
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:7
+#: prologin/templates/prologin/main-footer.html:9
+msgid "Contribute"
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:10
+#: pages/templates/pages/about-contribute.html:13
+msgid "How to contribute to Prologin"
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:15
+msgid ""
+"There are many ways to contribute to the organization, on multiple levels:"
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:19
+msgid "Contributor"
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:20
+msgid ""
+"Many former contestants want to contribute to Prologin usually by writing\n"
+"exercises, but without joining the organization (which calls for further "
+"time investment). You can read our\n"
+"<a href=\"https://github.com/prologin/ressources-contributeurs\">public "
+"resources</a> to understand how we create exercises\n"
+"for our platform."
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:24
+msgid ""
+"If you are interested in helping us creating cool exercises, do not hesitate "
+"to\n"
+"send an email at: <a href=\"mailto:info@prologin.org\">info@prologin.org</a>."
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:29
+msgid "Member"
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:30
+msgid ""
+"Becoming a member means an ongoing investment, not only with exercises, but "
+"also\n"
+"on our multiple needs (coming to meetings, helping on logistic, internal "
+"tools, etc.). As a member, you can help in domains\n"
+"such as:\n"
+"<ul>\n"
+"<li>algorithms: creating written and machine exercises.</li>\n"
+"<li>system administration: maintaining and coding our infrastructure for "
+"regional and finals events.</li>\n"
+"<li>web development: for our own websites.</li>\n"
+"</ul>\n"
+"Prologin also has some non-technical necessities including logistics, "
+"sponsoring, and communication."
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:39
+msgid ""
+"We have a lot to do, hence we need motivated people every year! If you want "
+"to\n"
+"join in, or if you have any question, feel free to write to us: <a href="
+"\"mailto:info@prologin.org\">info@prologin.org</a>."
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:44
+msgid "Our internal tools"
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:45
+msgid ""
+"Whether you are a contributor, member, or simply curious, you can always "
+"take a\n"
+"look and contribute to our open source internal tools:\n"
+"<ul>\n"
+"<li><a href=\"https://github.com/prologin/camisole\">camisole</a>:\n"
+"secure online judge.</li>\n"
+"<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a>:\n"
+"AI match maker for the finals.</li>\n"
+"<li><a href=\"https://github.com/prologin/sadm\">sadm</a>:\n"
+"finals technical infrastructure.</li>\n"
+"<li><a href=\"https://github.com/prologin/iorgen\">iorgen</a>:\n"
+"generate code stubs and problem statements.</li>\n"
+"<li><a href=\"https://github.com/prologin/site\">site</a>:\n"
+"this website.</li>\n"
+"</ul>\n"
+"As an example, Haskell and Rust programming languages have been added by "
+"Prologin finalists so they could use it during the\n"
+"finals!"
+msgstr ""
+
+#: pages/templates/pages/about-contribute.html:66
+msgid ""
+"However, there is no need to code or join the organization to help us out.\n"
+"Simply talking about Prologin around you, or displaying our posters in your "
+"school means a lot!"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:8
+#: pages/templates/pages/about-final.html:11
+#: pages/templates/pages/about-final.html:17
+msgid "The final"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:21
+msgid "A 36-hour nonstop contest"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:24
+msgid ""
+"The final takes place for three days in the EPITA\n"
+"    school, which is closed for the event. The Prologin team is assisted by\n"
+"    some EPITA students and former contestants. At least ten organizers "
+"assist\n"
+"    technically the contestants during the whole contest. The contestants "
+"are\n"
+"    authorized (and invited) to communicate together."
+msgstr ""
+
+#: pages/templates/pages/about-final.html:63
+msgid "Day 1"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:64
+msgid "Day 2"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:65
+msgid "Day 3"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:66
+msgid "Day 4"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:76
+msgid "Candidates reception"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:83
+msgid ""
+"<tspan x=\"65\" >Statement</tspan><tspan x=\"65\" dy=\"15\">distribution</"
+"tspan>"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:89
+msgid ""
+"<tspan x=\"390\" >Selection,</tspan><tspan x=\"390\" dy=\"15\">jury</tspan>"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:93
+msgid ""
+"<tspan x=\"470\">Award ceremony,</tspan><tspan x=\"470\" dy=\"15\">banquet</"
+"tspan>"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:97
+msgid "Animations"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:104
+msgid ""
+"The main goal of the final is of course to select the\n"
+"    best contestants, but also to allow them to meet together and share "
+"their\n"
+"    knowledge and ideas, and to work on a real project that requires them "
+"to\n"
+"    give the best of themselves, from a technical perspective but also from "
+"a\n"
+"    time management perspective."
+msgstr ""
+
+#: pages/templates/pages/about-final.html:110
+msgid ""
+"The judging system is a client-server architecture\n"
+"    programmed every year by the Prologin team. The contestant being free "
+"of\n"
+"    the systems programming part, they can focuse on all the algorithmic "
+"aspects\n"
+"    of his submission."
+msgstr ""
+
+#: pages/templates/pages/about-final.html:115
+#: pages/templates/pages/about-semifinals.html:129
+msgid "Logistics"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:117
+msgid ""
+"Prologin takes care of the breakfasts, lunches and\n"
+"    dinners. As the final is also a party, unlimited (alcohol-free) drinks,\n"
+"    crepes and cotton candy are available, even after the meal hours.\n"
+"    "
+msgstr ""
+
+#: pages/templates/pages/about-final.html:122
+msgid ""
+"Mattresses are of course available for every contestant,\n"
+"    but they need to bring their own sleeping bags."
+msgstr ""
+
+#: pages/templates/pages/about-final.html:125
+msgid "The development environment"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:127
+msgid ""
+"Every one of the 100 contestants can work during the\n"
+"    whole contest on a computer running GNU/Linux. It is a good occasion "
+"for\n"
+"    them to familiarize with the UNIX environment, unknown for most of "
+"them.\n"
+"    Some documentation on the subject is available, and the Prologin team "
+"is\n"
+"    there to help them if needed."
+msgstr ""
+
+#: pages/templates/pages/about-final.html:133
+msgid "The statement"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:135
+msgid ""
+"Every year, an original contest statement is created by\n"
+"    the Prologin team. It generally consists of a game whose rules define a\n"
+"    world in which the programs of the contestants have to compete. It has "
+"a\n"
+"    playful aspect, while needing a lot of algorithmic and technical "
+"skills,\n"
+"    generally related to artificial intelligence."
+msgstr ""
+
+#: pages/templates/pages/about-final.html:141
+msgid ""
+"The complex environment of the subject requires\n"
+"    technical skills, an analytical mind, and good time\n"
+"    management."
+msgstr ""
+
+#: pages/templates/pages/about-final.html:145
+#: pages/templates/pages/about-semifinals.html:112
+msgid "Evaluation methodology"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:147
+msgid ""
+"The first phase of the evaluation consists of a great\n"
+"    tournament during which the programs of all the contestants compete\n"
+"    against one another. As soon as the contest ends, at 1 AM, all the "
+"computers are used\n"
+"    by a distributed tournament system, in order to make thousands of "
+"matches,\n"
+"    and get a precise ranking in equitable conditions."
+msgstr ""
+
+#: pages/templates/pages/about-final.html:153
+msgid ""
+"The ten best programs of this tournament are then\n"
+"    analyzed in depth: the source code and the documentation provided by "
+"the\n"
+"    contestant are studied to write an evaluation sheet that will be used\n"
+"    during the defense."
+msgstr ""
+
+#: pages/templates/pages/about-final.html:158
+msgid ""
+"A special jury defines the final ranking after a \n"
+"    twenty-minutes defense with each of the ten best contestants. This "
+"ranking, highly\n"
+"    influenced by the results of the tournament, also takes into account "
+"the\n"
+"    capacity of the contestant to justify their technical choices, the "
+"quality of\n"
+"    the design of his program and the potential improvements they could "
+"have\n"
+"    worked on."
+msgstr ""
+
+#: pages/templates/pages/about-final.html:165
+msgid "Award ceremony"
+msgstr ""
+
+#: pages/templates/pages/about-final.html:167
+msgid ""
+"The awards are given at noon, after the individual\n"
+"    defenses. The main sponsors are generally here and give prizes and "
+"awards\n"
+"    to the winning contestants. Everyone is then invited to a feast that "
+"ends\n"
+"    the contest."
+msgstr ""
+
+#: pages/templates/pages/about-history.html:8
+#: pages/templates/pages/about-history.html:11
+#: pages/templates/pages/about-history.html:15
+msgid "History"
+msgstr ""
+
+#: pages/templates/pages/about-history.html:17
+msgid "The creation of the contest"
+msgstr ""
+
+#: pages/templates/pages/about-history.html:18
+msgid ""
+"The Prologin organization was created in 1991 by EPITA and\n"
+"École polytechnique students, finding that Computer Science was one of the\n"
+"few fields for which there was no national contest in France gathering "
+"young\n"
+"enthusiasts."
+msgstr ""
+
+#: pages/templates/pages/about-history.html:22
+msgid ""
+"The first Prologin edition was done in 1992, taking the\n"
+"form of a national individual computer science contest for young people "
+"under\n"
+"20. The success of this experiment confirmed the interest of a contest like\n"
+"this one, which became a model for the next editions : the online "
+"selection,\n"
+"the regional events and the final. The latter, atypical with its 36-hour\n"
+"nonstop contest, is the main specificity of the contest."
+msgstr ""
+
+#: pages/templates/pages/about-history.html:29
+msgid "The winners of Prologin"
+msgstr ""
+
+#: pages/templates/pages/about-history.html:31
+msgid ""
+"From its creation, Prologin rewards the contestants that\n"
+"show excellence in a scientific field, despite its absence in most "
+"curriculums.\n"
+"This is the list of these students by year.\n"
+msgstr ""
+
+#: pages/templates/pages/about-history.html:40
+msgid "No edition this year"
+msgstr ""
+
+#: pages/templates/pages/about-history.html:42
+msgid "No data available"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:7
+#: prologin/templates/prologin/main-footer.html:8
+#: team/templates/team/index.html:7
+msgid "The organization"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:10
+#: pages/templates/pages/about-organization.html:15
+msgid "About the Prologin organization"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:17
+#, python-format
+msgid ""
+"Prologin is a nonprofit organization whose main mission is to develop and "
+"organize the\n"
+"<a href=\"%(contest_url)s\">Prologin computing contest</a>."
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:20
+msgid "Jump to description"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:25
+msgid "Contact info"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:28 prologin/models.py:59
+msgid "Address"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:35 users/models.py:132
+msgid "Phone"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:37
+msgid "Mail"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:45
+#, python-format
+msgid "The %(year)s team"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:55
+#, python-format
+msgid "See the %(count)s volunteers"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:61
+msgid "Legal status"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:63
+msgid ""
+"Prologin is a French “law 1901” organization registered under the sub-"
+"prefecture of\n"
+"<em>L'Hay-les-Roses</em> on 2000-08-04."
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:65
+msgid "CNIL registration number:"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:66
+msgid ""
+"In accordance with Article 34 of the “Informatique et Liberté” law, you "
+"have\n"
+"the right to access, modify and delete data concerning you.\n"
+"To exercise this right, please contact Prologin using one of the methods "
+"listed in\n"
+"the “Contact info” box."
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:75
+msgid "A computer enthusiasts organization"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:76
+msgid ""
+"<p class=\"text-justify\">The purpose of Prologin is to enable young "
+"computer enthusiasts to meet and compete with one another. Indeed,\n"
+"computer science is still largely under represented in French schools. "
+"Therefore, those who practice it are\n"
+"often self-taught and have an individual practice of it. However, any large "
+"project requires teamwork. This is\n"
+"why, even though candidates seat the exam individually, the competition "
+"should facilitate the exchange of ideas\n"
+"between candidates. To promote these exchanges, the Prologin team tries to "
+"design the contest topics so they\n"
+"put forward playful aspects. Meanwhile, everything is done so that "
+"participants can and should exchange ideas\n"
+"within a cheerful atmosphere. Combining work and pleasure is therefore a key "
+"objective of Prologin.</p>\n"
+"\n"
+"<p class=\"text-justify\">We want to allow the candidates to take advantage "
+"of the competition to enhance their skills. We try to cover as\n"
+"many areas of computer science: artificial intelligence algorithms, general "
+"culture, various programming\n"
+"languages…</p>\n"
+"\n"
+"<p class=\"text-justify\">For the organizers, the competition is an "
+"opportunity to manage a team and to organize a event. We must also\n"
+"learn how to communicate effectively in order to make it known to a wider "
+"public. Managing relations with\n"
+"sponsors, creating statements and solving both technological and logistic "
+"issues are also an enriching\n"
+"experiences for our staff members.</p>\n"
+"\n"
+"<p class=\"text-justify\">Finally, for all the survivors who reach the "
+"final, it is also the opportunity to spend a super crazy weekend\n"
+"with us!</p>\n"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:99
+msgid "Girls Can Code!"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:100
+msgid ""
+"In 2014, Prologin started to organize the Girls Can Code! summer camps.\n"
+"These training camps are the perfect occasion for young girls who are still "
+"in middle school or in high school\n"
+"to discover multiple computer science subjects throughout the week. They "
+"will learn how to solve problems with\n"
+"algorithms, explore various computer science topics such as network, web "
+"development, robotics, microcontrollers, video games\n"
+"and more through practical exercises."
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:106
+msgid ""
+"Conferences from exterior speakers are organized for every camp. It enables "
+"the attendees\n"
+"to exchange with women working in the computer science industry or in "
+"academia. The young girls are sometimes\n"
+"unsure as to what they want to do, this is a golden occasion for them to "
+"discuss their education with the speaker,\n"
+"thus helping them for future orientation choices."
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:111
+msgid ""
+"Prologin staff is present during the camp to help them debug their programs "
+"and pass on\n"
+"knowledge in computer science and programming."
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:114
+#, python-format
+msgid ""
+"More information can be found on <a href=\"https://gcc.prologin.org\">Girls "
+"Can Code! website</a>. For any\n"
+"inquiries, please <a href=\"%(about_organization)s#contact\">contact us</a>."
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:117
+msgid "Everyone can contribute to Prologin"
+msgstr ""
+
+#: pages/templates/pages/about-organization.html:119
+msgid ""
+"<p class=\"text-justify\">Contributing can be done in various ways: "
+"promoting the event, developing the website and\n"
+"the software architecture for the final, helping during the regional events, "
+"contributing in the forums, and so on.\n"
+"We also appreciate your feedback and your suggestions.</p>\n"
+"\n"
+"<p class=\"text-justify\">We also need your help with the training section, "
+"where users can try themselves on a large set of statements.\n"
+"If you can give us a hand, please do: we are looking for new statements "
+"(originals or translations of third parties),\n"
+"courses, and corrections. Of course, please contact us before contributing "
+"so we can prevent certain parts\n"
+"being done in duplicate.</p>\n"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:7
+#: pages/templates/pages/about-privacy-policy.html:11
+#: pages/templates/pages/about-privacy-policy.html:15
+#: prologin/templates/prologin/main-footer.html:12
+msgid "Privacy policy"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:17
+msgid "Prologin and your Personal Data"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:19
+msgid "About the Processing"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:22
+msgid ""
+"\n"
+"#### Purposes\n"
+"\n"
+"The processing goal is to **organize the Prologin contest**.  \n"
+"It enables the Prologin association to:\n"
+"\n"
+"*   process registration requests on the Prologin website;\n"
+"*   provide communication services (forum) and code evaluation (online "
+"judge) ;\n"
+"*   process applications for participation in the Prologin contest;\n"
+"*   tailor the meals taking into account each dietary restrictions;\n"
+"*   answer questions from the participants;\n"
+"*   steer the activity of the association (evaluate participant "
+"satisfaction, produce statistics).\n"
+"\n"
+"#### Lawfulness of Processing\n"
+"\n"
+"The data subjects give consent to the processing of their personal data for "
+"the declared purposes (art. 6(1)a of GDPR).\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:43
+msgid "Processed Data"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:46
+msgid ""
+"\n"
+"#### Data Categories\n"
+"\n"
+"Registration on the site requires the following categories of data:\n"
+"\n"
+"*   Identification: pseudonym, email;\n"
+"*   Internet: audience measurement;\n"
+"\n"
+"Entering the contest requires additional information:\n"
+"\n"
+"*   Identification: name, first name, address...;\n"
+"*   School life (also referred to as professional life): current class "
+"level;\n"
+"*   Personal life: dietary constraints;\n"
+"*   Internet: audience measurement;\n"
+"*   Health data: medical treatments and allergies.\n"
+"\n"
+"#### Data Source\n"
+"\n"
+"These data are collected directly from the applicant, and/or from the holder "
+"of parental authority when necessary (the candidate is less than 16).\n"
+"\n"
+"#### Mandatory Answers\n"
+"\n"
+"Registration to the Prologin website requires (unless specified otherwise) "
+"the collection of data necessary to process the registration.\n"
+"\n"
+"Entering the Prologin contest requires (unless specified otherwise) the "
+"collection of data necessary to process the application and ensure on-site "
+"events are correctly held.\n"
+"\n"
+"#### Automated Individual Decision-making\n"
+"\n"
+"The processing may include a fully automated decision: applications for "
+"entry into the Prologin contest that are clearly insufficient (evaluation by "
+"the Prologin online judge) are automatically rejected. Although this "
+"automatic decision has no legal effect and no significant impact, Prologin "
+"can be contacted directly.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:80
+msgid "Data Subjects"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:83
+msgid ""
+"\n"
+"This processing involves:\n"
+"\n"
+"*   natural persons registering to the Prologin website;\n"
+"*   natural persons applying to the Prologin contest;\n"
+"*   holder of parental authorities for the above persons if necessary "
+"(applicant is less than 16);\n"
+"*   members of Prologin;\n"
+"*   natural or legal persons from Prologin partners and/or sub-processors.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:96
+msgid "Data Recipients"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:99
+msgid ""
+"\n"
+"#### Categories of Recipients\n"
+"\n"
+"Taking into account their respective needs, the following are a recipient of "
+"all or any parts of the data:\n"
+"\n"
+"*   authorized members of Prologin;\n"
+"*   authorized members of Prologin partners and/or sub-contractors;\n"
+"*   emergency services if needed.\n"
+"\n"
+"#### Data Transfers Outside of EU\n"
+"\n"
+"Des transferts de données en dehors de l'Union Européenne peuvent avoir lieu "
+"(vers un partenaire en Suisse pour l'organisation de l'épreuve régionale "
+"correspondante le cas échéant, et vers Google dans le monde entier). Google "
+"et Prologin se reposent sur les clauses contractuelles type prévues par la "
+"Commission Européenne et disponibles sur son site internet.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:116
+msgid "Storage Period"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:119
+msgid ""
+"\n"
+"Identification data, school, and personal life are stored until the data "
+"subject unsubscribes from Prologin.  \n"
+"Health data are deleted three years after the end of the final.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:127
+msgid "Security"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:130
+msgid ""
+"\n"
+"Some security measures, aiming to ensure confidentiality, integrity, and "
+"availability of the data, have been implemented. They are extracted from the "
+"ISO/IEC27002 standard. It includes, without being limited to, data "
+"encryption in-transit and externalized backups.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:137
+msgid "Your Rights"
+msgstr ""
+
+#: pages/templates/pages/about-privacy-policy.html:140
+msgid ""
+"\n"
+"#### The Essential\n"
+"\n"
+"You have (_via_ the holder of parental authorities when applicable) the "
+"right to access and obtain a copy of your personal data, to object to their "
+"processing, to rectify, or to erase them. You also have the right to "
+"restrict the processing of your data. Finally, you have the right to have "
+"your application for the contest re-examined by a human being if you have "
+"been the subject of an automated decision. Please refer to the website of "
+"your national Data Protection Authority to learn more about your rights.\n"
+"\n"
+"#### How to Exercise your Rights\n"
+"\n"
+"Any request must be sent by email to [info@prologin.org](mailto:"
+"info@prologin.org).\n"
+"\n"
+"#### Lodging a Complaint\n"
+"\n"
+"Should you think your rights are not respected, and after having contacted "
+"us, you can lodge a complaint with your national Data Protection Authority.\n"
+"        "
+msgstr ""
+
+#: pages/templates/pages/about-qualification.html:8
+#: pages/templates/pages/about-qualification.html:11
+#: pages/templates/pages/about-qualification.html:17
+msgid "The qualification stage"
+msgstr ""
+
+#: pages/templates/pages/about-qualification.html:21
+msgid ""
+"This test typically takes the form of four or five small algorithmic "
+"problems of increasing difficulty.\n"
+"This is both to publicize the contest and select candidates with the minimum "
+"level required to participate in the\n"
+"next stages. This is also an opportunity to encourage young people, "
+"including those who will not participate in\n"
+"the events which will follow, to tackle the various areas about computing "
+"that they may not had the opportunity\n"
+"to address so far."
+msgstr ""
+
+#: pages/templates/pages/about-qualification.html:26
+msgid ""
+"Posters are sent to various schools all over France (high schools, IUT, "
+"colleges, etc.).\n"
+"  There are sent to former candidates as well, who represent the most "
+"effective way to publicize the competition.\n"
+"  "
+msgstr ""
+
+#: pages/templates/pages/about-qualification.html:29
+msgid ""
+"Some years, the questionnaire is also published in various targeted computer "
+"magazines. For example,\n"
+"for the 2004 edition, 120'000 copies of the quiz were distributed on paper."
+msgstr ""
+
+#: pages/templates/pages/about-qualification.html:32
+msgid "Why are students from EPITA not allowed to compete?"
+msgstr ""
+
+#: pages/templates/pages/about-qualification.html:33
+msgid ""
+"Prologin is registered as an association that is part of the EPITA "
+"engineering school. As such,\n"
+"  members of the school are not allowed to compete in the Prologin contest."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:8
+#: pages/templates/pages/about-semifinals.html:11
+#: pages/templates/pages/about-semifinals.html:17
+msgid "The regional events"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:21
+msgid ""
+"The regional event tests are intended to test the capability of candidates "
+"to solve algorithmic\n"
+"problems but also to implement theirs solution on a machine, in the "
+"programming language they prefer. This is also an\n"
+"opportunity for candidates to meet other enthusiasts, and for the organizers "
+"to relate their experience, to help\n"
+"them progress."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:25
+msgid ""
+"The 200 to 300 selected candidates are divided into different regional "
+"events, which take place in\n"
+"multiple sessions from mid-January, in the following French cities: Paris, "
+"Lyon, Toulouse, Strasbourg, Nantes,\n"
+"Lille, Toulon, Louvain-la-Neuve and Bordeaux."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:29
+msgid "The three tests"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:31
+msgid "The written exam"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:32
+msgid ""
+"The written exam lasts three hours. The test consists of\n"
+"    a series of five or six questions around a common theme. These questions "
+"of\n"
+"    increasing difficulty guide the contestant in the stages of resolution "
+"of\n"
+"    an algorithmic problem. The first exercices focus on modeling the "
+"problem\n"
+"    and are here to check that the candidate masters the basic principles "
+"of\n"
+"    algorithms, and the next exercises require the contestant to code "
+"effective\n"
+"    algorithms for harder problems."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:40
+msgid "The interview"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:41
+msgid ""
+"The interview lasts between ten and twenty minutes. It\n"
+"    is a way for us to meet individually every contestant, test their "
+"knowledge,\n"
+"    learn about the personal projects he works on, while giving him advices "
+"to\n"
+"    improve."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:46
+msgid "The practical test"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:47
+msgid ""
+"The practical test lasts three and a half hours. Every\n"
+"    contestant works on algorithmic exercises on a computer. A judging "
+"program\n"
+"    evaluates the code submissions of the contestant. The goal of this test "
+"is\n"
+"    to check that the contestant is able to code a program on a computer "
+"(choose\n"
+"    an algorithm, implement it in a programming language, test it and debug "
+"it).\n"
+"    "
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:54
+msgid ""
+"All these tests are individual. No other documents than\n"
+"    those given by Prologin are authorized."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:57
+msgid "The typical course of a regional event day"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:90
+msgid "Welcoming contestants, free breakfast"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:91
+msgid ""
+"<tspan x=\"170\">Written exam</tspan> <tspan x=\"170\" dy=\"20\">(3 hours)</"
+"tspan>"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:93
+msgid ""
+"<tspan x=\"375\">Interview</tspan> <tspan x=\"375\" dy=\"20\">(15-20 "
+"minutes)</tspan>"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:95
+msgid "Free lunch"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:96
+msgid "Algorithmic exercises on computer (3h30)"
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:100
+msgid ""
+"The contestants are welcomed at 8h30 AM, and meet together\n"
+"    while having a free breakfast provided by Prologin. The written exam "
+"takes\n"
+"    place between 9 AM and 12 AM, during which they also have an interview "
+"with a\n"
+"    Prologin organizer."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:105
+msgid ""
+"Before or during the lunch, also provided by Prologin,\n"
+"    the organizers present a quick correction of some of the problems the "
+"candidates have\n"
+"    just worked on."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:109
+msgid ""
+"The day continues with the practical test, which lasts\n"
+"    three and a half hours, and ends at 5:30 PM."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:113
+msgid ""
+"The exam submissions are marked according to the\n"
+"    validity and the efficiency of the proposed algorithms. The syntax of "
+"the\n"
+"    languages used and other similar aspects are not taken in account, as "
+"they\n"
+"    are already needed for the coding exercises."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:118
+msgid ""
+"After the interview, a grade is also given according to\n"
+"    various criteria."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:121
+msgid ""
+"The grade of the practical test is attributed\n"
+"    automatically by the juding system, according to the number of solved\n"
+"    exercises, the number of tries to achieve that, and the time spent on "
+"each\n"
+"    exercise before a correct solution was found."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:126
+msgid ""
+"The final ranking, after which a hundred contestants are\n"
+"    selected, is obtained from these three grades."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:131
+msgid ""
+"The regional events are spread over several weekends, during\n"
+"    which between one to three regional events take place in different "
+"locations.\n"
+"    "
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:135
+msgid ""
+"A team of at least three Prologin members is dedicated\n"
+"    to the logistics of each event, to prepare the equipment, welcome the\n"
+"    contestants, monitor the tests, take care of the food and assist the\n"
+"    contestants during the practical test."
+msgstr ""
+
+#: pages/templates/pages/about-semifinals.html:140
+msgid ""
+"All the exam centers where the regional events take place\n"
+"    provide us with the computer equipment and the classrooms needed, and "
+"we\n"
+"    are very grateful to them for their help."
+msgstr ""
+
+#: problems/admin.py:18
+msgid "Yes"
+msgstr ""
+
+#: problems/admin.py:19
+msgid "No"
+msgstr ""
+
+#: problems/admin.py:42 problems/admin.py:51
+msgid "succeeded"
+msgstr ""
+
+#: problems/admin.py:60
+msgid "corrected"
+msgstr ""
+
+#: problems/admin.py:66
+msgid "results expired"
+msgstr ""
+
+#: problems/admin.py:87
+#, python-format
+msgid "Code %(id)s"
+msgstr ""
+
+#: problems/admin.py:93
+msgid "Challenge"
+msgstr ""
+
+#: problems/admin.py:98 semifinal/forms.py:9
+msgid "Problem"
+msgstr ""
+
+#: problems/admin.py:103 problems/admin.py:165
+msgid "Username"
+msgstr ""
+
+#: problems/admin.py:109
+msgid "Status"
+msgstr ""
+
+#: problems/admin.py:114
+msgid "Correctable"
+msgstr ""
+
+#: problems/admin.py:133
+msgid "Submit to correction"
+msgstr ""
+
+#: problems/admin.py:159
+#, python-format
+msgid "Submission %(id)s"
+msgstr ""
+
+#: problems/admin.py:176 problems/forms.py:31
+msgid "Solved"
+msgstr ""
+
+#: problems/forms.py:14
+msgid "Problem name (optional)"
+msgstr ""
+
+#: problems/forms.py:15
+msgid "Query"
+msgstr ""
+
+#: problems/forms.py:16
+msgid "Any event type"
+msgstr ""
+
+#: problems/forms.py:26
+msgid "Minimum difficulty"
+msgstr ""
+
+#: problems/forms.py:30
+msgid "Maximum difficulty"
+msgstr ""
+
+#: problems/forms.py:32
+msgid "All problems"
+msgstr ""
+
+#: problems/forms.py:33
+msgid "Problems I solved"
+msgstr ""
+
+#: problems/forms.py:34
+msgid "Problems I did not solve"
+msgstr ""
+
+#: problems/forms.py:114
+msgid "You can provide either a source file or a source code, but not both."
+msgstr ""
+
+#: problems/forms.py:119
+msgid "Your client did not provide the content length of your source file."
+msgstr ""
+
+#: problems/forms.py:121
+#, python-format
+msgid ""
+"The source file you uploaded is too large. Please keep it below %(size)s."
+msgstr ""
+
+#: problems/forms.py:127
+msgid "Please use the UTF-8 encoding when uploading a source file."
+msgstr ""
+
+#: problems/forms.py:129
+msgid "Source files cannot contain NUL (0x00) characters."
+msgstr ""
+
+#: problems/forms.py:132
+msgid "You need to provide either a source file or a source code."
+msgstr ""
+
+#: problems/models/__init__.py:7
+msgid "Qualifications"
+msgstr ""
+
+#: problems/models/submission.py:72
+msgid "unknown"
+msgstr ""
+
+#: problems/models/submission.py:76
+msgid "Compilation went fine."
+msgstr ""
+
+#: problems/models/submission.py:77
+#, python-format
+msgid "Compilation exited with code %(code)s."
+msgstr ""
+
+#: problems/models/submission.py:78
+msgid "Compilation timed out."
+msgstr ""
+
+#: problems/models/submission.py:79
+#, python-format
+msgid "Compilation was killed with signal %(signal)s."
+msgstr ""
+
+#: problems/models/submission.py:80
+msgid "Compilation crashed with an internal error."
+msgstr ""
+
+#: problems/models/submission.py:91
+msgid "your program executed fine, but:"
+msgstr ""
+
+#: problems/models/submission.py:92
+#, python-format
+msgid "your program exited with code %(code)s."
+msgstr ""
+
+#: problems/models/submission.py:93
+msgid "your program timed out."
+msgstr ""
+
+#: problems/models/submission.py:94
+msgid "your program has exceeded the memory limit."
+msgstr ""
+
+#: problems/models/submission.py:95
+#, python-format
+msgid "your program was killed with signal %(signal)s."
+msgstr ""
+
+#: problems/models/submission.py:96
+msgid "your program crashed with an internal error."
+msgstr ""
+
+#: problems/models/submission.py:193
+#: problems/templates/problems/submission.html:9
+msgid "Submission"
+msgstr ""
+
+#: problems/models/submission.py:238
+msgid "Pending"
+msgstr ""
+
+#: problems/models/submission.py:238
+msgid "Corrected"
+msgstr ""
+
+#: problems/models/submission.py:293
+msgid "Submission code"
+msgstr ""
+
+#: problems/models/submission.py:294
+msgid "Submission codes"
+msgstr ""
+
+#: problems/models/submission.py:320
+msgid "Explicit problem unlock"
+msgstr ""
+
+#: problems/models/submission.py:321
+msgid "Explicit problem unlocks"
+msgstr ""
+
+#: problems/templates/problems/challenge-scoreboard.html:11
+#: problems/templates/problems/problem.html:11
+#: problems/templates/problems/problem.html:17
+#: problems/templates/problems/submission.html:12
+#: problems/templates/problems/submission.html:20
+#, python-format
+msgctxt "Problem title, eg. 2015 Qualification"
+msgid "%(type)s %(year)s"
+msgstr ""
+
+#: problems/templates/problems/challenge-scoreboard.html:15
+#, python-format
+msgid "%(type)s %(year)s"
+msgstr ""
+
+#: problems/templates/problems/challenge-scoreboard.html:17
+#, python-format
+msgid ""
+"Please note that only the first %(row_count)s results are displayed below, "
+"regardless of the actual number of contestants."
+msgstr ""
+
+#: problems/templates/problems/challenge-scoreboard.html:25
+#: semifinal/templates/semifinal/stub-scoreboard.html:10
+msgid "Points"
+msgstr ""
+
+#: problems/templates/problems/challenge-scoreboard.html:42
+msgid "No scores to display"
+msgstr ""
+
+#: problems/templates/problems/challenge.html:10
+#: problems/templates/problems/challenge.html:14
+#: semifinal/templates/problems/challenge.html:10
+#: semifinal/templates/problems/challenge.html:14
+#, python-format
+msgid "Problems for %(type)s %(year)s"
+msgstr ""
+
+#: problems/templates/problems/challenge.html:24
+#: semifinal/templates/problems/challenge.html:24
+#, python-format
+msgid "The problem"
+msgid_plural "The %(count)s problems"
+msgstr[0] ""
+msgstr[1] ""
+
+#: problems/templates/problems/challenge.html:28
+#: semifinal/templates/problems/challenge.html:28
+msgid "Congrats, you solved all the problems!"
+msgstr ""
+
+#: problems/templates/problems/challenge.html:29
+#: problems/templates/problems/stub_problem.html:26
+#: semifinal/templates/problems/challenge.html:29
+#, python-format
+msgid "%(score)s pts"
+msgstr ""
+
+#: problems/templates/problems/index.html:12
+msgid ""
+"This page contains all the exercises from previous Prologin editions. You "
+"can browse through them,\n"
+"and search by difficulty or years. If you need help to get started with "
+"algorithmics, you should read our\n"
+"<a href=\"https://prologin.org/forum/entrainement-3/ressources-i-"
+"debutants-1114/\">resources</a>."
+msgstr ""
+
+#: problems/templates/problems/index.html:15
+#, python-format
+msgid ""
+"Stuck on a problem? Ask for help on the <a href=\"%(forum)s\">forums</a>!"
+msgstr ""
+
+#: problems/templates/problems/index.html:17
+msgid "Jump to problem index"
+msgstr ""
+
+#: problems/templates/problems/index.html:32
+#, python-format
+msgid "%(count)s&nbsp;problem"
+msgid_plural "%(count)s&nbsp;problems"
+msgstr[0] ""
+msgstr[1] ""
+
+#: problems/templates/problems/index.html:36
+msgid "Challenge is hidden to regular users"
+msgstr ""
+
+#: problems/templates/problems/index.html:51
+msgid "What is this?"
+msgstr ""
+
+#: problems/templates/problems/index.html:53
+msgid ""
+"Want to find out what the Prologin algorithmic exercises are like?\n"
+"In this section, you can browse and tackle all the problems from the "
+"previous Prologin events. These are\n"
+"problems from both the Prologin online qualifications and the on-site "
+"regional events."
+msgstr ""
+
+#: problems/templates/problems/index.html:58
+msgid "How does it work?"
+msgstr ""
+
+#: problems/templates/problems/index.html:60
+msgid ""
+"Read the problem statement carefully and submit your solution. The system "
+"will check your\n"
+"submission and instantly tell you whether you got it right or wrong. You can "
+"submit as many codes as you\n"
+"need to solve the problem."
+msgstr ""
+
+#: problems/templates/problems/index.html:64
+#, python-format
+msgid ""
+"If you need any help with the automatic correction\n"
+"      system, you can read the <a href=\"%(manual_url)s\" style=\"white-"
+"space: nowrap;\"><i class=\"fa fa-book\"></i> online judge manual</a>.\n"
+"      "
+msgstr ""
+
+#: problems/templates/problems/manual.html:7
+msgid "Manual"
+msgstr ""
+
+#: problems/templates/problems/manual.html:10
+#: problems/templates/problems/manual.html:14
+msgid "Online judge manual"
+msgstr ""
+
+#: problems/templates/problems/manual.html:16
+msgid ""
+"The online training system is a tool to help you improve\n"
+"your programing skills. It is open to everyone, and obviously free. What\n"
+"follows is a guide to understand its principles and get the most out of it.\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:21
+#: semifinal/templates/prologin/main-menu.html:6
+msgid "Problems"
+msgstr ""
+
+#: problems/templates/problems/manual.html:23
+msgid ""
+"\n"
+"The problems given during the previous editions of the Prologin contest are\n"
+"archived and available on this website. You can train with the problems of "
+"the\n"
+"qualification and regional event problems of the previous years. They are "
+"ordered\n"
+"by year and difficulty: from beginner to advanced.\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:30
+msgid "Evaluation"
+msgstr ""
+
+#: problems/templates/problems/manual.html:32
+msgid ""
+"\n"
+"The exercises are evaluated by our server: your program is compiled then "
+"tested\n"
+"automatically. It is executed once per test. The possible errors are:\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:38
+msgid "Your program does not compile;"
+msgstr ""
+
+#: problems/templates/problems/manual.html:39
+msgid "Your program exceeded the time limit given in the subject;"
+msgstr ""
+
+#: problems/templates/problems/manual.html:40
+msgid "Your program exceeded the memory limit given in the subject;"
+msgstr ""
+
+#: problems/templates/problems/manual.html:41
+msgid "Your program gave a wrong result for at least one test;"
+msgstr ""
+
+#: problems/templates/problems/manual.html:42
+msgid "Your program does not terminate correctly."
+msgstr ""
+
+#: problems/templates/problems/manual.html:45
+msgid ""
+"\n"
+"If there is a compilation error, the error output of the compiler is shown.\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:49
+msgid ""
+"\n"
+"The output produced by your program has to match exactly with the format "
+"given\n"
+"in the subjects. The correction system compares the output with a reference\n"
+"output, character by character.\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:55
+msgid ""
+"\n"
+"After the tests have been executed, a summary is shown, indicating which "
+"tests\n"
+"succeeded and which tests failed. The output of your program and the output\n"
+"given by the correction system is shown only for the first failed test. The\n"
+"exercise will only be considered solved when all the tests succeed.\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:62
+msgid ""
+"\n"
+"The correction can take up to several minutes, so be patient.\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:68
+msgid ""
+"\n"
+"The training system grades your submissions. Every solved exercise gives "
+"you\n"
+"a number of points that depends of the level of the problem and the number "
+"of\n"
+"failed attempts you tried. You should test your program yourself before\n"
+"submitting it.\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:75
+msgid "Code stubs"
+msgstr ""
+
+#: problems/templates/problems/manual.html:77
+msgid ""
+"\n"
+"For some languages, we provide code stubs that can \"parse\" correctly the "
+"data\n"
+"given in the standard input of the program. You only need to write the "
+"content\n"
+"of a stub function that takes these parsed data in parameter. Note that it "
+"is\n"
+"absolutely not mandatory to use these stubs, although they can be really\n"
+"useful most of the time.\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:85
+msgid "Correction system"
+msgstr ""
+
+#: problems/templates/problems/manual.html:87
+msgid "Time and memory limitations"
+msgstr ""
+
+#: problems/templates/problems/manual.html:89
+msgid ""
+"\n"
+"Every problem enforces some limits in terms of memory usage and execution "
+"time.\n"
+"Some coefficients are applied on some slower or memory greedy languages. No\n"
+"particular limitation is applied on the stack size.\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:97
+msgid "Hardware architecture"
+msgstr ""
+
+#: problems/templates/problems/manual.html:101
+#, python-format
+msgid ""
+"\n"
+"Your programs are executed in a virtual machine with an %(hardware_cpu)s\n"
+"with a clock rate of %(hardware_clockrate)s and an\n"
+"%(hardware_architecture)s architecture. The byte order is\n"
+"%(hardware_byteorder)s. The virtual machine has %(hardware_ncpu)s dedicated\n"
+"vCPU and %(hardware_mem)s Gio of dedicated random access memory.\n"
+msgstr ""
+
+#: problems/templates/problems/manual.html:111
+msgid "Compilers and interpreters"
+msgstr ""
+
+#: problems/templates/problems/manual.html:116
+msgctxt "manual language table"
+msgid "Language"
+msgstr ""
+
+#: problems/templates/problems/manual.html:117
+msgctxt "manual language table"
+msgid "Binary"
+msgstr ""
+
+#: problems/templates/problems/manual.html:118
+msgctxt "manual language table"
+msgid "Version"
+msgstr ""
+
+#: problems/templates/problems/manual.html:119
+msgctxt "manual language table"
+msgid "Options"
+msgstr ""
+
+#: problems/templates/problems/manual.html:123
+msgctxt "unknown version"
+msgid "<em>unknown</em>"
+msgstr ""
+
+#: problems/templates/problems/manual.html:136
+msgid "The program list is temporarily unavailable."
+msgstr ""
+
+#: problems/templates/problems/problem.html:23
+#, python-format
+msgid "Tackled by %(count)s member"
+msgid_plural "Tackled by %(count)s members"
+msgstr[0] ""
+msgstr[1] ""
+
+#: problems/templates/problems/problem.html:24
+#, python-format
+msgid "Solved by %(count)s member"
+msgid_plural "Solved by %(count)s members"
+msgstr[0] ""
+msgstr[1] ""
+
+#: problems/templates/problems/problem.html:26
+msgid "You solved this problem."
+msgstr ""
+
+#: problems/templates/problems/problem.html:27
+msgid "You tackled this problem without success."
+msgstr ""
+
+#: problems/templates/problems/problem.html:41
+#: problems/templates/problems/problem.html:180
+msgid "Runtime constraints"
+msgstr ""
+
+#: problems/templates/problems/problem.html:43
+msgid "Maximum memory usage"
+msgstr ""
+
+#: problems/templates/problems/problem.html:44
+#, python-format
+msgid "%(kb)s&nbsp;kilobytes"
+msgstr ""
+
+#: problems/templates/problems/problem.html:45
+msgid "Maximum execution time"
+msgstr ""
+
+#: problems/templates/problems/problem.html:46
+#, python-format
+msgid "%(ms)s&nbsp;milliseconds"
+msgstr ""
+
+#: problems/templates/problems/problem.html:51
+#: problems/templates/problems/problem.html:181
+msgid "Input/output samples"
+msgstr ""
+
+#: problems/templates/problems/problem.html:55
+msgid "Sample input"
+msgstr ""
+
+#: problems/templates/problems/problem.html:59
+msgid "Sample output"
+msgstr ""
+
+#: problems/templates/problems/problem.html:64
+msgid "Note"
+msgstr ""
+
+#: problems/templates/problems/problem.html:74
+#: problems/templates/problems/problem.html:182
+msgid "Submit your solution"
+msgstr ""
+
+#: problems/templates/problems/problem.html:78
+#, python-format
+msgid ""
+"You already solved this problem. You won <strong>%(score)s</strong> points "
+"for it, which is %(base)s base points minus %(malus)s malus points."
+msgstr ""
+
+#: problems/templates/problems/problem.html:111
+msgid "You can also upload a file instead:"
+msgstr ""
+
+#: problems/templates/problems/problem.html:112
+msgid "Upload a source file"
+msgstr ""
+
+#: problems/templates/problems/problem.html:115
+msgid "Select the programming language:"
+msgstr ""
+
+#: problems/templates/problems/problem.html:119
+msgid "Insert parsing code stub at the end of your code"
+msgstr ""
+
+#: problems/templates/problems/problem.html:119
+msgid "Code stub"
+msgstr ""
+
+#: problems/templates/problems/problem.html:127
+msgid "Optional short summary of your changes"
+msgstr ""
+
+#: problems/templates/problems/problem.html:137
+msgid "Submission history"
+msgstr ""
+
+#: problems/templates/problems/problem.html:143
+msgid "Current version (unsaved)"
+msgstr ""
+
+#: problems/templates/problems/problem.html:145
+msgid "Unknown language"
+msgstr ""
+
+#: problems/templates/problems/problem.html:146
+msgid "Just now"
+msgstr ""
+
+#: problems/templates/problems/problem.html:149
+msgid "<em>No summary</em>"
+msgstr ""
+
+#: problems/templates/problems/problem.html:153
+msgid "Correct solution"
+msgstr ""
+
+#: problems/templates/problems/problem.html:153
+msgid "Invalid solution"
+msgstr ""
+
+#: problems/templates/problems/problem.html:153
+msgid "Pending check"
+msgstr ""
+
+#: problems/templates/problems/problem.html:156
+msgid ""
+"Base points won by solving this problem. Malus points are not taken into "
+"account."
+msgstr ""
+
+#: problems/templates/problems/problem.html:170
+#, python-format
+msgid ""
+"You have to <a href=\"%(register)s\">register</a> or <a href=\"%(login)s"
+"\">log in</a> to be able to submit your solution."
+msgstr ""
+
+#: problems/templates/problems/problem.html:179
+msgid "Statement"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:7
+msgid "Search results"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:10
+#: problems/templates/problems/search_results.html:14
+msgid "Search training problems"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:16
+msgid "Jump to results"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:20
+msgid "Sort"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:21
+msgid "by title"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:22
+msgid "by year"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:23
+msgid "by difficulty"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:24
+msgid "ascending"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:24
+#: users/templates/users/unsubscribe.html:39
+msgid "or"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:25
+msgid "descending"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:30
+#, python-format
+msgid "Problems %(from)s-%(to)s of %(count)s"
+msgstr ""
+
+#: problems/templates/problems/search_results.html:37
+msgid "No problem match your query. Try broader criteria."
+msgstr ""
+
+#: problems/templates/problems/stub-module-name.html:3
+msgid "Training"
+msgstr ""
+
+#: problems/templates/problems/stub-module-title.html:3
+msgid "Training challenges"
+msgstr ""
+
+#: problems/templates/problems/stub_problem.html:14
+#, python-format
+msgid "%(year)s %(challenge)s"
+msgstr ""
+
+#: problems/templates/problems/stub_problem.html:20
+msgid "This problem was manually made available by the staff"
+msgstr ""
+
+#: problems/templates/problems/stub_problem.html:22
+msgid ""
+"This problem was automatically made available because you did not complete "
+"any next-level problem"
+msgstr ""
+
+#: problems/templates/problems/stub_problem.html:28
+msgid "Failed"
+msgstr ""
+
+#: problems/templates/problems/stub_problem.html:31
+msgid "Not submitted"
+msgstr ""
+
+#: problems/templates/problems/stub_search_form.html:5
+msgid "Search problems"
+msgstr ""
+
+#: problems/templates/problems/stub_search_form.html:12
+msgid "From"
+msgstr ""
+
+#: problems/templates/problems/stub_search_form.html:14
+msgid "to"
+msgstr ""
+
+#: problems/templates/problems/stub_search_form.html:22
+msgid "Search"
+msgstr ""
+
+#: problems/templates/problems/stub_submission_result.html:7
+msgid "Test skipped."
+msgstr ""
+
+#: problems/templates/problems/stub_submission_result.html:13
+msgid "Run time"
+msgstr ""
+
+#: problems/templates/problems/stub_submission_result.html:17
+msgid "Memory"
+msgstr ""
+
+#: problems/templates/problems/stub_submission_result.html:22
+msgid "Test passed!"
+msgstr ""
+
+#: problems/templates/problems/stub_submission_result.html:24
+msgid "Test failed:"
+msgstr ""
+
+#: problems/templates/problems/stub_submission_result.html:26
+msgid "The output is incorrect (details of this test are hidden)."
+msgstr ""
+
+#: problems/templates/problems/stub_submission_result.html:29
+msgid "Expected standard output:"
+msgstr ""
+
+#: problems/templates/problems/stub_submission_result.html:31
+msgid "Standard output of your program:"
+msgstr ""
+
+#: problems/templates/problems/stub_submission_result.html:34
+msgid "Standard error of your program:"
+msgstr ""
+
+#: problems/templates/problems/submission.html:12
+#: problems/templates/problems/submission.html:19
+#, python-format
+msgid "Submission for %(problem)s"
+msgstr ""
+
+#: problems/templates/problems/submission.html:26
+#, python-format
+msgid "Submitted by <strong>%(username)s</strong>"
+msgstr ""
+
+#: problems/templates/problems/submission.html:27
+#, python-format
+msgid "Programmed in <strong>%(lang)s</strong>"
+msgstr ""
+
+#: problems/templates/problems/submission.html:28
+#, python-format
+msgid "Submitted on <strong title=\"%(short_date)s\">%(date)s</strong>"
+msgstr ""
+
+#: problems/templates/problems/submission.html:34
+msgid "No summary."
+msgstr ""
+
+#: problems/templates/problems/submission.html:43
+msgid "Not correctable"
+msgstr ""
+
+#: problems/templates/problems/submission.html:45
+msgid "Solution passes tests"
+msgstr ""
+
+#: problems/templates/problems/submission.html:47
+msgid "Solution is invalid"
+msgstr ""
+
+#: problems/templates/problems/submission.html:49
+msgid "Not corrected yet"
+msgstr ""
+
+#: problems/templates/problems/submission.html:52
+msgid "Points won"
+msgstr ""
+
+#: problems/templates/problems/submission.html:55
+msgid "Malus"
+msgstr ""
+
+#: problems/templates/problems/submission.html:55
+msgid ""
+"Every time you submit a solution that fails (ie. does not compile or does "
+"not pass all the tests), malus points are increased by a value proportional "
+"to the problem level and the number of attempts."
+msgstr ""
+
+#: problems/templates/problems/submission.html:60
+msgid "Edit and submit again"
+msgstr ""
+
+#: problems/templates/problems/submission.html:66
+msgid "Resend to correction"
+msgstr ""
+
+#: problems/templates/problems/submission.html:67
+msgid "Last corrected on"
+msgstr ""
+
+#: problems/templates/problems/submission.html:79
+#: problems/templates/problems/submission.html:80
+msgid "Solution code"
+msgstr ""
+
+#: problems/templates/problems/submission.html:94
+msgid "Compiler standard error output:"
+msgstr ""
+
+#: problems/templates/problems/submission.html:105
+#: problems/templates/problems/submission.html:106
+msgid "Correction tests"
+msgstr ""
+
+#: problems/templates/problems/submission.html:117
+#: problems/templates/problems/submission.html:118
+msgid "Performance tests"
+msgstr ""
+
+#: problems/templates/problems/submission.html:122
+msgid "There are no such tests for this problem."
+msgstr ""
+
+#: problems/templates/problems/submission.html:131
+msgid ""
+"The submission can not be corrected as it was written in a language that can "
+"not be compiled nor executed."
+msgstr ""
+
+#: problems/templates/problems/submission.html:133
+msgid ""
+"Submission results are not available anymore. This is because the code was "
+"submitted a long time ago.\n"
+"You can still try to submit your code again using the “Edit and submit "
+"again” button."
+msgstr ""
+
+#: problems/templates/problems/submission.html:136
+msgid ""
+"This submission is pending correction. This can take from a few seconds to "
+"some minutes."
+msgstr ""
+
+#: problems/templates/problems/submission.html:137
+msgid ""
+"Your browser does not support Javascript. You will have to manually reload "
+"this page once in a while to check if results have arrived."
+msgstr ""
+
+#: problems/templates/problems/submission.html:146
+#: problems/templates/problems/submission.html:147
+msgid "Camisole request"
+msgstr ""
+
+#: problems/templates/problems/submission.html:158
+#: problems/templates/problems/submission.html:159
+msgid "Camisole result"
+msgstr ""
+
+#: prologin/languages.py:88
+msgid "Pseudocode"
+msgstr ""
+
+#: prologin/models.py:12
+msgid "Male"
+msgstr ""
+
+#: prologin/models.py:13
+msgid "Female"
+msgstr ""
+
+#: prologin/models.py:52
+msgid "Gender"
+msgstr ""
+
+#: prologin/models.py:55
+msgid "Coding language"
+msgstr ""
+
+#: prologin/models.py:60
+msgid "Postal code"
+msgstr ""
+
+#: prologin/models.py:61
+msgid "City"
+msgstr ""
+
+#: prologin/models.py:62
+msgid "Country"
+msgstr ""
+
+#: prologin/settings/common.py:134
+msgid "English"
+msgstr ""
+
+#: prologin/settings/common.py:135
+msgid "French"
+msgstr ""
+
+#: prologin/templates/400.html:8
+msgid "The request you have made is invalid or malformed."
+msgstr ""
+
+#: prologin/templates/403.html:9
+msgid "You do not have the permission to access this content."
+msgstr ""
+
+#: prologin/templates/403.html:12
+#, python-format
+msgid ""
+"You do not have the permission to access this content. Try to <a href="
+"\"%(url)s\">sign in</a>."
+msgstr ""
+
+#: prologin/templates/404.html:8
+msgid "The resource you asked for does not longer exist, or never has."
+msgstr ""
+
+#: prologin/templates/404.html:10
+msgid ""
+"You could use our search engine to find the content you are looking for."
+msgstr ""
+
+#: prologin/templates/500.html:8
+msgid ""
+"Some internal server error happened. You did nothing wrong, we are to be "
+"blamed! Our team has been notified of the issue."
+msgstr ""
+
+#: prologin/templates/500.html:9
+msgid "Please try again later."
+msgstr ""
+
+#: prologin/templates/503.html:11 prologin/templates/503.html:55
+msgid "Undergoing maintenance"
+msgstr ""
+
+#: prologin/templates/503.html:21 prologin/templates/503.html:24
+msgid "Prologin, the French computing contest"
+msgstr ""
+
+#: prologin/templates/503.html:54 prologin/templates/prologin/base.html:34
+#: prologin/templates/prologin/base.html:50
+#: prologin/templates/prologin/base.html:94
+#: prologin/templates/prologin/main-footer.html:6
+#: semifinal/templates/prologin/base.html:58
+#: semifinal/templates/prologin/main-footer.html:6
+msgid "Prologin"
+msgstr ""
+
+#: prologin/templates/503.html:62
+msgid "Prologin is undergoing a short maintenance"
+msgstr ""
+
+#: prologin/templates/503.html:69
+msgid ""
+"We are doing internal maintenance operations for which we have to temporally "
+"shut down access to the website."
+msgstr ""
+
+#: prologin/templates/503.html:70
+msgid ""
+"We are sorry for the inconvenience. The operation should last only a few "
+"minutes. Please come visit us in a moment!"
+msgstr ""
+
+#: prologin/templates/_error_base.html:8 prologin/templates/_error_base.html:14
+#, python-format
+msgid "Error %(number)s"
+msgstr ""
+
+#: prologin/templates/_error_base.html:19
+#, python-format
+msgid "You can go back to the <a href=\"%(url)s\">home page</a>."
+msgstr ""
+
+#: prologin/templates/massmailer/base.html:6
+#: prologin/templates/prologin/main-menu.html:23
+msgid "Mailing"
+msgstr ""
+
+#: prologin/templates/prologin/base.html:32
+msgctxt "Twitter message, LESS THAN 140 CHARS"
+msgid ""
+"Prologin is a computer science contest, introducing students to the world of "
+"programming and algorithms with exciting challenges."
+msgstr ""
+
+#: prologin/templates/prologin/base.html:56
+msgid "Latest blog articles"
+msgstr ""
+
+#: prologin/templates/prologin/base.html:126
+msgid "No user matching query"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:10
+msgid "Contact us"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:14
+msgid "Report a bug on the website"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:18
+msgid "More"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:20
+msgid "Press kit"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:26
+msgid "Terms"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:31
+msgid "Stay tuned!"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:32
+msgid "Prologin news Atom stream"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:39
+msgid "Prologin on Facebook"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:45
+msgid "Prologin on Twitter"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:51
+msgid "Prologin on LinkedIn"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:59
+#: semifinal/templates/prologin/main-footer.html:12
+msgid "Change locale"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:72
+#: semifinal/templates/prologin/main-footer.html:25
+msgid "Apply"
+msgstr ""
+
+#: prologin/templates/prologin/main-footer.html:75
+#: semifinal/templates/prologin/main-footer.html:28
+#, python-format
+msgid ""
+"Save your\n"
+"preferred locale in your <a href=\"%(url)s#id_preferred_locale\">user "
+"settings</a>."
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:6
+msgid "Participate"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:8
+msgid "Discover"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:9
+msgid "Train"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:14
+#: semifinal/templates/prologin/main-menu.html:11
+msgid "Admin"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:16
+#: semifinal/templates/prologin/main-menu.html:13
+msgid "Django administration"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:24
+msgid "Documentation"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:31
+msgid "Search users"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:43
+msgid "My profile"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:44
+msgid "Profile &amp; settings"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:46
+#: semifinal/templates/prologin/main-menu.html:25
+msgid "Sign out"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:51
+#: semifinal/templates/prologin/main-menu.html:30
+#: semifinal/templates/users/login.html:7
+#: semifinal/templates/users/login.html:10
+#: semifinal/templates/users/login.html:26 users/templates/users/login.html:7
+#: users/templates/users/login.html:10 users/templates/users/login.html:26
+msgid "Sign in"
+msgstr ""
+
+#: prologin/templates/prologin/main-menu.html:54
+#: users/templates/users/register.html:7 users/templates/users/register.html:10
+#: users/templates/users/register.html:15
+#: users/templates/users/register.html:26
+msgid "Register"
+msgstr ""
+
+#: prologin/templates/prologin/messages.html:13
+msgid "Close"
+msgstr ""
+
+#: prologin/templates/prologin/stub-impersonate-warning.html:7
+msgid "Exit session"
+msgstr ""
+
+#: prologin/templates/prologin/stub-impersonate-warning.html:10
+#, python-format
+msgid ""
+"You are currently browsing on behalf of <strong>%(user)s</strong>. Keep\n"
+"        focused."
+msgstr ""
+
+#: prologin/templates/stub_pagination.html:7
+msgid "First"
+msgstr ""
+
+#: prologin/templates/stub_pagination.html:8
+msgid "Previous"
+msgstr ""
+
+#: prologin/templates/stub_pagination.html:16
+msgid "Next"
+msgstr ""
+
+#: prologin/templates/stub_pagination.html:17
+msgid "Last"
+msgstr ""
+
+#: prologin/templatetags/utils.py:84
+#, python-format
+msgid "truncated to %(length)s characters"
+msgstr ""
+
+#: prologin/templatetags/utils.py:98
+msgctxt "File size suffix"
+msgid "B"
+msgstr ""
+
+#: prologin/templatetags/utils.py:99
+msgctxt "File size unit"
+msgid "bytes"
+msgstr ""
+
+#: prologin/utils/__init__.py:266
+msgid "year"
+msgstr ""
+
+#: prologin/utils/__init__.py:267
+msgid "month"
+msgstr ""
+
+#: prologin/utils/__init__.py:268
+msgid "day"
+msgstr ""
+
+#: prologin/utils/forms.py:17
+msgid "Your current password"
+msgstr ""
+
+#: prologin/utils/forms.py:26
+msgid "Wrong password."
+msgstr ""
+
+#: qcm/admin.py:41
+msgid "Questions"
+msgstr ""
+
+#: qcm/admin.py:45
+msgid "Answers"
+msgstr ""
+
+#: qcm/admin.py:62
+msgid "Propositions"
+msgstr ""
+
+#: qcm/admin.py:66
+msgid "Correct propositions"
+msgstr ""
+
+#: qcm/admin.py:82
+#, python-format
+msgid "Answer %(id)s: %(answer)s"
+msgstr ""
+
+#: qcm/admin.py:85
+#, python-format
+msgid "Answer %(id)s"
+msgstr ""
+
+#: qcm/admin.py:97 qcm/models.py:123
+msgid "Question"
+msgstr ""
+
+#: qcm/admin.py:114
+msgid "Is correct"
+msgstr ""
+
+#: qcm/forms.py:54
+msgid "Put your answer here"
+msgstr ""
+
+#: qcm/forms.py:61
+msgid "I don't know"
+msgstr ""
+
+#: qcm/models.py:95
+msgid "Question body"
+msgstr ""
+
+#: qcm/models.py:96
+msgid "Verbose description"
+msgstr ""
+
+#: qcm/models.py:141
+msgid "Answer"
+msgstr ""
+
+#: qcm/models.py:144
+msgid "Textual answer"
+msgstr ""
+
+#: qcm/templates/qcm/display.html:10
+msgid "Quiz"
+msgstr ""
+
+#: qcm/templates/qcm/display.html:18 qcm/templates/qcm/display.html:22
+#, python-format
+msgid "Qualification quiz – Prologin %(year)s"
+msgstr ""
+
+#: qcm/templates/qcm/display.html:26
+msgid ""
+"Please answer the following questions. There is only one correct answer for "
+"each question."
+msgstr ""
+
+#: qcm/templates/qcm/display.html:27
+msgid ""
+"Correct answers give one point, wrong ones remove one point. Not answering a "
+"question neither gives nor removes any point."
+msgstr ""
+
+#: qcm/templates/qcm/display.html:33
+#, python-format
+msgid ""
+"You have to <a href=\"%(register)s\">register</a> or <a href=\"%(login)s"
+"\">log in</a> to be able to fill the quiz."
+msgstr ""
+
+#: qcm/templates/qcm/display.html:55
+msgid "Correct answer:"
+msgstr ""
+
+#: qcm/templates/qcm/display.html:66
+msgid "Save the new answers"
+msgstr ""
+
+#: qcm/templates/qcm/display.html:68
+msgid "Check your answers"
+msgstr ""
+
+#: qcm/views.py:64
+msgid "Your new answers have been saved."
+msgstr ""
+
+#: schools/admin.py:41
+msgid "Total contestant count"
+msgstr ""
+
+#: schools/admin.py:42
+msgid "Current edition contestant count"
+msgstr ""
+
+#: schools/admin.py:50
+msgid "Merge selected schools…"
+msgstr ""
+
+#: schools/admin_views.py:22
+msgid "Add to merge"
+msgstr ""
+
+#: schools/models.py:79
+msgid "school"
+msgstr ""
+
+#: schools/models.py:80
+msgid "schools"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:39
+msgid "Home"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:41
+#: schools/templates/admin/schools/merge.html:46
+#: schools/templates/admin/schools/merge.html:119
+msgid "Merge schools"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:52
+msgid "Schools to merge"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:57
+msgid "Acronym"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:58
+msgid "UAI"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:59
+msgid "Type"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:60
+msgid "Academy"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:61
+msgid "Lat"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:62
+msgid "Lon"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:63
+msgid "Approved"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:64
+msgid "Improved"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:84
+msgid "Use as base"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:86
+msgid "Used as base"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:89
+msgid "Exclude"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:103
+msgid "Update merged school"
+msgstr ""
+
+#: schools/templates/admin/schools/merge.html:116
+#, python-format
+msgid ""
+"This merge will delete %(school_count)s schools and update the school for "
+"%(contestant_count)s contestants."
+msgstr ""
+
+#: semifinal/forms.py:14
+msgid "You can select all contestants using Ctrl-A."
+msgstr ""
+
+#: semifinal/staff_views.py:85
+#, python-brace-format
+msgid ""
+"Unlocked <em>{problem}</em> for {created} users; {existing} unlocks were "
+"already set."
+msgstr ""
+
+#: semifinal/templates/problems/stub-module-title.html:3
+msgid "Regional event challenges"
+msgstr ""
+
+#: semifinal/templates/prologin/main-footer.html:7
+#: semifinal/templates/semifinal/homepage.html:11
+#: semifinal/templates/semifinal/homepage.html:18
+#, python-format
+msgid "Regional event at %(center)s"
+msgstr ""
+
+#: semifinal/templates/prologin/main-menu.html:16
+msgid "Regional event monitoring"
+msgstr ""
+
+#: semifinal/templates/semifinal/explicit-unlock.html:8
+#: semifinal/templates/semifinal/monitoring.html:8
+msgid "Monitoring"
+msgstr ""
+
+#: semifinal/templates/semifinal/explicit-unlock.html:9
+#: semifinal/templates/semifinal/explicit-unlock.html:12
+#: semifinal/templates/semifinal/explicit-unlock.html:16
+msgid "Unlocking"
+msgstr ""
+
+#: semifinal/templates/semifinal/explicit-unlock.html:24
+msgid "Unlock selected contestants"
+msgstr ""
+
+#: semifinal/templates/semifinal/homepage.html:8
+msgid "Welcome"
+msgstr ""
+
+#: semifinal/templates/semifinal/homepage.html:22
+#, python-format
+msgid ""
+"Welcome to Prologin regional event! You can start <a href=\"%(url_problems)s"
+"\">solving problems</a>\n"
+"or browse the <a href=\"%(url_scoreboard)s\">live scoreboard</a>."
+msgstr ""
+
+#: semifinal/templates/semifinal/homepage.html:25
+msgid "Good luck, and don't forget to have fun."
+msgstr ""
+
+#: semifinal/templates/semifinal/monitoring.html:11
+#: semifinal/templates/semifinal/monitoring.html:19
+msgid "Monitoring board"
+msgstr ""
+
+#: semifinal/templates/semifinal/monitoring.html:21
+msgid "Primary actions"
+msgstr ""
+
+#: semifinal/templates/semifinal/monitoring.html:23
+msgid "Unlock first problem for everybody"
+msgstr ""
+
+#: semifinal/templates/semifinal/monitoring.html:31
+msgid "Level"
+msgstr ""
+
+#: semifinal/templates/semifinal/monitoring.html:32
+msgctxt "Lines of code"
+msgid "LoC"
+msgstr ""
+
+#: semifinal/templates/semifinal/monitoring.html:33
+msgid "Actions"
+msgstr ""
+
+#: semifinal/templates/semifinal/monitoring.html:56
+#: users/templates/users/edit_password.html:10
+msgid "Password"
+msgstr ""
+
+#: semifinal/templates/semifinal/monitoring.html:59
+msgid "Unlock"
+msgstr ""
+
+#: semifinal/templates/semifinal/monitoring.html:78
+msgid "No problem tackled yet"
+msgstr ""
+
+#: semifinal/templates/semifinal/scoreboard.html:8
+#: semifinal/templates/semifinal/scoreboard.html:11
+#: semifinal/templates/semifinal/scoreboard.html:28
+msgid "Live scoreboard"
+msgstr ""
+
+#: semifinal/templates/semifinal/scoreboard.html:22
+msgid "Auto-update"
+msgstr ""
+
+#: semifinal/templates/semifinal/scoreboard.html:23
+msgid "Refresh scoreboard"
+msgstr ""
+
+#: semifinal/templates/semifinal/scoreboard.html:24
+msgid "Fullscreen"
+msgstr ""
+
+#: semifinal/templates/semifinal/scoreboard.html:25
+msgid "Exit fullscreen"
+msgstr ""
+
+#: semifinal/templates/users/login.html:16 users/templates/users/login.html:16
+msgid "Sign in with your credentials"
+msgstr ""
+
+#: sponsor/admin.py:19
+msgid "Active"
+msgstr ""
+
+#: sponsor/templates/sponsor/index.html:14
+msgid "Special thanks to all our sponsors!"
+msgstr ""
+
+#: sponsor/templates/sponsor/index.html:16
+msgid ""
+"\n"
+"        Organizing Prologin and GCC! requires significant resources. We "
+"welcome\n"
+"        companies, institutions, or individuals who would like to join our\n"
+"        sponsorship program.\n"
+"      "
+msgstr ""
+
+#: sponsor/templates/sponsor/index.html:28
+msgid "Become a sponsor"
+msgstr ""
+
+#: team/admin.py:8 team/admin.py:35 team/models.py:104
+msgid "Role"
+msgstr ""
+
+#: team/admin.py:29
+msgid "Role significance"
+msgstr ""
+
+#: team/models.py:21
+msgctxt "male role"
+msgid "President"
+msgstr ""
+
+#: team/models.py:22
+msgctxt "female role"
+msgid "President"
+msgstr ""
+
+#: team/models.py:23
+msgctxt "male title"
+msgid "The President"
+msgstr ""
+
+#: team/models.py:24
+msgctxt "female title"
+msgid "The President"
+msgstr ""
+
+#: team/models.py:27
+msgctxt "male role"
+msgid "Vice President"
+msgstr ""
+
+#: team/models.py:28
+msgctxt "female role"
+msgid "Vice President"
+msgstr ""
+
+#: team/models.py:29
+msgctxt "male title"
+msgid "The Vice President"
+msgstr ""
+
+#: team/models.py:30
+msgctxt "female title"
+msgid "The Vice President"
+msgstr ""
+
+#: team/models.py:33
+msgctxt "male role"
+msgid "Treasurer"
+msgstr ""
+
+#: team/models.py:34
+msgctxt "female role"
+msgid "Treasurer"
+msgstr ""
+
+#: team/models.py:37
+msgctxt "male role"
+msgid "Secretary"
+msgstr ""
+
+#: team/models.py:38
+msgctxt "female role"
+msgid "Secretary"
+msgstr ""
+
+#: team/models.py:41
+msgctxt "male role"
+msgid "Technical Lead"
+msgstr ""
+
+#: team/models.py:42
+msgctxt "female role"
+msgid "Technical Lead"
+msgstr ""
+
+#: team/models.py:45
+msgctxt "male role"
+msgid "Scientific Lead"
+msgstr ""
+
+#: team/models.py:46
+msgctxt "female role"
+msgid "Scientific Lead"
+msgstr ""
+
+#: team/models.py:49
+msgctxt "male role"
+msgid "Vice Treasurer"
+msgstr ""
+
+#: team/models.py:50
+msgctxt "female role"
+msgid "Vice Treasurer"
+msgstr ""
+
+#: team/models.py:53
+msgctxt "male role"
+msgid "Member"
+msgstr ""
+
+#: team/models.py:54
+msgctxt "female role"
+msgid "Member"
+msgstr ""
+
+#: team/models.py:57
+msgctxt "male role"
+msgid "Persistent Member"
+msgstr ""
+
+#: team/models.py:58
+msgctxt "female role"
+msgid "Persistent Member"
+msgstr ""
+
+#: team/models.py:61
+msgctxt "male role"
+msgid "Mascot"
+msgstr ""
+
+#: team/models.py:62
+msgctxt "female role"
+msgid "Mascot"
+msgstr ""
+
+#: team/models.py:65
+msgctxt "male role"
+msgid "External organizer"
+msgstr ""
+
+#: team/models.py:66
+msgctxt "female role"
+msgid "External organizer"
+msgstr ""
+
+#: team/models.py:115
+msgid "Team member"
+msgstr ""
+
+#: team/models.py:116
+msgid "Team members"
+msgstr ""
+
+#: team/templates/team/index.html:8
+msgid "Teams"
+msgstr ""
+
+#: team/templates/team/index.html:12
+#, python-format
+msgid "Staff %(year)s"
+msgstr ""
+
+#: team/templates/team/index.html:22
+#, python-format
+msgid "Staff %(year)s <small>%(count)s members</small>"
+msgstr ""
+
+#: team/templates/team/index.html:30
+msgid "Picture"
+msgstr ""
+
+#: users/admin.py:9
+msgid "Profil"
+msgstr ""
+
+#: users/admin.py:11
+msgid "Public identity"
+msgstr ""
+
+#: users/admin.py:12
+msgid "Settings"
+msgstr ""
+
+#: users/forms.py:55
+#, python-format
+msgid "%(year)s final home"
+msgstr ""
+
+#: users/forms.py:72
+msgid ""
+"You can not change your details during the contest. If there is an important "
+"change you want to make, please contact the staff."
+msgstr ""
+
+#: users/forms.py:84
+msgid "Public homes"
+msgstr ""
+
+#: users/forms.py:87
+msgid "Checked editions will make the files available for download to anyone."
+msgstr ""
+
+#: users/forms.py:113
+msgid ""
+"Please check the box above and complete the additional tasks if any. This is "
+"required to fight spamming bots on the website."
+msgstr ""
+
+#: users/forms.py:129
+msgid "This username is already in use. Please supply a different username."
+msgstr ""
+
+#: users/forms.py:135
+msgid ""
+"This email address is already in use. Please supply a different email "
+"address."
+msgstr ""
+
+#: users/forms.py:149
+msgid "Email"
+msgstr ""
+
+#: users/forms.py:150
+msgid "Your email address"
+msgstr ""
+
+#: users/forms.py:156
+msgid "Username or email"
+msgstr ""
+
+#: users/forms.py:157
+msgid ""
+"This field is case insensitive. It means capitals and small letters are "
+"considered to be equal."
+msgstr ""
+
+#: users/forms.py:159
+msgid "Please enter a correct username (or email) and password."
+msgstr ""
+
+#: users/forms.py:164
+msgid "Your username"
+msgstr ""
+
+#: users/forms.py:165
+msgid "Type your username to confirm you know what you are doing."
+msgstr ""
+
+#: users/forms.py:184
+msgid "Wrong username."
+msgstr ""
+
+#: users/models.py:96
+msgid "Middle school"
+msgstr ""
+
+#: users/models.py:97
+msgid "High school"
+msgstr ""
+
+#: users/models.py:98
+msgid "Bac"
+msgstr ""
+
+#: users/models.py:99
+msgid "Bac+1"
+msgstr ""
+
+#: users/models.py:100
+msgid "Bac+2"
+msgstr ""
+
+#: users/models.py:101
+msgid "Bac+3"
+msgstr ""
+
+#: users/models.py:102
+msgid "Bac+4"
+msgstr ""
+
+#: users/models.py:103
+msgid "Bac+5"
+msgstr ""
+
+#: users/models.py:104
+msgid "Bac+6 and after"
+msgstr ""
+
+#: users/models.py:106
+msgid "Former student"
+msgstr ""
+
+#: users/models.py:131
+msgid "Educational stage"
+msgstr ""
+
+#: users/models.py:134 users/templates/users/profile.html:60
+msgid "Birth day"
+msgstr ""
+
+#: users/models.py:136
+msgid "Allow Prologin to send me emails"
+msgstr ""
+
+#: users/models.py:137
+msgid ""
+"We only mail you to provide useful information during the various stages of "
+"the contest. We hate spam as much as you do!"
+msgstr ""
+
+#: users/models.py:140
+msgid "Signature"
+msgstr ""
+
+#: users/models.py:142
+msgid "Preferred coding language"
+msgstr ""
+
+#: users/models.py:143
+msgid "Time zone"
+msgstr ""
+
+#: users/models.py:144
+msgid "Locale"
+msgstr ""
+
+#: users/models.py:150
+msgid "Profile picture"
+msgstr ""
+
+#: users/models.py:155
+msgid "Official member picture"
+msgstr ""
+
+#: users/templates/registration/password_reset_confirm.html:7
+#: users/templates/users/delete-confirm.html:7
+#: users/templates/users/edit.html:7 users/templates/users/edit_password.html:7
+#: users/templates/users/profile.html:7
+#: users/templates/users/unsubscribe.html:9
+msgid "Members"
+msgstr ""
+
+#: users/templates/registration/password_reset_confirm.html:8
+#: users/templates/registration/password_reset_confirm.html:11
+#: users/templates/registration/password_reset_confirm.html:15
+msgid "Password reset confirmation"
+msgstr ""
+
+#: users/templates/registration/password_reset_confirm.html:17
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
+
+#: users/templates/registration/password_reset_confirm.html:26
+msgid "Change my password"
+msgstr ""
+
+#: users/templates/users/as_staff_warning.html:3
+msgid ""
+"Heads up! You are editing another user's information, as a staff member. "
+"Take extra care."
+msgstr ""
+
+#: users/templates/users/delete-confirm.html:12
+#: users/templates/users/delete-confirm.html:15
+#, python-format
+msgid "Delete %(username)s account"
+msgstr ""
+
+#: users/templates/users/delete-confirm.html:17
+msgid "Are you sure you want to delete your account?"
+msgstr ""
+
+#: users/templates/users/delete-confirm.html:18
+msgid "This will delete all your personal information, including:"
+msgstr ""
+
+#: users/templates/users/delete-confirm.html:20
+msgid "the codes you submitted during training and contest"
+msgstr ""
+
+#: users/templates/users/delete-confirm.html:21
+msgid "your forum messages"
+msgstr ""
+
+#: users/templates/users/delete-confirm.html:22
+msgid "your participation history in the contest"
+msgstr ""
+
+#: users/templates/users/delete-confirm.html:25
+msgid ""
+"\n"
+"    This action <strong>cannot be reverted</strong>, in compliance with GDPR "
+"article 17. You will be logged out\n"
+"    immediately after clicking the button below. To proceed, provide your "
+"username and password and confirm.\n"
+"    "
+msgstr ""
+
+#: users/templates/users/delete-confirm.html:36
+msgid "Delete and log out"
+msgstr ""
+
+#: users/templates/users/edit.html:12 users/templates/users/edit.html:15
+#, python-format
+msgid "Editing %(username)s's profile"
+msgstr ""
+
+#: users/templates/users/edit.html:19
+msgid "Change password"
+msgstr ""
+
+#: users/templates/users/edit.html:20
+msgid ""
+"Don't forget to click “Save” at the bottom when you are done making changes."
+msgstr ""
+
+#: users/templates/users/edit.html:25 users/templates/users/register.html:22
+msgid "I consent to the processing of my personal data above by Prologin."
+msgstr ""
+
+#: users/templates/users/edit.html:26
+#: users/templates/users/edit_password.html:25
+msgid "Save"
+msgstr ""
+
+#: users/templates/users/edit.html:28 users/templates/users/register.html:31
+msgid ""
+"\n"
+"        Prologin is organised by the Prologin Association, which acts as the "
+"data controller. The answers collected in this form allow us to provide the "
+"services (communication and online judging) and to prepare the competition: "
+"selections, dietary restrictions, etc...\n"
+"        To learn more about our data management and your rights, please "
+"visit \n"
+"      "
+msgstr ""
+
+#: users/templates/users/edit.html:32 users/templates/users/register.html:35
+msgid "our dedicated page."
+msgstr ""
+
+#: users/templates/users/edit_password.html:13
+#: users/templates/users/edit_password.html:16
+#, python-format
+msgid "Editing %(username)s's password"
+msgstr ""
+
+#: users/templates/users/login.html:32
+msgid "Need an account?"
+msgstr ""
+
+#: users/templates/users/login.html:34
+msgid ""
+"You can create a new account anytime. It's free, you just need an email\n"
+"        address."
+msgstr ""
+
+#: users/templates/users/login.html:38
+msgid "Register now"
+msgstr ""
+
+#: users/templates/users/login.html:40
+msgid "Forgot your password?"
+msgstr ""
+
+#: users/templates/users/login.html:41
+msgid "No worries. We can send you an email to reset your password."
+msgstr ""
+
+#: users/templates/users/login.html:42
+#: users/templates/users/password_reset.html:20
+msgid "Reset password"
+msgstr ""
+
+#: users/templates/users/mails/activation.body.text.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(username)s!\n"
+"\n"
+"Thanks for you registration on Prologin. In order to complete the process\n"
+"and allow you to sign in, you have to activate your account. Please open\n"
+"the following link in your browser:\n"
+"\n"
+"%(url)s\n"
+"\n"
+"If you cannot click on the link, copy-paste it in your browser address bar.\n"
+"\n"
+"Should you have any question, please contact us by sending an email at\n"
+"%(contactmail)s.\n"
+"\n"
+"--\n"
+"The Prologin staff\n"
+msgstr ""
+
+#: users/templates/users/mails/activation.subject.html:3
+msgid "Activate your Prologin account"
+msgstr ""
+
+#: users/templates/users/mails/pswd_reset.body.text.html:5
+#, python-format
+msgid ""
+"\n"
+"Hi %(username)s!\n"
+"\n"
+"Somebody requested to reset your password on the Prologin website.\n"
+"If you actually made this request, you can safely go forward and browse to\n"
+"the link below:\n"
+"\n"
+"%(url)s\n"
+"\n"
+"If you cannot click on the link, copy-paste it in your browser address bar.\n"
+"\n"
+"If you did not ask for this password reset, it means a malicious user is\n"
+"trying to access your account. Do not click on the link above, just ignore\n"
+"this request and delete this email.\n"
+"\n"
+"If you keep receiving these password reset emails, please get in touch with\n"
+"our team using the email address below.\n"
+"\n"
+"Should you have any question, please contact us by sending an email at\n"
+"%(contactmail)s.\n"
+"\n"
+"--\n"
+"The Prologin staff\n"
+msgstr ""
+
+#: users/templates/users/mails/pswd_reset.subject.html:3
+msgid "Your Prologin password reset request"
+msgstr ""
+
+#: users/templates/users/password_reset.html:7
+#: users/templates/users/password_reset.html:11
+msgid "Password reset"
+msgstr ""
+
+#: users/templates/users/password_reset.html:12
+msgid ""
+"Forgotten your password? Enter your email address below, and we'll email "
+"instructions for setting a new one."
+msgstr ""
+
+#: users/templates/users/profile.html:11
+#, python-format
+msgid "%(username)s"
+msgstr ""
+
+#: users/templates/users/profile.html:15
+msgid "<em>not provided</em>"
+msgstr ""
+
+#: users/templates/users/profile.html:19
+msgid "Edit profile"
+msgstr ""
+
+#: users/templates/users/profile.html:34
+#, python-format
+msgid "%(username)s's staff picture"
+msgstr ""
+
+#: users/templates/users/profile.html:48
+msgid "Phone number"
+msgstr ""
+
+#: users/templates/users/profile.html:54
+msgid "Email address"
+msgstr ""
+
+#: users/templates/users/profile.html:66
+msgid "Postal address"
+msgstr ""
+
+#: users/templates/users/profile.html:76
+msgid "Date joined"
+msgstr ""
+
+#: users/templates/users/profile.html:78
+msgid "Member for"
+msgstr ""
+
+#: users/templates/users/profile.html:86
+msgid "Contest involvment"
+msgstr ""
+
+#: users/templates/users/profile.html:100
+msgid "See archives"
+msgstr ""
+
+#: users/templates/users/profile.html:106
+msgid "Completed the qualification step"
+msgstr ""
+
+#: users/templates/users/profile.html:109
+msgid "Selected for regional events"
+msgstr ""
+
+#: users/templates/users/profile.html:111
+msgid "Abandoned the regional events"
+msgstr ""
+
+#: users/templates/users/profile.html:114
+msgid "Competed in the regional events"
+msgstr ""
+
+#: users/templates/users/profile.html:116
+msgid "Selected for the final"
+msgstr ""
+
+#: users/templates/users/profile.html:129
+#, python-format
+msgid "Download final home (tar.gz, %(size)s)"
+msgstr ""
+
+#: users/templates/users/profile.html:139
+#, python-format
+msgid "Sadly, %(username)s did not take part in any Prologin edition yet."
+msgstr ""
+
+#: users/templates/users/profile.html:151
+msgid "Latest authored news entries"
+msgstr ""
+
+#: users/templates/users/profile.html:164
+msgid "Staff roles"
+msgstr ""
+
+#: users/templates/users/profile.html:168
+#, python-format
+msgid ""
+"%(year)s ⋅\n"
+"                %(role)s"
+msgstr ""
+
+#: users/templates/users/profile.html:182
+msgid "Account management"
+msgstr ""
+
+#: users/templates/users/profile.html:191
+msgid "Export your personal data"
+msgstr ""
+
+#: users/templates/users/profile.html:195
+msgid ""
+"\n"
+"            You can download an archive containing all your personal data, "
+"as\n"
+"            provided by your Right to data portability (Art. 20 of GDPR).\n"
+"            "
+msgstr ""
+
+#: users/templates/users/profile.html:214
+msgid "Delete your account"
+msgstr ""
+
+#: users/templates/users/profile.html:218
+msgid ""
+"\n"
+"          You can delete your account and all associated personal data, as\n"
+"          provided by your Right to erasure (Art. 17 of GDPR).\n"
+"          "
+msgstr ""
+
+#: users/templates/users/profile.html:223
+msgid ""
+"\n"
+"              You cannot delete your account while participating to the\n"
+"              contest. If needed, contact the staff.\n"
+"            "
+msgstr ""
+
+#: users/templates/users/register.html:16
+msgid ""
+"Please choose a username. You must use a valid email address, as you will "
+"receive a message to confirm your registration."
+msgstr ""
+
+#: users/templates/users/stub-search-result.html:10
+msgid "Edit in admin"
+msgstr ""
+
+#: users/templates/users/stub-search-result.html:15
+msgid "Impersonate"
+msgstr ""
+
+#: users/templates/users/unsubscribe.html:5
+#: users/templates/users/unsubscribe.html:14
+#: users/templates/users/unsubscribe.html:35
+#: users/templates/users/unsubscribe_confirm.html:5
+#: users/templates/users/unsubscribe_confirm.html:8
+msgid "Unsubscribe"
+msgstr ""
+
+#: users/templates/users/unsubscribe.html:10
+msgid "Unsubscribe from mailing"
+msgstr ""
+
+#: users/templates/users/unsubscribe.html:17
+msgid ""
+"If you wish to stop receiving e-mails from Prologin, you\n"
+"  can click on the button below."
+msgstr ""
+
+#: users/templates/users/unsubscribe.html:20
+msgid ""
+"Remember: we only mail you to provide useful information\n"
+"  during the various stages of the contest. We hate spam as much as you do!\n"
+"  "
+msgstr ""
+
+#: users/templates/users/unsubscribe.html:41
+msgid "Stay subscribed"
+msgstr ""
+
+#: users/templates/users/unsubscribe.html:46
+#, python-format
+msgid ""
+"<code>%(email)s</code> has\n"
+"    already been unsubscribed. You will receive no further e-mails from\n"
+"    Prologin."
+msgstr ""
+
+#: users/templates/users/unsubscribe_confirm.html:10
+msgid ""
+"has been unsubscribed and will receive no further e-mails\n"
+"  from Prologin."
+msgstr ""
+
+#: users/views.py:85
+#, python-format
+msgid ""
+"Your account was created. We sent an email to %(mail)s so you can confirm "
+"your registration."
+msgstr ""
+
+#: users/views.py:108
+msgid "Your account was activated. Enjoy your visit!"
+msgstr ""
+
+#: users/views.py:113
+#, python-format
+msgid ""
+"The activation link you provided is invalid or obsolete. If you created your "
+"account earlier than %(days)s days ago, you have to create a new one. You "
+"may use the same username and email though."
+msgstr ""
+
+#: users/views.py:190
+msgid "Changes saved."
+msgstr ""
+
+#: users/views.py:223 users/views.py:283
+msgid "New password saved."
+msgstr ""
+
+#: users/views.py:252
+#, python-format
+msgid ""
+"You should receive an email at %(email)s in a few moments. Please follow the "
+"instructions to complete the password reset."
+msgstr ""
+
+#: users/views.py:285
+msgid "You have been automatically logged in."
+msgstr ""
+
+#: users/views.py:379
+#, python-format
+msgid "Account %(username)s was deleted successfully."
+msgstr ""
+
+#: users/widgets.py:8
+msgid "Upload new image"
+msgstr ""
