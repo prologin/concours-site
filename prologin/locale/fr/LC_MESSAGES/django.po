@@ -1,38 +1,21 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 # Translators:
-# Alexandre <artifere@gmail.com>, 2015
-# Alexandre Macabies <web+transifex@zopieux.com>, 2015-2018
-# Alexis Descamps <alexis.art.descamps@gmail.com>, 2015
-# Antoine Pietri <antoine.pietri1@gmail.com>, 2015,2017-2020
-# AurelReb <aurelien.rebourg@gmail.com>, 2020
-# AurelReb <aurelien.rebourg@gmail.com>, 2020
-# cbeausei <clementbeauseigneur@hotmail.fr>, 2016
-# cbeausei <clementbeauseigneur@hotmail.fr>, 2016
-# Dettorer <p.hervot@gmail.com>, 2015
-# Garance Gourdel <garance.gourdel@prologin.org>, 2018
-# Dettorer <p.hervot@gmail.com>, 2015
-# Prologin <association@prologin.org>, 2016-2017
-# Rémi Audebert <rflah0@gmail.com>, 2015-2016
-# Rémi Dupré <remim.dupre@gmail.com>, 2019
-# Robin Thoni <rob57530@gmail.com>, 2015
-# Stéphane Henriot <shloub@gmail.com>, 2016
-# Théophile Bastian <contact@tobast.fr>, 2017
-# Valentin Seux <valentin.seux@prologin.org>, 2020
-# Victor Collod <victor.collod@prologin.org>, 2016
-# Alexandre Macabies <web+transifex@zopieux.com>, 2015
-# Yves Stadler <mvyonline@gmail.com>, 2015
+# Léo Portemont <leo.portemont@prologin.org>, 2021
+# Kenji Gaillac <kenji.gaillac@prologin.org>, 2021
+#
+#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: Prologin website\n"
+"Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-10-13 15:17+0200\n"
-"PO-Revision-Date: 2020-05-10 18:14+0000\n"
-"Last-Translator: Valentin Seux <valentin.seux@prologin.org>\n"
-"Language-Team: French (http://www.transifex.com/prologin/prologin-site/"
-"language/fr/)\n"
+"POT-Creation-Date: 2021-10-13 15:42+0200\n"
+"PO-Revision-Date: 2021-10-13 13:19+0000\n"
+"Last-Translator: Kenji Gaillac <kenji.gaillac@prologin.org>, 2021\n"
+"Language-Team: French (https://www.transifex.com/prologin/teams/37333/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -2075,19 +2058,19 @@ msgstr "Le sujet a été supprimé avec succès."
 
 #: homepage/templates/homepage/countdown.html:4
 msgid "days"
-msgstr ""
+msgstr "jours"
 
 #: homepage/templates/homepage/countdown.html:5
 msgid "hours"
-msgstr ""
+msgstr "heures"
 
 #: homepage/templates/homepage/countdown.html:6
 msgid "minutes"
-msgstr ""
+msgstr "minutes"
 
 #: homepage/templates/homepage/countdown.html:7
 msgid "seconds"
-msgstr ""
+msgstr "secondes"
 
 #: homepage/templates/homepage/homepage.html:5
 #: homepage/templates/homepage/jumbotron.html:6
@@ -2660,14 +2643,12 @@ msgid "News"
 msgstr "Actualités"
 
 #: oidc_policy/templates/oidc_provider/authorize.html:4
-#, fuzzy
-#| msgid "The organization"
 msgid "Authorization"
-msgstr "L'association"
+msgstr "Autorisation"
 
 #: oidc_policy/templates/oidc_provider/authorize.html:7
 msgid "Request for authorization"
-msgstr ""
+msgstr "Demande d'autorisation"
 
 #: oidc_policy/templates/oidc_provider/authorize.html:9
 #, python-format
@@ -2676,16 +2657,17 @@ msgid ""
 "<p>Client <strong>%(client.name)s</strong> would like to access the "
 "following information about you.</p>\n"
 msgstr ""
+"\n"
+"L'application %(client.name) souhaiterait accéder aux informations suivantes "
+"vous concernant :\n"
 
 #: oidc_policy/templates/oidc_provider/authorize.html:25
 msgid "Decline"
-msgstr ""
+msgstr "Décliner"
 
 #: oidc_policy/templates/oidc_provider/authorize.html:26
-#, fuzzy
-#| msgid "Author"
 msgid "Authorize"
-msgstr "Auteur"
+msgstr "Autoriser"
 
 #: pages/templates/pages/about-contest-rules.html:7
 #: pages/templates/pages/about-contest-rules.html:11
@@ -2993,24 +2975,6 @@ msgid "Our internal tools"
 msgstr "Nos outils internes"
 
 #: pages/templates/pages/about-contribute.html:45
-#, fuzzy
-#| msgid ""
-#| "Whether you are a contributor, member, or simply curious, you can always "
-#| "take a\n"
-#| "look and contribute to our open source internal tools:\n"
-#| "<ul>\n"
-#| "<li><a href=\"https://github.com/prologin/camisole\">camisole</a>:\n"
-#| "secure online judge.</li>\n"
-#| "<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a>:\n"
-#| "AI match maker for the finals.</li>\n"
-#| "<li><a href=\"https://github.com/prologin/sadm\">sadm</a>:\n"
-#| "finals technical infrastructure.</li>\n"
-#| "<li><a href=\"https://github.com/prologin/metalang\">metalang</a>:\n"
-#| "generate code stubs.</li>\n"
-#| "</ul>\n"
-#| "As an example, Haskell and Rust programming languages have been added by "
-#| "Prologin finalists so they could use it during the\n"
-#| "finals!"
 msgid ""
 "Whether you are a contributor, member, or simply curious, you can always "
 "take a\n"
@@ -3031,20 +2995,25 @@ msgid ""
 "Prologin finalists so they could use it during the\n"
 "finals!"
 msgstr ""
-"Que vous soyez contributeur, membre ou juste curieux, il est toujours\n"
-"possible de participer au développement des outils internes de Prologin :\n"
+"Que vous soyez contributeur, membre ou simplement curieux, vous pouvez jeter "
+"un oeil\n"
+"et éventuellement contribuer à nous outils open source:\n"
 "<ul>\n"
-"<li><a href=\"https://github.com/prologin/camisole\">camisole</a> :\n"
-"juge en ligne sécurisé.</li>\n"
-"<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a> :\n"
-"système de match pour la finale.</li>\n"
-"<li><a href=\"https://github.com/prologin/sadm\">sadm</a> :\n"
-"infrastructure système de la finale.</li>\n"
-"<li><a href=\"https://github.com/prologin/metalang\">metalang</a> :\n"
-"générateur de code à compléter.</li>\n"
+"<li>\n"
+"<a href=\"https://github.com/prologin/camisole\">camisole</a>: \n"
+"juge en ligne sécurisé</li>\n"
+"<li><a href=\"https://github.com/prologin/stechec2\">stechec2</a>:\n"
+"Le match maker pour les finales</li>\n"
+"<li><a href=\"https://github.com/prologin/sadm\">sadm</a>:\n"
+"L'infrastructure technique de finale</li>\n"
+"<li><a href=\"https://github.com/prologin/iorgen\">iorgen</a>:\n"
+"génération des sujets d'exercices machines et code à compléter</li>\n"
+"<li><a href=\"https://github.com/prologin/site\">site</a>:\n"
+"le site Prologin.</li>\n"
 "</ul>\n"
-"Les langages Haskell et Rust ont par exemple été ajoutés par des finalistes\n"
-"Prologin pour qu'ils puissent eux-mêmes les utiliser lors d'une finale !"
+"Par exemple, les langages Haskell et Rust ont été ajoutés par des finalistes "
+"du concours Prologin, pour qu'ils puissent eux-mêmes l'utiliser pendant la "
+"finale!"
 
 #: pages/templates/pages/about-contribute.html:66
 msgid ""
@@ -3532,7 +3501,7 @@ msgstr ""
 
 #: pages/templates/pages/about-organization.html:99
 msgid "Girls Can Code!"
-msgstr ""
+msgstr "Girls Can Code!"
 
 #: pages/templates/pages/about-organization.html:100
 msgid ""
@@ -3545,6 +3514,14 @@ msgid ""
 "development, robotics, microcontrollers, video games\n"
 "and more through practical exercises."
 msgstr ""
+"En 2014, Prologin a commencé à organiser les stages de programmation Girls "
+"Can Code!\n"
+"Ces stages permettent aux collégiennes et lycéennes de découvrir différents "
+"domaines de l'informatique pendant une semaine.\n"
+"\n"
+"Les stages permettent notamment de découvrir la résolution de problèmes avec "
+"des algorithmes, le réseau, le développement web, la robotique, les micro-"
+"contrôleurs, ou encore les jeux vidéos !"
 
 #: pages/templates/pages/about-organization.html:106
 msgid ""
@@ -3556,6 +3533,13 @@ msgid ""
 "discuss their education with the speaker,\n"
 "thus helping them for future orientation choices."
 msgstr ""
+"Des conférences d'intervenantes extérieures sont organisées pendant chaque "
+"stage. Elles permettent aux participantes d'échanger avec des femmes "
+"travaillant dans le secteur de l'informatique ou dans le milieu "
+"universitaire. Les jeunes filles sont parfois incertaines quant à ce "
+"qu'elles veulent faire, c'est une occasion en or pour elles de discuter de "
+"leur formation avec la conférencière, les aidant ainsi pour leurs futurs "
+"choix d'orientation."
 
 #: pages/templates/pages/about-organization.html:111
 msgid ""
@@ -3563,6 +3547,8 @@ msgid ""
 "and pass on\n"
 "knowledge in computer science and programming."
 msgstr ""
+"L'équipe de Prologin est présente pour les aider à déboguer leurs programmes "
+"et leur transmettre des connaissances en informatique et en programmation."
 
 #: pages/templates/pages/about-organization.html:114
 #, python-format
@@ -3571,6 +3557,9 @@ msgid ""
 "Can Code! website</a>. For any\n"
 "inquiries, please <a href=\"%(about_organization)s#contact\">contact us</a>."
 msgstr ""
+"Plus d'informations peuvent être trouvées sur le <a href=\"https://gcc."
+"prologin.org\">site Girls Can Code!</a>. Pour plus d'informations, <a href="
+"\"%(about_organization)s#contact\">contactez-nous</a>."
 
 #: pages/templates/pages/about-organization.html:117
 msgid "Everyone can contribute to Prologin"
@@ -3623,28 +3612,6 @@ msgid "About the Processing"
 msgstr "Objet du traitement de données"
 
 #: pages/templates/pages/about-privacy-policy.html:22
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "#### Purposes\n"
-#| "\n"
-#| "The processing goal is to **organize the Prologin contest**.  \n"
-#| "It enables the Prologin association to:\n"
-#| "\n"
-#| "*   process registration requests on the Prologin website;\n"
-#| "*   provide communication services (forum) and code evaluation (online "
-#| "judge) ;\n"
-#| "*   process applications for participation in the Prologin contest;\n"
-#| "*   tailor the meals taking into account each dietary restrictions;\n"
-#| "*   answer questions from the participants;\n"
-#| "*   steer the activity of the association (evaluate participant "
-#| "satisfaction, produce statistics).\n"
-#| "\n"
-#| "#### Lawfulness of Processing\n"
-#| "\n"
-#| "The data subjects give consent to the processing of their personal data "
-#| "for the declared purposes (art. 6(1)a of GDPR).\n"
-#| "        "
 msgid ""
 "\n"
 "#### Purposes\n"
@@ -3672,11 +3639,11 @@ msgstr ""
 "\n"
 "Le traitement a pour objet **l'organisation du concours Prologin**. \n"
 "Il permet à l'association Prologin :\n"
-" \n"
+"\n"
 "* de traiter les demandes d'inscription sur le site Prologin ;\n"
 "* de fournir les services de communication (forum) et d'évaluation de code "
 "(juge en ligne) ;\n"
-" * de traiter les demandes de participation au concours Prologin ;\n"
+"* de traiter les demandes de participation au concours Prologin ;\n"
 "* d'adapter les repas aux contraintes alimentaires de chacun ;\n"
 "* de répondre aux sollicitations de la part des participants ;\n"
 "* de piloter l'activité de l'association (évaluation de la satisfaction des "
@@ -3808,27 +3775,6 @@ msgid "Data Recipients"
 msgstr "Destinataires des données"
 
 #: pages/templates/pages/about-privacy-policy.html:99
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "#### Categories of Recipients\n"
-#| "\n"
-#| "Taking into account their respective needs, the following are a recipient "
-#| "of all or any parts of the data:\n"
-#| "\n"
-#| "*   authorized members of Prologin;\n"
-#| "*   authorized members of Prologin partners and/or sub-contractors;\n"
-#| "*   emergency services if needed.\n"
-#| "\n"
-#| "#### Data Transfers Outside of EU\n"
-#| "\n"
-#| "Des transferts de données en dehors de l'Union Européenne peuvent avoir "
-#| "lieu (vers un partenaire en Suisse pour l'organisation de l'épreuve "
-#| "régionale correspondante le cas échéant, et vers Google dans le monde "
-#| "entier). Google et Prologin se reposent sur les clauses contractuelles "
-#| "type prévues par la Commission Européenne et disponibles sur son site "
-#| "internet.\n"
-#| "        "
 msgid ""
 "\n"
 "#### Categories of Recipients\n"
@@ -3852,32 +3798,26 @@ msgstr ""
 "\n"
 "#### Catégories de destinataires\n"
 "\n"
-"En fonction de leurs besoins respectifs, sont destinataires de tout ou "
-"partie des données :\n"
+"En fonction de leurs besoins respectifs, les personnes suivantes sont "
+"destinataires de tout ou partie des données :\n"
 "\n"
 "* les membres autorisés de Prologin ;\n"
 "* les membres autorisés des partenaires et/ou sous-traitants de Prologin ;\n"
-"* les services de secours d'urgence en cas de besoin.\n"
+"* les services d'urgence si nécessaire.\n"
 "\n"
-"#### Transfert des données hors UE\n"
+"#### Transfert de données en dehors de l'UE\n"
 "\n"
-"Des transferts de données hors de l'Union européenne peuvent avoir lieu "
-"(partenaire en Suisse pour l'organisation d'une épreuve régionale). Cela ne "
-"concerne que les candidats au concours Prologin participant aux épreuves "
-"régionales en Suisse."
+"Des transferts de données en dehors de l'Union Européenne peuvent avoir lieu "
+"(vers un partenaire en Suisse pour l'organisation de l'épreuve régionale "
+"correspondante le cas échéant, et vers Google dans le monde entier). Google "
+"et Prologin se reposent sur les clauses contractuelles type prévues par la "
+"Commission Européenne et disponibles sur son site internet."
 
 #: pages/templates/pages/about-privacy-policy.html:116
 msgid "Storage Period"
 msgstr "Durée de conservation"
 
 #: pages/templates/pages/about-privacy-policy.html:119
-#, fuzzy
-#| msgid ""
-#| "\n"
-#| "Identification data, school, and personal life are stored until the data "
-#| "subject unsubscribes from Prologin.  \n"
-#| "Health data are deleted three years after the end of the final.\n"
-#| "        "
 msgid ""
 "\n"
 "Identification data, school, and personal life are stored until the data "
@@ -4124,13 +4064,12 @@ msgid ""
 "it).\n"
 "    "
 msgstr ""
-" L'épreuve pratique, d'une durée de quatre heures, consiste en une série "
-"d'exercices de programmation de difficulté croissante. Une machine est mise "
-"à disposition de chaque candidat, et un programme de test lui fournit les "
-"sujets, et vérifie le fonctionnement des programmes qu'il soumet. Cette "
-"épreuve a pour but de vérifier que le candidat est capable de mettre en "
-"œuvre ce qu'il sait pour réaliser un programme sur un ordinateur (choix de "
-"l'algorithme, implémentation dans le langage choisi, tests et déboguage)."
+"L'examen pratique dure trois heures et demie. Chaque candidat travaille sur "
+"des exercices d'algorithme sur un ordinateur. Un programme de correction "
+"évalue les codes soumis par le candidat. L'objectif de cette épreuve est de "
+"de vérifier que le candidat est capable de coder un programme sur un "
+"ordinateur (choisir un algorithme, l'implémenter dans un langage de "
+"programmation, le tester et le déboguer)."
 
 #: pages/templates/pages/about-semifinals.html:54
 msgid ""
@@ -4170,7 +4109,7 @@ msgstr "Repas offert"
 
 #: pages/templates/pages/about-semifinals.html:96
 msgid "Algorithmic exercises on computer (3h30)"
-msgstr "Épreuve machine (4h)"
+msgstr "Exercices d'algorithmique sur ordinateur (3h30)"
 
 #: pages/templates/pages/about-semifinals.html:100
 msgid ""
@@ -4202,8 +4141,8 @@ msgid ""
 "The day continues with the practical test, which lasts\n"
 "    three and a half hours, and ends at 5:30 PM."
 msgstr ""
-"La journée se poursuit avec l'épreuve machine, d'une durée de quatre heures, "
-"et se termine vers 17h30."
+"La journée se poursuit avec l'épreuve machine, qui dure trois heures et "
+"demie, et se termine à 17h30."
 
 #: pages/templates/pages/about-semifinals.html:113
 msgid ""
@@ -5498,7 +5437,7 @@ msgstr "Prologin sur Twitter"
 
 #: prologin/templates/prologin/main-footer.html:51
 msgid "Prologin on LinkedIn"
-msgstr "Prologin sur Twitter"
+msgstr "Prologin sur LinkedIn"
 
 #: prologin/templates/prologin/main-footer.html:59
 #: semifinal/templates/prologin/main-footer.html:12
