@@ -1,7 +1,7 @@
 [main]
 host = https://www.transifex.com
 
-[prologin-site.django]
+[prologin-site.prologin-locale-en-lc-messages-django-po--master]
 file_filter = prologin/locale/<lang>/LC_MESSAGES/django.po
 source_file = prologin/locale/en/LC_MESSAGES/django.po
 source_lang = en
