@@ -404,3 +404,9 @@ FACEBOOK_GRAPH_API_ACCESS_TOKEN = ""
 # Django OpenID Connect Provider
 OIDC_EXTRA_SCOPE_CLAIMS = 'oidc_policy.oidc_scopes.ProloginScopeClaims'
 OIDC_AFTER_USERLOGIN_HOOK = 'oidc_policy.oidc_authz.authorize'
+
+# Countdown target date (None to disable)
+PROLOGIN_HOMEPAGE_COUNTDOWN_TZ = datetime.timezone(datetime.timedelta(hours=2))
+PROLOGIN_HOMEPAGE_COUNTDOWN = datetime.datetime(2021, 10, 15, 16, 42, 00, tzinfo=PROLOGIN_HOMEPAGE_COUNTDOWN_TZ)
+#PROLOGIN_HOMEPAGE_COUNTDOWN = None
+

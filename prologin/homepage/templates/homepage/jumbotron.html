@@ -5,6 +5,10 @@
 
     <h1>{% trans "Prologin, the French National Computer Science Contest" %}</h1>
     <p>{% blocktrans with born_year as born_year %}Born in {{ born_year }} or after? Join the Prologin contest! Registration is free.{% endblocktrans %}</p>
+    
+    {% if countdown_enabled %}
+      {% include "homepage/countdown.html" %}
+    {% endif %}
 
     {% trans "Unknown date" as no_such_date %}
     {# timeline #}

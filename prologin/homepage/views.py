@@ -1,4 +1,5 @@
 import random
+import datetime
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
 from django.views.generic import TemplateView
@@ -45,6 +46,17 @@ class HomepageView(TemplateView):
         context['problems_count'] = problems_count
         context['problems_completed'] = problems_completed
         context['born_year'] = settings.PROLOGIN_EDITION - settings.PROLOGIN_MAX_AGE
+
+        now = datetime.datetime.now(settings.PROLOGIN_HOMEPAGE_COUNTDOWN_TZ)
+        context['countdown_target'] = settings.PROLOGIN_HOMEPAGE_COUNTDOWN
+        context['countdown_enabled'] = \
+            context['countdown_target'] is not None \
+            and context['countdown_target'] > now
+        if context['countdown_enabled']:
+            # JavaScript timestamps are in milliseconds
+            context['countdown_timestamp'] = 1000 * \
+                int(settings.PROLOGIN_HOMEPAGE_COUNTDOWN.timestamp())
+
         context['articles'] = articles
         sponsors = list(sponsor.models.Sponsor.active.all())
         random.shuffle(sponsors)
