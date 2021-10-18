@@ -7,7 +7,7 @@ from celery import shared_task
 @shared_task(bind=True, ignore_result=True, default_retry_delay=60, max_retries=3)
 def notify_new_thread(self, thread: dict):
     r = requests.post(settings.PROLOGIN_WEBHOOK_BASE_URL + '/api/webhooks/prolosite/forum',
-                      data=json.dumps(thread),
+                      json=thread,
                       headers={'Authorization': settings.PROLOGIN_WEBHOOK_SECRET})
     if not r.ok:
         raise ValueError("Remote replied with status {}".format(r.status_code))
