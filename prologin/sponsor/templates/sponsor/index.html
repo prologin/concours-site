@@ -45,12 +45,14 @@
             <div class="col-md-4">
               <div class="panel">
           {% endif %}
+            {% if sponsor.logo %}
               <div class="panel-body">
                 <a class="spons-logo" href="{{ sponsor.site }}">
                   <img alt="{{ sponsor.name }}" src="{{ sponsor.logo.url }}" >
                 </a>
               </div>
             </div>
+            {% endif %}
             {% if type == "Gold" %}
               <div class="col-sm-6 col-md-9">
                 <p><strong>{{ sponsor.name }}</strong></p>
