@@ -538,10 +538,10 @@ class Contestant(ExportModelOperationsMixin('contestant'), models.Model):
         return "{edition}: {user}".format(user=self.user, edition=self.edition)
 
 
-class EventWish(ExportModelOperationsMixin('event_wish'), SortableMixin):
+class EventWish(ExportModelOperationsMixin('event_wish'), models.Model):
     contestant = models.ForeignKey(Contestant, on_delete=models.CASCADE)
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    order = models.IntegerField(editable=False, db_index=True)
+    order = models.IntegerField(db_index=True)
 
     class Meta:
         ordering = ('order',)

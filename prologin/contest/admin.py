@@ -1,4 +1,4 @@
-from adminsortable.admin import NonSortableParentAdmin, SortableStackedInline
+from adminsortable.admin import NonSortableParentAdmin
 from django import forms
 from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
@@ -6,15 +6,6 @@ from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
 import contest.models
 from prologin.utils import admin_url_for
-
-
-class EventWishesFormSet(forms.BaseInlineFormSet):
-    def _construct_form(self, i, **kwargs):
-        form = super()._construct_form(i, **kwargs)
-        qs = form.fields['event'].queryset
-        form.fields['event'].queryset = qs.filter(type=contest.models.Event.Type.semifinal.value,
-                                                  edition=self.instance.edition)
-        return form
 
 
 class ContestantForm(forms.ModelForm):
@@ -31,11 +22,10 @@ class EventInline(admin.StackedInline):
     extra = 1
 
 
-class EventWishesInline(SortableStackedInline):
-    # FIXME: event queryset repeated N times
+class EventWishesInline(admin.StackedInline):
     model = contest.models.EventWish
-    extra = 1
-    formset = EventWishesFormSet
+    extra = 0
+    fields = ('event', 'order')
 
 
 class CorrectionInline(admin.StackedInline):
