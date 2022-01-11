@@ -36,7 +36,6 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 
     # Vendor
-    'adminsortable',
     'bootstrapform',
     'django_bootstrap_breadcrumbs',
     'rules.apps.AutodiscoverRulesConfig',

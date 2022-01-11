@@ -1,4 +1,3 @@
-from adminsortable.models import SortableMixin
 from django.conf import settings
 from django.urls import reverse
 from django.db import models
@@ -18,11 +17,11 @@ from prologin.utils import ChoiceEnum
 from forum import managers
 
 
-class Forum(ExportModelOperationsMixin('forum'), SortableMixin):
+class Forum(ExportModelOperationsMixin('forum'), models.Model):
     name = models.CharField(max_length=255, verbose_name=_("Name"))
     slug = models.SlugField(max_length=300, db_index=True)
     description = models.TextField(verbose_name=_("Description"))
-    order = models.IntegerField(editable=False, db_index=True)
+    order = models.IntegerField(db_index=True)
 
     thread_count = models.PositiveIntegerField(verbose_name=_("Number of threads"), editable=False, blank=True, default=0)
     post_count = models.PositiveIntegerField(verbose_name=_("Number of posts"), editable=False, blank=True, default=0)

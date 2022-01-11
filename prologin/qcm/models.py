@@ -1,6 +1,5 @@
 import unicodedata
 
-from adminsortable.models import SortableMixin
 from django.core.exceptions import ValidationError
 from django.db import models
 from django.db.models import Prefetch, Count, Sum, Case, When, Value, IntegerField
@@ -89,14 +88,14 @@ class QuestionManager(models.Manager):
                                                              output_field=IntegerField()))))
 
 
-class Question(ExportModelOperationsMixin('question'), SortableMixin):
+class Question(ExportModelOperationsMixin('question'), models.Model):
     qcm = models.ForeignKey(Qcm, related_name='questions', on_delete=models.CASCADE)
 
     body = models.TextField(verbose_name=_("Question body"))
     verbose = models.TextField(blank=True, verbose_name=_("Verbose description"))
     for_sponsor = models.ForeignKey(sponsor.models.Sponsor, blank=True, null=True, related_name='qcm_questions',
                                     on_delete=models.SET_NULL)
-    order = models.IntegerField(editable=False, db_index=True)
+    order = models.IntegerField(db_index=True)
     # Open ended questions have only one correct proposition.
     # The user only sees a text input and has to give his or her answer.
     is_open_ended = models.BooleanField(default=False)

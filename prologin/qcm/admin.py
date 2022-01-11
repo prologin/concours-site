@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.utils.html import strip_tags
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
-from adminsortable.admin import SortableAdmin, NonSortableParentAdmin, SortableTabularInline
 
 from prologin.utils import admin_url_for
 
@@ -17,10 +16,11 @@ class AnswerAdminForm(forms.ModelForm):
         self.fields['proposition'].queryset = qs.filter(question=self.instance.proposition.question)
 
 
-class QuestionsInline(SortableTabularInline):
+class QuestionsInline(admin.TabularInline):
     # TODO: cache for_sponsor queryset
     model = qcm.models.Question
     extra = 1
+    ordering = ('order', )
 
 
 class PropositionsInline(admin.TabularInline):
@@ -29,7 +29,7 @@ class PropositionsInline(admin.TabularInline):
     extra = 1
 
 
-class QcmAdmin(NonSortableParentAdmin):
+class QcmAdmin(admin.ModelAdmin):
     list_filter = ('event__edition',)
     list_display = ('event', 'question_count', 'answer_count',)
     search_fields = ('event__edition__year',)
@@ -45,7 +45,7 @@ class QcmAdmin(NonSortableParentAdmin):
     answer_count.short_description = _("Answers")
 
 
-class QuestionAdmin(SortableAdmin):
+class QuestionAdmin(admin.ModelAdmin):
     list_filter = ('qcm__event__edition',)
     list_display = ('body', 'qcm_event_edition', 'proposition_count', 'correct_proposition_count',)
     search_fields = ('qcm__event__edition__year', 'body', 'verbose', 'for_sponsor__name',)

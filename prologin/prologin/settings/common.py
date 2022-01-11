@@ -38,7 +38,6 @@ INSTALLED_APPS = (
     'django.contrib.humanize',
 
     # Vendor
-    'adminsortable',
     'bootstrapform',
     'bootstrap3',
     'captcha',

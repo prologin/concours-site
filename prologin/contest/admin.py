@@ -1,4 +1,3 @@
-from adminsortable.admin import NonSortableParentAdmin
 from django import forms
 from django.contrib import admin
 from django.contrib.contenttypes.models import ContentType
@@ -67,7 +66,7 @@ class EventAdmin(admin.ModelAdmin):
     center_link.allow_tags = True
 
 
-class ContestantAdmin(NonSortableParentAdmin):
+class ContestantAdmin(admin.ModelAdmin):
     list_filter = ('edition', 'assignation_semifinal', 'assignation_final', 'preferred_language', 'shirt_size',
                    'is_home_public',)
     list_display = ('contestant', 'user_link', 'edition_link', 'assignation_semifinal', 'assignation_final',
