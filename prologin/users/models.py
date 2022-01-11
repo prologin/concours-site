@@ -416,7 +416,7 @@ def notify_hijack_started(sender, **kwargs):
         data = {'event': 'start',
                 'hijacker': _get_user_dict(kwargs['hijacker']),
                 'hijacked': _get_user_dict(kwargs['hijacked'])}
-        requests.request(s['method'], s['url'], data=json.dumps(data), **s.get('kwargs', {}))
+        requests.request(s['method'], s['url'], json=data, **s.get('kwargs', {}))
     except Exception:
         logging.exception("Could not notify of hijack-started")
 
@@ -429,7 +429,7 @@ def notify_hijack_ended(sender, **kwargs):
         data = {'event': 'end',
                 'hijacker': _get_user_dict(kwargs['hijacker']),
                 'hijacked': _get_user_dict(kwargs['hijacked'])}
-        requests.request(s['method'], s['url'], data=json.dumps(data), **s.get('kwargs', {}))
+        requests.request(s['method'], s['url'], json=data, **s.get('kwargs', {}))
     except Exception:
         logging.exception("Could not notify of hijack-ended")
 
