@@ -3,7 +3,6 @@ import itertools
 
 import os
 import random
-from adminsortable.models import SortableMixin
 from decimal import Decimal
 from django.conf import settings
 from django.contrib.postgres.fields.jsonb import JSONField

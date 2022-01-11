@@ -17,7 +17,7 @@ class ForumSetupMixin:
         self.u3 = get_user_model().objects.create(username="dieu", email="dieu@example.org", is_staff=True)
 
         self.f1 = forum.models.Forum.objects.create(
-            id=1, name="Test forum", description="Un super forum")
+            id=1, name="Test forum", description="Un super forum", order=1)
         self.t11 = forum.models.Thread.objects.create(
             forum=self.f1, title="Tout est cassé")
         self.p111 = forum.models.Post.objects.create(
@@ -26,7 +26,7 @@ class ForumSetupMixin:
             thread=self.t11, author=self.u2, content="C'est horrible !")
 
         self.f2 = forum.models.Forum.objects.create(
-            id=2, name="[STAFF] Privé", description="Très secret")
+            id=2, name="[STAFF] Privé", description="Très secret", order=4)
         self.t21 = forum.models.Thread.objects.create(
             forum=self.f2, title="Prologin est génial")
         self.p211 = forum.models.Post.objects.create(
