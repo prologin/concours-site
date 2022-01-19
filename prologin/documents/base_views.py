@@ -264,7 +264,11 @@ class BaseCompilationView(BaseDocumentView):
                     break
             else:
                 # there was no error
-                process = subprocess.Popen(['pdfjoin',
+                process = subprocess.Popen(['pdfjam',
+                                            '--fitpaper',
+                                            'true',
+                                            '--rotateoversize',
+                                            'true',
                                             '--vanilla',  # don't read disk conf files
                                             '--tidy',  # delete temporary output
                                             # this is where we have a chance to set the PDF author/title
