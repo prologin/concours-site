@@ -1,8 +1,12 @@
 {% load i18n latex %}{% autoescape off %}
-\documentclass[a4paper,12pt]{prologin}
+\documentclass[a4paper,12pt, nodate]{prologin}
+\usepackage{amssymb}
 {% include "documents/stub-preamble.tex" %}
 
 \title{Fiche d'information membre}
+
+\usepackage{titlesec}
+\titlespacing*{\section}{0pt}{0.5\baselineskip}{\baselineskip}
 
 \begin{document}
 \section*{État civil}
@@ -26,53 +30,35 @@ Adresse~: \hrulefill
 \section*{Informations supplémentaires}
 Pseudo~: \hrulefill
 
-Login IONIS~: \hrulefill
+Login IONIS (si applicable)~: \hrulefill
 
 Promotion (école \& année)~: \hrulefill
 
-\vspace{2cm}
+\vspace{0.2cm}
 
-Fait à \hrulefill, le \hrulefill.
+\noindent
+$\square$ Je déclare avoir lu et approuvé le règlement intérieur et les statuts de l'association.
 
-Signature~:
+\vspace{0.2cm}
+
+\noindent
+Fait à \rule{5cm}{0.4pt}.
+\newline
+Date et signature~:
+
+\vspace{1.5cm}
+
+\noindent
+\hrulefill~À REMPLIR PAR LE BUREAU~\hrulefill
+
+\vspace{0.7cm}
+
+\noindent
+\rule{4cm}{0.4pt} valide, en sa qualité de \rule{3.2cm}{0.4pt}, l'adhésion définitive, conformément à l'article 1 du règlement intérieur. \\
+Date et signature~:
+
 
 \newpage
-
-\begin{Large}
-    \begin{center}
-        \textbf{Formulaire d'autorisation de diffusion d'image}
-    \end{center}
-\end{Large}
-
-Je soussigné(e) \hrulefill
-
-Adresse \hrulefill
-
-Code postal \hrulefill{} Ville \hrulefill\hrulefill\hrulefill{} Pays \hrulefill
-
-autorise l'association Prologin à me photographier et me filmer dans
-le cadre de mon activité au sein de l'association.
-
-J'accepte l'utilisation et l'exploitation non commerciale de mon
-image dans le cadre de la promotion du concours, notamment sur le site internet
-de l'association, ainsi que sa reproduction sur quelque support que ce soit
-(papier, support analogique ou support numérique) actuel ou futur et ce, pour la
-durée de vie des documents réalisés ou de l'association.
-
-En conséquence de quoi, je renonce expressément à me prévaloir d'un
-quelconque droit à l'image et à toute action à l'encontre de Prologin qui
-trouverait son origine dans l'exploitation de mon image dans le cadre précité.
-
-\begin{signatureframe}{Date et signature du membre}\end{signatureframe}
-
-\begin{legalrepframe}[title=À remplir par le représentant légal si le membre est mineur]
-    Je soussigné(e) \hrulefill
-
-    déclare être le parent ou le représentant légal du mineur nommé
-    ci-dessus, et avoir l'autorité légale de signer cette autorisation en son nom.
-
-    \begin{signatureframe}{Date et signature du représentant légal}\end{signatureframe}
-\end{legalrepframe}
 
 
 \end{document}
