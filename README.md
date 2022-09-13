@@ -97,10 +97,10 @@ Clone the website and the other Prologin repositories needed for the different
 modules of the website:
 
 ```bash
-git clone git@github.com:prologin/site
-git clone git@github.com:prologin/problems   # Training exercises (private)
-git clone git@github.com:prologin/archives   # Edition archives (private)
-git clone git@github.com:prologin/documents  # Admin. documents (private)
+git clone git@gitlab.com:prologin/concours/site.git
+git clone git@gitlab.com:prologin/concours/problems.git # Training exercises (private)
+git clone git@gitlab.com:prologin/concours/archives.git # Edition archives (private)
+git clone git@gitlab.com:prologin/asso/documents.git    # Admin. documents (private)
 ```
 
 Then, enter the website directory:
