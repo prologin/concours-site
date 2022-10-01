@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load utils %}
+{% load static %}
 
 <div class="row">
   <div class="col-md-4">
@@ -29,13 +30,19 @@
     </ul>
         {% endcomment %}
     <h3>{% trans "Stay tuned!" %}</h3>
-    <a href="{% url 'zinnia:entry_feed' %}" title="{% trans "Prologin news Atom stream" %}" class="social">
+    {# social links #}
+    <a href="https://discord.gg/qsrzT6T946" title="{% trans "Prologin on Discord" %}" class="social">
       <span class="fa-stack fa-lg">
         <i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
-        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+        <img src="{% static 'img/discord.svg' %}" class="fa-stack-1x fa-inverse fa" style="width: 20px;top: 12px;left: 11px;">
       </span>
     </a>
-    {# social shit #}
+    <a href="https://www.instagram.com/association_prologin/" title="{% trans "Prologin on Instagram" %}" class="social">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
+        <i class="fa fa-instagram fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
     <a href="https://www.facebook.com/prologin" title="{% trans "Prologin on Facebook" %}" class="social">
       <span class="fa-stack fa-lg">
         <i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
@@ -52,6 +59,18 @@
       <span class="fa-stack fa-lg">
         <i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
         <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+      </span>
+    </a>
+    <a href="https://www.tiktok.com/@assoprologin" title="{% trans "Prologin on TikTok" %}" class="social">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
+        <img src="{% static 'img/tiktok.svg' %}" class="fa-stack-1x fa-inverse fa" style="width: 19px;top: 9px;left: 11px;">
+      </span>
+    </a>
+    <a href="{% url 'zinnia:entry_feed' %}" title="{% trans "Prologin news Atom stream" %}" class="social">
+      <span class="fa-stack fa-lg">
+        <i class="fa fa-square-o fa-stack-2x fa-inverse"></i>
+        <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
       </span>
     </a>
   </div>
