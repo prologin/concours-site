@@ -1,5 +1,4 @@
 import hashlib
-import logging
 
 import requests
 from django.conf import settings
@@ -13,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from prologin.models import AddressableModel
 from prologin.utils import upload_path
+from prologin.utils.discord_webhook import send_message
 
 
 class ApprovedSchoolManager(models.Manager):
@@ -129,15 +129,9 @@ class Facebook:
 
 
 @receiver(post_save, sender=School)
-def notify_school_created(sender, instance, **kwargs):
-    s = settings.PROLOGIN_NEW_SCHOOL_NOTIFY
-    if not s:
-        return
-    if not kwargs.get('created') or instance.imported or instance.approved:
-        return
-    data = {'name': instance.name,
-            'url': settings.SITE_BASE_URL + reverse('admin:schools_school_change', args=[instance.pk])}
-    try:
-        requests.request(s['method'], s['url'], json=data, **s.get('kwargs', {}))
-    except Exception:
-        logging.exception("Could not notify of new-school")
+def notify_school_created(sender, instance: School, **kwargs):
+    school_url = settings.SITE_BASE_URL + reverse('admin:schools_school_change', args=[instance.pk])
+    list_url = settings.SITE_BASE_URL + reverse('admin:schools_school_changelist')
+    send_message(
+        title="New school added", url=list_url,
+        description=f"The school **[{instance.name}]({school_url})** was submitted for approval")

@@ -322,10 +322,10 @@ HIJACK_DECORATOR = 'users.rules.hijack_forbidden'
 HIJACK_AUTHORIZATION_CHECK = 'users.rules.hijack_authorization_check'
 HIJACK_LOGIN_REDIRECT_URL = '/'
 HIJACK_LOGOUT_REDIRECT_URL = LOGIN_REDIRECT_URL
-PROLOGIN_HIJACK_NOTIFY = False
-# {'method': 'post', 'url': '/django/impersonate', 'kwargs': {'timeout': (1, 1)}}
 
-PROLOGIN_NEW_SCHOOL_NOTIFY = False
+# Discord webhook URL for notifications (new school, impersonate)
+# https://discord.com/api/webhooks/CHANNEL_ID/TOKEN
+PROLOGIN_DISCORD_WEBHOOK = None
 
 
 # Debug toolbar

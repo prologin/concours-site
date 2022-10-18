@@ -26,6 +26,7 @@ from prologin.languages import Language
 from prologin.models import (AddressableModel, GenderField,
                              CodingLanguageField, EnumField, ChoiceEnum)
 from prologin.utils import upload_path, storage
+from prologin.utils.discord_webhook import send_message
 from prologin.utils.models import ResizeOnSaveImageField
 
 ACTIVATION_TOKEN_LENGTH = 32
@@ -408,29 +409,29 @@ def _get_user_dict(user):
 
 
 def notify_hijack_started(sender, **kwargs):
-    s = settings.PROLOGIN_HIJACK_NOTIFY
-    if not s:
-        return
-    try:
-        data = {'event': 'start',
-                'hijacker': _get_user_dict(kwargs['hijacker']),
-                'hijacked': _get_user_dict(kwargs['hijacked'])}
-        requests.request(s['method'], s['url'], json=data, **s.get('kwargs', {}))
-    except Exception:
-        logging.exception("Could not notify of hijack-started")
+    hijacker = kwargs['hijacker']
+    hijacker_url = settings.SITE_BASE_URL + reverse('users:profile', args=[hijacker.pk])
+    hijacked = kwargs['hijacked']
+    hijacked_url = settings.SITE_BASE_URL + reverse('users:profile', args=[hijacked.pk])
+    send_message(
+        title="Impersonation warning",
+        description=f"[{hijacker.username}]({hijacker_url}) started impersonating "
+        f"[{hijacked.username}]({hijacked_url})!",
+        color=0xD95E3F,
+    )
 
 
 def notify_hijack_ended(sender, **kwargs):
-    s = settings.PROLOGIN_HIJACK_NOTIFY
-    if not s:
-        return
-    try:
-        data = {'event': 'end',
-                'hijacker': _get_user_dict(kwargs['hijacker']),
-                'hijacked': _get_user_dict(kwargs['hijacked'])}
-        requests.request(s['method'], s['url'], json=data, **s.get('kwargs', {}))
-    except Exception:
-        logging.exception("Could not notify of hijack-ended")
+    hijacker = kwargs['hijacker']
+    hijacker_url = settings.SITE_BASE_URL + reverse('users:profile', args=[hijacker.pk])
+    hijacked = kwargs['hijacked']
+    hijacked_url = settings.SITE_BASE_URL + reverse('users:profile', args=[hijacked.pk])
+    send_message(
+        title="Impersonation warning",
+        description=f"[{hijacker.username}]({hijacker_url}) stopped impersonating "
+        f"[{hijacked.username}]({hijacked_url})!",
+        color=0x6ABD73,
+    )
 
 
 hijack_started.connect(notify_hijack_started)
