@@ -130,8 +130,13 @@ class Facebook:
 
 @receiver(post_save, sender=School)
 def notify_school_created(sender, instance: School, **kwargs):
+    if not kwargs.get('created') or instance.imported or instance.approved:
+        return
+
     school_url = settings.SITE_BASE_URL + reverse('admin:schools_school_change', args=[instance.pk])
+
     list_url = settings.SITE_BASE_URL + reverse('admin:schools_school_changelist')
+
     send_message(
         title="New school added", url=list_url,
         description=f"The school **[{instance.name}]({school_url})** was submitted for approval")
