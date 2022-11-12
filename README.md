@@ -167,6 +167,16 @@ them using the admin. Use the `edition` command instead:
 # Answer the questions
 ```
 
+### Creating a super user
+
+This step is not required but in case you want to access the admin interface,
+you can create a super user:
+
+```bash
+./prologin/manage.py createsuperuser
+# Answer the questions
+```
+
 ## Hacking on the website
 
 Every time you need to work on the website:
