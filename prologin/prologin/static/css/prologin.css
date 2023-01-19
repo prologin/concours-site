@@ -791,6 +791,13 @@ input[type=checkbox].task-list-item-checkbox {
   animation-iteration-count: infinite;
 }
 
+#btn-insert-stub {
+  background-color: #337ab7;
+  border-color: #337ab7;
+  color: white;
+  font-weight: 700;
+}
+
 .submission-history {
   overflow-y: hidden;
   overflow-x: scroll;
