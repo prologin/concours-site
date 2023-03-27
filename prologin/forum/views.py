@@ -226,8 +226,8 @@ class ThreadView(PermissionRequiredMixin, PreviewMixin, FormMixin, ListView):
         return super().form_valid(form)
 
     def post(self, request, *args, **kwargs):
-        if not self.request.user.has_perm('forum.create_post', self.get_thread):
-            return HttpResponseForbidden()
+        # if not self.request.user.has_perm('forum.create_post', self.get_thread):
+        return HttpResponseForbidden()
 
         form = self.get_form()
         if form.is_valid() and not self.has_preview(request):

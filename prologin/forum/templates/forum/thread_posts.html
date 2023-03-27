@@ -158,7 +158,8 @@
 
   <h3 id="reply-thread">{% trans "Reply to the thread" %}</h3>
   {% if user.is_authenticated %}
-    {% if user_can_post %}
+    {#{% if user_can_post %}#}
+    {% if false %}
       <form method="POST">
         {% csrf_token %}
         {{ form|bootstrap }}

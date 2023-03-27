@@ -21,7 +21,7 @@ short_post_patterns = [
 ]
 
 thread_patterns = [
-    path('new-thread', views.CreateThreadView.as_view(), name='create-thread'),
+    # path('new-thread', views.CreateThreadView.as_view(), name='create-thread'),
     re_path(r'^(?:(?P<slug>[\w-]+)-)?(?P<pk>[0-9]+)/', include(post_patterns)),
 ]
 

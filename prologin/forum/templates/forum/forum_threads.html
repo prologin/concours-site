@@ -15,7 +15,8 @@
   {% has_perm 'forum.create_thread' request.user forum as can_create_thread %}
   {% if can_create_thread %}
     <div class="pull-right">
-      <a href="{% url 'forum:create-thread' forum.slug forum.pk %}" class="btn btn-primary"><i class="fa fa-asterisk"></i> {% trans "Create a new thread" %}</a>
+      <a class="btn btn-primary" disabled><i class="fa fa-asterisk"></i> La création de nouveaux sujets est désactivée.</a>
+      {# <a href="{% url 'forum:create-thread' forum.slug forum.pk %}" class="btn btn-primary"><i class="fa fa-asterisk"></i> {% trans "Create a new thread" %}</a> #}
     </div>
   {% endif %}
   <h1>{{ forum.name }}</h1>
