@@ -149,6 +149,7 @@ class SemifinalDataExportView(PermissionRequiredMixin, View):
                 user = contestant.user
                 user.set_password(user.plaintext_password(event=event.id))
                 user.username = user.normalized_username
+                user.email = "{}@pie.prologin.org".format(user.username)
                 yield user
 
         def iter_contestants():
@@ -162,7 +163,7 @@ class SemifinalDataExportView(PermissionRequiredMixin, View):
         serializer.serialize([event], stream=stream)
         stream.write("\n")
         serializer.serialize(iter_users(),
-                             fields=('username', 'email', 'password', 'first_name', 'last_name', 'phone',
+                             fields=('username', 'email', 'first_name', 'last_name', 'phone',
                                      'preferred_locale', 'preferred_language'),
                              stream=stream)
         stream.write("\n")
@@ -426,7 +427,7 @@ class FinalDataExportView(PermissionRequiredMixin, View):
                     'username': user.normalized_username,
                     'first_name': user.first_name,
                     'last_name': user.last_name,
-                    'password': user.plaintext_password(event),
+                    # 'password': user.plaintext_password(event),
                 }
 
         stream = json.dumps(list(iter_users()))
