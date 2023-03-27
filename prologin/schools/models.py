@@ -134,7 +134,6 @@ def notify_school_created(sender, instance: School, **kwargs):
         return
 
     school_url = settings.SITE_BASE_URL + reverse('admin:schools_school_change', args=[instance.pk])
-
     list_url = settings.SITE_BASE_URL + reverse('admin:schools_school_changelist')
 
     send_message(

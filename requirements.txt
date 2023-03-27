@@ -39,7 +39,7 @@ django-npm
 # Export metrics for prometheus monitoring
 django-prometheus
 # Google Recaptcha/Nocaptcha support
-django-recaptcha
+django-simple-captcha
 # Model history tracking
 django-reversion
 # Generate static templates (for 5xx error pages served by nginx, mainly)

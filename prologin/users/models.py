@@ -215,7 +215,7 @@ class ProloginUser(
 
     @property
     def normalized_username(self):
-        return slugify("{}{}".format(self.first_name[:1], self.last_name))
+        return "{}.{}".format(slugify(self.first_name), slugify(self.last_name))
 
     @property
     def avatar_or_picture(self):

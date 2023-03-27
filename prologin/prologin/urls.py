@@ -26,6 +26,9 @@ urlpatterns = [
     # Built-in Django admin
     path('admin/', admin.site.urls),
 
+    # Captcha
+    path('captcha/', include('captcha.urls')),
+
     # Hijack
     path('hijack/', include('hijack.urls', namespace='hijack')),
 

@@ -6,7 +6,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import AuthenticationForm as DjangoAuthenticationForm
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-from captcha.fields import ReCaptchaField
+from captcha.fields import CaptchaField
 
 from prologin.models import Gender
 from prologin.utils import _
@@ -108,9 +108,9 @@ class UserProfileForm(forms.ModelForm):
 
 
 class RegisterForm(forms.ModelForm):
-    captcha = ReCaptchaField(label="",
+    captcha = CaptchaField(label="",
                              help_text='<small>{}</small>'.format(
-                                 _("Please check the box above and complete the additional tasks if any. "
+                                 _("Please enter the text above and complete the additional tasks if any. "
                                    "This is required to fight spamming bots on the website.")))
 
     class Meta:
