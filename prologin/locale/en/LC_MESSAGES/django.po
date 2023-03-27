@@ -5446,7 +5446,7 @@ msgstr ""
 
 #: users/forms.py:113
 msgid ""
-"Please check the box above and complete the additional tasks if any. This is "
+"Please enter the text above and complete the additional tasks if any. This is "
 "required to fight spamming bots on the website."
 msgstr ""
 
