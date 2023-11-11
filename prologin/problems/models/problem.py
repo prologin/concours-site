@@ -212,6 +212,7 @@ class Problem:
     - problem.title
     - problem.difficulty
     - problem.tests
+    - problem.validation_percent
     """
 
     Sample = namedtuple('Sample', 'input output comment')
@@ -334,6 +335,10 @@ class Problem:
     @property
     def difficulty(self):
         return self.properties.get('difficulty', 0)
+
+    @property
+    def validation_percent(self):
+        return self.properties.get('validation-percent', None)
 
     @property
     def stop_early(self):

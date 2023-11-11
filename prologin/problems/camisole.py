@@ -81,6 +81,8 @@ def get_score(problem: Problem, result: dict):
     :return the computed score
     """
     difficulty = problem.difficulty
+    validation_percent = problem.validation_percent
+    legacy = validation_percent is None
     reference_tests = {ref.name: ref for ref in problem.tests}
 
     if 'compile' in result and result['compile']['exitcode'] != 0:
@@ -114,9 +116,27 @@ def get_score(problem: Problem, result: dict):
         # correction failure
         return 0
 
-    score = 16 * (4 ** difficulty)
-    if total_performance:
-        score = (score // 2) * (1 + passed_performance / total_performance)
+    if legacy:
+        # Old scoring scheme <= 2023
+        score = 16 * (4 ** difficulty)
+        if total_performance:
+            score = (score // 2) * (1 + passed_performance / total_performance)
+    else:
+        alpha = 0.42 # Quadratic term
+        completion_factor = 4
+        if difficulty == 0:
+            score = 42
+        else:
+            score = 1000 * int(difficulty * (1 + alpha * difficulty))
+        if total_performance:
+            if passed_performance != total_performance:
+                score_validation = validation_percent * score // 100
+                score_performance = score - score_validation
+                if passed_performance == 0:
+                    score_performance = 0
+                else:
+                    score_performance *= (passed_performance / (completion_factor * total_performance - 2))
+                score = score_validation + score_performance
     return int(score)
 
 

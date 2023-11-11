@@ -37,6 +37,7 @@ def submit_problem_code(code_submission_id):
     submission = code_submission.submission
     problem = submission.problem_model()
     difficulty = problem.difficulty
+    legacy = problem.validation_percent is None
 
     prometheus_stat_key = '{}/{}'.format(submission.challenge, submission.problem)
 
@@ -46,16 +47,30 @@ def submit_problem_code(code_submission_id):
         :param score: the score, as computed by get_score()
         :param result: the submission result, as computed by parse_xml()
         """
-        max_malus = 4 ** (difficulty + 1)
-        # update main submission with this score, if needed
-        if submission.score_base < score:
-            submission.score_base = score
-        # failed submission, no successful submission yet, not yet at maximum malus
-        # so we can increment malus
-        elif score == 0 and submission.score_base == 0 and submission.malus < max_malus:
-            incr = int(4 ** (difficulty - 1))
-            submission.malus += incr
-            logger.debug("increased malus by %d to %d", incr, submission.malus)
+        if legacy:
+            # Old scoring scheme <= 2023
+            max_malus = 4 ** (difficulty + 1)
+
+            # update main submission with this score, if needed
+            if submission.score_base < score:
+                submission.score_base = score
+            # failed submission, no successful submission yet, not yet at maximum malus
+            # so we can increment malus
+            elif score == 0 and submission.score_base == 0 and submission.malus < max_malus:
+                incr = int(4 ** (difficulty - 1))
+                submission.malus += incr
+                logger.debug("increased malus by %d to %d", incr, submission.malus)
+
+        else:
+            max_malus = 500
+            incr_malus = 20
+
+            # We get a malus for any submission that does
+            # not improve the score
+            if submission.score_base < score:
+                submission.score_base = score
+            elif submission.malus < max_malus and difficulty > 0:
+                submission.malus += incr_malus
 
         code_submission.score = score
         code_submission.result = result
