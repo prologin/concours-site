@@ -5659,7 +5659,7 @@ msgid ""
 "Please answer the following questions. There is only one correct answer for "
 "each question."
 msgstr ""
-"Veuillez répondre aux questions suivantes. Il n'y qu'une seule bonne réponse "
+"Veuillez répondre aux questions suivantes. Il n'y a qu'une seule bonne réponse "
 "à chaque question."
 
 #: qcm/templates/qcm/display.html:27
