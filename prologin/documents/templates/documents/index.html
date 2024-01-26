@@ -48,6 +48,9 @@
               <a href="{% url 'documents:semifinal:interviews' year 'all' %}" class="btn btn-default btn-xs">
                 <i class="fa fa-black-tie"></i> {% trans "Interviews" %}
               </a>
+              <a href="{% url 'documents:semifinal:passwords' year 'all' %}" class="btn btn-default btn-xs">
+                <i class="fa fa-key"></i> {% trans "Passwords" %}
+              </a>
               <a href="{% url 'documents:semifinal:portrayal-agreement' year %}" class="btn btn-default btn-xs">
                 <i class="fa fa-camera"></i> {% trans "Portrayal agreement" %}
               </a>
@@ -68,6 +71,9 @@
               </a>
               <a href="{% url 'documents:semifinal:interviews' year event.pk %}" class="btn btn-default btn-xs">
                 <i class="fa fa-black-tie"></i> {% trans "Interviews" %}
+              </a>
+              <a href="{% url 'documents:semifinal:passwords' year event.pk %}" class="btn btn-default btn-xs">
+                <i class="fa fa-key"></i> {% trans "Passwords" %}
               </a>
             </td>
           </tr>
@@ -98,6 +104,9 @@
               </a>
               <a href="{% url 'documents:final:contestants' year %}" class="btn btn-default btn-xs">
                 <i class="fa fa-list-alt"></i> {% trans "Contestants" %}
+              </a>
+              <a href="{% url 'documents:final:passwords' year %}" class="btn btn-default btn-xs">
+                <i class="fa fa-key"></i> {% trans "Passwords" %}
               </a>
               <a href="{% url 'documents:final:portrayal-agreement' year %}" class="btn btn-default btn-xs">
                 <i class="fa fa-camera"></i> {% trans "Portrayal agreement" %}

@@ -163,7 +163,7 @@ class SemifinalDataExportView(PermissionRequiredMixin, View):
         serializer.serialize([event], stream=stream)
         stream.write("\n")
         serializer.serialize(iter_users(),
-                             fields=('username', 'email', 'first_name', 'last_name', 'phone',
+                             fields=('username', 'email', 'first_name', 'last_name', 'phone', 'password',
                                      'preferred_locale', 'preferred_language'),
                              stream=stream)
         stream.write("\n")
