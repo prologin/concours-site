@@ -37,6 +37,7 @@ INSTALLED_APPS = (
 
     # Vendor
     'adminsortable',
+    'captcha',
     'bootstrapform',
     'django_bootstrap_breadcrumbs',
     'rules.apps.AutodiscoverRulesConfig',
