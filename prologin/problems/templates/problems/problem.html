@@ -23,6 +23,9 @@
           ⋅ {% blocktrans count meta_tackled_by as count %}Tackled by {{ count }} member{% plural %}Tackled by {{ count }} members{% endblocktrans %}
           ⋅ {% blocktrans count meta_solved_by as count %}Solved by {{ count }} member{% plural %}Solved by {{ count }} members{% endblocktrans %}
         {% endif %}
+        {% if meta_validation_percent %}
+        ⋅ {% blocktrans %}Validation weight: {{ meta_validation_percent }}%{% endblocktrans %}
+        {% endif %}
         {% if user_submission.succeeded %}⋅ <span class="text-success"><i class="fa fa-check"></i> {% trans "You solved this problem." %}</span>
         {% elif user_submission %}⋅ <span class="text-warning"><i class="fa fa-times"></i> {% trans "You tackled this problem without success." %}</span>
         {% endif %}

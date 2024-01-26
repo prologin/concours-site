@@ -217,6 +217,7 @@ class Problem(PermissionRequiredMixin, CreateView):
         # Could also be written tackled_by.filter(score__gt=0).count() but
         # 1. would do two queries 2. would fail if succeeded() impl changes
         context['meta_solved_by'] = sum(1 for sub in tackled_by if sub.succeeded())
+        context['meta_validation_percent'] = problem.validation_percent
 
         user_submission = None
         previous_submission = None
