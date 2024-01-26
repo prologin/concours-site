@@ -1,5 +1,6 @@
 public/static
 public/media
+public/private
 
 prologin/prologin/settings/dev.py
 prologin/prologin/settings/prod.py
