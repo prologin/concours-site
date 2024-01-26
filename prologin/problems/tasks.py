@@ -65,12 +65,16 @@ def submit_problem_code(code_submission_id):
             max_malus = 500
             incr_malus = 20
 
-            # We get a malus for any submission that does
-            # not improve the score
+            # We get as many malus as the number of submissions preceding
+            # the best submission
             if submission.score_base < score:
                 submission.score_base = score
-            elif submission.malus < max_malus and difficulty > 0:
-                submission.malus += incr_malus
+                if difficulty > 0:
+                    submission.malus = min(incr_malus * (SubmissionCode.objects
+                                    .select_related("submission")
+                                    .filter(submission=submission)
+                                    .count() - 1), max_malus)
+
 
         code_submission.score = score
         code_submission.result = result
