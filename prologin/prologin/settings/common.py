@@ -235,7 +235,7 @@ FORUM_MENTIONS_PER_MESSAGE = 3  # @mention limit to prevent database DoS
 # Prologin specific
 SITE_HOST = 'prologin.org'
 SITE_BASE_URL = 'https://{}'.format(SITE_HOST)
-PROLOGIN_CONTACT_MAIL = 'info@prologin.org'
+PROLOGIN_CONTACT_MAIL = 'concours@prologin.org'
 DEFAULT_FROM_EMAIL = 'Prologin <{}>'.format(PROLOGIN_CONTACT_MAIL)
 PROLOGIN_EDITION = None
 PROLOGIN_MAX_AVATAR_SIZE = 220
