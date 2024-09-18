@@ -57,9 +57,6 @@ class ContestantUserForm(forms.ModelForm):
             'gender': forms.RadioSelect(),
         }
 
-    epita = forms.BooleanField(required=True, initial=True,
-                               label=mark_safe(_("I am <strong>not</strong> a student at EPITA.")))
-
     def __init__(self, *args, **kwargs):
         kwargs.pop('edition')
         kwargs.pop('complete')
@@ -72,8 +69,6 @@ class ContestantUserForm(forms.ModelForm):
         ]
         # Assigning the help_text there because for some reason reverse_lazy() is not lazy enough in
         # the static field declaration above
-        self.fields['epita'].help_text = _('Students from EPITA are <a href="%(url)s">not allowed</a> '
-                                           'to join the contest.') % {'url': reverse('pages:about-qualification') + '#no-epita'}
         self.fields['last_name'].help_text = _("We need your real name and address for legal reasons, as the Prologin "
                                                "staff engages its responsibility to supervise you during the regional "
                                                "events and the finale.")
@@ -88,13 +83,6 @@ class ContestantUserForm(forms.ModelForm):
                                                            % {'url': url})
         for field in self.Meta.optional_fields:
             self.fields[field].help_text = _("Optional.")
-
-    def clean_epita(self):
-        data = self.cleaned_data['epita']
-        if not data:
-            raise forms.ValidationError(_("You cannot participate if you are an "
-                    "EPITA student"))
-        return data
 
 
 class ContestantForm(forms.ModelForm):
