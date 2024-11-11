@@ -1,4 +1,5 @@
 from django.conf import settings
+from django.core.cache import cache
 from django.views.generic import ListView
 from rules.contrib.views import PermissionRequiredMixin
 
@@ -29,6 +30,14 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
         challenge = problems.models.Challenge.by_year_and_event_type(
             edition.year, contest.models.Event.Type.qualification)
         min_birth_year = edition.year - settings.PROLOGIN_MAX_AGE
+
+        cache_key = f'school_leaderboard_{edition.pk}_{challenge.name}_{min_birth_year}'
+        cache_timeout = 300
+
+        cached_data = cache.get(cache_key)
+        if cached_data is not None:
+            return cached_data
+
         qs = super().get_queryset().raw('''
             WITH ContestantScores AS (
                 SELECT
@@ -69,4 +78,7 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
             HAVING SUM(total_score) > 0
             ORDER BY final_score DESC, problem_solved_count DESC, schools_school.name ASC
         ''', (min_birth_year, challenge.name, edition.pk))
-        return SchoolScoreboard(qs)
+
+        result = SchoolScoreboard(qs)
+        cache.set(cache_key, result, cache_timeout)
+        return result
