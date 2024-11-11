@@ -3,6 +3,7 @@ import datetime
 from django.conf import settings
 from django.core.exceptions import ObjectDoesNotExist, ImproperlyConfigured
 from django.views.generic import TemplateView
+from django.db.models import Q
 from zinnia.models import Entry
 
 import contest.models
@@ -58,9 +59,7 @@ class HomepageView(TemplateView):
                 int(settings.PROLOGIN_HOMEPAGE_COUNTDOWN.timestamp())
 
         context['articles'] = articles
-        sponsors = list(sponsor.models.Sponsor.active.all())
-        random.shuffle(sponsors)
-        context['sponsors'] = sponsors
+        context['sponsors'] = sponsor.models.Sponsor.active.filter(Q(rank="gold") | Q(rank="super")).order_by('-rank')
         leaderboard = LeaderboardView(request=self.request)
         leaderboard.request = self.request
         leaderboard.args = ()

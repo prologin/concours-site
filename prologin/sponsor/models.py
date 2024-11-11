@@ -1,9 +1,11 @@
 from django.db import models
+from django.db.models import Q
 
 from prologin.models import AddressableModel, ContactModel
 from prologin.utils import upload_path
 
 RANK_CHOICES = (
+    ("super", "Super"),
     ("gold", "Gold"),
     ("silver", "Silver"),
     ("bronze", "Bronze")
@@ -12,7 +14,7 @@ RANK_CHOICES = (
 
 class ActiveSponsorManager(models.Manager):
     def get_queryset(self):
-        return super().get_queryset().filter(is_active=True)
+        return super().get_queryset().filter(is_active=True).order_by('?')
 
 
 class Sponsor(AddressableModel, ContactModel, models.Model):
