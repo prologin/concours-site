@@ -70,7 +70,7 @@ class LeaderboardView(PermissionRequiredMixin, ListView):
                 schools_school.*,
                 (SELECT COUNT(*) FROM ContestantScores WHERE ContestantScores.school_id = schools_school.id) AS contestant_count,
                 (SELECT SUM(problems_solved) FROM ContestantScores WHERE ContestantScores.school_id = schools_school.id) AS problem_solved_count,
-                ROUND(SUM(CAST(total_score AS FLOAT) * POWER(0.8, rank - 1) * 100/35)) AS final_score
+                CAST(ROUND(SUM(CAST(total_score AS FLOAT) * POWER(0.8, rank - 1) * 100/35)) AS INTEGER) AS final_score
             FROM schools_school
             LEFT JOIN RankedScores ON schools_school.id = RankedScores.school_id
             WHERE schools_school.approved
