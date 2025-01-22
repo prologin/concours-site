@@ -6,7 +6,9 @@
 
 \begin{document}
 
-{% for date, city in locations %}
+{% for contestant in contestants %}
+{% with event=contestant.assignation_semifinal_event center=contestant.assignation_semifinal_event.center user=contestant.user %}
+
 {% if not forloop.first %}
     \newpage
     \maketitle
@@ -24,7 +26,7 @@ tiendront :
 
 \small
 \begin{itemize}
-    \item le {{ date|date:"l d F Y"|escapetex }} à : {{ city }}{% if not forloop.last %} ;{% else %}.{% endif %}
+    \item le {{ event.begin_date|date:"l d F Y"|escapetex }} à : {{ center.city|escapetex|nonempty}}.
 \end{itemize}
 \normalsize
 
@@ -48,6 +50,7 @@ ci-dessus, et avoir l'autorité légale de signer ce document en son nom.
 
 \begin{signatureframe}{Date et signature du représentant légal}\end{signatureframe}
 \end{legalrepframe}
+{% endwith %}
 {% endfor %}
 
 \end{document}

@@ -91,17 +91,6 @@ class SemifinalPortrayalAgreementView(BaseSemifinalDocumentView):
     pdf_title = _("Prologin %(year)s: portrayal agreement for the regional events")
     filename = pgettext_lazy("Document filename", "portrayal-agreement-%(year)s-regional")
 
-    def get_extra_context(self):
-        context = super().get_extra_context()
-        locations = collections.defaultdict(list)
-        for event in self.events:
-            locations[event.date_begin.date()].append(event.center.city)
-        locations = [(date, ', '.join(cities).title()) for date, cities in locations.items()]
-        locations.sort()
-        context['locations'] = locations
-        return context
-
-
 class SemifinalPasswordsView(BaseSemifinalDocumentView):
     template_name = 'documents/passwords.tex'
     pdf_title = _("Prologin %(year)s: password sheets for the regional center %(center)s")
